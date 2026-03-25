@@ -2159,7 +2159,7 @@ body.booking-open {
 }
 
 .cart-header {
-  padding: var(--space-md);
+  padding: var(--space-lg);
   background: var(--clr-navy);
   color: var(--clr-white);
   display: flex;
@@ -2185,7 +2185,7 @@ body.booking-open {
 .cart-content {
   flex: 1;
   overflow-y: auto;
-  padding: var(--space-md);
+  padding: var(--space-lg);
 }
 
 .cart-item {
@@ -2193,7 +2193,7 @@ body.booking-open {
   grid-template-columns: 80px 1fr;
   gap: 1rem;
   padding-bottom: 1rem;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid var(--clr-sand);
   margin-bottom: 1rem;
   position: relative;
 }
@@ -2246,18 +2246,24 @@ body.booking-open {
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--clr-sand);
   background: var(--clr-white);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 600;
+  transition: all var(--transition-fast);
+}
+
+.cart-qty button:hover {
+  border-color: var(--clr-sunset);
+  color: var(--clr-sunset);
 }
 
 .cart-footer {
-  padding: var(--space-md);
-  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  padding: var(--space-lg);
+  border-top: 1px solid var(--clr-sand);
   background: var(--clr-off-white);
 }
 
