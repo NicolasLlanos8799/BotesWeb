@@ -290,6 +290,291 @@
             color: var(--clr-text-light);
             font-size: 0.85rem;
         }
+
+        /* ── Cart Styles ── */
+        .cart-overlay {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(11, 23, 39, 0.4);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all var(--transition-smooth);
+        }
+
+        .cart-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .cart-panel {
+            position: fixed;
+            top: 0;
+            right: -450px;
+            width: 100%;
+            max-width: 450px;
+            height: 100%;
+            background: var(--clr-white);
+            z-index: 1001;
+            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+            transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-overlay.active .cart-panel {
+            right: 0;
+        }
+
+        .cart-header {
+            padding: var(--space-lg);
+            background: var(--clr-navy);
+            color: var(--clr-white);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .cart-close {
+            background: none;
+            border: none;
+            color: var(--clr-white);
+            cursor: pointer;
+            padding: 0.5rem;
+            display: flex;
+            align-items: center;
+            line-height: 1;
+        }
+
+        .cart-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: var(--space-lg);
+        }
+
+        .cart-item {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            gap: var(--space-md);
+            padding-bottom: var(--space-md);
+            border-bottom: 1px solid var(--clr-sand);
+            margin-bottom: var(--space-md);
+        }
+
+        .cart-item img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: var(--radius-sm);
+        }
+
+        .cart-item__info h4 {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            margin-bottom: 0.2rem;
+            color: var(--clr-navy);
+            padding-right: 25px;
+            /* Space for remove btn */
+        }
+
+        .cart-item {
+            position: relative;
+        }
+
+        .cart-item__remove {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: none;
+            border: none;
+            color: var(--clr-text-light);
+            cursor: pointer;
+            padding: 4px;
+            transition: color 0.2s;
+        }
+
+        .cart-item__remove:hover {
+            color: var(--clr-sunset);
+        }
+
+        .cart-item__price {
+            font-weight: 700;
+            color: var(--clr-sunset);
+            font-size: 0.95rem;
+        }
+
+        .cart-qty {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-top: 0.5rem;
+        }
+
+        .cart-qty button {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 1px solid var(--clr-sand);
+            background: var(--clr-white);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            transition: all var(--transition-fast);
+        }
+
+        .cart-qty button:hover {
+            border-color: var(--clr-sunset);
+            color: var(--clr-sunset);
+        }
+
+        .cart-qty span {
+            font-weight: 600;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        .cart-footer {
+            padding: var(--space-lg);
+            border-top: 1px solid var(--clr-sand);
+            background: var(--clr-off-white);
+        }
+
+        /* Floating Cart Button */
+        .cart-trigger {
+            position: fixed;
+            bottom: var(--space-xl);
+            right: var(--space-xl);
+            z-index: 900;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: var(--clr-navy);
+            color: var(--clr-white);
+            padding: 0.8rem 1.5rem;
+            border-radius: var(--radius-full);
+            box-shadow: 0 10px 25px rgba(11, 23, 39, 0.3);
+            cursor: pointer;
+            border: 2px solid var(--clr-sunset-lt);
+            transition: all var(--transition-smooth);
+            opacity: 0;
+            transform: translateY(20px);
+            visibility: hidden;
+        }
+
+        .cart-trigger.visible {
+            opacity: 1;
+            transform: translateY(0);
+            visibility: visible;
+        }
+
+        .cart-trigger:hover {
+            transform: scale(1.05);
+            background: var(--clr-sunset);
+            border-color: var(--clr-white);
+        }
+
+        .cart-trigger__icon {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .cart-trigger__badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--clr-sunset);
+            color: white;
+            font-size: 0.65rem;
+            font-weight: 700;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            border: 2px solid var(--clr-navy);
+        }
+
+        .cart-trigger__total {
+            font-weight: 700;
+            font-size: 0.95rem;
+            border-left: 1px solid rgba(255, 255, 255, 0.3);
+            padding-left: 0.8rem;
+        }
+
+        /* Upsell Nudge */
+        .cart-item--upsell {
+            border: 2px solid var(--clr-sunset-lt);
+            background: rgba(232, 131, 74, 0.05);
+            position: relative;
+            padding-top: var(--space-lg) !important;
+            animation: pulse-border 2s infinite;
+        }
+
+        @keyframes pulse-border {
+            0% {
+                border-color: var(--clr-sunset-lt);
+            }
+
+            50% {
+                border-color: var(--clr-sunset);
+                box-shadow: 0 0 10px rgba(232, 131, 74, 0.2);
+            }
+
+            100% {
+                border-color: var(--clr-sunset-lt);
+            }
+        }
+
+        .upsell-badge {
+            position: absolute;
+            top: -10px;
+            left: var(--space-md);
+            background: var(--clr-sunset);
+            color: white;
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: var(--radius-full);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn--add-tapas {
+            margin-top: 0.5rem;
+            padding: 0.3rem 0.8rem;
+            font-size: 0.8rem;
+            border-radius: var(--radius-sm);
+            background: var(--clr-sunset);
+            color: white;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            font-weight: 600;
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--clr-navy);
+            margin-bottom: var(--space-lg);
+        }
+
+        .cart-empty {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: var(--clr-text-light);
+        }
     </style>
 </head>
 
@@ -350,7 +635,8 @@
                         2,499 DKK
                     </div>
                     <div class="booking-card__cta">
-                        <a href="reserve/?tour=book-1h" class="btn btn--primary" id="book-cta-1h">Book Now →</a>
+                        <button onclick="openCart('book-1h')" class="btn btn--primary" id="book-cta-1h">Book Now
+                            →</button>
                     </div>
                 </div>
             </article>
@@ -371,7 +657,8 @@
                         4,999 DKK
                     </div>
                     <div class="booking-card__cta">
-                        <a href="reserve/?tour=book-winter" class="btn btn--primary" id="book-cta-winter">Book Now →</a>
+                        <button onclick="openCart('book-winter')" class="btn btn--primary" id="book-cta-winter">Book Now
+                            →</button>
                     </div>
                 </div>
             </article>
@@ -392,7 +679,8 @@
                         4,299 DKK
                     </div>
                     <div class="booking-card__cta">
-                        <a href="reserve/?tour=book-reffen" class="btn btn--primary" id="book-cta-reffen">Book Now →</a>
+                        <button onclick="openCart('book-reffen')" class="btn btn--primary" id="book-cta-reffen">Book Now
+                            →</button>
                     </div>
                 </div>
             </article>
@@ -414,8 +702,9 @@
                         5,999 DKK
                     </div>
                     <div class="booking-card__cta">
-                        <a href="reserve/?tour=book-premium" class="btn btn--primary" id="book-cta-premium">Book Now
-                            →</a>
+                        <button onclick="openCart('book-premium')" class="btn btn--primary" id="book-cta-premium">Book
+                            Now
+                            →</button>
                     </div>
                 </div>
             </article>
@@ -462,8 +751,8 @@
                         own skipper–guide. Set your pace: glide past highlights, pause for photos, or relax with music
                         and drinks.</p>
                     <div class="booking-card__cta">
-                        <a href="reserve/?tour=book-winter-captain" class="btn btn--primary"
-                            id="book-cta-winter-captain">Book Now →</a>
+                        <button onclick="openCart('book-winter-captain')" class="btn btn--primary"
+                            id="book-cta-winter-captain">Book Now →</button>
                     </div>
                 </div>
             </article>
@@ -481,8 +770,8 @@
                         for 2 hours. Enjoy hot drinks, cozy blankets, and Danish winter sweets as you sail through
                         Copenhagen's canals.</p>
                     <div class="booking-card__cta">
-                        <a href="reserve/?tour=book-winter-hygge" class="btn btn--primary"
-                            id="book-cta-winter-hygge">Book Now →</a>
+                        <button onclick="openCart('book-winter-hygge')" class="btn btn--primary"
+                            id="book-cta-winter-hygge">Book Now →</button>
                     </div>
                 </div>
             </article>
@@ -500,8 +789,9 @@
                         charcuterie-style tapas box, Moët Champagne, and warm mulled wine in true Danish hygge style.
                     </p>
                     <div class="booking-card__cta">
-                        <a href="reserve/?tour=book-christmas" class="btn btn--primary" id="book-cta-christmas">Book Now
-                            →</a>
+                        <button onclick="openCart('book-christmas')" class="btn btn--primary"
+                            id="book-cta-christmas">Book Now
+                            →</button>
                     </div>
                 </div>
             </article>
@@ -515,6 +805,74 @@
                 Home</a></p>
     </footer>
 
+    <!-- Floating Cart Trigger -->
+    <div class="cart-trigger" id="cart-trigger"
+        onclick="document.getElementById('cart-overlay').classList.add('active')">
+        <div class="cart-trigger__icon">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round">
+                <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4H6z"></path>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <path d="M16 10a4 4 0 01-8 0"></path>
+            </svg>
+            <span class="cart-trigger__badge" id="cart-badge">0</span>
+        </div>
+        <div class="cart-trigger__total" id="cart-trigger-total">0 DKK</div>
+    </div>
+
+    <!-- Cart Sidebar Overlay -->
+    <div class="cart-overlay" id="cart-overlay">
+        <div class="cart-panel">
+            <div class="cart-header">
+                <h3>Your Selection</h3>
+                <button class="cart-close" id="cart-close">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="cart-content" id="cart-items">
+                <!-- Items will be injected here -->
+            </div>
+
+            <div class="cart-footer">
+                <div class="cart-total">
+                    <span>Total</span>
+                    <span id="cart-total-display">0 DKK</span>
+                </div>
+                <button id="cart-checkout-btn" class="btn btn--primary" style="width: 100%;">Proceed to Reservation
+                    →</button>
+                <p style="font-size: 0.75rem; text-align: center; margin-top: 1rem; color: var(--clr-text-light);">
+                    Next: You will choose your date & time on the Google Calendar.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script src="../cart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Additional page-specific initialization if needed
+            document.querySelectorAll('.booking-card__cta a').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const tourId = btn.id.replace('book-cta-', 'book-');
+                    openCart(tourId);
+                });
+            });
+
+            // Close cart with specific booking-page selector if needed
+            const closeBtn = document.getElementById('cart-close');
+            if (closeBtn) {
+                closeBtn.addEventListener('click', () => {
+                    document.getElementById('cart-overlay').classList.remove('active');
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>

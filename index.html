@@ -13,6 +13,7 @@
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap"
     rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+  </style>
 </head>
 
 <body>
@@ -137,23 +138,24 @@
               <p class="tour-card__desc">Includes professional captain, 1-hour private sailing through Copenhagen’s
                 highlights, and full safety equipment. Onboard speaker available.</p>
               <div class="tour-card__price">2,499 DKK</div>
-              <a href="booking/reserve/?tour=book-1h" class="btn btn--outline btn--sm" id="tour-card-private-cta">Book
-                This Tour</a>
+              <button onclick="openCart('book-1h')" class="btn btn--outline btn--sm" id="tour-card-private-cta">Book
+                This Tour</button>
             </div>
           </article>
 
-          <article class="tour-card reveal" id="tour-winter">
+          <article class="tour-card reveal" id="tour-premium">
             <div class="tour-card__img-wrap">
-              <img src="images/tour_winter_hygge.png" alt="2-Hour Winter Hygge" loading="lazy" />
-              <span class="tour-card__tag">Seasonal</span>
+              <img src="images/tour_trekroner.png" alt="Private 4-Hour Premium Experience" loading="lazy" />
+              <span class="tour-card__tag">Flagship</span>
             </div>
             <div class="tour-card__body">
-              <h3 class="tour-card__title">2-Hour Winter Hygge 2026</h3>
-              <p class="tour-card__desc">A cozy 2-hour winter experience with warm blankets and a peaceful cruise. The
-                ultimate Danish hygge atmosphere on the water.</p>
-              <div class="tour-card__price">4,999 DKK</div>
-              <a href="booking/reserve/?tour=book-winter" class="btn btn--outline btn--sm"
-                id="tour-card-winter-cta">Book This Tour</a>
+              <h3 class="tour-card__title">Private 4-Hour Premium Experience</h3>
+              <p class="tour-card__desc">4 hours of private sailing, including 1 hour at Reffen and 1 hour at Trekroner
+                Fort. Swimming stop possibility and open water views.</p>
+              <div class="tour-card__price">5,999 DKK</div>
+              <button onclick="openCart('book-premium')" class="btn btn--outline btn--sm" id="tour-card-events-cta">Book
+                This
+                Tour</button>
             </div>
           </article>
 
@@ -167,26 +169,12 @@
               <p class="tour-card__desc">Includes 3 hours of private sailing with a 1-hour stop at Reffen Street Food.
                 Extended route beyond the central canals.</p>
               <div class="tour-card__price">4,299 DKK</div>
-              <a href="booking/reserve/?tour=book-reffen" class="btn btn--outline btn--sm"
-                id="tour-card-sunset-cta">Book This Tour</a>
+              <button onclick="openCart('book-reffen')" class="btn btn--outline btn--sm" id="tour-card-sunset-cta">Book
+                This
+                Tour</button>
             </div>
           </article>
 
-          <article class="tour-card reveal" id="tour-premium">
-            <div class="tour-card__img-wrap"
-              style="background-color: var(--bg-card); display: flex; align-items: center; justify-content: center; text-align: center; min-height: 240px; padding: 1.5rem; color: var(--text-muted); font-size: 0.9rem; font-family: var(--font-body); letter-spacing: 0.5px;">
-              IMAGE PLACEHOLDER – image will be added later
-              <span class="tour-card__tag">Flagship</span>
-            </div>
-            <div class="tour-card__body">
-              <h3 class="tour-card__title">Private 4-Hour Premium Experience</h3>
-              <p class="tour-card__desc">4 hours of private sailing, including 1 hour at Reffen and 1 hour at Trekroner
-                Fort. Swimming stop possibility and open water views.</p>
-              <div class="tour-card__price">5,999 DKK</div>
-              <a href="booking/reserve/?tour=book-premium" class="btn btn--outline btn--sm"
-                id="tour-card-events-cta">Book This Tour</a>
-            </div>
-          </article>
 
         </div>
 
@@ -569,6 +557,50 @@
 
   <script src="script.js"></script>
 
+  <!-- Floating Cart Trigger -->
+  <div class="cart-trigger" id="cart-trigger" onclick="document.getElementById('cart-overlay').classList.add('active')">
+    <div class="cart-trigger__icon" style="position: relative;">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5"
+        stroke-linecap="round">
+        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4H6z"></path>
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <path d="M16 10a4 4 0 01-8 0"></path>
+      </svg>
+      <span class="cart-trigger__badge" id="cart-badge">0</span>
+    </div>
+    <div class="cart-trigger__total" id="cart-trigger-total">0 DKK</div>
+  </div>
+
+  <!-- Cart Sidebar Overlay -->
+  <div class="cart-overlay" id="cart-overlay">
+    <div class="cart-panel">
+      <div class="cart-header">
+        <h3>Your Selection</h3>
+        <button class="cart-close" id="cart-close">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="cart-content" id="cart-items">
+        <!-- Items will be injected here -->
+      </div>
+      <div class="cart-footer">
+        <div class="cart-total">
+          <span>Total</span>
+          <span id="cart-total-display">0 DKK</span>
+        </div>
+        <button id="cart-checkout-btn" class="btn btn--primary" style="width: 100%;">Proceed to Reservation →</button>
+        <p style="font-size: 0.75rem; text-align: center; margin-top: 1rem; color: var(--clr-text-light);">
+          Next: You will choose your date & time on the Google Calendar.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script src="cart.js"></script>
 </body>
 
 </html>
