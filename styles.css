@@ -24,6 +24,7 @@
 
   /* Typography */
   --font-display: 'Playfair Display', Georgia, serif;
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
   --font-body: 'Inter', system-ui, sans-serif;
 
   /* Spacing scale */
@@ -422,10 +423,8 @@ button {
 .hero__overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(165deg,
-      rgba(10, 20, 38, 0.72) 0%,
-      rgba(15, 30, 53, 0.50) 50%,
-      rgba(10, 20, 38, 0.82) 100%);
+  background: linear-gradient(rgba(0, 0, 0, 0.45),
+      rgba(0, 0, 0, 0.35));
 }
 
 .hero__content {
@@ -433,7 +432,11 @@ button {
   z-index: 1;
   padding-top: calc(var(--navbar-h) + var(--space-xl));
   padding-bottom: var(--space-3xl);
-  max-width: 760px;
+  max-width: 800px;
+  /* Left aligned hero layout */
+  margin-left: 0;
+  margin-right: auto;
+  text-align: left;
 }
 
 .hero__badge {
@@ -450,7 +453,7 @@ button {
   text-transform: uppercase;
   padding: 0.45em 1.1em;
   border-radius: var(--radius-full);
-  margin-bottom: var(--space-md);
+  margin-bottom: 24px;
   animation-delay: 0.1s;
 }
 
@@ -483,8 +486,9 @@ button {
   font-weight: 700;
   line-height: 1.1;
   color: var(--clr-white);
-  margin-bottom: var(--space-md);
+  margin-bottom: 20px;
   animation-delay: 0.2s;
+  max-width: 700px;
 }
 
 .hero__headline em {
@@ -495,8 +499,8 @@ button {
 .hero__subtext {
   font-size: clamp(1rem, 1.5vw, 1.15rem);
   color: rgba(255, 255, 255, 0.80);
-  max-width: 560px;
-  margin-bottom: var(--space-lg);
+  max-width: 500px;
+  margin-bottom: 32px;
   line-height: 1.75;
   animation-delay: 0.3s;
 }
@@ -506,7 +510,7 @@ button {
   align-items: center;
   flex-wrap: wrap;
   gap: var(--space-sm);
-  margin-bottom: var(--space-xl);
+  margin-bottom: 28px;
   animation-delay: 0.4s;
 }
 
@@ -2059,6 +2063,9 @@ body.booking-open {
 
   .hero__content {
     padding-top: calc(var(--navbar-h) + var(--space-lg));
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
   }
 
   .hero__headline {
@@ -2168,7 +2175,7 @@ body.booking-open {
 }
 
 .cart-header h3 {
-  font-family: var(--font-display);
+  font-family: var(--font-serif);
   font-size: 1.4rem;
 }
 
@@ -2206,7 +2213,7 @@ body.booking-open {
 }
 
 .cart-item__info h4 {
-  font-family: var(--font-display);
+  font-family: var(--font-serif);
   font-size: 1.1rem;
   margin-bottom: 0.2rem;
   color: var(--clr-navy);
