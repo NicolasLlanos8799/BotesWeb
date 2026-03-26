@@ -214,9 +214,9 @@ button {
 }
 
 .btn--ghost {
-  background: rgba(255, 255, 255, 0.12);
+  background: transparent;
   color: var(--clr-white);
-  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.4);
   backdrop-filter: blur(8px);
 }
 
@@ -257,6 +257,9 @@ button {
   right: 0;
   z-index: 1000;
   height: var(--navbar-h);
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   transition: background var(--transition-smooth), backdrop-filter var(--transition-smooth), box-shadow var(--transition-smooth);
 }
 
@@ -393,7 +396,7 @@ button {
 /* ── 7. HERO SECTION ────────────────────────────────────────────────────── */
 .hero {
   position: relative;
-  min-height: 100svh;
+  min-height: 90svh;
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -405,7 +408,7 @@ button {
   z-index: 0;
   background-image: url('images/hero_canal_copenhagen.png');
   background-size: cover;
-  background-position: center 40%;
+  background-position: 50% 60%;
   background-repeat: no-repeat;
   animation: heroFadeIn 2s ease-out forwards;
 }
@@ -423,8 +426,13 @@ button {
 .hero__overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(rgba(0, 0, 0, 0.45),
-      rgba(0, 0, 0, 0.35));
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.65) 0%,
+    rgba(0, 0, 0, 0.45) 30%,
+    rgba(0, 0, 0, 0.20) 60%,
+    rgba(0, 0, 0, 0.05) 85%
+  );
 }
 
 .hero__content {
@@ -499,7 +507,7 @@ button {
 .hero__subtext {
   font-size: clamp(1rem, 1.5vw, 1.15rem);
   color: rgba(255, 255, 255, 0.80);
-  max-width: 500px;
+  max-width: 520px;
   margin-bottom: 32px;
   line-height: 1.75;
   animation-delay: 0.3s;
@@ -515,8 +523,9 @@ button {
 }
 
 .hero__trust {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  justify-content: start;
   gap: var(--space-md);
   animation-delay: 0.5s;
 }
@@ -524,29 +533,39 @@ button {
 .trust-item {
   display: flex;
   align-items: center;
-  gap: 0.5em;
+  gap: 6px;
   font-size: 0.9rem;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.80);
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  padding: 0.4em 0.9em;
-  border-radius: var(--radius-full);
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 8px 14px;
+  border-radius: 999px;
   backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: all 0.25s ease;
+  cursor: default;
+}
+
+.trust-item:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.35);
+  transform: translateY(-1px);
 }
 
 .trust-icon {
-  font-size: 1rem;
+  font-size: 0.85rem;
 }
 
 .hero__scroll-cue {
   position: absolute;
   bottom: var(--space-lg);
-  left: 50%;
+  left: calc(50% + 5px);
   transform: translateX(-50%);
   z-index: 2;
   opacity: 0.6;
   transition: opacity var(--transition-fast);
+  animation: bounceVertical 2s ease-in-out infinite;
 }
 
 .hero__scroll-cue:hover {
@@ -559,18 +578,16 @@ button {
   border-right: 2px solid #fff;
   border-bottom: 2px solid #fff;
   transform: rotate(45deg);
-  animation: bounce 2s ease-in-out infinite;
 }
 
-@keyframes bounce {
-
+@keyframes bounceVertical {
   0%,
   100% {
-    transform: rotate(45deg) translateY(0);
+    transform: translateX(-50%) translateY(0);
   }
 
   50% {
-    transform: rotate(45deg) translateY(6px);
+    transform: translateX(-50%) translateY(10px);
   }
 }
 
@@ -2048,9 +2065,8 @@ body.booking-open {
 }
 
 @media (max-width: 768px) {
-  :root {
-    --space-3xl: 5rem;
-    --space-2xl: 4rem;
+  .hero {
+    min-height: 100svh;
   }
 
   .navbar__nav {
@@ -2068,11 +2084,26 @@ body.booking-open {
     text-align: center;
   }
 
+  .hero__overlay {
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.7) 0%,
+      rgba(0, 0, 0, 0.45) 50%,
+      rgba(0, 0, 0, 0.2) 100%
+    );
+  }
+
   .hero__headline {
     font-size: 2.2rem;
   }
 
+  .hero__scroll-cue {
+    left: 50%;
+  }
+
   .hero__trust {
+    grid-template-columns: 1fr;
+    justify-items: center;
     gap: var(--space-xs);
   }
 
