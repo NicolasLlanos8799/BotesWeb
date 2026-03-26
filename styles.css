@@ -396,7 +396,7 @@ button {
 /* ── 7. HERO SECTION ────────────────────────────────────────────────────── */
 .hero {
   position: relative;
-  min-height: 90svh;
+  min-height: 100svh;
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -408,7 +408,7 @@ button {
   z-index: 0;
   background-image: url('images/hero_canal_copenhagen.png');
   background-size: cover;
-  background-position: 50% 60%;
+  background-position: center 40%;
   background-repeat: no-repeat;
   animation: heroFadeIn 2s ease-out forwards;
 }
@@ -2065,9 +2065,6 @@ body.booking-open {
 }
 
 @media (max-width: 768px) {
-  .hero {
-    min-height: 100svh;
-  }
 
   .navbar__nav {
     display: none;
