@@ -66,7 +66,7 @@
         /* Hero */
         .booking-hero {
             background: linear-gradient(135deg, var(--clr-navy) 0%, var(--clr-navy-mid) 100%);
-            padding: 4rem var(--space-lg) 3rem;
+            padding: calc(var(--navbar-h) + 3rem) var(--space-lg) 3rem;
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -296,17 +296,40 @@
 
 <body class="booking-page">
 
-    <!-- Sticky nav -->
-    <nav class="booking-page__nav">
-        <a href="../" class="booking-page__back">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-                <path d="M10 12L6 8l4-4" />
-            </svg>
-            Back to Home
-        </a>
-        <span class="booking-page__logo">⚓ Seaduced<em>Experience</em></span>
-        <div style="width: 100px;"></div><!-- spacer -->
-    </nav>
+    <!-- ═══════════════════════════════════════════
+         NAVBAR
+    ═══════════════════════════════════════════ -->
+    <header class="navbar" id="navbar">
+        <div class="container navbar__inner">
+            <a href="../index.html" class="navbar__logo" aria-label="Seaduced-Experience Home">
+                <span class="logo-icon">⚓</span>
+                <span class="logo-text">Seaduced<em>Experience</em></span>
+            </a>
+
+            <nav class="navbar__nav" id="navMenu" role="navigation" aria-label="Main navigation">
+                <a href="../index.html" class="nav-link" id="nav-home">Home</a>
+                <a href="../index.html#tours" class="nav-link" id="nav-tours">Tours</a>
+                <a href="../index.html#faq" class="nav-link" id="nav-faq">FAQ</a>
+                <a href="../index.html#contact" class="nav-link" id="nav-contact">Contact</a>
+            </nav>
+
+            <div class="navbar__actions">
+                <a href="booking.html" class="btn btn--primary btn--sm" id="nav-cta">Book Now</a>
+                <button class="navbar__hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div class="navbar__mobile" id="mobileMenu">
+            <a href="../index.html" class="nav-link" id="mob-home">Home</a>
+            <a href="../index.html#tours" class="nav-link" id="mob-tours">Tours</a>
+            <a href="../index.html#faq" class="nav-link" id="mob-faq">FAQ</a>
+            <a href="../index.html#contact" class="nav-link" id="mob-contact">Contact</a>
+            <a href="booking.html" class="btn btn--primary mt-1" id="mob-cta">Book Now</a>
+        </div>
+    </header>
 
     <!-- Hero -->
     <header class="booking-hero">
@@ -517,7 +540,7 @@
     </main>
 
     <footer class="booking-footer">
-        <p>⚓ © 2025 – 2026 Seaduced-Experience &nbsp;·&nbsp; <a href="../" style="color: inherit;">Back to
+        <p>⚓ © 2025 – 2026 Seaduced-Experience &nbsp;·&nbsp; <a href="../index.html" style="color: inherit;">Back to
                 Home</a></p>
     </footer>
 
@@ -568,6 +591,7 @@
         </div>
     </div>
 
+    <script src="../script.js"></script>
     <script src="../cart.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {

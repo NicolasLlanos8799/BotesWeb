@@ -190,8 +190,8 @@ function renderCart() {
  */
 function handleCheckout() {
     if (!cart.tour) return;
-    const isInsideBooking = window.location.pathname.includes('/booking/');
-    const baseUrl = isInsideBooking ? 'reserve/' : 'booking/reserve/';
+    const isInsideBooking = window.location.pathname.includes('/booking/booking.html') || window.location.pathname.includes('/booking/');
+    const baseUrl = isInsideBooking ? 'reserve/reserve.html' : 'booking/reserve/reserve.html';
     window.location.href = `${baseUrl}?tour=${cart.tour}&qty=${cart.tourQty}&tapas=${cart.tapasQty}`;
 }
 
@@ -199,22 +199,28 @@ function handleCheckout() {
 document.addEventListener('DOMContentLoaded', () => {
     initCart();
 
-    const checkoutBtn = document.getElementById('cart-checkout-btn');
-    if (checkoutBtn) {
-        checkoutBtn.onclick = handleCheckout;
-    }
+    const bind = (id, fn, event = 'click') => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener(event, fn);
+    };
 
+    bind('cart-checkout-btn', handleCheckout);
+    
     // Close on overlay click
     const overlay = document.getElementById('cart-overlay');
-    const closeBtn = document.getElementById('cart-close');
-
-    if (closeBtn) {
-        closeBtn.onclick = () => overlay.classList.remove('active');
-    }
-
     if (overlay) {
-        overlay.onclick = (e) => {
+        overlay.addEventListener('click', (e) => {
             if (e.target === overlay) overlay.classList.remove('active');
-        };
+        });
     }
+
+    // Close button
+    bind('cart-close', () => {
+        if (overlay) overlay.classList.remove('active');
+    });
+
+    // Floating trigger (open)
+    bind('cart-trigger', () => {
+        if (overlay) overlay.classList.add('active');
+    });
 });

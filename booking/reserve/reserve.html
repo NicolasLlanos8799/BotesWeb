@@ -58,7 +58,7 @@
         .reserve-container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: var(--space-xl) var(--space-lg);
+            padding: var(--space-lg) var(--space-lg) var(--space-xl);
             display: grid;
             grid-template-columns: 1fr 400px;
             gap: var(--space-xl);
@@ -192,16 +192,35 @@
         .summary-item {
             display: flex;
             justify-content: space-between;
+            gap: 1rem;
+            align-items: flex-start;
             margin-bottom: var(--space-md);
         }
 
+        .summary-item span:first-child {
+            flex: 1;
+        }
+
+        .summary-item span:last-child {
+            white-space: nowrap;
+            text-align: right;
+            font-weight: 600;
+        }
+
         .summary-item--total {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
             margin-top: var(--space-lg);
             padding-top: var(--space-md);
             border-top: 1px solid var(--clr-sand);
             font-weight: 700;
             font-size: 1.2rem;
             color: var(--clr-navy);
+        }
+
+        .summary-item--total span:last-child {
+            white-space: nowrap;
         }
 
         .reserve-btn {
@@ -239,7 +258,7 @@
 
 <body class="reserve-page">
     <nav class="reserve-nav">
-        <a href="../" class="reserve-nav__back">
+        <a href="../booking.html" class="reserve-nav__back">
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                 style="width: 16px; height: 16px;">
                 <path d="M10 12L6 8l4-4" />
@@ -360,6 +379,7 @@
 
         const params = new URLSearchParams(window.location.search);
         const tourId = params.get('tour') || 'book-1h';
+        const tour = tours[tourId];
         let currentTourQty = parseInt(params.get('qty')) || 1;
         let currentTapasQty = parseInt(params.get('tapas')) || 0;
 
@@ -433,6 +453,7 @@
             calendarIframe.style.display = 'none';
         }
     </script>
+    <script src="../../script.js"></script>
 </body>
 
 </html>

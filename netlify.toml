@@ -1,6 +1,6 @@
 [[redirects]]
   from = "/booking"
-  to = "/booking/index.html"
+  to = "/booking/booking.html"
   status = 200
 
 [build.processing]

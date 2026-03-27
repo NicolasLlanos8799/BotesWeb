@@ -183,16 +183,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   /* ── SMOOTH SCROLL for anchor links ────────────────────────────────────── */
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  document.querySelectorAll('a[href*="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
-      const targetId = this.getAttribute('href');
-      if (targetId === '#') return;
-      const target = document.querySelector(targetId);
-      if (target) {
-        e.preventDefault();
-        const yOffset = -parseInt(getComputedStyle(document.documentElement).getPropertyValue('--navbar-h'), 10) || -72;
-        const y = target.getBoundingClientRect().top + window.pageYOffset + yOffset;
-        window.scrollTo({ top: y, behavior: 'smooth' });
+      const href = this.getAttribute('href');
+      
+      // If it's just a hash or a cross-page hash (like index.html#tours)
+      if (href.includes('#')) {
+        const parts = href.split('#');
+        const path = parts[0];
+        const targetId = '#' + parts[1];
+
+        // If we are already on that path (or path is empty), smooth scroll
+        if (path === '' || window.location.pathname.endsWith(path)) {
+          const target = document.querySelector(targetId);
+          if (target) {
+            e.preventDefault();
+            const yOffset = -parseInt(getComputedStyle(document.documentElement).getPropertyValue('--navbar-h'), 10) || -72;
+            const y = target.getBoundingClientRect().top + window.pageYOffset + yOffset;
+            window.scrollTo({ top: y, behavior: 'smooth' });
+          }
+        }
       }
     });
   });
