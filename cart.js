@@ -11,7 +11,7 @@ const toursData = {
     // Seasonal & Boutique and Private Tours
     'book-winter-captain': { title: 'Private Boat Tour with Captain', price: 2499, img: 'images/tour_private_boat.png' },
     'book-winter-hygge': { title: 'Private Hygge Winter Tour', price: 4999, img: 'images/tour_winter_hygge_book.png' },
-    'book-christmas': { title: 'Christmas Tour w. Tapas & Champagne', price: 5499, img: 'images/tour_christmas_champagne.png' }
+    'book-christmas': { title: 'Christmas Tour w. Tapas & Champagne', price: 5999, img: 'images/tour_christmas_champagne.png' }
 };
 
 const extraTapas = {

@@ -242,6 +242,25 @@
             flex-direction: column;
         }
 
+        .booking-card__price {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--clr-navy);
+            margin-bottom: var(--space-md);
+            display: flex;
+            align-items: baseline;
+            gap: 0.35rem;
+        }
+
+        .booking-card__price::before {
+            content: 'From';
+            font-size: 0.68rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--clr-text-light);
+            letter-spacing: 0.05em;
+        }
+
         .booking-card__title {
             font-family: var(--font-display);
             font-size: 1.2rem;
@@ -369,34 +388,9 @@
                     <h2 class="booking-card__title">Private 1-Hour Highlights</h2>
                     <p class="booking-card__desc">Includes professional captain, 1-hour private sailing through
                         Copenhagen's highlights, and full safety equipment. Onboard speaker available.</p>
-                    <div class="booking-card__price">
-                        <span class="booking-card__price-label">From</span>
-                        2,499 DKK
-                    </div>
+                    <div class="booking-card__price">2,499 DKK</div>
                     <div class="booking-card__cta">
                         <button onclick="openCart('book-1h')" class="btn btn--primary" id="book-cta-1h">Book Now
-                            →</button>
-                    </div>
-                </div>
-            </article>
-
-            <!-- Tour 2 -->
-            <article class="booking-card" id="book-winter">
-                <div class="booking-card__img">
-                    <img src="../images/tour_winter_hygge.png" alt="2-Hour Winter Hygge 2026 Copenhagen"
-                        loading="lazy" />
-                    <span class="booking-card__badge">❄️ 2 Hours</span>
-                </div>
-                <div class="booking-card__body">
-                    <h2 class="booking-card__title">2-Hour Winter Hygge 2026</h2>
-                    <p class="booking-card__desc">A cozy 2-hour winter experience with warm blankets and a peaceful
-                        cruise. The ultimate Danish hygge atmosphere on the water.</p>
-                    <div class="booking-card__price">
-                        <span class="booking-card__price-label">From</span>
-                        4,999 DKK
-                    </div>
-                    <div class="booking-card__cta">
-                        <button onclick="openCart('book-winter')" class="btn btn--primary" id="book-cta-winter">Book Now
                             →</button>
                     </div>
                 </div>
@@ -413,10 +407,7 @@
                     <h2 class="booking-card__title">Private 3-Hour Extended (Reffen)</h2>
                     <p class="booking-card__desc">Includes 3 hours of private sailing with a 1-hour stop at Reffen
                         Street Food. Extended route beyond the central canals.</p>
-                    <div class="booking-card__price">
-                        <span class="booking-card__price-label">From</span>
-                        4,299 DKK
-                    </div>
+                    <div class="booking-card__price">4,299 DKK</div>
                     <div class="booking-card__cta">
                         <button onclick="openCart('book-reffen')" class="btn btn--primary" id="book-cta-reffen">Book Now
                             →</button>
@@ -427,22 +418,16 @@
             <!-- Tour 4 -->
             <article class="booking-card" id="book-premium">
                 <div class="booking-card__img">
-                    <div class="booking-card__img--placeholder">
-                        <span>🏰</span>
-                    </div>
-                    <span class="booking-card__badge">⭐ 4 Hours</span>
+                    <img src="../images/tour_trekroner.png" alt="Private 4-Hour Premium Experience" loading="lazy" />
+                    <span class="booking-card__badge">🏰 4 Hours</span>
                 </div>
                 <div class="booking-card__body">
                     <h2 class="booking-card__title">Private 4-Hour Premium Experience</h2>
                     <p class="booking-card__desc">4 hours of private sailing, including 1 hour at Reffen and 1 hour at
                         Trekroner Fort. Swimming stop possibility and open water views.</p>
-                    <div class="booking-card__price">
-                        <span class="booking-card__price-label">From</span>
-                        5,999 DKK
-                    </div>
+                    <div class="booking-card__price">5,999 DKK</div>
                     <div class="booking-card__cta">
-                        <button onclick="openCart('book-premium')" class="btn btn--primary" id="book-cta-premium">Book
-                            Now
+                        <button onclick="openCart('book-premium')" class="btn btn--primary" id="book-cta-premium">Book Now
                             →</button>
                     </div>
                 </div>
@@ -489,6 +474,7 @@
                     <p class="booking-card__desc">Sail through Copenhagen on a private boat tour for 1 hour with your
                         own skipper–guide. Set your pace: glide past highlights, pause for photos, or relax with music
                         and drinks.</p>
+                    <div class="booking-card__price">2,499 DKK</div>
                     <div class="booking-card__cta">
                         <button onclick="openCart('book-winter-captain')" class="btn btn--primary"
                             id="book-cta-winter-captain">Book Now →</button>
@@ -508,6 +494,7 @@
                     <p class="booking-card__desc">Experience the Danish concept of hygge on a private canal boat tour
                         for 2 hours. Enjoy hot drinks, cozy blankets, and Danish winter sweets as you sail through
                         Copenhagen's canals.</p>
+                    <div class="booking-card__price">4,999 DKK</div>
                     <div class="booking-card__cta">
                         <button onclick="openCart('book-winter-hygge')" class="btn btn--primary"
                             id="book-cta-winter-hygge">Book Now →</button>
@@ -527,6 +514,7 @@
                     <p class="booking-card__desc">Experience the magic of Copenhagen's canals for 2 hours. Enjoy a
                         charcuterie-style tapas box, Moët Champagne, and warm mulled wine in true Danish hygge style.
                     </p>
+                    <div class="booking-card__price">5,999 DKK</div>
                     <div class="booking-card__cta">
                         <button onclick="openCart('book-christmas')" class="btn btn--primary"
                             id="book-cta-christmas">Book Now

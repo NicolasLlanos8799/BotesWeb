@@ -2130,8 +2130,15 @@ body.booking-open {
   }
 
   .hero__ctas {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: row;
+    justify-content: center;
+    gap: 0.6rem;
+    flex-wrap: nowrap;
+  }
+
+  .hero__ctas .btn--lg {
+    padding: 0.8rem 1.2rem;
+    font-size: 0.9rem;
   }
 
   .cta-section__buttons {

@@ -21,9 +21,9 @@
         .reserve-nav {
             background: var(--clr-navy);
             padding: var(--space-md) var(--space-lg);
-            display: flex;
+            display: grid;
+            grid-template-columns: 80px 1fr 80px;
             align-items: center;
-            justify-content: space-between;
             position: sticky;
             top: 0;
             z-index: 100;
@@ -32,11 +32,8 @@
         .reserve-nav__back {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
             color: rgba(255, 255, 255, 0.75);
             text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
             transition: color var(--transition-fast);
         }
 
@@ -45,6 +42,7 @@
         }
 
         .reserve-nav__logo {
+            text-align: center;
             font-family: var(--font-display);
             font-size: 1.2rem;
             color: var(--clr-white);
@@ -265,20 +263,103 @@
             margin-left: 0.5rem;
             vertical-align: middle;
         }
+
+        /* ── Responsive adjustments ── */
+        @media (max-width: 992px) {
+            .reserve-nav {
+                grid-template-columns: 60px 1fr 60px;
+            }
+
+            .reserve-container {
+                grid-template-columns: 1fr;
+                padding: var(--space-md);
+                gap: var(--space-lg);
+            }
+
+            .summary-card {
+                position: static;
+                /* No longer sticky on mobile */
+                margin-top: var(--space-xl);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .reserve-nav {
+                padding: 1rem;
+            }
+
+            .reserve-nav__logo {
+                font-size: 1rem;
+            }
+
+            .reserve-section {
+                padding: var(--space-lg) var(--space-md);
+            }
+
+            .reserve-section__title {
+                font-size: 1.4rem;
+            }
+
+            .reserve-section__title span {
+                width: 28px;
+                height: 28px;
+                font-size: 1rem;
+            }
+
+            .tour-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: var(--space-md);
+            }
+
+            .tour-header img {
+                width: 100%;
+                height: 180px;
+                border-radius: var(--radius-md);
+            }
+
+            .extra-card {
+                grid-template-columns: 1fr;
+                gap: var(--space-md);
+            }
+
+            .extra-card__img {
+                width: 100%;
+                height: 160px;
+            }
+
+            .extra-card__price {
+                text-align: left;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                border-top: 1px solid rgba(232, 213, 183, 0.3);
+                padding-top: var(--space-md);
+                width: 100%;
+            }
+
+            .calendar-wrapper {
+                height: 450px;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr !important;
+            }
+        }
     </style>
 </head>
 
 <body class="reserve-page">
     <nav class="reserve-nav">
-        <a href="../booking.html" class="reserve-nav__back">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                style="width: 16px; height: 16px;">
+        <a href="../booking.html" class="reserve-nav__back" aria-label="Back to selection">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                style="width: 20px; height: 20px;">
                 <path d="M10 12L6 8l4-4" />
             </svg>
-            Back to Selection
         </a>
         <span class="reserve-nav__logo">⚓ Seaduced<em>Experience</em></span>
-        <div style="width: 80px;"></div>
+        <div style="width: 20px;"></div>
     </nav>
 
     <div class="reserve-container">
@@ -335,7 +416,7 @@
 
             <section class="reserve-section">
                 <h2 class="reserve-section__title"><span>3</span> Contact Details</h2>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md);">
+                <div class="contact-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md);">
                     <div>
                         <label style="display: block; font-size: 0.85rem; margin-bottom: 0.3rem;">Full Name</label>
                         <input type="text" id="reserve-name" placeholder="John Doe"
@@ -376,10 +457,10 @@
             'book-1h': { title: 'Private 1-Hour Highlights', price: 2499, duration: '1 Hour', img: '../../images/tour_private_boat.png' },
             'book-winter': { title: '2-Hour Winter Hygge 2026', price: 4999, duration: '2 Hours', img: '../../images/tour_winter_hygge.png' },
             'book-reffen': { title: 'Private 3-Hour Extended (Reffen)', price: 4299, duration: '3 Hours', img: '../../images/tour_sunset_boat.png' },
-            'book-premium': { title: 'Private 4-Hour Premium Experience', price: 5999, duration: '4 Hours', img: '../../images/tour_private_boat.png' },
+            'book-premium': { title: 'Private 4-Hour Premium Experience', price: 5999, duration: '4 Hours', img: '../../images/tour_trekroner.png' },
             'book-winter-captain': { title: 'Private Boat Tour with Captain', price: 2499, duration: '1 Hour', img: '../../images/tour_private_boat.png' },
             'book-winter-hygge': { title: 'Private Hygge Winter Tour', price: 4999, duration: '2 Hours', img: '../../images/tour_winter_hygge_book.png' },
-            'book-christmas': { title: 'Christmas Tour w. Tapas & Champagne', price: 5499, duration: '2 Hours', img: '../../images/tour_christmas_champagne.png' }
+            'book-christmas': { title: 'Christmas Tour w. Tapas & Champagne', price: 5999, duration: '2 Hours', img: '../../images/tour_christmas_champagne.png' }
         };
 
         const params = new URLSearchParams(window.location.search);
