@@ -15,8 +15,9 @@ const toursData = {
 };
 
 const extraTapas = {
-    title: 'Charcuterier Tapas (per person)',
-    img: 'images/tour_christmas_champagne.png'
+    title: 'Charcuterie',
+    img: 'images/tour_christmas_champagne.png',
+    price: 225
 };
 
 // Initial state
@@ -87,17 +88,10 @@ function updateTourQty(delta) {
 }
 
 /**
- * Update tapas quantity (Minimum 4)
+ * Update tapas quantity
  */
 function updateTapasQty(delta) {
-    if (cart.tapasQty === 0 && delta > 0) {
-        cart.tapasQty = 4; // Start with min 4
-    } else {
-        cart.tapasQty = Math.max(0, cart.tapasQty + delta);
-        if (cart.tapasQty > 0 && cart.tapasQty < 4) {
-            cart.tapasQty = 0; // Toggle off if below min
-        }
-    }
+    cart.tapasQty = Math.max(0, cart.tapasQty + delta);
     saveCart();
     renderCart();
 }
@@ -143,11 +137,7 @@ function renderCart() {
             <div class="cart-item__info">
                 <h4>${tour.title}</h4>
                 <div class="cart-item__price">${tour.price.toLocaleString()} DKK / session</div>
-                <div class="cart-qty">
-                    <button onclick="updateTourQty(-1)">-</button>
-                    <span>${cart.tourQty}</span>
-                    <button onclick="updateTourQty(1)">+</button>
-                </div>
+                <div class="cart-item__tag">Private Experience</div>
             </div>
         </div>
 
@@ -156,7 +146,7 @@ function renderCart() {
             <img src="${imgBase}${extraTapas.img}" alt="${extraTapas.title}">
             <div class="cart-item__info">
                 <h4>${extraTapas.title}</h4>
-                <div class="cart-item__price">56.25 DKK / person</div>
+                <div class="cart-item__price">${extraTapas.price} DKK</div>
                 ${cart.tapasQty === 0 ? `
                     <button onclick="updateTapasQty(1)" class="btn--add-tapas">Add To Experience +</button>
                 ` : `
@@ -173,7 +163,7 @@ function renderCart() {
     itemsContainer.innerHTML = html;
 
     // Totals Calculation
-    const total = (tour.price * cart.tourQty) + (56.25 * cart.tapasQty);
+    const total = (tour.price * cart.tourQty) + (extraTapas.price * cart.tapasQty);
     const roundedTotal = Math.round(total);
     const totalString = roundedTotal.toLocaleString() + ' DKK';
 

@@ -426,13 +426,11 @@ button {
 .hero__overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    90deg,
-    rgba(0, 0, 0, 0.65) 0%,
-    rgba(0, 0, 0, 0.45) 30%,
-    rgba(0, 0, 0, 0.20) 60%,
-    rgba(0, 0, 0, 0.05) 85%
-  );
+  background: linear-gradient(90deg,
+      rgba(0, 0, 0, 0.65) 0%,
+      rgba(0, 0, 0, 0.45) 30%,
+      rgba(0, 0, 0, 0.20) 60%,
+      rgba(0, 0, 0, 0.05) 85%);
 }
 
 .hero__content {
@@ -526,35 +524,28 @@ button {
   display: grid;
   grid-template-columns: repeat(2, auto);
   justify-content: start;
-  gap: var(--space-md);
+  gap: 1rem 3rem;
+  margin-top: 1.5rem;
   animation-delay: 0.5s;
 }
 
 .trust-item {
   display: flex;
   align-items: center;
-  gap: 6px;
-  font-size: 0.9rem;
+  gap: 8px;
+  font-size: 13px;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.9);
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  padding: 8px 14px;
-  border-radius: 999px;
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  transition: all 0.25s ease;
+  color: rgba(255, 255, 255, 0.7);
+  transition: color 0.2s ease;
   cursor: default;
 }
 
 .trust-item:hover {
-  background: rgba(255, 255, 255, 0.18);
-  border-color: rgba(255, 255, 255, 0.35);
-  transform: translateY(-1px);
+  color: rgba(255, 255, 255, 1);
 }
 
 .trust-icon {
-  font-size: 0.85rem;
+  font-size: 0.85em;
 }
 
 .hero__scroll-cue {
@@ -581,6 +572,7 @@ button {
 }
 
 @keyframes bounceVertical {
+
   0%,
   100% {
     transform: translateX(-50%) translateY(0);
@@ -2082,12 +2074,10 @@ body.booking-open {
   }
 
   .hero__overlay {
-    background: linear-gradient(
-      180deg,
-      rgba(0, 0, 0, 0.7) 0%,
-      rgba(0, 0, 0, 0.45) 50%,
-      rgba(0, 0, 0, 0.2) 100%
-    );
+    background: linear-gradient(180deg,
+        rgba(0, 0, 0, 0.7) 0%,
+        rgba(0, 0, 0, 0.45) 50%,
+        rgba(0, 0, 0, 0.2) 100%);
   }
 
   .hero__headline {
@@ -2099,9 +2089,9 @@ body.booking-open {
   }
 
   .hero__trust {
-    grid-template-columns: 1fr;
-    justify-items: center;
-    gap: var(--space-xs);
+    grid-template-columns: repeat(2, auto);
+    justify-content: center;
+    gap: 1rem 2rem;
   }
 
   .tours-grid {
@@ -2364,6 +2354,34 @@ body.booking-open {
 .btn--add-tapas:hover {
   filter: brightness(1.1);
   transform: translateY(-1px);
+}
+
+.btn--remove-tapas {
+  margin-top: 0.5rem;
+  padding: 0.45rem;
+  font-size: 0.8rem;
+  border-radius: var(--radius-sm);
+  background: var(--clr-off-white);
+  color: var(--clr-text-mid);
+  border: 1px solid var(--clr-sand);
+  cursor: pointer;
+  width: 100%;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.btn--remove-tapas:hover {
+  background: var(--clr-sand);
+  color: var(--clr-navy);
+}
+
+.cart-item__tag {
+  font-size: 0.7rem;
+  color: var(--clr-text-light);
+  margin-top: 0.3rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
 }
 
 .cart-empty {

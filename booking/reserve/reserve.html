@@ -192,30 +192,42 @@
         .summary-item {
             display: flex;
             justify-content: space-between;
-            gap: 1rem;
-            align-items: flex-start;
-            margin-bottom: var(--space-md);
+            gap: 1.5rem;
+            align-items: flex-end;
+            margin-bottom: 0;
+            padding: var(--space-xs) 0;
+            border-bottom: 1px solid rgba(232, 213, 183, 0.4);
+        }
+
+        .summary-item:last-of-type {
+            border-bottom: none;
         }
 
         .summary-item span:first-child {
             flex: 1;
+            color: var(--clr-text-mid);
+            font-weight: 400;
+            font-size: 0.95rem;
+            line-height: 1.4;
         }
 
         .summary-item span:last-child {
             white-space: nowrap;
             text-align: right;
-            font-weight: 600;
+            font-weight: 700;
+            color: var(--clr-navy);
+            font-size: 1.05rem;
         }
 
         .summary-item--total {
             display: flex;
             justify-content: space-between;
             align-items: baseline;
-            margin-top: var(--space-lg);
+            margin-top: var(--space-md);
             padding-top: var(--space-md);
-            border-top: 1px solid var(--clr-sand);
+            border-top: 2px solid var(--clr-navy);
             font-weight: 700;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             color: var(--clr-navy);
         }
 
@@ -277,12 +289,7 @@
                     <h1 id="tour-title">Private Boat Tour</h1>
                     <p id="tour-duration" style="font-size: 0.9rem; color: var(--clr-text-light);"></p>
                 </div>
-                <div
-                    style="display: flex; align-items: center; gap: 0.8rem; background: var(--clr-white); padding: 0.5rem 1rem; border-radius: var(--radius-sm); border: 1px solid var(--clr-sand);">
-                    <button id="tour-minus" class="btn btn--outline btn--sm" style="padding: 2px 8px;">-</button>
-                    <span id="tour-qty-display" style="font-weight: 700; min-width: 20px; text-align: center;">1</span>
-                    <button id="tour-plus" class="btn btn--outline btn--sm" style="padding: 2px 8px;">+</button>
-                </div>
+                <!-- Quantity removed as per user request (Fixed at 1) -->
             </div>
 
             <section class="reserve-section">
@@ -308,21 +315,19 @@
                 <div class="extra-card">
                     <img src="../../images/tour_christmas_champagne.png" alt="Tapas Box" class="extra-card__img" />
                     <div class="extra-card__info">
-                        <h3>Charcuterier Tapas per person</h3>
-                        <p>Selection of 2 cheeses, 2 meats, marmalade, bread, nuts and olives. Minimum order of 4.</p>
+                        <h3>Charcuterie</h3>
+                        <p>Selection of 2 cheeses, 2 meats, marmalade, bread, nuts and olives.</p>
                         <div class="extra-card__meta">
                             <span>⏱ 45 min</span>
-                            <span>🍽 Min. 4 people</span>
+                            <span>📦 Fresh Daily</span>
                         </div>
                     </div>
                     <div class="extra-card__price">
                         <span>225 DKK</span>
                         <div style="display: flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem;">
-                            <button id="tapas-minus" class="btn btn--outline btn--sm"
-                                style="padding: 2px 8px;">-</button>
+                            <button id="tapas-minus" class="btn btn--outline btn--sm" style="padding: 2px 8px;">-</button>
                             <span id="tapas-qty-display">0</span>
-                            <button id="tapas-plus" class="btn btn--outline btn--sm"
-                                style="padding: 2px 8px;">+</button>
+                            <button id="tapas-plus" class="btn btn--outline btn--sm" style="padding: 2px 8px;">+</button>
                         </div>
                     </div>
                 </div>
@@ -383,53 +388,39 @@
         let currentTourQty = parseInt(params.get('qty')) || 1;
         let currentTapasQty = parseInt(params.get('tapas')) || 0;
 
-        const tourQtyDisplay = document.getElementById('tour-qty-display');
-        const tapasQtyDisplay = document.getElementById('tapas-qty-display');
         const summaryTourName = document.getElementById('summary-tour-name');
         const summaryTourPrice = document.getElementById('summary-tour-price');
         const extraContainer = document.getElementById('summary-extra-container');
         const totalDisplay = document.getElementById('summary-total');
 
         function updateTotal() {
-            // Update UI displays
-            tourQtyDisplay.textContent = currentTourQty;
-            tapasQtyDisplay.textContent = currentTapasQty;
-
-            const displayTitle = (currentTourQty > 1 ? currentTourQty + ' x ' : '') + tour.title;
+            // Tour is fixed at 1
+            const displayTitle = tour.title;
             document.getElementById('tour-title').textContent = displayTitle;
             summaryTourName.textContent = displayTitle;
-            summaryTourPrice.textContent = (tour.price * currentTourQty).toLocaleString() + ' DKK';
+            summaryTourPrice.textContent = tour.price.toLocaleString() + ' DKK';
 
-            let total = (tour.price * currentTourQty);
+            document.getElementById('tapas-qty-display').textContent = currentTapasQty;
+
+            let total = tour.price;
             if (currentTapasQty > 0) {
-                total += (currentTapasQty * 56.25);
+                const tapasTotal = currentTapasQty * 225;
+                total += tapasTotal;
                 extraContainer.style.display = 'flex';
-                extraContainer.innerHTML = `<span>Charcuterier Tapas (x${currentTapasQty})</span><span>${Math.round(currentTapasQty * 56.25).toLocaleString()} DKK</span>`;
+                extraContainer.innerHTML = `<span>Charcuterie (x${currentTapasQty})</span><span>${tapasTotal.toLocaleString()} DKK</span>`;
             } else {
                 extraContainer.style.display = 'none';
             }
             totalDisplay.textContent = Math.round(total).toLocaleString() + ' DKK';
         }
 
-        document.getElementById('tour-plus').addEventListener('click', () => {
-            currentTourQty++;
-            updateTotal();
-        });
-
-        document.getElementById('tour-minus').addEventListener('click', () => {
-            currentTourQty = Math.max(1, currentTourQty - 1);
-            updateTotal();
-        });
-
         document.getElementById('tapas-plus').addEventListener('click', () => {
-            if (currentTapasQty === 0) currentTapasQty = 4;
-            else currentTapasQty++;
+            currentTapasQty++;
             updateTotal();
         });
 
         document.getElementById('tapas-minus').addEventListener('click', () => {
-            if (currentTapasQty <= 4) currentTapasQty = 0;
-            else currentTapasQty--;
+            currentTapasQty = Math.max(0, currentTapasQty - 1);
             updateTotal();
         });
 
