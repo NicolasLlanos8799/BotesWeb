@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Seaduced-Experience | Private Boat Tours Copenhagen</title>
+  <meta name="description" content="Experience Copenhagen's scenic canals on an exclusive private boat tour. Expert local guides, hidden routes, and unforgettable memories. Book your tour today." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       NAVBAR
+  ═══════════════════════════════════════════ -->
+  <header class="navbar" id="navbar">
+    <div class="container navbar__inner">
+      <a href="#" class="navbar__logo" aria-label="Seaduced-Experience Home">
+        <span class="logo-icon">⚓</span>
+        <span class="logo-text">Seaduced<em>Experience</em></span>
+      </a>
+
+      <nav class="navbar__nav" id="navMenu" role="navigation" aria-label="Main navigation">
+        <a href="#" class="nav-link" id="nav-home">Home</a>
+        <a href="#booking" class="nav-link" id="nav-book">Book Here</a>
+        <a href="#tours" class="nav-link" id="nav-tours">Tours</a>
+        <a href="#contact" class="nav-link" id="nav-contact">Contact</a>
+        <a href="#faq" class="nav-link" id="nav-payments">Payments &amp; Refunds</a>
+      </nav>
+
+      <div class="navbar__actions">
+        <a href="#booking" class="btn btn--primary btn--sm" id="nav-cta">Book Now</a>
+        <button class="navbar__hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div class="navbar__mobile" id="mobileMenu">
+      <a href="#" class="nav-link" id="mob-home">Home</a>
+      <a href="#booking" class="nav-link" id="mob-book">Book Here</a>
+      <a href="#tours" class="nav-link" id="mob-tours">Tours</a>
+      <a href="#contact" class="nav-link" id="mob-contact">Contact</a>
+      <a href="#faq" class="nav-link" id="mob-payments">Payments &amp; Refunds</a>
+      <a href="#booking" class="btn btn--primary mt-1" id="mob-cta">Book Now</a>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ═══════════════════════════════════════════
+         HERO SECTION
+    ═══════════════════════════════════════════ -->
+    <section class="hero" id="hero">
+      <div class="hero__bg">
+        <img src="images/hero_canal_copenhagen.png" alt="Private boat tour through Copenhagen Nyhavn canal at sunset" class="hero__img" />
+        <div class="hero__overlay"></div>
+      </div>
+
+      <div class="container hero__content">
+        <div class="hero__badge reveal" id="hero-badge">
+          <span class="badge-dot"></span>
+          Private Boat Tours Copenhagen
+        </div>
+
+        <h1 class="hero__headline reveal">
+          Private Boat Tours in<br/>
+          <em>Copenhagen's Scenic Canals</em>
+        </h1>
+
+        <p class="hero__subtext reveal">
+          Embark on an unforgettable journey with Seaduced-Experience and experience the beauty of Copenhagen's sea views like never before. Our expert guides will show you the hidden gems of the city from a unique perspective.
+        </p>
+
+        <div class="hero__ctas reveal">
+          <a href="#booking" class="btn btn--primary btn--lg" id="hero-book-cta">Book Your Tour</a>
+          <a href="#tours" class="btn btn--ghost btn--lg" id="hero-explore-cta">Explore Tours</a>
+        </div>
+
+        <div class="hero__trust reveal">
+          <div class="trust-item">
+            <span class="trust-icon">🛥️</span>
+            <span>Private tours</span>
+          </div>
+          <div class="trust-item">
+            <span class="trust-icon">🧭</span>
+            <span>Local expert guides</span>
+          </div>
+          <div class="trust-item">
+            <span class="trust-icon">🌊</span>
+            <span>Scenic canal routes</span>
+          </div>
+          <div class="trust-item">
+            <span class="trust-icon">⭐</span>
+            <span>Bestseller experiences</span>
+          </div>
+        </div>
+      </div>
+
+      <a href="#tours" class="hero__scroll-cue" aria-label="Scroll down">
+        <div class="scroll-arrow"></div>
+      </a>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         FEATURED TOURS SECTION
+    ═══════════════════════════════════════════ -->
+    <section class="section tours-section" id="tours">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-label">Our Experiences</span>
+          <h2 class="section-title">Discover Our Exclusive<br/>Copenhagen Tours</h2>
+          <p class="section-sub">Every journey is thoughtfully crafted for an intimate, memorable experience on the water.</p>
+        </div>
+
+        <div class="tours-grid">
+
+          <article class="tour-card reveal" id="tour-private">
+            <div class="tour-card__img-wrap">
+              <img src="images/tour_private_boat.png" alt="Private Boat Tour Copenhagen" loading="lazy" />
+              <span class="tour-card__tag">Most Popular</span>
+            </div>
+            <div class="tour-card__body">
+              <h3 class="tour-card__title">Private Boat Tours Copenhagen</h3>
+              <p class="tour-card__desc">A fully personalized canal experience crafted just for your group. Glide through Copenhagen's most iconic waterways with a local guide who brings the city's stories to life.</p>
+              <a href="#booking" class="btn btn--outline btn--sm" id="tour-card-private-cta">View Tour</a>
+            </div>
+          </article>
+
+          <article class="tour-card reveal" id="tour-winter">
+            <div class="tour-card__img-wrap">
+              <img src="images/tour_winter_hygge.png" alt="Winter Hygge Boat Tour Copenhagen" loading="lazy" />
+              <span class="tour-card__tag">Seasonal</span>
+            </div>
+            <div class="tour-card__body">
+              <h3 class="tour-card__title">Winter Hygge Boat Tour Copenhagen</h3>
+              <p class="tour-card__desc">Wrap up in cozy blankets and sip warm drinks as you drift through snow-kissed canals. A truly Danish hygge experience that transforms winter into pure magic.</p>
+              <a href="#booking" class="btn btn--outline btn--sm" id="tour-card-winter-cta">View Tour</a>
+            </div>
+          </article>
+
+          <article class="tour-card reveal" id="tour-sunset">
+            <div class="tour-card__img-wrap">
+              <img src="images/tour_sunset_boat.png" alt="Sunset Private Boat Tour Copenhagen" loading="lazy" />
+              <span class="tour-card__tag">Bestseller</span>
+            </div>
+            <div class="tour-card__body">
+              <h3 class="tour-card__title">Sunset Private Boat Tour Copenhagen</h3>
+              <p class="tour-card__desc">Golden hour on the water is simply breathtaking. Watch Copenhagen's skyline glow in amber and rose as the sun sets over the canals on this unforgettable evening tour.</p>
+              <a href="#booking" class="btn btn--outline btn--sm" id="tour-card-sunset-cta">View Tour</a>
+            </div>
+          </article>
+
+          <article class="tour-card reveal" id="tour-faq">
+            <div class="tour-card__img-wrap tour-card__img-wrap--faq">
+              <div class="tour-card__faq-bg">
+                <span class="faq-icon">❓</span>
+              </div>
+            </div>
+            <div class="tour-card__body">
+              <h3 class="tour-card__title">FAQ – Private Boat Tours Copenhagen</h3>
+              <p class="tour-card__desc">Have questions before you book? Find everything you need to know about our tours — from what to bring, to booking, payments, and what makes each experience special.</p>
+              <a href="#faq" class="btn btn--outline btn--sm" id="tour-card-faq-cta">View FAQ</a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         BESTSELLERS SECTION
+    ═══════════════════════════════════════════ -->
+    <section class="section bestsellers-section" id="bestsellers">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-label">Editor's Pick</span>
+          <h2 class="section-title">Bestsellers</h2>
+          <p class="section-sub">Our most loved and booked experiences — chosen by hundreds of happy guests.</p>
+        </div>
+
+        <div class="bestsellers-grid">
+
+          <div class="bestseller-card bestseller-card--large reveal" id="bestseller-private">
+            <div class="bestseller-card__img">
+              <img src="images/tour_private_boat.png" alt="Private Boat Tour Copenhagen" loading="lazy" />
+              <div class="bestseller-card__overlay">
+                <span class="bestseller-badge">⭐ #1 Bestseller</span>
+                <h3 class="bestseller-card__title">Private Boat Tours Copenhagen</h3>
+                <p class="bestseller-card__desc">The quintessential Copenhagen experience — intimate, personal, and unforgettable. Your own private vessel, your own story.</p>
+                <a href="#booking" class="btn btn--primary" id="bestseller-private-cta">Book This Tour</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="bestseller-side reveal">
+            <div class="bestseller-card bestseller-card--sm" id="bestseller-sunset">
+              <div class="bestseller-card__img">
+                <img src="images/tour_sunset_boat.png" alt="Sunset Boat Tour Copenhagen" loading="lazy" />
+                <div class="bestseller-card__overlay">
+                  <span class="bestseller-badge">🌅 Fan Favourite</span>
+                  <h3 class="bestseller-card__title">Sunset Private Boat Tour</h3>
+                  <p class="bestseller-card__desc">The most romantic tour in Copenhagen. Golden light, calm waters, lasting memories.</p>
+                  <a href="#booking" class="btn btn--primary btn--sm" id="bestseller-sunset-cta">Book Now</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="bestseller-card bestseller-card--sm" id="bestseller-hygge">
+              <div class="bestseller-card__img">
+                <img src="images/tour_winter_hygge.png" alt="Winter Hygge Boat Tour" loading="lazy" />
+                <div class="bestseller-card__overlay">
+                  <span class="bestseller-badge">❄️ Winter Special</span>
+                  <h3 class="bestseller-card__title">Winter Hygge Boat Tour</h3>
+                  <p class="bestseller-card__desc">Cozy, warm and magical. The Danish art of hygge, perfectly delivered on the water.</p>
+                  <a href="#booking" class="btn btn--primary btn--sm" id="bestseller-hygge-cta">Book Now</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         WELCOME / BRAND INTRO SECTION
+    ═══════════════════════════════════════════ -->
+    <section class="section welcome-section" id="about">
+      <div class="container">
+        <div class="welcome-split">
+
+          <div class="welcome-split__text reveal">
+            <span class="section-label">Our Promise</span>
+            <h2 class="section-title">Welcome to<br/><em>Seaduced-Experience</em></h2>
+            <p class="welcome-p">
+              Embark on an unforgettable journey with Seaduced-Experience and experience the beauty of Copenhagen's sea views like never before.
+            </p>
+            <p class="welcome-p">
+              Our expert guides will show you the hidden gems of the city from a unique perspective — the water. Every tour is private, personalized, and crafted to leave a lasting impression.
+            </p>
+            <div class="welcome-stats">
+              <div class="stat">
+                <span class="stat-number">500+</span>
+                <span class="stat-label">Happy Guests</span>
+              </div>
+              <div class="stat">
+                <span class="stat-number">5★</span>
+                <span class="stat-label">Average Rating</span>
+              </div>
+              <div class="stat">
+                <span class="stat-number">100%</span>
+                <span class="stat-label">Private Tours</span>
+              </div>
+            </div>
+            <a href="#booking" class="btn btn--primary mt-2" id="welcome-book-cta">Book Your Experience</a>
+          </div>
+
+          <div class="welcome-split__images reveal">
+            <div class="img-stack">
+              <img src="images/brand_welcome_image.png" alt="Luxury boat experience in Copenhagen" class="img-stack__main" />
+              <div class="img-stack__badge">
+                <span class="stack-rating">⭐ 5.0</span>
+                <span class="stack-label">GetYourGuide</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         WHY CHOOSE US SECTION
+    ═══════════════════════════════════════════ -->
+    <section class="section why-section" id="why">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-label">Why Us</span>
+          <h2 class="section-title">Why Choose Our Private<br/>Boat Tours in Copenhagen?</h2>
+          <p class="section-sub">We don't just offer boat rides — we create unforgettable memories on the water.</p>
+        </div>
+
+        <div class="features-grid">
+          <div class="feature-card reveal" id="feature-private">
+            <div class="feature-card__icon">🛥️</div>
+            <h3 class="feature-card__title">Private &amp; Personalized</h3>
+            <p class="feature-card__text">Your group, your pace, your story. Every tour is exclusively yours — no strangers, no crowds, just an intimate journey crafted around you.</p>
+          </div>
+          <div class="feature-card reveal" id="feature-guides">
+            <div class="feature-card__icon">🧭</div>
+            <h3 class="feature-card__title">Local Expert Guides</h3>
+            <p class="feature-card__text">Our guides are passionate locals who know Copenhagen's canals inside and out. Their stories bring the city's history and hidden gems to life.</p>
+          </div>
+          <div class="feature-card reveal" id="feature-routes">
+            <div class="feature-card__icon">🗺️</div>
+            <h3 class="feature-card__title">Scenic Hidden Routes</h3>
+            <p class="feature-card__text">We take you where the tourist boats can't go — through narrow canals, past secret courtyards, and into the soul of Copenhagen.</p>
+          </div>
+          <div class="feature-card reveal" id="feature-luxury">
+            <div class="feature-card__icon">✨</div>
+            <h3 class="feature-card__title">Luxury &amp; Comfort</h3>
+            <p class="feature-card__text">From cozy blankets in winter to chilled drinks in summer, every detail is considered. Pure comfort meets pure Copenhagen on the open water.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         TESTIMONIALS SECTION
+    ═══════════════════════════════════════════ -->
+    <section class="section testimonials-section" id="reviews">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-label">Guest Reviews</span>
+          <h2 class="section-title">What Our Guests Say About Our<br/>Private Boat Tours in Copenhagen</h2>
+        </div>
+
+        <!-- Quick reviews -->
+        <div class="quick-reviews reveal">
+          <div class="quick-review" id="review-anna">
+            <div class="stars">★★★★★</div>
+            <p class="quick-review__text">"Best private boat tour in Copenhagen. Cozy, personal and unforgettable experience."</p>
+            <span class="quick-review__author">— Anna, Germany</span>
+          </div>
+          <div class="quick-review" id="review-mark">
+            <div class="stars">★★★★★</div>
+            <p class="quick-review__text">"Amazing private canal tour. Way better than big tourist boats."</p>
+            <span class="quick-review__author">— Mark, USA</span>
+          </div>
+          <div class="quick-review" id="review-lucia">
+            <div class="stars">★★★★★</div>
+            <p class="quick-review__text">"Perfect hygge experience on the water. Highly recommended."</p>
+            <span class="quick-review__author">— Lucia, Spain</span>
+          </div>
+        </div>
+
+        <!-- Detailed testimonial carousel -->
+        <div class="testimonial-carousel reveal" id="testimonialCarousel">
+          <div class="testimonial-track" id="testimonialTrack">
+
+            <div class="testimonial-card" id="tcard-dawn">
+              <div class="testimonial-card__quote">"</div>
+              <p class="testimonial-card__text">This tour was one of the highlights of our trip! Our guide Oni's knowledge of the canals and history was outstanding, and he even recommended a delicious meal at Reffen.</p>
+              <div class="testimonial-card__footer">
+                <div class="testimonial-avatar" aria-hidden="true">D</div>
+                <div>
+                  <div class="testimonial-stars">★★★★★</div>
+                  <span class="testimonial-author">Dawn, USA</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="testimonial-card" id="tcard-laura">
+              <div class="testimonial-card__quote">"</div>
+              <p class="testimonial-card__text">Our guide Oni was terrific – he tailored the tour just for us. This was a wonderful family-friendly experience, and we highly recommend it.</p>
+              <div class="testimonial-card__footer">
+                <div class="testimonial-avatar" aria-hidden="true">L</div>
+                <div>
+                  <div class="testimonial-stars">★★★★★</div>
+                  <span class="testimonial-author">Laura, Denmark</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="testimonial-card" id="tcard-oliver">
+              <div class="testimonial-card__quote">"</div>
+              <p class="testimonial-card__text">A perfect afternoon exploring Copenhagen from the canals. Beautiful views and insightful stories – highly recommended!</p>
+              <div class="testimonial-card__footer">
+                <div class="testimonial-avatar" aria-hidden="true">O</div>
+                <div>
+                  <div class="testimonial-stars">★★★★★</div>
+                  <span class="testimonial-author">Oliver Hartman</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="testimonial-card" id="tcard-karina">
+              <div class="testimonial-card__quote">"</div>
+              <p class="testimonial-card__text">Perfect Sunday visiting Copenhagen from the canals. We had the best guide we could wish. Highly recommended!</p>
+              <div class="testimonial-card__footer">
+                <div class="testimonial-avatar" aria-hidden="true">K</div>
+                <div>
+                  <div class="testimonial-stars">★★★★★</div>
+                  <span class="testimonial-author">Karina, Italy</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="testimonial-card" id="tcard-shannon">
+              <div class="testimonial-card__quote">"</div>
+              <p class="testimonial-card__text">This was a great tour!! He was an amazing guide and provided great information while also being fun.</p>
+              <div class="testimonial-card__footer">
+                <div class="testimonial-avatar" aria-hidden="true">S</div>
+                <div>
+                  <div class="testimonial-stars">★★★★★</div>
+                  <span class="testimonial-author">Shannon, United Kingdom</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="testimonial-card" id="tcard-thomas">
+              <div class="testimonial-card__quote">"</div>
+              <p class="testimonial-card__text">We had a fantastic trip with Oni. He told us all about Copenhagen, saw all of the sites, had some great food at the Reffen stop, and most importantly had a lot of laughs.</p>
+              <div class="testimonial-card__footer">
+                <div class="testimonial-avatar" aria-hidden="true">T</div>
+                <div>
+                  <div class="testimonial-stars">★★★★★</div>
+                  <span class="testimonial-author">Thomas &amp; Emma, Denmark</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="carousel-controls">
+            <button class="carousel-btn carousel-btn--prev" id="carouselPrev" aria-label="Previous review">&#8592;</button>
+            <div class="carousel-dots" id="carouselDots" role="tablist"></div>
+            <button class="carousel-btn carousel-btn--next" id="carouselNext" aria-label="Next review">&#8594;</button>
+          </div>
+        </div>
+
+        <div class="testimonials-cta reveal">
+          <p class="testimonials-cta__sub">Want to see more reviews from our guests? Visit our GetYourGuide page to explore detailed feedback from travelers like you.</p>
+          <a href="#" class="btn btn--outline" id="reviews-more-cta">Read More Reviews</a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         ROUTES SECTION
+    ═══════════════════════════════════════════ -->
+    <section class="section routes-section" id="routes">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-label">Explore the City</span>
+          <h2 class="section-title">Routes We Cover<br/>in Copenhagen</h2>
+          <p class="section-sub">Every neighborhood has a story. We navigate them all.</p>
+        </div>
+
+        <div class="routes-grid">
+
+          <div class="route-card reveal" id="route-nyhavn">
+            <div class="route-card__icon">🏘️</div>
+            <div class="route-card__number">01</div>
+            <h3 class="route-card__name">Nyhavn</h3>
+            <p class="route-card__desc">Explore the colorful 17th-century harbor lined with historic houses and lively cafes. Navigate the iconic canal as we share stories of its maritime heritage.</p>
+          </div>
+
+          <div class="route-card reveal" id="route-christianshavn">
+            <div class="route-card__icon">⛵</div>
+            <div class="route-card__number">02</div>
+            <h3 class="route-card__name">Christianshavn</h3>
+            <p class="route-card__desc">Slip through narrow, Venice-like canals in this bohemian district. See houseboats and spires from a unique water-level perspective.</p>
+          </div>
+
+          <div class="route-card reveal" id="route-sluseholmen">
+            <div class="route-card__icon">🏗️</div>
+            <div class="route-card__number">03</div>
+            <h3 class="route-card__name">Sluseholmen</h3>
+            <p class="route-card__desc">Discover modern architecture inspired by Amsterdam's canals in this dynamic neighborhood. Our route reveals hidden corners and innovative designs.</p>
+          </div>
+
+          <div class="route-card reveal" id="route-islands-brygge">
+            <div class="route-card__icon">🌊</div>
+            <div class="route-card__number">04</div>
+            <h3 class="route-card__name">Islands Brygge</h3>
+            <p class="route-card__desc">Cruise past contemporary waterfront apartments and the popular promenade. Enjoy views of cultural hubs, parks, and vibrant city life.</p>
+          </div>
+
+          <div class="route-card reveal" id="route-refshaleoeen">
+            <div class="route-card__icon">🎨</div>
+            <div class="route-card__number">05</div>
+            <h3 class="route-card__name">Refshaleøen</h3>
+            <p class="route-card__desc">Explore the redeveloped shipyard area with street food markets and artistic venues. Experience a unique blend of industry and creativity on the water.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         OUR STORY SECTION
+    ═══════════════════════════════════════════ -->
+    <section class="section story-section" id="story">
+      <div class="container">
+        <div class="story-split">
+          <div class="story-split__text reveal">
+            <span class="section-label">Who We Are</span>
+            <h2 class="section-title">Our Story</h2>
+            <p class="story-p">We are a dedicated team committed to crafting exceptional experiences. Our focus lies in providing reliable and innovative journeys through Copenhagen's waterways, driven by a deep respect for quality and a genuine desire to exceed expectations.</p>
+            <p class="story-p">Founded by locals with a love for the sea and the city, Seaduced-Experience was born from a simple belief: the best way to truly know Copenhagen is from the water. What started as a passion project has grown into one of Copenhagen's most trusted private boat tour experiences.</p>
+            <a href="#about" class="btn btn--ghost mt-2" id="story-about-cta">Learn More About Us</a>
+          </div>
+          <div class="story-split__visual reveal">
+            <div class="story-visual-wrap">
+              <img src="images/tour_sunset_boat.png" alt="Copenhagen sunset boat tour" class="story-img" />
+              <div class="story-quote-box">
+                <p>"The most beautiful way to<br/>see Copenhagen."</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         BOOKING CTA SECTION
+    ═══════════════════════════════════════════ -->
+    <section class="cta-section" id="booking">
+      <div class="container cta-section__inner reveal">
+        <h2 class="cta-section__headline">Ready to Experience Copenhagen<br/>from the Water?</h2>
+        <p class="cta-section__sub">Book your private boat tour today and discover the city from its most unforgettable perspective.</p>
+        <div class="cta-section__buttons">
+          <a href="#" class="btn btn--primary btn--lg" id="cta-book-here">Book Here</a>
+          <a href="#contact" class="btn btn--ghost-dark btn--lg" id="cta-contact-us">Contact Us</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         FAQ SECTION
+    ═══════════════════════════════════════════ -->
+    <section class="section faq-section" id="faq">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-label">Questions</span>
+          <h2 class="section-title">Frequently Asked Questions</h2>
+          <p class="section-sub">Everything you need to know before your tour.</p>
+        </div>
+
+        <div class="faq-list">
+
+          <div class="faq-item reveal" id="faq-private">
+            <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-private">
+              Are the tours private?
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer" id="faq-answer-private" hidden>
+              <p>Yes! Every tour with Seaduced-Experience is completely private. You will never share your boat with strangers — it's always exclusively your group, giving you a truly personal and intimate experience on the water.</p>
+            </div>
+          </div>
+
+          <div class="faq-item reveal" id="faq-bring">
+            <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-bring">
+              What should we bring?
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer" id="faq-answer-bring" hidden>
+              <p>Dress in layers, especially in spring and autumn. Bring your camera, sunscreen in summer, and a light jacket for evenings. In colder months, warm clothing is recommended — though we provide cozy blankets on board. Feel free to bring drinks and snacks!</p>
+            </div>
+          </div>
+
+          <div class="faq-item reveal" id="faq-winter">
+            <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-winter">
+              Are tours available in winter?
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer" id="faq-answer-winter" hidden>
+              <p>Absolutely! Our Winter Hygge Boat Tour is one of our most loved seasonal experiences. We operate year-round, and winter brings its own magic to the canals. We ensure everyone stays warm and comfortable throughout.</p>
+            </div>
+          </div>
+
+          <div class="faq-item reveal" id="faq-payments">
+            <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-payments">
+              How do payments and refunds work?
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer" id="faq-answer-payments" hidden>
+              <p>We accept all major credit and debit cards as well as online payment through our booking platform. Full refunds are available up to 48 hours before your tour. Cancellations within 48 hours may be subject to a cancellation fee. Please contact us for any special circumstances.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════ -->
+  <footer class="footer" id="contact">
+    <div class="container footer__inner">
+
+      <div class="footer__brand">
+        <a href="#" class="footer-logo" aria-label="Seaduced-Experience">
+          <span class="logo-icon">⚓</span>
+          <span class="logo-text">Seaduced<em>Experience</em></span>
+        </a>
+        <p class="footer__tagline">Private Boat Tours in Copenhagen's<br/>most beautiful canals.</p>
+        <div class="footer__socials">
+          <a href="#" class="social-link" aria-label="GetYourGuide">GYG</a>
+          <a href="#" class="social-link" aria-label="Instagram">IG</a>
+          <a href="#" class="social-link" aria-label="Facebook">FB</a>
+        </div>
+      </div>
+
+      <div class="footer__links">
+        <h4 class="footer__links-title">Quick Links</h4>
+        <nav aria-label="Footer navigation">
+          <a href="#" class="footer-link" id="footer-home">Home</a>
+          <a href="#booking" class="footer-link" id="footer-book">Book Here</a>
+          <a href="#tours" class="footer-link" id="footer-tours">Tours</a>
+          <a href="#contact" class="footer-link" id="footer-contact">Contact</a>
+          <a href="#faq" class="footer-link" id="footer-payments">Payments &amp; Refunds</a>
+        </nav>
+      </div>
+
+      <div class="footer__contact">
+        <h4 class="footer__links-title">Contact</h4>
+        <p class="footer-contact-item">📍 Copenhagen, Denmark</p>
+        <p class="footer-contact-item">📧 <a href="mailto:hello@seaduced-experience.com">hello@seaduced-experience.com</a></p>
+        <p class="footer-contact-item">⭐ Rated 5.0 on GetYourGuide</p>
+      </div>
+
+    </div>
+
+    <div class="footer__bottom">
+      <div class="container">
+        <p class="footer__copy">© 2025 – 2026 Seaduced-Experience. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
