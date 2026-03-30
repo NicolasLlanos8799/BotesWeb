@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Complete Your Reservation | Seaduced-Experience</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="../../styles.css" />
+    <style>
+        .reserve-page {
+            background: var(--clr-off-white);
+            min-height: 100vh;
+        }
+
+        .reserve-nav {
+            background: var(--clr-navy);
+            padding: var(--space-md) var(--space-lg);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .reserve-nav__back {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: rgba(255, 255, 255, 0.75);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color var(--transition-fast);
+        }
+
+        .reserve-nav__back:hover {
+            color: var(--clr-white);
+        }
+
+        .reserve-nav__logo {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            color: var(--clr-white);
+        }
+
+        .reserve-nav__logo em {
+            color: var(--clr-sunset-lt);
+            font-style: italic;
+        }
+
+        .reserve-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--space-xl) var(--space-lg);
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: var(--space-xl);
+        }
+
+        @media (max-width: 992px) {
+            .reserve-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .reserve-main {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xl);
+        }
+
+        /* Section styles */
+        .reserve-section {
+            background: var(--clr-white);
+            padding: var(--space-xl);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-card);
+        }
+
+        .reserve-section__title {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--clr-navy);
+            margin-bottom: var(--space-md);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .reserve-section__title span {
+            font-size: 1.2rem;
+            background: var(--clr-navy);
+            color: var(--clr-white);
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        /* Calendar Wrapper */
+        .calendar-wrapper {
+            width: 100%;
+            height: 600px;
+            background: var(--clr-sand-lt);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed var(--clr-sand);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .calendar-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Extras */
+        .extra-card {
+            border: 1px solid var(--clr-sand);
+            padding: var(--space-lg);
+            border-radius: var(--radius-md);
+            display: grid;
+            grid-template-columns: 120px 1fr auto;
+            gap: var(--space-lg);
+            align-items: center;
+        }
+
+        .extra-card__img {
+            width: 120px;
+            height: 120px;
+            border-radius: var(--radius-sm);
+            object-fit: cover;
+        }
+
+        .extra-card__info h3 {
+            font-size: 1.1rem;
+            color: var(--clr-navy);
+            margin-bottom: 0.3rem;
+        }
+
+        .extra-card__meta {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.8rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--clr-navy);
+        }
+
+        .extra-card__price {
+            text-align: right;
+            font-weight: 700;
+            color: var(--clr-navy);
+        }
+
+        .extra-card__price span {
+            display: block;
+            font-size: 1.2rem;
+        }
+
+        .extra-card__checkbox {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            accent-color: var(--clr-sunset);
+        }
+
+        /* Summary Card */
+        .summary-card {
+            background: var(--clr-white);
+            padding: var(--space-xl);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-card);
+            border-top: 4px solid var(--clr-sunset);
+            position: sticky;
+            top: 100px;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: var(--space-md);
+        }
+
+        .summary-item--total {
+            margin-top: var(--space-lg);
+            padding-top: var(--space-md);
+            border-top: 1px solid var(--clr-sand);
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--clr-navy);
+        }
+
+        .reserve-btn {
+            width: 100%;
+            margin-top: var(--space-lg);
+        }
+
+        .tour-header {
+            display: flex;
+            gap: var(--space-md);
+            align-items: center;
+            margin-bottom: var(--space-xl);
+        }
+
+        .tour-header img {
+            width: 100px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: var(--radius-sm);
+        }
+    </style>
+</head>
+
+<body class="reserve-page">
+    <nav class="reserve-nav">
+        <a href="../" class="reserve-nav__back">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                style="width: 16px; height: 16px;">
+                <path d="M10 12L6 8l4-4" />
+            </svg>
+            Back to Selection
+        </a>
+        <span class="reserve-nav__logo">⚓ Seaduced<em>Experience</em></span>
+        <div style="width: 80px;"></div>
+    </nav>
+
+    <div class="reserve-container">
+        <div class="reserve-main">
+            <div class="tour-header">
+                <img id="tour-img" src="../../images/tour_private_boat.png" alt="Tour image" />
+                <div>
+                    <h1 id="tour-title">Private Boat Tour</h1>
+                    <p id="tour-duration" style="font-size: 0.9rem; color: var(--clr-text-light);"></p>
+                </div>
+            </div>
+
+            <section class="reserve-section">
+                <h2 class="reserve-section__title"><span>1</span> Select Date & Time</h2>
+                <div class="calendar-wrapper" id="calendar-container">
+                    <iframe id="calendar-iframe"
+                        src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ2e9Y7j3-oK0WJqK4xH-C9G6Qo-QW..."
+                        class="calendar-iframe" frameborder="0"></iframe>
+                    <div id="calendar-placeholder"
+                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: var(--clr-sand-lt); display: flex; align-items: center; justify-content: center; text-align: center; padding: 2rem; z-index: 5; display: none;">
+                        <div>
+                            <p style="color: var(--clr-navy); font-weight: 600; margin-bottom: 0.5rem;">📅 Google
+                                Calendar Integration</p>
+                            <p style="font-size: 0.85rem; color: var(--clr-text-light);">Your specific Appointment
+                                Schedule link will be placed here.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="reserve-section">
+                <h2 class="reserve-section__title"><span>2</span> Enhance Your Experience</h2>
+                <div class="extra-card">
+                    <img src="../../images/tour_christmas_champagne.png" alt="Tapas Box" class="extra-card__img" />
+                    <div class="extra-card__info">
+                        <h3>Charcuterier Tapas per person</h3>
+                        <p>Selection of 2 cheeses, 2 meats, marmalade, bread, nuts and olives. Minimum order of 4.</p>
+                        <div class="extra-card__meta">
+                            <span>⏱ 45 min</span>
+                            <span>🍽 Min. 4 people</span>
+                        </div>
+                    </div>
+                    <div class="extra-card__price">
+                        <span>225 DKK</span>
+                        <input type="checkbox" id="extra-tapas" class="extra-card__checkbox" />
+                    </div>
+                </div>
+            </section>
+
+            <section class="reserve-section">
+                <h2 class="reserve-section__title"><span>3</span> Contact Details</h2>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md);">
+                    <div>
+                        <label style="display: block; font-size: 0.85rem; margin-bottom: 0.3rem;">Full Name</label>
+                        <input type="text" id="reserve-name" placeholder="John Doe"
+                            style="width: 100%; padding: 0.8rem; border-radius: 4px; border: 1px solid var(--clr-sand);" />
+                    </div>
+                    <div>
+                        <label style="display: block; font-size: 0.85rem; margin-bottom: 0.3rem;">Email</label>
+                        <input type="email" id="reserve-email" placeholder="john@example.com"
+                            style="width: 100%; padding: 0.8rem; border-radius: 4px; border: 1px solid var(--clr-sand);" />
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <aside class="reserve-sidebar">
+            <div class="summary-card">
+                <h3 style="font-family: var(--font-display); margin-bottom: var(--space-lg);">Order Summary</h3>
+                <div class="summary-item">
+                    <span id="summary-tour-name">Tour Name</span>
+                    <span id="summary-tour-price">2,499 DKK</span>
+                </div>
+                <div class="summary-item" id="summary-extra-container" style="display: none;">
+                    <span>Charcuterier Tapas (x4)</span>
+                    <span>900 DKK</span>
+                </div>
+                <div class="summary-item--total">
+                    <span>Total</span>
+                    <span id="summary-total">2,499 DKK</span>
+                </div>
+                <button id="complete-request-btn" class="btn btn--primary reserve-btn">Confirm Booking Request
+                    →</button>
+            </div>
+        </aside>
+    </div>
+
+    <script>
+        const tours = {
+            'book-1h': { title: 'Private 1-Hour Highlights', price: 2499, duration: '1 Hour', img: '../../images/tour_private_boat.png' },
+            'book-winter': { title: '2-Hour Winter Hygge 2026', price: 4999, duration: '2 Hours', img: '../../images/tour_winter_hygge.png' },
+            'book-reffen': { title: 'Private 3-Hour Extended (Reffen)', price: 4299, duration: '3 Hours', img: '../../images/tour_sunset_boat.png' },
+            'book-premium': { title: 'Private 4-Hour Premium Experience', price: 5999, duration: '4 Hours', img: '../../images/tour_private_boat.png' },
+            'book-winter-captain': { title: 'Private Boat Tour with Captain', price: 2499, duration: '1 Hour', img: '../../images/tour_private_boat.png' },
+            'book-winter-hygge': { title: 'Private Hygge Winter Tour', price: 4999, duration: '2 Hours', img: '../../images/tour_winter_hygge_book.png' },
+            'book-christmas': { title: 'Christmas Tour w. Tapas & Champagne', price: 5499, duration: '2 Hours', img: '../../images/tour_christmas_champagne.png' }
+        };
+
+        const params = new URLSearchParams(window.location.search);
+        const tourId = params.get('tour') || 'book-1h';
+        const tour = tours[tourId] || tours['book-1h'];
+
+        document.getElementById('tour-title').textContent = tour.title;
+        document.getElementById('tour-duration').textContent = '⏱ ' + tour.duration;
+        document.getElementById('tour-img').src = tour.img;
+        document.getElementById('summary-tour-name').textContent = tour.title;
+        document.getElementById('summary-tour-price').textContent = tour.price.toLocaleString() + ' DKK';
+
+        const extraCheckbox = document.getElementById('extra-tapas');
+        const extraContainer = document.getElementById('summary-extra-container');
+        const totalDisplay = document.getElementById('summary-total');
+
+        function updateTotal() {
+            let total = tour.price;
+            if (extraCheckbox.checked) {
+                total += 900;
+                extraContainer.style.display = 'flex';
+            } else {
+                extraContainer.style.display = 'none';
+            }
+            totalDisplay.textContent = total.toLocaleString() + ' DKK';
+        }
+
+        extraCheckbox.addEventListener('change', updateTotal);
+        updateTotal();
+
+        // Handle Request
+        document.getElementById('complete-request-btn').addEventListener('click', () => {
+            const name = document.getElementById('reserve-name').value;
+            const email = document.getElementById('reserve-email').value;
+            if (!name || !email) {
+                alert('Please fill in your contact information.');
+                return;
+            }
+            alert('Your request for ' + tour.title + ' has been sent! Please ensure you also completed the calendar slot above.');
+        });
+
+        // Placeholder logic
+        const calendarIframe = document.getElementById('calendar-iframe');
+        if (calendarIframe.src.includes('AcZssZ')) {
+            document.getElementById('calendar-placeholder').style.display = 'flex';
+            calendarIframe.style.display = 'none';
+        }
+    </script>
+</body>
+
+</html>
