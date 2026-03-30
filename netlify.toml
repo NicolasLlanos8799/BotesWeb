@@ -1,0 +1,9 @@
+[[redirects]]
+  from = "/booking"
+  to = "/booking/index.html"
+  status = 200
+
+[build.processing]
+  skip_processing = false
+[build.processing.html]
+  pretty_urls = true

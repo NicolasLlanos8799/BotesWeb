@@ -660,6 +660,59 @@ button {
   color: var(--clr-text-mid);
   line-height: 1.65;
   margin-bottom: var(--space-md);
+  min-height: 4.5em;
+  /* Helps align buttons by giving space for description */
+}
+
+.tour-card__price {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--clr-navy);
+  margin-bottom: var(--space-md);
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+}
+
+.tour-card__price::before {
+  content: 'From';
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--clr-text-light);
+  letter-spacing: 0.05em;
+}
+
+.tour-addon {
+  transition: transform var(--transition-smooth), box-shadow var(--transition-smooth);
+}
+
+/* ── View All Experiences CTA ── */
+.tours-view-all {
+  margin-top: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-xl);
+  background: linear-gradient(135deg, var(--clr-navy) 0%, var(--clr-navy-mid) 100%);
+  border-radius: var(--radius-lg);
+  text-align: center;
+}
+
+.tours-view-all__text {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.72);
+  margin: 0;
+}
+
+.tours-view-all__text strong {
+  color: var(--clr-white);
+}
+
+.tour-addon:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
 }
 
 /* ── 9. BESTSELLERS ─────────────────────────────────────────────────────── */
@@ -896,6 +949,18 @@ button {
   color: rgba(255, 255, 255, 0.65);
 }
 
+.why-section .welcome-p {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.why-section .stat-number {
+  color: var(--clr-white);
+}
+
+.why-section .stat-label {
+  color: rgba(255, 255, 255, 0.7);
+}
+
 .features-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -934,6 +999,23 @@ button {
   font-size: 0.92rem;
   color: rgba(255, 255, 255, 0.65);
   line-height: 1.7;
+}
+
+.perfect-for-line {
+  margin-top: var(--space-lg);
+  text-align: center;
+  font-size: 1rem;
+  color: var(--clr-text-mid);
+  letter-spacing: 0.04em;
+}
+
+.perfect-for-line span {
+  display: block;
+  margin-top: 0.4rem;
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--clr-text-light);
+  letter-spacing: 0;
 }
 
 /* ── 12. TESTIMONIALS ───────────────────────────────────────────────────── */
