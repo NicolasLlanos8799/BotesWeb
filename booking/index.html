@@ -295,35 +295,17 @@
 
 <body class="booking-page">
 
-    <!-- Header / Navbar -->
-    <header class="navbar" id="navbar">
-        <div class="navbar__inner container">
-            <a href="../" class="navbar__logo" id="header-logo">
-                <span class="logo-text">⚓ Seaduced<em>Experience</em></span>
-            </a>
-
-            <nav class="navbar__nav" id="navMenu" role="navigation" aria-label="Main navigation">
-                <a href="../" class="nav-link" id="nav-home">Home</a>
-                <a href="../#tours" class="nav-link" id="nav-tours">Tours</a>
-                <a href="../#faq" class="nav-link" id="nav-faq">FAQ</a>
-                <a href="../#contact" class="nav-link" id="nav-contact">Contact</a>
-            </nav>
-
-            <div class="navbar__actions">
-                <button class="navbar__hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
-                    <span></span><span></span><span></span>
-                </button>
-            </div>
-        </div>
-
-        <!-- Mobile menu -->
-        <div class="navbar__mobile" id="mobileMenu">
-            <a href="../" class="nav-link" id="mob-home">Home</a>
-            <a href="../#tours" class="nav-link" id="mob-tours">Tours</a>
-            <a href="../#faq" class="nav-link" id="mob-faq">FAQ</a>
-            <a href="../#contact" class="nav-link" id="mob-contact">Contact</a>
-        </div>
-    </header>
+    <!-- Sticky nav -->
+    <nav class="booking-page__nav">
+        <a href="../" class="booking-page__back">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <path d="M10 12L6 8l4-4" />
+            </svg>
+            Back to Home
+        </a>
+        <span class="booking-page__logo">⚓ Seaduced<em>Experience</em></span>
+        <div style="width: 100px;"></div><!-- spacer -->
+    </nav>
 
     <!-- Hero -->
     <header class="booking-hero">
@@ -450,7 +432,7 @@
                     <p class="booking-card__desc">Adrenaline on the harbor with pro guidance. Safety briefing, equipment
                         included, and multiple runs tailored to your level. Photos & video add-on available.</p>
                     <div class="booking-card__cta">
-                        <button class="btn btn--outline" disabled>Notify Me When Available</button>
+                        <button class="btn btn--outline" disabled>Notify Me </button>
                     </div>
                 </div>
             </article>
