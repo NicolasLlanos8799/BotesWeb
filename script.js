@@ -7,8 +7,8 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   /* ── NAVBAR: Scroll solid + mobile toggle ─────────────────────────────── */
-  const navbar     = document.getElementById('navbar');
-  const hamburger  = document.getElementById('hamburger');
+  const navbar = document.getElementById('navbar');
+  const hamburger = document.getElementById('hamburger');
   const mobileMenu = document.getElementById('mobileMenu');
 
   function updateNavbar() {
@@ -78,16 +78,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   /* ── TESTIMONIAL CAROUSEL ─────────────────────────────────────────────── */
-  const track     = document.getElementById('testimonialTrack');
-  const prevBtn   = document.getElementById('carouselPrev');
-  const nextBtn   = document.getElementById('carouselNext');
-  const dotsWrap  = document.getElementById('carouselDots');
+  const track = document.getElementById('testimonialTrack');
+  const prevBtn = document.getElementById('carouselPrev');
+  const nextBtn = document.getElementById('carouselNext');
+  const dotsWrap = document.getElementById('carouselDots');
 
   if (track) {
-    const cards     = track.querySelectorAll('.testimonial-card');
-    const total     = cards.length;
-    let current     = 0;
-    let autoTimer   = null;
+    const cards = track.querySelectorAll('.testimonial-card');
+    const total = cards.length;
+    let current = 0;
+    let autoTimer = null;
 
     // Build dots
     cards.forEach((_, i) => {
@@ -150,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ── FAQ ACCORDION ────────────────────────────────────────────────────── */
   document.querySelectorAll('.faq-question').forEach(btn => {
     btn.addEventListener('click', () => {
-      const item   = btn.closest('.faq-item');
+      const item = btn.closest('.faq-item');
       const answer = document.getElementById(btn.getAttribute('aria-controls'));
       const isOpen = item.classList.contains('open');
 
@@ -198,13 +198,63 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 
-  /* ── SUBTLE PARALLAX on hero image ──────────────────────────────────────── */
-  const heroImg = document.querySelector('.hero__img');
-  if (heroImg && window.innerWidth > 768) {
-    window.addEventListener('scroll', () => {
-      const scrolled = window.pageYOffset;
-      heroImg.style.transform = `scale(1) translateY(${scrolled * 0.3}px)`;
-    }, { passive: true });
+  /* ── BOOKING OVERLAY ──────────────────────────────────────────────────── */
+  const bookingOverlay = document.getElementById('bookingOverlay');
+  const bookingPanel = document.getElementById('bookingPanel');
+  const bookingClose = document.getElementById('bookingClose');
+  const bookingBackdrop = document.getElementById('bookingBackdrop');
+
+  function openBooking() {
+    bookingOverlay.hidden = false;
+    // Trigger reflow so transition fires
+    bookingOverlay.offsetHeight;
+    bookingOverlay.classList.add('is-open');
+    document.body.classList.add('booking-open');
+    bookingClose.focus();
   }
+
+  function closeBooking() {
+    bookingOverlay.classList.remove('is-open');
+    document.body.classList.remove('booking-open');
+    // Wait for slide-out transition, then hide
+    bookingPanel.addEventListener('transitionend', () => {
+      bookingOverlay.hidden = true;
+    }, { once: true });
+  }
+
+  // Open on ALL Book Here / Book Now buttons
+  document.querySelectorAll(
+    '#nav-book, #mob-book, #nav-cta, #mob-cta, ' +
+    '#hero-book-cta, #cta-book-here, ' +
+    '#bestseller-private-cta, #bestseller-sunset-cta, #bestseller-hygge-cta, ' +
+    '#tour-card-private-cta, #tour-card-winter-cta, #tour-card-sunset-cta, ' +
+    '#welcome-book-cta, #footer-book'
+  ).forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.preventDefault();
+      openBooking();
+    });
+  });
+
+  // Close on ✕ button and backdrop
+  bookingClose.addEventListener('click', closeBooking);
+  bookingBackdrop.addEventListener('click', closeBooking);
+
+  // Close on Escape key
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && bookingOverlay.classList.contains('is-open')) {
+      closeBooking();
+    }
+  });
+
+  // Individual tour "Book Here" buttons inside panel — placeholder alert
+  document.querySelectorAll('.bp-book-btn').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.preventDefault();
+      const tour = btn.dataset.tour || 'this tour';
+      // TODO: Replace with actual booking URL / payment link per tour
+      alert(`Booking: ${tour}\n\nPlease add your booking link here.`);
+    });
+  });
 
 });
