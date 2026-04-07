@@ -22,7 +22,7 @@
             background: var(--clr-navy);
             padding: var(--space-md) var(--space-lg);
             display: grid;
-            grid-template-columns: 80px 1fr 80px;
+            grid-template-columns: 1fr auto 1fr;
             align-items: center;
             position: sticky;
             top: 0;
@@ -35,6 +35,7 @@
             color: rgba(255, 255, 255, 0.75);
             text-decoration: none;
             transition: color var(--transition-fast);
+            justify-self: start;
         }
 
         .reserve-nav__back:hover {
@@ -44,8 +45,9 @@
         .reserve-nav__logo {
             text-align: center;
             font-family: var(--font-display);
-            font-size: 1.2rem;
+            font-size: clamp(1rem, 4vw, 1.25rem);
             color: var(--clr-white);
+            font-weight: 700;
         }
 
         .reserve-nav__logo em {
@@ -54,15 +56,16 @@
         }
 
         .reserve-container {
-            max-width: 1200px;
+            max-width: var(--max-width);
             margin: 0 auto;
-            padding: var(--space-lg) var(--space-lg) var(--space-xl);
+            padding: var(--space-lg);
             display: grid;
-            grid-template-columns: 1fr 400px;
+            grid-template-columns: 1fr 380px;
             gap: var(--space-xl);
+            width: 100%;
         }
 
-        @media (max-width: 992px) {
+        @media (max-width: 1024px) {
             .reserve-container {
                 grid-template-columns: 1fr;
             }
@@ -94,21 +97,22 @@
         }
 
         .reserve-section__title span {
-            font-size: 1.2rem;
+            font-size: 0.9rem;
             background: var(--clr-navy);
             color: var(--clr-white);
-            width: 32px;
-            height: 32px;
+            width: 30px;
+            height: 30px;
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 50%;
+            flex-shrink: 0;
         }
 
         /* Calendar Wrapper */
         .calendar-wrapper {
             width: 100%;
-            height: 600px;
+            height: clamp(400px, 60vh, 600px);
             background: var(--clr-sand-lt);
             border-radius: var(--radius-md);
             display: flex;
@@ -181,10 +185,10 @@
             background: var(--clr-white);
             padding: var(--space-xl);
             border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-card);
+            box-shadow: var(--shadow-md);
             border-top: 4px solid var(--clr-sunset);
             position: sticky;
-            top: 100px;
+            top: calc(var(--navbar-h) + 2rem);
         }
 
         .summary-item {
