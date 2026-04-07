@@ -395,21 +395,20 @@ button:focus-visible,
   top: var(--navbar-h);
   left: 0;
   right: 0;
-  bottom: 0;
+  max-height: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-md);
-  background: rgba(10, 20, 38, 0.98);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  padding: var(--space-xl) var(--space-md);
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  transform: translateY(-100%);
+  align-items: stretch;
+  gap: 0.6rem;
+  background: #0b1b30;
+  padding: 0 var(--space-md);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  transform: translateY(-8px);
   opacity: 0;
   visibility: hidden;
-  transition: all var(--transition-smooth);
+  overflow: hidden;
+  pointer-events: none;
+  transition: opacity var(--transition-fast), transform var(--transition-fast), max-height var(--transition-smooth), padding var(--transition-fast);
   z-index: 999;
 }
 
@@ -417,11 +416,31 @@ button:focus-visible,
   transform: translateY(0);
   opacity: 1;
   visibility: visible;
+  pointer-events: auto;
+  max-height: calc(100svh - var(--navbar-h));
+  padding: 0.9rem var(--space-md) max(1rem, env(safe-area-inset-bottom));
 }
 
 .navbar__mobile .nav-link {
   font-size: 1rem;
-  padding: 0.3rem 0;
+  text-align: center;
+  font-weight: 500;
+  letter-spacing: 0.005em;
+  color: rgba(255, 255, 255, 0.9);
+  padding: 0.65rem 1rem;
+  transition: color var(--transition-fast), opacity var(--transition-fast);
+}
+
+.navbar__mobile .nav-link:hover {
+  color: #ffffff;
+  opacity: 0.95;
+}
+
+.navbar__mobile .btn {
+  width: min(100%, 420px);
+  margin-inline: auto;
+  justify-content: center;
+  min-height: 48px;
 }
 
 /* ── 7. HERO SECTION ────────────────────────────────────────────────────── */
@@ -2119,8 +2138,24 @@ body.booking-open {
     display: none;
   }
 
+  .navbar__actions .btn--sm {
+    display: none;
+  }
+
   .navbar__hamburger {
     display: flex;
+  }
+
+  .navbar__mobile {
+    overflow-y: auto;
+  }
+
+  .navbar__mobile .nav-link {
+    width: 100%;
+  }
+
+  .navbar__mobile .nav-link::after {
+    display: none;
   }
 
   .hero__content {
