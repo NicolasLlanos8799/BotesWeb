@@ -424,6 +424,13 @@ button:focus-visible,
   padding: 0.3rem 0;
 }
 
+.navbar__mobile .btn {
+  width: min(100%, 420px);
+  margin-inline: auto;
+  justify-content: center;
+  min-height: 48px;
+}
+
 /* ── 7. HERO SECTION ────────────────────────────────────────────────────── */
 .hero {
   position: relative;
@@ -2119,8 +2126,35 @@ body.booking-open {
     display: none;
   }
 
+  .navbar__actions .btn--sm {
+    display: none;
+  }
+
   .navbar__hamburger {
     display: flex;
+  }
+
+  .navbar__mobile {
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 0.75rem;
+    padding: calc(var(--space-xl) + 0.5rem) var(--space-md) max(var(--space-xl), env(safe-area-inset-bottom));
+    overflow-y: auto;
+  }
+
+  .navbar__mobile .nav-link {
+    width: min(100%, 420px);
+    margin-inline: auto;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.06);
+    padding: 0.8rem 1rem;
+    color: var(--clr-white);
+  }
+
+  .navbar__mobile .nav-link::after {
+    display: none;
   }
 
   .hero__content {
