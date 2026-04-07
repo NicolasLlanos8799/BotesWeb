@@ -424,11 +424,20 @@ button:focus-visible,
 .navbar__mobile .nav-link {
   font-size: 1rem;
   text-align: center;
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(255, 255, 255, 0.04);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: transparent;
   color: var(--clr-white);
-  padding: 0.75rem 1rem;
+  padding: 0.8rem 1rem;
+  transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+}
+
+.navbar__mobile .nav-link:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.38);
+  color: #ffffff;
 }
 
 .navbar__mobile .btn {
