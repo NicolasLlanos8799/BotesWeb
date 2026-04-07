@@ -395,21 +395,20 @@ button:focus-visible,
   top: var(--navbar-h);
   left: 0;
   right: 0;
-  bottom: 0;
+  max-height: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-md);
-  background: rgba(10, 20, 38, 0.98);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  padding: var(--space-xl) var(--space-md);
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  transform: translateY(-100%);
+  align-items: stretch;
+  gap: 0.6rem;
+  background: #0b1b30;
+  padding: 0 var(--space-md);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  transform: translateY(-8px);
   opacity: 0;
   visibility: hidden;
-  transition: all var(--transition-smooth);
+  overflow: hidden;
+  pointer-events: none;
+  transition: opacity var(--transition-fast), transform var(--transition-fast), max-height var(--transition-smooth), padding var(--transition-fast);
   z-index: 999;
 }
 
@@ -417,11 +416,19 @@ button:focus-visible,
   transform: translateY(0);
   opacity: 1;
   visibility: visible;
+  pointer-events: auto;
+  max-height: calc(100svh - var(--navbar-h));
+  padding: 0.9rem var(--space-md) max(1rem, env(safe-area-inset-bottom));
 }
 
 .navbar__mobile .nav-link {
   font-size: 1rem;
-  padding: 0.3rem 0;
+  text-align: center;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--clr-white);
+  padding: 0.75rem 1rem;
 }
 
 .navbar__mobile .btn {
@@ -2135,22 +2142,11 @@ body.booking-open {
   }
 
   .navbar__mobile {
-    align-items: stretch;
-    justify-content: flex-start;
-    gap: 0.75rem;
-    padding: calc(var(--space-xl) + 0.5rem) var(--space-md) max(var(--space-xl), env(safe-area-inset-bottom));
     overflow-y: auto;
   }
 
   .navbar__mobile .nav-link {
-    width: min(100%, 420px);
-    margin-inline: auto;
-    text-align: center;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.06);
-    padding: 0.8rem 1rem;
-    color: var(--clr-white);
+    width: 100%;
   }
 
   .navbar__mobile .nav-link::after {
