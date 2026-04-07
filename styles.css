@@ -72,7 +72,6 @@ html {
   scroll-behavior: smooth;
   font-size: 16px;
   -webkit-text-size-adjust: 100%;
-  overflow-x: clip;
 }
 
 body {
@@ -2207,19 +2206,19 @@ body.booking-open {
     font-size: 0.9rem;
   }
 
-  .logo-text {
-    font-size: 1rem;
+  .navbar__inner {
+    gap: 0.5rem;
   }
 
-  .navbar__actions .btn {
-    display: none;
+  .navbar__actions .btn--sm {
+    font-size: 0.8rem;
+    padding: 0.55em 1em;
+    min-height: 40px;
   }
 
   .hero__badge {
     white-space: normal;
     line-height: 1.4;
-    justify-content: center;
-    text-align: center;
   }
 
   .cta-section__buttons {

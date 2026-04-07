@@ -191,7 +191,10 @@ document.addEventListener('DOMContentLoaded', () => {
       if (href.includes('#')) {
         const parts = href.split('#');
         const path = parts[0];
-        const targetId = '#' + parts[1];
+        const hash = parts[1];
+
+        if (!hash) return;
+        const targetId = '#' + hash;
 
         // If we are already on that path (or path is empty), smooth scroll
         if (path === '' || window.location.pathname.endsWith(path)) {
