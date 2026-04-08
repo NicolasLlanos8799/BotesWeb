@@ -535,10 +535,10 @@ button:focus-visible,
   inset: 0;
   z-index: 2;
   background: linear-gradient(90deg,
-      rgba(0, 0, 0, 0.87) 0%,
-      rgba(0, 0, 0, 0.70) 30%,
-      rgba(0, 0, 0, 0.50) 60%,
-      rgba(0, 0, 0, 0.35) 85%);
+      rgba(0, 0, 0, 0.95) 0%,
+      rgba(0, 0, 0, 0.85) 30%,
+      rgba(0, 0, 0, 0.70) 60%,
+      rgba(0, 0, 0, 0.55) 85%);
 }
 
 .hero__content {
