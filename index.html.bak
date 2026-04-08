@@ -61,10 +61,7 @@
     ═══════════════════════════════════════════ -->
     <section class="hero" id="hero">
       <div class="hero__bg">
-        <picture>
-          <source srcset="images/hero_canal_copenhagen.webp" type="image/webp" />
-          <img src="images/hero_canal_copenhagen.png" alt="Copenhagen canals boat tour" class="hero__bg-img" />
-        </picture>
+        <div class="hero__overlay"></div>
       </div>
 
       <div class="container hero__content">
@@ -120,7 +117,7 @@
             <div class="tour-card__img-wrap">
               <picture>
                 <source srcset="images/tour_private_boat.webp" type="image/webp" />
-                <img src="images/tour_private_boat.png" alt="Private 1-Hour Highlights" loading="lazy" width="960" height="600" />
+                <img src="images/tour_private_boat.png" data-webp="images/tour_private_boat.webp" alt="Private 1-Hour Highlights" loading="lazy" width="960" height="600" />
               </picture>
               <span class="tour-card__tag">The Classic</span>
             </div>
@@ -138,7 +135,7 @@
             <div class="tour-card__img-wrap">
               <picture>
                 <source srcset="images/tour_trekroner.webp" type="image/webp" />
-                <img src="images/tour_trekroner.png" alt="Private 4-Hour Premium Experience" loading="lazy" width="960" height="600" />
+                <img src="images/tour_trekroner.png" data-webp="images/tour_trekroner.webp" alt="Private 4-Hour Premium Experience" loading="lazy" width="960" height="600" />
               </picture>
               <span class="tour-card__tag">Flagship</span>
             </div>
@@ -155,10 +152,7 @@
 
           <article class="tour-card reveal" id="tour-reffen">
             <div class="tour-card__img-wrap">
-              <picture>
-                <source srcset="images/tour_sunset_boat.webp" type="image/webp" />
-                <img src="images/tour_sunset_boat.png" alt="3-Hour Extended Reffen Experience" loading="lazy" width="960" height="600" / />
-              </picture>
+              <img src="images/tour_sunset_boat.png" data-webp="images/tour_sunset_boat.webp" alt="3-Hour Extended Reffen Experience" loading="lazy" width="960" height="600" />
               <span class="tour-card__tag">Bestseller</span>
             </div>
             <div class="tour-card__body">
@@ -228,11 +222,8 @@
 
           <div class="welcome-split__images reveal">
             <div class="img-stack">
-              <picture>
-                <source srcset="images/brand_welcome_image.webp" type="image/webp" />
-                <img src="images/brand_welcome_image.png" alt="Luxury boat experience in Copenhagen" width="1080" height="1440"
-                class="img-stack__main" / />
-              </picture>
+              <img src="images/brand_welcome_image.png" data-webp="images/brand_welcome_image.webp" alt="Luxury boat experience in Copenhagen" width="1080" height="1440"
+                class="img-stack__main" />
               <div class="img-stack__badge">
                 <span class="stack-rating">⭐ 5.0</span>
                 <span class="stack-label">GetYourGuide</span>
