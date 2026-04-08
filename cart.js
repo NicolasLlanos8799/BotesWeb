@@ -5,18 +5,18 @@
 
 const toursData = {
     'book-1h': { title: 'Private 1-Hour Highlights', price: 2499, img: 'images/tour_private_boat.png' },
-    'book-winter': { title: '2-Hour Winter Hygge 2026', price: 4999, img: 'images/tour_winter_hygge.png' },
+    'book-winter': { title: '2-Hour Winter Hygge 2026', price: 4999, img: 'images/tour_winter_hygge.webp' },
     'book-reffen': { title: 'Private 3-Hour Extended (Reffen)', price: 4299, img: 'images/tour_sunset_boat.png' },
     'book-premium': { title: 'Private 4-Hour Premium Experience', price: 5999, img: 'images/tour_trekroner.png' },
     // Seasonal & Boutique and Private Tours
     'book-winter-captain': { title: 'Private Boat Tour with Captain', price: 2499, img: 'images/tour_private_boat.png' },
-    'book-winter-hygge': { title: 'Private Hygge Winter Tour', price: 4999, img: 'images/tour_winter_hygge_book.png' },
-    'book-christmas': { title: 'Christmas Tour w. Tapas & Champagne', price: 5999, img: 'images/tour_christmas_champagne.png' }
+    'book-winter-hygge': { title: 'Private Hygge Winter Tour', price: 4999, img: 'images/tour_winter_hygge_book.webp' },
+    'book-christmas': { title: 'Christmas Tour w. Tapas & Champagne', price: 5999, img: 'images/tour_christmas_champagne.webp' }
 };
 
 const extraTapas = {
     title: 'Charcuterie',
-    img: 'images/tour_christmas_champagne.png',
+    img: 'images/tour_christmas_champagne.webp',
     price: 225
 };
 
