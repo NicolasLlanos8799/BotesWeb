@@ -4,19 +4,19 @@
  */
 
 const toursData = {
-    'book-1h': { title: 'Private 1-Hour Highlights', price: 2499, img: 'images/tour_private_boat.png' },
-    'book-winter': { title: '2-Hour Winter Hygge 2026', price: 4999, img: 'images/tour_winter_hygge.webp' },
-    'book-reffen': { title: 'Private 3-Hour Extended (Reffen)', price: 4299, img: 'images/tour_sunset_boat.png' },
-    'book-premium': { title: 'Private 4-Hour Premium Experience', price: 5999, img: 'images/tour_trekroner.png' },
+    'book-1h': { title: 'Private 1-Hour Highlights', price: 2499, img: '/images/tour_private_boat.png' },
+    'book-winter': { title: '2-Hour Winter Hygge 2026', price: 4999, img: '/images/tour_winter_hygge.webp' },
+    'book-reffen': { title: 'Private 3-Hour Extended (Reffen)', price: 4299, img: '/images/tour_sunset_boat.png' },
+    'book-premium': { title: 'Private 4-Hour Premium Experience', price: 5999, img: '/images/tour_trekroner.png' },
     // Seasonal & Boutique and Private Tours
-    'book-winter-captain': { title: 'Private Boat Tour with Captain', price: 2499, img: 'images/tour_private_boat.png' },
-    'book-winter-hygge': { title: 'Private Hygge Winter Tour', price: 4999, img: 'images/tour_winter_hygge_book.webp' },
-    'book-christmas': { title: 'Christmas Tour w. Tapas & Champagne', price: 5999, img: 'images/tour_christmas_champagne.webp' }
+    'book-winter-captain': { title: 'Private Boat Tour with Captain', price: 2499, img: '/images/tour_private_boat.png' },
+    'book-winter-hygge': { title: 'Private Hygge Winter Tour', price: 4999, img: '/images/tour_winter_hygge_book.webp' },
+    'book-christmas': { title: 'Christmas Tour w. Tapas & Champagne', price: 5999, img: '/images/tour_christmas_champagne.webp' }
 };
 
 const extraTapas = {
     title: 'Charcuterie',
-    img: 'images/tour_christmas_champagne.webp',
+    img: '/images/tour_christmas_champagne.webp',
     price: 225
 };
 
@@ -121,8 +121,7 @@ function renderCart() {
     }
 
     const tour = toursData[cart.tour];
-    const isInsideBooking = window.location.pathname.includes('/booking/');
-    const imgBase = isInsideBooking && !window.location.pathname.includes('/reserve/') ? '../' : '';
+    const imgBase = '';
 
     // Build items HTML
     let html = `
@@ -180,8 +179,7 @@ function renderCart() {
  */
 function handleCheckout() {
     if (!cart.tour) return;
-    const isInsideBooking = window.location.pathname.includes('/booking/booking.html') || window.location.pathname.includes('/booking/');
-    const baseUrl = isInsideBooking ? 'reserve/reserve.html' : 'booking/reserve/reserve.html';
+    const baseUrl = '/booking/reserve/';
     window.location.href = `${baseUrl}?tour=${cart.tour}&qty=${cart.tourQty}&tapas=${cart.tapasQty}`;
 }
 

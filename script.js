@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
     anchor.addEventListener('click', function (e) {
       const href = this.getAttribute('href');
       
-      // If it's just a hash or a cross-page hash (like index.html#tours)
+      // If it's just a hash or a cross-page hash (like /#tours)
       if (href.includes('#')) {
         const parts = href.split('#');
         const path = parts[0];
@@ -197,7 +197,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const targetId = '#' + hash;
 
         // If we are already on that path (or path is empty), smooth scroll
-        if (path === '' || window.location.pathname.endsWith(path)) {
+        const pathname = window.location.pathname;
+        const isSamePath =
+          path === '' ||
+          pathname === path ||
+          (path === '/' && (pathname === '/' || pathname.endsWith('/index.html')));
+
+        if (isSamePath) {
           const target = document.querySelector(targetId);
           if (target) {
             e.preventDefault();

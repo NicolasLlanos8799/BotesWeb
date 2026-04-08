@@ -1,12 +1,12 @@
 [[redirects]]
   from = "/booking"
-  to = "/booking/booking.html"
-  status = 200
+  to = "/booking/"
+  status = 301
 
 [[redirects]]
   from = "/booking/reserve"
-  to = "/booking/reserve/reserve.html"
-  status = 200
+  to = "/booking/reserve/"
+  status = 301
 
 [build.processing]
   skip_processing = false

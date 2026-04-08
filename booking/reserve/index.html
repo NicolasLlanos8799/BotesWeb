@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
-    <link rel="icon" href="../../favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Complete Your Reservation | Seaduced-Experience</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -11,7 +11,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap"
         rel="stylesheet" />
-    <link rel="stylesheet" href="../../styles.css" />
+    <link rel="stylesheet" href="/styles.css" />
     <style>
         .reserve-page {
             background: var(--clr-off-white);
@@ -356,7 +356,7 @@
 
 <body class="reserve-page">
     <nav class="reserve-nav">
-        <a href="../booking.html" class="reserve-nav__back" aria-label="Back to selection">
+        <a href="/booking/" class="reserve-nav__back" aria-label="Back to selection">
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
                 style="width: 20px; height: 20px;">
                 <path d="M10 12L6 8l4-4" />
@@ -369,7 +369,7 @@
     <div class="reserve-container">
         <div class="reserve-main">
             <div class="tour-header">
-                <img id="tour-img" src="../../images/tour_private_boat.png" alt="Tour image" />
+                <img id="tour-img" src="/images/tour_private_boat.png" alt="Tour image" />
                 <div style="flex: 1;">
                     <h1 id="tour-title">Private Boat Tour</h1>
                     <p id="tour-duration" style="font-size: 0.9rem; color: var(--clr-text-light);"></p>
@@ -398,7 +398,7 @@
             <section class="reserve-section" id="extras-section">
                 <h2 class="reserve-section__title"><span>2</span> Enhance Your Experience</h2>
                 <div class="extra-card">
-                    <img src="../../images/tour_christmas_champagne.webp" alt="Tapas Box" class="extra-card__img" />
+                    <img src="/images/tour_christmas_champagne.webp" alt="Tapas Box" class="extra-card__img" />
                     <div class="extra-card__info">
                         <h3>Charcuterie</h3>
                         <p>Selection of 2 cheeses, 2 meats, marmalade, bread, nuts and olives.</p>
@@ -458,13 +458,13 @@
 
     <script>
         const tours = {
-            'book-1h': { title: 'Private 1-Hour Highlights', price: 2499, duration: '1 Hour', img: '../../images/tour_private_boat.png' },
-            'book-winter': { title: '2-Hour Winter Hygge 2026', price: 4999, duration: '2 Hours', img: '../../images/tour_winter_hygge.webp' },
-            'book-reffen': { title: 'Private 3-Hour Extended (Reffen)', price: 4299, duration: '3 Hours', img: '../../images/tour_sunset_boat.png' },
-            'book-premium': { title: 'Private 4-Hour Premium Experience', price: 5999, duration: '4 Hours', img: '../../images/tour_trekroner.png' },
-            'book-winter-captain': { title: 'Private Boat Tour with Captain', price: 2499, duration: '1 Hour', img: '../../images/tour_private_boat.png' },
-            'book-winter-hygge': { title: 'Private Hygge Winter Tour', price: 4999, duration: '2 Hours', img: '../../images/tour_winter_hygge_book.webp' },
-            'book-christmas': { title: 'Christmas Tour w. Tapas & Champagne', price: 5999, duration: '2 Hours', img: '../../images/tour_christmas_champagne.webp' }
+            'book-1h': { title: 'Private 1-Hour Highlights', price: 2499, duration: '1 Hour', img: '/images/tour_private_boat.png' },
+            'book-winter': { title: '2-Hour Winter Hygge 2026', price: 4999, duration: '2 Hours', img: '/images/tour_winter_hygge.webp' },
+            'book-reffen': { title: 'Private 3-Hour Extended (Reffen)', price: 4299, duration: '3 Hours', img: '/images/tour_sunset_boat.png' },
+            'book-premium': { title: 'Private 4-Hour Premium Experience', price: 5999, duration: '4 Hours', img: '/images/tour_trekroner.png' },
+            'book-winter-captain': { title: 'Private Boat Tour with Captain', price: 2499, duration: '1 Hour', img: '/images/tour_private_boat.png' },
+            'book-winter-hygge': { title: 'Private Hygge Winter Tour', price: 4999, duration: '2 Hours', img: '/images/tour_winter_hygge_book.webp' },
+            'book-christmas': { title: 'Christmas Tour w. Tapas & Champagne', price: 5999, duration: '2 Hours', img: '/images/tour_christmas_champagne.webp' }
         };
 
         const params = new URLSearchParams(window.location.search);
@@ -529,7 +529,7 @@
             calendarIframe.style.display = 'none';
         }
     </script>
-    <script src="../../script.js"></script>
+    <script src="/script.js"></script>
 </body>
 
 </html>
