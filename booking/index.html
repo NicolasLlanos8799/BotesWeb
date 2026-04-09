@@ -14,281 +14,6 @@
         href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap"
         rel="stylesheet" />
     <link rel="stylesheet" href="/styles.css" />
-    <style>
-        /* ── Booking page specific styles ── */
-        .booking-page {
-            min-height: 100vh;
-            background: var(--clr-off-white);
-        }
-
-        /* Hero */
-        .booking-hero {
-            background: linear-gradient(135deg, var(--clr-navy) 0%, var(--clr-navy-mid) 100%);
-            padding: calc(var(--navbar-h) + 4rem) var(--space-lg) 4rem;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .booking-hero::before {
-            content: '';
-            position: absolute;
-            top: -20%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: clamp(300px, 80vw, 600px);
-            height: clamp(300px, 80vw, 600px);
-            background: radial-gradient(circle, rgba(232, 131, 74, 0.12) 0%, transparent 65%);
-            pointer-events: none;
-        }
-
-        .booking-hero__label {
-            font-size: 0.72rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.14em;
-            color: var(--clr-sunset-lt);
-            margin-bottom: var(--space-sm);
-        }
-
-        .booking-hero__title {
-            font-family: var(--font-display);
-            font-size: clamp(2.2rem, 6vw, 3.8rem);
-            font-weight: 700;
-            color: var(--clr-white);
-            line-height: 1.1;
-            margin-bottom: var(--space-md);
-        }
-
-        .booking-hero__title em {
-            font-style: italic;
-            color: var(--clr-sunset-lt);
-        }
-
-        .booking-hero__intro {
-            font-size: clamp(1rem, 1.2vw, 1.15rem);
-            color: rgba(255, 255, 255, 0.75);
-            max-width: 720px;
-            margin: 0 auto var(--space-lg);
-            line-height: 1.7;
-        }
-
-        .booking-hero__badges {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-        }
-
-        .booking-hero__badges span {
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: rgba(255, 255, 255, 0.9);
-            background: rgba(255, 255, 255, 0.10);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 0.4em 1.1em;
-            border-radius: var(--radius-full);
-            backdrop-filter: blur(4px);
-        }
-
-        /* Main layout */
-        .booking-main {
-            max-width: var(--max-width);
-            margin: 0 auto;
-            padding: var(--space-xl) var(--space-lg);
-        }
-
-        /* Season header */
-        .booking-season {
-            display: flex;
-            align-items: center;
-            gap: var(--space-md);
-            margin: var(--space-2xl) 0 var(--space-lg);
-        }
-
-        .booking-season__line {
-            flex: 1;
-            height: 1px;
-            background: var(--clr-sand);
-            opacity: 0.4;
-        }
-
-        .booking-season__label {
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            color: var(--clr-navy);
-            white-space: nowrap;
-        }
-
-        /* Tours grid */
-        .booking-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
-            gap: var(--space-md);
-            max-width: 1120px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .booking-card {
-            background: var(--clr-white);
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-            box-shadow: var(--shadow-card);
-            display: flex;
-            flex-direction: column;
-            transition: all var(--transition-smooth);
-            height: 100%;
-        }
-
-        .booking-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .booking-card--soon {
-            opacity: 0.7;
-            filter: grayscale(0.5);
-        }
-
-        .booking-card__img {
-            position: relative;
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            overflow: hidden;
-        }
-
-        .booking-card__img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform var(--transition-slow);
-        }
-
-        .booking-card:hover .booking-card__img img {
-            transform: scale(1.08);
-        }
-
-        .booking-card__img--placeholder {
-            background: linear-gradient(135deg, var(--clr-navy) 0%, var(--clr-navy-light) 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-        }
-
-        .booking-card__img--placeholder span {
-            font-size: 3.5rem;
-        }
-
-        .booking-card__badge {
-            position: absolute;
-            top: var(--space-sm);
-            left: var(--space-sm);
-            background: var(--clr-sunset);
-            color: #fff;
-            font-size: 0.7rem;
-            font-weight: 700;
-            letter-spacing: 0.04em;
-            padding: 0.4em 0.8em;
-            border-radius: var(--radius-full);
-            backdrop-filter: blur(4px);
-            z-index: 2;
-        }
-
-        .booking-card__badge--blue {
-            background: var(--clr-blue);
-        }
-
-        .booking-card__body {
-            padding: var(--space-md);
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .booking-card__title {
-            font-family: var(--font-display);
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--clr-navy);
-            margin-bottom: var(--space-xs);
-            line-height: 1.3;
-        }
-
-        .booking-card__desc {
-            font-size: 0.85rem;
-            color: var(--clr-text-mid);
-            line-height: 1.7;
-            flex: 1;
-            margin-bottom: var(--space-lg);
-        }
-
-        .booking-card__price {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--clr-navy);
-            margin-bottom: var(--space-md);
-            display: flex;
-            align-items: baseline;
-            gap: 0.5rem;
-            margin-top: auto;
-        }
-
-        .booking-card__price::before {
-            content: 'From';
-            font-size: 0.7rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            color: var(--clr-text-light);
-            letter-spacing: 0.05em;
-        }
-
-        .booking-card__cta {
-            width: 100%;
-        }
-
-        .booking-card__cta .btn {
-            width: 100%;
-        }
-
-        /* Footer */
-        .booking-footer {
-            text-align: center;
-            padding: var(--space-2xl) var(--space-lg);
-            color: var(--clr-text-light);
-            font-size: 0.85rem;
-            border-top: 1px solid var(--clr-sand);
-            margin-top: var(--space-xl);
-        }
-
-        @media (max-width: 768px) {
-            .booking-hero {
-                padding: calc(var(--navbar-h) + 2.5rem) 1rem 2.5rem;
-            }
-
-            .booking-main {
-                padding: var(--space-lg) 1rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .booking-hero__title {
-                font-size: clamp(1.9rem, 9vw, 2.4rem);
-            }
-
-            .booking-season {
-                gap: 0.75rem;
-            }
-
-            .booking-season__label {
-                font-size: 0.68rem;
-                letter-spacing: 0.12em;
-            }
-        }
-    </style>
 </head>
 
 <body class="booking-page">
@@ -356,19 +81,25 @@
         <div class="booking-grid">
 
             <!-- Tour 1 -->
-            <article class="booking-card" id="book-1h">
-                <div class="booking-card__img">
-                    <img src="/images/tour_private_boat.png" alt="Private 1-Hour Highlights tour Copenhagen"
-                        loading="lazy" width="960" height="600" />
-                    <span class="booking-card__badge">⏱ 1 Hour</span>
-                </div>
+            <article class="booking-card booking-card--clickable" id="book-1h" data-card-link="/experiences/copenhagen-private-guided-boat-tour/" tabindex="0" role="link" aria-label="Open Copenhagen private guided boat tour experience page">
+                <a class="booking-card__media-link" href="/experiences/copenhagen-private-guided-boat-tour/" aria-label="View Copenhagen private guided boat tour details">
+                    <div class="booking-card__img">
+                        <img src="/images/tour_private_boat.png" alt="Copenhagen private guided boat tour"
+                            loading="lazy" width="960" height="600" />
+                        <span class="booking-card__badge">⏱ 1 Hour</span>
+                    </div>
+                </a>
                 <div class="booking-card__body">
-                    <h2 class="booking-card__title">Private 1-Hour Highlights</h2>
-                    <p class="booking-card__desc">Includes professional captain, 1-hour private sailing through
-                        Copenhagen's highlights, and full safety equipment. Onboard speaker available.</p>
-                    <div class="booking-card__price">2,499 DKK</div>
+                    <h2 class="booking-card__title"><a class="booking-card__title-link" href="/experiences/copenhagen-private-guided-boat-tour/">Copenhagen: Private Guided Boat Tour</a></h2>
+                    <p class="booking-card__desc">Sail through Copenhagen on a private boat tour with your own guide.
+                        Enjoy music, drinks, and stunning views, and stop for a swim, relax, or explore. It’s your
+                        tour, your way.</p>
+                    <div class="booking-card__price">
+                        <span class="booking-card__amount">2,499 DKK</span>
+                        <span class="booking-card__price-note">per group up to 8</span>
+                    </div>
                     <div class="booking-card__cta">
-                        <button onclick="openCart('book-1h')" class="btn btn--primary" id="book-cta-1h">Book Now
+                        <button onclick="goToReserve('book-1h')" class="btn btn--primary" id="book-cta-1h">Book Now
                             →</button>
                     </div>
                 </div>
@@ -385,9 +116,12 @@
                     <h2 class="booking-card__title">Private 3-Hour Extended (Reffen)</h2>
                     <p class="booking-card__desc">Includes 3 hours of private sailing with a 1-hour stop at Reffen
                         Street Food. Extended route beyond the central canals.</p>
-                    <div class="booking-card__price">4,299 DKK</div>
+                    <div class="booking-card__price">
+                        <span class="booking-card__amount">4,299 DKK</span>
+                        <span class="booking-card__price-note">per group up to 8</span>
+                    </div>
                     <div class="booking-card__cta">
-                        <button onclick="openCart('book-reffen')" class="btn btn--primary" id="book-cta-reffen">Book Now
+                        <button onclick="goToReserve('book-reffen')" class="btn btn--primary" id="book-cta-reffen">Book Now
                             →</button>
                     </div>
                 </div>
@@ -403,9 +137,12 @@
                     <h2 class="booking-card__title">Private 4-Hour Premium Experience</h2>
                     <p class="booking-card__desc">4 hours of private sailing, including 1 hour at Reffen and 1 hour at
                         Trekroner Fort. Swimming stop possibility and open water views.</p>
-                    <div class="booking-card__price">5,999 DKK</div>
+                    <div class="booking-card__price">
+                        <span class="booking-card__amount">5,999 DKK</span>
+                        <span class="booking-card__price-note">per group up to 8</span>
+                    </div>
                     <div class="booking-card__cta">
-                        <button onclick="openCart('book-premium')" class="btn btn--primary" id="book-cta-premium">Book Now
+                        <button onclick="goToReserve('book-premium')" class="btn btn--primary" id="book-cta-premium">Book Now
                             →</button>
                     </div>
                 </div>
@@ -452,9 +189,12 @@
                     <p class="booking-card__desc">Sail through Copenhagen on a private boat tour for 1 hour with your
                         own skipper–guide. Set your pace: glide past highlights, pause for photos, or relax with music
                         and drinks.</p>
-                    <div class="booking-card__price">2,499 DKK</div>
+                    <div class="booking-card__price">
+                        <span class="booking-card__amount">2,499 DKK</span>
+                        <span class="booking-card__price-note">per group up to 8</span>
+                    </div>
                     <div class="booking-card__cta">
-                        <button onclick="openCart('book-winter-captain')" class="btn btn--primary"
+                        <button onclick="goToReserve('book-winter-captain')" class="btn btn--primary"
                             id="book-cta-winter-captain">Book Now →</button>
                     </div>
                 </div>
@@ -472,9 +212,12 @@
                     <p class="booking-card__desc">Experience the Danish concept of hygge on a private canal boat tour
                         for 2 hours. Enjoy hot drinks, cozy blankets, and Danish winter sweets as you sail through
                         Copenhagen's canals.</p>
-                    <div class="booking-card__price">4,999 DKK</div>
+                    <div class="booking-card__price">
+                        <span class="booking-card__amount">4,999 DKK</span>
+                        <span class="booking-card__price-note">per group up to 8</span>
+                    </div>
                     <div class="booking-card__cta">
-                        <button onclick="openCart('book-winter-hygge')" class="btn btn--primary"
+                        <button onclick="goToReserve('book-winter-hygge')" class="btn btn--primary"
                             id="book-cta-winter-hygge">Book Now →</button>
                     </div>
                 </div>
@@ -492,9 +235,12 @@
                     <p class="booking-card__desc">Experience the magic of Copenhagen's canals for 2 hours. Enjoy a
                         charcuterie-style tapas box, Moët Champagne, and warm mulled wine in true Danish hygge style.
                     </p>
-                    <div class="booking-card__price">5,999 DKK</div>
+                    <div class="booking-card__price">
+                        <span class="booking-card__amount">5,999 DKK</span>
+                        <span class="booking-card__price-note">per group up to 8</span>
+                    </div>
                     <div class="booking-card__cta">
-                        <button onclick="openCart('book-christmas')" class="btn btn--primary"
+                        <button onclick="goToReserve('book-christmas')" class="btn btn--primary"
                             id="book-cta-christmas">Book Now
                             →</button>
                     </div>
@@ -510,73 +256,14 @@
                 Home</a></p>
     </footer>
 
-    <!-- Floating Cart Trigger -->
-    <div class="cart-trigger" id="cart-trigger"
-        onclick="document.getElementById('cart-overlay').classList.add('active')">
-        <div class="cart-trigger__icon">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5"
-                stroke-linecap="round">
-                <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4H6z"></path>
-                <line x1="3" y1="6" x2="21" y2="6"></line>
-                <path d="M16 10a4 4 0 01-8 0"></path>
-            </svg>
-            <span class="cart-trigger__badge" id="cart-badge">0</span>
-        </div>
-        <div class="cart-trigger__total" id="cart-trigger-total">0 DKK</div>
-    </div>
-
-    <!-- Cart Sidebar Overlay -->
-    <div class="cart-overlay" id="cart-overlay">
-        <div class="cart-panel">
-            <div class="cart-header">
-                <h3>Your Selection</h3>
-                <button class="cart-close" id="cart-close">
-                    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round">
-                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                    </svg>
-                </button>
-            </div>
-
-            <div class="cart-content" id="cart-items">
-                <!-- Items will be injected here -->
-            </div>
-
-            <div class="cart-footer">
-                <div class="cart-total">
-                    <span>Total</span>
-                    <span id="cart-total-display">0 DKK</span>
-                </div>
-                <button id="cart-checkout-btn" class="btn btn--primary" style="width: 100%;">Proceed to Reservation
-                    →</button>
-                <p style="font-size: 0.75rem; text-align: center; margin-top: 1rem; color: var(--clr-text-light);">
-                    Next: You will choose your date & time on the Google Calendar.
-                </p>
-            </div>
-        </div>
-    </div>
-
     <script src="/script.js"></script>
-    <script src="/cart.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Additional page-specific initialization if needed
-            document.querySelectorAll('.booking-card__cta a').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const tourId = btn.id.replace('book-cta-', 'book-');
-                    openCart(tourId);
-                });
-            });
-
-            // Close cart with specific booking-page selector if needed
-            const closeBtn = document.getElementById('cart-close');
-            if (closeBtn) {
-                closeBtn.addEventListener('click', () => {
-                    document.getElementById('cart-overlay').classList.remove('active');
-                });
+            function goToReserve(tourId) {
+                window.location.href = `/booking/reserve/?tour=${tourId}`;
             }
+
+            window.goToReserve = goToReserve;
         });
     </script>
 </body>

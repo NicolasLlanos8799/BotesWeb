@@ -117,20 +117,26 @@
 
         <div class="tours-grid">
 
-          <article class="tour-card reveal" id="tour-highlights">
+          <article class="tour-card tour-card--clickable reveal" id="tour-highlights" data-card-link="/experiences/copenhagen-private-guided-boat-tour/" tabindex="0" role="link" aria-label="Open Copenhagen private guided boat tour experience page">
+            <a class="tour-card__media-link" href="/experiences/copenhagen-private-guided-boat-tour/" aria-label="View Copenhagen private guided boat tour details">
             <div class="tour-card__img-wrap">
               <picture>
                 <source srcset="/images/tour_private_boat.webp" type="image/webp" />
-                <img src="/images/tour_private_boat.png" alt="Private 1-Hour Highlights" loading="lazy" width="960" height="600" />
+                <img src="/images/tour_private_boat.png" alt="Copenhagen private guided boat tour" loading="lazy" width="960" height="600" />
               </picture>
               <span class="tour-card__tag">The Classic</span>
             </div>
+            </a>
             <div class="tour-card__body">
-              <h3 class="tour-card__title">Private 1-Hour Highlights</h3>
-              <p class="tour-card__desc">Includes professional captain, 1-hour private sailing through Copenhagen’s
-                highlights, and full safety equipment. Onboard speaker available.</p>
-              <div class="tour-card__price">2,499 DKK</div>
-              <button onclick="openCart('book-1h')" class="btn btn--outline btn--sm" id="tour-card-private-cta">Book
+              <h3 class="tour-card__title"><a class="tour-card__title-link" href="/experiences/copenhagen-private-guided-boat-tour/">Copenhagen: Private Guided Boat Tour</a></h3>
+              <p class="tour-card__desc">Sail through Copenhagen on a private boat tour with your own guide. Enjoy
+                music, drinks, and stunning views, and stop for a swim, relax, or explore. It’s your tour, your
+                way.</p>
+              <div class="tour-card__price">
+                <span class="tour-card__amount">2,499 DKK</span>
+                <span class="tour-card__price-note">per group up to 8</span>
+              </div>
+              <button onclick="goToReserve('book-1h')" class="btn btn--outline btn--sm" id="tour-card-private-cta">Book
                 This Tour</button>
             </div>
           </article>
@@ -147,8 +153,11 @@
               <h3 class="tour-card__title">Private 4-Hour Premium Experience</h3>
               <p class="tour-card__desc">4 hours of private sailing, including 1 hour at Reffen and 1 hour at Trekroner
                 Fort. Swimming stop possibility and open water views.</p>
-              <div class="tour-card__price">5,999 DKK</div>
-              <button onclick="openCart('book-premium')" class="btn btn--outline btn--sm" id="tour-card-events-cta">Book
+              <div class="tour-card__price">
+                <span class="tour-card__amount">5,999 DKK</span>
+                <span class="tour-card__price-note">per group up to 8</span>
+              </div>
+              <button onclick="goToReserve('book-premium')" class="btn btn--outline btn--sm" id="tour-card-events-cta">Book
                 This
                 Tour</button>
             </div>
@@ -166,8 +175,11 @@
               <h3 class="tour-card__title">Private 3-Hour Extended (Reffen)</h3>
               <p class="tour-card__desc">Includes 3 hours of private sailing with a 1-hour stop at Reffen Street Food.
                 Extended route beyond the central canals.</p>
-              <div class="tour-card__price">4,299 DKK</div>
-              <button onclick="openCart('book-reffen')" class="btn btn--outline btn--sm" id="tour-card-sunset-cta">Book
+              <div class="tour-card__price">
+                <span class="tour-card__amount">4,299 DKK</span>
+                <span class="tour-card__price-note">per group up to 8</span>
+              </div>
+              <button onclick="goToReserve('book-reffen')" class="btn btn--outline btn--sm" id="tour-card-sunset-cta">Book
                 This
                 Tour</button>
             </div>
@@ -624,6 +636,13 @@
   </script>
 
   <script src="/script.js"></script>
+  <script>
+    function goToReserve(tourId) {
+      window.location.href = `/booking/reserve/?tour=${tourId}`;
+    }
+
+    window.goToReserve = goToReserve;
+  </script>
   <script src="/cart.js"></script>
 </body>
 

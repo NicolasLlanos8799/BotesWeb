@@ -76,6 +76,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  /* ── CLICKABLE EXPERIENCE CARDS ───────────────────────────────────────── */
+  document.querySelectorAll('[data-card-link]').forEach(card => {
+    const href = card.getAttribute('data-card-link');
+    if (!href) return;
+
+    card.addEventListener('click', event => {
+      if (event.target.closest('button, a, input, select, textarea, label')) return;
+      window.location.href = href;
+    });
+
+    card.addEventListener('keydown', event => {
+      if (event.key !== 'Enter' && event.key !== ' ') return;
+      if (event.target.closest('button, a, input, select, textarea, label')) return;
+      event.preventDefault();
+      window.location.href = href;
+    });
+  });
+
 
   /* ── TESTIMONIAL CAROUSEL ─────────────────────────────────────────────── */
   const track = document.getElementById('testimonialTrack');

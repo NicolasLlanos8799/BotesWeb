@@ -4,7 +4,7 @@
  */
 
 const toursData = {
-    'book-1h': { title: 'Private 1-Hour Highlights', price: 2499, img: '/images/tour_private_boat.png' },
+    'book-1h': { title: 'Copenhagen: Private Guided Boat Tour', price: 2499, img: '/images/tour_private_boat.png' },
     'book-winter': { title: '2-Hour Winter Hygge 2026', price: 4999, img: '/images/tour_winter_hygge.webp' },
     'book-reffen': { title: 'Private 3-Hour Extended (Reffen)', price: 4299, img: '/images/tour_sunset_boat.png' },
     'book-premium': { title: 'Private 4-Hour Premium Experience', price: 5999, img: '/images/tour_trekroner.png' },
