@@ -292,4 +292,30 @@
   syncPeopleValue(parseInt(peopleValueInput.value, 10));
   renderCalendar();
   syncLanguageValue(languageValueInput.value);
+
+  /* ── Mobile Sticky CTA visibility logic ─── */
+  const stickyCta = document.querySelector('.mobile-sticky-cta');
+  const bookingCard = document.querySelector('.experience-booking');
+
+  if (stickyCta && bookingCard && 'IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        // If booking card is visible, hide sticky CTA
+        // If booking card is not visible, show sticky CTA
+        if (entry.isIntersecting) {
+          stickyCta.style.transform = 'translateY(100%)';
+          stickyCta.style.opacity = '0';
+          stickyCta.style.pointerEvents = 'none';
+        } else {
+          stickyCta.style.transform = 'translateY(0)';
+          stickyCta.style.opacity = '1';
+          stickyCta.style.pointerEvents = 'auto';
+        }
+      });
+    }, {
+      threshold: 0.1 // Trigger as soon as 10% of the booking card is visible
+    });
+
+    observer.observe(bookingCard);
+  }
 })();
