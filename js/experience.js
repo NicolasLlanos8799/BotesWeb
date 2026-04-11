@@ -1,38 +1,76 @@
 import { getBooking, navigateToReserve, saveBooking } from "./utils.js";
 
 export function initExperiencePage() {
-  initTabs();
+  initAccordion();
   initBookingPanel();
   initStickyCta();
 }
 
-function initTabs() {
-  const tabButtons = document.querySelectorAll(".experience-tab-btn");
-  const tabPanels = document.querySelectorAll(".experience-tab-panel");
+function initAccordion() {
+  const items = document.querySelectorAll('.experience-tab-panel');
 
-  tabButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const targetId = button.getAttribute("aria-controls");
+  items.forEach(item => {
+    const header = item.querySelector('.accordion-trigger');
+    const content = item.querySelector('.accordion-content');
+    if (!header || !content) return;
 
-      tabButtons.forEach((item) => {
-        const isActive = item === button;
-        item.classList.toggle("is-active", isActive);
-        item.setAttribute("aria-selected", isActive ? "true" : "false");
-      });
+    header.addEventListener('click', () => {
+      const isOpen = item.classList.contains('active');
 
-      tabPanels.forEach((panel) => {
-        panel.classList.toggle("is-active", panel.id === targetId);
-      });
-
-      if (window.innerWidth < 768) {
-        const nav = document.querySelector(".experience-tabs-nav");
-        if (nav) {
-          const top = nav.getBoundingClientRect().top + window.pageYOffset - 90;
-          window.scrollTo({ top, behavior: "smooth" });
+      // 1. Close ALL items
+      items.forEach(i => {
+        i.classList.remove('active');
+        const c = i.querySelector('.accordion-content');
+        if (c) {
+          // Force reflow for smooth transition from 'auto' to '0px'
+          if (c.style.height === 'auto' || c.style.height === '') {
+            c.style.height = c.scrollHeight + 'px';
+            c.offsetHeight; // force reflow
+          }
+          c.style.height = '0px';
         }
+        i.querySelector('.accordion-trigger')?.setAttribute('aria-expanded', 'false');
+      });
+
+      // 2. Open clicked item (if it was closed)
+      if (!isOpen) {
+        item.classList.add('active');
+        header.setAttribute('aria-expanded', 'true');
+        content.style.height = content.scrollHeight + 'px';
+
+        // Fix height after animation
+        content.addEventListener('transitionend', () => {
+          if (item.classList.contains('active')) {
+            content.style.height = 'auto';
+          }
+        }, { once: true });
+
+        // Smooth scroll to item (Sync with end of height transition for stability)
+        setTimeout(() => {
+          if (!item.classList.contains('active')) return;
+
+          const yOffset = -100;
+          const rect = item.getBoundingClientRect();
+          const y = rect.top + window.pageYOffset + yOffset;
+          
+          window.scrollTo({
+            top: y,
+            behavior: 'smooth'
+          });
+        }, 350);
       }
     });
   });
+
+  // 3. Set Initial State (First item open)
+  const firstPanel = items[0];
+  if (firstPanel) {
+    const firstContent = firstPanel.querySelector('.accordion-content');
+    const firstTrigger = firstPanel.querySelector('.accordion-trigger');
+    firstPanel.classList.add('active');
+    if (firstContent) firstContent.style.height = 'auto';
+    if (firstTrigger) firstTrigger.setAttribute('aria-expanded', 'true');
+  }
 }
 
 function initBookingPanel() {
@@ -330,7 +368,7 @@ function initStickyCta() {
         }
       });
     },
-    { threshold: 0.1 }
+    { threshold: 0.8 }
   );
 
   observer.observe(bookingCard);
