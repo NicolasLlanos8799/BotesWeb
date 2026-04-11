@@ -9,8 +9,11 @@
     content="Sail through Copenhagen on a private boat tour with your own guide. Enjoy music, drinks, and stunning views, and stop for a swim, relax, or explore." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&display=optional" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&display=optional"
+    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+    rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/styles.css" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -150,11 +153,11 @@
       letter-spacing: -0.01em;
     }
 
-    /* ── Info grid Expanded (6 items) ─── */
+    /* ── Info grid (4 items) ─── */
     .experience-info-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2.5rem 2rem;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
     }
 
     .experience-info-card {
@@ -265,8 +268,14 @@
       margin-top: 0.1rem;
     }
 
-    .icon-check { color: #2d6a9f; }
-    .icon-x { color: #e53e3e; opacity: 0.7; }
+    .icon-check {
+      color: #2d6a9f;
+    }
+
+    .icon-x {
+      color: #e53e3e;
+      opacity: 0.7;
+    }
 
     /* ── Meeting Point ─── */
     .experience-meeting-point {
@@ -304,7 +313,7 @@
     .btn--outline:hover {
       background: #ffffff;
       border-color: rgba(15, 30, 53, 0.3);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     }
 
     /* ── Important info / Not allowed ─── */
@@ -644,72 +653,131 @@
       }
     }
 
-    /* ── Mobile Sticky CTA Bar ─── */
-    .mobile-sticky-cta {
-      display: none;
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-top: 1px solid rgba(15, 30, 53, 0.08);
-      padding: 1.1rem 1.25rem;
-      z-index: 100;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1.25rem;
-      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.05);
-      transition: transform 0.4s ease;
+    /* ── Tabs Navigation ─── */
+    .experience-tabs-nav {
+      display: flex;
+      gap: 2rem;
+      border-bottom: 1px solid rgba(15, 30, 53, 0.08);
+      margin-bottom: 2.5rem;
+      position: sticky;
+      top: var(--navbar-h);
+      background: #fafaf9;
+      z-index: 10;
+      padding-top: 1rem;
     }
 
-    /* Show only on phone screens */
-    @media (max-width: 900px) {
-      .mobile-sticky-cta {
-        display: flex;
+    .experience-tab-btn {
+      background: none;
+      border: none;
+      padding: 1rem 0;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #7a8799;
+      cursor: pointer;
+      position: relative;
+      transition: color 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .experience-tab-btn:hover {
+      color: #0f1e35;
+    }
+
+    .experience-tab-btn.is-active {
+      color: #0f1e35;
+    }
+
+    .experience-tab-btn.is-active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: #0f1e35;
+      animation: tabSlide 0.3s ease forwards;
+    }
+
+    @keyframes tabSlide {
+      from { transform: scaleX(0); }
+      to { transform: scaleX(1); }
+    }
+
+    .experience-tab-panel {
+      display: none;
+      animation: tabFade 0.4s ease forwards;
+    }
+
+    .experience-tab-panel.is-active {
+      display: block;
+    }
+
+    @keyframes tabFade {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 640px) {
+      .experience-tabs-nav {
+        gap: 1.25rem;
+        overflow-x: auto;
+        white-space: nowrap;
+        scrollbar-width: none; /* Hide scrollbar Firefox */
+      }
+      .experience-tabs-nav::-webkit-scrollbar { display: none; } /* Hide scrollbar Chrome/Safari */
+      
+      .experience-tab-btn {
+        font-size: 0.75rem;
       }
     }
 
-    .mobile-sticky-cta__price {
+    /* ── Gallery Mosaic Layout ─── */
+    .experience-gallery {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 12px;
+      margin-bottom: 2.5rem;
+    }
+
+    .experience-gallery__lead {
+      grid-column: 1;
+      height: 480px;
+    }
+
+    .experience-gallery__mosaic {
       display: flex;
       flex-direction: column;
-      gap: 0.1rem;
+      gap: 12px;
     }
 
-    .mobile-sticky-cta__price strong {
-      font-size: 1.2rem;
-      color: #0f1e35;
-      font-weight: 700;
-      line-height: 1;
+    .experience-gallery__item {
+      height: 234px;
     }
 
-    .mobile-sticky-cta__price span {
-      font-size: 0.75rem;
-      color: #7a8799;
-      font-weight: 500;
+    .experience-gallery img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 16px;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .mobile-sticky-cta .btn {
-      flex: 1;
-      max-width: 190px;
-      min-height: 50px;
-      padding: 0 1.5rem;
-      font-size: 0.88rem;
-      font-weight: 500;
-      letter-spacing: 0.03em;
-      background: #0f1e35;
-      color: white;
-      border-radius: 12px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 12px rgba(15, 30, 53, 0.15);
+    .experience-gallery img:hover {
+      transform: scale(1.02);
     }
 
-    @keyframes ctaFadeIn {
-      from { transform: translateY(100%); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
+    @media (max-width: 900px) {
+      .experience-gallery {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+      .experience-gallery__lead {
+        height: 350px;
+      }
+      .experience-gallery__mosaic {
+        display: none;
+      }
     }
   </style>
 </head>
@@ -718,7 +786,13 @@
   <header class="navbar" id="navbar">
     <div class="container navbar__inner">
       <a href="/" class="navbar__logo" aria-label="Seaduced-Experience Home">
-        <span class="logo-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><path d="M12 7v14"/><path d="M5 14l7 7 7-7"/><path d="M5 10h14"/></svg></span>
+        <span class="logo-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none"
+            stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="5" r="2" />
+            <path d="M12 7v14" />
+            <path d="M5 14l7 7 7-7" />
+            <path d="M5 10h14" />
+          </svg></span>
         <span class="logo-text">Seaduced<em>Experience</em></span>
       </a>
 
@@ -765,150 +839,202 @@
           <h1>Sail through Copenhagen on a private boat tour with your own guide</h1>
         </header>
 
+        <!-- PREMIUM MOSAIC GALLERY -->
         <section class="experience-gallery" aria-label="Tour gallery">
           <div class="experience-gallery__lead">
-            <img src="/images/tour_private_boat.png" alt="Private boat tour through the canals of Copenhagen" width="960" height="600" />
+            <img src="/images/tour_private_boat.png" alt="Private boat tour through the canals of Copenhagen"
+              width="960" height="600" />
           </div>
-          <div class="experience-gallery__stack">
-            <img src="/images/tour_sunset_boat.png" alt="Guests enjoying the boat at sunset" width="960" height="600" />
-            <img src="/images/tour_trekroner.png" alt="Guests relaxing during the tour" width="960" height="600" />
-            <img src="/images/brand_welcome_image.png" alt="Boat experience detail" width="1080" height="1440" />
-            <img src="/images/tour_private_boat.png" alt="Boat deck detail" width="960" height="600" />
+          <div class="experience-gallery__mosaic">
+            <div class="experience-gallery__item">
+              <img src="/images/tour_sunset_boat.png" alt="Guests enjoying the boat at sunset" width="960" height="600" />
+            </div>
+            <div class="experience-gallery__item">
+              <img src="/images/tour_trekroner.png" alt="Guests relaxing during the tour" width="960" height="600" />
+            </div>
           </div>
         </section>
 
         <p class="experience-intro">
-          Descubre Copenhague como los locales en un paseo en barco privado al estilo «hygge». Relájate con música, bebidas y vistas panorámicas del puerto mientras descubres el moderno estilo de vida de la ciudad junto al agua.
+          Descubre Copenhague como los locales en un paseo en barco privado al estilo «hygge». Relájate con música,
+          bebidas y vistas panorámicas del puerto mientras descubres el moderno estilo de vida de la ciudad junto al
+          agua.
         </p>
 
         <div class="experience-sections">
-          <section class="experience-section">
-            <h2>Información general</h2>
+          <!-- QUICK INFO ALWAYS VISIBLE -->
+          <section class="experience-section" style="border-top:none; padding-top:0;">
             <div class="experience-info-grid">
               <article class="experience-info-card">
                 <span class="experience-info-card__icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="m8.5 12 2.3 2.3 4.7-5.1"></path></svg>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="9"></circle>
+                    <path d="m8.5 12 2.3 2.3 4.7-5.1"></path>
+                  </svg>
                 </span>
                 <strong>Cancelación</strong>
                 <p>Gratuita hasta 24h</p>
               </article>
               <article class="experience-info-card">
                 <span class="experience-info-card__icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="12" rx="3"></rect><path d="M7 10h10"></path><path d="M7 14h4"></path></svg>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9.5" cy="7" r="3"></circle>
+                    <path d="M20 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M16.5 4.13a3 3 0 0 1 0 5.74"></path>
+                  </svg>
                 </span>
-                <strong>Pago</strong>
-                <p>Reserva ahora, paga después</p>
+                <strong>Participantes</strong>
+                <p>Grupo privado (8 máx)</p>
               </article>
               <article class="experience-info-card">
                 <span class="experience-info-card__icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"></circle><path d="M12 9v4l2.5 1.5"></path><path d="M9 3h6"></path><path d="M12 3v2"></path></svg>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="12" cy="13" r="8"></circle>
+                    <path d="M12 9v4l2.5 1.5"></path>
+                    <path d="M9 3h6"></path>
+                    <path d="M12 3v2"></path>
+                  </svg>
                 </span>
                 <strong>Duración</strong>
                 <p>1 hora</p>
               </article>
               <article class="experience-info-card">
                 <span class="experience-info-card__icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18"></path><path d="M12 3a15 15 0 0 1 0 18"></path><path d="M12 3a15 15 0 0 0 0 18"></path></svg>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="9"></circle>
+                    <path d="M3 12h18"></path>
+                    <path d="M12 3a15 15 0 0 1 0 18"></path>
+                    <path d="M12 3a15 15 0 0 0 0 18"></path>
+                  </svg>
                 </span>
-                <div>
-                  <strong>Duration 1 - 4 hours</strong>
-                  <p>Check availability to see starting times.</p>
-                </div>
-              </article>
-              <article class="experience-info-card">
-                <span class="experience-info-card__icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"></path><circle cx="9.5" cy="7" r="3"></circle><path d="M20 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16.5 4.13a3 3 0 0 1 0 5.74"></path></svg>
-                </span>
-                <div>
-                  <strong>Guide</strong>
-                  <p>English, Spanish.</p>
-                </div>
+                <strong>Guía</strong>
+                <p>English, Spanish</p>
               </article>
             </div>
           </section>
 
-          <section class="experience-section">
-            <h2>What you’ll do</h2>
-            <div class="experience-columns">
-              <div>
-                <ul>
-                  <li>Stop the boat and enjoy a swim in the fresh water.</li>
-                  <li>See the city’s top highlights from the water, including the Little Mermaid statue.</li>
-                  <li>Customize your tour to see the places in the city that interest you most.</li>
-                </ul>
-              </div>
-              <div>
-                <ul>
-                  <li>Stop at Reffen, an urban street food market, and enjoy food from around the world.</li>
-                  <li>Relax on the boat with a drink from the cooler and enjoy the city skyline.</li>
-                  <li>Enjoy the experience fully private, at your own pace and in your own way.</li>
-                </ul>
-              </div>
-            </div>
-          </section>
+          <!-- MODULAR TABS NAVIGATION -->
+          <nav class="experience-tabs-nav" role="tablist">
+            <button class="experience-tab-btn is-active" role="tab" aria-selected="true" aria-controls="tab-discover">Descubrir</button>
+            <button class="experience-tab-btn" role="tab" aria-selected="false" aria-controls="tab-info">Incluido</button>
+            <button class="experience-tab-btn" role="tab" aria-selected="false" aria-controls="tab-prep">Preparación</button>
+            <button class="experience-tab-btn" role="tab" aria-selected="false" aria-controls="tab-meeting">Encuentro</button>
+          </nav>
 
-          <section class="experience-section experience-route">
-            <h2>In detail</h2>
-            <p>
-              Private guided boat tour in Copenhagen. Discover the city your way and experience Copenhagen like never before: from the water, at your own pace, and with your own atmosphere. Our private guided boat tours offer a unique and intimate way to see the city’s most iconic sights while giving you the freedom to shape the trip around your mood.
-            </p>
-            <p>
-              Step aboard the elegant Joda Tender 710 and meet your charismatic Cuban captain and guide, Oni, who will not only take you through Copenhagen’s scenic canals but also share local stories, hidden gems, and historical insight. Whether you want to relax with a drink, take a swim, grill some food, or dance to your favorite music, this tour is yours to shape.
-            </p>
-            <ul>
-              <li>Your trip, your vibe: connect your playlist to the onboard Bluetooth speaker, open a cold drink from the cooler, and cruise in style.</li>
-              <li>City highlights tour - 1 hour: Islands Brygge, the Black Diamond, Slotsholmen, Nyhavn, Ofelia Beach, the Opera House, Christiania, Paper Island, and Christianshavn.</li>
-              <li>City tour + Reffen + the Little Mermaid - 3 hours: add a stop at Reffen and continue to one of Denmark’s most famous landmarks.</li>
-              <li>Full experience - 4 hours: includes the city, Reffen, the Little Mermaid, and Trekroner Fort, with panoramic open-water views.</li>
-              <li>Why choose a private boat tour? Exclusivity, flexibility, and a fully personalized experience for your group.</li>
-            </ul>
-          </section>
-
-          <section class="experience-section">
-            <h2>What’s included</h2>
-            <ul>
-              <li>1, 3, or 4-hour boat tour in Copenhagen.</li>
-              <li>Live commentary and guiding from Cuban captain Oni.</li>
-              <li>Bluetooth speaker for your own music.</li>
-              <li>Drinks can be purchased on board: beer, wine, prosecco, champagne, and soft drinks. Bringing your own drinks is not allowed.</li>
-            </ul>
-          </section>
-
-          <section class="experience-section">
-            <h2>Meeting point</h2>
-            <p>
-              <a href="https://maps.app.goo.gl/nQpwYvxwHFceNVLN7" target="_blank" rel="noreferrer">https://maps.app.goo.gl/nQpwYvxwHFceNVLN7</a>
-            </p>
-            <p>
-              At the dock in front of the Kayak bar, where there are red flags next to the construction site (55.675925, 12.586828). If you are staying near the water or the canal, contact the captain to arrange a different pick-up and drop-off point.
-            </p>
-          </section>
-
-          <section class="experience-section experience-important">
-            <h2>Información importante</h2>
-            <div class="experience-important-grid">
-              <div class="experience-important__col">
-                <strong>Qué llevar</strong>
-                <ul>
-                  <li>Swimwear.</li>
-                  <li>Towel.</li>
-                  <li>Clothes suitable for the weather conditions.</li>
-                </ul>
+          <!-- TAB CONTENT: DESCUBRIR -->
+          <div id="tab-discover" class="experience-tab-panel is-active" role="tabpanel">
+            <section class="experience-section" style="border-top:none; padding-top:0;">
+              <div class="experience-story-grid">
+                <div class="experience-story__text">
+                  <h2>In detail</h2>
+                  <p>
+                    Private guided boat tour in Copenhagen. Discover the city your way and experience Copenhagen like
+                    never before: from the water, at your own pace, and with your own atmosphere. Our private guided boat
+                    tours offer a unique and intimate way to see the city’s most iconic sights while giving you the
+                    freedom to shape the trip around your mood.
+                  </p>
+                  <p>
+                    Step aboard the elegant Joda Tender 710 and meet your charismatic Cuban captain and guide, Oni, who
+                    will not only take you through Copenhagen’s scenic canals but also share local stories, hidden gems,
+                    and historical insight. Whether you want to relax with a drink, take a swim, grill some food, or dance
+                    to your favorite music, this tour is yours to shape.
+                  </p>
+                </div>
+                <div class="experience-story__highlights">
+                  <h3>What you’ll do</h3>
+                  <ul>
+                    <li>Stop the boat and enjoy a swim in the fresh water.</li>
+                    <li>See the city’s top highlights from the water, including the Little Mermaid.</li>
+                    <li>Customize your tour to see the places that interest you most.</li>
+                    <li>Stop at Reffen, an urban street food market, for a bite.</li>
+                    <li>Relax on the boat with a drink and enjoy the city skyline.</li>
+                    <li>Fully private experience at your own pace.</li>
+                  </ul>
+                </div>
               </div>
-              <div>
-                <strong>Not allowed</strong>
-                <ul>
-                  <li>Smoking.</li>
-                  <li>Jumping.</li>
-                </ul>
-                <strong>Before you go</strong>
-                <ul>
-                  <li>Maximum of 8 people per booking.</li>
-                  <li>In case of rain, a full refund is guaranteed.</li>
-                </ul>
+            </section>
+          </div>
+
+          <!-- TAB CONTENT: INCLUIDO -->
+          <div id="tab-info" class="experience-tab-panel" role="tabpanel">
+            <section class="experience-section" style="border-top:none; padding-top:0;">
+              <div class="experience-details-grid">
+                <div>
+                  <h3>What’s included</h3>
+                  <ul class="experience-details-list">
+                    <li><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                      </svg><span>1, 3, or 4-hour boat tour in Copenhagen</span></li>
+                    <li><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                      </svg><span>Live commentary and guiding from captain Oni</span></li>
+                    <li><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                      </svg><span>Bluetooth speaker for your own music</span></li>
+                    <li><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                      </svg><span>Drinks available for purchase on board</span></li>
+                  </ul>
+                </div>
+                <div>
+                  <h3>Exclusivity & Vibe</h3>
+                  <p style="font-size: 0.9rem; line-height: 1.6; color: #5a6675;">
+                    Your trip, your vibe: connect your playlist to the onboard Bluetooth speaker, open a cold drink from
+                    the cooler, and cruise in style. This tour offers total flexibility for couples, families, or small
+                    groups wanting something personal and easy.
+                  </p>
+                </div>
               </div>
-            </div>
-          </section>
+            </section>
+          </div>
+
+          <!-- TAB CONTENT: PREPARACIÓN -->
+          <div id="tab-prep" class="experience-tab-panel" role="tabpanel">
+            <section class="experience-section experience-important" style="border-top:none; padding-top:0;">
+              <div class="experience-important-grid">
+                <div class="experience-important__col">
+                  <strong>Qué llevar</strong>
+                  <ul>
+                    <li>Swimwear & Towel</li>
+                    <li>Weather-appropriate layers</li>
+                    <li>Sunglasses & Sunscreen</li>
+                  </ul>
+                </div>
+                <div>
+                  <strong>Not allowed / Before you go</strong>
+                  <ul>
+                    <li>No jumping or smoking on board</li>
+                    <li>Max 8 guests per booking</li>
+                    <li>Heavy rain: full refund guaranteed</li>
+                  </ul>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <!-- TAB CONTENT: ENCUENTRO -->
+          <div id="tab-meeting" class="experience-tab-panel" role="tabpanel">
+            <section class="experience-section" style="border-top:none; padding-top:0;">
+              <h2>Meeting point</h2>
+              <div class="experience-meeting-point">
+                <div class="experience-meeting-point__info">
+                  <strong>Dirección</strong>
+                  <p>Havnegade 14, Copenhague. Dock in front of Kayak bar (red flags near the construction).</p>
+                </div>
+                <a href="https://maps.app.goo.gl/nQpwYvxwHFceNVLN7" target="_blank" class="btn btn--outline">Abrir en
+                  Google Maps</a>
+              </div>
+            </section>
+          </div>
         </div>
       </div>
 
@@ -924,9 +1050,11 @@
           <div class="experience-booking__details">
             <div class="experience-booking__people" id="experience-people-picker">
               <input id="experience-participants" type="hidden" value="1" />
-              <button class="experience-booking__control experience-booking__control--button" type="button" id="experience-people-trigger" aria-expanded="false" aria-controls="experience-people-panel">
+              <button class="experience-booking__control experience-booking__control--button" type="button"
+                id="experience-people-trigger" aria-expanded="false" aria-controls="experience-people-panel">
                 <span class="experience-booking__control-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                    stroke-linejoin="round">
                     <path d="M16 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"></path>
                     <circle cx="9.5" cy="7" r="3"></circle>
                     <path d="M20 21v-2a4 4 0 0 0-3-3.87"></path>
@@ -944,20 +1072,25 @@
                     <span>Up to 8 guests</span>
                   </div>
                   <div class="experience-booking__people-counter">
-                    <button class="experience-booking__stepper" type="button" id="experience-people-minus" aria-label="Decrease number of people">−</button>
+                    <button class="experience-booking__stepper" type="button" id="experience-people-minus"
+                      aria-label="Decrease number of people">−</button>
                     <span class="experience-booking__people-number" id="experience-people-number">1</span>
-                    <button class="experience-booking__stepper" type="button" id="experience-people-plus" aria-label="Increase number of people">+</button>
+                    <button class="experience-booking__stepper" type="button" id="experience-people-plus"
+                      aria-label="Increase number of people">+</button>
                   </div>
-                  <button class="experience-booking__people-done" type="button" id="experience-people-done">Done</button>
+                  <button class="experience-booking__people-done" type="button"
+                    id="experience-people-done">Done</button>
                 </div>
               </div>
             </div>
 
             <div class="experience-booking__date" id="experience-date-picker">
               <input id="experience-date" type="hidden" value="" />
-              <button class="experience-booking__control experience-booking__control--button" type="button" id="experience-date-trigger" aria-expanded="false" aria-controls="experience-date-panel">
+              <button class="experience-booking__control experience-booking__control--button" type="button"
+                id="experience-date-trigger" aria-expanded="false" aria-controls="experience-date-panel">
                 <span class="experience-booking__control-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                    stroke-linejoin="round">
                     <rect x="3" y="4" width="18" height="17" rx="3"></rect>
                     <path d="M8 2v4"></path>
                     <path d="M16 2v4"></path>
@@ -974,9 +1107,11 @@
               <div class="experience-booking__date-panel" id="experience-date-panel" hidden>
                 <div class="experience-booking__date-card">
                   <div class="experience-booking__date-head">
-                    <button class="experience-booking__calendar-nav" type="button" id="experience-date-prev" aria-label="Previous month">‹</button>
+                    <button class="experience-booking__calendar-nav" type="button" id="experience-date-prev"
+                      aria-label="Previous month">‹</button>
                     <div class="experience-booking__date-month" id="experience-date-month">Month 2026</div>
-                    <button class="experience-booking__calendar-nav" type="button" id="experience-date-next" aria-label="Next month">›</button>
+                    <button class="experience-booking__calendar-nav" type="button" id="experience-date-next"
+                      aria-label="Next month">›</button>
                   </div>
                   <div class="experience-booking__calendar-weekdays" aria-hidden="true">
                     <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
@@ -990,9 +1125,11 @@
 
             <div class="experience-booking__language" id="experience-language-picker">
               <input id="experience-language" type="hidden" value="english" />
-              <button class="experience-booking__control experience-booking__control--button" type="button" id="experience-language-trigger" aria-expanded="false" aria-controls="experience-language-panel">
+              <button class="experience-booking__control experience-booking__control--button" type="button"
+                id="experience-language-trigger" aria-expanded="false" aria-controls="experience-language-panel">
                 <span class="experience-booking__control-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                    stroke-linejoin="round">
                     <circle cx="12" cy="12" r="9"></circle>
                     <path d="M3 12h18"></path>
                     <path d="M12 3a15 15 0 0 1 0 18"></path>
@@ -1010,27 +1147,43 @@
                     <span>Choose the language of your guide</span>
                   </div>
                   <div class="experience-booking__language-options" role="listbox" aria-label="Guide language options">
-                    <button class="experience-booking__language-option is-selected" type="button" data-language-option="english" aria-selected="true">
-                      <span class="lang-flag" aria-hidden="true"><svg viewBox="0 0 24 16" width="22" height="14" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="16" fill="#012169"/><path d="M0 0l24 16M24 0L0 16" stroke="#fff" stroke-width="3"/><path d="M0 0l24 16M24 0L0 16" stroke="#C8102E" stroke-width="2"/><path d="M12 0v16M0 8h24" stroke="#fff" stroke-width="4.5"/><path d="M12 0v16M0 8h24" stroke="#C8102E" stroke-width="3"/></svg></span>
+                    <button class="experience-booking__language-option is-selected" type="button"
+                      data-language-option="english" aria-selected="true">
+                      <span class="lang-flag" aria-hidden="true"><svg viewBox="0 0 24 16" width="22" height="14"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <rect width="24" height="16" fill="#012169" />
+                          <path d="M0 0l24 16M24 0L0 16" stroke="#fff" stroke-width="3" />
+                          <path d="M0 0l24 16M24 0L0 16" stroke="#C8102E" stroke-width="2" />
+                          <path d="M12 0v16M0 8h24" stroke="#fff" stroke-width="4.5" />
+                          <path d="M12 0v16M0 8h24" stroke="#C8102E" stroke-width="3" />
+                        </svg></span>
                       <span>English</span>
                     </button>
-                    <button class="experience-booking__language-option" type="button" data-language-option="spanish" aria-selected="false">
-                      <span class="lang-flag" aria-hidden="true"><svg viewBox="0 0 24 16" width="22" height="14" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="16" fill="#AA151B"/><rect y="4" width="24" height="8" fill="#F1BF00"/></svg></span>
+                    <button class="experience-booking__language-option" type="button" data-language-option="spanish"
+                      aria-selected="false">
+                      <span class="lang-flag" aria-hidden="true"><svg viewBox="0 0 24 16" width="22" height="14"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <rect width="24" height="16" fill="#AA151B" />
+                          <rect y="4" width="24" height="8" fill="#F1BF00" />
+                        </svg></span>
                       <span>Spanish</span>
                     </button>
                   </div>
-                  <button class="experience-booking__people-done" type="button" id="experience-language-done">Done</button>
+                  <button class="experience-booking__people-done" type="button"
+                    id="experience-language-done">Done</button>
                 </div>
               </div>
             </div>
           </div>
 
-          <button class="btn btn--primary btn--lg" type="button" id="experience-check-availability">Check availability</button>
+          <button class="btn btn--primary btn--lg" type="button" id="experience-check-availability">Check
+            availability</button>
 
           <div class="experience-booking__benefits">
             <div class="experience-booking__benefit">
               <span class="experience-booking__benefit-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"
+                  stroke-linejoin="round">
                   <circle cx="12" cy="12" r="9"></circle>
                   <path d="m8.5 12 2.3 2.3 4.7-5.1"></path>
                 </svg>
@@ -1047,7 +1200,14 @@
   </main>
 
   <footer class="booking-footer">
-    <p><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:0.35em;opacity:0.6"><circle cx="12" cy="5" r="2"/><path d="M12 7v14"/><path d="M5 14l7 7 7-7"/><path d="M5 10h14"/></svg>© 2025 – 2026 Seaduced-Experience &nbsp;·&nbsp; <a href="/" style="color: inherit;">Back to Home</a></p>
+    <p><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.7"
+        stroke-linecap="round" stroke-linejoin="round"
+        style="display:inline-block;vertical-align:middle;margin-right:0.35em;opacity:0.6">
+        <circle cx="12" cy="5" r="2" />
+        <path d="M12 7v14" />
+        <path d="M5 14l7 7 7-7" />
+        <path d="M5 10h14" />
+      </svg>© 2025 – 2026 Seaduced-Experience &nbsp;·&nbsp; <a href="/" style="color: inherit;">Back to Home</a></p>
   </footer>
 
   <div class="mobile-sticky-cta">
@@ -1055,13 +1215,59 @@
       <strong>2,499 DKK</strong>
       <span>per group up to 8</span>
     </div>
-    <button type="button" class="btn" onclick="document.getElementById('experience-check-availability').scrollIntoView({ behavior: 'smooth', block: 'center' })">
+    <button type="button" class="btn"
+      onclick="document.getElementById('experience-check-availability').scrollIntoView({ behavior: 'smooth', block: 'center' })">
       Check availability
     </button>
   </div>
 
   <script src="/script.js"></script>
   <script src="/experiences/copenhagen-private-guided-boat-tour/experience.js"></script>
+
+  <!-- ROBUST TAB SWITCHING LOGIC -->
+  <script>
+    (function() {
+      const initTabs = () => {
+        const tabBtns = document.querySelectorAll('.experience-tab-btn');
+        const tabPanels = document.querySelectorAll('.experience-tab-panel');
+
+        if (!tabBtns.length) return;
+
+        tabBtns.forEach(btn => {
+          btn.addEventListener('click', function() {
+            const targetId = this.getAttribute('aria-controls');
+            
+            // Switch tabs
+            tabBtns.forEach(b => {
+              const isActive = b === btn;
+              b.classList.toggle('is-active', isActive);
+              b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+            });
+
+            // Switch panels
+            tabPanels.forEach(panel => {
+              panel.classList.toggle('is-active', panel.id === targetId);
+            });
+
+            // Mobile scroll focus
+            if (window.innerWidth < 768) {
+              const nav = document.querySelector('.experience-tabs-nav');
+              if (nav) {
+                const top = nav.getBoundingClientRect().top + window.pageYOffset - 90;
+                window.scrollTo({ top, behavior: 'smooth' });
+              }
+            }
+          });
+        });
+      };
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initTabs);
+      } else {
+        initTabs();
+      }
+    })();
+  </script>
 </body>
 
 </html>
