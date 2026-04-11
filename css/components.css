@@ -10,10 +10,10 @@
   letter-spacing: 0.02em;
   padding: 0.85em 1.8em;
   border-radius: var(--radius-full);
-  transition: all var(--transition-smooth);
+  transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   white-space: nowrap;
   cursor: pointer;
-  min-height: 44px;
+  min-height: 48px;
 }
 
 .btn--lg {
@@ -38,13 +38,13 @@ button:focus-visible,
 .btn--primary {
   background: linear-gradient(135deg, var(--clr-sunset) 0%, var(--clr-sunset-lt) 100%);
   color: var(--clr-white);
-  box-shadow: 0 4px 20px rgba(232, 131, 74, 0.40);
+  box-shadow: 0 8px 24px rgba(232, 131, 74, 0.25);
 }
 
 .btn--primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 28px rgba(232, 131, 74, 0.55);
-  filter: brightness(1.05);
+  box-shadow: 0 12px 32px rgba(232, 131, 74, 0.45);
+  filter: brightness(1.02);
 }
 
 .btn--ghost {
