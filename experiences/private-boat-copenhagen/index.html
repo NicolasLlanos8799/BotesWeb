@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Private Boat Tour in Copenhagen | Seaduced-Experience</title>
   <meta name="description"
     content="Sail through Copenhagen on a private boat tour with your own guide. Enjoy music, drinks, and stunning views, and stop for a swim, relax, or explore." />
@@ -27,13 +27,7 @@
   <header class="navbar" id="navbar">
     <div class="container navbar__inner">
       <a href="/" class="navbar__logo" aria-label="Seaduced-Experience Home">
-        <span class="logo-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none"
-            stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="5" r="2" />
-            <path d="M12 7v14" />
-            <path d="M5 14l7 7 7-7" />
-            <path d="M5 10h14" />
-          </svg></span>
+        <span class="logo-icon">⚓</span>
         <span class="logo-text">Seaduced<em>Experience</em></span>
       </a>
 
@@ -66,24 +60,24 @@
     <div class="experience-shell">
       <div class="experience-content">
         <header class="experience-heading">
-          <!-- <span class="experience-heading__eyebrow">Private canal experience</span> -->
-          <h1>Copenhagen: Private boat tour with guide and city highlights</h1>
+          <h1><span class="title-accent">Private boat tour</span> in Copenhagen with local guide and city highlights
+          </h1>
         </header>
 
         <!-- PREMIUM MOSAIC GALLERY -->
         <section class="experience-gallery" aria-label="Tour gallery">
           <div class="experience-gallery__lead">
-            <img src="/assets/images/tour_private_boat.png" alt="Private boat tour through the canals of Copenhagen"
-              width="960" height="600" loading="lazy" />
+            <img src="/assets/images/private-boat-copenhagen-exterior.png"
+              alt="Private boat tour through the canals of Copenhagen" width="960" height="600" loading="lazy" />
           </div>
           <div class="experience-gallery__mosaic">
             <div class="experience-gallery__item">
-              <img src="/assets/images/tour_sunset_boat.png" alt="Guests enjoying the boat at sunset" width="960"
-                height="600" loading="lazy" />
+              <img src="/assets/images/private-boat-copenhagen-sunset.png" alt="Guests enjoying the boat at sunset"
+                width="960" height="600" loading="lazy" />
             </div>
             <div class="experience-gallery__item">
-              <img src="/assets/images/tour_trekroner.png" alt="Guests relaxing during the tour" width="960"
-                height="600" loading="lazy" />
+              <img src="/assets/images/private-boat-copenhagen-group.png" alt="Guests relaxing during the tour"
+                width="960" height="600" loading="lazy" />
             </div>
           </div>
         </section>
@@ -191,10 +185,13 @@
             <button class="accordion-trigger" aria-expanded="true" aria-controls="accordion-discover">
               <span class="accordion-trigger__inner">
                 <span class="accordion-trigger__title">
-                  <span class="accordion-icon">✨</span>
+                  <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                      stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                      <path
+                        d="M12 22V8M5 12H2M19 12h3M12 8c-1.657 0-3-1.343-3-3s1.343-3 3-3 3 1.343 3 3-1.343 3-3 3zM5 12c0 3.866 3.134 7 7 7s7-3.134 7-7" />
+                    </svg></span>
                   What you’ll experience
                 </span>
-                <span class="accordion-trigger__preview">Cruise canals, swim stops, iconic views...</span>
               </span>
               <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
                 stroke-linecap="round" stroke-linejoin="round">
@@ -212,14 +209,47 @@
                       canals. Hear local stories, discover hidden gems, and soak in the historical insight of the Danish
                       capital.</p>
                   </div>
+
+                  <hr class="experience-separator">
+
                   <div class="experience-story__highlights">
                     <h3>Highlights</h3>
-                    <ul>
-                      <li><strong>Custom Route:</strong> See the places that interest you most.</li>
-                      <li><strong>Swim Stops:</strong> Refresh yourself in the clean canal waters.</li>
-                      <li><strong>Iconic Sights:</strong> Perfect views of the Little Mermaid and more.</li>
-                      <li><strong>Street Food:</strong> Optional stop at Reffen market.</li>
-                      <li><strong>Vibe:</strong> Private, intimate, and fully at your own pace.</li>
+                    <ul class="experience-highlights-grid">
+                      <li>
+                        <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                          stroke-linecap="round" stroke-linejoin="round">
+                          <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span><strong>Custom Route:</strong> See the places that interest you most.</span>
+                      </li>
+                      <li>
+                        <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                          stroke-linecap="round" stroke-linejoin="round">
+                          <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span><strong>Swim Stops:</strong> Refresh yourself in the clean canal waters.</span>
+                      </li>
+                      <li>
+                        <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                          stroke-linecap="round" stroke-linejoin="round">
+                          <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span><strong>Iconic Sights:</strong> Perfect views of the Little Mermaid and more.</span>
+                      </li>
+                      <li>
+                        <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                          stroke-linecap="round" stroke-linejoin="round">
+                          <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span><strong>Street Food:</strong> Optional stop at Reffen market.</span>
+                      </li>
+                      <li>
+                        <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                          stroke-linecap="round" stroke-linejoin="round">
+                          <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span><strong>Vibe:</strong> Private, intimate, and fully at your own pace.</span>
+                      </li>
                     </ul>
                   </div>
                 </div>
@@ -232,10 +262,12 @@
             <button class="accordion-trigger" aria-expanded="false" aria-controls="accordion-info">
               <span class="accordion-trigger__inner">
                 <span class="accordion-trigger__title">
-                  <span class="accordion-icon">✔</span>
+                  <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                      stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 3L13.16 9.84L20 11L13.16 12.16L12 19L10.84 12.16L4 11L10.84 9.84L12 3Z" />
+                    </svg></span>
                   What’s included in your experience
                 </span>
-                <span class="accordion-trigger__preview">Captain, fuel, blankets, sound system...</span>
               </span>
               <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
                 stroke-linecap="round" stroke-linejoin="round">
@@ -283,10 +315,14 @@
             <button class="accordion-trigger" aria-expanded="false" aria-controls="accordion-prep">
               <span class="accordion-trigger__inner">
                 <span class="accordion-trigger__title">
-                  <span class="accordion-icon">🧳</span>
+                  <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                      stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" />
+                      <path d="M3 6h18" />
+                      <path d="M16 10a4 4 0 0 1-8 0" />
+                    </svg></span>
                   Before you go
                 </span>
-                <span class="accordion-trigger__preview">What to bring and useful tips before your trip...</span>
               </span>
               <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
                 stroke-linecap="round" stroke-linejoin="round">
@@ -322,10 +358,13 @@
             <button class="accordion-trigger" aria-expanded="false" aria-controls="accordion-meeting">
               <span class="accordion-trigger__inner">
                 <span class="accordion-trigger__title">
-                  <span class="accordion-icon">📍</span>
+                  <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                      stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z" />
+                      <circle cx="12" cy="10" r="3" />
+                    </svg></span>
                   Where we’ll meet
                 </span>
-                <span class="accordion-trigger__preview">Exact meeting location and instructions...</span>
               </span>
               <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
                 stroke-linecap="round" stroke-linejoin="round">
