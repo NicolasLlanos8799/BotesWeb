@@ -163,7 +163,7 @@ button:focus-visible,
 }
 
 .booking-panel__logo-text {
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: 1.05rem;
   font-weight: 700;
   color: var(--clr-white);
@@ -222,7 +222,7 @@ button:focus-visible,
 }
 
 .bp-intro__title {
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: clamp(1.6rem, 4vw, 2.2rem);
   font-weight: 700;
   color: var(--clr-white);
@@ -393,7 +393,7 @@ button:focus-visible,
 }
 
 .bp-card__title {
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: 1rem;
   font-weight: 700;
   color: var(--clr-navy);
@@ -430,7 +430,7 @@ button:focus-visible,
 }
 
 .bp-testimonial__quote {
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: 4rem;
   color: var(--clr-sand);
   line-height: 1;
@@ -439,7 +439,7 @@ button:focus-visible,
 }
 
 .bp-testimonial__text {
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: 1.2rem;
   font-style: italic;
   color: var(--clr-navy);
@@ -473,7 +473,7 @@ button:focus-visible,
 }
 
 .bp-audience__title {
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: 1rem;
   font-weight: 700;
   color: var(--clr-navy);
@@ -917,7 +917,7 @@ body.booking-open {
 }
 
 .cart-header h3 {
-  font-family: var(--font-serif);
+  font-family: var(--font-body);
   font-size: 1.4rem;
 }
 
@@ -955,7 +955,7 @@ body.booking-open {
 }
 
 .cart-item__info h4 {
-  font-family: var(--font-serif);
+  font-family: var(--font-body);
   font-size: 1.1rem;
   margin-bottom: 0.2rem;
   color: var(--clr-navy);
