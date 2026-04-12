@@ -626,7 +626,9 @@ body.booking-open {
     text-align: center;
   }
 
-  .footer__brand, .footer__links, .footer__contact {
+  .footer__brand,
+  .footer__links,
+  .footer__contact {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1141,9 +1143,10 @@ body.booking-open {
     padding: 0.6rem 1rem;
     font-size: 0.85rem;
   }
-  
+
   .cart-trigger__total {
-    display: none; /* Hide total on very small screens to save space */
+    display: none;
+    /* Hide total on very small screens to save space */
   }
 }
 

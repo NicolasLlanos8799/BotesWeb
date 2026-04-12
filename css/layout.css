@@ -1,4 +1,3 @@
-/* ── 6. NAVBAR ──────────────────────────────────────────────────────────── */
 .navbar {
   position: fixed;
   top: 0;
@@ -12,7 +11,14 @@
   transition: background var(--transition-smooth), backdrop-filter var(--transition-smooth), box-shadow var(--transition-smooth);
 }
 
-.navbar--scrolled {
+/* Force solid blue on experience pages as requested */
+.experience-page .navbar {
+  background: var(--clr-navy);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
+}
+
+.navbar--scrolled,
+.experience-page .navbar--scrolled {
   background: rgba(10, 20, 38, 0.96);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
@@ -183,7 +189,7 @@
 
 /* ── MOBILE STICKY CTA (Forced Viewport Pinning) ── */
 .mobile-sticky-cta {
-  display: none; /* shown via media query below */
+  display: none; /* Shown via media query below */
   position: fixed;
   bottom: 0;
   left: 0;
@@ -194,15 +200,15 @@
   margin: 0;
   z-index: 9999;
   background: var(--clr-navy);
-  padding: 12px 20px;
+  padding: 12px 16px;
   padding-bottom: calc(12px + env(safe-area-inset-bottom));
   box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.3);
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
-  /* Force GPU layer so Safari flush-renders to真 bottom edge */
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
+  /* Force GPU layer for pixel-perfect flush alignment on mobile Safari */
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
   will-change: transform;
 }
 

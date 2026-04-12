@@ -3,7 +3,7 @@ const BOOKING_STORAGE_KEY = "seaduced_booking";
 export const TOURS = {
   "book-1h": {
     id: "book-1h",
-    title: "Copenhagen: Private Guided Boat Tour",
+    title: "Private Guided Boat Tour",
     price: 2499,
     duration: "1 Hour",
     img: "/assets/images/tour_private_boat.png",
