@@ -125,7 +125,7 @@
 }
 
 .hero__headline {
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: clamp(2rem, 8vw, 4rem);
   /* More aggressive fluid resizing */
   font-weight: 700;
@@ -334,7 +334,7 @@
 }
 
 .tour-card__title {
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: 1.1rem;
   font-weight: 700;
   color: var(--clr-navy);
@@ -496,7 +496,7 @@
 }
 
 .bestseller-card__title {
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: 1.4rem;
   font-weight: 700;
   color: var(--clr-white);
@@ -583,7 +583,7 @@
 }
 
 .stat-number {
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: 2rem;
   font-weight: 700;
   color: var(--clr-navy);
@@ -631,7 +631,7 @@
 }
 
 .stack-rating {
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: 1.1rem;
   font-weight: 700;
   color: var(--clr-navy);
@@ -681,7 +681,7 @@
 }
 
 .booking-hero__title {
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: clamp(2.2rem, 6vw, 3.8rem);
   font-weight: 700;
   color: var(--clr-white);
@@ -855,7 +855,7 @@
 }
 
 .booking-card__title {
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: 1.1rem;
   font-weight: 700;
   color: var(--clr-navy);
@@ -1004,7 +1004,7 @@
 }
 
 .experience-heading h1 {
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: clamp(2.2rem, 3.5vw, 3.4rem);
   line-height: 1.15;
   font-weight: 700;
@@ -1110,7 +1110,7 @@
 }
 
 .experience-section h2 {
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: 1.6rem;
   color: var(--clr-navy);
   margin-bottom: 1.5rem;
@@ -1933,7 +1933,7 @@
 }
 
 .feature-card__title {
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: 1.15rem;
   font-weight: 700;
   color: var(--clr-white);
@@ -2034,7 +2034,7 @@
 }
 
 .testimonial-card__quote {
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: 5rem;
   line-height: 1;
   color: var(--clr-sky);
@@ -2211,7 +2211,7 @@
 }
 
 .route-card__name {
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: 1.2rem;
   font-weight: 700;
   color: var(--clr-navy);
@@ -2268,7 +2268,7 @@
   color: rgba(255, 255, 255, 0.92);
   padding: var(--space-md);
   border-radius: var(--radius-md);
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-style: italic;
   font-size: 0.95rem;
   line-height: 1.5;
@@ -2314,7 +2314,7 @@
 }
 
 .cta-section__headline {
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: clamp(2rem, 4.5vw, 3.2rem);
   font-weight: 700;
   color: var(--clr-white);
@@ -2436,7 +2436,7 @@
 
 .reserve-nav__logo {
   text-align: center;
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: clamp(1rem, 4vw, 1.25rem);
   color: var(--clr-white);
   font-weight: 700;
@@ -2478,7 +2478,7 @@
 }
 
 .reserve-section__title {
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: 1.8rem;
   font-weight: 700;
   color: var(--clr-navy);
@@ -2814,7 +2814,7 @@
 }
 
 .experience-heading h1 {
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: clamp(1.85rem, 3vw, 2.75rem);
   font-weight: 600;
   line-height: 1.12;
@@ -2877,7 +2877,7 @@
 }
 
 .experience-section h2 {
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: 1.5rem;
   font-weight: 600;
   color: #0f1e35;
@@ -3421,7 +3421,11 @@
 .accordion-content {
   height: 0;
   overflow: hidden;
-  transition: height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: height 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.accordion-content > * + * {
+  margin-top: 16px;
 }
 
 .accordion-content .experience-section {
