@@ -181,17 +181,20 @@
   min-height: 52px;
 }
 
-/* ── MOBILE STICKY CTA ── */
+/* ── MOBILE STICKY CTA (Fixed Positioning) ── */
 .mobile-sticky-cta {
   display: none;
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 2000;
+  width: 100%;
+  z-index: 9999;
   background: var(--clr-navy); /* High contrast dark background */
-  padding: 1rem 1.5rem calc(1rem + env(safe-area-inset-bottom));
+  padding: 12px 20px;
+  padding-bottom: calc(12px + env(safe-area-inset-bottom));
   box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.3);
+  display: none; /* Controlled by JS and Media Query */
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
