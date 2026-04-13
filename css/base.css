@@ -67,7 +67,7 @@
   --fs-small: 14px;
 
   /* Container */
-  --navbar-h: clamp(64px, 10vh, 80px); /* Relative navbar height */
+  --navbar-h: 72px; /* Fixed height to prevent mobile layout shifts */
 }
 
 /* ── 2. RESET & BASE ────────────────────────────────────────────────────── */
