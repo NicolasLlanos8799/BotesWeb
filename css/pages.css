@@ -1038,32 +1038,45 @@
   margin-bottom: 2.5rem;
 }
 
-.experience-gallery__lead img,
-.experience-gallery__stack img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+/* ── Refined Gallery Card (No Cropping, Edge-to-Edge) ── */
+.experience-gallery__lead,
+.experience-gallery__item {
+  position: relative;
+  padding: 0;
   border-radius: 20px;
-  box-shadow: 0 40px 80px rgba(15, 30, 53, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  overflow: hidden;
+  background: transparent;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  border: none;
 }
 
 .experience-gallery__lead {
-  min-height: 430px;
+  margin: 24px 0;
 }
 
 .experience-gallery__lead img {
-  min-height: 430px;
+  width: 100% !important;
+  height: auto !important;
+  /* Natural height ensures no cropping and no white bars */
+  display: block;
+  object-fit: initial !important;
+  border-radius: 20px;
+  /* Primary rounding on the image itself */
+  transform: none !important;
+  transition: none !important;
 }
 
-.experience-gallery__stack {
+.experience-gallery__item img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  display: block;
+}
+
+.experience-gallery__mosaic {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
-}
-
-.experience-gallery__stack img {
-  min-height: 205px;
 }
 
 .experience-intro {
@@ -2841,7 +2854,6 @@
   gap: 0.6rem;
 }
 
-.experience-gallery__lead img,
 .experience-gallery__stack img {
   border-radius: 18px;
   box-shadow: 0 8px 32px rgba(15, 30, 53, 0.08);
@@ -2849,7 +2861,6 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.experience-gallery__lead img:hover,
 .experience-gallery__stack img:hover {
   transform: scale(1.012);
   box-shadow: 0 14px 40px rgba(15, 30, 53, 0.12);
@@ -3702,45 +3713,38 @@
 .experience-gallery {
   display: grid;
   grid-template-columns: 2fr 1fr;
-  gap: 10px;
+  align-items: start;
+  gap: 16px;
   margin-bottom: 1.4rem;
 }
 
 .experience-gallery__lead {
   grid-column: 1;
-  height: 430px;
 }
 
 .experience-gallery__mosaic {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 16px;
 }
 
 .experience-gallery__item {
   height: 210px;
 }
 
-.experience-gallery img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 20px;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.experience-gallery img:hover {
-  transform: scale(1.02);
-}
-
+/* ── Media Queries ── */
 @media (max-width: 900px) {
   .experience-gallery {
     grid-template-columns: 1fr;
-    gap: 8px;
+    gap: 12px;
   }
 
   .experience-gallery__lead {
-    height: 320px;
+    margin: 16px 0;
+    height: auto !important;
+    aspect-ratio: auto !important;
+    /* Let the image dictate the card height */
+    background: transparent !important;
   }
 
   .experience-gallery__mosaic {
@@ -3749,15 +3753,15 @@
 }
 
 @media (max-width: 640px) {
-  .experience-gallery__lead {
-    height: 260px;
+
+  .experience-gallery__lead,
+  .experience-gallery__item {
+    border-radius: 12px;
   }
+
+  /* aspect-ratio removed to prevent cropping */
 
   .experience-gallery__item {
     height: 150px;
-  }
-
-  .experience-gallery img {
-    border-radius: 12px;
   }
 }
