@@ -332,17 +332,16 @@ function initHomePage() {
         <div class="cart-item__info">
           <h4>${EXTRA_CHARCUTERIE.title}</h4>
           <div class="cart-item__price">${formatCurrency(EXTRA_CHARCUTERIE.price)}</div>
-          ${
-            booking.tapas === 0
-              ? `<button class="btn--add-tapas" type="button" data-cart-action="add-tapas">Add To Experience +</button>`
-              : `
+          ${booking.tapas === 0
+        ? `<button class="btn--add-tapas" type="button" data-cart-action="add-tapas">Add To Experience +</button>`
+        : `
                 <div class="cart-qty">
                   <button type="button" data-cart-action="decrease-tapas">-</button>
                   <span>${booking.tapas}</span>
                   <button type="button" data-cart-action="increase-tapas">+</button>
                 </div>
               `
-          }
+      }
         </div>
       </div>
     `;
@@ -393,3 +392,13 @@ function initHomePage() {
 
   renderCart();
 }
+
+function setVH() {
+  const vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty('--vh', `${vh}px`);
+}
+
+setVH();
+
+/* ⚠️ IMPORTANTE: solo al cargar */
+window.addEventListener('load', setVH);
