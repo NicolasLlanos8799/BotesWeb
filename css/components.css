@@ -4,7 +4,7 @@
   justify-content: center;
   gap: 0.5em;
   font-family: var(--font-base);
-  font-size: var(--font-size-md);
+  font-size: var(--fs-p);
   font-weight: var(--font-weight-bold);
   letter-spacing: 0.02em;
   padding: 0.85em 1.8em;
@@ -17,12 +17,12 @@
 
 .btn--lg {
   padding: 1.1em 2.5em;
-  font-size: 1rem; /* approx 16px */
+  font-size: var(--fs-p); /* approx 16px */
 }
 
 .btn--sm {
   padding: 0.7em 1.3em;
-  font-size: var(--font-size-sm);
+  font-size: var(--fs-label);
 }
 
 a:focus-visible,
@@ -163,7 +163,7 @@ button:focus-visible,
 
 .booking-panel__logo-text {
   font-family: var(--font-body);
-  font-size: 1.05rem;
+  font-size: var(--fs-nav);
   font-weight: 700;
   color: var(--clr-white);
 }
@@ -225,7 +225,7 @@ button:focus-visible,
   font-size: clamp(1.5rem, 4vw, 2rem);
   font-weight: var(--font-weight-semibold);
   color: var(--clr-white);
-  line-height: var(--line-height-tight);
+  line-height: var(--lh-tight);
   letter-spacing: var(--letter-spacing-tight);
   margin-bottom: var(--space-md);
 }
@@ -241,7 +241,7 @@ button:focus-visible,
 }
 
 .bp-intro__sub {
-  font-size: 0.95rem;
+  font-size: var(--fs-p);
   color: rgba(255, 255, 255, 0.72);
   line-height: 1.75;
   margin-bottom: var(--space-sm);
@@ -259,7 +259,7 @@ button:focus-visible,
 }
 
 .bp-intro__badge span {
-  font-size: 0.78rem;
+  font-size: var(--fs-badge);
   font-weight: 600;
   color: rgba(255, 255, 255, 0.85);
   background: rgba(255, 255, 255, 0.10);
@@ -287,7 +287,7 @@ button:focus-visible,
 }
 
 .bp-season__label {
-  font-size: 0.78rem;
+  font-size: var(--fs-badge);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.12em;
@@ -358,12 +358,13 @@ button:focus-visible,
   font-size: 2rem;
 }
 
-.bp-card__soon-label {
-  font-size: 0.68rem;
+.bp-card__soon.faq-label {
+  font-size: var(--fs-xs);
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: rgba(255, 255, 255, 0.70);
+  letter-spacing: 0.12em;
+  color: #9aa3b0;
+  margin-bottom: 0.75rem;
 }
 
 .bp-card__tag {
@@ -372,7 +373,7 @@ button:focus-visible,
   left: 0.6rem;
   background: var(--clr-sunset);
   color: #fff;
-  font-size: 0.67rem;
+  font-size: var(--fs-tag);
   font-weight: 700;
   letter-spacing: 0.04em;
   padding: 0.25em 0.65em;
@@ -392,18 +393,35 @@ button:focus-visible,
   gap: 0.4rem;
 }
 
-.bp-card__title {
+.section-title {
   font-family: var(--font-base);
-  font-size: var(--font-size-md);
+  font-size: var(--fs-h1);
   font-weight: var(--font-weight-semibold);
   color: var(--clr-navy);
-  line-height: var(--line-height-tight);
+  margin-bottom: var(--space-lg);
+  line-height: var(--lh-tight);
+}
+
+.section-sub {
+  font-size: var(--fs-p);
+  color: var(--text-color-secondary);
+  max-width: 600px;
+  margin: 0 auto var(--space-xl);
+  line-height: var(--lh-relaxed);
+}
+
+.bp-card__title {
+  font-family: var(--font-base);
+  font-size: var(--fs-p);
+  font-weight: var(--font-weight-semibold);
+  color: var(--clr-navy);
+  line-height: var(--lh-tight);
 }
 
 .bp-card__desc {
-  font-size: var(--font-size-sm);
+  font-size: var(--fs-label);
   color: var(--text-color-secondary);
-  line-height: var(--line-height-loose);
+  line-height: var(--lh-relaxed);
   flex: 1;
 }
 
@@ -438,18 +456,17 @@ button:focus-visible,
   margin-bottom: -1rem;
 }
 
-.bp-testimonial__text {
-  font-family: var(--font-base);
-  font-size: var(--font-size-md);
+.testimonial__content p {
+  font-size: var(--fs-label);
   font-style: italic;
-  color: var(--clr-navy);
-  line-height: var(--line-height-loose);
+  color: var(--clr-text);
+  line-height: var(--lh-relaxed);
 }
 
 .bp-testimonial__author {
   display: block;
   margin-top: 0.75rem;
-  font-size: var(--font-size-sm);
+  font-size: var(--fs-label);
   font-weight: var(--font-weight-semibold);
   color: var(--text-color-muted);
 }
@@ -474,16 +491,16 @@ button:focus-visible,
 
 .bp-audience__title {
   font-family: var(--font-base);
-  font-size: var(--font-size-md);
+  font-size: var(--fs-md);
   font-weight: var(--font-weight-semibold);
   color: var(--clr-navy);
   margin-bottom: 0.25rem;
 }
 
 .bp-audience__sub {
-  font-size: var(--font-size-sm);
+  font-size: var(--fs-label);
   color: var(--text-color-secondary);
-  line-height: var(--line-height-loose);
+  line-height: var(--lh-relaxed);
 }
 
 /* ── Panel footer ── */
@@ -497,7 +514,7 @@ button:focus-visible,
 }
 
 .bp-footer__copy {
-  font-size: var(--font-size-xs);
+  font-size: var(--fs-xs);
   color: rgba(255, 255, 255, 0.40);
 }
 
@@ -687,7 +704,7 @@ body.booking-open {
   }
 
   .experience-meta {
-    font-size: 0.78rem;
+    font-size: var(--fs-tag);
   }
 
   .experience-topbar {
@@ -721,7 +738,7 @@ body.booking-open {
   .experience-booking__control-label,
   .experience-booking__select,
   .experience-booking__input {
-    font-size: 0.84rem;
+    font-size: var(--fs-badge);
   }
 
   .experience-booking__people-panel {
@@ -777,7 +794,7 @@ body.booking-open {
 
   .experience-booking__calendar-day {
     min-height: 2.65rem;
-    font-size: 0.86rem;
+    font-size: var(--fs-badge);
   }
 
   .booking-hero__title {
@@ -789,7 +806,7 @@ body.booking-open {
   }
 
   .booking-season__label {
-    font-size: 0.68rem;
+    font-size: var(--fs-tag);
     letter-spacing: 0.12em;
   }
 
@@ -887,6 +904,13 @@ body.booking-open {
   right: 0;
 }
 
+.booking-overlay__header h2 {
+  font-family: var(--font-base);
+  font-size: var(--fs-h3);
+  color: var(--clr-navy);
+  margin: 0;
+}
+
 .cart-header {
   padding: var(--space-lg);
   background: var(--clr-navy);
@@ -898,7 +922,7 @@ body.booking-open {
 
 .cart-header h3 {
   font-family: var(--font-base);
-  font-size: var(--font-size-lg);
+  font-size: var(--fs-lg);
   font-weight: var(--font-weight-semibold);
 }
 
@@ -937,7 +961,7 @@ body.booking-open {
 
 .cart-item__info h4 {
   font-family: var(--font-base);
-  font-size: var(--font-size-md);
+  font-size: var(--fs-md);
   margin-bottom: 0.2rem;
   color: var(--clr-navy);
   padding-right: 25px;
@@ -963,7 +987,7 @@ body.booking-open {
 .cart-item__price {
   font-weight: var(--font-weight-semibold);
   color: var(--clr-sunset);
-  font-size: var(--font-size-sm);
+  font-size: var(--fs-sm);
 }
 
 .cart-qty {
@@ -998,10 +1022,16 @@ body.booking-open {
   background: var(--clr-off-white);
 }
 
+.booking-confirm__details p {
+  font-size: var(--fs-p);
+  color: var(--clr-text-mid);
+  margin-bottom: var(--space-md);
+}
+
 .cart-total {
   display: flex;
   justify-content: space-between;
-  font-size: var(--font-size-lg);
+  font-size: var(--fs-lg);
   font-weight: var(--font-weight-semibold);
   color: var(--clr-navy);
   margin-bottom: var(--space-md);
@@ -1036,7 +1066,7 @@ body.booking-open {
   left: 1rem;
   background: var(--clr-sunset);
   color: var(--clr-white);
-  font-size: var(--font-size-xs);
+  font-size: var(--fs-xs);
   font-weight: var(--font-weight-semibold);
   padding: 2px 8px;
   border-radius: var(--radius-full);
