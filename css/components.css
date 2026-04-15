@@ -1,12 +1,11 @@
-/* ── 5. BUTTONS ─────────────────────────────────────────────────────────── */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5em;
-  font-family: var(--font-body);
-  font-size: 0.95rem;
-  font-weight: 600;
+  font-family: var(--font-base);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
   letter-spacing: 0.02em;
   padding: 0.85em 1.8em;
   border-radius: var(--radius-full);
@@ -17,13 +16,13 @@
 }
 
 .btn--lg {
-  padding: 1em 2.2em;
-  font-size: 1rem;
+  padding: 1.1em 2.5em;
+  font-size: 1rem; /* approx 16px */
 }
 
 .btn--sm {
   padding: 0.7em 1.3em;
-  font-size: 0.875rem;
+  font-size: var(--font-size-sm);
 }
 
 a:focus-visible,
@@ -222,11 +221,12 @@ button:focus-visible,
 }
 
 .bp-intro__title {
-  font-family: var(--font-body);
-  font-size: clamp(1.6rem, 4vw, 2.2rem);
-  font-weight: 700;
+  font-family: var(--font-base);
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: var(--font-weight-semibold);
   color: var(--clr-white);
-  line-height: 1.2;
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-tight);
   margin-bottom: var(--space-md);
 }
 
@@ -393,17 +393,17 @@ button:focus-visible,
 }
 
 .bp-card__title {
-  font-family: var(--font-body);
-  font-size: 1rem;
-  font-weight: 700;
+  font-family: var(--font-base);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
   color: var(--clr-navy);
-  line-height: 1.3;
+  line-height: var(--line-height-tight);
 }
 
 .bp-card__desc {
-  font-size: 0.85rem;
-  color: var(--clr-text-mid);
-  line-height: 1.65;
+  font-size: var(--font-size-sm);
+  color: var(--text-color-secondary);
+  line-height: var(--line-height-loose);
   flex: 1;
 }
 
@@ -439,19 +439,19 @@ button:focus-visible,
 }
 
 .bp-testimonial__text {
-  font-family: var(--font-body);
-  font-size: 1.2rem;
+  font-family: var(--font-base);
+  font-size: var(--font-size-md);
   font-style: italic;
   color: var(--clr-navy);
-  line-height: 1.65;
+  line-height: var(--line-height-loose);
 }
 
 .bp-testimonial__author {
   display: block;
   margin-top: 0.75rem;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--clr-text-light);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-color-muted);
 }
 
 /* ── Audience strip ── */
@@ -473,17 +473,17 @@ button:focus-visible,
 }
 
 .bp-audience__title {
-  font-family: var(--font-body);
-  font-size: 1rem;
-  font-weight: 700;
+  font-family: var(--font-base);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
   color: var(--clr-navy);
   margin-bottom: 0.25rem;
 }
 
 .bp-audience__sub {
-  font-size: 0.88rem;
-  color: var(--clr-text-mid);
-  line-height: 1.6;
+  font-size: var(--font-size-sm);
+  color: var(--text-color-secondary);
+  line-height: var(--line-height-loose);
 }
 
 /* ── Panel footer ── */
@@ -497,7 +497,7 @@ button:focus-visible,
 }
 
 .bp-footer__copy {
-  font-size: 0.78rem;
+  font-size: var(--font-size-xs);
   color: rgba(255, 255, 255, 0.40);
 }
 
@@ -577,25 +577,62 @@ body.booking-open {
   }
 
   .hero__content {
-    padding-top: calc(var(--navbar-h) + var(--space-lg));
-    margin-left: auto;
+    padding-top: calc(var(--navbar-h) + 1.5rem);
+    padding-bottom: var(--space-2xl);
+    margin-left: 0;
     margin-right: auto;
-    text-align: center;
+    text-align: left;
+    max-width: 100%;
   }
 
   .hero__overlay {
     background: linear-gradient(180deg,
-        rgba(0, 0, 0, 0.63) 0%,
-        rgba(0, 0, 0, 0.30) 50%,
-        rgba(0, 0, 0, 0.15) 100%);
+        rgba(0, 0, 0, 0.6) 0%,
+        rgba(0, 0, 0, 0.4) 40%,
+        rgba(0, 0, 0, 0.6) 100%);
+  }
+
+  .hero__badge {
+    margin-bottom: 1.25rem;
+    padding: 0.4em 1em;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
   }
 
   .hero__headline {
-    font-size: clamp(1.9rem, 9vw, 2.2rem);
+    font-size: clamp(1.875rem, 9vw, 2.25rem); /* 30px - 36px */
+    line-height: 1.25;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+  }
+
+  .hero__headline br {
+    display: none;
+  }
+
+  .hero__subtext {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-left: 0;
+    margin-right: auto;
+    margin-bottom: 2rem;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .hero__ctas {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.85rem;
+  }
+
+  .hero__ctas .btn {
+    width: 100%;
+    margin: 0;
   }
 
   .hero__scroll-cue {
     left: 50%;
+    transform: translateX(-50%);
   }
 
   .hero__trust {
@@ -919,8 +956,9 @@ body.booking-open {
 }
 
 .cart-header h3 {
-  font-family: var(--font-body);
-  font-size: 1.4rem;
+  font-family: var(--font-base);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
 }
 
 .cart-close {
@@ -957,11 +995,12 @@ body.booking-open {
 }
 
 .cart-item__info h4 {
-  font-family: var(--font-body);
-  font-size: 1.1rem;
+  font-family: var(--font-base);
+  font-size: var(--font-size-md);
   margin-bottom: 0.2rem;
   color: var(--clr-navy);
   padding-right: 25px;
+  font-weight: var(--font-weight-semibold);
 }
 
 .cart-item__remove {
@@ -981,9 +1020,9 @@ body.booking-open {
 }
 
 .cart-item__price {
-  font-weight: 700;
+  font-weight: var(--font-weight-semibold);
   color: var(--clr-sunset);
-  font-size: 0.95rem;
+  font-size: var(--font-size-sm);
 }
 
 .cart-qty {
@@ -1021,8 +1060,8 @@ body.booking-open {
 .cart-total {
   display: flex;
   justify-content: space-between;
-  font-size: 1.2rem;
-  font-weight: 700;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
   color: var(--clr-navy);
   margin-bottom: var(--space-md);
 }
@@ -1056,8 +1095,8 @@ body.booking-open {
   left: 1rem;
   background: var(--clr-sunset);
   color: var(--clr-white);
-  font-size: 0.65rem;
-  font-weight: 700;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
   padding: 2px 8px;
   border-radius: var(--radius-full);
   text-transform: uppercase;

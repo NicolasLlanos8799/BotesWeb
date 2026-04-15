@@ -49,10 +49,10 @@
   inset: 0;
   z-index: 2;
   background: linear-gradient(90deg,
-      rgba(0, 0, 0, 0.68) 0%,
-      rgba(0, 0, 0, 0.40) 30%,
-      rgba(0, 0, 0, 0.25) 60%,
-      rgba(0, 0, 0, 0.10) 85%);
+      rgba(0, 0, 0, 0.75) 0%,
+      rgba(0, 0, 0, 0.50) 40%,
+      rgba(0, 0, 0, 0.30) 70%,
+      rgba(0, 0, 0, 0.15) 100%);
 }
 
 .hero__content {
@@ -111,15 +111,15 @@
 }
 
 .hero__headline {
-  font-family: var(--font-body);
-  font-size: clamp(2rem, 8vw, 4rem);
-  /* More aggressive fluid resizing */
-  font-weight: 700;
+  font-family: var(--font-base);
+  font-size: clamp(3.5rem, 8vw, 4.5rem); /* 56px - 72px */
+  font-weight: var(--font-weight-semibold);
   line-height: 1.1;
   color: var(--clr-white);
-  margin-bottom: 24px;
+  margin-bottom: 32px;
   animation-delay: 0.2s;
   max-width: 800px;
+  letter-spacing: -0.03em;
 }
 
 .hero__headline em {
@@ -128,20 +128,21 @@
 }
 
 .hero__subtext {
-  font-size: clamp(1rem, 1.5vw, 1.15rem);
-  color: rgba(255, 255, 255, 0.80);
-  max-width: 520px;
-  margin-bottom: 32px;
-  line-height: 1.75;
+  font-size: clamp(1.125rem, 2vw, 1.375rem); /* 18px - 22px */
+  color: rgba(255, 255, 255, 0.90);
+  max-width: 600px;
+  margin-bottom: 40px;
+  line-height: 1.6;
   animation-delay: 0.3s;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
 .hero__ctas {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: var(--space-sm);
-  margin-bottom: 28px;
+  gap: var(--space-md);
+  margin-bottom: 32px;
   animation-delay: 0.4s;
 }
 
@@ -169,8 +170,8 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 13px;
-  font-weight: 500;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
   color: rgba(255, 255, 255, 0.7);
   transition: color 0.2s ease;
   cursor: default;
@@ -303,8 +304,8 @@
   left: var(--space-sm);
   background: rgba(232, 131, 74, 0.92);
   color: #fff;
-  font-size: 0.72rem;
-  font-weight: 700;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
   letter-spacing: 0.06em;
   text-transform: uppercase;
   padding: 0.3em 0.75em;
@@ -320,31 +321,28 @@
 }
 
 .tour-card__title {
-  font-family: var(--font-body);
-  font-size: 1.1rem;
-  font-weight: 700;
+  font-family: var(--font-base);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
   color: var(--clr-navy);
   margin-bottom: var(--space-xs);
-  line-height: 1.3;
+  line-height: var(--line-height-tight);
   min-height: 2.5em;
-  /* Standardize title height */
 }
 
 .tour-card__desc {
-  font-size: 0.85rem;
-  color: var(--clr-text-mid);
-  line-height: 1.6;
+  font-size: var(--font-size-sm);
+  color: var(--text-color-secondary);
+  line-height: var(--line-height-loose);
   margin-bottom: var(--space-md);
   flex-grow: 1;
-  /* Pushes content below it to the bottom */
 }
 
 .tour-card__price {
-  font-size: 1.25rem;
-  font-weight: 700;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
   color: var(--clr-navy);
   margin-top: auto;
-  /* Alignment anchor */
   margin-bottom: var(--space-md);
   display: flex;
   align-items: baseline;
@@ -352,14 +350,15 @@
 }
 
 .tour-card__amount {
-  font-size: 1.25rem;
-  font-weight: 700;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
   color: var(--clr-navy);
+  letter-spacing: -0.02em;
 }
 
 .tour-card__price-note {
-  font-size: 0.78rem;
-  font-weight: 600;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
   color: var(--clr-navy);
   line-height: 1.3;
 }
@@ -391,7 +390,7 @@
 }
 
 .tours-view-all__text {
-  font-size: 1rem;
+  font-size: var(--font-size-md);
   color: rgba(255, 255, 255, 0.72);
   margin: 0;
 }
@@ -482,11 +481,11 @@
 }
 
 .bestseller-card__title {
-  font-family: var(--font-body);
-  font-size: 1.4rem;
-  font-weight: 700;
+  font-family: var(--font-base);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
   color: var(--clr-white);
-  line-height: 1.2;
+  line-height: var(--line-height-tight);
 }
 
 .bestseller-card--sm .bestseller-card__title {
@@ -494,9 +493,9 @@
 }
 
 .bestseller-card__desc {
-  font-size: 0.9rem;
+  font-size: var(--font-size-sm);
   color: rgba(255, 255, 255, 0.80);
-  line-height: 1.55;
+  line-height: var(--line-height-loose);
 }
 
 .bestseller-side {
@@ -549,9 +548,9 @@
 }
 
 .welcome-p {
-  color: var(--clr-text-mid);
-  font-size: 1.05rem;
-  line-height: 1.8;
+  color: var(--text-color-secondary);
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-loose);
   margin-bottom: var(--space-md);
 }
 
@@ -576,11 +575,11 @@
 }
 
 .stat-label {
-  font-size: 0.78rem;
-  font-weight: 600;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--clr-text-light);
+  color: var(--text-color-muted);
 }
 
 .img-stack {
@@ -667,11 +666,12 @@
 }
 
 .booking-hero__title {
-  font-family: var(--font-body);
-  font-size: clamp(2.2rem, 6vw, 3.8rem);
-  font-weight: 700;
+  font-family: var(--font-base);
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  font-weight: var(--font-weight-semibold);
   color: var(--clr-white);
-  line-height: 1.1;
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-tight);
   margin-bottom: var(--space-md);
 }
 
@@ -681,11 +681,11 @@
 }
 
 .booking-hero__intro {
-  font-size: clamp(1rem, 1.2vw, 1.15rem);
+  font-size: var(--font-size-md);
   color: rgba(255, 255, 255, 0.75);
   max-width: 720px;
   margin: 0 auto var(--space-lg);
-  line-height: 1.7;
+  line-height: var(--line-height-loose);
 }
 
 .booking-hero__badges {
@@ -841,18 +841,18 @@
 }
 
 .booking-card__title {
-  font-family: var(--font-body);
-  font-size: 1.1rem;
-  font-weight: 700;
+  font-family: var(--font-base);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
   color: var(--clr-navy);
   margin-bottom: var(--space-xs);
-  line-height: 1.3;
+  line-height: var(--line-height-tight);
 }
 
 .booking-card__desc {
-  font-size: 0.85rem;
-  color: var(--clr-text-mid);
-  line-height: 1.7;
+  font-size: var(--font-size-sm);
+  color: var(--text-color-secondary);
+  line-height: var(--line-height-loose);
   flex: 1;
   margin-bottom: var(--space-lg);
 }
@@ -869,9 +869,10 @@
 }
 
 .booking-card__amount {
-  font-size: 1.5rem;
-  font-weight: 700;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
   color: var(--clr-navy);
+  letter-spacing: -0.02em;
 }
 
 .booking-card__price-note {
@@ -901,8 +902,8 @@
 .booking-footer {
   text-align: center;
   padding: var(--space-2xl) var(--space-lg);
-  color: var(--clr-text-light);
-  font-size: 0.85rem;
+  color: var(--text-color-muted);
+  font-size: var(--font-size-sm);
   border-top: 1px solid var(--clr-sand);
   margin-top: var(--space-xl);
 }
@@ -934,9 +935,9 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.55rem;
-  font-size: 0.74rem;
-  color: var(--clr-text-light);
-  letter-spacing: 0.08em;
+  font-size: var(--font-size-xs);
+  color: var(--text-color-muted);
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
@@ -990,10 +991,10 @@
 }
 
 .experience-heading h1 {
-  font-family: var(--font-body);
-  font-size: clamp(2.2rem, 3.5vw, 3.4rem);
-  line-height: 1.15;
-  font-weight: 700;
+  font-family: var(--font-base);
+  font-size: clamp(1.75rem, 3.5vw, var(--font-size-xxl));
+  line-height: var(--line-height-tight);
+  font-weight: var(--font-weight-semibold);
   letter-spacing: -0.02em;
   color: var(--clr-navy);
   margin-bottom: 1rem;
@@ -1005,8 +1006,8 @@
   flex-wrap: wrap;
   gap: 0.7rem 0.8rem;
   align-items: center;
-  color: var(--clr-text-mid);
-  font-size: 0.83rem;
+  color: var(--text-color-secondary);
+  font-size: var(--font-size-sm);
 }
 
 .experience-meta span {
@@ -1023,12 +1024,12 @@
 .experience-rating {
   gap: 0.45rem;
   color: var(--clr-navy);
-  font-weight: 700;
+  font-weight: var(--font-weight-semibold);
 }
 
 .experience-rating strong {
   letter-spacing: 0.18em;
-  font-size: 0.85rem;
+  font-size: var(--font-size-xs);
 }
 
 .experience-gallery {
@@ -1080,9 +1081,9 @@
 }
 
 .experience-intro {
-  font-size: 1.05rem;
-  line-height: 1.85;
-  color: var(--clr-navy);
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-loose);
+  color: var(--text-color-primary);
   margin-bottom: 2.5rem;
   max-width: 950px;
   padding-bottom: 2.5rem;
@@ -1109,11 +1110,12 @@
 }
 
 .experience-section h2 {
-  font-family: var(--font-body);
-  font-size: 1.6rem;
+  font-family: var(--font-base);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
   color: var(--clr-navy);
   margin-bottom: 1.5rem;
-  letter-spacing: -0.01em;
+  letter-spacing: var(--letter-spacing-tight);
 }
 
 /* ── Info grid (4 items) ─── */
@@ -1162,18 +1164,18 @@
 }
 
 .experience-info-card strong {
-  font-size: 0.65rem;
+  font-size: var(--font-size-xs);
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: #7a8799;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   line-height: 1;
   margin-bottom: 2px;
 }
 
 .experience-info-card p {
-  font-size: 0.85rem;
-  font-weight: 500;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
   color: #0f1e35;
   line-height: 1.2;
   margin: 0;
@@ -1188,8 +1190,8 @@
 .experience-columns p,
 .experience-note p {
   color: var(--clr-text-mid);
-  line-height: 1.65;
-  font-size: 0.9rem;
+  line-height: var(--line-height-loose);
+  font-size: var(--font-size-sm);
 }
 
 .experience-columns {
@@ -1251,21 +1253,21 @@
 .experience-review__stars {
   color: var(--clr-navy);
   letter-spacing: 0.16em;
-  font-size: 0.8rem;
+  font-size: var(--font-size-xs);
   margin-bottom: 0.5rem;
 }
 
 .experience-review__meta {
   color: var(--clr-navy);
-  font-weight: 700;
+  font-weight: var(--font-weight-semibold);
   margin-bottom: 0.45rem;
-  font-size: 0.92rem;
+  font-size: var(--font-size-sm);
 }
 
 .experience-review p {
   color: var(--clr-text-mid);
-  line-height: 1.7;
-  font-size: 0.93rem;
+  line-height: var(--line-height-loose);
+  font-size: var(--font-size-sm);
 }
 
 .experience-sidebar {
@@ -1290,15 +1292,15 @@
   border-radius: var(--radius-full);
   background: rgba(15, 30, 53, 0.08);
   color: var(--clr-navy);
-  font-size: 0.64rem;
-  font-weight: 700;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
 .experience-booking__label {
   display: block;
-  font-size: 0.66rem;
+  font-size: var(--font-size-xs);
   text-transform: uppercase;
   color: var(--clr-text-light);
   letter-spacing: 0.12em;
@@ -1315,14 +1317,15 @@
 }
 
 .experience-booking__price strong {
-  font-size: clamp(1.7rem, 3vw, 2.35rem);
+  font-size: var(--font-size-xl);
   line-height: 0.95;
   letter-spacing: -0.04em;
+  font-weight: var(--font-weight-bold);
 }
 
 .experience-booking__price span {
-  font-size: 0.82rem;
-  font-weight: 600;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
 }
 
 .experience-booking__details {
@@ -1353,7 +1356,7 @@
   background: #f3f5f8;
   color: var(--clr-navy);
   border: 1px solid rgba(15, 30, 53, 0.04);
-  font-size: 0.9rem;
+  font-size: var(--font-size-sm);
   min-height: 56px;
 }
 
@@ -1406,7 +1409,7 @@
 
 .experience-booking__control-label {
   color: var(--clr-navy);
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   min-width: 0;
   line-height: 1.2;
   text-align: left;
@@ -1414,7 +1417,7 @@
 
 .experience-booking__control-value {
   color: var(--clr-text-mid);
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   padding-right: 1rem;
   position: relative;
   justify-self: end;
@@ -1538,12 +1541,13 @@
 
 .experience-booking__people-head strong {
   color: var(--clr-navy);
-  font-size: 0.95rem;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
 }
 
 .experience-booking__people-head span {
   color: var(--clr-text-light);
-  font-size: 0.78rem;
+  font-size: var(--font-size-xs);
 }
 
 .experience-booking__people-counter {
@@ -1557,8 +1561,8 @@
   min-width: 2ch;
   text-align: center;
   color: var(--clr-navy);
-  font-size: 1.35rem;
-  font-weight: 700;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
   line-height: 1;
   transition: transform 0.16s ease, opacity 0.16s ease;
 }
@@ -1600,8 +1604,8 @@
   border-radius: 999px;
   background: var(--clr-navy);
   color: var(--clr-white);
-  font-size: 0.86rem;
-  font-weight: 600;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
   transition: opacity var(--transition-fast), transform var(--transition-fast);
 }
 
@@ -1619,8 +1623,8 @@
 
 .experience-booking__date-month {
   color: var(--clr-navy);
-  font-size: 0.95rem;
-  font-weight: 700;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
   text-align: center;
 }
 
@@ -1661,8 +1665,8 @@
 
 .experience-booking__calendar-weekdays span {
   color: var(--clr-text-light);
-  font-size: 0.68rem;
-  font-weight: 700;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
   text-align: center;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -1691,8 +1695,8 @@
   border: 1px solid transparent;
   background: transparent;
   color: var(--clr-navy);
-  font-size: 0.82rem;
-  font-weight: 600;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
   transition: transform var(--transition-fast), background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast), opacity var(--transition-fast);
 }
 
@@ -1750,12 +1754,13 @@
 
 .experience-booking__language-head strong {
   color: var(--clr-navy);
-  font-size: 0.95rem;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
 }
 
 .experience-booking__language-head span {
   color: var(--clr-text-light);
-  font-size: 0.78rem;
+  font-size: var(--font-size-xs);
 }
 
 .experience-booking__language-options {
@@ -1774,8 +1779,8 @@
   border: 1px solid rgba(15, 30, 53, 0.06);
   background: #f6f7f9;
   color: var(--clr-navy);
-  font-size: 0.9rem;
-  font-weight: 600;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
   text-align: left;
   transition: transform var(--transition-fast), background var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
@@ -1862,13 +1867,14 @@
   display: block;
   color: var(--clr-navy);
   margin-bottom: 0.1rem;
-  font-size: 0.9rem;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
 }
 
 .experience-booking__benefit p {
   color: var(--clr-text-mid);
-  line-height: 1.55;
-  font-size: 0.88rem;
+  line-height: var(--line-height-loose);
+  font-size: var(--font-size-sm);
 }
 
 .experience-note {
@@ -1883,7 +1889,8 @@
   display: block;
   color: var(--clr-navy);
   margin-bottom: 0.25rem;
-  font-size: 0.9rem;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
 }
 
 /* ── 13. WHY CHOOSE US ──────────────────────────────────────────────────── */
@@ -1950,17 +1957,17 @@
 }
 
 .feature-card__title {
-  font-family: var(--font-body);
-  font-size: 1.15rem;
-  font-weight: 700;
+  font-family: var(--font-base);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
   color: var(--clr-white);
   margin-bottom: var(--space-xs);
 }
 
 .feature-card__text {
-  font-size: 0.92rem;
+  font-size: var(--font-size-sm);
   color: rgba(255, 255, 255, 0.65);
-  line-height: 1.7;
+  line-height: var(--line-height-loose);
 }
 
 .perfect-for-line {
@@ -2015,16 +2022,16 @@
 }
 
 .quick-review__text {
-  font-size: 0.95rem;
+  font-size: var(--font-size-sm);
   font-style: italic;
   color: var(--clr-text-mid);
-  line-height: 1.65;
+  line-height: var(--line-height-loose);
   margin-bottom: 0.75em;
 }
 
 .quick-review__author {
-  font-size: 0.82rem;
-  font-weight: 600;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
   color: var(--clr-navy);
   letter-spacing: 0.02em;
 }
@@ -2063,10 +2070,10 @@
 }
 
 .testimonial-card__text {
-  font-size: 1.15rem;
+  font-size: var(--font-size-md);
   font-style: italic;
   color: var(--clr-text);
-  line-height: 1.75;
+  line-height: var(--line-height-loose);
   max-width: 680px;
   margin: 0 auto var(--space-md);
   text-align: center;
@@ -2163,11 +2170,11 @@
 }
 
 .testimonials-cta__sub {
-  font-size: 0.95rem;
+  font-size: var(--font-size-sm);
   color: var(--clr-text-light);
   max-width: 520px;
   margin: 0 auto var(--space-md);
-  line-height: 1.65;
+  line-height: var(--line-height-loose);
 }
 
 /* ── 13. ROUTES SECTION ─────────────────────────────────────────────────── */
@@ -2228,9 +2235,9 @@
 }
 
 .route-card__name {
-  font-family: var(--font-body);
-  font-size: 1.2rem;
-  font-weight: 700;
+  font-family: var(--font-base);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
   color: var(--clr-navy);
   margin-bottom: var(--space-xs);
 }
@@ -2259,9 +2266,9 @@
 }
 
 .story-p {
-  font-size: 1.05rem;
+  font-size: var(--font-size-md);
   color: var(--clr-text-mid);
-  line-height: 1.8;
+  line-height: var(--line-height-loose);
   margin-bottom: var(--space-md);
 }
 
@@ -2285,10 +2292,10 @@
   color: rgba(255, 255, 255, 0.92);
   padding: var(--space-md);
   border-radius: var(--radius-md);
-  font-family: var(--font-body);
+  font-family: var(--font-base);
   font-style: italic;
-  font-size: 0.95rem;
-  line-height: 1.5;
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-normal);
   max-width: 230px;
   border-left: 3px solid var(--clr-sunset);
   backdrop-filter: blur(10px);
@@ -2889,16 +2896,16 @@
   border: none;
   border-top: 1px solid rgba(15, 30, 53, 0.08);
   border-radius: 0;
-  padding: 2.1rem 0;
+  padding: 1.25rem 0; /* Reduced from 2.1rem */
   box-shadow: none;
 }
 
 .experience-section h2 {
   font-family: var(--font-body);
-  font-size: 1.5rem;
-  font-weight: 600;
+  font-size: 1.125rem; /* Reduced from 1.5rem */
+  font-weight: 700;
   color: #0f1e35;
-  margin-bottom: 1.25rem;
+  margin-bottom: 0.75rem; /* Reduced from 1.25rem */
   letter-spacing: -0.01em;
 }
 
@@ -2947,20 +2954,21 @@
 .experience-story-grid {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 0.8rem; /* Reduced from 1.5rem */
 }
 
 .experience-story__text p {
-  font-size: 1.05rem;
-  line-height: 1.72;
+  font-size: 0.9rem; /* Reduced from 1.05rem (approx 14.5px) */
+  line-height: 1.45; /* More compact */
   color: #3d4752;
-  margin-bottom: 1rem;
+  margin-bottom: 0.6rem; /* Reduced from 1rem */
+  max-width: 600px; /* Better density */
 }
 
 .experience-separator {
   border: 0;
   border-top: 1px solid rgba(0, 0, 0, 0.06);
-  margin: 1.5rem 0;
+  margin: 0.8rem 0; /* Reduced from 1.5rem */
   width: 100%;
 }
 
@@ -2972,18 +2980,18 @@
 }
 
 .experience-story__highlights h3 {
-  font-size: 0.75rem;
+  font-size: 1rem; /* 16px as requested */
   text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: #7a8799;
-  margin-bottom: 1.25rem;
-  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: #4a5568;
+  margin-bottom: 0.75rem;
+  font-weight: 700;
 }
 
 .experience-highlights-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.25rem 2.5rem;
+  grid-template-columns: 1fr 1fr; /* 2 columns as requested */
+  gap: 0.6rem 1.25rem; /* ~10px vertical, 20px horizontal */
   list-style: none;
   padding: 0;
   margin: 0;
@@ -2992,17 +3000,17 @@
 .experience-highlights-grid li {
   display: flex;
   align-items: flex-start;
-  gap: 0.85rem;
-  font-size: 0.95rem;
-  line-height: 1.5;
+  gap: 0.5rem; /* Less separation with text */
+  font-size: 0.875rem; /* Approx 14px */
+  line-height: 1.4;
   color: #4a5568;
 }
 
 .experience-highlights-grid li svg {
-  width: 1.15rem;
-  height: 1.15rem;
+  width: 1.05rem; /* Shrink to ~17px */
+  height: 1.05rem;
   color: #2d6a9f;
-  margin-top: 0.15rem;
+  margin-top: 0.1rem;
   flex-shrink: 0;
 }
 
@@ -3555,14 +3563,40 @@
   }
 
   .accordion-content .experience-section {
-    padding: 1.25rem 1rem;
+    padding: 0.85rem 0.5rem;
     text-align: left;
+  }
+
+  /* Compact Experience Styles for Mobile */
+  .experience-section h2,
+  .experience-story__highlights h3 {
+    font-size: 1rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  .experience-section p {
+    font-size: 0.875rem !important; /* 14px */
+    line-height: 1.4 !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  .experience-story-grid {
+    gap: 0.5rem !important;
+  }
+
+  .experience-separator {
+    margin: 0.5rem 0 !important;
+  }
+
+  .experience-highlights-grid {
+    grid-template-columns: 1fr;
+    gap: 0.4rem !important;
   }
 
   .experience-details-list li,
   .experience-story__highlights li {
-    font-size: 0.92rem;
-    margin-bottom: 0.75rem;
+    font-size: 0.85rem !important;
+    margin-bottom: 0.5rem !important;
   }
 }
 
@@ -3588,7 +3622,7 @@
   }
 
   .experience-section {
-    padding: 1.6rem 0;
+    padding: 0.85rem 0; /* Reduced from 1.6rem */
   }
 
   .experience-info-grid {

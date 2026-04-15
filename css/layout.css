@@ -41,15 +41,15 @@
 }
 
 .logo-icon {
-  font-size: 1.4rem;
+  font-size: var(--font-size-xl);
 }
 
 .logo-text {
-  font-family: var(--font-body);
-  font-size: 1.2rem;
-  font-weight: 700;
+  font-family: var(--font-base);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
   color: var(--clr-white);
-  letter-spacing: -0.01em;
+  letter-spacing: var(--letter-spacing-tight);
 }
 
 .logo-text em {
@@ -64,8 +64,8 @@
 }
 
 .nav-link {
-  font-size: 0.9rem;
-  font-weight: 500;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
   color: rgba(255, 255, 255, 0.82);
   transition: color var(--transition-fast);
   position: relative;
@@ -166,9 +166,9 @@
 }
 
 .navbar__mobile .nav-link {
-  font-size: 1rem;
+  font-size: var(--font-size-md);
   text-align: center;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   letter-spacing: 0.005em;
   color: rgba(255, 255, 255, 0.9);
   padding: 0.65rem 1rem;
@@ -232,14 +232,14 @@
 }
 
 .mobile-sticky-cta__price strong {
-  font-size: 1.25rem;
+  font-size: var(--font-size-lg);
   color: #ffffff;
-  font-weight: 700;
+  font-weight: var(--font-weight-semibold);
   letter-spacing: -0.02em;
 }
 
 .mobile-sticky-cta__price span {
-  font-size: 0.65rem;
+  font-size: var(--font-size-xs);
   color: rgba(255, 255, 255, 0.6);
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -252,8 +252,8 @@
   min-height: 46px;
   background: var(--clr-sunset);
   color: #fff;
-  font-size: 0.88rem;
-  font-weight: 700;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(232, 131, 74, 0.4);
   text-transform: uppercase;
@@ -283,8 +283,8 @@
 }
 
 .footer__tagline {
-  font-size: 0.9rem;
-  line-height: 1.65;
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-loose);
   color: rgba(255, 255, 255, 0.55);
   margin-bottom: var(--space-md);
 }
@@ -303,8 +303,8 @@
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  font-size: 0.72rem;
-  font-weight: 700;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
   color: rgba(255, 255, 255, 0.70);
   transition: all var(--transition-fast);
   letter-spacing: 0.04em;
@@ -318,8 +318,8 @@
 }
 
 .footer__links-title {
-  font-size: 0.78rem;
-  font-weight: 700;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
   text-transform: uppercase;
   letter-spacing: 0.12em;
   color: rgba(255, 255, 255, 0.40);
@@ -334,7 +334,7 @@
 }
 
 .footer-link {
-  font-size: 0.9rem;
+  font-size: var(--font-size-sm);
   color: rgba(255, 255, 255, 0.65);
   transition: color var(--transition-fast);
 }
@@ -344,8 +344,8 @@
 }
 
 .footer-contact-item {
-  font-size: 0.88rem;
-  line-height: 1.6;
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-loose);
 }
 
 .footer-contact-item a {
@@ -363,7 +363,7 @@
 
 .footer__copy {
   text-align: center;
-  font-size: 0.8rem;
+  font-size: var(--font-size-xs);
   color: rgba(255, 255, 255, 0.35);
   padding: var(--space-md) 0;
 }
