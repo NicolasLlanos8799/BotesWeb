@@ -69,6 +69,14 @@ function initNavbar() {
       hamburger.setAttribute("aria-expanded", "false");
     });
   });
+
+  // Defensive: explicitly handle Tours navigation if something is overriding it
+  document.querySelectorAll('#nav-tours, #mob-tours').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.location.href = '/book';
+    });
+  });
 }
 
 function initRevealAnimations() {
