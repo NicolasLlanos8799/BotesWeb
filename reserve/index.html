@@ -5,17 +5,28 @@
     <meta charset="UTF-8" />
     <link rel="icon" href="/assets/icons/favicon.svg" type="image/svg+xml" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Complete Your Reservation | Seaduced-Experience</title>
+    <title>Complete Your Reservation | Seaduced Experience</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="/css/base.css" />
-  <link rel="stylesheet" href="/css/layout.css" />
-  <link rel="stylesheet" href="/css/components.css" />
-  <link rel="stylesheet" href="/css/pages.css" />
+    <link rel="stylesheet" href="/css/layout.css" />
+    <link rel="stylesheet" href="/css/components.css" />
+    <link rel="stylesheet" href="/css/pages.css" />
 </head>
 
 <body class="reserve-page">
+    <div class="preloader">
+        <div class="preloader__content">
+            <svg class="preloader__anchor" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path
+                    d="M12 5V21M7 16H2M17 16H22M5 16C5 19.866 8.13401 23 12 23C15.866 23 19 19.866 19 16M12 5C13.1046 5 14 4.10457 14 3C14 1.89543 13.1046 1 12 1C10.8954 1 10 1.89543 10 3C10 4.10457 10.8954 5 12 5Z" />
+            </svg>
+            <div class="preloader__text">Seaduced Experience</div>
+        </div>
+    </div>
     <nav class="reserve-nav">
         <a href="/book" class="reserve-nav__back" aria-label="Back to selection">
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
@@ -59,7 +70,8 @@
             <section class="reserve-section" id="extras-section">
                 <h2 class="reserve-section__title"><span>2</span> Enhance Your Experience</h2>
                 <div class="extra-card">
-                    <img src="/assets/images/tour_christmas_champagne.webp" alt="Tapas Box" class="extra-card__img" loading="lazy" />
+                    <img src="/assets/images/tour_christmas_champagne.webp" alt="Tapas Box" class="extra-card__img"
+                        loading="lazy" />
                     <div class="extra-card__info">
                         <h3>Charcuterie</h3>
                         <p>Selection of 2 cheeses, 2 meats, marmalade, bread, nuts and olives.</p>
@@ -71,9 +83,11 @@
                     <div class="extra-card__price">
                         <span>225 DKK</span>
                         <div style="display: flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem;">
-                            <button id="tapas-minus" class="btn btn--outline btn--sm" style="padding: 2px 8px;">-</button>
+                            <button id="tapas-minus" class="btn btn--outline btn--sm"
+                                style="padding: 2px 8px;">-</button>
                             <span id="tapas-qty-display">0</span>
-                            <button id="tapas-plus" class="btn btn--outline btn--sm" style="padding: 2px 8px;">+</button>
+                            <button id="tapas-plus" class="btn btn--outline btn--sm"
+                                style="padding: 2px 8px;">+</button>
                         </div>
                     </div>
                 </div>

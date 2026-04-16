@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initFaqAccordion();
   initSmoothScroll();
   initBookingButtons();
+  initPreloader();
 
   if (document.body.classList.contains("home-page")) {
     initHomePage();
@@ -401,4 +402,19 @@ function setVH() {
 setVH();
 
 /* ⚠️ IMPORTANTE: solo al cargar */
-window.addEventListener('load', setVH);
+window.addEventListener('load', () => {
+  setVH();
+  
+  const preloader = document.querySelector('.preloader');
+  if (preloader) {
+    // Short graceful delay
+    setTimeout(() => {
+      preloader.classList.add('preloader--hidden');
+      setTimeout(() => preloader.remove(), 600);
+    }, 400);
+  }
+});
+
+function initPreloader() {
+  // Preloader logic handled in 'load' event above
+}

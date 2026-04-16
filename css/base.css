@@ -1,5 +1,5 @@
 /* ─────────────────────────────────────────────────────────────────────────
-   SEADUCED-EXPERIENCE — Premium Stylesheet
+   Seaduced Experience — Premium Stylesheet
    ─────────────────────────────────────────────────────────────────────────  */
 
 /* ── 1. DESIGN TOKENS ──────────────────────────────────────────────────── */
@@ -140,7 +140,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
   font-family: var(--font-display);
 }
 
@@ -180,7 +183,8 @@ p {
   color: var(--text-color-secondary);
 }
 
-ul, ol {
+ul,
+ol {
   padding-left: 1.25rem;
 }
 
@@ -226,8 +230,13 @@ button {
 }
 
 @media (max-width: 768px) {
-  h1 { font-size: var(--fs-h2); }
-  h2 { font-size: var(--fs-h3); }
+  h1 {
+    font-size: var(--fs-h2);
+  }
+
+  h2 {
+    font-size: var(--fs-h3);
+  }
 }
 
 /* ── 3. UTILITY ─────────────────────────────────────────────────────────── */
@@ -250,32 +259,85 @@ button {
   margin-top: var(--space-xl);
 }
 
-.mb-1 { margin-bottom: var(--space-sm); }
-.mb-2 { margin-bottom: var(--space-lg); }
-.mb-3 { margin-bottom: var(--space-xl); }
+.mb-1 {
+  margin-bottom: var(--space-sm);
+}
 
-.p-lg { padding: var(--space-lg); }
-.px-lg { padding-inline: var(--space-lg); }
-.py-lg { padding-block: var(--space-lg); }
+.mb-2 {
+  margin-bottom: var(--space-lg);
+}
 
-.gap-sm { gap: var(--space-sm); }
-.gap-md { gap: var(--space-md); }
-.gap-lg { gap: var(--space-lg); }
+.mb-3 {
+  margin-bottom: var(--space-xl);
+}
 
-.text-center { text-align: center; }
-.text-left { text-align: left; }
+.p-lg {
+  padding: var(--space-lg);
+}
 
-.bg-navy { background: var(--clr-navy); }
-.bg-white { background: var(--clr-white); }
-.text-white { color: var(--clr-white); }
+.px-lg {
+  padding-inline: var(--space-lg);
+}
 
-.shadow-md { box-shadow: var(--shadow-md); }
-.shadow-lg { box-shadow: var(--shadow-lg); }
+.py-lg {
+  padding-block: var(--space-lg);
+}
 
-.rounded-lg { border-radius: var(--radius-lg); }
+.gap-sm {
+  gap: var(--space-sm);
+}
 
-.flex-center { display: flex; align-items: center; justify-content: center; }
-.flex-between { display: flex; justify-content: space-between; align-items: center; }
+.gap-md {
+  gap: var(--space-md);
+}
+
+.gap-lg {
+  gap: var(--space-lg);
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.bg-navy {
+  background: var(--clr-navy);
+}
+
+.bg-white {
+  background: var(--clr-white);
+}
+
+.text-white {
+  color: var(--clr-white);
+}
+
+.shadow-md {
+  box-shadow: var(--shadow-md);
+}
+
+.shadow-lg {
+  box-shadow: var(--shadow-lg);
+}
+
+.rounded-lg {
+  border-radius: var(--radius-lg);
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
 .section {
   padding: var(--space-3xl) 0;
@@ -331,4 +393,68 @@ button {
 .reveal.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* ── 5. PRELOADER ────────────────────────────────────────────────────────── */
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background-color: var(--clr-off-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    visibility 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.preloader--hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.preloader__content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.preloader__anchor {
+  width: 64px;
+  height: 64px;
+  stroke: var(--clr-navy);
+  stroke-width: 1.25;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  animation: anchor-breath 2.5s ease-in-out infinite;
+}
+
+@keyframes anchor-breath {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.5;
+  }
+
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(0.9);
+    opacity: 0.5;
+  }
+}
+
+.preloader__text {
+  font-family: var(--font-display);
+  font-size: var(--fs-sm);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--clr-navy-light);
+  opacity: 0.8;
 }
