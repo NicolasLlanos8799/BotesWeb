@@ -1,0 +1,204 @@
+/* ─────────────────────────────────────────────────────────────────────────
+   SEADUCED-EXPERIENCE — Premium Stylesheet
+   ─────────────────────────────────────────────────────────────────────────  */
+
+/* ── 1. DESIGN TOKENS ──────────────────────────────────────────────────── */
+:root {
+  /* Color palette */
+  --clr-navy: #0f1e35;
+  --clr-navy-mid: #1a2d4a;
+  --clr-navy-light: #243d5e;
+  --clr-blue: #2d6a9f;
+  --clr-blue-soft: #5b9ecf;
+  --clr-sky: #d0e8f5;
+  --clr-beige: #f5ede0;
+  --clr-sand: #e8d5b7;
+  --clr-sand-lt: #f6efe4;
+  --clr-sunset: #e8834a;
+  --clr-sunset-lt: #f4a96b;
+  --clr-white: #ffffff;
+  --clr-off-white: #fafaf8;
+  --clr-text: #1a1a2e;
+  --clr-text-mid: #4a5568;
+  --clr-text-light: #718096;
+  --clr-border: rgba(255, 255, 255, 0.12);
+
+  /* Typography - Fluid scales */
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+
+  /* Spacing scale - More responsive */
+  --space-xs: clamp(0.25rem, 0.5vw, 0.5rem);
+  --space-sm: clamp(0.75rem, 1vw, 1rem);
+  --space-md: clamp(1.25rem, 1.5vw, 1.5rem);
+  --space-lg: clamp(2rem, 2.5vw, 2.5rem);
+  --space-xl: clamp(3rem, 4vw, 4rem);
+  --space-2xl: clamp(4rem, 6vw, 6rem);
+  --space-3xl: clamp(5rem, 8vw, 8rem);
+
+  /* Radii */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --radius-full: 999px;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.18);
+  --shadow-card: 0 4px 20px rgba(15, 30, 53, 0.10);
+
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-smooth: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --transition-slow: 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+  /* Container */
+  --max-width: 1400px; /* Slightly wider for ultra-wide monitors */
+  --navbar-h: clamp(64px, 10vh, 80px); /* Relative navbar height */
+}
+
+/* ── 2. RESET & BASE ────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--clr-text);
+  background: var(--clr-off-white);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+/* ── 3. UTILITY ─────────────────────────────────────────────────────────── */
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding-inline: clamp(1rem, 4vw, 2rem);
+  width: 100%;
+}
+
+.mt-1 {
+  margin-top: var(--space-sm);
+}
+
+.mt-2 {
+  margin-top: var(--space-lg);
+}
+
+.mt-3 {
+  margin-top: var(--space-xl);
+}
+
+.mb-1 { margin-bottom: var(--space-sm); }
+.mb-2 { margin-bottom: var(--space-lg); }
+.mb-3 { margin-bottom: var(--space-xl); }
+
+.p-lg { padding: var(--space-lg); }
+.px-lg { padding-inline: var(--space-lg); }
+.py-lg { padding-block: var(--space-lg); }
+
+.gap-sm { gap: var(--space-sm); }
+.gap-md { gap: var(--space-md); }
+.gap-lg { gap: var(--space-lg); }
+
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+
+.bg-navy { background: var(--clr-navy); }
+.bg-white { background: var(--clr-white); }
+.text-white { color: var(--clr-white); }
+
+.shadow-md { box-shadow: var(--shadow-md); }
+.shadow-lg { box-shadow: var(--shadow-lg); }
+
+.rounded-lg { border-radius: var(--radius-lg); }
+
+.flex-center { display: flex; align-items: center; justify-content: center; }
+.flex-between { display: flex; justify-content: space-between; align-items: center; }
+
+.section {
+  padding: var(--space-3xl) 0;
+}
+
+.section-label {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--clr-blue);
+  background: rgba(45, 106, 159, 0.10);
+  padding: 0.35em 0.9em;
+  border-radius: var(--radius-full);
+  margin-bottom: var(--space-sm);
+}
+
+.section-header {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto var(--space-xl);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--clr-navy);
+  margin-bottom: var(--space-sm);
+}
+
+.section-title em {
+  font-style: italic;
+  color: var(--clr-blue);
+}
+
+.section-sub {
+  font-size: clamp(0.95rem, 1.2vw, 1.1rem);
+  color: var(--clr-text-mid);
+  line-height: 1.7;
+}
+
+/* ── 4. SCROLL REVEAL ANIMATION ─────────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}

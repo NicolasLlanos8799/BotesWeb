@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/assets/icons/favicon.svg" type="image/svg+xml" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Book Your Tour | Seaduced-Experience – Private Boat Tours Copenhagen</title>
     <meta name="description"
@@ -13,7 +13,10 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap"
         rel="stylesheet" />
-    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/layout.css" />
+  <link rel="stylesheet" href="/css/components.css" />
+  <link rel="stylesheet" href="/css/pages.css" />
 </head>
 
 <body class="booking-page">
@@ -36,7 +39,7 @@
             </nav>
 
             <div class="navbar__actions">
-                <a href="/booking/" class="btn btn--primary btn--sm" id="nav-cta">Book Now</a>
+                <a href="/book" class="btn btn--primary btn--sm" id="nav-cta">Book Now</a>
                 <button class="navbar__hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
                     <span></span><span></span><span></span>
                 </button>
@@ -49,7 +52,7 @@
             <a href="/#tours" class="nav-link" id="mob-tours">Tours</a>
             <a href="/#faq" class="nav-link" id="mob-faq">FAQ</a>
             <a href="/#contact" class="nav-link" id="mob-contact">Contact</a>
-            <a href="/booking/" class="btn btn--primary mt-1" id="mob-cta">Book Now</a>
+            <a href="/book" class="btn btn--primary mt-1" id="mob-cta">Book Now</a>
         </div>
     </header>
 
@@ -81,16 +84,16 @@
         <div class="booking-grid">
 
             <!-- Tour 1 -->
-            <article class="booking-card booking-card--clickable" id="book-1h" data-card-link="/experiences/copenhagen-private-guided-boat-tour/" tabindex="0" role="link" aria-label="Open Copenhagen private guided boat tour experience page">
-                <a class="booking-card__media-link" href="/experiences/copenhagen-private-guided-boat-tour/" aria-label="View Copenhagen private guided boat tour details">
+            <article class="booking-card booking-card--clickable" id="book-1h" data-card-link="/experiences/private-boat-copenhagen/" tabindex="0" role="link" aria-label="Open Copenhagen private guided boat tour experience page">
+                <a class="booking-card__media-link" href="/experiences/private-boat-copenhagen/" aria-label="View Copenhagen private guided boat tour details">
                     <div class="booking-card__img">
-                        <img src="/images/tour_private_boat.png" alt="Copenhagen private guided boat tour"
+                        <img src="/assets/images/tour_private_boat.png" alt="Copenhagen private guided boat tour"
                             loading="lazy" width="960" height="600" />
                         <span class="booking-card__badge">⏱ 1 Hour</span>
                     </div>
                 </a>
                 <div class="booking-card__body">
-                    <h2 class="booking-card__title"><a class="booking-card__title-link" href="/experiences/copenhagen-private-guided-boat-tour/">Copenhagen: Private Guided Boat Tour</a></h2>
+                    <h2 class="booking-card__title"><a class="booking-card__title-link" href="/experiences/private-boat-copenhagen/">Copenhagen: Private Guided Boat Tour</a></h2>
                     <p class="booking-card__desc">Sail through Copenhagen on a private boat tour with your own guide.
                         Enjoy music, drinks, and stunning views, and stop for a swim, relax, or explore. It’s your
                         tour, your way.</p>
@@ -99,7 +102,7 @@
                         <span class="booking-card__price-note">per group up to 8</span>
                     </div>
                     <div class="booking-card__cta">
-                        <button onclick="goToReserve('book-1h')" class="btn btn--primary" id="book-cta-1h">Book Now
+                        <button data-book-tour="book-1h" class="btn btn--primary" id="book-cta-1h">Book Now
                             →</button>
                     </div>
                 </div>
@@ -108,7 +111,7 @@
             <!-- Tour 3 -->
             <article class="booking-card" id="book-reffen">
                 <div class="booking-card__img">
-                    <img src="/images/tour_sunset_boat.png" alt="Private 3-Hour Extended Reffen Copenhagen"
+                    <img src="/assets/images/tour_sunset_boat.png" alt="Private 3-Hour Extended Reffen Copenhagen"
                         loading="lazy" width="960" height="600" />
                     <span class="booking-card__badge">🍜 3 Hours</span>
                 </div>
@@ -121,7 +124,7 @@
                         <span class="booking-card__price-note">per group up to 8</span>
                     </div>
                     <div class="booking-card__cta">
-                        <button onclick="goToReserve('book-reffen')" class="btn btn--primary" id="book-cta-reffen">Book Now
+                        <button data-book-tour="book-reffen" class="btn btn--primary" id="book-cta-reffen">Book Now
                             →</button>
                     </div>
                 </div>
@@ -130,7 +133,7 @@
             <!-- Tour 4 -->
             <article class="booking-card" id="book-premium">
                 <div class="booking-card__img">
-                    <img src="/images/tour_trekroner.png" alt="Private 4-Hour Premium Experience" loading="lazy" width="960" height="600" />
+                    <img src="/assets/images/tour_trekroner.png" alt="Private 4-Hour Premium Experience" loading="lazy" width="960" height="600" />
                     <span class="booking-card__badge">🏰 4 Hours</span>
                 </div>
                 <div class="booking-card__body">
@@ -142,7 +145,7 @@
                         <span class="booking-card__price-note">per group up to 8</span>
                     </div>
                     <div class="booking-card__cta">
-                        <button onclick="goToReserve('book-premium')" class="btn btn--primary" id="book-cta-premium">Book Now
+                        <button data-book-tour="book-premium" class="btn btn--primary" id="book-cta-premium">Book Now
                             →</button>
                     </div>
                 </div>
@@ -180,7 +183,7 @@
             <!-- Winter Tour 1 -->
             <article class="booking-card" id="book-winter-captain">
                 <div class="booking-card__img">
-                    <img src="/images/tour_private_boat.png" alt="Private Winter Boat Tour Copenhagen"
+                    <img src="/assets/images/tour_private_boat.png" alt="Private Winter Boat Tour Copenhagen"
                         loading="lazy" width="960" height="600" />
                     <span class="booking-card__badge">⏱ 1 Hour</span>
                 </div>
@@ -194,7 +197,7 @@
                         <span class="booking-card__price-note">per group up to 8</span>
                     </div>
                     <div class="booking-card__cta">
-                        <button onclick="goToReserve('book-winter-captain')" class="btn btn--primary"
+                        <button data-book-tour="book-winter-captain" class="btn btn--primary"
                             id="book-cta-winter-captain">Book Now →</button>
                     </div>
                 </div>
@@ -203,7 +206,7 @@
             <!-- Winter Tour 2 -->
             <article class="booking-card" id="book-winter-hygge">
                 <div class="booking-card__img">
-                    <img src="/images/tour_winter_hygge_book.webp" alt="Private Hygge Winter Tour Copenhagen"
+                    <img src="/assets/images/tour_winter_hygge_book.webp" alt="Private Hygge Winter Tour Copenhagen"
                         loading="lazy" width="960" height="600" />
                     <span class="booking-card__badge">🕯 2 Hours</span>
                 </div>
@@ -217,7 +220,7 @@
                         <span class="booking-card__price-note">per group up to 8</span>
                     </div>
                     <div class="booking-card__cta">
-                        <button onclick="goToReserve('book-winter-hygge')" class="btn btn--primary"
+                        <button data-book-tour="book-winter-hygge" class="btn btn--primary"
                             id="book-cta-winter-hygge">Book Now →</button>
                     </div>
                 </div>
@@ -226,7 +229,7 @@
             <!-- Winter Tour 3 -->
             <article class="booking-card" id="book-christmas">
                 <div class="booking-card__img">
-                    <img src="/images/tour_christmas_champagne.webp" alt="Private Christmas Boat Tour Copenhagen"
+                    <img src="/assets/images/tour_christmas_champagne.webp" alt="Private Christmas Boat Tour Copenhagen"
                         loading="lazy" width="960" height="600" />
                     <span class="booking-card__badge">🥂 2 Hours</span>
                 </div>
@@ -240,7 +243,7 @@
                         <span class="booking-card__price-note">per group up to 8</span>
                     </div>
                     <div class="booking-card__cta">
-                        <button onclick="goToReserve('book-christmas')" class="btn btn--primary"
+                        <button data-book-tour="book-christmas" class="btn btn--primary"
                             id="book-cta-christmas">Book Now
                             →</button>
                     </div>
@@ -255,17 +258,7 @@
         <p>⚓ © 2025 – 2026 Seaduced-Experience &nbsp;·&nbsp; <a href="/" style="color: inherit;">Back to
                 Home</a></p>
     </footer>
-
-    <script src="/script.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            function goToReserve(tourId) {
-                window.location.href = `/booking/reserve/?tour=${tourId}`;
-            }
-
-            window.goToReserve = goToReserve;
-        });
-    </script>
+    <script type="module" src="/js/main.js"></script>
 </body>
 
 </html>
