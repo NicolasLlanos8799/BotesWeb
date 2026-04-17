@@ -4,6 +4,7 @@ export function initExperiencePage() {
   initAccordion();
   initBookingPanel();
   initStickyCta();
+  initGalleryDots();
 }
 
 function initAccordion() {
@@ -52,7 +53,7 @@ function initAccordion() {
           const yOffset = -100;
           const rect = item.getBoundingClientRect();
           const y = rect.top + window.pageYOffset + yOffset;
-          
+
           window.scrollTo({
             top: y,
             behavior: 'smooth'
@@ -372,4 +373,48 @@ function initStickyCta() {
   );
 
   observer.observe(bookingCard);
+}
+
+function initGalleryDots() {
+  const track = document.querySelector('.mobile-gallery__track');
+  const dotsContainer = document.querySelector('.mobile-gallery__dots');
+  if (!track || !dotsContainer) return;
+
+  const slides = track.querySelectorAll('.mobile-gallery__slide');
+  if (slides.length <= 1) return;
+
+  // Create dots
+  slides.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.classList.add('mobile-gallery__dot');
+    if (i === 0) dot.classList.add('active');
+    dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+    
+    dot.addEventListener('click', () => {
+      const slideWidth = slides[0].offsetWidth;
+      const gap = 16;
+      track.scrollTo({
+        left: i * (slideWidth + gap),
+        behavior: 'smooth'
+      });
+    });
+    
+    dotsContainer.appendChild(dot);
+  });
+
+  // Update active dot on scroll
+  let isScrolling;
+  track.addEventListener('scroll', () => {
+    window.clearTimeout(isScrolling);
+    isScrolling = setTimeout(() => {
+      const slideWidth = slides[0].offsetWidth;
+      const gap = 16;
+      const index = Math.round(track.scrollLeft / (slideWidth + gap));
+      
+      const dots = dotsContainer.querySelectorAll('.mobile-gallery__dot');
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === index);
+      });
+    }, 50);
+  }, { passive: true });
 }
