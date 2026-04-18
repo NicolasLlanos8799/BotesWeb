@@ -260,6 +260,8 @@
 .tour-card__media-link,
 .tour-card__title-link {
   display: block;
+  font-family: inherit; /* Ensure font is inherited from parent __title */
+  color: inherit;
 }
 
 .tour-card__title-link:hover {
@@ -323,9 +325,9 @@
 }
 
 .tour-card__title {
-  font-family: var(--font-display);
-  font-size: var(--fs-p);
-  font-weight: var(--font-weight-semibold);
+  font-family: var(--font-body);
+  font-size: var(--fs-h3); /* Slightly larger for Inter titles to maintain impact */
+  font-weight: var(--font-weight-bold);
   color: var(--clr-navy);
   margin-bottom: var(--space-xs);
   line-height: var(--lh-tight);
@@ -775,6 +777,8 @@
 .booking-card__media-link,
 .booking-card__title-link {
   display: block;
+  font-family: inherit;
+  color: inherit;
 }
 
 .booking-card__title-link:hover {
@@ -843,9 +847,9 @@
 }
 
 .booking-card__title {
-  font-family: var(--font-display);
-  font-size: var(--fs-p);
-  font-weight: var(--font-weight-semibold);
+  font-family: var(--font-body);
+  font-size: var(--fs-h3);
+  font-weight: var(--font-weight-bold);
   color: var(--clr-navy);
   margin-bottom: var(--space-xs);
   line-height: var(--lh-tight);
@@ -1978,9 +1982,9 @@
 }
 
 .feature-card__title {
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: var(--fs-h3);
-  font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-bold);
   color: var(--clr-white);
   margin-bottom: var(--space-xs);
 }
