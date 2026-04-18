@@ -3683,8 +3683,7 @@
 @media (max-width: 640px) {
   .experience-main {
     padding-top: calc(var(--navbar-h) + 0.8rem);
-    padding-bottom: 8.5rem;
-    /* Increased to accommodate sticky CTA */
+    /* padding-bottom moved to 768px query for sticky CTA consistency */
   }
 
   .experience-heading h1 {
@@ -3724,6 +3723,11 @@
 }
 
 @media (max-width: 768px) {
+  .experience-main {
+    padding-bottom: calc(85px + env(safe-area-inset-bottom));
+    /* Ensures content is never hidden behind the sticky booking bar */
+  }
+
   .experience-tabs-nav {
     top: var(--navbar-h);
     z-index: 900;

@@ -189,23 +189,25 @@
 
 /* ── MOBILE STICKY CTA (Forced Viewport Pinning) ── */
 .mobile-sticky-cta {
-  display: none; /* Shown via media query below */
+  display: none;
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 9999;
-  background: var(--clr-navy);
-  padding: var(--space-xs-f) 18px;
-  padding-bottom: calc(var(--space-xs-f) + env(safe-area-inset-bottom));
-  box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  background: rgba(15, 30, 53, 0.94);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 14px 18px;
+  padding-bottom: calc(14px + env(safe-area-inset-bottom));
+  box-shadow: 0 -8px 25px rgba(0, 0, 0, 0.25);
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
-  /* Force GPU layer for pixel-perfect flush alignment on mobile Safari */
   -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
   will-change: transform;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 /* Extension to fill any Safari gap below the bar */
