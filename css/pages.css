@@ -236,6 +236,27 @@
   margin-right: auto;
 }
 
+/* ── Specific Catalog Link Styling ── */
+.header-cta-link {
+  margin-top: 1.25rem;
+}
+
+.text-link {
+  font-size: var(--fs-label);
+  font-weight: 600;
+  color: var(--clr-blue);
+  text-decoration: none;
+  border-bottom: 2px solid rgba(45, 106, 159, 0.1);
+  transition: all var(--transition-fast);
+  padding-bottom: 2px;
+}
+
+.text-link:hover {
+  color: var(--clr-sunset);
+  border-color: var(--clr-sunset);
+  padding-right: 4px;
+}
+
 .tour-card {
   background: var(--clr-white);
   border-radius: var(--radius-lg);
@@ -1113,7 +1134,8 @@
 .experience-intro {
   margin-top: 2rem;
   font-family: var(--font-body);
-  font-size: 1.35rem; /* Slightly larger for the lighter weight */
+  font-size: 1.35rem;
+  /* Slightly larger for the lighter weight */
   line-height: 1.8;
   text-align: center;
   color: var(--clr-navy);
