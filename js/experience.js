@@ -1,5 +1,19 @@
 import { getBooking, navigateToReserve, saveBooking } from "./utils.js";
 
+// ! IMPORTANT: The user must replace this with their actual Google Apps Script Web App URL
+const GAS_URL = "https://script.google.com/macros/s/AKfycbwPN8ZOROw8SgE5rx6aLSjQsiorJ_ZdUH4iw7x2UFlc1wgsAYNdDBAlZpbQPefy0Z8hDQ/exec";
+
+const DEFAULT_SLOTS = [
+  { time: "09:00", available: true },
+  { time: "10:00", available: true },
+  { time: "11:00", available: true },
+  { time: "12:00", available: true },
+  { time: "13:00", available: true },
+  { time: "14:00", available: true },
+  { time: "15:00", available: true },
+  { time: "16:00", available: true }
+];
+
 export function initExperiencePage() {
   initAccordion();
   initBookingPanel();
@@ -104,6 +118,15 @@ function initBookingPanel() {
   const languageValueLabel = document.getElementById("experience-language-value");
   const languageDone = document.getElementById("experience-language-done");
   const languageOptions = Array.from(document.querySelectorAll("[data-language-option]"));
+
+  const timePicker = document.getElementById("experience-time-picker");
+  const timeTrigger = document.getElementById("experience-time-trigger");
+  const timePanel = document.getElementById("experience-time-panel");
+  const timeValueInput = document.getElementById("experience-time");
+  const timeValueLabel = document.getElementById("experience-time-value");
+  const timeGrid = document.getElementById("experience-time-grid");
+  const timeDone = document.getElementById("experience-time-done");
+
   const availabilityButton = document.getElementById("experience-check-availability");
 
   if (!peopleValueInput || !dateValueInput || !languageValueInput || !availabilityButton) {
@@ -115,6 +138,9 @@ function initBookingPanel() {
   }
   if (booking.date) {
     dateValueInput.value = booking.date;
+  }
+  if (booking.time) {
+    timeValueInput.value = booking.time;
   }
   if (booking.lang) {
     languageValueInput.value = booking.lang;
@@ -136,6 +162,7 @@ function initBookingPanel() {
       tour: "book-1h",
       qty: Number.parseInt(peopleValueInput.value, 10) || 1,
       date: dateValueInput.value,
+      time: timeValueInput.value,
       lang: languageValueInput.value,
     });
   }
@@ -168,7 +195,91 @@ function initBookingPanel() {
   function syncDateValue(date) {
     dateValueInput.value = formatDateValue(date);
     dateValueLabel.textContent = formatDateLabel(date);
+    
+    // Reset time when date changes
+    timeValueInput.value = "";
+    timeValueLabel.textContent = "Choose time";
+    
+    // Unlock and show slots immediately (with fallback)
+    timeTrigger.disabled = false;
+    timeTrigger.removeAttribute('disabled');
+    
     syncStoredBooking();
+    fetchAvailability(dateValueInput.value);
+  }
+
+  function syncTimeValue(timeString) {
+    timeValueInput.value = timeString;
+    timeValueLabel.textContent = timeString;
+    syncStoredBooking();
+    
+    // Re-render time grid to show selected
+    const slots = Array.from(timeGrid.querySelectorAll(".experience-booking__time-slot"));
+    slots.forEach(slot => {
+      slot.classList.toggle("is-selected", slot.dataset.time === timeString);
+    });
+  }
+
+  window.__gas_callback = (data) => {
+    if (Array.isArray(data)) {
+      renderTimeSlots(data, false);
+    }
+    // Cleanup script tag
+    const script = document.getElementById("gas-jsonp");
+    if (script) script.remove();
+  };
+
+  async function fetchAvailability(date) {
+    // 1. Show default slots as placeholder
+    renderTimeSlots(DEFAULT_SLOTS, true);
+
+    if (!GAS_URL || !GAS_URL.startsWith("https://")) {
+      console.warn("GAS_URL not configured properly.");
+      return;
+    }
+
+    // 2. Use JSONP to bypass CORS
+    const script = document.createElement("script");
+    script.id = "gas-jsonp";
+    script.src = `${GAS_URL}?action=getAvailability&date=${date}&callback=__gas_callback&t=${Date.now()}`;
+    
+    script.onerror = () => {
+      console.error("Calendar sync failed (JSONP error)");
+      renderTimeSlots(DEFAULT_SLOTS, false);
+    };
+
+    document.head.appendChild(script);
+  }
+
+  function renderTimeSlots(slots, isLoading) {
+    timeGrid.innerHTML = "";
+    
+    if (isLoading) {
+      const loader = document.createElement("p");
+      loader.className = "small-text";
+      loader.style.cssText = "grid-column: 1/-1; text-align: center; padding-bottom: 0.5rem; opacity: 0.5; font-style: italic;";
+      loader.textContent = "Syncing with calendar...";
+      timeGrid.appendChild(loader);
+    }
+
+    slots.forEach(slot => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "experience-booking__time-slot";
+      if (timeValueInput.value === slot.time) btn.classList.add("is-selected");
+      if (!slot.available) btn.disabled = true;
+      btn.textContent = slot.time;
+      btn.dataset.time = slot.time;
+      
+      btn.addEventListener("click", () => {
+        syncTimeValue(slot.time);
+        if (window.innerWidth > 768) {
+          togglePanel(timePicker, timePanel, timeTrigger, false);
+        }
+      });
+      
+      timeGrid.appendChild(btn);
+    });
   }
 
   function syncLanguageValue(nextValue) {
@@ -269,6 +380,12 @@ function initBookingPanel() {
     if (!Number.isNaN(savedDate.getTime())) {
       visibleMonth = new Date(savedDate.getFullYear(), savedDate.getMonth(), 1);
       dateValueLabel.textContent = formatDateLabel(savedDate);
+      timeTrigger.disabled = false;
+      timeTrigger.removeAttribute('disabled');
+      if (booking.time) {
+        timeValueLabel.textContent = booking.time;
+      }
+      fetchAvailability(dateValueInput.value);
     }
   }
 
@@ -319,9 +436,16 @@ function initBookingPanel() {
   });
   languageDone?.addEventListener("click", () => togglePanel(languagePicker, languagePanel, languageTrigger, false));
 
+  timeTrigger?.addEventListener("click", () => {
+    if (timeTrigger.disabled) return;
+    togglePanel(timePicker, timePanel, timeTrigger, !timePicker.classList.contains("is-open"));
+  });
+  timeDone?.addEventListener("click", () => togglePanel(timePicker, timePanel, timeTrigger, false));
+
   document.addEventListener("click", (event) => {
     if (!peoplePicker?.contains(event.target)) togglePanel(peoplePicker, peoplePanel, peopleTrigger, false);
     if (!datePicker?.contains(event.target)) togglePanel(datePicker, datePanel, dateTrigger, false);
+    if (!timePicker?.contains(event.target)) togglePanel(timePicker, timePanel, timeTrigger, false);
     if (!languagePicker?.contains(event.target)) togglePanel(languagePicker, languagePanel, languageTrigger, false);
   });
 
@@ -329,13 +453,22 @@ function initBookingPanel() {
     if (event.key !== "Escape") return;
     togglePanel(peoplePicker, peoplePanel, peopleTrigger, false);
     togglePanel(datePicker, datePanel, dateTrigger, false);
+    togglePanel(timePicker, timePanel, timeTrigger, false);
     togglePanel(languagePicker, languagePanel, languageTrigger, false);
   });
 
   availabilityButton.addEventListener("click", () => {
+    if (!dateValueInput.value || !timeValueInput.value) {
+      alert("Please select both a date and a time.");
+      if (!dateValueInput.value) dateTrigger.focus();
+      else timeTrigger.focus();
+      return;
+    }
+
     navigateToReserve("book-1h", {
       qty: Number.parseInt(peopleValueInput.value, 10) || 1,
       date: dateValueInput.value,
+      time: timeValueInput.value,
       lang: languageValueInput.value,
     });
   });

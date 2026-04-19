@@ -3,10 +3,11 @@ const BOOKING_STORAGE_KEY = "seaduced_booking";
 export const TOURS = {
   "book-1h": {
     id: "book-1h",
-    title: "Private Guided Boat Tour",
+    title: "City Highlights",
     price: 2499,
     duration: "1 Hour",
     img: "/assets/images/tour_private_boat.png",
+    url: "/experiences/private-boat-copenhagen/",
   },
   "book-winter": {
     id: "book-winter",
@@ -14,6 +15,7 @@ export const TOURS = {
     price: 4999,
     duration: "2 Hours",
     img: "/assets/images/tour_winter_hygge.webp",
+    url: "/experiences/private-boat-copenhagen-3h/", // Placeholder until real path confirmed
   },
   "book-reffen": {
     id: "book-reffen",
@@ -21,6 +23,7 @@ export const TOURS = {
     price: 4299,
     duration: "3 Hours",
     img: "/assets/images/tour_sunset_boat.png",
+    url: "/experiences/private-boat-copenhagen-3h/",
   },
   "book-premium": {
     id: "book-premium",
@@ -28,6 +31,7 @@ export const TOURS = {
     price: 5999,
     duration: "4 Hours",
     img: "/assets/images/tour_trekroner.png",
+    url: "/experiences/private-boat-copenhagen-4h/",
   },
   "book-winter-captain": {
     id: "book-winter-captain",
@@ -35,6 +39,7 @@ export const TOURS = {
     price: 2499,
     duration: "1 Hour",
     img: "/assets/images/tour_private_boat.png",
+    url: "/experiences/private-boat-copenhagen/",
   },
   "book-winter-hygge": {
     id: "book-winter-hygge",
@@ -42,6 +47,7 @@ export const TOURS = {
     price: 4999,
     duration: "2 Hours",
     img: "/assets/images/tour_winter_hygge_book.webp",
+    url: "/experiences/private-boat-copenhagen-3h/",
   },
   "book-christmas": {
     id: "book-christmas",
@@ -49,6 +55,7 @@ export const TOURS = {
     price: 5999,
     duration: "2 Hours",
     img: "/assets/images/tour_christmas_champagne.webp",
+    url: "/experiences/private-boat-copenhagen-3h/",
   },
 };
 
@@ -64,6 +71,7 @@ function getDefaultBooking() {
     qty: 1,
     tapas: 0,
     date: "",
+    time: "",
     lang: "english",
     contact: {
       name: "",
@@ -95,6 +103,7 @@ export function normalizeBooking(input = {}) {
   next.tapas = Math.max(0, toPositiveInt(next.tapas, defaults.tapas));
   next.lang = next.lang === "spanish" ? "spanish" : "english";
   next.date = typeof next.date === "string" ? next.date : "";
+  next.time = typeof next.time === "string" ? next.time : "";
   next.contact.name = typeof next.contact.name === "string" ? next.contact.name : "";
   next.contact.email = typeof next.contact.email === "string" ? next.contact.email : "";
 
@@ -155,6 +164,7 @@ export function readBookingFromUrl(search = window.location.search) {
   if (params.get("qty")) partial.qty = params.get("qty");
   if (params.get("tapas")) partial.tapas = params.get("tapas");
   if (params.get("date")) partial.date = params.get("date");
+  if (params.get("time")) partial.time = params.get("time");
   if (params.get("lang")) partial.lang = params.get("lang");
 
   return normalizeBooking(partial);
@@ -168,6 +178,7 @@ export function buildReserveUrl(booking = getBooking()) {
   params.set("tapas", String(booking.tapas || 0));
 
   if (booking.date) params.set("date", booking.date);
+  if (booking.time) params.set("time", booking.time);
   if (booking.lang) params.set("lang", booking.lang);
 
   return `/reserve?${params.toString()}`;
@@ -179,6 +190,7 @@ export function navigateToReserve(tourId, overrides = {}) {
     qty: overrides.qty ?? 1,
     tapas: overrides.tapas ?? getBooking().tapas ?? 0,
     date: overrides.date ?? getBooking().date ?? "",
+    time: overrides.time ?? getBooking().time ?? "",
     lang: overrides.lang ?? getBooking().lang ?? "english",
   });
 

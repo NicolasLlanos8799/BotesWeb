@@ -522,6 +522,35 @@
               </div>
             </div>
 
+            <div class="experience-booking__time" id="experience-time-picker">
+              <input id="experience-time" type="hidden" value="" />
+              <button class="experience-booking__control experience-booking__control--button" type="button"
+                id="experience-time-trigger" aria-expanded="false" aria-controls="experience-time-panel" disabled>
+                <span class="experience-booking__control-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                </span>
+                <span class="experience-booking__control-label">Select time</span>
+                <span class="experience-booking__control-value" id="experience-time-value">Date first</span>
+              </button>
+
+              <div class="experience-booking__time-panel" id="experience-time-panel" hidden>
+                <div class="experience-booking__time-card">
+                  <div class="experience-booking__time-head">
+                    <strong>Available times</strong>
+                    <span>Choose your slot</span>
+                  </div>
+                  <div class="experience-booking__time-grid" id="experience-time-grid">
+                    <p class="small-text" style="grid-column: 1/-1; text-align: center; padding: 1rem; opacity: 0.6;">Select a date first</p>
+                  </div>
+                  <button class="experience-booking__people-done" type="button" id="experience-time-done">Done</button>
+                </div>
+              </div>
+            </div>
+
             <div class="experience-booking__language" id="experience-language-picker">
               <input id="experience-language" type="hidden" value="english" />
               <button class="experience-booking__control experience-booking__control--button" type="button"
@@ -576,8 +605,7 @@
           </div>
 
           <button class="btn btn--primary btn--lg" type="button" id="experience-check-availability"
-            style="width: 100%;">Check
-            availability</button>
+            style="width: 100%;">Continue</button>
 
           <div class="experience-booking__benefits">
             <div class="experience-booking__benefit">
