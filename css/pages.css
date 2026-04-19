@@ -242,19 +242,33 @@
 }
 
 .text-link {
-  font-size: var(--fs-label);
-  font-weight: 600;
+  font-size: 1.05rem;
+  font-weight: 700;
   color: var(--clr-blue);
   text-decoration: none;
   border-bottom: 2px solid rgba(45, 106, 159, 0.1);
   transition: all var(--transition-fast);
-  padding-bottom: 2px;
+  padding-bottom: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  letter-spacing: 0.01em;
+}
+
+.text-link__arrow {
+  transition: transform var(--transition-smooth);
+  display: inline-block;
+  font-size: 1.2rem;
+  line-height: 1;
 }
 
 .text-link:hover {
   color: var(--clr-sunset);
   border-color: var(--clr-sunset);
-  padding-right: 4px;
+}
+
+.text-link:hover .text-link__arrow {
+  transform: translateX(8px);
 }
 
 .tour-card {
