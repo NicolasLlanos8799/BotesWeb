@@ -2,30 +2,19 @@ import { initBookingPage } from "./booking.js";
 import { initExperiencePage } from "./experience.js";
 import { initReservePage } from "./reserve.js";
 import {
-  EXTRA_CHARCUTERIE,
-  buildReserveUrl,
-  clearBookingSelection,
-  formatCurrency,
-  getBooking,
-  getTour,
-  navigateToReserve,
   readBookingFromUrl,
   saveBooking,
 } from "./utils.js";
 
 document.addEventListener("DOMContentLoaded", () => {
+  initBookingFlow();
   initNavbar();
   initRevealAnimations();
   initClickableCards();
   initTestimonialCarousel();
   initFaqAccordion();
   initSmoothScroll();
-  initBookingButtons();
   initPreloader();
-
-  if (document.body.classList.contains("home-page")) {
-    initHomePage();
-  }
 
   if (document.body.classList.contains("booking-page")) {
     initBookingPage();
@@ -258,148 +247,23 @@ function initSmoothScroll() {
   });
 }
 
-function initBookingButtons() {
-  if (document.body.classList.contains("home-page")) {
-    return;
-  }
-
-  document.querySelectorAll("[data-book-tour]").forEach((button) => {
-    button.addEventListener("click", () => {
-      navigateToReserve(button.getAttribute("data-book-tour"));
-    });
-  });
-}
-
-function initHomePage() {
+function initBookingFlow() {
   const incoming = readBookingFromUrl();
   if (incoming.tour) {
     saveBooking(incoming);
   }
 
-  const overlay = document.getElementById("cart-overlay");
-  const trigger = document.getElementById("cart-trigger");
-  const closeButton = document.getElementById("cart-close");
-  const checkoutButton = document.getElementById("cart-checkout-btn");
-  const itemsContainer = document.getElementById("cart-items");
-  const totalDisplay = document.getElementById("cart-total-display");
-  const badge = document.getElementById("cart-badge");
-  const triggerTotal = document.getElementById("cart-trigger-total");
-
-  if (!overlay || !trigger || !itemsContainer || !totalDisplay || !badge || !triggerTotal) {
-    return;
-  }
-
-  const openCart = (tourId) => {
-    saveBooking({ tour: tourId, qty: 1 });
-    overlay.classList.add("active");
-    renderCart();
-  };
-
   document.querySelectorAll("[data-book-tour]").forEach((button) => {
-    button.addEventListener("click", () => {
-      openCart(button.getAttribute("data-book-tour"));
+    button.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const card = button.closest("[data-card-link]");
+      const href = card ? card.getAttribute("data-card-link") : null;
+      if (href) {
+        window.location.href = href;
+      }
     });
   });
-
-  const renderCart = () => {
-    const booking = getBooking();
-    const tour = getTour(booking.tour);
-
-    if (!tour) {
-      itemsContainer.innerHTML = `
-        <div class="cart-empty">
-          <p>Your selection is empty.</p>
-          <p style="font-size: 0.8rem; margin-top: 0.5rem;">Explore our tours to get started.</p>
-        </div>
-      `;
-      totalDisplay.textContent = formatCurrency(0);
-      trigger.classList.remove("visible");
-      return;
-    }
-
-    const total = tour.price + booking.tapas * EXTRA_CHARCUTERIE.price;
-    const count = booking.tapas > 0 ? 2 : 1;
-
-    itemsContainer.innerHTML = `
-      <div class="cart-item">
-        <button class="cart-item__remove" type="button" data-cart-action="remove-tour" title="Remove">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="18" y1="6" x2="6" y2="18"></line>
-            <line x1="6" y1="6" x2="18" y2="18"></line>
-          </svg>
-        </button>
-        <img src="${tour.img}" alt="${tour.title}" loading="lazy" />
-        <div class="cart-item__info">
-          <h4>${tour.title}</h4>
-          <div class="cart-item__price">${formatCurrency(tour.price)} / session</div>
-          <div class="cart-item__tag">Private Experience</div>
-        </div>
-      </div>
-      <div class="cart-item ${booking.tapas === 0 ? "cart-item--upsell" : ""}">
-        ${booking.tapas === 0 ? `<span class="upsell-badge">Chef's Recommendation</span>` : ""}
-        <img src="${EXTRA_CHARCUTERIE.img}" alt="${EXTRA_CHARCUTERIE.title}" loading="lazy" />
-        <div class="cart-item__info">
-          <h4>${EXTRA_CHARCUTERIE.title}</h4>
-          <div class="cart-item__price">${formatCurrency(EXTRA_CHARCUTERIE.price)}</div>
-          ${booking.tapas === 0
-        ? `<button class="btn--add-tapas" type="button" data-cart-action="add-tapas">Add To Experience +</button>`
-        : `
-                <div class="cart-qty">
-                  <button type="button" data-cart-action="decrease-tapas">-</button>
-                  <span>${booking.tapas}</span>
-                  <button type="button" data-cart-action="increase-tapas">+</button>
-                </div>
-              `
-      }
-        </div>
-      </div>
-    `;
-
-    totalDisplay.textContent = formatCurrency(total);
-    badge.textContent = String(count);
-    triggerTotal.textContent = formatCurrency(total);
-    trigger.classList.add("visible");
-  };
-
-  itemsContainer.addEventListener("click", (event) => {
-    const action = event.target.closest("[data-cart-action]")?.getAttribute("data-cart-action");
-    if (!action) return;
-
-    const booking = getBooking();
-    if (action === "remove-tour") {
-      clearBookingSelection();
-    }
-    if (action === "add-tapas") {
-      saveBooking({ tapas: 1 });
-    }
-    if (action === "decrease-tapas") {
-      saveBooking({ tapas: Math.max(0, booking.tapas - 1) });
-    }
-    if (action === "increase-tapas") {
-      saveBooking({ tapas: booking.tapas + 1 });
-    }
-
-    renderCart();
-  });
-
-  trigger.addEventListener("click", () => overlay.classList.add("active"));
-  closeButton?.addEventListener("click", () => overlay.classList.remove("active"));
-  overlay.addEventListener("click", (event) => {
-    if (event.target === overlay) {
-      overlay.classList.remove("active");
-    }
-  });
-  checkoutButton?.addEventListener("click", () => {
-    const booking = getBooking();
-    if (!booking.tour) return;
-    window.location.href = buildReserveUrl(booking);
-  });
-
-  if (incoming.tour) {
-    overlay.classList.add("active");
-  }
-
-  renderCart();
 }
 
 function setVH() {

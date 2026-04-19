@@ -260,7 +260,8 @@
 .tour-card__media-link,
 .tour-card__title-link {
   display: block;
-  font-family: inherit; /* Ensure font is inherited from parent __title */
+  font-family: inherit;
+  /* Ensure font is inherited from parent __title */
   color: inherit;
 }
 
@@ -326,7 +327,8 @@
 
 .tour-card__title {
   font-family: var(--font-body);
-  font-size: var(--fs-h3); /* Slightly larger for Inter titles to maintain impact */
+  font-size: var(--fs-h3);
+  /* Slightly larger for Inter titles to maintain impact */
   font-weight: var(--font-weight-bold);
   color: var(--clr-navy);
   margin-bottom: var(--space-xs);
@@ -761,8 +763,8 @@
 }
 
 .booking-card--selected {
-  outline: 2px solid rgba(232, 131, 74, 0.45);
   box-shadow: var(--shadow-lg);
+  border-color: rgba(232, 131, 74, 0.3);
 }
 
 .booking-card--clickable {
@@ -864,13 +866,14 @@
 }
 
 .booking-card__price {
-  font-size: var(--fs-h2);
+  font-size: var(--fs-label);
   font-weight: 700;
   color: var(--clr-navy);
   margin-bottom: var(--space-md);
   display: flex;
   align-items: baseline;
-  gap: 0.5rem;
+  flex-wrap: nowrap;
+  gap: 0.4rem;
   margin-top: auto;
 }
 
@@ -882,10 +885,11 @@
 }
 
 .booking-card__price-note {
-  font-size: var(--fs-badge);
+  font-size: var(--fs-xs);
   font-weight: 600;
   color: var(--clr-navy);
   line-height: 1.3;
+  white-space: nowrap;
 }
 
 .booking-card__price::before {
@@ -1048,7 +1052,8 @@
   grid-template-columns: 1.8fr 1.2fr;
   gap: 14px;
   margin-bottom: 2rem;
-  align-items: flex-start; /* Aligned to the top */
+  align-items: flex-start;
+  /* Aligned to the top */
 }
 
 .experience-gallery__lead,
@@ -1056,13 +1061,16 @@
   position: relative;
   overflow: hidden;
   border-radius: 16px;
-  box-shadow: 0 12px 30px rgba(15, 30, 53, 0.08); /* Clean premium shadow */
+  box-shadow: 0 12px 30px rgba(15, 30, 53, 0.08);
+  /* Clean premium shadow */
 }
 
 .experience-gallery__lead img {
   width: 100% !important;
-  height: 340px !important; /* Strict sizing */
-  object-fit: cover !important; /* Full coverage */
+  height: 340px !important;
+  /* Strict sizing */
+  object-fit: cover !important;
+  /* Full coverage */
   display: block;
   border-radius: 16px;
 }
@@ -1076,7 +1084,8 @@
 
 .experience-gallery__item img {
   width: 100% !important;
-  height: 163px !important; /* Perfectly balanced: 163 + 14 + 163 = 340 */
+  height: 163px !important;
+  /* Perfectly balanced: 163 + 14 + 163 = 340 */
   object-fit: cover !important;
   display: block;
   border-radius: 16px;
@@ -1084,7 +1093,8 @@
 
 .experience-gallery:hover .experience-gallery__lead,
 .experience-gallery:hover .experience-gallery__item {
-  transform: none; /* Keep it static and clean as per compact request */
+  transform: none;
+  /* Keep it static and clean as per compact request */
 }
 
 .experience-gallery__mosaic {
@@ -1103,11 +1113,12 @@
 .experience-intro {
   margin-top: 2rem;
   font-family: var(--font-body);
-  font-size: 1.25rem;
+  font-size: 1.35rem; /* Slightly larger for the lighter weight */
   line-height: 1.8;
   text-align: center;
   color: var(--clr-navy);
-  font-weight: 600;
+  font-weight: 300;
+  letter-spacing: 0.02em;
   margin-bottom: 2.5rem;
   max-width: 950px;
   margin-inline: auto;
@@ -3100,22 +3111,6 @@
   margin-top: 0.5rem;
 }
 
-.btn--outline {
-  background: transparent;
-  border: 1px solid rgba(15, 30, 53, 0.15);
-  color: #0f1e35;
-  font-size: 0.82rem;
-  font-weight: 600;
-  padding: 0.75rem 1.5rem;
-  border-radius: 12px;
-  transition: all 0.2s ease;
-}
-
-.btn--outline:hover {
-  background: #ffffff;
-  border-color: rgba(15, 30, 53, 0.3);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-}
 
 /* ── Important info / Not allowed ─── */
 .experience-important-grid {
@@ -3778,7 +3773,8 @@
   .mobile-gallery {
     display: block;
     margin-top: 12px;
-    margin-inline: -1rem; /* Negative margin to hit edges */
+    margin-inline: -1rem;
+    /* Negative margin to hit edges */
   }
 
   .mobile-gallery__track {

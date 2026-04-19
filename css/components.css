@@ -76,10 +76,11 @@ button:focus-visible,
 }
 
 .btn--outline:hover {
-  background: var(--clr-navy);
+  background: var(--clr-sunset);
+  border-color: var(--clr-sunset);
   color: var(--clr-white);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 8px 20px rgba(232, 131, 74, 0.25);
 }
 
 
