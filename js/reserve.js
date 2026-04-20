@@ -231,7 +231,9 @@ export function initReservePage() {
 
     } catch (error) {
       console.error("Booking error:", error);
-      window.alert("Apologies, we encountered a connection issue. Please check your internet connection and try again.");
+      // Detailed error for debugging mobile issues
+      const msg = error.message || "Unknown error";
+      window.alert(`Connection Issue: ${msg}. Please ensure the latest version is deployed and try again.`);
       buttons.forEach(btn => {
         btn.disabled = false;
         btn.textContent = btn.dataset.originalText || "Complete My Booking";
