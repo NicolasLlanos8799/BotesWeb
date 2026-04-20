@@ -1,6 +1,7 @@
 /**
- * Vercel Serverless Function: Google Apps Script Proxy
- * Bypasses 3rd-party tracking protection and Incognito-mode restrictions.
+ * Vercel Serverless Function: Google Apps Script Proxy (Hardened)
+ * Bypasses 3rd-party tracking protection and mobile carrier URL limits.
+ * Supports both GET (availability) and POST (bookings).
  */
 export default async function handler(req, res) {
   const GAS_URL = "https://script.google.com/macros/s/AKfycbyPmktdM6g_cfzrvCdf4SiKAoiT_D9jfJsx5R3_mE1-M1oczMGdKCHC9Sh0DzSJgNiJ2w/exec";
@@ -9,29 +10,36 @@ export default async function handler(req, res) {
   const query = new URLSearchParams(req.query).toString();
   const targetUrl = `${GAS_URL}?${query}`;
 
-  try {
-    const response = await fetch(targetUrl, {
-      method: req.method,
-      headers: {
-        'Accept': 'application/json, text/javascript, */*',
-        'User-Agent': req.headers['user-agent'] || 'Vercel-Proxy'
-      },
-      redirect: 'follow'
-    });
+  const fetchOptions = {
+    method: req.method,
+    headers: {
+      'Accept': 'application/json',
+      'User-Agent': 'Mozilla/5.0 (Vercel-Serverless) SeaducedBridge/6.0'
+    },
+    redirect: 'follow'
+  };
 
+  // If the frontend sends a POST, we forward the JSON body to Google
+  if (req.method === 'POST' && req.body) {
+    fetchOptions.headers['Content-Type'] = 'application/json';
+    // If req.body is already an object, stringify it for Google
+    fetchOptions.body = typeof req.body === 'string' ? req.body : JSON.stringify(req.body);
+  }
+
+  try {
+    const response = await fetch(targetUrl, fetchOptions);
     const body = await response.text();
     const contentType = response.headers.get('content-type');
 
-    // Default to JSON if not specified, to handle GAS plain text responses
     res.setHeader('Content-Type', contentType || 'application/json');
     res.setHeader('Cache-Control', 'no-store, max-age=0');
     res.status(response.status).send(body);
 
   } catch (error) {
-    console.error("Proxy failure:", error);
+    console.error("Proxy critical failure:", error);
     res.status(502).json({ 
       success: false, 
-      error: "Proxy could not reach Google Apps Script." 
+      error: "Cloud bridge failed to reach Google Apps Script." 
     });
   }
 }

@@ -194,17 +194,23 @@ export function initReservePage() {
     }
 
     try {
-      const dataStr = encodeURIComponent(JSON.stringify({
+      const payload = {
         ...bookingData,
         name,
         email,
         phone,
         tour: tour.title,
-      }));
+      };
 
-      const url = `${GAS_URL}?action=createBooking&data=${dataStr}&t=${Date.now()}`;
+      // 2. Use POST with body to avoid long URL limits on mobile
+      const url = `${GAS_URL}?action=createBooking`;
 
-      const response = await fetch(url);
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
       if (!response.ok) throw new Error("Network Response Error");
       const res = await response.json();
 
