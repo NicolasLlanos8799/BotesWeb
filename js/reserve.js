@@ -92,7 +92,9 @@ export function initReservePage() {
       elements.peoplePlus.disabled = (current.qty || 1) >= 8;
     }
     if (elements.langDisplay) {
-      elements.langDisplay.textContent = current.lang === "spanish" ? "Spanish" : "English";
+      if (current.lang === "spanish") elements.langDisplay.textContent = "Spanish";
+      else if (current.lang === "danish") elements.langDisplay.textContent = "Danish";
+      else elements.langDisplay.textContent = "English";
     }
 
     if (current.tapas > 0) {
@@ -153,7 +155,7 @@ export function initReservePage() {
     }
 
     // ! IMPORTANT: The user must replace this with their actual Google Apps Script Web App URL
-    const GAS_URL = "https://script.google.com/macros/s/AKfycbwF-2rfhCCY_rU2je00fVyx7eeMb-MmgkjNTmHkz-N2_1nyxXKgTetCfFzoT5K5mAHkxQ/exec";
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbyW72j4c0uSrg9oGeFch1IsL4b0wVjnwwNaBTtbfRQrZCdVacrmLehRgtK3HcFNEZ4msg/exec";
 
     elements.complete.disabled = true;
     elements.complete.textContent = "Processing...";

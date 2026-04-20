@@ -1,7 +1,7 @@
 import { getBooking, navigateToReserve, saveBooking, clearBookingSelection } from "./utils.js";
 
 // ! IMPORTANT: The user must replace this with their actual Google Apps Script Web App URL
-const GAS_URL = "https://script.google.com/macros/s/AKfycbwF-2rfhCCY_rU2je00fVyx7eeMb-MmgkjNTmHkz-N2_1nyxXKgTetCfFzoT5K5mAHkxQ/exec";
+const GAS_URL = "https://script.google.com/macros/s/AKfycbyW72j4c0uSrg9oGeFch1IsL4b0wVjnwwNaBTtbfRQrZCdVacrmLehRgtK3HcFNEZ4msg/exec";
 
 const DEFAULT_SLOTS = [
   { time: "09:00", available: true },
@@ -323,9 +323,14 @@ function initBookingPanel() {
   }
 
   function syncLanguageValue(nextValue) {
-    const safeValue = nextValue === "spanish" ? "spanish" : "english";
+    const allowedLangs = ["english", "spanish", "danish"];
+    const safeValue = allowedLangs.includes(nextValue) ? nextValue : "english";
+    
     languageValueInput.value = safeValue;
-    languageValueLabel.textContent = safeValue === "spanish" ? "Spanish" : "English";
+    
+    // Capitalize first letter for label
+    const label = safeValue.charAt(0).toUpperCase() + safeValue.slice(1);
+    languageValueLabel.textContent = label;
     languageOptions.forEach((option) => {
       const isSelected = option.getAttribute("data-language-option") === safeValue;
       option.classList.toggle("is-selected", isSelected);

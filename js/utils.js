@@ -101,7 +101,9 @@ export function normalizeBooking(input = {}) {
   next.tour = next.tour && TOURS[next.tour] ? next.tour : defaults.tour;
   next.qty = Math.min(8, Math.max(1, toPositiveInt(next.qty, defaults.qty)));
   next.tapas = Math.max(0, toPositiveInt(next.tapas, defaults.tapas));
-  next.lang = next.lang === "spanish" ? "spanish" : "english";
+  
+  const allowedLangs = ["english", "spanish", "danish"];
+  next.lang = allowedLangs.includes(next.lang) ? next.lang : "english";
   next.date = typeof next.date === "string" ? next.date : "";
   next.time = typeof next.time === "string" ? next.time : "";
   next.contact.name = typeof next.contact.name === "string" ? next.contact.name : "";

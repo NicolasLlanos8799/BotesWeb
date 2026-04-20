@@ -138,9 +138,135 @@ function handleCreateBooking(data) {
   var start = new Date(parts[0], parts[1]-1, parseInt(parts[2]), parseInt(timeParts[0]), parseInt(timeParts[1]));
   var end = new Date(start.getTime() + (durationH * 60 * 60 * 1000));
   
-  var title = "[PENDING] " + data.tour + " - " + data.name;
-  var description = "TOUR: " + data.tour + "\nDATE: " + data.date + "\nTIME: " + data.time + "\n\nCONTACT:\n" + data.name + "\n" + data.email + "\n" + (data.phone || "-");
+  var lang = data.lang || 'english';
+  var t = getTranslations(lang);
+  
+  var title = data.tour + " - " + data.name;
+  
+  // Use translated labels for calendar description too
+  var description = t.tour + " " + data.tour + "\n" + 
+                    t.date + " " + data.date + "\n" + 
+                    t.time + " " + data.time + "\n" +
+                    t.passengers + " " + (data.qty || 1) + "\n" +
+                    t.extras + " " + (data.tapas || 0) + "\n\n" +
+                    (isSpanish(lang) ? "CONTACTO:" : (isDanish(lang) ? "KONTAKT:" : "CONTACT:")) + "\n" + 
+                    data.name + "\n" + data.email + "\n" + (data.phone || "-");
                     
   var event = calendar.createEvent(title, start, end, { description: description });
+  
+  // Send notifications
+  try {
+    sendBookingEmails(data, t);
+  } catch (e) {
+    // If email fails, we update the calendar event description with the error
+    var errorMsg = "\n\n[ERROR DE EMAIL]: " + e.toString();
+    event.setDescription(description + errorMsg);
+  }
+
   return { success: true, eventId: event.getId() };
+}
+
+function isSpanish(lang) { return lang === 'spanish'; }
+function isDanish(lang) { return lang === 'danish'; }
+
+/**
+ * Centralized translations for English, Spanish, and Danish
+ */
+function getTranslations(lang) {
+  var map = {
+    english: {
+      subject: "Booking Confirmed!",
+      intro: "Hello {name},\n\nYour booking for {tour} has been successfully confirmed. We are looking forward to seeing you on board!",
+      details: "Booking Details:",
+      tour: "Tour:",
+      date: "Date:",
+      time: "Time:",
+      passengers: "Passengers:",
+      extras: "Extras (Tapas/Charcuterie):",
+      footer: "\nIf you have any questions, feel free to contact us.\nThank you for choosing Seaduced Experience!"
+    },
+    spanish: {
+      subject: "¡Reserva Confirmada!",
+      intro: "Hola {name},\n\nTu reserva para {tour} ha sido confirmada con éxito. ¡Estamos deseando verte a bordo!",
+      details: "Detalles de la reserva:",
+      tour: "Tour:",
+      date: "Fecha:",
+      time: "Hora:",
+      passengers: "Pasajeros:",
+      extras: "Extras (Tapas/Charcutería):",
+      footer: "\nSi tienes alguna pregunta, no dudes en contactarnos.\n¡Gracias por elegir Seaduced Experience!"
+    },
+    danish: {
+      subject: "Booking Bekræftet!",
+      intro: "Hej {name},\n\nDin booking for {tour} er blevet bekræftet. Vi glæder os til at se dig om bord!",
+      details: "Bookingdetaljer:",
+      tour: "Tour:",
+      date: "Dato:",
+      time: "Tidspunkt:",
+      passengers: "Passagerer:",
+      extras: "Extras (Tapas/Charcuterie):",
+      footer: "\nHvis du har spørgsmål, er du velkommen til at kontakte os.\nTak for at vælge Seaduced Experience!"
+    }
+  };
+  return map[lang] || map.english;
+}
+
+/**
+ * Sends confirmation email to the guest and notification to the owner
+ */
+function sendBookingEmails(data, t) {
+  var lang = data.lang || 'english';
+  if (!t) t = getTranslations(lang);
+
+  var intro = t.intro.replace("{name}", data.name).replace("{tour}", data.tour);
+
+  var body = intro + "\n\n" +
+             t.details + "\n" +
+             "--------------------------\n" +
+             t.tour + " " + data.tour + "\n" +
+             t.date + " " + data.date + "\n" +
+             t.time + " " + data.time + "\n" +
+             t.passengers + " " + (data.qty || 1) + "\n" +
+             t.extras + " " + (data.tapas || 0) + "\n" +
+             "--------------------------\n" +
+             t.footer;
+
+  // 1. Send to Guest
+  if (data.email) {
+    GmailApp.sendEmail(data.email, "Seaduced Experience - " + t.subject, body, {
+      name: "Seaduced Experience"
+    });
+  }
+
+  // 2. Send to Admin (Owner)
+  var adminEmail = Session.getEffectiveUser().getEmail();
+  if (!adminEmail) adminEmail = data.email; // Fallback to guest if owner email is hidden
+  
+  var adminSubject = "[NUEVA RESERVA] " + data.tour + " - " + data.name;
+  var adminBody = "Tienes una nueva solicitud de reserva pendiente:\n\n" +
+                  "CLIENTE: " + data.name + "\n" +
+                  "EMAIL: " + data.email + "\n" +
+                  "TELÉFONO: " + (data.phone || "-") + "\n\n" +
+                  t.details + "\n" +
+                  "--------------------------\n" +
+                  t.tour + " " + data.tour + "\n" +
+                  t.date + " " + data.date + "\n" +
+                  t.time + " " + data.time + "\n" +
+                  t.passengers + " " + (data.qty || 1) + "\n" +
+                  t.extras + " " + (data.tapas || 0) + "\n" +
+                  "--------------------------\n";
+
+  GmailApp.sendEmail(adminEmail, adminSubject, adminBody, {
+    name: "Seaduced Booking System"
+  });
+}
+
+/**
+ * FUNCIÓN PARA FORZAR LA VENTANA DE PERMISOS
+ * Selecciónala en el desplegable de arriba y dale a "Ejecutar"
+ */
+function autorizar_script() {
+  var email = Session.getEffectiveUser().getEmail();
+  GmailApp.sendEmail(email, "Activación de permisos", "Los permisos de envío de email han sido activados correctamente.");
+  Logger.log("Permisos activados para: " + email);
 }
