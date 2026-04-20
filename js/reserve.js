@@ -34,14 +34,12 @@ export function initReservePage() {
     email: document.getElementById("reserve-email"),
     phone: document.getElementById("reserve-phone"),
     complete: document.getElementById("complete-request-btn"),
-    dateDisplay: document.getElementById("reserve-date-display"),
-    timeDisplay: document.getElementById("reserve-time-display"),
+    tourDisplay: document.getElementById("reserve-tour-display"),
+    scheduleDisplay: document.getElementById("reserve-schedule-display"),
     editLinks: document.querySelectorAll(".selection-card__edit-link"),
     peopleDisplay: document.getElementById("reserve-people-display"),
-    peopleMinus: document.getElementById("reserve-people-minus"),
-    peoplePlus: document.getElementById("reserve-people-plus"),
+    peopleLabel: document.getElementById("reserve-people-label"),
     langDisplay: document.getElementById("reserve-lang-display"),
-    langToggle: document.getElementById("reserve-lang-toggle"),
   };
 
   let current = saveBooking({
@@ -65,6 +63,7 @@ export function initReservePage() {
       elements.tourImg.src = currentTour.img;
       elements.tourImg.alt = currentTour.title;
     }
+    if (elements.tourDisplay) elements.tourDisplay.textContent = currentTour.title;
     if (elements.tourTitle) elements.tourTitle.textContent = currentTour.title;
     if (elements.tourDuration) elements.tourDuration.textContent = currentTour.duration;
     if (elements.summaryTourName) elements.summaryTourName.textContent = currentTour.title;
@@ -72,18 +71,34 @@ export function initReservePage() {
     if (elements.tapasQty) elements.tapasQty.textContent = String(current.tapas);
     if (elements.summaryTotal) elements.summaryTotal.textContent = formatCurrency(total);
 
-    if (elements.dateDisplay) {
-      elements.dateDisplay.textContent = current.date ? new Intl.DateTimeFormat("en-GB", {
-        day: "numeric",
-        month: "long",
-        year: "numeric"
-      }).format(new Date(current.date + "T00:00:00")) : "Select a date";
-    }
-    if (elements.timeDisplay) {
-      elements.timeDisplay.textContent = current.time || "Select a time";
+    if (elements.scheduleDisplay) {
+      if (current.date && current.time) {
+        const dateObj = new Date(current.date + "T00:00:00");
+        const dateStr = new Intl.DateTimeFormat("en-GB", {
+          weekday: "long",
+          day: "numeric",
+          month: "long",
+          year: "numeric"
+        }).format(dateObj);
+        elements.scheduleDisplay.textContent = `${dateStr}, starts at ${current.time}`;
+      } else if (current.date) {
+        const dateObj = new Date(current.date + "T00:00:00");
+        const dateStr = new Intl.DateTimeFormat("en-GB", {
+          weekday: "long",
+          day: "numeric",
+          month: "long",
+          year: "numeric"
+        }).format(dateObj);
+        elements.scheduleDisplay.textContent = dateStr;
+      } else {
+        elements.scheduleDisplay.textContent = "Select a date & time";
+      }
     }
     if (elements.peopleDisplay) {
       elements.peopleDisplay.textContent = String(current.qty || 1);
+    }
+    if (elements.peopleLabel) {
+      elements.peopleLabel.textContent = (current.qty || 1) === 1 ? "person" : "people";
     }
     if (elements.peopleMinus) {
       elements.peopleMinus.disabled = (current.qty || 1) <= 1;
@@ -114,23 +129,12 @@ export function initReservePage() {
     render();
   }
 
+  // Note: Tapas editing and People editing are now done on the previous page
+  // Tapas can still be updated via the Tapas Box section if the user chooses to keep those buttons there
+  // but for narrative consistency, we are removing them from the sidebar.
+  
   elements.tapasPlus?.addEventListener("click", () => updateTapas(1));
   elements.tapasMinus?.addEventListener("click", () => updateTapas(-1));
-
-  elements.peoplePlus?.addEventListener("click", () => {
-    current = saveBooking({ qty: Math.min(8, (current.qty || 1) + 1) });
-    render();
-  });
-
-  elements.peopleMinus?.addEventListener("click", () => {
-    current = saveBooking({ qty: Math.max(1, (current.qty || 1) - 1) });
-    render();
-  });
-
-  elements.langToggle?.addEventListener("click", () => {
-    current = saveBooking({ lang: current.lang === "spanish" ? "english" : "spanish" });
-    render();
-  });
 
   elements.editLinks?.forEach(link => {
     link.addEventListener("click", (e) => {
@@ -155,7 +159,7 @@ export function initReservePage() {
     }
 
     // ! IMPORTANT: The user must replace this with their actual Google Apps Script Web App URL
-    const GAS_URL = "https://script.google.com/macros/s/AKfycbzPzFJW1VJr9ihrdYdtpicuF5vWEIk1t3zw9jbJL8R9vlrCPfZNFzZ5AVl-ZSJzt5e8tg/exec";
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbyPmktdM6g_cfzrvCdf4SiKAoiT_D9jfJsx5R3_mE1-M1oczMGdKCHC9Sh0DzSJgNiJ2w/exec";
 
     elements.complete.disabled = true;
     elements.complete.textContent = "Processing...";
@@ -186,14 +190,14 @@ export function initReservePage() {
         phone,
         tour: tour.title,
       }));
-      
+
       const url = `${GAS_URL}?action=createBooking&data=${dataStr}`;
-      
+
       // MASTER KEY: Using an Image object to send data bypasses all browser CORS restrictions.
       // This is the most reliable way to trigger a GAS execution from a static website.
       const beacon = new Image();
       beacon.src = url;
-      
+
       // Small delay to ensure the request is dispatched before the alert/redirect
       setTimeout(() => {
         window.alert(

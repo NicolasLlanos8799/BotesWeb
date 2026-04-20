@@ -165,7 +165,7 @@ function handleCreateBooking(data) {
   
   // Send notifications
   try {
-    sendBookingEmails(data, t);
+    sendBookingEmails(data, t, start, end);
   } catch (e) {
     // If email fails, we update the calendar event description with the error
     var errorMsg = "\n\n[ERROR DE EMAIL]: " + e.toString();
@@ -194,7 +194,8 @@ function getTranslations(lang) {
       passengers: "Passengers:",
       extras: "Extras:",
       location: "Departure Point:",
-      locationVal: "Puerto Banús, Marbella",
+      locationVal: "Havnegade 1, 1058 København, Denmark",
+      mapButton: "Open in Google Maps",
       footer: "If you have any questions, feel free to contact us via WhatsApp or reply to this email.",
       thanks: "See you soon!"
     },
@@ -209,7 +210,8 @@ function getTranslations(lang) {
       passengers: "Pasajeros:",
       extras: "Extras:",
       location: "Punto de salida:",
-      locationVal: "Puerto Banús, Marbella",
+      locationVal: "Havnegade 1, 1058 København, Denmark",
+      mapButton: "Abrir en Google Maps",
       footer: "Si tienes alguna pregunta, no dudes en contactarnos por WhatsApp o respondiendo a este email.",
       thanks: "¡Nos vemos pronto!"
     },
@@ -224,7 +226,8 @@ function getTranslations(lang) {
       passengers: "Passagerer:",
       extras: "Extras:",
       location: "Afgangssted:",
-      locationVal: "Puerto Banús, Marbella",
+      locationVal: "Havnegade 1, 1058 København, Denmark",
+      mapButton: "Åbn i Google Maps",
       footer: "Hvis du har spørgsmål, er du velkommen til at kontakte os via WhatsApp eller svare på denne e-mail.",
       thanks: "Vi ses snart!"
     }
@@ -235,22 +238,39 @@ function getTranslations(lang) {
 /**
  * Sends confirmation email to the guest and notification to the owner
  */
-function sendBookingEmails(data, t) {
+function sendBookingEmails(data, t, start, end) {
   var lang = data.lang || 'english';
   if (!t) t = getTranslations(lang);
 
   // 1. Prepare HTML Content
   var htmlBody = getHtmlTemplate(data, t);
-
-  // 2. Send to Guest
-  if (data.email) {
-    GmailApp.sendEmail(data.email, "Seaduced Experience - " + t.subject, "", {
-      name: "Seaduced Experience",
-      htmlBody: htmlBody
-    });
+  
+  // 2. Prepare ICS Attachment
+  var icsBlob;
+  try {
+    var title = "Seaduced: " + data.tour;
+    var location = t.locationVal;
+    var description = t.body.replace("<b>", "").replace("</b>", "") + "\n\n" + 
+                      t.tour + " " + data.tour + "\n" +
+                      t.date + " " + data.date + "\n" +
+                      t.time + " " + data.time;
+    icsBlob = createIcsBlob(title, start, end, description, location);
+  } catch (e) {
+    Logger.log("ICS Generation Error: " + e.toString());
   }
 
-  // 3. Send to Admin (Owner) - We keep a simpler version or same HTML
+  // 3. Send to Guest
+  if (data.email) {
+    var guestOptions = {
+      name: "Seaduced Experience",
+      htmlBody: htmlBody
+    };
+    if (icsBlob) guestOptions.attachments = [icsBlob];
+    
+    GmailApp.sendEmail(data.email, "Seaduced Experience - " + t.subject, "", guestOptions);
+  }
+
+  // 4. Send to Admin (Owner)
   var adminEmail = Session.getEffectiveUser().getEmail();
   if (!adminEmail) adminEmail = data.email; 
   
@@ -261,10 +281,48 @@ function sendBookingEmails(data, t) {
                   "<b>TELÉFONO:</b> " + (data.phone || "-") + "</p>" +
                   "<hr>" + htmlBody;
 
-  GmailApp.sendEmail(adminEmail, adminSubject, "", {
+  var adminOptions = {
     name: "Seaduced Booking System",
     htmlBody: adminHtml
-  });
+  };
+  if (icsBlob) adminOptions.attachments = [icsBlob];
+
+  GmailApp.sendEmail(adminEmail, adminSubject, "", adminOptions);
+}
+
+/**
+ * Universal iCalendar (.ics) Generator
+ */
+function createIcsBlob(title, start, end, description, location) {
+  var ics = [
+    "BEGIN:VCALENDAR",
+    "VERSION:2.0",
+    "PRODID:-//Seaduced Experience//NONSGML v1.0//EN",
+    "METHOD:REQUEST",
+    "BEGIN:VEVENT",
+    "UID:" + Utilities.getUuid(),
+    "DTSTAMP:" + formatDateToIcs(new Date()),
+    "DTSTART:" + formatDateToIcs(start),
+    "DTEND:" + formatDateToIcs(end),
+    "SUMMARY:" + title,
+    "DESCRIPTION:" + description.replace(/\n/g, "\\n"),
+    "LOCATION:" + location,
+    "STATUS:CONFIRMED",
+    "SEQUENCE:0",
+    "BEGIN:VALARM",
+    "TRIGGER:-PT30M",
+    "ACTION:DISPLAY",
+    "DESCRIPTION:Reminder - Seaduced Experience",
+    "END:VALARM",
+    "END:VEVENT",
+    "END:VCALENDAR"
+  ].join("\r\n");
+  
+  return Utilities.newBlob(ics, "text/calendar", "invite.ics");
+}
+
+function formatDateToIcs(date) {
+  return Utilities.formatDate(date, "UTC", "yyyyMMdd'T'HHmmss'Z'");
 }
 
 /**
@@ -280,6 +338,7 @@ function getHtmlTemplate(data, t) {
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
       <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+      ${getJsonLdMarkup(data, t)}
     </head>
     <div style="font-family: 'Inter', system-ui, sans-serif; background-color: ${bgColor}; padding: 40px 10px; color: #1a1a1a;">
       <div style="max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #eee;">
@@ -321,7 +380,12 @@ function getHtmlTemplate(data, t) {
               </tr>
               <tr>
                 <td style="padding: 15px 0 8px 0; color: #888; font-size: 14px;">${t.location}</td>
-                <td style="padding: 15px 0 8px 0; text-align: right; font-weight: 600; color: ${accentColor};">${t.locationVal}</td>
+                <td style="padding: 15px 0 8px 0; text-align: right; font-weight: 600; color: ${accentColor}; font-size: 13px;">
+                  ${t.locationVal}<br>
+                  <a href="https://share.google/CRsObwvGX3UAhmAgO" style="display: inline-block; background-color: ${navyColor}; color: #ffffff; padding: 6px 14px; border-radius: 6px; text-decoration: none; font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600; margin-top: 8px; letter-spacing: 0.3px;">
+                    📍 ${t.mapButton}
+                  </a>
+                </td>
               </tr>
             </table>
           </div>
@@ -339,10 +403,47 @@ function getHtmlTemplate(data, t) {
       </div>
       
       <div style="font-family: 'Inter', sans-serif; text-align: center; padding-top: 20px; font-size: 10px; color: #aaa; letter-spacing: 0.5px;">
-        © 2026 SEADUCED EXPERIENCE MARBELLA. ALL RIGHTS RESERVED.
+        © 2026 SEADUCED EXPERIENCE COPENHAGEN. ALL RIGHTS RESERVED.
       </div>
     </div>
   `;
+}
+
+/**
+ * Schema.org JSON-LD for Gmail Smart Banners
+ */
+function getJsonLdMarkup(data, t) {
+  var isoDate = data.date + "T" + data.time + ":00";
+  
+  var json = {
+    "@context": "http://schema.org",
+    "@type": "EventReservation",
+    "reservationNumber": "SEAD-" + Date.now().toString().slice(-6),
+    "reservationStatus": "http://schema.org/Confirmed",
+    "underName": {
+      "@type": "Person",
+      "name": data.name
+    },
+    "reservationFor": {
+      "@type": "Event",
+      "name": data.tour + " - Seaduced Experience",
+      "startDate": isoDate,
+      "location": {
+        "@type": "Place",
+        "name": t.locationVal,
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Havnegade 1",
+          "addressLocality": "København",
+          "addressRegion": "Hovedstaden",
+          "postalCode": "1058",
+          "addressCountry": "DK"
+        }
+      }
+    }
+  };
+  
+  return '<script type="application/ld+json">' + JSON.stringify(json) + '</script>';
 }
 
 /**

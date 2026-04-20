@@ -42,10 +42,25 @@
         <div class="reserve-main">
             <div class="tour-header">
                 <img id="tour-img" src="/assets/images/tour_private_boat.png" alt="Tour image" loading="lazy" />
-                <div style="flex: 1;">
-                    <h1 id="tour-title">City Highlights</h1>
-                </div>
+                <h1 id="tour-title">City Highlights</h1>
             </div>
+
+            <section class="reserve-section">
+                <h2 class="reserve-section__title">Enter your personal details</h2>
+                <div class="contact-compact-row">
+                    <div class="input-group">
+                        <input type="text" id="reserve-name" placeholder="Full Name" class="input-minimal" required />
+                    </div>
+                    <div class="input-group">
+                        <input type="email" id="reserve-email" placeholder="Email Address" class="input-minimal"
+                            required />
+                    </div>
+                    <div class="input-group">
+                        <input type="tel" id="reserve-phone" placeholder="Phone Number" class="input-minimal"
+                            required />
+                    </div>
+                </div>
+            </section>
 
             <section class="reserve-section" id="extras-section">
                 <h2 class="reserve-section__title">Enhance Your Experience</h2>
@@ -56,10 +71,6 @@
                     <div class="extra-card__info">
                         <h3>Gourmet Charcuterie</h3>
                         <p>Selection of 2 cheeses, 2 meats, local marmalade, organic bread, nuts and olives.</p>
-                        <div class="extra-card__meta">
-                            <span>⏱ 45 min preparation</span>
-                            <span>📦 Freshly Prepared</span>
-                        </div>
                     </div>
                     <div class="extra-card__price">
                         <span>225 DKK</span>
@@ -73,81 +84,89 @@
                     </div>
                 </div>
             </section>
-
-            <section class="reserve-section">
-                <h2 class="reserve-section__title">Where should we send your booking details?</h2>
-                <div class="contact-compact-row" style="grid-template-columns: 1fr 1fr 1fr;">
-                    <div class="input-group">
-                        <input type="text" id="reserve-name" placeholder="Full Name" class="input-minimal" required />
-                    </div>
-                    <div class="input-group">
-                        <input type="email" id="reserve-email" placeholder="Email Address" class="input-minimal" required />
-                    </div>
-                    <div class="input-group">
-                        <input type="tel" id="reserve-phone" placeholder="Phone Number" class="input-minimal" required />
-                    </div>
-                </div>
-            </section>
         </div>
 
         <aside class="reserve-sidebar">
             <div class="summary-card">
                 <div class="selection-card__title">Reservation Details</div>
-                
+
                 <!-- Compact Selection Info -->
-                <div class="selection-card__content" style="border-bottom: 1px solid rgba(15,30,53,0.08); padding-bottom: 1.5rem; margin-bottom: 1rem;">
-                    <div class="selection-card__item">
+                <div class="selection-card__content">
+                    <div class="selection-card__item selection-card__item--featured" style="grid-column: span 2;">
                         <div class="selection-card__icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width: 16px; height: 16px;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                                stroke-linecap="round" stroke-linejoin="round" style="width: 16px; height: 16px;">
+                                <path
+                                    d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v2Z">
+                                </path>
+                                <line x1="13" y1="5" x2="13" y2="7"></line>
+                                <line x1="13" y1="17" x2="13" y2="19"></line>
+                                <line x1="13" y1="11" x2="13" y2="13"></line>
+                            </svg>
                         </div>
                         <div class="selection-card__info" style="width: 100%;">
-                            <div style="display: flex; justify-content: space-between; align-items: baseline; width: 100%;">
-                                <span class="selection-card__label">Date</span>
-                                <a href="#" class="selection-card__edit-link" id="edit-date-link" title="Edit Date">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width: 14px; height: 14px;"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
-                                </a>
-                            </div>
-                            <span class="selection-card__value" id="reserve-date-display">...</span>
+                            <span class="selection-card__label">Selected Experience</span>
+                            <span class="selection-card__value" id="reserve-tour-display">...</span>
                         </div>
                     </div>
-                    <div class="selection-card__item">
+                    <div class="selection-card__item" style="grid-column: span 2;">
                         <div class="selection-card__icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width: 16px; height: 16px;"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                                stroke-linecap="round" stroke-linejoin="round" style="width: 16px; height: 16px;">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                            </svg>
                         </div>
                         <div class="selection-card__info" style="width: 100%;">
-                            <div style="display: flex; justify-content: space-between; align-items: baseline; width: 100%;">
-                                <span class="selection-card__label">Time</span>
-                                <a href="#" class="selection-card__edit-link" id="edit-time-link" title="Edit Time">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width: 14px; height: 14px;"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
-                                </a>
-                            </div>
-                            <span class="selection-card__value" id="reserve-time-display">...</span>
+                            <span class="selection-card__label">Date & Time</span>
+                            <span class="selection-card__value" id="reserve-schedule-display">...</span>
                         </div>
                     </div>
-                    <div class="selection-card__item">
+                    <div class="selection-card__item" style="grid-column: span 1;">
                         <div class="selection-card__icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width: 16px; height: 16px;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                                stroke-linecap="round" stroke-linejoin="round" style="width: 16px; height: 16px;">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                            </svg>
                         </div>
-                        <div class="selection-card__info">
+                        <div class="selection-card__info" style="width: 100%;">
                             <span class="selection-card__label">Participants</span>
-                            <div class="selection-card__edit-group">
-                                <button id="reserve-people-minus" class="mini-btn" type="button">-</button>
-                                <span class="selection-card__value" id="reserve-people-display">1</span>
-                                <button id="reserve-people-plus" class="mini-btn" type="button">+</button>
-                            </div>
+                            <span class="selection-card__value">
+                                <span id="reserve-people-display">1</span> <span id="reserve-people-label">person</span>
+                            </span>
                         </div>
                     </div>
-                    <div class="selection-card__item">
+                    <div class="selection-card__item" style="grid-column: span 1;">
                         <div class="selection-card__icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width: 16px; height: 16px;"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                                stroke-linecap="round" stroke-linejoin="round" style="width: 16px; height: 16px;">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="2" y1="12" x2="22" y2="12"></line>
+                                <path
+                                    d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
+                                </path>
+                            </svg>
+                        </div>
+                        <div class="selection-card__info" style="width: 100%;">
+                            <span class="selection-card__label">Language</span>
+                            <span class="selection-card__value" id="reserve-lang-display">English</span>
+                        </div>
+                    </div>
+                    <div class="selection-card__item" id="edit-booking-link-row" style="grid-column: span 2; margin-top: 0.15rem;">
+                        <div class="selection-card__icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                                stroke-linecap="round" stroke-linejoin="round" style="width: 14px; height: 14px;">
+                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                            </svg>
                         </div>
                         <div class="selection-card__info">
-                            <span class="selection-card__label">Language</span>
-                            <div class="selection-card__edit-group">
-                                <button id="reserve-lang-toggle" class="mini-toggle" type="button">
-                                    <span id="reserve-lang-display">English</span>
-                                </button>
-                            </div>
+                            <a href="#" class="selection-card__edit-link" id="edit-booking-link">
+                                <span>Change date or number of participants</span>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -167,12 +186,12 @@
                 </div>
                 <button id="complete-request-btn" class="btn btn--primary reserve-btn">
                     Complete My Booking
-                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="width: 16px; height: 16px;"><path d="M6 12l4-4-4-4"/></svg>
+                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                        style="width: 16px; height: 16px;">
+                        <path d="M6 12l4-4-4-4" />
+                    </svg>
                 </button>
-                <div class="trust-badge">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width: 14px; height: 14px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-                    <span>Instant Request • No payment required yet</span>
-                </div>
+
             </div>
         </aside>
     </div>
