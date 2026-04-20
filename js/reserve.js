@@ -40,9 +40,6 @@ export function initReservePage() {
     peopleDisplay: document.getElementById("reserve-people-display"),
     peopleLabel: document.getElementById("reserve-people-label"),
     langDisplay: document.getElementById("reserve-lang-display"),
-    stickyBar: document.getElementById("mobile-sticky-bar"),
-    stickyTotal: document.getElementById("sticky-total"),
-    stickyBtn: document.getElementById("sticky-complete-btn"),
   };
 
   let current = saveBooking({
@@ -72,10 +69,7 @@ export function initReservePage() {
     if (elements.summaryTourName) elements.summaryTourName.textContent = currentTour.title;
     if (elements.summaryTourPrice) elements.summaryTourPrice.textContent = formatCurrency(currentTour.price);
     if (elements.tapasQty) elements.tapasQty.textContent = String(current.tapas);
-    
-    const formattedTotal = formatCurrency(total);
-    if (elements.summaryTotal) elements.summaryTotal.textContent = formattedTotal;
-    if (elements.stickyTotal) elements.stickyTotal.textContent = formattedTotal;
+    if (elements.summaryTotal) elements.summaryTotal.textContent = formatCurrency(total);
 
     if (elements.scheduleDisplay) {
       if (current.date && current.time) {
@@ -154,7 +148,7 @@ export function initReservePage() {
     });
   });
 
-  async function handleCompleteBooking() {
+  elements.complete?.addEventListener("click", async () => {
     const name = elements.name ? elements.name.value.trim() : "";
     const email = elements.email ? elements.email.value.trim() : "";
     const phone = elements.phone ? elements.phone.value.trim() : "";
@@ -167,12 +161,8 @@ export function initReservePage() {
     // ! IMPORTANT: The user must replace this with their actual Google Apps Script Web App URL
     const GAS_URL = "https://script.google.com/macros/s/AKfycbyPmktdM6g_cfzrvCdf4SiKAoiT_D9jfJsx5R3_mE1-M1oczMGdKCHC9Sh0DzSJgNiJ2w/exec";
 
-    const buttons = [elements.complete, elements.stickyBtn].filter(Boolean);
-    buttons.forEach(btn => {
-      btn.disabled = true;
-      btn.dataset.originalText = btn.textContent;
-      btn.textContent = "Processing...";
-    });
+    elements.complete.disabled = true;
+    elements.complete.textContent = "Processing...";
 
     const bookingData = {
       ...current,
@@ -186,10 +176,8 @@ export function initReservePage() {
         window.alert(
           `Success! Your request for ${tour.title} on ${bookingData.date} at ${bookingData.time} has been received. We'll be in touch shortly!`
         );
-        buttons.forEach(btn => {
-          btn.disabled = false;
-          btn.textContent = btn.dataset.originalText || "Complete My Booking";
-        });
+        elements.complete.disabled = false;
+        elements.complete.textContent = "Complete My Booking";
       }, 1000);
       return;
     }
@@ -205,9 +193,12 @@ export function initReservePage() {
 
       const url = `${GAS_URL}?action=createBooking&data=${dataStr}`;
 
+      // MASTER KEY: Using an Image object to send data bypasses all browser CORS restrictions.
+      // This is the most reliable way to trigger a GAS execution from a static website.
       const beacon = new Image();
       beacon.src = url;
 
+      // Small delay to ensure the request is dispatched before the alert/redirect
       setTimeout(() => {
         window.alert(
           `Wonderful! Your request for the ${tour.title} is on its way. We'll check the logistics and send you a confirmation email very soon.`
@@ -218,30 +209,10 @@ export function initReservePage() {
     } catch (error) {
       console.error("Booking error:", error);
       window.alert("Apologies, we encountered a small issue. Please try again or contact us directly via WhatsApp.");
-      buttons.forEach(btn => {
-        btn.disabled = false;
-        btn.textContent = btn.dataset.originalText || "Complete My Booking";
-      });
+      elements.complete.disabled = false;
+      elements.complete.textContent = "Complete My Booking";
     }
-  }
-
-  elements.complete?.addEventListener("click", handleCompleteBooking);
-  elements.stickyBtn?.addEventListener("click", handleCompleteBooking);
-
-  // Intersection Observer to hide sticky bar when main button is visible
-  if (elements.stickyBar && elements.complete) {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          elements.stickyBar.classList.add("hidden");
-        } else {
-          elements.stickyBar.classList.remove("hidden");
-        }
-      });
-    }, { threshold: 0.1 });
-
-    observer.observe(elements.complete);
-  }
+  });
 
   // UI initialized
   render();
