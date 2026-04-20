@@ -164,8 +164,7 @@ export function initReservePage() {
       return;
     }
 
-    // ! IMPORTANT: The user must replace this with their actual Google Apps Script Web App URL
-    const GAS_URL = "https://script.google.com/macros/s/AKfycbyPmktdM6g_cfzrvCdf4SiKAoiT_D9jfJsx5R3_mE1-M1oczMGdKCHC9Sh0DzSJgNiJ2w/exec";
+    const GAS_URL = "/api/proxy";
 
     const buttons = [elements.complete, elements.stickyBtn].filter(Boolean);
     buttons.forEach(btn => {
