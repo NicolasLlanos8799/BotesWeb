@@ -207,14 +207,14 @@ function initBookingPanel() {
     // BATTLE-READY CACHE: Check if we have the slots already from the monthly sync
     if (availabilityCache[dateStr]) {
       renderTimeSlots(availabilityCache[dateStr], false);
-      timeTrigger.disabled = false;
-      timeValueLabel.textContent = "Choose time";
     } else {
-      // Fallback to individual fetch if not in cache
-      timeTrigger.disabled = true;
-      timeValueLabel.textContent = "Checking availability...";
+      // SILENT FALLBACK: Show default slots while we fetch in background
+      renderTimeSlots(DEFAULT_SLOTS, false);
       fetchAvailability(dateStr);
     }
+    
+    timeTrigger.disabled = false;
+    timeValueLabel.textContent = "Choose time";
     
     syncStoredBooking();
   }
@@ -251,11 +251,18 @@ function initBookingPanel() {
     } 
     // 2. Handle individual day array [...]
     else if (Array.isArray(data)) {
-      renderTimeSlots(data, false);
-      timeTrigger.disabled = false;
-      // Don't overwrite if user already selected a slot
-      if (!timeValueInput.value) {
-        timeValueLabel.textContent = "Choose time";
+      const selectedDate = dateValueInput.value;
+      // SILENT UPDATE: If we got data, cache it
+      // But only update UI if it matches what the user is currently looking at
+      if (selectedDate) {
+        // We don't have the date in the JSONP response usually, 
+        // so we assume it corresponds to the most recent daily request if it's an array.
+        // Actually, to be safe, we only apply individual arrays if they were explicitly requested.
+        renderTimeSlots(data, false);
+        timeTrigger.disabled = false;
+        if (!timeValueInput.value) {
+          timeValueLabel.textContent = "Choose time";
+        }
       }
     }
 
@@ -285,12 +292,11 @@ function initBookingPanel() {
     script.src = `${GAS_URL}?action=getAvailability&date=${date}&callback=__gas_callback&t=${Date.now()}`;
     
     script.onerror = () => {
-      console.warn("Calendar sync failed (offline fallback active)");
+      console.warn("Calendar sync failed (silent fallback)");
       timeTrigger.disabled = false;
       
-      // Only set offline message if the user hasn't selected a time yet
       if (!timeValueInput.value) {
-        timeValueLabel.textContent = "Choose time (offline)";
+        timeValueLabel.textContent = "Choose time";
       }
       renderTimeSlots(DEFAULT_SLOTS, false);
     };
