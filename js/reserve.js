@@ -211,7 +211,10 @@ export function initReservePage() {
         body: JSON.stringify(payload)
       });
 
-      if (!response.ok) throw new Error("Network Response Error");
+      if (!response.ok) {
+        const errorText = await response.text().catch(() => "No error body");
+        throw new Error(`Server returned ${response.status}: ${errorText.substring(0, 50)}`);
+      }
       const res = await response.json();
 
       if (res && res.success) {
