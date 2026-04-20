@@ -154,6 +154,15 @@ function handleCreateBooking(data) {
                     
   var event = calendar.createEvent(title, start, end, { description: description });
   
+  // ADD GUEST: This triggers the "Yes/No/Maybe" invitation in most calendars
+  if (data.email) {
+    try {
+      event.addGuest(data.email);
+    } catch (e) {
+      Logger.log("Could not add guest: " + e.toString());
+    }
+  }
+  
   // Send notifications
   try {
     sendBookingEmails(data, t);
@@ -175,37 +184,49 @@ function isDanish(lang) { return lang === 'danish'; }
 function getTranslations(lang) {
   var map = {
     english: {
-      subject: "Booking Confirmed!",
-      intro: "Hello {name},\n\nYour booking for {tour} has been successfully confirmed. We are looking forward to seeing you on board!",
+      subject: "Your Seaduced Experience is Confirmed!",
+      intro: "Hello {name},",
+      body: "Your booking for <b>{tour}</b> has been successfully confirmed. We are thrilled to have you on board!",
       details: "Booking Details:",
       tour: "Tour:",
       date: "Date:",
       time: "Time:",
       passengers: "Passengers:",
-      extras: "Extras (Tapas/Charcuterie):",
-      footer: "\nIf you have any questions, feel free to contact us.\nThank you for choosing Seaduced Experience!"
+      extras: "Extras:",
+      location: "Departure Point:",
+      locationVal: "Puerto Banús, Marbella",
+      footer: "If you have any questions, feel free to contact us via WhatsApp or reply to this email.",
+      thanks: "See you soon!"
     },
     spanish: {
-      subject: "¡Reserva Confirmada!",
-      intro: "Hola {name},\n\nTu reserva para {tour} ha sido confirmada con éxito. ¡Estamos deseando verte a bordo!",
+      subject: "¡Tu Seaduced Experience está Confirmada!",
+      intro: "Hola {name},",
+      body: "Tu reserva para <b>{tour}</b> ha sido confirmada con éxito. ¡Estamos encantados de tenerte a bordo!",
       details: "Detalles de la reserva:",
       tour: "Tour:",
       date: "Fecha:",
       time: "Hora:",
       passengers: "Pasajeros:",
-      extras: "Extras (Tapas/Charcutería):",
-      footer: "\nSi tienes alguna pregunta, no dudes en contactarnos.\n¡Gracias por elegir Seaduced Experience!"
+      extras: "Extras:",
+      location: "Punto de salida:",
+      locationVal: "Puerto Banús, Marbella",
+      footer: "Si tienes alguna pregunta, no dudes en contactarnos por WhatsApp o respondiendo a este email.",
+      thanks: "¡Nos vemos pronto!"
     },
     danish: {
-      subject: "Booking Bekræftet!",
-      intro: "Hej {name},\n\nDin booking for {tour} er blevet bekræftet. Vi glæder os til at se dig om bord!",
+      subject: "Din Seaduced Experience er Bekræftet!",
+      intro: "Hej {name},",
+      body: "Din booking for <b>{tour}</b> er blevet bekræftet. Vi glæder os til at se dig om bord!",
       details: "Bookingdetaljer:",
       tour: "Tour:",
       date: "Dato:",
       time: "Tidspunkt:",
       passengers: "Passagerer:",
-      extras: "Extras (Tapas/Charcuterie):",
-      footer: "\nHvis du har spørgsmål, er du velkommen til at kontakte os.\nTak for at vælge Seaduced Experience!"
+      extras: "Extras:",
+      location: "Afgangssted:",
+      locationVal: "Puerto Banús, Marbella",
+      footer: "Hvis du har spørgsmål, er du velkommen til at kontakte os via WhatsApp eller svare på denne e-mail.",
+      thanks: "Vi ses snart!"
     }
   };
   return map[lang] || map.english;
@@ -218,47 +239,110 @@ function sendBookingEmails(data, t) {
   var lang = data.lang || 'english';
   if (!t) t = getTranslations(lang);
 
-  var intro = t.intro.replace("{name}", data.name).replace("{tour}", data.tour);
+  // 1. Prepare HTML Content
+  var htmlBody = getHtmlTemplate(data, t);
 
-  var body = intro + "\n\n" +
-             t.details + "\n" +
-             "--------------------------\n" +
-             t.tour + " " + data.tour + "\n" +
-             t.date + " " + data.date + "\n" +
-             t.time + " " + data.time + "\n" +
-             t.passengers + " " + (data.qty || 1) + "\n" +
-             t.extras + " " + (data.tapas || 0) + "\n" +
-             "--------------------------\n" +
-             t.footer;
-
-  // 1. Send to Guest
+  // 2. Send to Guest
   if (data.email) {
-    GmailApp.sendEmail(data.email, "Seaduced Experience - " + t.subject, body, {
-      name: "Seaduced Experience"
+    GmailApp.sendEmail(data.email, "Seaduced Experience - " + t.subject, "", {
+      name: "Seaduced Experience",
+      htmlBody: htmlBody
     });
   }
 
-  // 2. Send to Admin (Owner)
+  // 3. Send to Admin (Owner) - We keep a simpler version or same HTML
   var adminEmail = Session.getEffectiveUser().getEmail();
-  if (!adminEmail) adminEmail = data.email; // Fallback to guest if owner email is hidden
+  if (!adminEmail) adminEmail = data.email; 
   
   var adminSubject = "[NUEVA RESERVA] " + data.tour + " - " + data.name;
-  var adminBody = "Tienes una nueva solicitud de reserva pendiente:\n\n" +
-                  "CLIENTE: " + data.name + "\n" +
-                  "EMAIL: " + data.email + "\n" +
-                  "TELÉFONO: " + (data.phone || "-") + "\n\n" +
-                  t.details + "\n" +
-                  "--------------------------\n" +
-                  t.tour + " " + data.tour + "\n" +
-                  t.date + " " + data.date + "\n" +
-                  t.time + " " + data.time + "\n" +
-                  t.passengers + " " + (data.qty || 1) + "\n" +
-                  t.extras + " " + (data.tapas || 0) + "\n" +
-                  "--------------------------\n";
+  var adminHtml = "<h3>Tienes una nueva solicitud de reserva</h3>" +
+                  "<p><b>CLIENTE:</b> " + data.name + "<br>" +
+                  "<b>EMAIL:</b> " + data.email + "<br>" +
+                  "<b>TELÉFONO:</b> " + (data.phone || "-") + "</p>" +
+                  "<hr>" + htmlBody;
 
-  GmailApp.sendEmail(adminEmail, adminSubject, adminBody, {
-    name: "Seaduced Booking System"
+  GmailApp.sendEmail(adminEmail, adminSubject, "", {
+    name: "Seaduced Booking System",
+    htmlBody: adminHtml
   });
+}
+
+/**
+ * Premium HTML Template for confirmation emails
+ */
+function getHtmlTemplate(data, t) {
+  var accentColor = "#D4AF37"; // Gold / Luxury accent
+  var bgColor = "#f8f9fa";
+  var navyColor = "#0f1e35"; // From --clr-navy
+  
+  return `
+    <head>
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    </head>
+    <div style="font-family: 'Inter', system-ui, sans-serif; background-color: ${bgColor}; padding: 40px 10px; color: #1a1a1a;">
+      <div style="max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #eee;">
+        
+        <!-- Header -->
+        <div style="background: linear-gradient(135deg, ${navyColor} 0%, #333 100%); padding: 30px; text-align: center;">
+          <h1 style="font-family: 'Playfair Display', serif; color: ${accentColor}; margin: 0; font-size: 28px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;">SEADUCED</h1>
+          <p style="font-family: 'Inter', sans-serif; color: #999; margin: 5px 0 0 0; font-size: 11px; letter-spacing: 3px; font-weight: 400; text-transform: uppercase;">Luxury Boat Experience</p>
+        </div>
+
+        <!-- Body -->
+        <div style="padding: 40px 30px;">
+          <h2 style="font-family: 'Playfair Display', serif; margin-top: 0; font-weight: 700; font-size: 24px; color: ${navyColor};">${t.intro.replace("{name}", data.name)}</h2>
+          <p style="font-family: 'Inter', sans-serif; line-height: 1.6; color: #444; font-size: 15px;">${t.body.replace("{tour}", data.tour)}</p>
+          
+          <div style="background: ${bgColor}; border-radius: 12px; padding: 25px; margin: 30px 0; border: 1px dashed #ddd;">
+            <h3 style="font-family: 'Inter', sans-serif; margin-top: 0; font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: #888; margin-bottom: 20px; font-weight: 600;">${t.details}</h3>
+            
+            <table style="width: 100%; border-collapse: collapse; font-family: 'Inter', sans-serif;">
+              <tr>
+                <td style="padding: 8px 0; color: #888; font-size: 14px;">${t.tour}</td>
+                <td style="padding: 8px 0; text-align: right; font-weight: 600; color: ${navyColor};">${data.tour}</td>
+              </tr>
+              <tr>
+                <td style="padding: 8px 0; color: #888; font-size: 14px;">${t.date}</td>
+                <td style="padding: 8px 0; text-align: right; font-weight: 600; color: ${navyColor};">${data.date}</td>
+              </tr>
+              <tr>
+                <td style="padding: 8px 0; color: #888; font-size: 14px;">${t.time}</td>
+                <td style="padding: 8px 0; text-align: right; font-weight: 600; color: ${navyColor};">${data.time}</td>
+              </tr>
+              <tr>
+                <td style="padding: 8px 0; color: #888; font-size: 14px;">${t.passengers}</td>
+                <td style="padding: 8px 0; text-align: right; font-weight: 600; color: ${navyColor};">${data.qty || 1}</td>
+              </tr>
+              <tr>
+                <td style="padding: 8px 0; color: #888; font-size: 14px;">${t.extras}</td>
+                <td style="padding: 8px 0; text-align: right; font-weight: 600; color: ${navyColor};">${data.tapas || 0} Tapas/Charcuterie</td>
+              </tr>
+              <tr>
+                <td style="padding: 15px 0 8px 0; color: #888; font-size: 14px;">${t.location}</td>
+                <td style="padding: 15px 0 8px 0; text-align: right; font-weight: 600; color: ${accentColor};">${t.locationVal}</td>
+              </tr>
+            </table>
+          </div>
+
+          <p style="font-family: 'Playfair Display', serif; text-align: center; margin-top: 30px; font-weight: 700; font-size: 18px; color: ${navyColor};">${t.thanks}</p>
+        </div>
+
+        <!-- Footer -->
+        <div style="font-family: 'Inter', sans-serif; padding: 30px; background: #fafafa; border-top: 1px solid #eee; text-align: center; font-size: 11px; color: #999;">
+          <p style="margin: 0;">${t.footer}</p>
+          <div style="margin-top: 20px;">
+            <a href="https://seaducedexperience.com" style="color: ${accentColor}; text-decoration: none; font-weight: 600; letter-spacing: 1px;">SEADUCEDEXPERIENCE.COM</a>
+          </div>
+        </div>
+      </div>
+      
+      <div style="font-family: 'Inter', sans-serif; text-align: center; padding-top: 20px; font-size: 10px; color: #aaa; letter-spacing: 0.5px;">
+        © 2026 SEADUCED EXPERIENCE MARBELLA. ALL RIGHTS RESERVED.
+      </div>
+    </div>
+  `;
 }
 
 /**

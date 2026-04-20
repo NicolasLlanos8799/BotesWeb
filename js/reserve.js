@@ -155,7 +155,7 @@ export function initReservePage() {
     }
 
     // ! IMPORTANT: The user must replace this with their actual Google Apps Script Web App URL
-    const GAS_URL = "https://script.google.com/macros/s/AKfycbyW72j4c0uSrg9oGeFch1IsL4b0wVjnwwNaBTtbfRQrZCdVacrmLehRgtK3HcFNEZ4msg/exec";
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbzPzFJW1VJr9ihrdYdtpicuF5vWEIk1t3zw9jbJL8R9vlrCPfZNFzZ5AVl-ZSJzt5e8tg/exec";
 
     elements.complete.disabled = true;
     elements.complete.textContent = "Processing...";
