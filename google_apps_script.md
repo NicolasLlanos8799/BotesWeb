@@ -4,7 +4,8 @@
  * Instructions:
  * 1. Go to https://script.google.com
  * 2. Click "Manage Deployments" -> Pencil Icon -> Version: "New Version" -> "Deploy".
- * 3. This version supports monthly pre-fetching for instant UI updates.
+ * 3. Script URL: https://script.google.com/macros/s/AKfycbxe7Gd0iTafGtIP8IWqd0WADdPiOypg13g_0dOU07gNvmTZSl39FmIYGVC1YquddsXHew/exec
+ * 4. This version supports monthly pre-fetching for instant UI updates.
  */
 
 var START_HOUR = 9;   

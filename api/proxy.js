@@ -4,7 +4,7 @@
  * Supports both GET (availability) and POST (bookings).
  */
 export default async function handler(req, res) {
-  const GAS_URL = "https://script.google.com/macros/s/AKfycbyPmktdM6g_cfzrvCdf4SiKAoiT_D9jfJsx5R3_mE1-M1oczMGdKCHC9Sh0DzSJgNiJ2w/exec";
+  const GAS_URL = "https://script.google.com/macros/s/AKfycbxe7Gd0iTafGtIP8IWqd0WADdPiOypg13g_0dOU07gNvmTZSl39FmIYGVC1YquddsXHew/exec";
   
   // Forward all query parameters
   const query = new URLSearchParams(req.query).toString();

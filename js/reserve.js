@@ -211,10 +211,7 @@ export function initReservePage() {
         body: JSON.stringify(payload)
       });
 
-      if (!response.ok) {
-        const errorText = await response.text().catch(() => "No error body");
-        throw new Error(`Server returned ${response.status}: ${errorText.substring(0, 50)}`);
-      }
+      if (!response.ok) throw new Error("Server Error");
       const res = await response.json();
 
       if (res && res.success) {
@@ -234,9 +231,7 @@ export function initReservePage() {
 
     } catch (error) {
       console.error("Booking error:", error);
-      // Detailed error for debugging mobile issues
-      const msg = error.message || "Unknown error";
-      window.alert(`Connection Issue: ${msg}. Please ensure the latest version is deployed and try again.`);
+      window.alert("Apologies, we encountered an issue processing your booking. Please check your internet connection or contact us directly via WhatsApp.");
       buttons.forEach(btn => {
         btn.disabled = false;
         btn.textContent = btn.dataset.originalText || "Complete My Booking";
