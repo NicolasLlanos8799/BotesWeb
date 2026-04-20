@@ -239,29 +239,33 @@ function initBookingPanel() {
     if (data && !Array.isArray(data) && typeof data === 'object') {
       Object.assign(availabilityCache, data);
       
-      // If the currently selected date is in this map, update the UI silently
       const selectedDate = dateValueInput.value;
       if (selectedDate && availabilityCache[selectedDate]) {
         renderTimeSlots(availabilityCache[selectedDate], false);
         timeTrigger.disabled = false;
-        timeValueLabel.textContent = timeValueInput.value || "Choose time";
+        // Don't overwrite if user already selected a slot
+        if (!timeValueInput.value) {
+          timeValueLabel.textContent = "Choose time";
+        }
       }
     } 
     // 2. Handle individual day array [...]
     else if (Array.isArray(data)) {
       renderTimeSlots(data, false);
       timeTrigger.disabled = false;
-      timeValueLabel.textContent = timeValueInput.value || "Choose time";
+      // Don't overwrite if user already selected a slot
+      if (!timeValueInput.value) {
+        timeValueLabel.textContent = "Choose time";
+      }
     }
 
-    // Cleanup script tag
-    const script = document.getElementById("gas-jsonp");
-    if (script) script.remove();
+    // Cleanup any pending script tags
+    document.querySelectorAll(".gas-jsonp-temp").forEach(s => s.remove());
   };
 
   function fetchMonthlyAvailability(dateStr) {
     const script = document.createElement("script");
-    script.id = "gas-jsonp";
+    script.className = "gas-jsonp-temp";
     script.src = `${GAS_URL}?action=getMonthlyAvailability&date=${dateStr}&callback=__gas_callback&t=${Date.now()}`;
     document.head.appendChild(script);
   }
@@ -277,13 +281,17 @@ function initBookingPanel() {
 
     // 2. Use JSONP to bypass CORS
     const script = document.createElement("script");
-    script.id = "gas-jsonp";
+    script.className = "gas-jsonp-temp";
     script.src = `${GAS_URL}?action=getAvailability&date=${date}&callback=__gas_callback&t=${Date.now()}`;
     
     script.onerror = () => {
-      console.error("Calendar sync failed (JSONP error)");
+      console.warn("Calendar sync failed (offline fallback active)");
       timeTrigger.disabled = false;
-      timeValueLabel.textContent = "Choose time (offline)";
+      
+      // Only set offline message if the user hasn't selected a time yet
+      if (!timeValueInput.value) {
+        timeValueLabel.textContent = "Choose time (offline)";
+      }
       renderTimeSlots(DEFAULT_SLOTS, false);
     };
 
