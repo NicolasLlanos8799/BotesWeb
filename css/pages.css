@@ -1148,7 +1148,7 @@
 .experience-intro {
   margin-top: 2rem;
   font-family: var(--font-body);
-  font-size: 1.35rem;
+  font-size: 1.2rem;
   /* Slightly larger for the lighter weight */
   line-height: 1.8;
   text-align: center;
@@ -4121,7 +4121,7 @@
   }
 
   .experience-intro {
-    font-size: 1.1rem;
+    font-size: 1rem;
     line-height: 1.6;
     margin-top: 1.2rem;
     padding-bottom: 2rem;
