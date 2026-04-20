@@ -234,7 +234,7 @@ function initBookingPanel() {
   let lastAvailabilityRequestId = 0;
   let availabilityCache = {};
 
-  window.__gas_callback = (data) => {
+  function handleApiResponse(data, dateContext) {
     // 1. Handle monthly map { "YYYY-MM-DD": [...], ... }
     if (data && !Array.isArray(data) && typeof data === 'object') {
       Object.assign(availabilityCache, data);
@@ -243,7 +243,6 @@ function initBookingPanel() {
       if (selectedDate && availabilityCache[selectedDate]) {
         renderTimeSlots(availabilityCache[selectedDate], false);
         timeTrigger.disabled = false;
-        // Don't overwrite if user already selected a slot
         if (!timeValueInput.value) {
           timeValueLabel.textContent = "Choose time";
         }
@@ -252,68 +251,54 @@ function initBookingPanel() {
     // 2. Handle individual day array [...]
     else if (Array.isArray(data)) {
       const selectedDate = dateValueInput.value;
-      // SILENT UPDATE: If we got data, cache it
-      // But only update UI if it matches what the user is currently looking at
-      if (selectedDate) {
-        // We don't have the date in the JSONP response usually, 
-        // so we assume it corresponds to the most recent daily request if it's an array.
-        // Actually, to be safe, we only apply individual arrays if they were explicitly requested.
+      // Only apply to UI if it matches the current date context
+      if (selectedDate === dateContext) {
         renderTimeSlots(data, false);
         timeTrigger.disabled = false;
         if (!timeValueInput.value) {
           timeValueLabel.textContent = "Choose time";
         }
+        // Cache it for future use
+        availabilityCache[dateContext] = data;
       }
     }
+  }
 
-    // Cleanup any pending script tags
-    document.querySelectorAll(".gas-jsonp-temp").forEach(s => s.remove());
-  };
-
-  function fetchMonthlyAvailability(dateStr) {
-    const script = document.createElement("script");
-    script.className = "gas-jsonp-temp";
-    script.src = `${GAS_URL}?action=getMonthlyAvailability&date=${dateStr}&callback=__gas_callback&t=${Date.now()}`;
-    document.head.appendChild(script);
+  async function fetchMonthlyAvailability(dateStr) {
+    try {
+      const response = await fetch(`${GAS_URL}?action=getMonthlyAvailability&date=${dateStr}&t=${Date.now()}`);
+      if (!response.ok) throw new Error("Network issue");
+      const data = await response.json();
+      handleApiResponse(data, dateStr);
+    } catch (error) {
+      console.warn("Monthly sync failed silenty:", error);
+    }
   }
 
   async function fetchAvailability(date) {
     // 1. Show default slots as placeholder
     renderTimeSlots(DEFAULT_SLOTS, true);
 
-    if (!GAS_URL || !GAS_URL.startsWith("https://")) {
-      console.warn("GAS_URL not configured properly.");
-      return;
-    }
-
-    // 2. Use JSONP to bypass CORS
     const requestId = ++lastAvailabilityRequestId;
-    const script = document.createElement("script");
-    script.className = "gas-jsonp-temp";
-    script.src = `${GAS_URL}?action=getAvailability&date=${date}&callback=__gas_callback&t=${Date.now()}`;
     
-    // Wrapped callback to handle synchronization
-    const originalCallback = window.__gas_callback;
-    window.__gas_callback = (data) => {
-      if (requestId === lastAvailabilityRequestId) {
-        originalCallback(data);
-      } else {
-        console.warn("Ignoring stale availability response");
-      }
-    };
-
-    script.onerror = () => {
-      if (requestId !== lastAvailabilityRequestId) return;
-      console.warn("Calendar sync failed (silent fallback)");
-      timeTrigger.disabled = false;
+    try {
+      const response = await fetch(`${GAS_URL}?action=getAvailability&date=${date}&t=${Date.now()}`);
+      if (!response.ok) throw new Error("Sync failed");
+      const data = await response.json();
       
+      // Safety: Ignore if a newer request has started
+      if (requestId !== lastAvailabilityRequestId) return;
+      
+      handleApiResponse(data, date);
+    } catch (error) {
+      if (requestId !== lastAvailabilityRequestId) return;
+      console.warn("Daily availability fetch failed:", error);
+      timeTrigger.disabled = false;
       if (!timeValueInput.value) {
         timeValueLabel.textContent = "Choose time";
       }
       renderTimeSlots(DEFAULT_SLOTS, false);
-    };
-
-    document.head.appendChild(script);
+    }
   }
 
   function renderTimeSlots(slots, isLoading) {
