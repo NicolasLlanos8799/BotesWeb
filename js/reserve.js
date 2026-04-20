@@ -194,6 +194,27 @@ export function initReservePage() {
       return;
     }
 
+    // Define global callback if not exists
+    window.__gas_booking_callback = (res) => {
+      // 1. Cleanup script tags
+      document.querySelectorAll(".gas-booking-script").forEach(s => s.remove());
+
+      if (res && res.success) {
+        window.alert(
+          `Wonderful! Your request for the ${tour.title} is on its way. We'll check the logistics and send you a confirmation email very soon.`
+        );
+        clearBookingSelection();
+        window.location.href = "/";
+      } else {
+        console.error("GAS Error:", res);
+        window.alert("Apologies, we encountered an issue processing your booking. Please try again or contact us via WhatsApp.");
+        buttons.forEach(btn => {
+          btn.disabled = false;
+          btn.textContent = btn.dataset.originalText || "Complete My Booking";
+        });
+      }
+    };
+
     try {
       const dataStr = encodeURIComponent(JSON.stringify({
         ...bookingData,
@@ -203,18 +224,39 @@ export function initReservePage() {
         tour: tour.title,
       }));
 
-      const url = `${GAS_URL}?action=createBooking&data=${dataStr}`;
+      // 2. Use JSONP with verified callback
+      const url = `${GAS_URL}?action=createBooking&data=${dataStr}&callback=__gas_booking_callback&t=${Date.now()}`;
 
-      const beacon = new Image();
-      beacon.src = url;
+      const script = document.createElement("script");
+      script.className = "gas-booking-script";
+      script.src = url;
+      
+      script.onerror = () => {
+        console.error("Booking script failed to load");
+        window.alert("We couldn't connect to the booking server. Please check your internet connection or try again.");
+        buttons.forEach(btn => {
+          btn.disabled = false;
+          btn.textContent = btn.dataset.originalText || "Complete My Booking";
+        });
+      };
 
+      document.head.appendChild(script);
+
+      // 3. Fail-safe timeout (15s)
       setTimeout(() => {
-        window.alert(
-          `Wonderful! Your request for the ${tour.title} is on its way. We'll check the logistics and send you a confirmation email very soon.`
-        );
-        clearBookingSelection();
-        window.location.href = "/";
-      }, 700);
+        const scriptActive = document.querySelector(".gas-booking-script");
+        if (scriptActive) {
+          scriptActive.remove();
+          if (buttons[0]?.disabled) {
+            window.alert("The request is taking longer than expected. Please check your email in a few minutes or contact us if you don't receive a confirmation.");
+            buttons.forEach(btn => {
+              btn.disabled = false;
+              btn.textContent = btn.dataset.originalText || "Complete My Booking";
+            });
+          }
+        }
+      }, 15000);
+
     } catch (error) {
       console.error("Booking error:", error);
       window.alert("Apologies, we encountered a small issue. Please try again or contact us directly via WhatsApp.");

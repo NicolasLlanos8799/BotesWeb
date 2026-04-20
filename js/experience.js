@@ -231,7 +231,8 @@ function initBookingPanel() {
     });
   }
 
-  // Cache for monthly availability
+  // Request Synchronization for mobile stability
+  let lastAvailabilityRequestId = 0;
   let availabilityCache = {};
 
   window.__gas_callback = (data) => {
@@ -287,11 +288,23 @@ function initBookingPanel() {
     }
 
     // 2. Use JSONP to bypass CORS
+    const requestId = ++lastAvailabilityRequestId;
     const script = document.createElement("script");
     script.className = "gas-jsonp-temp";
     script.src = `${GAS_URL}?action=getAvailability&date=${date}&callback=__gas_callback&t=${Date.now()}`;
     
+    // Wrapped callback to handle synchronization
+    const originalCallback = window.__gas_callback;
+    window.__gas_callback = (data) => {
+      if (requestId === lastAvailabilityRequestId) {
+        originalCallback(data);
+      } else {
+        console.warn("Ignoring stale availability response");
+      }
+    };
+
     script.onerror = () => {
+      if (requestId !== lastAvailabilityRequestId) return;
       console.warn("Calendar sync failed (silent fallback)");
       timeTrigger.disabled = false;
       
