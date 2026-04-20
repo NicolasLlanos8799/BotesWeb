@@ -5,6 +5,7 @@ import {
   getTour,
   readBookingFromUrl,
   saveBooking,
+  clearBookingSelection,
   TOURS,
 } from "./utils.js";
 
@@ -152,7 +153,7 @@ export function initReservePage() {
     }
 
     // ! IMPORTANT: The user must replace this with their actual Google Apps Script Web App URL
-    const GAS_URL = "https://script.google.com/macros/s/AKfycbwPN8ZOROw8SgE5rx6aLSjQsiorJ_ZdUH4iw7x2UFlc1wgsAYNdDBAlZpbQPefy0Z8hDQ/exec";
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbwF-2rfhCCY_rU2je00fVyx7eeMb-MmgkjNTmHkz-N2_1nyxXKgTetCfFzoT5K5mAHkxQ/exec";
 
     elements.complete.disabled = true;
     elements.complete.textContent = "Processing...";
@@ -196,6 +197,7 @@ export function initReservePage() {
         window.alert(
           `Wonderful! Your request for the ${tour.title} is on its way. We'll check the logistics and send you a confirmation email very soon.`
         );
+        clearBookingSelection();
         window.location.href = "/";
       }, 700);
     } catch (error) {

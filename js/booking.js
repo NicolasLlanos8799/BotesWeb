@@ -1,6 +1,13 @@
-import { getBooking, readBookingFromUrl, saveBooking } from "./utils.js";
+import { getBooking, readBookingFromUrl, saveBooking, clearBookingSelection } from "./utils.js";
 
 export function initBookingPage() {
+  // Reset temporal data but keep tour context if from URL
+  const currentTour = readBookingFromUrl().tour;
+  clearBookingSelection();
+  if (currentTour) {
+    saveBooking({ tour: currentTour });
+  }
+
   const incoming = readBookingFromUrl();
   if (incoming.tour) {
     saveBooking(incoming);

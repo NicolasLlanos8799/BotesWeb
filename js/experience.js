@@ -1,7 +1,7 @@
-import { getBooking, navigateToReserve, saveBooking } from "./utils.js";
+import { getBooking, navigateToReserve, saveBooking, clearBookingSelection } from "./utils.js";
 
 // ! IMPORTANT: The user must replace this with their actual Google Apps Script Web App URL
-const GAS_URL = "https://script.google.com/macros/s/AKfycbwPN8ZOROw8SgE5rx6aLSjQsiorJ_ZdUH4iw7x2UFlc1wgsAYNdDBAlZpbQPefy0Z8hDQ/exec";
+const GAS_URL = "https://script.google.com/macros/s/AKfycbwF-2rfhCCY_rU2je00fVyx7eeMb-MmgkjNTmHkz-N2_1nyxXKgTetCfFzoT5K5mAHkxQ/exec";
 
 const DEFAULT_SLOTS = [
   { time: "09:00", available: true },
@@ -89,6 +89,9 @@ function initAccordion() {
 }
 
 function initBookingPanel() {
+  // Aggressive reset on entry to ensure fresh selection
+  clearBookingSelection();
+
   const booking = getBooking();
   const peoplePicker = document.getElementById("experience-people-picker");
   const peopleTrigger = document.getElementById("experience-people-trigger");
@@ -198,14 +201,22 @@ function initBookingPanel() {
     
     // Reset time when date changes
     timeValueInput.value = "";
-    timeValueLabel.textContent = "Choose time";
     
-    // Unlock and show slots immediately (with fallback)
-    timeTrigger.disabled = false;
-    timeTrigger.removeAttribute('disabled');
+    const dateStr = formatDateValue(date);
+
+    // BATTLE-READY CACHE: Check if we have the slots already from the monthly sync
+    if (availabilityCache[dateStr]) {
+      renderTimeSlots(availabilityCache[dateStr], false);
+      timeTrigger.disabled = false;
+      timeValueLabel.textContent = "Choose time";
+    } else {
+      // Fallback to individual fetch if not in cache
+      timeTrigger.disabled = true;
+      timeValueLabel.textContent = "Checking availability...";
+      fetchAvailability(dateStr);
+    }
     
     syncStoredBooking();
-    fetchAvailability(dateValueInput.value);
   }
 
   function syncTimeValue(timeString) {
@@ -220,14 +231,40 @@ function initBookingPanel() {
     });
   }
 
+  // Cache for monthly availability
+  let availabilityCache = {};
+
   window.__gas_callback = (data) => {
-    if (Array.isArray(data)) {
+    // 1. Handle monthly map { "YYYY-MM-DD": [...], ... }
+    if (data && !Array.isArray(data) && typeof data === 'object') {
+      Object.assign(availabilityCache, data);
+      
+      // If the currently selected date is in this map, update the UI silently
+      const selectedDate = dateValueInput.value;
+      if (selectedDate && availabilityCache[selectedDate]) {
+        renderTimeSlots(availabilityCache[selectedDate], false);
+        timeTrigger.disabled = false;
+        timeValueLabel.textContent = timeValueInput.value || "Choose time";
+      }
+    } 
+    // 2. Handle individual day array [...]
+    else if (Array.isArray(data)) {
       renderTimeSlots(data, false);
+      timeTrigger.disabled = false;
+      timeValueLabel.textContent = timeValueInput.value || "Choose time";
     }
+
     // Cleanup script tag
     const script = document.getElementById("gas-jsonp");
     if (script) script.remove();
   };
+
+  function fetchMonthlyAvailability(dateStr) {
+    const script = document.createElement("script");
+    script.id = "gas-jsonp";
+    script.src = `${GAS_URL}?action=getMonthlyAvailability&date=${dateStr}&callback=__gas_callback&t=${Date.now()}`;
+    document.head.appendChild(script);
+  }
 
   async function fetchAvailability(date) {
     // 1. Show default slots as placeholder
@@ -245,6 +282,8 @@ function initBookingPanel() {
     
     script.onerror = () => {
       console.error("Calendar sync failed (JSONP error)");
+      timeTrigger.disabled = false;
+      timeValueLabel.textContent = "Choose time (offline)";
       renderTimeSlots(DEFAULT_SLOTS, false);
     };
 
@@ -266,8 +305,9 @@ function initBookingPanel() {
       const btn = document.createElement("button");
       btn.type = "button";
       btn.className = "experience-booking__time-slot";
+      if (isLoading) btn.classList.add("is-loading");
       if (timeValueInput.value === slot.time) btn.classList.add("is-selected");
-      if (!slot.available) btn.disabled = true;
+      if (!slot.available && !isLoading) btn.disabled = true;
       btn.textContent = slot.time;
       btn.dataset.time = slot.time;
       
@@ -369,6 +409,11 @@ function initBookingPanel() {
       }
 
       dateGrid.appendChild(dayButton);
+    }
+    
+    // TRIGGER MONTHLY SYNC: Quietly download the map for this visible month
+    if (visibleMonth) {
+      fetchMonthlyAvailability(formatDateValue(visibleMonth));
     }
 
     datePrev.disabled = new Date(visibleMonth.getFullYear(), visibleMonth.getMonth(), 0) < dateStart;

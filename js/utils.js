@@ -112,7 +112,7 @@ export function normalizeBooking(input = {}) {
 
 export function getBooking() {
   try {
-    const raw = window.localStorage.getItem(BOOKING_STORAGE_KEY);
+    const raw = window.sessionStorage.getItem(BOOKING_STORAGE_KEY);
     if (!raw) {
       return getDefaultBooking();
     }
@@ -134,7 +134,7 @@ export function saveBooking(partial = {}) {
     },
   });
 
-  window.localStorage.setItem(BOOKING_STORAGE_KEY, JSON.stringify(merged));
+  window.sessionStorage.setItem(BOOKING_STORAGE_KEY, JSON.stringify(merged));
   return merged;
 }
 
