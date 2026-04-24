@@ -4,7 +4,7 @@
  * Instructions:
  * 1. Go to https://script.google.com
  * 2. Click "Manage Deployments" -> Pencil Icon -> Version: "New Version" -> "Deploy".
- * 3. Script URL: https://script.google.com/macros/s/AKfycbyKL_SZz-AC3eWXI6CZLBWvMyUqhAnOlt7_rncIKd_hJ7Z7b9Vy2PQ2jfoGMPNzGan8Qw/exec
+ * 3. Script URL: https://script.google.com/macros/s/AKfycbxYWltqRn-5ra2W83DH95eWps9onba-CrRvf5rQTzQ0B9EjziQuGwlzR_N9Zz1_ZLsNNg/exec
  * 4. This version supports monthly pre-fetching for instant UI updates.
  */
 
@@ -12,15 +12,36 @@ var START_HOUR = 9;
 var END_HOUR = 16;    
 var DEFAULT_DURATION = 1; 
 
+// CALENDAR CONFIGURATION
+var CALENDAR_IDS = {
+  boat1: "ad4644278f9ee9075ebb8a8bb0c8eca457cdc3fe908bd4b1eb7cd3b5f751ca71@group.calendar.google.com",
+  boat2: "2772126ed76f0380789fb1af0e56d9e55313cc013cfc55f6e4f3b12b7cc35e72@group.calendar.google.com"
+};
+
+/**
+ * Helper to get the correct calendar based on the requested type
+ */
+function getCalendar(calendarType) {
+  var id = CALENDAR_IDS[calendarType];
+  if (id) {
+    try {
+      return CalendarApp.getCalendarById(id);
+    } catch (e) {
+      Logger.log("Error getting calendar by ID: " + e.toString());
+    }
+  }
+  return CalendarApp.getDefaultCalendar();
+}
+
 function doGet(e) {
   var action = e.parameter.action;
   var callback = e.parameter.callback;
   var responseData;
 
   if (action === 'getMonthlyAvailability') {
-    responseData = handleMonthlyAvailability(e.parameter.date);
+    responseData = handleMonthlyAvailability(e.parameter.date, e.parameter.calendar);
   } else if (action === 'getAvailability') {
-    responseData = handleGetAvailability(e.parameter.date);
+    responseData = handleGetAvailability(e.parameter.date, e.parameter.calendar);
   } else if (action === 'createBooking') {
     try {
       var data = JSON.parse(e.parameter.data);
@@ -58,8 +79,8 @@ function doPost(e) {
  * Returns a map of all slots for a whole month
  * Format: { "2026-04-01": [...], "2026-04-02": [...], ... }
  */
-function handleMonthlyAvailability(dateString) {
-  var calendar = CalendarApp.getDefaultCalendar();
+function handleMonthlyAvailability(dateString, calendarType) {
+  var calendar = getCalendar(calendarType);
   var parts = dateString.split('-'); 
   var year = parseInt(parts[0]);
   var month = parseInt(parts[1]) - 1;
@@ -97,8 +118,8 @@ function handleMonthlyAvailability(dateString) {
   return monthMap;
 }
 
-function handleGetAvailability(dateString) {
-  var calendar = CalendarApp.getDefaultCalendar();
+function handleGetAvailability(dateString, calendarType) {
+  var calendar = getCalendar(calendarType);
   var parts = dateString.split('-'); 
   var date = new Date(parts[0], parts[1]-1, parts[2]);
   
@@ -129,12 +150,13 @@ function handleGetAvailability(dateString) {
 }
 
 function handleCreateBooking(data) {
-  var calendar = CalendarApp.getDefaultCalendar();
+  var calendar = getCalendar(data.calendar);
   var durationH = 2; // Default
   if(data.tour && (data.tour.includes('1-Hour') || data.tour.includes('City Highlights'))) durationH = 1;
   if(data.tour && data.tour.includes('Floating Wine')) durationH = 2;
   if(data.tour && data.tour.includes('3-Hour')) durationH = 3;
   if(data.tour && data.tour.includes('4-Hour')) durationH = 4;
+  if(data.tour && data.tour.includes('Malmö')) durationH = 7;
 
   var parts = data.date.split('-');
   var timeParts = data.time.split(':');

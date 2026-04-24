@@ -205,6 +205,7 @@ export function initReservePage() {
         email,
         phone,
         tour: tour.title,
+        calendar: tour.calendar || "boat1",
       };
 
       // 2. Use POST with body to avoid long URL limits on mobile

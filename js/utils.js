@@ -8,6 +8,7 @@ export const TOURS = {
     duration: "1 Hour",
     img: "/assets/images/tour_private_boat.png",
     url: "/experiences/private-boat-copenhagen/",
+    calendar: "boat1",
   },
   "book-winter": {
     id: "book-winter",
@@ -16,6 +17,7 @@ export const TOURS = {
     duration: "2 Hours",
     img: "/assets/images/tour_winter_hygge.webp",
     url: "/experiences/private-boat-copenhagen-3h/", // Placeholder until real path confirmed
+    calendar: "boat1",
   },
   "book-reffen": {
     id: "book-reffen",
@@ -24,6 +26,7 @@ export const TOURS = {
     duration: "3 Hours",
     img: "/assets/images/tour_sunset_boat.png",
     url: "/experiences/private-boat-copenhagen-3h/",
+    calendar: "boat1",
   },
   "book-premium": {
     id: "book-premium",
@@ -32,6 +35,7 @@ export const TOURS = {
     duration: "4 Hours",
     img: "/assets/images/tour_trekroner.png",
     url: "/experiences/private-boat-copenhagen-4h/",
+    calendar: "boat1",
   },
   "book-winter-captain": {
     id: "book-winter-captain",
@@ -40,6 +44,7 @@ export const TOURS = {
     duration: "1 Hour",
     img: "/assets/images/tour_private_boat.png",
     url: "/experiences/private-boat-copenhagen/",
+    calendar: "boat1",
   },
   "book-winter-hygge": {
     id: "book-winter-hygge",
@@ -48,6 +53,7 @@ export const TOURS = {
     duration: "2 Hours",
     img: "/assets/images/tour_winter_hygge_book.webp",
     url: "/experiences/private-boat-copenhagen-3h/",
+    calendar: "boat1",
   },
   "book-christmas": {
     id: "book-christmas",
@@ -56,6 +62,7 @@ export const TOURS = {
     duration: "2 Hours",
     img: "/assets/images/tour_christmas_champagne.webp",
     url: "/experiences/private-boat-copenhagen-3h/",
+    calendar: "boat1",
   },
   "book-malmo": {
     id: "book-malmo",
@@ -65,6 +72,7 @@ export const TOURS = {
     img: "/assets/images/tour_malmo.png",
     url: "/experiences/private-boat-copenhagen-malmo/",
     maxParticipants: 10,
+    calendar: "boat2",
   },
   "book-land": {
     id: "book-land",
@@ -74,6 +82,7 @@ export const TOURS = {
     img: "/assets/images/tour_land.png",
     url: "/experiences/private-boat-copenhagen-land-tour/",
     maxParticipants: 6,
+    calendar: "boat1",
   },
   "book-wine": {
     id: "book-wine",
@@ -83,6 +92,7 @@ export const TOURS = {
     img: "/assets/images/vinos.png",
     url: "/experiences/private-boat-copenhagen-wine-tour/",
     maxParticipants: 6,
+    calendar: "boat1",
   },
   "book-10p": {
     id: "book-10p",
@@ -92,6 +102,7 @@ export const TOURS = {
     img: "/assets/images/tour_private_boat.png",
     url: "/experiences/city-highlights-10-people/",
     maxParticipants: 10,
+    calendar: "boat2",
   },
 };
 
@@ -176,7 +187,13 @@ export function saveBooking(partial = {}) {
   return merged;
 }
 
+export const saveBookingPersistent = (booking) => {
+  localStorage.setItem(BOOKING_STORAGE_KEY, JSON.stringify(booking));
+};
+
 export function clearBookingSelection() {
+  const current = getBooking();
+  saveBookingPersistent({ ...current, date: "", time: "" });
   return saveBooking({
     tour: null,
     qty: 1,
@@ -185,6 +202,24 @@ export function clearBookingSelection() {
     lang: "english",
   });
 }
+
+// --- ELITE PERSISTENT AVAILABILITY CACHE ---
+const AVAIL_CACHE_KEY = "seaduced_avail_cache";
+
+export const getPersistentCache = (calendarId) => {
+  try {
+    const fullCache = JSON.parse(localStorage.getItem(AVAIL_CACHE_KEY)) || {};
+    return fullCache[calendarId] || {};
+  } catch (e) { return {}; }
+};
+
+export const savePersistentCache = (calendarId, data) => {
+  try {
+    const fullCache = JSON.parse(localStorage.getItem(AVAIL_CACHE_KEY)) || {};
+    fullCache[calendarId] = { ...fullCache[calendarId], ...data, _ts: Date.now() };
+    localStorage.setItem(AVAIL_CACHE_KEY, JSON.stringify(fullCache));
+  } catch (e) { /* ignore */ }
+};
 
 export function getTour(tourId) {
   return TOURS[tourId] || null;

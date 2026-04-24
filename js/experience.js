@@ -1,4 +1,4 @@
-import { getBooking, navigateToReserve, saveBooking, clearBookingSelection, TOURS } from "./utils.js";
+import { getBooking, navigateToReserve, saveBooking, clearBookingSelection, TOURS, getPersistentCache, savePersistentCache } from "./utils.js";
 
 const GAS_URL = "/api/proxy";
 
@@ -207,20 +207,57 @@ function initBookingPanel() {
     timeValueInput.value = "";
 
     const dateStr = formatDateValue(date);
+    const tourId = document.body.dataset.experienceId || "book-1h";
+    const tourConfig = TOURS[tourId] || {};
+    const calId = tourConfig.calendar || "boat1";
 
-    // BATTLE-READY CACHE: Check if we have the slots already from the monthly sync
-    if (availabilityCache[dateStr]) {
-      renderTimeSlots(availabilityCache[dateStr], false);
+    // ELITE SYNC LOGIC: Prioritize verified persistent data
+    const yearMonth = dateStr.substring(0, 7);
+    
+    // Check global persistent cache again (in case background sync finished)
+    const pCache = getPersistentCache(calId);
+    if (!availabilityCache[calId]) availabilityCache[calId] = pCache;
+    else Object.assign(availabilityCache[calId], pCache);
+
+    const dayData = availabilityCache[calId][dateStr];
+
+    if (dayData) {
+      // INSTANT: We have verified data
+      renderTimeSlots(dayData, false);
+      enableTimeSelector();
     } else {
-      // SILENT FALLBACK: Show default slots while we fetch in background
-      renderTimeSlots(DEFAULT_SLOTS, false);
-      fetchAvailability(dateStr);
+      // WAIT FOR VERIFIED: We don't enable the selector until we have real data
+      // This prevents the "not synchronized" feeling
+      timeTrigger.disabled = true;
+      timeTrigger.setAttribute('disabled', 'true');
+      timeValueLabel.textContent = "Syncing...";
+
+      const syncHandler = () => {
+        const freshCache = getPersistentCache(calId);
+        if (freshCache[dateStr]) {
+          renderTimeSlots(freshCache[dateStr], false);
+          enableTimeSelector();
+          return true;
+        }
+        return false;
+      };
+
+      if (syncPromises[yearMonth]) {
+        syncPromises[yearMonth].then(() => {
+          if (!syncHandler()) fetchAvailability(dateStr).then(syncHandler);
+        });
+      } else {
+        fetchAvailability(dateStr).then(syncHandler);
+      }
     }
 
-    timeTrigger.disabled = false;
-    timeValueLabel.textContent = "Choose time";
-
     syncStoredBooking();
+  }
+
+  function enableTimeSelector() {
+    timeTrigger.disabled = false;
+    timeTrigger.removeAttribute('disabled');
+    timeValueLabel.textContent = "Choose time";
   }
 
   function syncTimeValue(timeString) {
@@ -235,14 +272,17 @@ function initBookingPanel() {
     });
   }
 
-  // Request Synchronization for mobile stability
+  // Global-level cache for total persistence and proactive sync
   let lastAvailabilityRequestId = 0;
-  let availabilityCache = {};
+  let availabilityCache = {}; // Structured by calendarId: { "YYYY-MM-DD": [...], ... }
+  let syncPromises = {}; // Tracks ongoing monthly syncs to avoid redundant requests
 
   function handleApiResponse(data, dateContext) {
+    const tourId = document.body.dataset.experienceId || "book-1h";
+    const calId = TOURS[tourId]?.calendar || "boat1";
+    
     // 1. Handle monthly map { "YYYY-MM-DD": [...], ... }
     if (data && !Array.isArray(data) && typeof data === 'object') {
-      Object.assign(availabilityCache, data);
 
       const selectedDate = dateValueInput.value;
       if (selectedDate && availabilityCache[selectedDate]) {
@@ -270,24 +310,48 @@ function initBookingPanel() {
   }
 
   async function fetchMonthlyAvailability(dateStr) {
-    try {
-      const response = await fetch(`${GAS_URL}?action=getMonthlyAvailability&date=${dateStr}&t=${Date.now()}`);
-      if (!response.ok) throw new Error("Network issue");
-      const data = await response.json();
-      handleApiResponse(data, dateStr);
-    } catch (error) {
-      console.warn("Monthly sync failed silenty:", error);
-    }
+    const yearMonth = dateStr.substring(0, 7);
+    if (syncPromises[yearMonth]) return syncPromises[yearMonth];
+
+    syncPromises[yearMonth] = (async () => {
+      try {
+        const tourId = document.body.dataset.experienceId || "book-1h";
+        const tourConfig = TOURS[tourId] || {};
+        const cal = tourConfig.calendar || "boat1";
+        
+        const response = await fetch(`${GAS_URL}?action=getMonthlyAvailability&date=${dateStr}&calendar=${cal}&t=${Date.now()}`);
+        if (!response.ok) throw new Error("Network issue");
+        const data = await response.json();
+        
+        // Populate and persist cache
+        if (data && typeof data === 'object') {
+          savePersistentCache(cal, data);
+          if (!availabilityCache[cal]) availabilityCache[cal] = {};
+          Object.assign(availabilityCache[cal], data);
+        }
+        
+        return data;
+      } catch (error) {
+        console.warn(`Monthly sync failed for ${yearMonth}:`, error);
+        delete syncPromises[yearMonth];
+      }
+    })();
+
+    return syncPromises[yearMonth];
   }
 
   async function fetchAvailability(date) {
-    // 1. Show default slots as placeholder
-    renderTimeSlots(DEFAULT_SLOTS, true);
+    // SILENT SYNC: We don't show the "Syncing" text anymore. 
+    // If not in cache, we just render current slots quietly.
 
     const requestId = ++lastAvailabilityRequestId;
 
     try {
-      const response = await fetch(`${GAS_URL}?action=getAvailability&date=${date}&t=${Date.now()}`);
+      const tourId = document.body.dataset.experienceId || "book-1h";
+      const tourConfig = TOURS[tourId] || {};
+      const cal = tourConfig.calendar || "boat1";
+
+      const response = await fetch(`${GAS_URL}?action=getAvailability&date=${date}&calendar=${cal}&t=${Date.now()}`);
       if (!response.ok) throw new Error("Sync failed");
       const data = await response.json();
 
@@ -314,11 +378,8 @@ function initBookingPanel() {
     const now = today.getHours() * 60 + today.getMinutes();
 
     if (isLoading) {
-      const loader = document.createElement("p");
-      loader.className = "small-text";
-      loader.style.cssText = "grid-column: 1/-1; text-align: center; padding-bottom: 0.5rem; opacity: 0.5; font-style: italic;";
-      loader.textContent = "Syncing with calendar...";
-      timeGrid.appendChild(loader);
+      // We removed the "Syncing with calendar..." text to make it feel instant.
+      // The slots will simply update in the background.
     }
 
     slots.forEach(slot => {
@@ -431,6 +492,19 @@ function initBookingPanel() {
         dayButton.classList.add("is-unavailable");
       } else {
         dayButton.classList.add("is-available");
+
+        // --- PRE-FETCH ON HOVER ---
+        // Anticipate the click: start syncing the moment the user hovers the day
+        dayButton.addEventListener("mouseenter", () => {
+          const dateStr = formatDateValue(currentDate);
+          const tourId = document.body.dataset.experienceId || "book-1h";
+          const calId = TOURS[tourId]?.calendar || "boat1";
+          
+          if (!availabilityCache[calId]?.[dateStr]) {
+            fetchAvailability(dateStr);
+          }
+        });
+
         dayButton.addEventListener("click", () => {
           syncDateValue(currentDate);
           renderCalendar();
@@ -466,13 +540,26 @@ function initBookingPanel() {
       if (booking.time) {
         timeValueLabel.textContent = booking.time;
       }
-      fetchAvailability(dateValueInput.value);
+      // Force immediate render of slots to remove placeholder
+      const dateStr = dateValueInput.value;
+      const initialSlots = availabilityCache[dateStr] || DEFAULT_SLOTS;
+      renderTimeSlots(initialSlots, false);
+      fetchAvailability(dateStr);
     }
   }
 
   syncPeopleValue(Number.parseInt(peopleValueInput.value, 10) || 1);
   syncLanguageValue(languageValueInput.value);
+  // 1. Initial Render
   renderCalendar();
+
+  // 2. AGGRESSIVE PROACTIVE SYNC: Fetch 3 months of data immediately
+  const baseDate = new Date();
+  const monthsToSync = [0, 1, 2];
+  monthsToSync.forEach(offset => {
+    const d = new Date(baseDate.getFullYear(), baseDate.getMonth() + offset, 1);
+    fetchMonthlyAvailability(formatDateValue(d));
+  });
 
   peopleTrigger?.addEventListener("click", () => {
     togglePanel(

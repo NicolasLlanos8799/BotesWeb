@@ -3,7 +3,7 @@
  * Includes a "Security Shield" to prevent spam and authorized access.
  */
 export default async function handler(req, res) {
-  const GAS_URL = "https://script.google.com/macros/s/AKfycbylal3X2pw7H7SrA_zaSJp6i0gtdT6So2RCSxUQSfnWNSKT_4Qz_JIrUhM8n8QvOjJs6Q/exec";
+  const GAS_URL = "https://script.google.com/macros/s/AKfycbxYWltqRn-5ra2W83DH95eWps9onba-CrRvf5rQTzQ0B9EjziQuGwlzR_N9Zz1_ZLsNNg/exec";
   
   // --- SECURITY SHIELD ---
   
