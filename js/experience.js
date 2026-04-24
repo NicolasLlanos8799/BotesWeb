@@ -1,4 +1,4 @@
-import { getBooking, navigateToReserve, saveBooking, clearBookingSelection } from "./utils.js";
+import { getBooking, navigateToReserve, saveBooking, clearBookingSelection, TOURS } from "./utils.js";
 
 const GAS_URL = "/api/proxy";
 
@@ -160,8 +160,9 @@ function initBookingPanel() {
   let visibleMonth = new Date(dateStart.getFullYear(), dateStart.getMonth(), 1);
 
   function syncStoredBooking() {
+    const tourId = document.body.dataset.experienceId || "book-1h";
     saveBooking({
-      tour: "book-1h",
+      tour: tourId,
       qty: Number.parseInt(peopleValueInput.value, 10) || 1,
       date: dateValueInput.value,
       time: timeValueInput.value,
@@ -170,12 +171,16 @@ function initBookingPanel() {
   }
 
   function syncPeopleValue(nextValue) {
-    const safeValue = Math.max(1, Math.min(8, nextValue));
+    const tourId = document.body.dataset.experienceId || "book-1h";
+    const tourConfig = TOURS[tourId] || {};
+    const maxPeople = tourConfig.maxParticipants || 8;
+    
+    const safeValue = Math.max(1, Math.min(maxPeople, nextValue));
     peopleValueInput.value = String(safeValue);
     peopleValueLabel.textContent = String(safeValue);
     peopleValueNumber.textContent = String(safeValue);
     peopleMinus.disabled = safeValue <= 1;
-    peoplePlus.disabled = safeValue >= 8;
+    peoplePlus.disabled = safeValue >= maxPeople;
     syncStoredBooking();
   }
 
@@ -197,10 +202,10 @@ function initBookingPanel() {
   function syncDateValue(date) {
     dateValueInput.value = formatDateValue(date);
     dateValueLabel.textContent = formatDateLabel(date);
-    
+
     // Reset time when date changes
     timeValueInput.value = "";
-    
+
     const dateStr = formatDateValue(date);
 
     // BATTLE-READY CACHE: Check if we have the slots already from the monthly sync
@@ -211,10 +216,10 @@ function initBookingPanel() {
       renderTimeSlots(DEFAULT_SLOTS, false);
       fetchAvailability(dateStr);
     }
-    
+
     timeTrigger.disabled = false;
     timeValueLabel.textContent = "Choose time";
-    
+
     syncStoredBooking();
   }
 
@@ -222,7 +227,7 @@ function initBookingPanel() {
     timeValueInput.value = timeString;
     timeValueLabel.textContent = timeString;
     syncStoredBooking();
-    
+
     // Re-render time grid to show selected
     const slots = Array.from(timeGrid.querySelectorAll(".experience-booking__time-slot"));
     slots.forEach(slot => {
@@ -238,7 +243,7 @@ function initBookingPanel() {
     // 1. Handle monthly map { "YYYY-MM-DD": [...], ... }
     if (data && !Array.isArray(data) && typeof data === 'object') {
       Object.assign(availabilityCache, data);
-      
+
       const selectedDate = dateValueInput.value;
       if (selectedDate && availabilityCache[selectedDate]) {
         renderTimeSlots(availabilityCache[selectedDate], false);
@@ -247,7 +252,7 @@ function initBookingPanel() {
           timeValueLabel.textContent = "Choose time";
         }
       }
-    } 
+    }
     // 2. Handle individual day array [...]
     else if (Array.isArray(data)) {
       const selectedDate = dateValueInput.value;
@@ -280,15 +285,15 @@ function initBookingPanel() {
     renderTimeSlots(DEFAULT_SLOTS, true);
 
     const requestId = ++lastAvailabilityRequestId;
-    
+
     try {
       const response = await fetch(`${GAS_URL}?action=getAvailability&date=${date}&t=${Date.now()}`);
       if (!response.ok) throw new Error("Sync failed");
       const data = await response.json();
-      
+
       // Safety: Ignore if a newer request has started
       if (requestId !== lastAvailabilityRequestId) return;
-      
+
       handleApiResponse(data, date);
     } catch (error) {
       if (requestId !== lastAvailabilityRequestId) return;
@@ -303,7 +308,11 @@ function initBookingPanel() {
 
   function renderTimeSlots(slots, isLoading) {
     timeGrid.innerHTML = "";
-    
+
+    const today = new Date();
+    const isToday = dateValueInput.value === formatDateValue(today);
+    const now = today.getHours() * 60 + today.getMinutes();
+
     if (isLoading) {
       const loader = document.createElement("p");
       loader.className = "small-text";
@@ -316,19 +325,30 @@ function initBookingPanel() {
       const btn = document.createElement("button");
       btn.type = "button";
       btn.className = "experience-booking__time-slot";
+
+      // If today, and slot time is within 1 hour from now, make it unavailable
+      let slotAvailable = slot.available;
+      if (isToday && !isLoading) {
+        const [h, m] = slot.time.split(':').map(Number);
+        const slotTime = h * 60 + m;
+        if (slotTime < now + 60) {
+          slotAvailable = false;
+        }
+      }
+
       if (isLoading) btn.classList.add("is-loading");
       if (timeValueInput.value === slot.time) btn.classList.add("is-selected");
-      if (!slot.available && !isLoading) btn.disabled = true;
+      if (!slotAvailable && !isLoading) btn.disabled = true;
       btn.textContent = slot.time;
       btn.dataset.time = slot.time;
-      
+
       btn.addEventListener("click", () => {
         syncTimeValue(slot.time);
         if (window.innerWidth > 768) {
           togglePanel(timePicker, timePanel, timeTrigger, false);
         }
       });
-      
+
       timeGrid.appendChild(btn);
     });
   }
@@ -336,9 +356,9 @@ function initBookingPanel() {
   function syncLanguageValue(nextValue) {
     const allowedLangs = ["english", "spanish", "danish"];
     const safeValue = allowedLangs.includes(nextValue) ? nextValue : "english";
-    
+
     languageValueInput.value = safeValue;
-    
+
     // Capitalize first letter for label
     const label = safeValue.charAt(0).toUpperCase() + safeValue.slice(1);
     languageValueLabel.textContent = label;
@@ -426,7 +446,7 @@ function initBookingPanel() {
 
       dateGrid.appendChild(dayButton);
     }
-    
+
     // TRIGGER MONTHLY SYNC: Quietly download the map for this visible month
     if (visibleMonth) {
       fetchMonthlyAvailability(formatDateValue(visibleMonth));
@@ -526,7 +546,8 @@ function initBookingPanel() {
       return;
     }
 
-    navigateToReserve("book-1h", {
+    const tourId = document.body.dataset.experienceId || "book-1h";
+    navigateToReserve(tourId, {
       qty: Number.parseInt(peopleValueInput.value, 10) || 1,
       date: dateValueInput.value,
       time: timeValueInput.value,
@@ -583,7 +604,7 @@ function initGalleryDots() {
     dot.classList.add('mobile-gallery__dot');
     if (i === 0) dot.classList.add('active');
     dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
-    
+
     dot.addEventListener('click', () => {
       const slideWidth = slides[0].offsetWidth;
       const gap = 16;
@@ -592,7 +613,7 @@ function initGalleryDots() {
         behavior: 'smooth'
       });
     });
-    
+
     dotsContainer.appendChild(dot);
   });
 
@@ -604,7 +625,7 @@ function initGalleryDots() {
       const slideWidth = slides[0].offsetWidth;
       const gap = 16;
       const index = Math.round(track.scrollLeft / (slideWidth + gap));
-      
+
       const dots = dotsContainer.querySelectorAll('.mobile-gallery__dot');
       dots.forEach((dot, i) => {
         dot.classList.toggle('active', i === index);

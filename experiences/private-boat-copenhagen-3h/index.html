@@ -20,7 +20,7 @@
 
 </head>
 
-<body class="experience-page">
+<body class="experience-page" data-experience-id="book-reffen">
   <div class="preloader">
     <div class="preloader__content">
       <svg class="preloader__anchor" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -108,7 +108,9 @@
         </div>
 
         <p class="experience-intro reveal">
-          Explore Copenhagen beyond the highlights on a 3-hour private boat experience with your own captain. Cruise through the canals, stop at Reffen street food market, enjoy music and drinks on board, and experience the city at your own pace — relaxed, flexible, and fully private.
+          Explore Copenhagen beyond the highlights on a 3-hour private boat experience with your own captain. Cruise
+          through the canals, stop at Reffen street food market, enjoy music and drinks on board, and experience the
+          city at your own pace — relaxed, flexible, and fully private.
         </p>
 
         <div class="experience-sections">
@@ -229,19 +231,26 @@
                     <h2>In detail</h2>
 
                     <p>
-                      This 3-hour private boat tour is the perfect balance between sightseeing and experience. You’ll explore Copenhagen’s canals and harbor in depth, while having time to stop, relax, and truly enjoy the city from the water.
+                      This 3-hour private boat tour is the perfect balance between sightseeing and experience. You’ll
+                      explore Copenhagen’s canals and harbor in depth, while having time to stop, relax, and truly enjoy
+                      the city from the water.
                     </p>
 
                     <p>
-                      Along the way, you’ll pass by some of the city’s most iconic landmarks, including Islands Brygge, the Black Diamond, Christiansborg Palace, Nyhavn, the Opera House, Christianshavn, and the Church of Our Saviour — all while your captain shares local stories and insights.
+                      Along the way, you’ll pass by some of the city’s most iconic landmarks, including Islands Brygge,
+                      the Black Diamond, Christiansborg Palace, Nyhavn, the Opera House, Christianshavn, and the Church
+                      of Our Saviour — all while your captain shares local stories and insights.
                     </p>
 
                     <p>
-                      Unlike shorter tours, this experience gives you time to slow down. You can stop at Reffen street food market, one of Copenhagen’s most vibrant spots, where you can enjoy food from around the world either on land or back on the boat.
+                      Unlike shorter tours, this experience gives you time to slow down. You can stop at Reffen street
+                      food market, one of Copenhagen’s most vibrant spots, where you can enjoy food from around the
+                      world either on land or back on the boat.
                     </p>
 
                     <p>
-                      There’s also flexibility to pause for a swim, relax with a drink, or enjoy your own music on board the Joda Tender 710.
+                      There’s also flexibility to pause for a swim, relax with a drink, or enjoy your own music on board
+                      the Joda Tender 710.
                     </p>
 
                     <p>
@@ -263,7 +272,8 @@
                           stroke-linecap="round" stroke-linejoin="round">
                           <polyline points="20 6 9 17 4 12"></polyline>
                         </svg>
-                        <span><strong>City + Experience:</strong> Go beyond highlights with time to stop and explore</span>
+                        <span><strong>City + Experience:</strong> Go beyond highlights with time to stop and
+                          explore</span>
                       </li>
 
                       <li>
@@ -521,6 +531,36 @@
                   <div class="experience-booking__calendar-grid" id="experience-date-grid"></div>
                   <div class="experience-booking__date-note">Available dates only</div>
                   <button class="experience-booking__people-done" type="button" id="experience-date-done">Done</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="experience-booking__time" id="experience-time-picker">
+              <input id="experience-time" type="hidden" value="" />
+              <button class="experience-booking__control experience-booking__control--button" type="button"
+                id="experience-time-trigger" aria-expanded="false" aria-controls="experience-time-panel" disabled>
+                <span class="experience-booking__control-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                </span>
+                <span class="experience-booking__control-label">Select time</span>
+                <span class="experience-booking__control-value" id="experience-time-value">Date first</span>
+              </button>
+
+              <div class="experience-booking__time-panel" id="experience-time-panel" hidden>
+                <div class="experience-booking__time-card">
+                  <div class="experience-booking__time-head">
+                    <strong>Available times</strong>
+                    <span>Choose your slot</span>
+                  </div>
+                  <div class="experience-booking__time-grid" id="experience-time-grid">
+                    <p class="small-text" style="grid-column: 1/-1; text-align: center; padding: 1rem; opacity: 0.6;">
+                      Select a date first</p>
+                  </div>
+                  <button class="experience-booking__people-done" type="button" id="experience-time-done">Done</button>
                 </div>
               </div>
             </div>

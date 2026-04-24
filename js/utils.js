@@ -27,7 +27,7 @@ export const TOURS = {
   },
   "book-premium": {
     id: "book-premium",
-    title: "Private 4-Hour Premium Experience",
+    title: "Sea Fortress & Coastal Journey (4-Hour)",
     price: 5999,
     duration: "4 Hours",
     img: "/assets/images/tour_trekroner.png",
@@ -56,6 +56,24 @@ export const TOURS = {
     duration: "2 Hours",
     img: "/assets/images/tour_christmas_champagne.webp",
     url: "/experiences/private-boat-copenhagen-3h/",
+  },
+  "book-wine": {
+    id: "book-wine",
+    title: "Floating Wine Tasting Experience",
+    price: 3499,
+    duration: "2 Hours",
+    img: "/assets/images/vinos.png",
+    url: "/experiences/private-boat-copenhagen-wine-tour/",
+    maxParticipants: 6,
+  },
+  "book-10p": {
+    id: "book-10p",
+    title: "City Highlights (10 Guests)",
+    price: 3499, // Assuming a higher price or Same? user said "todo igual"
+    duration: "1 Hour",
+    img: "/assets/images/tour_private_boat.png",
+    url: "/experiences/city-highlights-10-people/",
+    maxParticipants: 10,
   },
 };
 
@@ -99,9 +117,9 @@ export function normalizeBooking(input = {}) {
   };
 
   next.tour = next.tour && TOURS[next.tour] ? next.tour : defaults.tour;
-  next.qty = Math.min(8, Math.max(1, toPositiveInt(next.qty, defaults.qty)));
+  next.qty = Math.min(12, Math.max(1, toPositiveInt(next.qty, defaults.qty)));
   next.tapas = Math.max(0, toPositiveInt(next.tapas, defaults.tapas));
-  
+
   const allowedLangs = ["english", "spanish", "danish"];
   next.lang = allowedLangs.includes(next.lang) ? next.lang : "english";
   next.date = typeof next.date === "string" ? next.date : "";

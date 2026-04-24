@@ -4,7 +4,7 @@
  * Instructions:
  * 1. Go to https://script.google.com
  * 2. Click "Manage Deployments" -> Pencil Icon -> Version: "New Version" -> "Deploy".
- * 3. Script URL: https://script.google.com/macros/s/AKfycbxe7Gd0iTafGtIP8IWqd0WADdPiOypg13g_0dOU07gNvmTZSl39FmIYGVC1YquddsXHew/exec
+ * 3. Script URL: https://script.google.com/macros/s/AKfycbyKL_SZz-AC3eWXI6CZLBWvMyUqhAnOlt7_rncIKd_hJ7Z7b9Vy2PQ2jfoGMPNzGan8Qw/exec
  * 4. This version supports monthly pre-fetching for instant UI updates.
  */
 
@@ -130,30 +130,37 @@ function handleGetAvailability(dateString) {
 
 function handleCreateBooking(data) {
   var calendar = CalendarApp.getDefaultCalendar();
-  var durationH = DEFAULT_DURATION;
-  if(data.tour && data.tour.includes('2-Hour')) durationH = 2;
+  var durationH = 2; // Default
+  if(data.tour && (data.tour.includes('1-Hour') || data.tour.includes('City Highlights'))) durationH = 1;
+  if(data.tour && data.tour.includes('Floating Wine')) durationH = 2;
   if(data.tour && data.tour.includes('3-Hour')) durationH = 3;
+  if(data.tour && data.tour.includes('4-Hour')) durationH = 4;
 
   var parts = data.date.split('-');
   var timeParts = data.time.split(':');
-  var start = new Date(parts[0], parts[1]-1, parseInt(parts[2]), parseInt(timeParts[0]), parseInt(timeParts[1]));
-  var end = new Date(start.getTime() + (durationH * 60 * 60 * 1000));
+  
+  var start = new Date(parts[0], parts[1]-1, parts[2], timeParts[0], timeParts[1]);
+  var end = new Date(start.getTime() + durationH * 60 * 60 * 1000);
+
+  var timeStr = Utilities.formatDate(start, "GMT+1", "H:mm") + " - " + Utilities.formatDate(end, "GMT+1", "H:mm");
+  var extrasStr = data.tapas > 0 ? (data.tapas + " Charcuterie") : "None";
+
+  var description = "Tour: " + data.tour + "\n" +
+                    "Date: " + data.date + "\n" +
+                    "Time: " + timeStr + "\n" +
+                    "Passengers: " + data.qty + "\n" +
+                    "Language: " + data.lang + "\n" +
+                    "Extras: " + extrasStr + "\n" +
+                    "Name: " + (data.name || 'N/A') + "\n" +
+                    "Email: " + (data.email || 'N/A') + "\n" +
+                    "Phone: " + (data.phone || 'N/A');
+
+  var event = calendar.createEvent("Reserva: " + data.tour, start, end, {
+    description: description
+  });
   
   var lang = data.lang || 'english';
   var t = getTranslations(lang);
-  
-  var title = data.tour + " - " + data.name;
-  
-  // Use translated labels for calendar description too
-  var description = t.tour + " " + data.tour + "\n" + 
-                    t.date + " " + data.date + "\n" + 
-                    t.time + " " + data.time + "\n" +
-                    t.passengers + " " + (data.qty || 1) + "\n" +
-                    t.extras + " " + (data.tapas || 0) + "\n\n" +
-                    (isSpanish(lang) ? "CONTACTO:" : (isDanish(lang) ? "KONTAKT:" : "CONTACT:")) + "\n" + 
-                    data.name + "\n" + data.email + "\n" + (data.phone || "-");
-                    
-  var event = calendar.createEvent(title, start, end, { description: description });
   
   // ADD GUEST: This triggers the "Yes/No/Maybe" invitation in most calendars
   if (data.email) {

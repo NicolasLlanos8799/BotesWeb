@@ -20,7 +20,7 @@
 
 </head>
 
-<body class="experience-page">
+<body class="experience-page" data-experience-id="book-premium">
   <div class="preloader">
     <div class="preloader__content">
       <svg class="preloader__anchor" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -108,7 +108,9 @@
         </div>
 
         <p class="experience-intro reveal">
-          Experience the ultimate Copenhagen boat tour on a 4-hour private journey with your own captain. Cruise through the canals, stop at Reffen street food market, visit the Little Mermaid, and sail into open water to explore the historic Trekroner Fort — all at your own pace, fully private.
+          Experience the ultimate Copenhagen boat tour on a 4-hour private journey with your own captain. Cruise through
+          the canals, stop at Reffen street food market, visit the Little Mermaid, and sail into open water to explore
+          the historic Trekroner Fort — all at your own pace, fully private.
         </p>
 
         <div class="experience-sections">
@@ -229,15 +231,19 @@
                     <h2>In detail</h2>
 
                     <p>
-                      This 4-hour private boat tour is the full Copenhagen experience. You’ll explore the city’s canals and harbor in depth, with time to stop, relax, and go beyond the typical routes.
+                      This 4-hour private boat tour is the full Copenhagen experience. You’ll explore the city’s canals
+                      and harbor in depth, with time to stop, relax, and go beyond the typical routes.
                     </p>
 
                     <p>
-                      Along the way, you’ll pass by major landmarks such as Islands Brygge, the Black Diamond, Christiansborg Palace, Nyhavn, the Opera House, Christianshavn, and the Church of Our Saviour — while your captain shares local stories and insights.
+                      Along the way, you’ll pass by major landmarks such as Islands Brygge, the Black Diamond,
+                      Christiansborg Palace, Nyhavn, the Opera House, Christianshavn, and the Church of Our Saviour —
+                      while your captain shares local stories and insights.
                     </p>
 
                     <p>
-                      You’ll have the opportunity to stop at Reffen street food market, where you can enjoy food from around the world in a vibrant waterfront setting.
+                      You’ll have the opportunity to stop at Reffen street food market, where you can enjoy food from
+                      around the world in a vibrant waterfront setting.
                     </p>
 
                     <p>
@@ -245,11 +251,14 @@
                     </p>
 
                     <p>
-                      From there, you’ll sail beyond the city into open water to reach Trekroner Fort — a historic sea fortress built to defend Copenhagen, offering panoramic views and a unique perspective that few visitors experience.
+                      From there, you’ll sail beyond the city into open water to reach Trekroner Fort — a historic sea
+                      fortress built to defend Copenhagen, offering panoramic views and a unique perspective that few
+                      visitors experience.
                     </p>
 
                     <p>
-                      You can also take time to swim, relax, enjoy drinks, or play your own music on board the Joda Tender 710.
+                      You can also take time to swim, relax, enjoy drinks, or play your own music on board the Joda
+                      Tender 710.
                     </p>
 
                     <p>
@@ -541,6 +550,36 @@
                   <div class="experience-booking__calendar-grid" id="experience-date-grid"></div>
                   <div class="experience-booking__date-note">Available dates only</div>
                   <button class="experience-booking__people-done" type="button" id="experience-date-done">Done</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="experience-booking__time" id="experience-time-picker">
+              <input id="experience-time" type="hidden" value="" />
+              <button class="experience-booking__control experience-booking__control--button" type="button"
+                id="experience-time-trigger" aria-expanded="false" aria-controls="experience-time-panel" disabled>
+                <span class="experience-booking__control-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                </span>
+                <span class="experience-booking__control-label">Select time</span>
+                <span class="experience-booking__control-value" id="experience-time-value">Date first</span>
+              </button>
+
+              <div class="experience-booking__time-panel" id="experience-time-panel" hidden>
+                <div class="experience-booking__time-card">
+                  <div class="experience-booking__time-head">
+                    <strong>Available times</strong>
+                    <span>Choose your slot</span>
+                  </div>
+                  <div class="experience-booking__time-grid" id="experience-time-grid">
+                    <p class="small-text" style="grid-column: 1/-1; text-align: center; padding: 1rem; opacity: 0.6;">
+                      Select a date first</p>
+                  </div>
+                  <button class="experience-booking__people-done" type="button" id="experience-time-done">Done</button>
                 </div>
               </div>
             </div>

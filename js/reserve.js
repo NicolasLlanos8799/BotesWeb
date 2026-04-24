@@ -13,9 +13,13 @@ export function initReservePage() {
   const incoming = readBookingFromUrl();
   const hasIncomingSelection = Boolean(incoming.tour);
   const booking = hasIncomingSelection ? saveBooking(incoming) : getBooking();
-  const tour = getTour(booking.tour) || getTour("book-1h");
+  const tour = getTour(booking.tour);
+
+  console.log("Reservation Page: Current Tour ID:", tour?.id);
 
   if (!tour) {
+    // If no tour found, redirect back to booking page to avoid error
+    window.location.href = "/book";
     return;
   }
 
@@ -65,6 +69,7 @@ export function initReservePage() {
     if (elements.tourImg) {
       elements.tourImg.src = currentTour.img;
       elements.tourImg.alt = currentTour.title;
+      elements.tourImg.onload = () => { elements.tourImg.style.opacity = "1"; };
     }
     if (elements.tourDisplay) elements.tourDisplay.textContent = currentTour.title;
     if (elements.tourTitle) elements.tourTitle.textContent = currentTour.title;
@@ -72,7 +77,7 @@ export function initReservePage() {
     if (elements.summaryTourName) elements.summaryTourName.textContent = currentTour.title;
     if (elements.summaryTourPrice) elements.summaryTourPrice.textContent = formatCurrency(currentTour.price);
     if (elements.tapasQty) elements.tapasQty.textContent = String(current.tapas);
-    
+
     const formattedTotal = formatCurrency(total);
     if (elements.summaryTotal) elements.summaryTotal.textContent = formattedTotal;
     if (elements.stickyTotal) elements.stickyTotal.textContent = formattedTotal;
@@ -138,7 +143,7 @@ export function initReservePage() {
   // Note: Tapas editing and People editing are now done on the previous page
   // Tapas can still be updated via the Tapas Box section if the user chooses to keep those buttons there
   // but for narrative consistency, we are removing them from the sidebar.
-  
+
   elements.tapasPlus?.addEventListener("click", () => updateTapas(1));
   elements.tapasMinus?.addEventListener("click", () => updateTapas(-1));
 
