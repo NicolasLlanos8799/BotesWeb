@@ -979,6 +979,21 @@
   margin-top: auto;
 }
 
+@media (max-width: 480px) {
+  .booking-card__body {
+    padding: 1.25rem;
+  }
+  .booking-card__amount {
+    font-size: 1.25rem;
+  }
+  .booking-card__price-note {
+    font-size: 0.7rem;
+  }
+  .booking-card__price {
+    gap: 0.3rem;
+  }
+}
+
 .booking-card__amount {
   font-size: var(--fs-h2);
   font-weight: var(--font-weight-semibold);
