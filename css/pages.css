@@ -778,9 +778,10 @@
 
 .booking-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 360px));
+  justify-content: center;
   gap: var(--space-md);
-  max-width: 1120px;
+  max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -795,6 +796,72 @@
   flex-direction: column;
   transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.45s ease;
   height: 100%;
+}
+
+/* ── Booking Subsections ── */
+.booking-subsection {
+    margin-top: 3.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.booking-subsection__title {
+    font-family: var(--font-display);
+    font-size: var(--fs-h2);
+    color: var(--clr-navy);
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+}
+
+.booking-subsection__desc {
+    font-size: var(--fs-p);
+    color: var(--text-color-secondary);
+    max-width: 700px;
+    line-height: var(--lh-relaxed);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ── Custom Badge Colors ── */
+.badge--bestseller {
+    background: var(--clr-sunset) !important;
+    color: #fff !important;
+}
+
+.badge--family {
+    background: var(--clr-blue) !important;
+    color: #fff !important;
+}
+
+/* ── Hero / Featured Card ── */
+.booking-card--featured {
+    max-width: 800px;
+    margin: 0 auto 4rem;
+}
+
+@media (min-width: 1024px) {
+    .booking-card--featured {
+        flex-direction: row;
+        align-items: center;
+        min-height: 400px;
+    }
+    
+    .booking-card--featured .booking-card__media-link {
+        flex: 1.2;
+        height: 100%;
+    }
+    
+    .booking-card--featured .booking-card__body {
+        flex: 1;
+        padding: 3rem;
+    }
+    
+    .booking-card--featured .booking-card__img {
+        height: 100%;
+    }
 }
 
 .booking-card--selected {
