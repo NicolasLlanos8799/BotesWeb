@@ -57,6 +57,24 @@ export const TOURS = {
     img: "/assets/images/tour_christmas_champagne.webp",
     url: "/experiences/private-boat-copenhagen-3h/",
   },
+  "book-malmo": {
+    id: "book-malmo",
+    title: "Copenhagen to Malmö Experience",
+    price: 13000,
+    duration: "7 Hours",
+    img: "/assets/images/tour_malmo.png",
+    url: "/experiences/private-boat-copenhagen-malmo/",
+    maxParticipants: 10,
+  },
+  "book-land": {
+    id: "book-land",
+    title: "Copenhagen Private Boat & Land Experience",
+    price: 8999,
+    duration: "4 Hours",
+    img: "/assets/images/tour_land.png",
+    url: "/experiences/private-boat-copenhagen-land-tour/",
+    maxParticipants: 6,
+  },
   "book-wine": {
     id: "book-wine",
     title: "Floating Wine Tasting Experience",
@@ -69,7 +87,7 @@ export const TOURS = {
   "book-10p": {
     id: "book-10p",
     title: "City Highlights (10 Guests)",
-    price: 3499, // Assuming a higher price or Same? user said "todo igual"
+    price: 2999,
     duration: "1 Hour",
     img: "/assets/images/tour_private_boat.png",
     url: "/experiences/city-highlights-10-people/",
