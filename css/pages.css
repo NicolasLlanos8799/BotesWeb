@@ -2714,6 +2714,171 @@
 }
 
 
+/* ── Step Indicator ── */
+.reserve-steps {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+  margin: 1.5rem auto;
+  position: relative;
+  max-width: 320px;
+  width: 100%;
+}
+
+.reserve-steps::before {
+  content: '';
+  position: absolute;
+  top: 18px;
+  left: 20%;
+  right: 20%;
+  height: 2px;
+  background: #eef1f5;
+  z-index: 1;
+}
+
+.step-item {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  flex: 1;
+}
+
+.step-number {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #f3f5f8;
+  color: var(--clr-navy);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.95rem;
+  border: 4px solid var(--clr-off-white);
+  box-shadow: 0 4px 10px rgba(15, 30, 53, 0.05);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.step-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--clr-text-light);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: color 0.3s ease;
+}
+
+.step-item.active .step-number {
+  background: var(--clr-navy);
+  color: var(--clr-white);
+  transform: scale(1.1);
+}
+
+.step-item.active .step-label {
+  color: var(--clr-navy);
+}
+
+/* ── Payment UI ── */
+.payment-methods {
+  display: grid;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.payment-option {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.15rem;
+  border-radius: 16px;
+  border: 2px solid rgba(15, 30, 53, 0.06);
+  background: var(--clr-white);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.payment-option:hover {
+  border-color: rgba(45, 106, 159, 0.2);
+  background: rgba(45, 106, 159, 0.02);
+}
+
+.payment-option.selected {
+  border-color: var(--clr-navy);
+  background: rgba(15, 30, 53, 0.03);
+}
+
+.payment-option__radio {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid rgba(15, 30, 53, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.payment-option.selected .payment-option__radio {
+  border-color: var(--clr-navy);
+}
+
+.payment-option.selected .payment-option__radio::after {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--clr-navy);
+}
+
+.payment-option__info {
+  flex-grow: 1;
+}
+
+.payment-option__info strong {
+  display: block;
+  font-size: 1rem;
+  color: var(--clr-navy);
+}
+
+.payment-option__info span {
+  font-size: 0.8rem;
+  color: var(--clr-text-light);
+}
+
+.payment-option__icons {
+  display: flex;
+  gap: 0.5rem;
+  opacity: 0.8;
+}
+
+.card-form {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  background: rgba(45, 106, 159, 0.04);
+  border-radius: 16px;
+  border: 1px solid rgba(45, 106, 159, 0.1);
+  animation: slideDown 0.4s ease-out;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.input-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--clr-navy);
+  margin-bottom: 0.5rem;
+}
+
 /* Reserve Page extracted styles */
 
 .reserve-page {

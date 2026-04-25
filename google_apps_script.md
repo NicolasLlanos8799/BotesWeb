@@ -4,7 +4,7 @@
  * Instructions:
  * 1. Go to https://script.google.com
  * 2. Click "Manage Deployments" -> Pencil Icon -> Version: "New Version" -> "Deploy".
- * 3. Script URL: https://script.google.com/macros/s/AKfycbxYWltqRn-5ra2W83DH95eWps9onba-CrRvf5rQTzQ0B9EjziQuGwlzR_N9Zz1_ZLsNNg/exec
+ * 3. Script URL: https://script.google.com/macros/s/AKfycbwaHKlW69_xWx15WJXDh9xtOb_Tq8RGeXVZth0r5XsoWFbkQZ6HTWyeuRfTUbfNUz5kSw/exec
  * 4. This version supports monthly pre-fetching for instant UI updates.
  */
 
@@ -152,7 +152,7 @@ function handleGetAvailability(dateString, calendarType) {
 function handleCreateBooking(data) {
   var calendar = getCalendar(data.calendar);
   var durationH = 2; // Default
-  if(data.tour && (data.tour.includes('1-Hour') || data.tour.includes('City Highlights'))) durationH = 1;
+  if(data.tour && (data.tour.includes('1-Hour') || data.tour.includes('City Highlights') || data.tour.includes('book-1h'))) durationH = 1;
   if(data.tour && data.tour.includes('Floating Wine')) durationH = 2;
   if(data.tour && data.tour.includes('3-Hour')) durationH = 3;
   if(data.tour && data.tour.includes('4-Hour')) durationH = 4;
@@ -167,7 +167,9 @@ function handleCreateBooking(data) {
   var timeStr = Utilities.formatDate(start, "GMT+1", "H:mm") + " - " + Utilities.formatDate(end, "GMT+1", "H:mm");
   var extrasStr = data.tapas > 0 ? (data.tapas + " Charcuterie") : "None";
 
-  var description = "Tour: " + data.tour + "\n" +
+  var description = "Status: " + (data.payment_status || 'PENDING') + "\n" +
+                    "SumUp ID: " + (data.sumup_checkout_id || 'N/A') + "\n" +
+                    "Tour: " + data.tour + "\n" +
                     "Date: " + data.date + "\n" +
                     "Time: " + timeStr + "\n" +
                     "Passengers: " + data.qty + "\n" +
@@ -177,32 +179,33 @@ function handleCreateBooking(data) {
                     "Email: " + (data.email || 'N/A') + "\n" +
                     "Phone: " + (data.phone || 'N/A');
 
-  var event = calendar.createEvent("Reserva: " + data.tour, start, end, {
+  var titlePrefix = data.payment_status === "PAID" ? "✅ RESERVA CONFIRMADA: " : "⏳ PENDIENTE PAGO: ";
+  var event = calendar.createEvent(titlePrefix + data.tour, start, end, {
     description: description
   });
   
-  var lang = data.lang || 'english';
-  var t = getTranslations(lang);
-  
-  // ADD GUEST: This triggers the "Yes/No/Maybe" invitation in most calendars
-  if (data.email) {
+  // Only send emails if PAID
+  if (data.payment_status === "PAID") {
+    var lang = data.lang || 'english';
+    var t = getTranslations(lang);
+    
+    if (data.email) {
+      try {
+        event.addGuest(data.email);
+      } catch (e) {
+        Logger.log("Could not add guest: " + e.toString());
+      }
+    }
+    
     try {
-      event.addGuest(data.email);
+      sendBookingEmails(data, t, start, end);
     } catch (e) {
-      Logger.log("Could not add guest: " + e.toString());
+      var errorMsg = "\n\n[ERROR DE EMAIL]: " + e.toString();
+      event.setDescription(description + errorMsg);
     }
   }
-  
-  // Send notifications
-  try {
-    sendBookingEmails(data, t, start, end);
-  } catch (e) {
-    // If email fails, we update the calendar event description with the error
-    var errorMsg = "\n\n[ERROR DE EMAIL]: " + e.toString();
-    event.setDescription(description + errorMsg);
-  }
 
-  return { success: true, eventId: event.getId() };
+  return { success: true, eventId: event.getId(), status: data.payment_status };
 }
 
 function isSpanish(lang) { return lang === 'spanish'; }

@@ -160,87 +160,84 @@ export function initReservePage() {
   });
 
   async function handleCompleteBooking() {
+    // 1. Validate contact info
     const name = elements.name ? elements.name.value.trim() : "";
     const email = elements.email ? elements.email.value.trim() : "";
     const phone = elements.phone ? elements.phone.value.trim() : "";
 
     if (!name || !email || !phone) {
-      window.alert("Please fill in all contact details (Name, Email, and Phone) before confirming.");
+      window.alert("Please fill in all contact details (Name, Email, and Phone) before continuing.");
       return;
     }
-
-    const GAS_URL = "/api/proxy";
 
     const buttons = [elements.complete, elements.stickyBtn].filter(Boolean);
     buttons.forEach(btn => {
       btn.disabled = true;
       btn.dataset.originalText = btn.textContent;
-      btn.textContent = "Processing...";
+      btn.textContent = "Initiating Payment...";
     });
 
-    const bookingData = {
-      ...current,
-      contact: { name, email, phone }
-    };
-
-    // If no URL is set, simulate success for testing
-    if (!GAS_URL || GAS_URL.includes("YOUR_GA_URL")) {
-      console.warn("GAS_URL not set in reserve.js. Simulating success.");
-      setTimeout(() => {
-        window.alert(
-          `Success! Your request for ${tour.title} on ${bookingData.date} at ${bookingData.time} has been received. We'll be in touch shortly!`
-        );
-        buttons.forEach(btn => {
-          btn.disabled = false;
-          btn.textContent = btn.dataset.originalText || "Complete My Booking";
-        });
-      }, 1000);
-      return;
-    }
+    const currentTour = getTour(current.tour) || tour;
+    const tapasTotal = current.tapas * EXTRA_CHARCUTERIE.price;
+    const total = currentTour.price + tapasTotal;
 
     try {
-      const payload = {
-        ...bookingData,
-        name,
-        email,
-        phone,
-        tour: tour.title,
-        calendar: tour.calendar || "boat1",
+      // 1. Send DRAFT booking to Google (Pending Payment)
+      const draftPayload = {
+        ...current,
+        payment_status: "PENDING",
+        name, email, phone,
+        tour: currentTour.title,
+        calendar: currentTour.calendar || "boat1"
       };
 
-      // 2. Use POST with body to avoid long URL limits on mobile
-      const url = `${GAS_URL}?action=createBooking`;
+      console.log("Creating Draft Booking...");
+      await fetch("/api/proxy?action=createBooking", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(draftPayload)
+      }).catch(err => console.warn("Draft capture failed (ignoring):", err));
 
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
+      // 2. Prepare SumUp Checkout data
+      const checkoutData = {
+        amount: total,
+        currency: "DKK",
+        checkout_reference: `RESERVE-${Date.now()}-${name.substring(0,3).toUpperCase()}`,
+        return_url: `${window.location.origin}/reserve/success.html`,
+        description: `Seaduced Experience: ${currentTour.title}`
+      };
+
+      const response = await fetch("/api/sumup?action=createCheckout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(checkoutData)
       });
 
-      if (!response.ok) throw new Error("Server Error");
-      const res = await response.json();
+      const checkout = await response.json();
 
-      if (res && res.success) {
-        window.alert(
-          `Wonderful! Your request for the ${tour.title} is on its way. We'll check the logistics and send you a confirmation email very soon.`
-        );
-        clearBookingSelection();
-        window.location.href = "/";
+      if (response.ok && checkout.hosted_checkout_url) {
+        const finalBookingData = {
+          ...current,
+          contact: { name, email, phone },
+          tourTitle: currentTour.title,
+          calendar: currentTour.calendar || "boat1",
+          total: total,
+          sumup_id: checkout.id
+        };
+        localStorage.setItem("pending_booking", JSON.stringify(finalBookingData));
+
+        window.location.href = checkout.hosted_checkout_url;
       } else {
-        console.error("GAS Error:", res);
-        window.alert("Apologies, we encountered an issue processing your booking. Please try again or contact us via WhatsApp.");
-        buttons.forEach(btn => {
-          btn.disabled = false;
-          btn.textContent = btn.dataset.originalText || "Complete My Booking";
-        });
+        console.error("Server Proxy Error:", checkout);
+        throw new Error(checkout.error || checkout.message || "Failed to create checkout session");
       }
 
     } catch (error) {
-      console.error("Booking error:", error);
-      window.alert("Apologies, we encountered an issue processing your booking. Please check your internet connection or contact us directly via WhatsApp.");
+      console.error("Payment initiation error:", error);
+      window.alert("Apologies, we encountered an issue initiating your payment. Please try again or contact us directly via WhatsApp.");
       buttons.forEach(btn => {
         btn.disabled = false;
-        btn.textContent = btn.dataset.originalText || "Complete My Booking";
+        btn.textContent = btn.dataset.originalText || "Confirm & Proceed to Payment";
       });
     }
   }

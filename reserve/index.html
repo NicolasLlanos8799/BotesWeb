@@ -38,52 +38,67 @@
         <div style="width: 20px;"></div>
     </nav>
 
+    <div class="reserve-steps">
+        <div class="step-item active" id="step-1-indicator">
+            <div class="step-number">1</div>
+            <div class="step-label">Contacto</div>
+        </div>
+        <div class="step-item" id="step-2-indicator">
+            <div class="step-number">2</div>
+            <div class="step-label">Pago</div>
+        </div>
+    </div>
+
     <div class="reserve-container">
         <div class="reserve-main">
-            <div class="tour-header">
-                <img id="tour-img" src="/assets/images/tour_private_boat.png" alt="Tour image" loading="lazy" style="opacity: 0; transition: opacity 0.3s;" />
-                <h1 id="tour-title">Loading...</h1>
-            </div>
-
-            <section class="reserve-section">
-                <h2 class="reserve-section__title">Enter your personal details</h2>
-                <div class="contact-compact-row">
-                    <div class="input-group">
-                        <input type="text" id="reserve-name" placeholder="Full Name" class="input-minimal" required />
-                    </div>
-                    <div class="input-group">
-                        <input type="email" id="reserve-email" placeholder="Email Address" class="input-minimal"
-                            required />
-                    </div>
-                    <div class="input-group">
-                        <input type="tel" id="reserve-phone" placeholder="Phone Number" class="input-minimal"
-                            required />
-                    </div>
+            <div id="step-1-main" class="step-content active">
+                <div class="tour-header">
+                    <img id="tour-img" src="/assets/images/tour_private_boat.png" alt="Tour image" loading="lazy"
+                        style="opacity: 0; transition: opacity 0.3s;" />
+                    <h1 id="tour-title">Loading...</h1>
                 </div>
-            </section>
 
-            <section class="reserve-section" id="extras-section">
-                <h2 class="reserve-section__title">Enhance Your Experience</h2>
-                <div class="extra-card">
-                    <div class="badge-popular">Captain's Choice</div>
-                    <img src="/assets/images/tour_christmas_champagne.webp" alt="Tapas Box" class="extra-card__img"
-                        loading="lazy" />
-                    <div class="extra-card__info">
-                        <h3>Gourmet Charcuterie</h3>
-                        <p>Selection of 2 cheeses, 2 meats, local marmalade, organic bread, nuts and olives.</p>
-                    </div>
-                    <div class="extra-card__price">
-                        <span>225 DKK</span>
-                        <div style="display: flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem;">
-                            <button id="tapas-minus" class="btn btn--outline btn--sm"
-                                style="padding: 2px 8px;">-</button>
-                            <span id="tapas-qty-display">0</span>
-                            <button id="tapas-plus" class="btn btn--outline btn--sm"
-                                style="padding: 2px 8px;">+</button>
+                <section class="reserve-section">
+                    <h2 class="reserve-section__title">Enter your personal details</h2>
+                    <div class="contact-compact-row">
+                        <div class="input-group">
+                            <input type="text" id="reserve-name" placeholder="Full Name" class="input-minimal"
+                                required />
+                        </div>
+                        <div class="input-group">
+                            <input type="email" id="reserve-email" placeholder="Email Address" class="input-minimal"
+                                required />
+                        </div>
+                        <div class="input-group">
+                            <input type="tel" id="reserve-phone" placeholder="Phone Number" class="input-minimal"
+                                required />
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
+
+                <section class="reserve-section" id="extras-section">
+                    <h2 class="reserve-section__title">Enhance Your Experience</h2>
+                    <div class="extra-card">
+                        <div class="badge-popular">Captain's Choice</div>
+                        <img src="/assets/images/tour_christmas_champagne.webp" alt="Tapas Box" class="extra-card__img"
+                            loading="lazy" />
+                        <div class="extra-card__info">
+                            <h3>Gourmet Charcuterie</h3>
+                            <p>Selection of 2 cheeses, 2 meats, local marmalade, organic bread, nuts and olives.</p>
+                        </div>
+                        <div class="extra-card__price">
+                            <span>225 DKK</span>
+                            <div style="display: flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem;">
+                                <button id="tapas-minus" class="btn btn--outline btn--sm"
+                                    style="padding: 2px 8px;">-</button>
+                                <span id="tapas-qty-display">0</span>
+                                <button id="tapas-plus" class="btn btn--outline btn--sm"
+                                    style="padding: 2px 8px;">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
         </div>
 
         <aside class="reserve-sidebar">
@@ -155,7 +170,8 @@
                             <span class="selection-card__value" id="reserve-lang-display">English</span>
                         </div>
                     </div>
-                    <div class="selection-card__item" id="edit-booking-link-row" style="grid-column: span 2; margin-top: 0.15rem;">
+                    <div class="selection-card__item" id="edit-booking-link-row"
+                        style="grid-column: span 2; margin-top: 0.15rem;">
                         <div class="selection-card__icon" aria-hidden="true">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
                                 stroke-linecap="round" stroke-linejoin="round" style="width: 14px; height: 14px;">
@@ -185,7 +201,7 @@
                     <span id="summary-total">0 DKK</span>
                 </div>
                 <button id="complete-request-btn" class="btn btn--primary reserve-btn">
-                    Complete My Booking
+                    Confirm & Proceed to Payment
                     <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
                         style="width: 16px; height: 16px;">
                         <path d="M6 12l4-4-4-4" />

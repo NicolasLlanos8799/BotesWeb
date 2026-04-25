@@ -3,7 +3,7 @@
  * Includes a "Security Shield" to prevent spam and authorized access.
  */
 export default async function handler(req, res) {
-  const GAS_URL = "https://script.google.com/macros/s/AKfycbxYWltqRn-5ra2W83DH95eWps9onba-CrRvf5rQTzQ0B9EjziQuGwlzR_N9Zz1_ZLsNNg/exec";
+  const GAS_URL = "https://script.google.com/macros/s/AKfycbwaHKlW69_xWx15WJXDh9xtOb_Tq8RGeXVZth0r5XsoWFbkQZ6HTWyeuRfTUbfNUz5kSw/exec";
   
   // --- SECURITY SHIELD ---
   
@@ -53,8 +53,17 @@ export default async function handler(req, res) {
   }
 
   try {
+    console.log("Proxy: Forwarding to GAS:", targetUrl);
     const response = await fetch(targetUrl, fetchOptions);
     const body = await response.text();
+    
+    console.log("Proxy: GAS Response Status:", response.status);
+    
+    // If GAS returns an error page (HTML) instead of JSON
+    if (body.includes("<!DOCTYPE html>") && response.status !== 200) {
+       console.error("Proxy: GAS returned HTML error instead of JSON. Check script permissions.");
+    }
+
     const contentType = response.headers.get('content-type');
 
     res.setHeader('Content-Type', contentType || 'application/json');

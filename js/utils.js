@@ -4,7 +4,7 @@ export const TOURS = {
   "book-1h": {
     id: "book-1h",
     title: "City Highlights",
-    price: 2499,
+    price: 10,
     duration: "1 Hour",
     img: "/assets/images/tour_private_boat.png",
     url: "/experiences/private-boat-copenhagen/",
