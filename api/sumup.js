@@ -25,16 +25,13 @@ export default async function handler(req, res) {
 
   try {
     if (action === "createCheckout") {
-      const { amount, currency, checkout_reference, return_url, description } = req.body;
+      const { amount, currency, checkout_reference, return_url, description, metadata } = req.body;
 
       if (!amount || !currency || !checkout_reference) {
          return res.status(400).json({ error: "Missing required fields (amount, currency, reference)" });
       }
 
-      const targetUrl = `${SUMUP_API_BASE}/v0.1/checkouts`;
-      console.log("Calling SumUp API:", targetUrl);
-
-      const sumupResponse = await fetch(targetUrl, {
+      const sumupResponse = await fetch(`${SUMUP_API_BASE}/v0.1/checkouts`, {
         method: "POST",
         headers: {
           "Authorization": `Bearer ${ACCESS_TOKEN}`,
@@ -46,8 +43,8 @@ export default async function handler(req, res) {
           checkout_reference,
           return_url,
           description,
+          metadata, // This is our "data backpack"
           merchant_code: process.env.SUMUP_MERCHANT_CODE,
-          webhook_url: `https://botes-web.vercel.app/api/sumup?action=webhook`,
           hosted_checkout: {
             enabled: true
           }
@@ -104,21 +101,25 @@ export default async function handler(req, res) {
         console.log("Checkout Status Verified:", details.status);
 
         if (details.status === "PAID") {
-          // Now we can safely confirm in GAS
-          // We call GAS directly to avoid the "Unauthorized Origin" shield of our own proxy
+          // Now we create the booking for the first time in Google Calendar
           const GAS_URL = process.env.GAS_URL;
-          const gasResponse = await fetch(`${GAS_URL}?action=confirmBooking`, {
+          
+          // Use metadata if available, or fallback to reference info
+          const bookingData = {
+            ...(details.metadata || {}),
+            payment_status: "PAID",
+            sumup_checkout_id: checkoutId
+          };
+
+          const gasResponse = await fetch(`${GAS_URL}?action=createBooking`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-               eventId: details.checkout_reference,
-               sumup_checkout_id: checkoutId
-            })
+            body: JSON.stringify(bookingData)
           });
 
-          console.log("Webhook: GAS confirmation status", gasResponse.status);
+          console.log("Webhook: GAS creation status", gasResponse.status);
         } else {
-          console.log("Webhook: Checkout status is not PAID yet. Skipping GAS update.");
+          console.log("Webhook: Checkout status is not PAID yet. Skipping GAS creation.");
         }
       }
 

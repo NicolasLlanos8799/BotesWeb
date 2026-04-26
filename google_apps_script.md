@@ -179,43 +179,47 @@ function handleCreateBooking(data) {
   var start = new Date(parts[0], parts[1]-1, parts[2], timeParts[0], timeParts[1]);
   var end = new Date(start.getTime() + durationH * 60 * 60 * 1000);
 
-  var timeStr = Utilities.formatDate(start, "GMT+1", "H:mm") + " - " + Utilities.formatDate(end, "GMT+1", "H:mm");
-  var extrasStr = data.tapas > 0 ? (data.tapas + " Charcuterie") : "None";
+  // 1. DEDUPLICACIÓN: Comprobar si ya existe una reserva con este SumUp ID
+  if (data.sumup_checkout_id && data.sumup_checkout_id !== 'N/A') {
+    var existingEvent = findEventBySumUpId(data.sumup_checkout_id);
+    if (existingEvent) {
+      Logger.log("Reserva duplicada detectada (SumUp ID: " + data.sumup_checkout_id + "). Ignorando.");
+      return { success: true, message: "Duplicate avoided", eventId: existingEvent.getId() };
+    }
+  }
 
-  var status = data.payment_status || 'PENDING';
-  var description = "Status: " + status + "\n" +
-                    "SumUp ID: " + (data.sumup_checkout_id || 'N/A') + "\n" +
-                    "Tour: " + data.tour + "\n" +
-                    "Date: " + data.date + "\n" +
-                    "Time: " + timeStr + "\n" +
-                    "Passengers: " + data.qty + "\n" +
-                    "Language: " + data.lang + "\n" +
-                    "Extras: " + extrasStr + "\n" +
-                    "Name: " + (data.name || 'N/A') + "\n" +
-                    "Email: " + (data.email || 'N/A') + "\n" +
-                    "Phone: " + (data.phone || 'N/A');
+  // 2. Definir estado y color (Ahora siempre debería ser PAID para disparar emails)
+  var status = data.payment_status || 'PAID';
+  var title = "Reserva: " + (data.name || 'Cliente');
+  
+  // 3. Formatear descripción
+  var description = 
+    "Status: " + status + "\n" +
+    "SumUp ID: " + (data.sumup_checkout_id || "N/A") + "\n" +
+    "Tour: " + (data.tour || "N/A") + "\n" +
+    "Date: " + data.date + "\n" +
+    "Time: " + data.time + "\n" +
+    "Passengers: " + (data.qty || "N/A") + "\n" +
+    "Language: " + (data.lang || "N/A") + "\n" +
+    "Extras: " + (data.tapas > 0 ? data.tapas + " Tapas/Charcuterie" : "None") + "\n\n" +
+    "--- Customer Info ---\n" +
+    "Name: " + (data.name || "N/A") + "\n" +
+    "Email: " + (data.email || "N/A") + "\n" +
+    "Phone: " + (data.phone || "N/A");
 
-  var title = (status === 'PENDING' ? "[PENDIENTE] " : "Reserva: ") + data.tour;
+  // 4. Crear evento
   var event = calendar.createEvent(title, start, end, {
     description: description
   });
 
-  // Set color for pending bookings
-  if (status === 'PENDING') {
-    event.setColor(CalendarApp.EventColor.GRAY);
-  } else {
-    event.setColor(CalendarApp.EventColor.PALE_GOLD);
-  }
+  // Color Dorado
+  event.setColor(CalendarApp.EventColor.PALE_GOLD);
   
   var lang = data.lang || 'english';
   var t = getTranslations(lang);
   
-  // LOG DE SEGURIDAD
-  Logger.log("Procesando reserva. Estado recibido: " + status);
-  
-  // SOLAMENTE ENVIAR EMAIL Y AÑADIR GUEST SI ESTÁ PAGADO EXPLÍCITAMENTE
+  // 5. ENVIAR EMAIL Y AÑADIR GUEST (Solo si está pagado o es el flujo limpio)
   if (status === 'PAID' || status === 'paid') {
-    Logger.log("Procediendo con envío de emails (Pago Confirmado)");
     if (data.email) {
       try {
         event.addGuest(data.email);
@@ -230,82 +234,29 @@ function handleCreateBooking(data) {
       var errorMsg = "\n\n[ERROR DE EMAIL]: " + e.toString();
       event.setDescription(description + errorMsg);
     }
-  } else {
-    Logger.log("Reserva en espera de pago. No se envían emails al cliente.");
   }
 
   return { success: true, eventId: event.getId(), status: status };
 }
 
 /**
- * Recovers data from event description and confirms the booking
+ * Helper to find existing events by SumUp ID in the description
  */
-function handleConfirmBooking(data) {
-  var eventId = data.eventId;
-  if (!eventId) return { success: false, error: "Missing eventId" };
-  
-  // Try to find the event in all calendars
-  var event = null;
+function findEventBySumUpId(sumupId) {
   var calendars = [getCalendar('boat1'), getCalendar('boat2')];
+  var now = new Date();
+  var future = new Date();
+  future.setMonth(now.getMonth() + 12);
+  
   for (var i = 0; i < calendars.length; i++) {
-    event = calendars[i].getEventById(eventId);
-    if (event) break;
-  }
-  
-  if (!event) return { success: false, error: "Event not found: " + eventId };
-  
-  var description = event.getDescription();
-  if (description.includes("Status: PAID")) {
-    return { success: true, message: "Already confirmed" };
-  }
-  
-  // Parse data from description to send emails
-  var bookingData = {};
-  var lines = description.split("\n");
-  lines.forEach(function(line) {
-    if (line.startsWith("Tour: ")) bookingData.tour = line.replace("Tour: ", "");
-    if (line.startsWith("Date: ")) bookingData.date = line.replace("Date: ", "");
-    if (line.startsWith("Time: ")) bookingData.time = line.replace("Time: ", "").split(" - ")[0]; // Get start time
-    if (line.startsWith("Passengers: ")) bookingData.qty = line.replace("Passengers: ", "");
-    if (line.startsWith("Language: ")) bookingData.lang = line.replace("Language: ", "");
-    if (line.startsWith("Name: ")) bookingData.name = line.replace("Name: ", "");
-    if (line.startsWith("Email: ")) bookingData.email = line.replace("Email: ", "");
-    if (line.startsWith("Phone: ")) bookingData.phone = line.replace("Phone: ", "");
-    if (line.startsWith("Extras: ")) bookingData.tapas = (line.includes("Charcuterie") ? parseInt(line) : 0);
-  });
-  
-  // Update status in description
-  var newDescription = description.replace("Status: PENDING", "Status: PAID");
-  if (data.sumup_checkout_id) {
-    newDescription = newDescription.replace("SumUp ID: N/A", "SumUp ID: " + data.sumup_checkout_id);
-  }
-  event.setDescription(newDescription);
-  
-  // Update title and color
-  event.setTitle(event.getTitle().replace("[PENDIENTE] ", "Reserva: "));
-  event.setColor(CalendarApp.EventColor.PALE_GOLD);
-  
-  // Add guest and send emails
-  if (bookingData.email) {
-    try {
-      event.addGuest(bookingData.email);
-    } catch (e) {
-      Logger.log("Could not add guest on confirmation: " + e.toString());
+    var events = calendars[i].getEvents(now, future);
+    for (var j = 0; j < events.length; j++) {
+      if (events[j].getDescription().includes("SumUp ID: " + sumupId)) {
+        return events[j];
+      }
     }
   }
-
-  var lang = bookingData.lang || 'english';
-  var t = getTranslations(lang);
-  var start = event.getStartTime();
-  var end = event.getEndTime();
-  
-  try {
-    sendBookingEmails(bookingData, t, start, end);
-  } catch (e) {
-    Logger.log("Email confirmation error: " + e.toString());
-  }
-  
-  return { success: true, status: "PAID" };
+  return null;
 }
 
 function isSpanish(lang) { return lang === 'spanish'; }

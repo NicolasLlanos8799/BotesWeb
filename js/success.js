@@ -24,33 +24,31 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (checkout.status === "PAID") {
       textEl.textContent = "Payment Verified. Synchronizing with Google Calendar...";
       
-      // 2. Retrieve eventId from checkout reference or localStorage
-      // SumUp Hosted Checkout checkout_reference is typically in the checkout object
-      const eventId = checkout.checkout_reference || localStorage.getItem("pending_booking_id");
+      // 2. Retrieve booking data from metadata (SumUp) or localStorage
       const bookingDataRaw = localStorage.getItem("pending_booking_data");
-      const bookingData = bookingDataRaw ? JSON.parse(bookingDataRaw) : null;
+      const bookingData = checkout.metadata || (bookingDataRaw ? JSON.parse(bookingDataRaw) : null);
 
-      if (eventId) {
-        // 3. Confirm the existing pending booking
-        const gasResponse = await fetch("/api/proxy?action=confirmBooking", {
+      if (bookingData) {
+        // 3. Create the booking for the first time (PAID)
+        const gasResponse = await fetch("/api/proxy?action=createBooking", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-             eventId: eventId,
+             ...bookingData,
+             payment_status: "PAID",
              sumup_checkout_id: checkoutId
           })
         });
 
         if (gasResponse.ok) {
-          showSuccess(bookingData?.tourTitle || "your experience");
-          localStorage.removeItem("pending_booking_id");
+          showSuccess(bookingData.tourTitle || "your experience");
           localStorage.removeItem("pending_booking_data");
         } else {
           const gasError = await gasResponse.text();
           throw new Error("Google Script Error: " + gasError);
         }
       } else {
-        showSuccess(); // Basic success if no ID found but payment is PAID
+        showSuccess(); // Basic success if no data found
       }
     } else if (checkout.status === "PENDING") {
        showError("Your payment is still pending in SumUp. Please wait and refresh.");
