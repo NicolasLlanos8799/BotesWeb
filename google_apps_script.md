@@ -49,6 +49,13 @@ function doGet(e) {
     } catch (err) {
       responseData = { success: false, error: "JSON Parse error" };
     }
+  } else if (action === 'confirmBooking') {
+    try {
+      var data = JSON.parse(e.parameter.data);
+      responseData = handleConfirmBooking(data);
+    } catch (err) {
+      responseData = { success: false, error: "JSON Parse error" };
+    }
   } else {
     responseData = { message: "Seaduced Bridge V6 Online" };
   }
@@ -66,7 +73,15 @@ function doGet(e) {
 function doPost(e) {
   try {
     var data = JSON.parse(e.postData.contents);
-    var responseData = handleCreateBooking(data);
+    var action = e.parameter.action;
+    var responseData;
+    
+    if (action === 'confirmBooking') {
+      responseData = handleConfirmBooking(data);
+    } else {
+      responseData = handleCreateBooking(data);
+    }
+    
     return ContentService.createTextOutput(JSON.stringify(responseData))
       .setMimeType(ContentService.MimeType.JSON);
   } catch (error) {
@@ -167,7 +182,8 @@ function handleCreateBooking(data) {
   var timeStr = Utilities.formatDate(start, "GMT+1", "H:mm") + " - " + Utilities.formatDate(end, "GMT+1", "H:mm");
   var extrasStr = data.tapas > 0 ? (data.tapas + " Charcuterie") : "None";
 
-  var description = "Status: " + (data.payment_status || 'PENDING') + "\n" +
+  var status = data.payment_status || 'PENDING';
+  var description = "Status: " + status + "\n" +
                     "SumUp ID: " + (data.sumup_checkout_id || 'N/A') + "\n" +
                     "Tour: " + data.tour + "\n" +
                     "Date: " + data.date + "\n" +
@@ -179,10 +195,17 @@ function handleCreateBooking(data) {
                     "Email: " + (data.email || 'N/A') + "\n" +
                     "Phone: " + (data.phone || 'N/A');
 
-  var title = "Reserva: " + data.tour;
+  var title = (status === 'PENDING' ? "[PENDIENTE] " : "Reserva: ") + data.tour;
   var event = calendar.createEvent(title, start, end, {
     description: description
   });
+
+  // Set color for pending bookings
+  if (status === 'PENDING') {
+    event.setColor(CalendarApp.EventColor.GRAY);
+  } else {
+    event.setColor(CalendarApp.EventColor.PALE_GOLD);
+  }
   
   var lang = data.lang || 'english';
   var t = getTranslations(lang);
@@ -195,15 +218,366 @@ function handleCreateBooking(data) {
     }
   }
   
-  try {
-    sendBookingEmails(data, t, start, end);
-  } catch (e) {
-    var errorMsg = "\n\n[ERROR DE EMAIL]: " + e.toString();
-    event.setDescription(description + errorMsg);
+  // SOLAMENTE ENVIAR EMAIL SI ESTÁ PAGADO
+  if (status === 'PAID') {
+    try {
+      sendBookingEmails(data, t, start, end);
+    } catch (e) {
+      var errorMsg = "\n\n[ERROR DE EMAIL]: " + e.toString();
+      event.setDescription(description + errorMsg);
+    }
+  } else {
+    // Si es pendiente, avisar solo al dueño por email interno (opcional)
+    // sendAdminPendingAlert(data);
   }
 
-  return { success: true, eventId: event.getId(), status: data.payment_status };
+  return { success: true, eventId: event.getId(), status: status };
 }
+
+/**
+ * Recovers data from event description and confirms the booking
+ */
+function handleConfirmBooking(data) {
+  var eventId = data.eventId;
+  if (!eventId) return { success: false, error: "Missing eventId" };
+  
+  // Try to find the event in all calendars
+  var event = null;
+  var calendars = [getCalendar('boat1'), getCalendar('boat2')];
+  for (var i = 0; i < calendars.length; i++) {
+    event = calendars[i].getEventById(eventId);
+    if (event) break;
+  }
+  
+  if (!event) return { success: false, error: "Event not found: " + eventId };
+  
+  var description = event.getDescription();
+  if (description.includes("Status: PAID")) {
+    return { success: true, message: "Already confirmed" };
+  }
+  
+  // Parse data from description to send emails
+  var bookingData = {};
+  var lines = description.split("\n");
+  lines.forEach(function(line) {
+    if (line.startsWith("Tour: ")) bookingData.tour = line.replace("Tour: ", "");
+    if (line.startsWith("Date: ")) bookingData.date = line.replace("Date: ", "");
+    if (line.startsWith("Time: ")) bookingData.time = line.replace("Time: ", "").split(" - ")[0]; // Get start time
+    if (line.startsWith("Passengers: ")) bookingData.qty = line.replace("Passengers: ", "");
+    if (line.startsWith("Language: ")) bookingData.lang = line.replace("Language: ", "");
+    if (line.startsWith("Name: ")) bookingData.name = line.replace("Name: ", "");
+    if (line.startsWith("Email: ")) bookingData.email = line.replace("Email: ", "");
+    if (line.startsWith("Phone: ")) bookingData.phone = line.replace("Phone: ", "");
+    if (line.startsWith("Extras: ")) bookingData.tapas = (line.includes("Charcuterie") ? parseInt(line) : 0);
+  });
+  
+  // Update status in description
+  var newDescription = description.replace("Status: PENDING", "Status: PAID");
+  if (data.sumup_checkout_id) {
+    newDescription = newDescription.replace("SumUp ID: N/A", "SumUp ID: " + data.sumup_checkout_id);
+  }
+  event.setDescription(newDescription);
+  
+  // Update title and color
+  event.setTitle(event.getTitle().replace("[PENDIENTE] ", "Reserva: "));
+  event.setColor(CalendarApp.EventColor.PALE_GOLD);
+  
+  // Send emails
+  var lang = bookingData.lang || 'english';
+  var t = getTranslations(lang);
+  var start = event.getStartTime();
+  var end = event.getEndTime();
+  
+  try {
+    sendBookingEmails(bookingData, t, start, end);
+  } catch (e) {
+    Logger.log("Email confirmation error: " + e.toString());
+  }
+  
+  return { success: true, status: "PAID" };
+}
+
+function isSpanish(lang) { return lang === 'spanish'; }
+function isDanish(lang) { return lang === 'danish'; }
+
+/**
+ * Centralized translations for English, Spanish, and Danish
+ */
+function getTranslations(lang) {
+  var map = {
+    english: {
+      subject: "Your Seaduced Experience is Confirmed!",
+      intro: "Hello {name},",
+      body: "Your booking for <b>{tour}</b> has been successfully confirmed. We are thrilled to have you on board!",
+      details: "Booking Details:",
+      tour: "Tour:",
+      date: "Date:",
+      time: "Time:",
+      passengers: "Passengers:",
+      extras: "Extras:",
+      location: "Departure Point:",
+      locationVal: "Havnegade 1, 1058 København, Denmark",
+      mapButton: "Open in Google Maps",
+      footer: "If you have any questions, feel free to contact us via WhatsApp or reply to this email.",
+      thanks: "See you soon!"
+    },
+    spanish: {
+      subject: "¡Tu Seaduced Experience está Confirmada!",
+      intro: "Hola {name},",
+      body: "Tu reserva para <b>{tour}</b> ha sido confirmada con éxito. ¡Estamos encantados de tenerte a bordo!",
+      details: "Detalles de la reserva:",
+      tour: "Tour:",
+      date: "Fecha:",
+      time: "Hora:",
+      passengers: "Pasajeros:",
+      extras: "Extras:",
+      location: "Punto de salida:",
+      locationVal: "Havnegade 1, 1058 København, Denmark",
+      mapButton: "Abrir en Google Maps",
+      footer: "Si tienes alguna pregunta, no dudes en contactarnos por WhatsApp o respondiendo a este email.",
+      thanks: "¡Nos vemos pronto!"
+    },
+    danish: {
+      subject: "Din Seaduced Experience er Bekræftet!",
+      intro: "Hej {name},",
+      body: "Din booking for <b>{tour}</b> er blevet bekræftet. Vi glæder os altså til at se dig om bord!",
+      details: "Bookingdetaljer:",
+      tour: "Tour:",
+      date: "Dato:",
+      time: "Tidspunkt:",
+      passengers: "Passagerer:",
+      extras: "Extras:",
+      location: "Afgangssted:",
+      locationVal: "Havnegade 1, 1058 København, Denmark",
+      mapButton: "Åbn i Google Maps",
+      footer: "Hvis du har spørgsmål, er du velkommen til at kontakte os via WhatsApp eller svare på denne e-mail.",
+      thanks: "Vi ses snart!"
+    }
+  };
+  return map[lang] || map.english;
+}
+
+/**
+ * Sends confirmation email to the guest and notification to the owner
+ */
+function sendBookingEmails(data, t, start, end) {
+  var lang = data.lang || 'english';
+  if (!t) t = getTranslations(lang);
+
+  // 1. Prepare HTML Content
+  var htmlBody = getHtmlTemplate(data, t);
+  
+  // 2. Prepare ICS Attachment
+  var icsBlob;
+  try {
+    var title = "Seaduced: " + data.tour;
+    var location = t.locationVal;
+    var description = t.body.replace("<b>", "").replace("</b>", "") + "\n\n" + 
+                      t.tour + " " + data.tour + "\n" +
+                      t.date + " " + data.date + "\n" +
+                      t.time + " " + data.time;
+    icsBlob = createIcsBlob(title, start, end, description, location);
+  } catch (e) {
+    Logger.log("ICS Generation Error: " + e.toString());
+  }
+
+  // 3. Send to Guest
+  if (data.email) {
+    var guestOptions = {
+      name: "Seaduced Experience",
+      htmlBody: htmlBody
+    };
+    if (icsBlob) guestOptions.attachments = [icsBlob];
+    
+    GmailApp.sendEmail(data.email, "Seaduced Experience - " + t.subject, "", guestOptions);
+  }
+
+  // 4. Send to Admin (Owner)
+  var adminEmail = Session.getEffectiveUser().getEmail();
+  if (!adminEmail) adminEmail = data.email; 
+  
+  var adminSubject = "[NUEVA RESERVA] " + data.tour + " - " + data.name;
+  var adminHtml = "<h3>Tienes una nueva solicitud de reserva</h3>" +
+                  "<p><b>CLIENTE:</b> " + data.name + "<br>" +
+                  "<b>EMAIL:</b> " + data.email + "<br>" +
+                  "<b>TELÉFONO:</b> " + (data.phone || "-") + "</p>" +
+                  "<hr>" + htmlBody;
+
+  var adminOptions = {
+    name: "Seaduced Booking System",
+    htmlBody: adminHtml
+  };
+  if (icsBlob) adminOptions.attachments = [icsBlob];
+
+  GmailApp.sendEmail(adminEmail, adminSubject, "", adminOptions);
+}
+
+/**
+ * Universal iCalendar (.ics) Generator
+ */
+function createIcsBlob(title, start, end, description, location) {
+  var ics = [
+    "BEGIN:VCALENDAR",
+    "VERSION:2.0",
+    "PRODID:-//Seaduced Experience//NONSGML v1.0//EN",
+    "METHOD:REQUEST",
+    "BEGIN:VEVENT",
+    "UID:" + Utilities.getUuid(),
+    "DTSTAMP:" + formatDateToIcs(new Date()),
+    "DTSTART:" + formatDateToIcs(start),
+    "DTEND:" + formatDateToIcs(end),
+    "SUMMARY:" + title,
+    "DESCRIPTION:" + description.replace(/\n/g, "\\n"),
+    "LOCATION:" + location,
+    "STATUS:CONFIRMED",
+    "SEQUENCE:0",
+    "BEGIN:VALARM",
+    "TRIGGER:-PT30M",
+    "ACTION:DISPLAY",
+    "DESCRIPTION:Reminder - Seaduced Experience",
+    "END:VALARM",
+    "END:VEVENT",
+    "END:VCALENDAR"
+  ].join("\r\n");
+  
+  return Utilities.newBlob(ics, "text/calendar", "invite.ics");
+}
+
+function formatDateToIcs(date) {
+  return Utilities.formatDate(date, "UTC", "yyyyMMdd'T'HHmmss'Z'");
+}
+
+/**
+ * Premium HTML Template for confirmation emails
+ */
+function getHtmlTemplate(data, t) {
+  var accentColor = "#D4AF37"; // Gold / Luxury accent
+  var bgColor = "#f8f9fa";
+  var navyColor = "#0f1e35"; // From --clr-navy
+  
+  return `
+    <head>
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+      ${getJsonLdMarkup(data, t)}
+    </head>
+    <div style="font-family: 'Inter', system-ui, sans-serif; background-color: ${bgColor}; padding: 40px 10px; color: #1a1a1a;">
+      <div style="max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #eee;">
+        
+        <!-- Header -->
+        <div style="background: linear-gradient(135deg, ${navyColor} 0%, #333 100%); padding: 30px; text-align: center;">
+          <h1 style="font-family: 'Playfair Display', serif; color: ${accentColor}; margin: 0; font-size: 28px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;">SEADUCED</h1>
+          <p style="font-family: 'Inter', sans-serif; color: #999; margin: 5px 0 0 0; font-size: 11px; letter-spacing: 3px; font-weight: 400; text-transform: uppercase;">Luxury Boat Experience</p>
+        </div>
+
+        <!-- Body -->
+        <div style="padding: 40px 30px;">
+          <h2 style="font-family: 'Playfair Display', serif; margin-top: 0; font-weight: 700; font-size: 24px; color: ${navyColor};">${t.intro.replace("{name}", data.name)}</h2>
+          <p style="font-family: 'Inter', sans-serif; line-height: 1.6; color: #444; font-size: 15px;">${t.body.replace("{tour}", data.tour)}</p>
+          
+          <div style="background: ${bgColor}; border-radius: 12px; padding: 25px; margin: 30px 0; border: 1px dashed #ddd;">
+            <h3 style="font-family: 'Inter', sans-serif; margin-top: 0; font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: #888; margin-bottom: 20px; font-weight: 600;">${t.details}</h3>
+            
+            <table style="width: 100%; border-collapse: collapse; font-family: 'Inter', sans-serif;">
+              <tr>
+                <td style="padding: 8px 0; color: #888; font-size: 14px;">${t.tour}</td>
+                <td style="padding: 8px 0; text-align: right; font-weight: 600; color: ${navyColor};">${data.tour}</td>
+              </tr>
+              <tr>
+                <td style="padding: 8px 0; color: #888; font-size: 14px;">${t.date}</td>
+                <td style="padding: 8px 0; text-align: right; font-weight: 600; color: ${navyColor};">${data.date}</td>
+              </tr>
+              <tr>
+                <td style="padding: 8px 0; color: #888; font-size: 14px;">${t.time}</td>
+                <td style="padding: 8px 0; text-align: right; font-weight: 600; color: ${navyColor};">${data.time}</td>
+              </tr>
+              <tr>
+                <td style="padding: 8px 0; color: #888; font-size: 14px;">${t.passengers}</td>
+                <td style="padding: 8px 0; text-align: right; font-weight: 600; color: ${navyColor};">${data.qty || 1}</td>
+              </tr>
+              <tr>
+                <td style="padding: 8px 0; color: #888; font-size: 14px;">${t.extras}</td>
+                <td style="padding: 8px 0; text-align: right; font-weight: 600; color: ${navyColor};">${data.tapas || 0} Tapas/Charcuterie</td>
+              </tr>
+              <tr>
+                <td style="padding: 15px 0 8px 0; color: #888; font-size: 14px;">${t.location}</td>
+                <td style="padding: 15px 0 8px 0; text-align: right; font-weight: 600; color: ${accentColor}; font-size: 13px;">
+                  ${t.locationVal}<br>
+                  <a href="https://share.google/CRsObwvGX3UAhmAgO" style="display: inline-block; background-color: ${navyColor}; color: #ffffff; padding: 6px 14px; border-radius: 6px; text-decoration: none; font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600; margin-top: 8px; letter-spacing: 0.3px;">
+                    📍 ${t.mapButton}
+                  </a>
+                </td>
+              </tr>
+            </table>
+          </div>
+
+          <p style="font-family: 'Playfair Display', serif; text-align: center; margin-top: 30px; font-weight: 700; font-size: 18px; color: ${navyColor};">${t.thanks}</p>
+        </div>
+
+        <!-- Footer -->
+        <div style="font-family: 'Inter', sans-serif; padding: 30px; background: #fafafa; border-top: 1px solid #eee; text-align: center; font-size: 11px; color: #999;">
+          <p style="margin: 0;">${t.footer}</p>
+          <div style="margin-top: 20px;">
+            <a href="https://seaducedexperience.com" style="color: ${accentColor}; text-decoration: none; font-weight: 600; letter-spacing: 1px;">SEADUCEDEXPERIENCE.COM</a>
+          </div>
+        </div>
+      </div>
+      
+      <div style="font-family: 'Inter', sans-serif; text-align: center; padding-top: 20px; font-size: 10px; color: #aaa; letter-spacing: 0.5px;">
+        © 2026 SEADUCED EXPERIENCE COPENHAGEN. ALL RIGHTS RESERVED.
+      </div>
+    </div>
+  `;
+}
+
+/**
+ * Schema.org JSON-LD for Gmail Smart Banners
+ */
+function getJsonLdMarkup(data, t) {
+  var isoDate = data.date + "T" + data.time + ":00";
+  
+  var json = {
+    "@context": "http://schema.org",
+    "@type": "EventReservation",
+    "reservationNumber": "SEAD-" + Date.now().toString().slice(-6),
+    "reservationStatus": "http://schema.org/Confirmed",
+    "underName": {
+      "@type": "Person",
+      "name": data.name
+    },
+    "reservationFor": {
+      "@type": "Event",
+      "name": data.tour + " - Seaduced Experience",
+      "startDate": isoDate,
+      "location": {
+        "@type": "Place",
+        "name": t.locationVal,
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Havnegade 1",
+          "addressLocality": "København",
+          "addressRegion": "Hovedstaden",
+          "postalCode": "1058",
+          "addressCountry": "DK"
+        }
+      }
+    }
+  };
+  
+  return '<script type="application/ld+json">' + JSON.stringify(json) + '</script>';
+}
+
+/**
+ * FUNCIÓN PARA FORZAR LA VENTANA DE PERMISOS
+ * Selecciónala en el desplegable de arriba y dale a "Ejecutar"
+ */
+function autorizar_script() {
+  var email = Session.getEffectiveUser().getEmail();
+  GmailApp.sendEmail(email, "Activación de permisos", "Los permisos de envío de email han sido activados correctamente.");
+  Logger.log("Permisos activados para: " + email);
+}
+
 
 function isSpanish(lang) { return lang === 'spanish'; }
 function isDanish(lang) { return lang === 'danish'; }

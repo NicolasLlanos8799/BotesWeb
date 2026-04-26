@@ -24,35 +24,33 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (checkout.status === "PAID") {
       textEl.textContent = "Payment Verified. Synchronizing with Google Calendar...";
       
-      // 2. Retrieve booking data from localStorage
-      const bookingDataRaw = localStorage.getItem("pending_booking");
+      // 2. Retrieve eventId from checkout reference or localStorage
+      // SumUp Hosted Checkout checkout_reference is typically in the checkout object
+      const eventId = checkout.checkout_reference || localStorage.getItem("pending_booking_id");
+      const bookingDataRaw = localStorage.getItem("pending_booking_data");
       const bookingData = bookingDataRaw ? JSON.parse(bookingDataRaw) : null;
-      
-      if (bookingData) {
-        // 3. Send final confirmation to Google
-        const gasResponse = await fetch("/api/proxy?action=createBooking", {
+
+      if (eventId) {
+        // 3. Confirm the existing pending booking
+        const gasResponse = await fetch("/api/proxy?action=confirmBooking", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-             ...bookingData,
-             payment_status: "PAID",
-             sumup_checkout_id: checkoutId,
-             name: bookingData.contact?.name,
-             email: bookingData.contact?.email,
-             phone: bookingData.contact?.phone,
-             tour: bookingData.tourTitle || bookingData.tour
+             eventId: eventId,
+             sumup_checkout_id: checkoutId
           })
         });
 
         if (gasResponse.ok) {
-          showSuccess(bookingData.tourTitle);
-          localStorage.removeItem("pending_booking");
+          showSuccess(bookingData?.tourTitle || "your experience");
+          localStorage.removeItem("pending_booking_id");
+          localStorage.removeItem("pending_booking_data");
         } else {
           const gasError = await gasResponse.text();
           throw new Error("Google Script Error: " + gasError);
         }
       } else {
-        showSuccess(); // Basic success if no local data
+        showSuccess(); // Basic success if no ID found but payment is PAID
       }
     } else if (checkout.status === "PENDING") {
        showError("Your payment is still pending in SumUp. Please wait and refresh.");

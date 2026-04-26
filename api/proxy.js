@@ -20,7 +20,7 @@ export default async function handler(req, res) {
 
   // 2. Action Whitelist (Only allows sanctioned booking operations)
   const { action } = req.query;
-  const allowedActions = ["getAvailability", "getMonthlyAvailability", "createBooking"];
+  const allowedActions = ["getAvailability", "getMonthlyAvailability", "createBooking", "confirmBooking"];
   if (!action || !allowedActions.includes(action)) {
     return res.status(400).json({ error: "Bad Request: Invalid or missing action" });
   }

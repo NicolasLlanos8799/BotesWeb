@@ -47,6 +47,7 @@ export default async function handler(req, res) {
           return_url,
           description,
           merchant_code: process.env.SUMUP_MERCHANT_CODE,
+          webhook_url: `https://botes-web.vercel.app/api/sumup?action=webhook`,
           hosted_checkout: {
             enabled: true
           }
@@ -97,18 +98,16 @@ export default async function handler(req, res) {
         const details = await detailsResponse.json();
 
         // Call Google Apps Script to confirm the booking
-        const gasResponse = await fetch(`https://botes-web.vercel.app/api/proxy?action=createBooking`, {
+        const gasResponse = await fetch(`https://botes-web.vercel.app/api/proxy?action=confirmBooking`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-             tour: details.description,
-             payment_status: "PAID",
-             sumup_checkout_id: checkoutId,
-             checkout_reference: details.checkout_reference,
+             eventId: details.checkout_reference,
+             sumup_checkout_id: checkoutId
           })
         });
 
-        console.log("Webhook: GAS response status", gasResponse.status);
+        console.log("Webhook: GAS confirmation status", gasResponse.status);
       }
 
       return res.status(200).json({ received: true });

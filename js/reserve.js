@@ -182,11 +182,36 @@ export function initReservePage() {
     const total = currentTour.price + tapasTotal;
 
     try {
-      // 1. Prepare SumUp Checkout data
+      // 1. Create a DRAFT (PENDING) booking in Google Calendar first
+      const draftBookingData = {
+        ...current,
+        contact: { name, email, phone },
+        name: name,
+        email: email,
+        phone: phone,
+        tourTitle: currentTour.title,
+        tour: currentTour.title, // GAS expects 'tour' string
+        calendar: currentTour.calendar || "boat1",
+        payment_status: "PENDING"
+      };
+
+      const draftResponse = await fetch("/api/proxy?action=createBooking", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(draftBookingData)
+      });
+
+      if (!draftResponse.ok) throw new Error("Failed to create draft booking on server.");
+      const draftResult = await draftResponse.json();
+      const eventId = draftResult.eventId;
+
+      if (!eventId) throw new Error("Server failed to return a reservation ID.");
+
+      // 2. Prepare SumUp Checkout data using eventId as the absolute reference
       const checkoutData = {
         amount: total,
         currency: "DKK",
-        checkout_reference: `RESERVE-${Date.now()}-${name.substring(0,3).toUpperCase()}`,
+        checkout_reference: eventId, // CRITICAL: This links payment to the specific Google Event
         return_url: `${window.location.origin}/reserve/success.html`,
         description: `Seaduced Experience: ${currentTour.title}`
       };
@@ -200,19 +225,13 @@ export function initReservePage() {
       const checkout = await response.json();
 
       if (response.ok && checkout.hosted_checkout_url) {
-        const finalBookingData = {
-          ...current,
-          contact: { name, email, phone },
-          tourTitle: currentTour.title,
-          calendar: currentTour.calendar || "boat1",
-          total: total,
-          sumup_id: checkout.id
-        };
-        localStorage.setItem("pending_booking", JSON.stringify(finalBookingData));
+        // Save local backup just in case
+        localStorage.setItem("pending_booking_id", eventId);
+        localStorage.setItem("pending_booking_data", JSON.stringify(draftBookingData));
 
         window.location.href = checkout.hosted_checkout_url;
       } else {
-        console.error("Server Proxy Error:", checkout);
+        console.error("SumUp Proxy Error:", checkout);
         throw new Error(checkout.error || checkout.message || "Failed to create checkout session");
       }
 
