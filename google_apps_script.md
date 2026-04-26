@@ -210,8 +210,12 @@ function handleCreateBooking(data) {
   var lang = data.lang || 'english';
   var t = getTranslations(lang);
   
-  // SOLAMENTE ENVIAR EMAIL Y AÑADIR GUEST SI ESTÁ PAGADO
-  if (status === 'PAID') {
+  // LOG DE SEGURIDAD
+  Logger.log("Procesando reserva. Estado recibido: " + status);
+  
+  // SOLAMENTE ENVIAR EMAIL Y AÑADIR GUEST SI ESTÁ PAGADO EXPLÍCITAMENTE
+  if (status === 'PAID' || status === 'paid') {
+    Logger.log("Procediendo con envío de emails (Pago Confirmado)");
     if (data.email) {
       try {
         event.addGuest(data.email);
@@ -227,8 +231,7 @@ function handleCreateBooking(data) {
       event.setDescription(description + errorMsg);
     }
   } else {
-    // Si es pendiente, avisar solo al dueño por email interno (opcional)
-    // sendAdminPendingAlert(data);
+    Logger.log("Reserva en espera de pago. No se envían emails al cliente.");
   }
 
   return { success: true, eventId: event.getId(), status: status };
