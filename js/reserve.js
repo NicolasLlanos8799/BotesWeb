@@ -182,23 +182,7 @@ export function initReservePage() {
     const total = currentTour.price + tapasTotal;
 
     try {
-      // 1. Send DRAFT booking to Google (Pending Payment)
-      const draftPayload = {
-        ...current,
-        payment_status: "PENDING",
-        name, email, phone,
-        tour: currentTour.title,
-        calendar: currentTour.calendar || "boat1"
-      };
-
-      console.log("Creating Draft Booking...");
-      await fetch("/api/proxy?action=createBooking", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(draftPayload)
-      }).catch(err => console.warn("Draft capture failed (ignoring):", err));
-
-      // 2. Prepare SumUp Checkout data
+      // 1. Prepare SumUp Checkout data
       const checkoutData = {
         amount: total,
         currency: "DKK",

@@ -179,30 +179,27 @@ function handleCreateBooking(data) {
                     "Email: " + (data.email || 'N/A') + "\n" +
                     "Phone: " + (data.phone || 'N/A');
 
-  var titlePrefix = data.payment_status === "PAID" ? "✅ RESERVA CONFIRMADA: " : "⏳ PENDIENTE PAGO: ";
-  var event = calendar.createEvent(titlePrefix + data.tour, start, end, {
+  var title = "Reserva: " + data.tour;
+  var event = calendar.createEvent(title, start, end, {
     description: description
   });
   
-  // Only send emails if PAID
-  if (data.payment_status === "PAID") {
-    var lang = data.lang || 'english';
-    var t = getTranslations(lang);
-    
-    if (data.email) {
-      try {
-        event.addGuest(data.email);
-      } catch (e) {
-        Logger.log("Could not add guest: " + e.toString());
-      }
-    }
-    
+  var lang = data.lang || 'english';
+  var t = getTranslations(lang);
+  
+  if (data.email) {
     try {
-      sendBookingEmails(data, t, start, end);
+      event.addGuest(data.email);
     } catch (e) {
-      var errorMsg = "\n\n[ERROR DE EMAIL]: " + e.toString();
-      event.setDescription(description + errorMsg);
+      Logger.log("Could not add guest: " + e.toString());
     }
+  }
+  
+  try {
+    sendBookingEmails(data, t, start, end);
+  } catch (e) {
+    var errorMsg = "\n\n[ERROR DE EMAIL]: " + e.toString();
+    event.setDescription(description + errorMsg);
   }
 
   return { success: true, eventId: event.getId(), status: data.payment_status };

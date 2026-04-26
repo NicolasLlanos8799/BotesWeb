@@ -97,7 +97,7 @@ export default async function handler(req, res) {
         const details = await detailsResponse.json();
 
         // Call Google Apps Script to confirm the booking
-        const gasResponse = await fetch(`https://seaduced.dk/api/proxy?action=createBooking`, {
+        const gasResponse = await fetch(`https://botes-web.vercel.app/api/proxy?action=createBooking`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -105,8 +105,6 @@ export default async function handler(req, res) {
              payment_status: "PAID",
              sumup_checkout_id: checkoutId,
              checkout_reference: details.checkout_reference,
-             // We try to get as much as we can from the description or reference if possible
-             // but ideally the draft was already created in GAS.
           })
         });
 
