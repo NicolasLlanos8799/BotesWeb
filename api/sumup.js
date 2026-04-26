@@ -80,34 +80,46 @@ export default async function handler(req, res) {
 
     if (action === "webhook") {
       const event = req.body;
-      console.log("Webhook Received:", event.event_type, event.id);
+      console.log("Webhook Received:", JSON.stringify(event));
 
-      if (event.event_type === "checkout.paid") {
+      const isPaidEvent = event.event_type === "checkout.paid";
+      const isStatusChangedEvent = event.event_type === "CHECKOUT_STATUS_CHANGED";
+
+      if (isPaidEvent || isStatusChangedEvent) {
         const checkoutId = event.id;
-        console.log("Processing Paid Webhook for Checkout:", checkoutId);
+        console.log("Processing Webhook for Checkout ID:", checkoutId);
 
-        // Notify GAS directly from here
-        // We'll need the reference or metadata to know who the customer is
-        // Note: SumUp webhooks don't send the full custom data, so we might need to 
-        // fetch the checkout details first to get the checkout_reference.
-        
+        // ALWAYS verify the status before confirming in Google
         const detailsResponse = await fetch(`${SUMUP_API_BASE}/v0.1/checkouts/${checkoutId}`, {
           method: "GET",
           headers: { "Authorization": `Bearer ${ACCESS_TOKEN}` }
         });
+        
+        if (!detailsResponse.ok) {
+          console.error("Webhook: Failed to fetch checkout details for verification.");
+          return res.status(200).json({ received: true, warning: "Verification failed" });
+        }
+
         const details = await detailsResponse.json();
+        console.log("Checkout Status Verified:", details.status);
 
-        // Call Google Apps Script to confirm the booking
-        const gasResponse = await fetch(`https://botes-web.vercel.app/api/proxy?action=confirmBooking`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-             eventId: details.checkout_reference,
-             sumup_checkout_id: checkoutId
-          })
-        });
+        if (details.status === "PAID") {
+          // Now we can safely confirm in GAS
+          // We call GAS directly to avoid the "Unauthorized Origin" shield of our own proxy
+          const GAS_URL = process.env.GAS_URL;
+          const gasResponse = await fetch(`${GAS_URL}?action=confirmBooking`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+               eventId: details.checkout_reference,
+               sumup_checkout_id: checkoutId
+            })
+          });
 
-        console.log("Webhook: GAS confirmation status", gasResponse.status);
+          console.log("Webhook: GAS confirmation status", gasResponse.status);
+        } else {
+          console.log("Webhook: Checkout status is not PAID yet. Skipping GAS update.");
+        }
       }
 
       return res.status(200).json({ received: true });
