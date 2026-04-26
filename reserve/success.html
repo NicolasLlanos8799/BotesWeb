@@ -88,7 +88,17 @@
         <div id="status-icon" class="loading-icon"></div>
         <h1 id="status-title">Confirming your booking...</h1>
         <p id="status-text" class="status-message">Please wait while we finalize your payment and reservation details. Do not close this window.</p>
+        
+        <!-- Reservation Summary (Hidden by default) -->
+        <div id="reservation-summary" style="display: none; margin: 2rem 0; padding: 1.5rem; background: #fdfaf3; border: 1px solid #f1e4c8; border-radius: 16px; text-align: left;">
+            <h3 style="font-family: var(--ff-serif); color: #c9a55c; margin-bottom: 1rem; font-size: 1.3rem; border-bottom: 1px solid #f1e4c8; padding-bottom: 0.5rem;">Reservation Summary</h3>
+            <div id="summary-content" style="display: grid; gap: 0.8rem; font-size: 0.95rem; color: var(--clr-navy);">
+                <!-- Dynamic Content Here -->
+            </div>
+        </div>
+
         <div id="action-container" style="display: none;">
+            <p style="font-size: 0.9rem; color: var(--clr-text-mid); margin-bottom: 1.5rem;">A confirmation email with an .ics calendar invite has been sent to your inbox.</p>
             <a href="/" class="btn-home">Return to Homepage</a>
         </div>
     </div>

@@ -64,12 +64,31 @@ document.addEventListener("DOMContentLoaded", async () => {
   function showSuccess(tourTitle = "") {
     if (iconEl) {
       iconEl.className = "success-icon";
-      iconEl.innerHTML = '<svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+      iconEl.innerHTML = '<svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="#2e7d32" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
     }
     if (titleEl) titleEl.textContent = "Booking Confirmed!";
+    
+    // Populate Detailed Summary if data is available
+    const summaryContainer = document.getElementById("reservation-summary");
+    const summaryContent = document.getElementById("summary-content");
+    const bookingDataRaw = localStorage.getItem("pending_booking_data");
+    const data = bookingDataRaw ? JSON.parse(bookingDataRaw) : null;
+
+    if (data && summaryContainer && summaryContent) {
+      summaryContainer.style.display = "block";
+      summaryContent.innerHTML = `
+        <div><strong>Experience:</strong> ${data.tourTitle || data.tour}</div>
+        <div><strong>Date:</strong> ${data.date}</div>
+        <div><strong>Time:</strong> ${data.time}</div>
+        <div><strong>Participants:</strong> ${data.qty} persona(s)</div>
+        ${data.tapas && data.tapas !== "0" ? `<div><strong>Extras:</strong> ${data.tapas} Tapas Package</div>` : ''}
+      `;
+    }
+
     if (textEl) textEl.textContent = tourTitle 
-      ? `Success! Your payment for "${tourTitle}" has been processed. You will receive a confirmation email shortly.`
-      : "Success! Your payment has been processed and your reservation is now finalized. Check your email for details.";
+      ? `Success! Your booking for "${tourTitle}" is finalized.`
+      : "Success! Your payment has been processed and your reservation is now finalized.";
+    
     if (actionEl) actionEl.style.display = "block";
   }
 

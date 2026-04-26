@@ -182,12 +182,11 @@ export function initReservePage() {
     const total = currentTour.price + tapasTotal;
 
     try {
-      // 1. Prepare SumUp Checkout data with Metadata (The "Data Backpack")
       const checkoutData = {
         amount: total,
         currency: "DKK",
         checkout_reference: `RESERVE-${Date.now()}-${name.substring(0,3).toUpperCase()}`,
-        return_url: `${window.location.origin}/reserve/success.html`,
+        return_url: `${window.location.origin}/api/webhook`, // El servidor procesa el aviso primero
         description: `Seaduced Experience: ${currentTour.title}`,
         metadata: {
           name: String(name),

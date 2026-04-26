@@ -45,7 +45,6 @@ export default async function handler(req, res) {
           description,
           metadata,
           merchant_code: process.env.SUMUP_MERCHANT_CODE,
-          webhook_url: `https://botes-web.vercel.app/api/webhook`,
           hosted_checkout: {
             enabled: true
           }
