@@ -190,18 +190,18 @@ export function initReservePage() {
         return_url: `${window.location.origin}/reserve/success.html`,
         description: `Seaduced Experience: ${currentTour.title}`,
         metadata: {
-          name: name,
-          email: email,
-          phone: phone,
-          tour: currentTour.title,
-          tourTitle: currentTour.title,
-          calendar: currentTour.calendar || "boat1",
-          date: current.date,
-          time: current.time,
-          qty: current.qty,
-          lang: current.lang,
-          tapas: tapasTotal > 0 ? (tapasTotal / 350) : 0, // Store quantity of tapas if any
-          total: total
+          name: String(name),
+          email: String(email),
+          phone: String(phone),
+          tour: String(currentTour.title),
+          tourTitle: String(currentTour.title),
+          calendar: String(currentTour.calendar || "boat1"),
+          date: String(current.date),
+          time: String(current.time),
+          qty: String(current.qty),
+          lang: String(current.lang),
+          tapas: String(tapasTotal > 0 ? (tapasTotal / 350) : "0"), 
+          total: String(total)
         }
       };
 
