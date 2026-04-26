@@ -210,16 +210,16 @@ function handleCreateBooking(data) {
   var lang = data.lang || 'english';
   var t = getTranslations(lang);
   
-  if (data.email) {
-    try {
-      event.addGuest(data.email);
-    } catch (e) {
-      Logger.log("Could not add guest: " + e.toString());
-    }
-  }
-  
-  // SOLAMENTE ENVIAR EMAIL SI ESTÁ PAGADO
+  // SOLAMENTE ENVIAR EMAIL Y AÑADIR GUEST SI ESTÁ PAGADO
   if (status === 'PAID') {
+    if (data.email) {
+      try {
+        event.addGuest(data.email);
+      } catch (e) {
+        Logger.log("Could not add guest: " + e.toString());
+      }
+    }
+
     try {
       sendBookingEmails(data, t, start, end);
     } catch (e) {
@@ -282,7 +282,15 @@ function handleConfirmBooking(data) {
   event.setTitle(event.getTitle().replace("[PENDIENTE] ", "Reserva: "));
   event.setColor(CalendarApp.EventColor.PALE_GOLD);
   
-  // Send emails
+  // Add guest and send emails
+  if (bookingData.email) {
+    try {
+      event.addGuest(bookingData.email);
+    } catch (e) {
+      Logger.log("Could not add guest on confirmation: " + e.toString());
+    }
+  }
+
   var lang = bookingData.lang || 'english';
   var t = getTranslations(lang);
   var start = event.getStartTime();
