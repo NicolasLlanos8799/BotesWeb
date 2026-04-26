@@ -4,7 +4,7 @@
  * Instructions:
  * 1. Go to https://script.google.com
  * 2. Click "Manage Deployments" -> Pencil Icon -> Version: "New Version" -> "Deploy".
- * 3. Script URL: https://script.google.com/macros/s/AKfycbwaHKlW69_xWx15WJXDh9xtOb_Tq8RGeXVZth0r5XsoWFbkQZ6HTWyeuRfTUbfNUz5kSw/exec
+ * 3. Script URL: [YOUR_DEPLOYED_URL_HERE] (Store this in GAS_URL environment variable)
  * 4. This version supports monthly pre-fetching for instant UI updates.
  */
 

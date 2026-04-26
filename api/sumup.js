@@ -77,6 +77,45 @@ export default async function handler(req, res) {
       return res.status(response.status).json(data);
     }
 
+    if (action === "webhook") {
+      const event = req.body;
+      console.log("Webhook Received:", event.event_type, event.id);
+
+      if (event.event_type === "checkout.paid") {
+        const checkoutId = event.id;
+        console.log("Processing Paid Webhook for Checkout:", checkoutId);
+
+        // Notify GAS directly from here
+        // We'll need the reference or metadata to know who the customer is
+        // Note: SumUp webhooks don't send the full custom data, so we might need to 
+        // fetch the checkout details first to get the checkout_reference.
+        
+        const detailsResponse = await fetch(`${SUMUP_API_BASE}/v0.1/checkouts/${checkoutId}`, {
+          method: "GET",
+          headers: { "Authorization": `Bearer ${ACCESS_TOKEN}` }
+        });
+        const details = await detailsResponse.json();
+
+        // Call Google Apps Script to confirm the booking
+        const gasResponse = await fetch(`https://seaduced.dk/api/proxy?action=createBooking`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+             tour: details.description,
+             payment_status: "PAID",
+             sumup_checkout_id: checkoutId,
+             checkout_reference: details.checkout_reference,
+             // We try to get as much as we can from the description or reference if possible
+             // but ideally the draft was already created in GAS.
+          })
+        });
+
+        console.log("Webhook: GAS response status", gasResponse.status);
+      }
+
+      return res.status(200).json({ received: true });
+    }
+
     return res.status(400).json({ error: "Invalid action" });
 
   } catch (error) {
