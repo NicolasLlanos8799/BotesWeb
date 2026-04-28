@@ -1,6 +1,6 @@
 
 export default async function handler(req, res) {
-  Pero
+
   const SUMUP_API_BASE = "https://api.sumup.com";
   const ACCESS_TOKEN = process.env.SUMUP_ACCESS_TOKEN;
   const GAS_URL = process.env.GAS_URL;
@@ -13,7 +13,9 @@ export default async function handler(req, res) {
 
   try {
     const event = req.body;
-    console.log("SUMUP WEBHOOK RECEIVED:", JSON.stringify(event));
+    console.log("----- WEBHOOK START -----");
+    console.log("TIME:", new Date().toISOString());
+    console.log("EVENT:", JSON.stringify(event));
 
     // Identificar el ID del checkout (puede venir de diferentes formas según el evento)
     const checkoutId = event.id || (event.data && event.data.id);
