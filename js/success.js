@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", async () => {
   console.log("Success Page: Logic initiated");
   const params = new URLSearchParams(window.location.search);
-  const checkoutId = params.get("checkout_id") || params.get("s_id"); 
-  
+  const checkoutId = params.get("checkout_id") || params.get("s_id");
+
   const titleEl = document.getElementById("status-title");
   const textEl = document.getElementById("status-text");
   const iconEl = document.getElementById("status-icon");
@@ -14,46 +14,33 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   try {
-    // 1. Verify status with SumUp through our proxy
     textEl.textContent = "Verifying payment with SumUp...";
     const response = await fetch(`/api/sumup?action=getCheckoutStatus&checkout_id=${checkoutId}`);
     if (!response.ok) throw new Error("Failed to verify payment status with SumUp.");
-    
+
     const checkout = await response.json();
 
     if (checkout.status === "PAID") {
-      textEl.textContent = "Payment Verified. Ensuring booking is created...";
-      
-      // Use the hardened fallback endpoint — it verifies with SumUp and GAS deduplicates
-      try {
-        const bookingDataRaw = localStorage.getItem("pending_booking_data");
-        const bookingData = bookingDataRaw ? JSON.parse(bookingDataRaw) : null;
+      textEl.textContent = "Payment verified. Finalizing booking...";
 
-        const bookingRes = await fetch("/api/create-booking-from-payment", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ 
-            checkout_id: checkoutId,
-            metadata: bookingData // Enviamos la info como respaldo
-          })
-        });
-        const bookingResult = await bookingRes.json();
-        console.log("Success page: Fallback booking result:", JSON.stringify(bookingResult));
-      } catch (bookingErr) {
-        // Webhook may have already created it — don't block success
-        console.error("Success page: Fallback booking error:", bookingErr);
+      const bookingRes = await fetch("/api/create-booking-from-payment", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ checkout_id: checkoutId })
+      });
+      const bookingResult = await bookingRes.json();
+      console.log("Success page: booking result:", JSON.stringify(bookingResult));
+
+      if (bookingRes.ok && bookingResult.booking_created === true) {
+        showSuccess(checkout.metadata?.tour || "your experience");
+      } else {
+        showPartialSuccess("Payment received. Finalizing booking... please wait and refresh in a moment.");
       }
-
-      const bookingDataRaw = localStorage.getItem("pending_booking_data");
-      const bookingData = checkout.metadata || (bookingDataRaw ? JSON.parse(bookingDataRaw) : null);
-      showSuccess(bookingData?.tourTitle || bookingData?.tour || "your experience");
-      localStorage.removeItem("pending_booking_data");
     } else if (checkout.status === "PENDING") {
-       showError("Your payment is still pending in SumUp. Please wait and refresh.");
+      showError("Your payment is still pending in SumUp. Please wait and refresh.");
     } else {
       showError(`Payment not successful (Status: ${checkout.status}).`);
     }
-
   } catch (error) {
     console.error("Success page error:", error);
     showError("Could not finalize reservation with Google: " + error.message);
@@ -65,28 +52,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       iconEl.innerHTML = '<svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="#2e7d32" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
     }
     if (titleEl) titleEl.textContent = "Booking Confirmed!";
-    
-    // Populate Detailed Summary if data is available
-    const summaryContainer = document.getElementById("reservation-summary");
-    const summaryContent = document.getElementById("summary-content");
-    const bookingDataRaw = localStorage.getItem("pending_booking_data");
-    const data = bookingDataRaw ? JSON.parse(bookingDataRaw) : null;
 
-    if (data && summaryContainer && summaryContent) {
-      summaryContainer.style.display = "block";
-      summaryContent.innerHTML = `
-        <div><strong>Experience:</strong> ${data.tourTitle || data.tour}</div>
-        <div><strong>Date:</strong> ${data.date}</div>
-        <div><strong>Time:</strong> ${data.time}</div>
-        <div><strong>Participants:</strong> ${data.qty} persona(s)</div>
-        ${data.tapas && data.tapas !== "0" ? `<div><strong>Extras:</strong> ${data.tapas} Tapas Package</div>` : ''}
-      `;
-    }
-
-    if (textEl) textEl.textContent = tourTitle 
+    if (textEl) textEl.textContent = tourTitle
       ? `Success! Your booking for "${tourTitle}" is finalized.`
       : "Success! Your payment has been processed and your reservation is now finalized.";
-    
+
     if (actionEl) actionEl.style.display = "block";
   }
 
