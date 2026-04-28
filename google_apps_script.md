@@ -121,23 +121,24 @@ function handleCreateBooking(data) {
   var start = new Date(dateParts[0], dateParts[1]-1, dateParts[2], timeParts[0], timeParts[1]);
   var end = new Date(start.getTime() + durationH * 60 * 60 * 1000);
 
-  // 3. Formatear datos
+  // 3. Formatear datos (Limpio y profesional)
   var status = data.payment_status || 'PAID';
   var title = "Reserva: " + (data.name || 'Cliente');
   
   var description = 
-    "Status: " + status + "\n" +
-    "SumUp ID: " + (data.sumup_checkout_id || "N/A") + "\n" +
-    "Tour: " + tour + "\n" +
-    "Date: " + data.date + "\n" +
-    "Time: " + (data.time || "N/A") + "\n" +
-    "Passengers: " + (data.qty || "N/A") + "\n" +
-    "Language: " + (data.lang || "N/A") + "\n" +
-    "Extras: " + (data.tapas && data.tapas != "0" ? data.tapas + " Tapas/Charcuterie" : "None") + "\n\n" +
-    "--- Customer Info ---\n" +
+    "✨ " + tour.toUpperCase() + "\n" +
+    "📅 " + data.date + " | 🕒 " + (data.time || "N/A") + "\n" +
+    "👥 Passengers: " + (data.qty || "N/A") + "\n" +
+    "🌍 Language: " + (data.lang || "N/A") + "\n" +
+    "🍷 Extras: " + (data.tapas && data.tapas != "0" ? data.tapas + " Tapas/Charcuterie" : "None") + "\n\n" +
+    "👤 CONTACT INFO\n" +
     "Name: " + (data.name || "N/A") + "\n" +
     "Email: " + (data.email || "N/A") + "\n" +
-    "Phone: " + (data.phone || "N/A");
+    "Phone: " + (data.phone || "N/A") + "\n" +
+    "──────────────────────────\n" +
+    "SumUp ID: " + (data.sumup_checkout_id || "N/A") + "\n" +
+    "Status: " + status;
+
 
   // 4. Crear evento directamente en Dorado
   var event = calendar.createEvent(title, start, end, {
