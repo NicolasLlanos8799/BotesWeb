@@ -22,34 +22,32 @@ document.addEventListener("DOMContentLoaded", async () => {
     const checkout = await response.json();
 
     if (checkout.status === "PAID") {
-      textEl.textContent = "Payment Verified. Synchronizing with Google Calendar...";
+      textEl.textContent = "Payment Verified. Ensuring booking is created...";
       
-      // 2. Retrieve booking data from metadata (SumUp) or localStorage
-      const bookingDataRaw = localStorage.getItem("pending_booking_data");
-      const bookingData = checkout.metadata || (bookingDataRaw ? JSON.parse(bookingDataRaw) : null);
+      // Use the hardened fallback endpoint — it verifies with SumUp and GAS deduplicates
+      try {
+        const bookingDataRaw = localStorage.getItem("pending_booking_data");
+        const bookingData = bookingDataRaw ? JSON.parse(bookingDataRaw) : null;
 
-      if (bookingData) {
-        // 3. Create the booking for the first time (PAID)
-        const gasResponse = await fetch("/api/proxy?action=createBooking", {
+        const bookingRes = await fetch("/api/create-booking-from-payment", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-             ...bookingData,
-             payment_status: "PAID",
-             sumup_checkout_id: checkoutId
+          body: JSON.stringify({ 
+            checkout_id: checkoutId,
+            metadata: bookingData // Enviamos la info como respaldo
           })
         });
-
-        if (gasResponse.ok) {
-          showSuccess(bookingData.tourTitle || "your experience");
-          localStorage.removeItem("pending_booking_data");
-        } else {
-          const gasError = await gasResponse.text();
-          throw new Error("Google Script Error: " + gasError);
-        }
-      } else {
-        showSuccess(); // Basic success if no data found
+        const bookingResult = await bookingRes.json();
+        console.log("Success page: Fallback booking result:", JSON.stringify(bookingResult));
+      } catch (bookingErr) {
+        // Webhook may have already created it — don't block success
+        console.error("Success page: Fallback booking error:", bookingErr);
       }
+
+      const bookingDataRaw = localStorage.getItem("pending_booking_data");
+      const bookingData = checkout.metadata || (bookingDataRaw ? JSON.parse(bookingDataRaw) : null);
+      showSuccess(bookingData?.tourTitle || bookingData?.tour || "your experience");
+      localStorage.removeItem("pending_booking_data");
     } else if (checkout.status === "PENDING") {
        showError("Your payment is still pending in SumUp. Please wait and refresh.");
     } else {

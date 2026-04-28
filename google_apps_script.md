@@ -17,8 +17,11 @@ function doGet(e) {
 function doPost(e) {
   try {
     var data = JSON.parse(e.postData.contents);
-    var action = e.parameter.action;
+    var action = data.action; // Read from body, NOT e.parameter (unreliable in POST)
     var result;
+
+    Logger.log("ACTION: " + action);
+    Logger.log("DATA: " + JSON.stringify(data));
 
     if (action === 'createBooking') {
       result = handleCreateBooking(data);

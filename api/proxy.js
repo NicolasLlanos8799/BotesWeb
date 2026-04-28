@@ -35,9 +35,8 @@ export default async function handler(req, res) {
 
   // --- END OF SECURITY SHIELD ---
 
-  const query = new URLSearchParams(req.query).toString();
-  const targetUrl = `${GAS_URL}?${query}`;
-
+  // --- BUILD TARGET URL AND OPTIONS ---
+  let targetUrl;
   const fetchOptions = {
     method: req.method,
     headers: {
@@ -47,17 +46,32 @@ export default async function handler(req, res) {
     redirect: 'follow'
   };
 
-  if (req.method === 'POST' && req.body) {
+  if (req.method === 'POST') {
+    // For POST requests: inject `action` into the body (GAS cannot reliably read query params in POST)
+    targetUrl = GAS_URL;
     fetchOptions.headers['Content-Type'] = 'application/json';
-    fetchOptions.body = typeof req.body === 'string' ? req.body : JSON.stringify(req.body);
+    
+    const bodyData = typeof req.body === 'string' ? JSON.parse(req.body) : (req.body || {});
+    fetchOptions.body = JSON.stringify({
+      action,
+      ...bodyData
+    });
+    
+    console.log("Proxy: POST action injected into body:", action);
+    console.log("Proxy: POST body:", fetchOptions.body);
+  } else {
+    // For GET requests: use query params as before (GAS reads e.parameter fine in GET)
+    const query = new URLSearchParams(req.query).toString();
+    targetUrl = `${GAS_URL}?${query}`;
   }
 
   try {
-    console.log("Proxy: Forwarding to GAS:", targetUrl);
+    console.log("Proxy: Forwarding to GAS:", targetUrl, "Method:", req.method);
     const response = await fetch(targetUrl, fetchOptions);
     const body = await response.text();
     
     console.log("Proxy: GAS Response Status:", response.status);
+    console.log("Proxy: GAS Response Body:", body.substring(0, 500));
     
     // If GAS returns an error page (HTML) instead of JSON
     if (body.includes("<!DOCTYPE html>") && response.status !== 200) {

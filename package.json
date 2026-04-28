@@ -1,0 +1,10 @@
+{
+  "name": "botes-web",
+  "version": "1.0.0",
+  "description": "Seaduced Experience Booking System",
+  "main": "index.html",
+  "type": "module",
+  "devDependencies": {
+    "vercel": "^52.0.0"
+  }
+}

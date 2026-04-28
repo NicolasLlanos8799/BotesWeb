@@ -7,7 +7,6 @@ export default async function handler(req, res) {
   
   console.log("SumUp Token Presence:", !!ACCESS_TOKEN);
 
-  // Domain Lockdown (Optional but recommended)
   const origin = req.headers.origin || "";
   const referer = req.headers.referer || "";
   const allowedDomains = ["vercel.app", "localhost", "127.0.0.1", "seaduced.dk"];
@@ -86,14 +85,13 @@ export default async function handler(req, res) {
         const checkoutId = event.id;
         console.log("Processing Webhook for Checkout ID:", checkoutId);
 
-        // ALWAYS verify the status before confirming in Google
         const detailsResponse = await fetch(`${SUMUP_API_BASE}/v0.1/checkouts/${checkoutId}`, {
           method: "GET",
           headers: { "Authorization": `Bearer ${ACCESS_TOKEN}` }
         });
         
         if (!detailsResponse.ok) {
-          console.error("Webhook: Failed to fetch checkout details for verification.");
+          console.error("Webhook: Failed to fetch checkout details.");
           return res.status(200).json({ received: true, warning: "Verification failed" });
         }
 
@@ -101,25 +99,28 @@ export default async function handler(req, res) {
         console.log("Checkout Status Verified:", details.status);
 
         if (details.status === "PAID") {
-          // Now we create the booking for the first time in Google Calendar
           const GAS_URL = process.env.GAS_URL;
-          
-          // Use metadata if available, or fallback to reference info
-          const bookingData = {
-            ...(details.metadata || {}),
-            payment_status: "PAID",
-            sumup_checkout_id: checkoutId
-          };
+          const metadata = details.metadata || {};
 
-          const gasResponse = await fetch(`${GAS_URL}?action=createBooking`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(bookingData)
-          });
+          if (metadata.date && metadata.time) {
+            const bookingData = {
+              ...metadata,
+              payment_status: "PAID",
+              sumup_checkout_id: checkoutId
+            };
 
-          console.log("Webhook: GAS creation status", gasResponse.status);
-        } else {
-          console.log("Webhook: Checkout status is not PAID yet. Skipping GAS creation.");
+            console.log("Webhook: BOOKING DATA:", JSON.stringify(bookingData));
+            const gasResponse = await fetch(GAS_URL, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ action: "createBooking", ...bookingData })
+            });
+
+            const gasResult = await gasResponse.text();
+            console.log("Webhook: GAS response", gasResponse.status, gasResult);
+          } else {
+            console.warn("Webhook: Missing date/time in metadata, skipping GAS");
+          }
         }
       }
 
