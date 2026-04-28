@@ -43,10 +43,9 @@ function doPost(e) {
 function getCalendar(name) {
   var map = {
     'boat1': 'c_557550302cc8897c5553e18086054817117c2f829ec7687980315a6b0c2a297e@group.calendar.google.com',
-    'boat2': 'c_0df697c1d769c3a37b60706212e3e970a66d039f37c3da43685f67a211470550@group.calendar.google.com'
+    'boat2': 'c_59aeb9f9f60bc94ea746ef74577884489a263673b22cf337f71f654f15f02bc0@group.calendar.google.com'
   };
-  var id = map[name] || map['boat1'];
-  return CalendarApp.getCalendarById(id);
+  return CalendarApp.getCalendarById(map[name] || map['boat1']);
 }
 
 /**
