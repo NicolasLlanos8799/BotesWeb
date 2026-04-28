@@ -186,7 +186,7 @@ export function initReservePage() {
         amount: total,
         currency: "DKK",
         checkout_reference: `RESERVE-${Date.now()}-${name.substring(0,3).toUpperCase()}`,
-        return_url: `${window.location.origin}/api/webhook`, // El servidor procesa el aviso primero
+        return_url: `${window.location.origin}/reserve/success.html`, // El cliente vuelve aquí de inmediato (UX)
         description: `Seaduced Experience: ${currentTour.title}`,
         metadata: {
           name: String(name),
