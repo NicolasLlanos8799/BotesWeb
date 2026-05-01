@@ -24,7 +24,7 @@ export const TOURS = {
     title: "Private 3-Hour Extended (Reffen)",
     price: 4299,
     duration: "3 Hours",
-    img: "/assets/images/reffen-3h/tour_sunset_boat.png",
+    img: "/assets/images/reffen-3h/bote-reffen.png",
     url: "/experiences/private-boat-copenhagen-3h/",
     calendar: "boat1",
   },
