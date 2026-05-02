@@ -74,21 +74,29 @@
         </header>
 
         <!-- PREMIUM MOSAIC GALLERY (Desktop Only) -->
+        <!-- PREMIUM CAROUSEL GALLERY (Desktop Only) -->
         <section class="experience-gallery reveal" aria-label="Tour gallery">
-          <div class="experience-gallery__lead">
-            <img src="/assets/images/wine-tour/vinos.png"
-              alt="Private boat tour through the canals of Copenhagen" width="960" height="600" loading="lazy" />
-          </div>
-          <div class="experience-gallery__mosaic">
-            <div class="experience-gallery__item">
-              <img src="/assets/images/general/private-boat-copenhagen-sunset-wide.png" alt="Guests enjoying the boat at sunset"
-                width="960" height="600" loading="lazy" />
+          <div class="experience-gallery__track">
+            <div class="experience-gallery__slide">
+              <img src="/assets/images/wine-tour/vinos.png" alt="Private boat tour through the canals of Copenhagen"
+                width="1000" height="450" loading="lazy" />
             </div>
-            <div class="experience-gallery__item">
-              <img src="/assets/images/general/private-boat-copenhagen-group-wide.png"
-                alt="Guests relaxing during the tour" width="960" height="600" loading="lazy" />
+            <div class="experience-gallery__slide">
+              <img src="/assets/images/general/private-boat-copenhagen-sunset-wide.png" alt="Sunset Wine Tasting"
+                width="1000" height="450" loading="lazy" />
+            </div>
+            <div class="experience-gallery__slide">
+              <img src="/assets/images/general/private-boat-copenhagen-group-wide.png" alt="Premium Service"
+                width="1000" height="450" loading="lazy" />
             </div>
           </div>
+          <button class="experience-gallery__nav experience-gallery__nav--prev" aria-label="Previous photo">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+          </button>
+          <button class="experience-gallery__nav experience-gallery__nav--next" aria-label="Next photo">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </button>
+          <div class="experience-gallery__dots"></div>
         </section>
 
         <!-- MOBILE GALLERY (Mobile Only) -->

@@ -18,6 +18,7 @@ export function initExperiencePage() {
   initBookingPanel();
   initStickyCta();
   initGalleryDots();
+  initDesktopCarousel();
 }
 
 function initAccordion() {
@@ -718,5 +719,53 @@ function initGalleryDots() {
         dot.classList.toggle('active', i === index);
       });
     }, 50);
+  }, { passive: true });
+}
+
+function initDesktopCarousel() {
+  const container = document.querySelector('.experience-gallery');
+  if (!container) return;
+
+  const track = container.querySelector('.experience-gallery__track');
+  const prevBtn = container.querySelector('.experience-gallery__nav--prev');
+  const nextBtn = container.querySelector('.experience-gallery__nav--next');
+  const dotsContainer = container.querySelector('.experience-gallery__dots');
+  const slides = container.querySelectorAll('.experience-gallery__slide');
+
+  if (!track || !slides.length) return;
+
+  let currentIndex = 0;
+
+  // Create dots
+  slides.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.className = `experience-gallery__dot ${i === 0 ? 'active' : ''}`;
+    dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+    dot.addEventListener('click', () => scrollToSlide(i));
+    dotsContainer.appendChild(dot);
+  });
+
+  const dots = dotsContainer.querySelectorAll('.experience-gallery__dot');
+
+  function scrollToSlide(index) {
+    const slideWidth = slides[0].offsetWidth;
+    track.scrollTo({
+      left: index * slideWidth,
+      behavior: 'smooth'
+    });
+  }
+
+  function updateActiveState() {
+    const slideWidth = slides[0].offsetWidth;
+    currentIndex = Math.round(track.scrollLeft / slideWidth);
+    dots.forEach((dot, i) => dot.classList.toggle('active', i === currentIndex));
+  }
+
+  if (prevBtn) prevBtn.addEventListener('click', () => scrollToSlide(currentIndex - 1));
+  if (nextBtn) nextBtn.addEventListener('click', () => scrollToSlide(currentIndex + 1));
+
+  track.addEventListener('scroll', () => {
+    window.clearTimeout(track.scrollTimeout);
+    track.scrollTimeout = setTimeout(updateActiveState, 100);
   }, { passive: true });
 }
