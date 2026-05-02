@@ -778,10 +778,10 @@
 
 .booking-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 360px));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 400px));
   justify-content: center;
   gap: var(--space-md);
-  max-width: 1200px;
+  max-width: 1280px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -906,6 +906,10 @@
   height: 100%;
   object-fit: cover;
   transition: transform var(--transition-slow);
+  image-rendering: -webkit-optimize-contrast;
+  backface-visibility: hidden;
+  transform: perspective(1px) translateZ(0);
+  -webkit-font-smoothing: antialiased;
 }
 
 .booking-card:hover .booking-card__img img {
@@ -1205,6 +1209,8 @@
   object-fit: cover;
   image-rendering: -webkit-optimize-contrast;
   display: block;
+  transform: perspective(1px) translateZ(0);
+  -webkit-font-smoothing: antialiased;
 }
 
 .experience-gallery__nav {
