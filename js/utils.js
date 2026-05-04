@@ -33,7 +33,7 @@ export const TOURS = {
     title: "Sea Fortress & Coastal Journey (4-Hour)",
     price: 5999,
     duration: "4 Hours",
-    img: "/assets/images/sea-fortress-4h/tour_trekroner.png",
+    img: "/assets/images/sea-fortress-4h/black-diamond-guests.png",
     url: "/experiences/private-boat-copenhagen-4h/",
     calendar: "boat1",
   },
