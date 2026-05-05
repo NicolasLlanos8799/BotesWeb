@@ -89,7 +89,7 @@ export const TOURS = {
     title: "Floating Wine Tasting Experience",
     price: 3499,
     duration: "2 Hours",
-    img: "/assets/images/wine-tour/vinos.webp",
+    img: "/assets/images/wine-tour/wine-tour-guests.png",
     url: "/experiences/private-boat-copenhagen-wine-tour/",
     maxParticipants: 6,
     calendar: "boat1",
