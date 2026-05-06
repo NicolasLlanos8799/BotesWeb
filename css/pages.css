@@ -3008,7 +3008,7 @@
 
 .reserve-nav {
   background: var(--clr-navy);
-  padding: 0.75rem var(--space-lg);
+  padding: 0.85rem var(--space-lg);
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
