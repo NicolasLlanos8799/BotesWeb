@@ -132,7 +132,7 @@ function initBookingPanel() {
 
   const availabilityButton = document.getElementById("experience-check-availability");
 
-  if (!peopleValueInput || !dateValueInput || !languageValueInput || !availabilityButton) {
+  if (!peopleValueInput || !dateValueInput || !timeValueInput || !languageValueInput || !availabilityButton) {
     return;
   }
 
@@ -735,8 +735,10 @@ function initDesktopCarousel() {
   if (!track || !slides.length) return;
 
   let currentIndex = 0;
+  const totalSlides = slides.length;
 
   // Create dots
+  dotsContainer.innerHTML = ''; // Clear existing
   slides.forEach((_, i) => {
     const dot = document.createElement('button');
     dot.className = `experience-gallery__dot ${i === 0 ? 'active' : ''}`;
@@ -748,24 +750,58 @@ function initDesktopCarousel() {
   const dots = dotsContainer.querySelectorAll('.experience-gallery__dot');
 
   function scrollToSlide(index) {
+    // Clamp index
+    if (index < 0) index = 0;
+    if (index >= totalSlides) index = totalSlides - 1;
+    
+    currentIndex = index;
     const slideWidth = slides[0].offsetWidth;
+    
     track.scrollTo({
-      left: index * slideWidth,
+      left: currentIndex * slideWidth,
       behavior: 'smooth'
+    });
+
+    updateDots(currentIndex);
+  }
+
+  function updateDots(index) {
+    dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
+  }
+
+  function handleScrollSync() {
+    const slideWidth = slides[0].offsetWidth;
+    if (slideWidth <= 0) return;
+    
+    const newIndex = Math.round(track.scrollLeft / slideWidth);
+    if (newIndex !== currentIndex) {
+      currentIndex = newIndex;
+      updateDots(currentIndex);
+    }
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      scrollToSlide(currentIndex - 1);
     });
   }
 
-  function updateActiveState() {
-    const slideWidth = slides[0].offsetWidth;
-    currentIndex = Math.round(track.scrollLeft / slideWidth);
-    dots.forEach((dot, i) => dot.classList.toggle('active', i === currentIndex));
+  if (nextBtn) {
+    nextBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      scrollToSlide(currentIndex + 1);
+    });
   }
-
-  if (prevBtn) prevBtn.addEventListener('click', () => scrollToSlide(currentIndex - 1));
-  if (nextBtn) nextBtn.addEventListener('click', () => scrollToSlide(currentIndex + 1));
 
   track.addEventListener('scroll', () => {
     window.clearTimeout(track.scrollTimeout);
-    track.scrollTimeout = setTimeout(updateActiveState, 100);
+    track.scrollTimeout = setTimeout(handleScrollSync, 50);
+  }, { passive: true });
+
+  // Handle window resize
+  window.addEventListener('resize', () => {
+    // Re-align to current slide
+    scrollToSlide(currentIndex);
   }, { passive: true });
 }
