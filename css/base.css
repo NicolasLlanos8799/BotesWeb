@@ -48,9 +48,9 @@
   --fs-h2: var(--fs-xl);
   --fs-h3: var(--fs-lg);
   --fs-label: var(--fs-sm);
-  --fs-hero-title: clamp(3.5rem, 8vw, 4.5rem);
-  --fs-hero-title-mobile: clamp(1.625rem, 8vw, 2rem);
-  --fs-hero-sub: clamp(1.125rem, 2vw, 1.375rem);
+  --fs-hero-title: clamp(3.75rem, 8.57vw, 4.82rem);
+  --fs-hero-title-mobile: clamp(1.73rem, 8.57vw, 2.14rem);
+  --fs-hero-sub: clamp(1.21rem, 2.14vw, 1.47rem);
   --fs-nav: 1.05rem;
   --fs-badge: 0.82rem;
   --fs-tag: 0.75rem;
