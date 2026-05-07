@@ -1,3 +1,5 @@
+import db from "../lib/db.js";
+
 /**
  * Production-Safe Booking Fallback Endpoint
  * 
@@ -48,7 +50,37 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: "Metadata not found" });
     }
 
-    // 3. CREATE booking in GAS (GAS deduplicates via sumup_checkout_id)
+    // 3. CREATE booking in MySQL
+    try {
+      const [result] = await db.execute(
+        `INSERT INTO bookings (tour_id, tour_name, customer_name, customer_email, customer_phone, passengers, booking_date, booking_time, total_price, payment_status, sumup_id, lang) 
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        [
+          metadata.tour || null,
+          metadata.tourTitle || null,
+          metadata.name || null,
+          metadata.email || null,
+          metadata.phone || null,
+          metadata.qty || 1,
+          metadata.date || null,
+          metadata.time || null,
+          metadata.total || 0,
+          "PAID",
+          checkout_id,
+          metadata.lang || 'english'
+        ]
+      );
+      console.log("[FALLBACK] Saved to MySQL. ID:", result.insertId);
+    } catch (dbErr) {
+      // If it fails because of duplicate sumup_id, it's fine
+      if (dbErr.code === 'ER_DUP_ENTRY') {
+        console.log("[FALLBACK] Duplicate entry in MySQL. Skipping insert.");
+      } else {
+        console.error("[FALLBACK] MySQL Error:", dbErr.message);
+      }
+    }
+
+    // 4. CREATE booking in GAS (GAS deduplicates via sumup_checkout_id)
     const bookingData = { ...metadata, payment_status: "PAID", sumup_checkout_id: checkout_id };
     console.log("[FALLBACK] Sending to GAS:", JSON.stringify(bookingData));
 

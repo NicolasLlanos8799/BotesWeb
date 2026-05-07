@@ -11,6 +11,9 @@ function doGet(e) {
   if (action === 'getMonthlyAvailability') {
     return handleGetMonthlyAvailability(e.parameter.calendar, e.parameter.month, e.parameter.year);
   }
+  if (action === 'listAllBookings') {
+    return handleListAllBookings(e.parameter.start, e.parameter.end);
+  }
   return ContentService.createTextOutput("Action not found").setMimeType(ContentService.MimeType.TEXT);
 }
 
@@ -87,6 +90,39 @@ function handleGetMonthlyAvailability(calendarName, month, year) {
   });
   
   return ContentService.createTextOutput(JSON.stringify({ busyDays: Object.keys(busyDays).map(Number) }))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
+/**
+ * Returns all bookings for all calendars in a range
+ */
+function handleListAllBookings(startStr, endStr) {
+  var start = startStr ? new Date(startStr) : new Date(new Date().getFullYear(), 0, 1);
+  var end = endStr ? new Date(endStr) : new Date(new Date().getFullYear(), 11, 31, 23, 59, 59);
+  
+  var calendars = [
+    { id: 'boat1', cal: getCalendar('boat1') },
+    { id: 'boat2', cal: getCalendar('boat2') }
+  ];
+  
+  var allEvents = [];
+  
+  calendars.forEach(function(c) {
+    var events = c.cal.getEvents(start, end);
+    events.forEach(function(e) {
+      allEvents.push({
+        id: e.getId(),
+        calendar: c.id,
+        title: e.getTitle(),
+        description: e.getDescription(),
+        start: e.getStartTime().toISOString(),
+        end: e.getEndTime().toISOString(),
+        color: e.getColor()
+      });
+    });
+  });
+  
+  return ContentService.createTextOutput(JSON.stringify({ events: allEvents }))
     .setMimeType(ContentService.MimeType.JSON);
 }
 

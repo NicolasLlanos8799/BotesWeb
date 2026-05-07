@@ -6,5 +6,8 @@
   "type": "module",
   "devDependencies": {
     "vercel": "^52.0.0"
+  },
+  "dependencies": {
+    "mysql2": "^3.22.3"
   }
 }

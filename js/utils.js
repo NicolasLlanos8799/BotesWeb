@@ -4,7 +4,7 @@ export const TOURS = {
   "book-1h": {
     id: "book-1h",
     title: "City Highlights",
-    price: 2499,
+    price: 10,
     duration: "1 Hour",
     img: "/assets/images/city-highlights/island-brygge-guests.webp",
     url: "/experiences/private-boat-copenhagen/",
@@ -40,7 +40,7 @@ export const TOURS = {
   "book-winter-captain": {
     id: "book-winter-captain",
     title: "Private Boat Tour with Captain",
-    price: 2499,
+    price: 10,
     duration: "1 Hour",
     img: "/assets/images/city-highlights/island-brygge-guests.webp",
     url: "/experiences/private-boat-copenhagen/",
@@ -97,7 +97,7 @@ export const TOURS = {
   "book-10p": {
     id: "book-10p",
     title: "City Highlights (10 Guests)",
-    price: 2999,
+    price: 10,
     duration: "1 Hour",
     img: "/assets/images/city-highlights-10/city-highlights-10.webp",
     url: "/experiences/city-highlights-10-people/",
