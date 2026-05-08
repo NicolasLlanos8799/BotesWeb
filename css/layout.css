@@ -432,3 +432,43 @@
   font-style: italic;
   text-align: center;
 }
+
+@media (max-width: 768px) {
+  /* Use more specific selector to ensure it wins over any other rules */
+  footer .footer-contact-item {
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    text-align: left !important;
+    display: flex !important;
+    width: fit-content !important;
+    margin-inline: auto !important;
+  }
+
+  footer .footer-contact-item svg {
+    margin-top: 6px !important; /* Adjusted for stacking line height */
+    flex-shrink: 0 !important;
+    width: 16px !important;
+    height: 16px !important;
+    display: block !important;
+  }
+
+  footer .footer-contact-item span,
+  footer .footer-contact-item a {
+    text-align: left !important;
+    flex: 0 1 auto;
+  }
+
+  /* Stacking Daily hours on mobile */
+  .footer-hours {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 4px !important;
+  }
+
+  .footer-hours-sep {
+    display: none !important;
+  }
+}
+
+
+
