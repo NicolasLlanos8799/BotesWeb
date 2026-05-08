@@ -96,6 +96,14 @@ function handleGetMonthlyAvailability(calendarName, month, year) {
  */
 function handleCreateBooking(data) {
   var calendar = getCalendar(data.calendar || 'boat1');
+
+  // Input validation (avoid .split crashes and silent failures)
+  if (!data || !data.date || !data.time) {
+    return { success: false, error: "Missing required date/time" };
+  }
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(data.date) || !/^\d{2}:\d{2}$/.test(data.time)) {
+    return { success: false, error: "Invalid date/time format. Expected YYYY-MM-DD and HH:MM" };
+  }
   
   // 1. DEDUPLICACIÓN: Comprobar si ya existe una reserva con este SumUp ID
   if (data.sumup_checkout_id && data.sumup_checkout_id !== 'N/A') {

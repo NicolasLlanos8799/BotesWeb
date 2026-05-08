@@ -342,33 +342,31 @@ export function initReservePage() {
         if (data.status === "PAID") {
           stopPolling();
 
-          // CRITICAL: Call fallback endpoint to ensure booking exists
-          // This is idempotent — GAS deduplicates via sumup_checkout_id
+          // CRITICAL: Call fallback endpoint and only show success after booking is confirmed
           try {
-            console.log("Polling: Payment confirmed. Ensuring booking exists...");
-            
-            // Recuperar metadatos guardados localmente para pasarlos como backup
-            const savedMetadataRaw = localStorage.getItem("pending_booking_data");
-            const savedMetadata = savedMetadataRaw ? JSON.parse(savedMetadataRaw) : null;
+            console.log("Polling: Payment confirmed. Finalizing booking...");
+            const overlayMessage = getOverlay()?.querySelector(".po-message");
+            if (overlayMessage) overlayMessage.textContent = "Finalizing booking...";
 
             const bookingRes = await fetch("/api/create-booking-from-payment", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ 
-                checkout_id: checkoutId,
-                metadata: savedMetadata // Enviamos la info como respaldo
-              })
+              body: JSON.stringify({ checkout_id: checkoutId })
             });
             const bookingResult = await bookingRes.json();
             console.log("Polling: Fallback booking result:", JSON.stringify(bookingResult));
-          } catch (bookingErr) {
-            // Even if fallback fails, webhook may have already handled it
-            console.error("Polling: Fallback booking call failed:", bookingErr);
-          }
 
-          localStorage.removeItem("pending_booking_data");
-          const currentTour = getTour(current.tour) || tour;
-          showSuccessUI(currentTour.title);
+            if (bookingRes.ok && bookingResult.booking_created === true) {
+              localStorage.removeItem("pending_booking_data");
+              const currentTour = getTour(current.tour) || tour;
+              showSuccessUI(currentTour.title);
+            } else {
+              showErrorUI("Payment received, but booking is still processing. Please wait a moment and refresh this page.");
+            }
+          } catch (bookingErr) {
+            console.error("Polling: Fallback booking call failed:", bookingErr);
+            showErrorUI("Payment received, but we could not finalize your booking due to a temporary network issue. Please refresh in a moment.");
+          }
         }
 
         if (data.status === "FAILED" || data.status === "EXPIRED") {
@@ -422,7 +420,8 @@ export function initReservePage() {
           time: String(current.time),
           qty: String(current.qty),
           lang: String(current.lang),
-          tapas: String(tapasTotal > 0 ? (tapasTotal / 350) : "0"),
+          tapas: String(current.tapas || 0),
+          extras: String(current.tapas || 0),
           total: String(total)
         }
       };
