@@ -70,7 +70,7 @@
 
 @media (max-width: 768px) {
   .hero__content {
-    margin-top: -20px;
+    margin-top: 10vh;
   }
 }
 
