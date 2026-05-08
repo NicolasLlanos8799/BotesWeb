@@ -25,6 +25,10 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
         <span>Dashboard</span>
       </a>
+      <a href="/admin/manifest.html" class="admin-nav__link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+        <span>Today's Agenda</span>
+      </a>
       <a href="/admin/bookings.html" class="admin-nav__link">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
         <span>Bookings</span>
@@ -44,7 +48,15 @@
     <header class="admin-header">
       <div class="admin-header__title">
         <h1>Analytics</h1>
-        <p>Financial summary and booking trends for your business.</p>
+        <div style="display: flex; gap: 1rem; align-items: center; margin-top: 1rem;">
+          <div style="display: flex; gap: 0.5rem; align-items: center;">
+            <span style="font-size: 0.8rem; opacity: 0.6;">Period:</span>
+            <input type="date" id="filter-date-from" class="admin-search" style="min-width: 150px; padding: 0.4rem 0.75rem;">
+            <span style="font-size: 0.8rem; opacity: 0.6;">to</span>
+            <input type="date" id="filter-date-to" class="admin-search" style="min-width: 150px; padding: 0.4rem 0.75rem;">
+          </div>
+          <button id="apply-filters" class="btn btn--outline btn--sm" style="padding: 0.4rem 1rem;">Filter</button>
+        </div>
       </div>
     </header>
 
@@ -75,16 +87,96 @@
     </div>
 
     <div class="dashboard-grid">
+      <!-- 1. HOURLY HEATMAP -->
+      <div class="admin-card" style="grid-column: span 2;">
+        <h3 class="admin-card__title">Demand by Hour</h3>
+        <p class="admin-card__desc">When are your customers most likely to book?</p>
+        <div class="chart-container">
+          <canvas id="chart-hours"></canvas>
+        </div>
+        <div class="insight-card">
+          <div class="insight-card__title">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            Operations Insight
+          </div>
+          <p class="insight-card__text">
+            <strong>Peak Hours</strong> identify when you need the most captains on standby. 
+            If you have high demand at specific hours, consider applying a "Premium Hour" surcharge.
+          </p>
+        </div>
+      </div>
+
+      <!-- 2. WEEKDAY PERFORMANCE -->
+      <div class="admin-card">
+        <h3 class="admin-card__title">Weekday Performance</h3>
+        <p class="admin-card__desc">Revenue distribution by day of the week.</p>
+        <div class="chart-container">
+          <canvas id="chart-weekdays"></canvas>
+        </div>
+        <div class="insight-card">
+          <div class="insight-card__title">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            Strategy Insight
+          </div>
+          <p class="insight-card__text">
+            Use this to spot slow days. If Tuesdays are consistently low, launch a <strong>"Mid-week Hygge"</strong> special offer to boost occupancy.
+          </p>
+        </div>
+      </div>
+
+      <!-- 4. LANGUAGE DISTRIBUTION -->
+      <div class="admin-card">
+        <h3 class="admin-card__title">Language & Market</h3>
+        <p class="admin-card__desc">Which languages are your guests using?</p>
+        <div class="chart-container" style="height: 250px;">
+          <canvas id="chart-languages"></canvas>
+        </div>
+        <div class="insight-card">
+          <div class="insight-card__title">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            Marketing Insight
+          </div>
+          <p class="insight-card__text">
+            Direct your advertising budget towards the markets that actually book. 
+            If Spanish is growing, ensure your captains are prepared or hire bilingual staff.
+          </p>
+        </div>
+      </div>
+
       <div class="admin-card" style="grid-column: span 2;">
         <h3 class="admin-card__title">Popular Tours</h3>
         <p class="admin-card__desc">Distribution of bookings by tour type.</p>
         <div id="tour-distribution" style="display: flex; flex-direction: column; gap: 1rem;">
-          <!-- Injected by JS -->
            <p>Loading analytics data...</p>
         </div>
       </div>
     </div>
   </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <nav class="admin-mobile-nav">
+    <a href="/admin" class="admin-mobile-nav__link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+      <span>Dash</span>
+    </a>
+    <a href="/admin/manifest.html" class="admin-mobile-nav__link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+      <span>Agenda</span>
+    </a>
+    <a href="/admin/bookings.html" class="admin-mobile-nav__link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+      <span>Bookings</span>
+    </a>
+    <a href="/admin/stats.html" class="admin-mobile-nav__link active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+      <span>Stats</span>
+    </a>
+    <a href="/" class="admin-mobile-nav__link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+      <span>Site</span>
+    </a>
+  </nav>
 
   <script type="module" src="/js/admin.js"></script>
 </body>

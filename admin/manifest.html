@@ -3,10 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Dashboard | Seaduced Experience</title>
+  <title>Logistics & Agenda | Seaduced Admin</title>
   <link rel="stylesheet" href="/css/base.css">
   <link rel="stylesheet" href="/css/admin.css">
-  <link rel="icon" href="/assets/icons/favicon.svg" type="image/svg+xml">
 </head>
 <body class="admin-body">
 
@@ -21,11 +20,11 @@
     </a>
 
     <nav class="admin-nav">
-      <a href="/admin" class="admin-nav__link active">
+      <a href="/admin" class="admin-nav__link">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
         <span>Dashboard</span>
       </a>
-      <a href="/admin/manifest.html" class="admin-nav__link">
+      <a href="/admin/manifest.html" class="admin-nav__link active">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
         <span>Today's Agenda</span>
       </a>
@@ -47,73 +46,33 @@
   <main class="admin-main">
     <header class="admin-header">
       <div class="admin-header__title">
-        <h1>Command Center</h1>
-        <p>Select a section to manage your experience.</p>
+        <h1>Today's Agenda</h1>
+        <p id="manifest-date">Loading date...</p>
       </div>
     </header>
 
-    <div class="dashboard-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
-      
-      <!-- 1. BOOKINGS -->
-      <a href="/admin/bookings.html" class="admin-card" style="text-decoration: none; display: block;">
-        <div class="admin-card__icon">
-          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
-        </div>
-        <h3 class="admin-card__title">Bookings Database</h3>
-        <p class="admin-card__desc">View, search, and manage all reservations from the MySQL database.</p>
-        <span class="btn btn--primary btn--sm" style="width: 100%;">Manage Bookings</span>
-      </a>
-
-      <!-- 2. ANALYTICS -->
-      <a href="/admin/stats.html" class="admin-card" style="text-decoration: none; display: block;">
-        <div class="admin-card__icon">
-          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
-        </div>
-        <h3 class="admin-card__title">Business Intelligence</h3>
-        <p class="admin-card__desc">Check revenue, growth, peak hours, and market language distribution.</p>
-        <span class="btn btn--primary btn--sm" style="width: 100%;">View Analytics</span>
-      </a>
-
-      <!-- 3. TODAY'S AGENDA -->
-      <a href="/admin/manifest.html" class="admin-card" style="text-decoration: none; display: block;">
-        <div class="admin-card__icon">
-          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-        </div>
-        <h3 class="admin-card__title">Today's Agenda</h3>
-        <p class="admin-card__desc">Quick view of today's confirmed bookings. Names, times, and passengers.</p>
-        <span class="btn btn--primary btn--sm" style="width: 100%;">Open Agenda</span>
-      </a>
-
-      <!-- 4. LIVE SITE -->
-      <a href="/" class="admin-card" style="text-decoration: none; display: block;">
-        <div class="admin-card__icon">
-          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-        </div>
-        <h3 class="admin-card__title">Live Website</h3>
-        <p class="admin-card__desc">Check how customers see your tours and current availability in real-time.</p>
-        <span class="btn btn--primary btn--sm" style="width: 100%;">Visit Website</span>
-      </a>
-
+    <div class="manifest-list" id="manifest-container">
+      <div style="text-align: center; padding: 4rem; opacity: 0.5;">Loading today's schedule...</div>
     </div>
 
-    <div class="insight-card" style="margin-top: 4rem; opacity: 0.7;">
+    <div class="insight-card">
       <div class="insight-card__title">
-        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-        Quick Tip
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
+        Captain's Insight
       </div>
       <p class="insight-card__text">
-        Use the <strong>Sidebar</strong> on the left to navigate between sections from anywhere in the Admin panel.
+        <strong>Today's Manifest</strong> helps you plan your logistics. Check the number of passengers (pax) for each departure to ensure the boat is prepared. Languages are noted to help you assign bilingual staff if needed.
       </p>
     </div>
   </main>
 
 
   <nav class="admin-mobile-nav">
-    <a href="/admin" class="admin-mobile-nav__link active">
+    <a href="/admin" class="admin-mobile-nav__link">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
       <span>Dash</span>
     </a>
-    <a href="/admin/manifest.html" class="admin-mobile-nav__link">
+    <a href="/admin/manifest.html" class="admin-mobile-nav__link active">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
       <span>Agenda</span>
     </a>
