@@ -236,6 +236,24 @@
 /* ── 8. TOURS GRID ──────────────────────────────────────────────────────── */
 .tours-section {
   background: var(--clr-off-white);
+  padding-top: var(--space-xl);
+}
+
+.tours-section .section-header {
+  margin-bottom: var(--space-md);
+}
+
+.tours-section .section-label,
+.tours-section .section-title {
+  margin-bottom: 0.5rem;
+}
+
+.tours-section .header-cta-link {
+  margin-top: 0.5rem;
+}
+
+.tours-section .perfect-for-line {
+  margin-top: 0.4rem;
 }
 
 .tours-grid {
@@ -248,22 +266,24 @@
 }
 
 /* ── Specific Catalog Link Styling ── */
-.header-cta-link {
-  margin-top: 1.25rem;
-}
 
 .text-link {
-  font-size: 1.05rem;
-  font-weight: 700;
+  font-size: 1.15rem;
+  font-weight: 800;
   color: var(--clr-blue);
   text-decoration: none;
-  border-bottom: 2px solid rgba(45, 106, 159, 0.1);
-  transition: all var(--transition-fast);
-  padding-bottom: 4px;
+  border-bottom: 3px solid rgba(45, 106, 159, 0.15);
+  transition: all var(--transition-smooth);
+  padding-bottom: 2px;
   display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
-  letter-spacing: 0.01em;
+  gap: 0.5rem;
+}
+
+.text-link:hover {
+  color: var(--clr-blue-deep);
+  border-bottom-color: var(--clr-blue);
+  gap: 0.75rem;
 }
 
 .text-link__arrow {
@@ -271,6 +291,30 @@
   display: inline-block;
   font-size: 1.2rem;
   line-height: 1;
+}
+
+/* ── Attention Pulse for Catalog Button ── */
+.btn--catalog {
+  padding: 0.9rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border-radius: 99px;
+  box-shadow: 0 4px 15px rgba(15, 30, 53, 0.2);
+}
+
+.attention-pulse {
+  animation: buttonPulse 3s infinite;
+}
+
+@keyframes buttonPulse {
+  0% { transform: scale(1); box-shadow: 0 4px 15px rgba(15, 30, 53, 0.2); }
+  50% { transform: scale(1.03); box-shadow: 0 8px 25px rgba(15, 30, 53, 0.3); }
+  100% { transform: scale(1); box-shadow: 0 4px 15px rgba(15, 30, 53, 0.2); }
+}
+
+.btn--catalog:hover {
+  animation: none;
+  transform: translateY(-2px) scale(1.03);
 }
 
 .text-link:hover {
@@ -308,7 +352,7 @@
   display: block;
   font-family: inherit;
   /* Ensure font is inherited from parent __title */
-  color: inherit;
+  color: var(--clr-blue);
 }
 
 .tour-card__title-link:hover {
@@ -424,31 +468,80 @@
   letter-spacing: 0.05em;
 }
 
-.tour-addon {
-  transition: transform var(--transition-smooth), box-shadow var(--transition-smooth);
-}
-
-/* ── View All Experiences CTA ── */
-.tours-view-all {
+/* ── Bespoke Home Banner Specifics ── */
+.tours-bespoke {
   margin-top: var(--space-xl);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-md);
   padding: var(--space-xl);
   background: linear-gradient(135deg, var(--clr-navy) 0%, var(--clr-navy-mid) 100%);
   border-radius: var(--radius-lg);
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-xl);
+  text-align: left;
 }
 
-.tours-view-all__text {
-  font-size: var(--fs-p);
-  color: rgba(255, 255, 255, 0.72);
+.tours-bespoke__label {
+  display: block;
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--clr-sunset-lt);
+  margin-bottom: 0.75rem;
+}
+
+.tours-bespoke__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  color: var(--clr-white);
+  margin-bottom: 1rem;
+}
+
+.tours-bespoke__text {
+  font-size: var(--fs-md);
+  color: rgba(255, 255, 255, 0.75);
+  margin-bottom: 0;
+  max-width: 600px;
+  line-height: var(--lh-relaxed);
+}
+
+.tours-bespoke__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  flex-shrink: 0;
+}
+
+.tours-bespoke__note {
+  font-size: var(--fs-xs);
+  color: rgba(255, 255, 255, 0.5);
   margin: 0;
 }
 
-.tours-view-all__text strong {
+.tours-bespoke__note .text-link {
+  color: var(--clr-sunset-lt);
+  border-bottom-color: rgba(255, 126, 95, 0.3);
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.tours-bespoke__note .text-link:hover {
   color: var(--clr-white);
+  border-bottom-color: var(--clr-white);
+}
+
+@media (max-width: 1024px) {
+  .tours-bespoke {
+    flex-direction: column;
+    text-align: center;
+    padding: var(--space-lg);
+  }
+
+  .tours-bespoke__text {
+    margin: 0 auto;
+  }
 }
 
 .tour-addon:hover {
@@ -2372,7 +2465,6 @@
 }
 
 .perfect-for-line {
-  margin-top: var(--space-lg);
   text-align: center;
   font-size: 1rem;
   color: var(--clr-text-mid);
