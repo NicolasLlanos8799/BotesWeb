@@ -49,14 +49,14 @@
       </a>
 
       <nav class="navbar__nav" id="navMenu" role="navigation" aria-label="Main navigation">
-        <a href="/" class="nav-link" id="nav-home">Home</a>
-        <a href="/book" class="nav-link" id="nav-tours">Tours</a>
-        <a href="/#faq" class="nav-link" id="nav-faq">FAQ</a>
-        <a href="/#contact" class="nav-link" id="nav-contact">Contact</a>
+        <a href="/" class="nav-link" id="nav-home" data-i18n="nav.home" data-i18n-href="/">Home</a>
+        <a href="/book" class="nav-link" id="nav-tours" data-i18n="nav.tours" data-i18n-href="/book">Tours</a>
+        <a href="/#faq" class="nav-link" id="nav-faq" data-i18n="nav.faq" data-i18n-href="/#faq">FAQ</a>
+        <a href="/#contact" class="nav-link" id="nav-contact" data-i18n="nav.contact" data-i18n-href="/#contact">Contact</a>
       </nav>
 
       <div class="navbar__actions">
-        <a href="/book" class="btn btn--primary btn--sm" id="nav-cta">Book Now</a>
+        <a href="/book" class="btn btn--primary btn--sm" id="nav-cta" data-i18n="nav.cta" data-i18n-href="/book">Book Now</a>
         <div class="lang-switcher">
           <a href="/" class="lang-link is-active" title="English"><img src="/assets/icons/flag-en.svg" alt="EN"></a>
                   <a href="/da/" class="lang-link" title="Dansk"><img src="/assets/icons/flag-da.svg" alt="DA"></a>
@@ -70,16 +70,16 @@
 
     <!-- Mobile menu -->
     <div class="navbar__mobile" id="mobileMenu">
-      <a href="/" class="nav-link" id="mob-home">Home</a>
-      <a href="/book" class="nav-link" id="mob-tours">Tours</a>
-      <a href="/#faq" class="nav-link" id="mob-faq">FAQ</a>
-      <a href="/#contact" class="nav-link" id="mob-contact">Contact</a>
+      <a href="/" class="nav-link" id="mob-home" data-i18n="nav.home" data-i18n-href="/">Home</a>
+      <a href="/book" class="nav-link" id="mob-tours" data-i18n="nav.tours" data-i18n-href="/book">Tours</a>
+      <a href="/#faq" class="nav-link" id="mob-faq" data-i18n="nav.faq" data-i18n-href="/#faq">FAQ</a>
+      <a href="/#contact" class="nav-link" id="mob-contact" data-i18n="nav.contact" data-i18n-href="/#contact">Contact</a>
       <div class="lang-switcher">
           <a href="/" class="lang-link is-active" title="English"><img src="/assets/icons/flag-en.svg" alt="EN"></a>
                   <a href="/da/" class="lang-link" title="Dansk"><img src="/assets/icons/flag-da.svg" alt="DA"></a>
         <a href="/es/" class="lang-link" title="Español"><img src="/assets/icons/flag-es.svg" alt="ES"></a>
       </div>
-      <a href="/book" class="btn btn--primary mt-1" id="mob-cta">Book Now</a>
+      <a href="/book" class="btn btn--primary mt-1" id="mob-cta" data-i18n="nav.cta" data-i18n-href="/book">Book Now</a>
     </div>
   </header>
 
@@ -92,7 +92,7 @@
       <div class="hero__bg">
         <picture>
           <img src="/assets/images/general/hero_canal_copenhagen3.png" alt="Copenhagen canals boat tour"
-            class="hero__bg-img" />
+            class="hero__bg-img" data-i18n-attr="alt:hero.img_alt" />
         </picture>
         <div class="hero__overlay"></div>
       </div>
@@ -100,21 +100,21 @@
       <div class="container hero__content">
 
 
-        <h1 class="hero__headline reveal">
+        <h1 class="hero__headline reveal" data-i18n-html="hero.headline">
           Private Boat Tours<br />
           in Copenhagen's<br />
           <em>Scenic Canals</em>
         </h1>
 
-        <p class="hero__subtext reveal">
+        <p class="hero__subtext reveal" data-i18n="hero.subtext">
           Discover Copenhagen from the water with a private canal tour. Enjoy scenic routes, local stories, and a
           relaxed
           experience guided by locals.
         </p>
 
         <div class="hero__ctas reveal">
-          <a href="/book" class="btn btn--primary btn--lg" id="hero-book-cta">Book Your Tour</a>
-          <a href="#tours" class="btn btn--ghost btn--lg" id="hero-explore-cta">Explore Tours</a>
+          <a href="/book" class="btn btn--primary btn--lg" id="hero-book-cta" data-i18n="hero.cta.book" data-i18n-href="/book">Book Your Tour</a>
+          <a href="#tours" class="btn btn--ghost btn--lg" id="hero-explore-cta" data-i18n="hero.cta.explore">Explore Tours</a>
         </div>
 
       </div>
@@ -130,93 +130,111 @@
     <section class="section tours-section" id="tours">
       <div class="container">
         <div class="section-header reveal">
-          <span class="section-label">Our Experiences</span>
-          <h2 class="section-title">Choose Your Copenhagen<br />Boat Experience</h2>
-          <p class="section-sub">Discover our 8+ curated experiences, from 1-hour city highlights to 7-hour cross-border
+          <span class="section-label" data-i18n="tours.label">Our Experiences</span>
+          <h2 class="section-title" data-i18n-html="tours.title">Choose Your Copenhagen<br />Boat Experience</h2>
+          <p class="section-sub" data-i18n="tours.sub">Discover our 8+ curated experiences, from 1-hour city highlights to 7-hour cross-border
             adventures. Each route is private, relaxed, and designed to show you Copenhagen from a personal perspective.
           </p>
           <div class="header-cta-link">
-            <a href="/book" class="btn btn--primary btn--catalog attention-pulse">View All 8+ Private Experiences →</a>
+            <a href="/book" class="btn btn--primary btn--catalog attention-pulse" data-i18n="tours.catalog_cta" data-i18n-href="/book">View All 8+ Private Experiences →</a>
           </div>
           <p class="perfect-for-line">
-            <span>Explore our complete range of private routes</span>
+            <span data-i18n="tours.explore_line">Explore our complete range of private routes</span>
           </p>
         </div>
 
         <div class="tours-grid">
 
           <article class="tour-card tour-card--clickable reveal" id="tour-highlights"
-            data-card-link="/experiences/private-boat-copenhagen/" tabindex="0" role="link"
+            data-card-link="/experiences/private-boat-copenhagen/"
+            data-i18n-card-link="/experiences/private-boat-copenhagen/"
+            tabindex="0" role="link"
             aria-label="Open Copenhagen private guided boat tour experience page">
             <a class="tour-card__media-link" href="/experiences/private-boat-copenhagen/"
+              data-i18n-href="/experiences/private-boat-copenhagen/"
               aria-label="View Copenhagen private guided boat tour details">
               <div class="tour-card__img-wrap">
                 <img src="/assets/images/city-highlights/island-brygge-guests.webp"
-                  alt="City Highlights private boat tour" loading="lazy" width="960" height="600" />
-                <span class="tour-card__tag">Private · 1h</span>
+                  alt="City Highlights private boat tour" loading="lazy" width="960" height="600"
+                  data-i18n-attr="alt:tour.highlights.img_alt" />
+                <span class="tour-card__tag" data-i18n="tour.highlights.tag">Private · 1h</span>
               </div>
             </a>
             <div class="tour-card__body">
               <h3 class="tour-card__title"><a class="tour-card__title-link"
-                  href="/experiences/private-boat-copenhagen/">City Highlights</a></h3>
-              <p class="tour-card__desc">Discover Copenhagen's city highlights on a private boat tour with your own
+                  href="/experiences/private-boat-copenhagen/"
+                  data-i18n="tour.highlights.title"
+                  data-i18n-href="/experiences/private-boat-copenhagen/">City Highlights</a></h3>
+              <p class="tour-card__desc" data-i18n="tour.highlights.desc">Discover Copenhagen's city highlights on a private boat tour with your own
                 local guide. Experience the authentic "hygge" lifestyle with music, drinks, and panoramic harbor views.
               </p>
               <div class="tour-card__price">
                 <span class="tour-card__amount">2,499 DKK</span>
-                <span class="tour-card__price-note">per group up to 8</span>
+                <span class="tour-card__price-note" data-i18n="tour.highlights.price_note">per group up to 8</span>
               </div>
-              <button data-book-tour="book-1h" class="btn btn--outline btn--sm" id="tour-card-private-cta">Book This
+              <button data-book-tour="book-1h" class="btn btn--outline btn--sm" id="tour-card-private-cta" data-i18n="tour.highlights.cta">Book This
                 Tour</button>
             </div>
           </article>
 
           <article class="tour-card tour-card--clickable reveal" id="tour-premium"
-            data-card-link="/experiences/private-boat-copenhagen-4h/" tabindex="0" role="link"
+            data-card-link="/experiences/private-boat-copenhagen-4h/"
+            data-i18n-card-link="/experiences/private-boat-copenhagen-4h/"
+            tabindex="0" role="link"
             aria-label="Open Private Boat & Sea Fortress Highlights experience page">
             <a class="tour-card__media-link" href="/experiences/private-boat-copenhagen-4h/"
+              data-i18n-href="/experiences/private-boat-copenhagen-4h/"
               aria-label="View Private Boat & Sea Fortress Highlights details">
               <div class="tour-card__img-wrap">
                 <img src="/assets/images/sea-fortress-4h/black-diamond-guests.webp"
-                  alt="Private 4-Hour Premium Experience" loading="lazy" width="960" height="600" />
-                <span class="tour-card__tag">Private · 4h</span>
+                  alt="Private 4-Hour Premium Experience" loading="lazy" width="960" height="600"
+                  data-i18n-attr="alt:tour.premium.img_alt" />
+                <span class="tour-card__tag" data-i18n="tour.premium.tag">Private · 4h</span>
               </div>
             </a>
             <div class="tour-card__body">
               <h3 class="tour-card__title"><a class="tour-card__title-link"
-                  href="/experiences/private-boat-copenhagen-4h/">Sea Fortress & Coastal Journey</a></h3>
-              <p class="tour-card__desc">4 hours of private sailing, including 1 hour at Reffen and 1 hour at Trekroner
+                  href="/experiences/private-boat-copenhagen-4h/"
+                  data-i18n="tour.premium.title"
+                  data-i18n-href="/experiences/private-boat-copenhagen-4h/">Sea Fortress & Coastal Journey</a></h3>
+              <p class="tour-card__desc" data-i18n="tour.premium.desc">4 hours of private sailing, including 1 hour at Reffen and 1 hour at Trekroner
                 Fort. Swimming stop possibility and open water views.</p>
               <div class="tour-card__price">
                 <span class="tour-card__amount">5,999 DKK</span>
-                <span class="tour-card__price-note">per group up to 8</span>
+                <span class="tour-card__price-note" data-i18n="tour.premium.price_note">per group up to 8</span>
               </div>
-              <button data-book-tour="book-premium" class="btn btn--outline btn--sm" id="tour-card-events-cta">Book This
+              <button data-book-tour="book-premium" class="btn btn--outline btn--sm" id="tour-card-events-cta" data-i18n="tour.premium.cta">Book This
                 Tour</button>
             </div>
           </article>
 
           <article class="tour-card tour-card--clickable reveal" id="tour-reffen"
-            data-card-link="/experiences/private-boat-copenhagen-3h/" tabindex="0" role="link"
+            data-card-link="/experiences/private-boat-copenhagen-3h/"
+            data-i18n-card-link="/experiences/private-boat-copenhagen-3h/"
+            tabindex="0" role="link"
             aria-label="Open Private Boat & Reffen Highlights experience page">
             <a class="tour-card__media-link" href="/experiences/private-boat-copenhagen-3h/"
+              data-i18n-href="/experiences/private-boat-copenhagen-3h/"
               aria-label="View Private Boat & Reffen Highlights details">
               <div class="tour-card__img-wrap">
                 <img src="/assets/images/reffen-3h/bote-reffen.webp" alt="Harbor Extended & Reffen Stop" loading="lazy"
-                  width="960" height="600" />
-                <span class="tour-card__tag">Private · 3h</span>
+                  width="960" height="600"
+                  data-i18n-attr="alt:tour.reffen.img_alt" />
+                <span class="tour-card__tag" data-i18n="tour.reffen.tag">Private · 3h</span>
               </div>
             </a>
             <div class="tour-card__body">
               <h3 class="tour-card__title"><a class="tour-card__title-link"
-                  href="/experiences/private-boat-copenhagen-3h/">Harbor Extended & Reffen Stop</a></h3>
-              <p class="tour-card__desc">Includes 3 hours of private sailing with a 1-hour stop at Reffen Street Food.
+                  href="/experiences/private-boat-copenhagen-3h/"
+                  data-i18n="tour.reffen.title"
+                  data-i18n-href="/experiences/private-boat-copenhagen-3h/">Harbor Extended & Reffen Stop</a></h3>
+              <p class="tour-card__desc" data-i18n="tour.reffen.desc">Includes 3 hours of private sailing with a 1-hour stop at Reffen Street Food.
                 Extended route beyond the central canals.</p>
               <div class="tour-card__price">
                 <span class="tour-card__amount">4,299 DKK</span>
-                <span class="tour-card__price-note">per group up to 8</span>
+                <span class="tour-card__price-note" data-i18n="tour.reffen.price_note">per group up to 8</span>
               </div>
-              <button data-book-tour="book-reffen" class="btn btn--outline btn--sm" id="tour-card-sunset-cta">Book
+              <button data-book-tour="book-reffen" class="btn btn--outline btn--sm" id="tour-card-sunset-cta" data-i18n="tour.reffen.cta">Book
                 This
                 Tour</button>
             </div>
@@ -228,15 +246,15 @@
         <!-- Bespoke / Custom CTA Banner -->
         <div class="tours-bespoke reveal">
           <div class="tours-bespoke__content">
-            <span class="tours-bespoke__label">Bespoke Services</span>
-            <h2 class="tours-bespoke__title">Need Something Special?</h2>
-            <p class="tours-bespoke__text">Looking for something unique? From corporate events to romantic surprises, we
+            <span class="tours-bespoke__label" data-i18n="bespoke.label">Bespoke Services</span>
+            <h2 class="tours-bespoke__title" data-i18n="bespoke.title">Need Something Special?</h2>
+            <p class="tours-bespoke__text" data-i18n-html="bespoke.text">Looking for something unique? From corporate events to romantic surprises, we
               specialize in tailoring private cruises. <strong>Contact us today for a personalized offer and custom
                 quote.</strong></p>
           </div>
           <div class="tours-bespoke__actions">
             <a href="mailto:seaducedexperience@gmail.com?subject=Inquiry: Bespoke Seaduced Experience"
-              class="btn btn--primary" id="home-bespoke-cta">Get Your Custom Quote →</a>
+              class="btn btn--primary" id="home-bespoke-cta" data-i18n="bespoke.cta">Get Your Custom Quote →</a>
           </div>
         </div>
 
@@ -250,18 +268,18 @@
     <section class="section why-section" id="experience">
       <div class="container">
         <div class="section-header reveal">
-          <span class="section-label">Why Choose Us</span>
-          <h2 class="section-title">A More Personal Way to<br />Experience Copenhagen</h2>
+          <span class="section-label" data-i18n="why.label">Why Choose Us</span>
+          <h2 class="section-title" data-i18n-html="why.title">A More Personal Way to<br />Experience Copenhagen</h2>
         </div>
 
         <div class="welcome-split">
 
           <div class="welcome-split__text reveal">
-            <p class="welcome-p">
+            <p class="welcome-p" data-i18n="why.p1">
               At Seaduced Experience, we believe the best way to discover Copenhagen is from the water. Our tours are
               private, relaxed, and designed to feel personal from beginning to end.
             </p>
-            <p class="welcome-p">
+            <p class="welcome-p" data-i18n="why.p2">
               Instead of crowded tourist boats, we offer small and intimate experiences that let you enjoy the canals at
               your own pace. Every route is guided by locals who share stories, hidden spots, and a more authentic side
               of the city.
@@ -269,18 +287,18 @@
             <div class="welcome-stats">
               <div class="stat">
                 <span class="stat-number">500+</span>
-                <span class="stat-label">Happy Guests</span>
+                <span class="stat-label" data-i18n="why.stat.guests">Happy Guests</span>
               </div>
               <div class="stat">
                 <span class="stat-number">5★</span>
-                <span class="stat-label">Average Rating</span>
+                <span class="stat-label" data-i18n="why.stat.rating">Average Rating</span>
               </div>
               <div class="stat">
                 <span class="stat-number">100%</span>
-                <span class="stat-label">Private Tours</span>
+                <span class="stat-label" data-i18n="why.stat.private">Private Tours</span>
               </div>
             </div>
-            <a href="/book" class="btn btn--primary mt-2" id="experience-book-cta">Book Your Experience</a>
+            <a href="/book" class="btn btn--primary mt-2" id="experience-book-cta" data-i18n="why.book_cta" data-i18n-href="/book">Book Your Experience</a>
           </div>
 
           <div class="welcome-split__images reveal">
@@ -296,26 +314,26 @@
         <div class="features-grid features-grid--spaced">
           <div class="feature-card reveal" id="feature-private">
             <div class="feature-card__icon">🛥️</div>
-            <h3 class="feature-card__title">Private &amp; Personalized</h3>
-            <p class="feature-card__text">Your tour is reserved only for your group, without crowds or strangers on
+            <h3 class="feature-card__title" data-i18n="feature.private.title">Private &amp; Personalized</h3>
+            <p class="feature-card__text" data-i18n="feature.private.text">Your tour is reserved only for your group, without crowds or strangers on
               board.</p>
           </div>
           <div class="feature-card reveal" id="feature-guides">
             <div class="feature-card__icon">🧭</div>
-            <h3 class="feature-card__title">Local Expert Guides</h3>
-            <p class="feature-card__text">Our guides know Copenhagen's canals, landmarks, and hidden corners, and bring
+            <h3 class="feature-card__title" data-i18n="feature.guides.title">Local Expert Guides</h3>
+            <p class="feature-card__text" data-i18n="feature.guides.text">Our guides know Copenhagen's canals, landmarks, and hidden corners, and bring
               each route to life with local stories.</p>
           </div>
           <div class="feature-card reveal" id="feature-routes">
             <div class="feature-card__icon">🗺️</div>
-            <h3 class="feature-card__title">Scenic Hidden Routes</h3>
-            <p class="feature-card__text">We explore beautiful waterways and charming areas that many larger tours
+            <h3 class="feature-card__title" data-i18n="feature.routes.title">Scenic Hidden Routes</h3>
+            <p class="feature-card__text" data-i18n="feature.routes.text">We explore beautiful waterways and charming areas that many larger tours
               miss.</p>
           </div>
           <div class="feature-card reveal" id="feature-comfort">
             <div class="feature-card__icon">✨</div>
-            <h3 class="feature-card__title">Comfort &amp; Atmosphere</h3>
-            <p class="feature-card__text">From summer cruises to winter hygge moments, every detail is designed to make
+            <h3 class="feature-card__title" data-i18n="feature.comfort.title">Comfort &amp; Atmosphere</h3>
+            <p class="feature-card__text" data-i18n="feature.comfort.text">From summer cruises to winter hygge moments, every detail is designed to make
               the experience relaxed and memorable.</p>
           </div>
         </div>
@@ -331,27 +349,27 @@
     <section class="section testimonials-section" id="reviews">
       <div class="container">
         <div class="section-header reveal">
-          <span class="section-label">Guest Reviews</span>
-          <h2 class="section-title">What Our Guests Say</h2>
+          <span class="section-label" data-i18n="reviews.label">Guest Reviews</span>
+          <h2 class="section-title" data-i18n="reviews.title">What Our Guests Say</h2>
         </div>
 
         <!-- Quick reviews -->
         <div class="quick-reviews reveal">
           <div class="quick-review" id="review-anna">
             <div class="stars">★★★★★</div>
-            <p class="quick-review__text">"Best private boat tour in Copenhagen. Cozy, personal and unforgettable
+            <p class="quick-review__text" data-i18n="reviews.anna.text">"Best private boat tour in Copenhagen. Cozy, personal and unforgettable
               experience."</p>
-            <span class="quick-review__author">— Anna, Germany</span>
+            <span class="quick-review__author" data-i18n="reviews.anna.author">— Anna, Germany</span>
           </div>
           <div class="quick-review" id="review-mark">
             <div class="stars">★★★★★</div>
-            <p class="quick-review__text">"Amazing private canal tour. Way better than big tourist boats."</p>
-            <span class="quick-review__author">— Mark, USA</span>
+            <p class="quick-review__text" data-i18n="reviews.mark.text">"Amazing private canal tour. Way better than big tourist boats."</p>
+            <span class="quick-review__author" data-i18n="reviews.mark.author">— Mark, USA</span>
           </div>
           <div class="quick-review" id="review-lucia">
             <div class="stars">★★★★★</div>
-            <p class="quick-review__text">"Perfect hygge experience on the water. Highly recommended."</p>
-            <span class="quick-review__author">— Lucia, Spain</span>
+            <p class="quick-review__text" data-i18n="reviews.lucia.text">"Perfect hygge experience on the water. Highly recommended."</p>
+            <span class="quick-review__author" data-i18n="reviews.lucia.author">— Lucia, Spain</span>
           </div>
         </div>
 
@@ -361,7 +379,7 @@
 
             <div class="testimonial-card" id="tcard-dawn">
               <div class="testimonial-card__quote">"</div>
-              <p class="testimonial-card__text">This tour was one of the highlights of our trip! Our guide Oni's
+              <p class="testimonial-card__text" data-i18n="reviews.tcard.dawn">This tour was one of the highlights of our trip! Our guide Oni's
                 knowledge of the canals and history was outstanding, and he even recommended a delicious meal at Reffen.
               </p>
               <div class="testimonial-card__footer">
@@ -375,7 +393,7 @@
 
             <div class="testimonial-card" id="tcard-laura">
               <div class="testimonial-card__quote">"</div>
-              <p class="testimonial-card__text">Our guide Oni was terrific – he tailored the tour just for us. This was
+              <p class="testimonial-card__text" data-i18n="reviews.tcard.laura">Our guide Oni was terrific – he tailored the tour just for us. This was
                 a wonderful family-friendly experience, and we highly recommend it.</p>
               <div class="testimonial-card__footer">
                 <div class="testimonial-avatar" aria-hidden="true">L</div>
@@ -388,7 +406,7 @@
 
             <div class="testimonial-card" id="tcard-oliver">
               <div class="testimonial-card__quote">"</div>
-              <p class="testimonial-card__text">A perfect afternoon exploring Copenhagen from the canals. Beautiful
+              <p class="testimonial-card__text" data-i18n="reviews.tcard.oliver">A perfect afternoon exploring Copenhagen from the canals. Beautiful
                 views and insightful stories – highly recommended!</p>
               <div class="testimonial-card__footer">
                 <div class="testimonial-avatar" aria-hidden="true">O</div>
@@ -401,7 +419,7 @@
 
             <div class="testimonial-card" id="tcard-karina">
               <div class="testimonial-card__quote">"</div>
-              <p class="testimonial-card__text">Perfect Sunday visiting Copenhagen from the canals. We had the best
+              <p class="testimonial-card__text" data-i18n="reviews.tcard.karina">Perfect Sunday visiting Copenhagen from the canals. We had the best
                 guide we could wish. Highly recommended!</p>
               <div class="testimonial-card__footer">
                 <div class="testimonial-avatar" aria-hidden="true">K</div>
@@ -414,7 +432,7 @@
 
             <div class="testimonial-card" id="tcard-shannon">
               <div class="testimonial-card__quote">"</div>
-              <p class="testimonial-card__text">This was a great tour!! He was an amazing guide and provided great
+              <p class="testimonial-card__text" data-i18n="reviews.tcard.shannon">This was a great tour!! He was an amazing guide and provided great
                 information while also being fun.</p>
               <div class="testimonial-card__footer">
                 <div class="testimonial-avatar" aria-hidden="true">S</div>
@@ -427,7 +445,7 @@
 
             <div class="testimonial-card" id="tcard-thomas">
               <div class="testimonial-card__quote">"</div>
-              <p class="testimonial-card__text">We had a fantastic trip with Oni. He told us all about Copenhagen, saw
+              <p class="testimonial-card__text" data-i18n="reviews.tcard.thomas">We had a fantastic trip with Oni. He told us all about Copenhagen, saw
                 all of the sites, had some great food at the Reffen stop, and most importantly had a lot of laughs.</p>
               <div class="testimonial-card__footer">
                 <div class="testimonial-avatar" aria-hidden="true">T</div>
@@ -449,9 +467,9 @@
         </div>
 
         <div class="testimonials-cta reveal">
-          <p class="testimonials-cta__sub">Want to see more reviews from our guests? Visit our GetYourGuide page to
+          <p class="testimonials-cta__sub" data-i18n="reviews.more_sub">Want to see more reviews from our guests? Visit our GetYourGuide page to
             explore detailed feedback from travelers like you.</p>
-          <a href="#" class="btn btn--outline" id="reviews-more-cta">Read More Reviews</a>
+          <a href="#" class="btn btn--outline" id="reviews-more-cta" data-i18n="reviews.more_cta">Read More Reviews</a>
         </div>
 
       </div>
@@ -462,12 +480,12 @@
     ═══════════════════════════════════════════ -->
     <section class="cta-section" id="booking">
       <div class="container cta-section__inner reveal">
-        <h2 class="cta-section__headline">Ready to Experience Copenhagen<br />from the Water?</h2>
-        <p class="cta-section__sub">Book your private boat tour and discover the city from a calm, intimate, and
+        <h2 class="cta-section__headline" data-i18n-html="cta.headline">Ready to Experience Copenhagen<br />from the Water?</h2>
+        <p class="cta-section__sub" data-i18n="cta.sub">Book your private boat tour and discover the city from a calm, intimate, and
           unforgettable perspective.</p>
         <div class="cta-section__buttons">
-          <a href="/book" class="btn btn--primary btn--lg" id="cta-book-now">Book Now</a>
-          <a href="#contact" class="btn btn--ghost-dark btn--lg" id="cta-contact-us">Contact Us</a>
+          <a href="/book" class="btn btn--primary btn--lg" id="cta-book-now" data-i18n="cta.book" data-i18n-href="/book">Book Now</a>
+          <a href="#contact" class="btn btn--ghost-dark btn--lg" id="cta-contact-us" data-i18n="cta.contact">Contact Us</a>
         </div>
       </div>
     </section>
@@ -478,19 +496,19 @@
     <section class="section faq-section" id="faq">
       <div class="container">
         <div class="section-header reveal">
-          <span class="section-label">FAQ</span>
-          <h2 class="section-title">Frequently Asked Questions</h2>
-          <p class="section-sub">Everything you need to know before your tour.</p>
+          <span class="section-label" data-i18n="faq.label">FAQ</span>
+          <h2 class="section-title" data-i18n="faq.title">Frequently Asked Questions</h2>
+          <p class="section-sub" data-i18n="faq.sub">Everything you need to know before your tour.</p>
         </div>
 
         <div class="faq-list">
 
           <div class="faq-item reveal" id="faq-availability">
             <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-availability">
-              Are the tours private and available year-round?
+              <span data-i18n="faq.availability.q">Are the tours private and available year-round?</span>
               <span class="faq-icon">+</span>
             </button>
-            <div class="faq-answer" id="faq-answer-availability" hidden>
+            <div class="faq-answer" id="faq-answer-availability" data-i18n-html="faq.availability.a" hidden>
               <p>Yes. Every Seaduced Experience tour is 100% private, reserved only for your group. We operate
                 year-round, and our tours are designed to offer a warm and cozy hygge experience even in the colder
                 months.</p>
@@ -499,10 +517,10 @@
 
           <div class="faq-item reveal" id="faq-route-logistics">
             <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-route-logistics">
-              What is the route and how long are the tours?
+              <span data-i18n="faq.route.q">What is the route and how long are the tours?</span>
               <span class="faq-icon">+</span>
             </button>
-            <div class="faq-answer" id="faq-answer-route-logistics" hidden>
+            <div class="faq-answer" id="faq-answer-route-logistics" data-i18n-html="faq.route.a" hidden>
               <p>Our tours typically last 1 to 2 hours, with options up to 4 hours. We explore central canals (Nyhavn,
                 Christianshavn, Islands Brygge) and can include stops at Reffen or Trekroner Fort on longer trips. As
                 everything is private, your captain can customize the route to your interests.</p>
@@ -511,10 +529,10 @@
 
           <div class="faq-item reveal" id="faq-amenities-bring">
             <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-amenities-bring">
-              What is included and what should we bring?
+              <span data-i18n="faq.amenities.q">What is included and what should we bring?</span>
               <span class="faq-icon">+</span>
             </button>
-            <div class="faq-answer" id="faq-answer-amenities-bring" hidden>
+            <div class="faq-answer" id="faq-answer-amenities-bring" data-i18n-html="faq.amenities.a" hidden>
               <p>We provide blankets and hot drinks in winter, and cold water in summer. Some packages include snacks or
                 champagne. You are welcome to bring your own food/drinks for trips of 3+ hours. We recommend comfortable
                 clothing and layers for the weather.</p>
@@ -523,10 +541,10 @@
 
           <div class="faq-item reveal" id="faq-policies">
             <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-policies">
-              Payment Methods & Cancellation Policy
+              <span data-i18n="faq.policies.q">Payment Methods & Cancellation Policy</span>
               <span class="faq-icon">+</span>
             </button>
-            <div class="faq-answer" id="faq-answer-policies" hidden>
+            <div class="faq-answer" id="faq-answer-policies" data-i18n-html="faq.policies.a" hidden>
               <p><strong>Payments:</strong> We accept Credit/Debit cards (Visa, MC, AMEX), MobilePay, Apple Pay, SumUp,
                 and Revolut.</p>
               <p style="margin-top: 1rem;"><strong>Cancellations:</strong></p>
@@ -542,10 +560,10 @@
 
           <div class="faq-item reveal" id="faq-meetingpoint">
             <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-meetingpoint">
-              Where does the tour start?
+              <span data-i18n="faq.meetingpoint.q">Where does the tour start?</span>
               <span class="faq-icon">+</span>
             </button>
-            <div class="faq-answer" id="faq-answer-meetingpoint" hidden>
+            <div class="faq-answer" id="faq-answer-meetingpoint" data-i18n-html="faq.meetingpoint.a" hidden>
               <p>Meeting point details are shared after booking confirmation.</p>
             </div>
           </div>
@@ -555,8 +573,6 @@
         </div>
       </div>
     </section>
-
-  </main>
 
   </main>
 
@@ -582,7 +598,7 @@
             stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
             <circle cx="12" cy="10" r="3"></circle>
-          </svg> Based in Copenhagen, Denmark</p>
+          </svg> <span data-i18n="footer.location">Based in Copenhagen, Denmark</span></p>
 
         <p class="footer-contact-item">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -591,9 +607,9 @@
             <polyline points="12 6 12 12 16 14"></polyline>
           </svg>
           <span class="footer-hours">
-            <span>Daily (Summer): 9:00 – 20:00</span>
+            <span data-i18n="footer.hours.summer">Daily (Summer): 9:00 – 20:00</span>
             <span class="footer-hours-sep">&nbsp;·&nbsp;</span>
-            <span>Daily (Winter): 10:00 – 17:00</span>
+            <span data-i18n="footer.hours.winter">Daily (Winter): 10:00 – 17:00</span>
           </span>
         </p>
 
@@ -611,7 +627,7 @@
             </svg> <a href="tel:+4522561882">+45 22 56 18 82</a></p>
         </div>
 
-        <p class="footer-contact-note">Tours by appointment; weather dependent.</p>
+        <p class="footer-contact-note" data-i18n="footer.note">Tours by appointment; weather dependent.</p>
       </div>
 
       <div class="footer__socials">
@@ -641,7 +657,7 @@
 
     <div class="footer__bottom">
       <div class="container">
-        <p class="footer__copy">© 2025 – 2026 Seaduced Experience. All rights reserved.</p>
+        <p class="footer__copy" data-i18n="footer.copy">© 2025 – 2026 Seaduced Experience. All rights reserved.</p>
       </div>
     </div>
   </footer>
@@ -669,6 +685,7 @@
     "priceRange": "DKK2499-7999"
   }
   </script>
+  <script type="module" src="/js/i18n.js"></script>
   <script type="module" src="/js/main.js?v=1.2"></script>
 </body>
 

@@ -1,0 +1,157 @@
+{
+  "page": {
+    "title": "Seaduced Experience | Tours Privados en Barco Copenhague",
+    "description": "Descubre Copenhague desde el agua con una experiencia en barco privada e íntima. Navega por canales escénicos, descubre rincones ocultos y disfruta de un tour relajado guiado por expertos locales."
+  },
+  "nav": {
+    "home": "Inicio",
+    "tours": "Tours",
+    "faq": "Preguntas",
+    "contact": "Contacto",
+    "cta": "Reservar Ahora"
+  },
+  "hero": {
+    "headline": "Tours Privados por<br />los Canales de<br /><em>Copenhague</em>",
+    "subtext": "Descubre Copenhague desde el agua con un tour privado por los canales. Disfruta de rutas escénicas, historias locales y una experiencia relajada guiada por expertos locales.",
+    "cta": {
+      "book": "Reserva tu Tour",
+      "explore": "Explorar Tours"
+    },
+    "img_alt": "Tour en barco por los canales de Copenhague"
+  },
+  "tours": {
+    "label": "Nuestras Experiencias",
+    "title": "Elige tu Experiencia en<br />Barco por Copenhague",
+    "sub": "Descubre nuestras más de 8 experiencias seleccionadas, desde tours de 1 hora por los puntos destacados hasta aventuras de 7 horas cruzando fronteras. Cada ruta es privada, relajada y diseñada para mostrarte Copenhague desde una perspectiva personal.",
+    "catalog_cta": "Ver todas las experiencias →",
+    "explore_line": "Explora nuestra gama completa de rutas privadas"
+  },
+  "tour": {
+    "highlights": {
+      "tag": "Privado · 1h",
+      "img_alt": "Tour privado en barco City Highlights",
+      "title": "City Highlights",
+      "desc": "Descubre lo mejor de Copenhague en un barco privado con tu propio guía local. Vive el auténtico estilo \"hygge\" con música, bebidas y vistas panorámicas del puerto.",
+      "price_note": "por grupo (hasta 8)",
+      "cta": "Reservar este Tour"
+    },
+    "premium": {
+      "tag": "Privado · 4h",
+      "img_alt": "Experiencia Premium de 4 horas",
+      "title": "Fortaleza Marina y Costa",
+      "desc": "4 horas de navegación privada, incluyendo 1 hora en Reffen y 1 hora en el Fuerte Trekroner. Posibilidad de parada para nadar y vistas a mar abierto.",
+      "price_note": "por grupo (hasta 8)",
+      "cta": "Reservar este Tour"
+    },
+    "reffen": {
+      "tag": "Privado · 3h",
+      "img_alt": "Puerto extendido y parada en Reffen",
+      "title": "Puerto Extendido y Reffen",
+      "desc": "Incluye 3 horas de navegación privada con una parada de 1 hora en Reffen Street Food. Ruta extendida más allá de los canales centrales.",
+      "price_note": "por grupo (hasta 8)",
+      "cta": "Reservar este Tour"
+    }
+  },
+  "bespoke": {
+    "label": "Servicios Personalizados",
+    "title": "¿Buscas algo especial?",
+    "text": "¿Buscas algo único? Desde eventos corporativos hasta sorpresas románticas, nos especializamos en personalizar cruceros privados. <strong>Contáctanos hoy para una oferta personalizada.</strong>",
+    "cta": "Pide tu presupuesto →"
+  },
+  "why": {
+    "label": "Por qué elegirnos",
+    "title": "Una forma más personal de<br />vivir Copenhague",
+    "p1": "En Seaduced Experience, creemos que la mejor manera de descubrir Copenhague es desde el agua. Nuestros tours son privados, relajados y diseñados para sentirse personales de principio a fin.",
+    "p2": "En lugar de barcos turísticos abarrotados, ofrecemos experiencias pequeñas e íntimas que te permiten disfrutar de los canales a tu propio ritmo. Cada ruta es guiada por locales que comparten historias, lugares ocultos y un lado más auténtico de la ciudad.",
+    "stat": {
+      "guests": "Clientes Felices",
+      "rating": "Valoración Media",
+      "private": "Tours Privados"
+    },
+    "book_cta": "Reserva tu Experiencia"
+  },
+  "feature": {
+    "private": {
+      "title": "Privado y Personalizado",
+      "text": "Tu tour está reservado solo para tu grupo, sin multitudes ni extraños a bordo."
+    },
+    "guides": {
+      "title": "Guías Expertos Locales",
+      "text": "Nuestros guías conocen los canales, monumentos y rincones ocultos de Copenhague."
+    },
+    "routes": {
+      "title": "Rutas Escénicas Ocultas",
+      "text": "Exploramos vías fluviales hermosas y áreas con encanto que muchos tours grandes pasan por alto."
+    },
+    "comfort": {
+      "title": "Confort y Atmósfera",
+      "text": "Desde cruceros de verano hasta momentos \"hygge\" de invierno, cada detalle está diseñado para ser memorable."
+    }
+  },
+  "reviews": {
+    "label": "Opiniones de Clientes",
+    "title": "Lo que dicen nuestros invitados",
+    "anna": {
+      "text": "\"El mejor tour privado en barco en Copenhague. Una experiencia acogedora, personal e inolvidable.\"",
+      "author": "— Anna, Alemania"
+    },
+    "mark": {
+      "text": "\"Increíble tour privado por los canales. Mucho mejor que los barcos turísticos grandes.\"",
+      "author": "— Mark, EE.UU."
+    },
+    "lucia": {
+      "text": "\"Experiencia hygge perfecta en el agua. Muy recomendable.\"",
+      "author": "— Lucía, España"
+    },
+    "tcard": {
+      "dawn": "¡Este tour fue uno de los puntos fuertes de nuestro viaje! El conocimiento de nuestro guía Oni sobre los canales y la historia fue excepcional.",
+      "laura": "Nuestro guía Oni fue estupendo, adaptó el tour solo para nosotros. Fue una experiencia maravillosa para la familia.",
+      "oliver": "Una tarde perfecta explorando Copenhague desde los canales. ¡Vistas hermosas e historias fascinantes!",
+      "karina": "Domingo perfecto visitando Copenhague desde los canales. Tuvimos el mejor guía que podíamos desear. ¡Muy recomendable!",
+      "shannon": "¡Fue un tour genial! Fue un guía increíble y nos dio mucha información a la vez que fue muy divertido.",
+      "thomas": "Tuvimos un viaje fantástico con Oni. Nos contó todo sobre Copenhague, vimos todos los sitios y nos reímos mucho."
+    },
+    "more_sub": "¿Quieres ver más reseñas? Visita nuestra página en GetYourGuide para ver los comentarios detallados de otros viajeros.",
+    "more_cta": "Leer más reseñas"
+  },
+  "cta": {
+    "headline": "¿Listo para vivir Copenhague<br />desde el agua?",
+    "sub": "Reserva tu tour privado en barco y descubre la ciudad desde una perspectiva tranquila, íntima e inolvidable.",
+    "book": "Reservar Ahora",
+    "contact": "Contáctanos"
+  },
+  "faq": {
+    "label": "FAQ",
+    "title": "Preguntas Frecuentes",
+    "sub": "Todo lo que necesitas saber antes de tu tour.",
+    "availability": {
+      "q": "¿Los tours son privados y están disponibles todo el año?",
+      "a": "<p>Sí. Cada tour de Seaduced Experience es 100% privado, reservado solo para tu grupo. Operamos todo el año, y nuestros tours están diseñados para ofrecer una experiencia hygge cálida incluso en los meses más fríos.</p>"
+    },
+    "route": {
+      "q": "¿Cuál es la ruta y cuánto duran los tours?",
+      "a": "<p>Nuestros tours suelen durar de 1 a 2 horas, con opciones de hasta 4 horas. Exploramos los canales centrales (Nyhavn, Christianshavn, Islands Brygge) y podemos incluir paradas en Reffen o el Fuerte Trekroner en viajes largos. Al ser privado, el capitán puede adaptar la ruta según tus intereses.</p>"
+    },
+    "amenities": {
+      "q": "¿Qué está incluido y qué debemos llevar?",
+      "a": "<p>Proporcionamos mantas y bebidas calientes en invierno, y agua fría en verano. Algunos paquetes incluyen snacks o champagne. Puedes traer tu propia comida/bebida para viajes de más de 3 horas. Recomendamos ropa cómoda según el clima.</p>"
+    },
+    "policies": {
+      "q": "Métodos de Pago y Política de Cancelación",
+      "a": "<p><strong>Pagos:</strong> Aceptamos tarjetas de Crédito/Débito (Visa, MC, AMEX), MobilePay, Apple Pay, SumUp y Revolut.</p><p style=\"margin-top: 1rem;\"><strong>Cancelaciones:</strong></p><ul style=\"margin: 0.5rem 0 1rem 1.5rem; line-height: 1.6;\"><li>7+ días antes: Reembolso completo.</li><li>Entre 7 días y 48h antes: Reembolso del 50%.</li><li>Menos de 48h: No reembolsable.</li></ul><p>En caso de mal tiempo o condiciones inseguras, reprogramamos o devolvemos el dinero íntegramente.</p>"
+    },
+    "meetingpoint": {
+      "q": "¿Dónde comienza el tour?",
+      "a": "<p>Los detalles del punto de encuentro se comparten tras la confirmación de la reserva.</p>"
+    }
+  },
+  "footer": {
+    "location": "Estamos en Copenhague, Dinamarca",
+    "hours": {
+      "summer": "Todos los días · Verano: 9:00 – 20:00",
+      "winter": "Invierno: 10:00 – 17:00"
+    },
+    "note": "Tours con reserva previa · Sujeto a las condiciones climáticas.",
+    "copy": "© 2025 – 2026 Seaduced Experience. Reservados todos los derechos."
+  }
+}

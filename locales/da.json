@@ -1,0 +1,157 @@
+{
+  "page": {
+    "title": "Seaduced Experience | Private bådture i København",
+    "description": "Oplev København fra vandet med en privat og intim bådoplevelse. Sejl gennem de smukke kanaler, opdag byens skjulte hjørner og nyd en afslappet tur guidet af lokale, der kender København bedst."
+  },
+  "nav": {
+    "home": "Hjem",
+    "tours": "Ture",
+    "faq": "FAQ",
+    "contact": "Kontakt",
+    "cta": "Book Nu"
+  },
+  "hero": {
+    "headline": "Private bådture<br />i Københavns<br /><em>smukke kanaler</em>",
+    "subtext": "Oplev København fra vandet med en privat kanaltur. Nyd de smukke ruter, lokale historier og en afslappet oplevelse guidet af lokale.",
+    "cta": {
+      "book": "Book din tur",
+      "explore": "Udforsk ture"
+    },
+    "img_alt": "Københavns kanaler bådtur"
+  },
+  "tours": {
+    "label": "Vores oplevelser",
+    "title": "Vælg din bådoplevelse<br />i København",
+    "sub": "Oplev vores mere end 8 nøje udvalgte ture, fra 1-times byhøjdepunkter til 7-timers eventyr. Hver rute er privat, afslappet og designet til at vise dig København fra et personligt perspektiv.",
+    "catalog_cta": "Se alle 8+ private oplevelser →",
+    "explore_line": "Udforsk vores fulde udvalg af private ruter"
+  },
+  "tour": {
+    "highlights": {
+      "tag": "Privat · 1t",
+      "img_alt": "Byens højdepunkter privat bådtur",
+      "title": "Byens højdepunkter",
+      "desc": "Oplev Københavns højdepunkter på en privat bådtur med din egen lokale guide. Oplev den autentiske \"hygge\"-livsstil med musik, drikkevarer og panoramaudsigt over havnen.",
+      "price_note": "pr. gruppe op til 8",
+      "cta": "Book denne tur"
+    },
+    "premium": {
+      "tag": "Privat · 4t",
+      "img_alt": "Privat 4-timers premium oplevelse",
+      "title": "Søfort & Kystrejse",
+      "desc": "4 timers privat sejlads, inklusiv 1 time ved Reffen og 1 time ved Trekroner Fort. Mulighed for svømmestop og udsigt over det åbne vand.",
+      "price_note": "pr. gruppe op til 8",
+      "cta": "Book denne tur"
+    },
+    "reffen": {
+      "tag": "Privat · 3t",
+      "img_alt": "Udvidet Havnerundfart & Reffen-stop",
+      "title": "Udvidet Havnerundfart & Reffen-stop",
+      "desc": "Inkluderer 3 timers privat sejlads med et 1-times stop ved Reffen Street Food. Udvidet rute ud over de centrale kanaler.",
+      "price_note": "pr. gruppe op til 8",
+      "cta": "Book denne tur"
+    }
+  },
+  "bespoke": {
+    "label": "Skræddersyede tjenester",
+    "title": "Brug for noget særligt?",
+    "text": "Leder du efter noget unikt? Fra firmaarrangementer til romantiske overraskelser, vi specialiserer os i at skræddersy private sejlture. <strong>Kontakt os i dag for et personligt tilbud og et skræddersyet estimat.</strong>",
+    "cta": "Få dit tilbud →"
+  },
+  "why": {
+    "label": "Hvorfor vælge os",
+    "title": "En mere personlig måde at<br />opleve København på",
+    "p1": "Hos Seaduced Experience mener vi, at den bedste måde at opdage København på er fra vandet. Vores ture er private, afslappede og designet til at føles personlige fra start til slut.",
+    "p2": "I stedet for overfyldte turistbåde tilbyder vi små og intime oplevelser, der lader dig nyde kanalerne i dit eget tempo. Hver rute guides af lokale, der deler historier, skjulte steder og en mere autentisk side af byen.",
+    "stat": {
+      "guests": "Glade gæster",
+      "rating": "Gennemsnitlig bedømmelse",
+      "private": "Private ture"
+    },
+    "book_cta": "Book din oplevelse"
+  },
+  "feature": {
+    "private": {
+      "title": "Privat & Personligt",
+      "text": "Din tur er reserveret kun til din gruppe, uden menneskemængder eller fremmede ombord."
+    },
+    "guides": {
+      "title": "Lokale ekspertguider",
+      "text": "Vores guider kender Københavns kanaler, vartegn og skjulte hjørner, og bringer hver rute til live med lokale historier."
+    },
+    "routes": {
+      "title": "Smukke skjulte ruter",
+      "text": "Vi udforsker smukke vandveje og charmerende områder, som mange større ture overser."
+    },
+    "comfort": {
+      "title": "Komfort & Atmosfære",
+      "text": "Fra sommercruises til vinterhygge-øjeblikke er hver detalje designet til at gøre oplevelsen afslappet og mindeværdig."
+    }
+  },
+  "reviews": {
+    "label": "Gæsteanmeldelser",
+    "title": "Hvad vores gæster siger",
+    "anna": {
+      "text": "\"Bedste private bådtur i København. Hyggelig, personlig og uforglemmelig oplevelse.\"",
+      "author": "— Anna, Tyskland"
+    },
+    "mark": {
+      "text": "\"Fantastisk privat kanaltur. Meget bedre end de store turistbåde.\"",
+      "author": "— Mark, USA"
+    },
+    "lucia": {
+      "text": "\"Perfekt hygge-oplevelse på vandet. Kan varmt anbefales.\"",
+      "author": "— Lucia, Spanien"
+    },
+    "tcard": {
+      "dawn": "Denne tur var et af højdepunkterne på vores rejse! Vores guide Onis viden om kanalerne og historien var fremragende, og han anbefalede endda et lækkert måltid på Reffen.",
+      "laura": "Vores guide Oni var fantastisk – han skræddersyede turen lige til os. Dette var en vidunderlig familievenlig oplevelse, og vi anbefaler det varmt.",
+      "oliver": "En perfekt eftermiddag med at udforske København fra kanalerne. Smuk udsigt og spændende historier – kan varmt anbefales!",
+      "karina": "Perfekt søndag med at besøge København fra kanalerne. Vi havde den bedste guide, man kunne ønske sig. Kan varmt anbefales!",
+      "shannon": "Dette var en fantastisk tur!! Han var en fantastisk guide og gav god information, samtidig med at det var sjovt.",
+      "thomas": "Vi havde en fantastisk tur med Oni. Han fortalte os alt om København, vi så alle seværdighederne, fik noget lækker mad ved Reffen-stoppet, og vigtigst af alt fik vi grinet meget."
+    },
+    "more_sub": "Vil du se flere anmeldelser fra vores gæster? Besøg vores GetYourGuide-side for at læse detaljeret feedback fra rejsende som dig.",
+    "more_cta": "Læs flere anmeldelser"
+  },
+  "cta": {
+    "headline": "Klar til at opleve København<br />fra vandet?",
+    "sub": "Book din private bådtur og opdag byen fra et roligt, intimt og uforglemmeligt perspektiv.",
+    "book": "Book Nu",
+    "contact": "Kontakt os"
+  },
+  "faq": {
+    "label": "FAQ",
+    "title": "Ofte stillede spørgsmål",
+    "sub": "Alt hvad du behøver at vide før din tur.",
+    "availability": {
+      "q": "Er turene private og tilgængelige hele året?",
+      "a": "<p>Ja. Hver Seaduced Experience-tur er 100% privat, reserveret kun til din gruppe. Vi sejler hele året, og vores ture er designet til at tilbyde en varm og hyggelig hygge-oplevelse, selv i de koldere måneder.</p>"
+    },
+    "route": {
+      "q": "Hvad er ruten, og hvor lange er turene?",
+      "a": "<p>Vores ture varer typisk 1 til 2 timer, med muligheder op til 4 timer. Vi udforsker de centrale kanaler (Nyhavn, Christianshavn, Islands Brygge) og kan inkludere stop ved Reffen eller Trekroner Fort på længere ture. Da alt er privat, kan din kaptajn tilpasse ruten efter dine interesser.</p>"
+    },
+    "amenities": {
+      "q": "Hvad er inkluderet, og hvad skal vi medbringe?",
+      "a": "<p>Vi tilbyder tæpper og varme drikke om vinteren, og koldt vand om sommeren. Nogle pakker inkluderer snacks eller champagne. Du er velkommen til at medbringe din egen mad/drikke på ture på 3+ timer. Vi anbefaler behageligt tøj efter vejret.</p>"
+    },
+    "policies": {
+      "q": "Betalingsmetoder & afbestillingsregler",
+      "a": "<p><strong>Betalinger:</strong> Vi accepterer kredit-/betalingskort (Visa, MC, AMEX), MobilePay, Apple Pay, SumUp og Revolut.</p><p style=\"margin-top: 1rem;\"><strong>Afbestillinger:</strong></p><ul style=\"margin: 0.5rem 0 1rem 1.5rem; line-height: 1.6;\"><li>7+ dage før: Fuld refusion.</li><li>7 dage til 48 timer før: 50% refusion.</li><li>Inden for 48 timer: Ingen refusion.</li></ul><p>I tilfælde af dårligt vejr/usikre forhold planlægger vi en ny tid eller tilbyder fuld refusion. Refusioner tager 5-10 hverdage.</p>"
+    },
+    "meetingpoint": {
+      "q": "Hvor starter turen?",
+      "a": "<p>Detaljer om mødested deles efter reservationsbekræftelse.</p>"
+    }
+  },
+  "footer": {
+    "location": "Baseret i København, Danmark",
+    "hours": {
+      "summer": "Dagligt (Sommer): 9:00 – 20:00",
+      "winter": "Dagligt (Vinter): 10:00 – 17:00"
+    },
+    "note": "Ture efter aftale; afhængigt af vejret.",
+    "copy": "© 2025 – 2026 Seaduced Experience. Alle rettigheder forbeholdes."
+  }
+}
