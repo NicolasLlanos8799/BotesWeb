@@ -153,5 +153,605 @@
     },
     "note": "Ture efter aftale; afhængigt af vejret.",
     "copy": "© 2025 – 2026 Seaduced Experience. Alle rettigheder forbeholdes."
+  },
+  "book": {
+    "page": {
+      "title": "Book din tur | Seaduced Experience – Private bådture i København",
+      "description": "Vælg og book din private bådtur i København. Oplevelser til rådighed forår, sommer og vinter. Sikker booking, gratis afbestilling 48t før."
+    },
+    "hero": {
+      "label": "Vælg din oplevelse",
+      "title": "Oplev København<br /><em>fra vandet</em>",
+      "intro": "Oplev kanalerne som aldrig før. Vores unikke ture kombinerer fantastiske udsigter med det danske koncept <strong>hygge</strong>, hvilket giver en intim og uforglemmelig måde at udforske byen på.",
+      "badge": {
+        "secure": "🔒 Sikker booking",
+        "cancel": "✅ Gratis afbestilling 48t",
+        "private": "🛥️ 100% Private ture"
+      }
+    },
+    "season": "🌿 Forår — Sommer 2026",
+    "section1": {
+      "title": "Kanal-essentials & eventyr",
+      "desc": "Den bedste måde at se byen på. Fra vores populære 1-times højdepunkter til udvidede 3-timers havneudforskninger."
+    },
+    "section2": {
+      "title": "Signatur- & specialoplevelser",
+      "desc": "Nøje udvalgte rejser til den nysgerrige rejsende. Oplev søfæstninger, vinsmagninger eller eventyr til lands og til vands."
+    },
+    "section3": {
+      "title": "Eksklusive dagsture",
+      "desc": "Det ultimative eventyr. Kryds grænser og opdag skønheden i Øresund på en privat heldagsrejse."
+    },
+    "card": {
+      "cta": "Book nu →",
+      "badge_popular": "Mest populær",
+      "badge_large": "Stor gruppe",
+      "badge_fullday": "Heldagstur",
+      "highlights": {
+        "title": "Byens højdepunkter",
+        "desc": "Vores signatur 1-times private bådtur med din egen guide. Perfekt til det første besøg.",
+        "price_note": "pr. gruppe op til 8"
+      },
+      "10p": {
+        "title": "Byens højdepunkter (10 gæster)",
+        "desc": "Ideel til større grupper. En eksklusiv 1-times privat tur med ekstra plads til alle.",
+        "price_note": "pr. gruppe op til 10"
+      },
+      "reffen": {
+        "title": "Udvidet havnerundfart & Reffen-stop",
+        "desc": "3 timers privat sejlads med et 1-times stop ved Reffen Street Food. Udforsk mere end blot centrum.",
+        "price_note": "pr. gruppe op til 8"
+      },
+      "premium": {
+        "title": "Søfæstning & kystrejse",
+        "desc": "Inkluderer stop ved Reffen og Trekroner Fort. Mulighed for svømning og udsigt over åbent vand.",
+        "price_note": "pr. gruppe op til 8"
+      },
+      "wine": {
+        "title": "Flydende vinsmagning",
+        "desc": "Vinsmagning guidet af en vært. Inkluderer fire udvalgte vine og en gourmet-platte.",
+        "price_note": "pr. gruppe op til 6"
+      },
+      "land": {
+        "title": "Båd- & land-escape",
+        "desc": "Kombiner en 2-timers kanalrundfart med en privat landtur til Dragør og Kronborg.",
+        "price_note": "pr. gruppe op til 6"
+      },
+      "malmo": {
+        "title": "København til Malmø",
+        "desc": "Grænseoverskridende eventyr til Sverige. Udforsk Malmø med masser af fritid.",
+        "price_note": "pr. gruppe op til 10"
+      }
+    },
+    "bespoke": {
+      "label": "Skræddersyede tjenester",
+      "title": "Brug for noget særligt?",
+      "text": "Leder du efter noget unikt? Fra firmaarrangementer til romantiske overraskelser, vi specialiserer os i at skræddersy private sejlture. Kontakt os i dag for et personligt tilbud og et skræddersyet estimat.",
+      "cta": "Få dit tilbud →"
+    },
+    "footer": {
+      "back": "Tilbage til forsiden"
+    }
+  },
+  "reserve": {
+    "page": {
+      "title": "Gennemfør din reservation | Seaduced Experience"
+    },
+    "nav": {
+      "back_label": "Tilbage til valg"
+    },
+    "steps": {
+      "contact": "Kontakt",
+      "payment": "Betaling"
+    },
+    "section": {
+      "personal": "Indtast dine personlige oplysninger",
+      "extras": "Opgrader din oplevelse"
+    },
+    "form": {
+      "name": "Fulde navn",
+      "email": "E-mailadresse",
+      "phone": "Telefonnummer"
+    },
+    "extra": {
+      "badge": "Kaptajnens valg",
+      "title": "Gourmet-charcuteri",
+      "desc": "Udvalg af 2 oste, 2 slags kød, lokal marmelade, økologisk brød, nødder og oliven."
+    },
+    "summary": {
+      "title": "Reservationsoplysninger",
+      "experience": "Valgt oplevelse",
+      "datetime": "Dato & tid",
+      "participants": "Deltagere",
+      "language": "Sprog",
+      "lang_value": "Dansk",
+      "edit": "Skift dato eller antal deltagere",
+      "total": "Total",
+      "confirm_btn": "Bekræft og fortsæt til betaling"
+    },
+    "mobile": {
+      "complete_btn": "Gennemfør booking"
+    },
+    "payment": {
+      "title": "Starter betaling...",
+      "message": "Vent venligst"
+    }
+  },
+  "experiences": {
+    "ui": {
+      "tabs": {
+        "discover": "Oplev",
+        "included": "Inkluderet",
+        "prep": "Forberedelse",
+        "meeting": "Mødested"
+      },
+      "accordion": {
+        "discover": "Hvad du vil opleve",
+        "included": "Hvad der er inkluderet i din oplevelse",
+        "prep": "Før du tager afsted",
+        "meeting": "Hvor vi mødes"
+      },
+      "info": {
+        "cancellation": "Afbestilling",
+        "cancellation_val": "Gratis op til 24t før",
+        "participants": "Deltagere",
+        "duration": "Varighed",
+        "guide": "Guide"
+      },
+      "story": {
+        "in_detail": "I detaljer",
+        "highlights": "Højdepunkter",
+        "included": "Inkluderet"
+      },
+      "prep": {
+        "bring": "Medbring",
+        "rules": "Regler / Før du tager afsted"
+      },
+      "meeting": {
+        "address": "Adresse",
+        "open_maps": "Åbn i Maps"
+      },
+      "booking": {
+        "from": "Fra",
+        "participants": "Deltagere",
+        "people_head": "Antal personer",
+        "done": "Færdig",
+        "date_label": "Vælg dato",
+        "date_placeholder": "Vælg dato",
+        "dates_only": "Kun ledige datoer",
+        "time_label": "Vælg tid",
+        "time_placeholder": "Vælg dato først",
+        "times_head": "Ledige tider",
+        "times_sub": "Vælg din tid",
+        "times_empty": "Vælg en dato først",
+        "lang_label": "Sprog (guide)",
+        "lang_head": "Sprog (guide)",
+        "lang_sub": "Vælg sproget for din guide",
+        "lang_en": "Engelsk",
+        "lang_es": "Spansk",
+        "continue": "Fortsæt",
+        "free_cancel": "Gratis afbestilling",
+        "free_cancel_text": "Fuld refusion hvis du afbestiller op til 24 timer i forvejen."
+      },
+      "weekdays": [
+        "Man",
+        "Tir",
+        "Ons",
+        "Tor",
+        "Fre",
+        "Lør",
+        "Søn"
+      ],
+      "footer": {
+        "back": "Tilbage til forsiden"
+      },
+      "mobile_cta": {
+        "book": "Book nu"
+      }
+    },
+    "city_highlights": {
+      "page": {
+        "title": "Byens højdepunkter | Seaduced Experience",
+        "desc": "Oplev Københavns højdepunkter på en 1-times privat bådtur med din egen kaptajn. Nyd musik, drikkevarer og panoramaudsigt over byen fra vandet."
+      },
+      "hero_html": "<span class=\"title-accent\">Byens</span> højdepunkter",
+      "intro": "Oplev Københavns vigtigste højdepunkter på en 1-times privat bådtur med din egen lokale kaptajn. Sejl gennem kanalerne, nyd musik og drikkevarer ombord, og se byens mest ikoniske vartegn fra vandet — alt sammen i et afslappet og behageligt tempo.",
+      "info": {
+        "participants_val": "Privat gruppe (maks 8)",
+        "duration_val": "1 time",
+        "guide_val": "Engelsk, Spansk"
+      },
+      "flag": "Populært valg",
+      "booking": {
+        "price": "2,499 DKK",
+        "price_note": "pr. gruppe op til 8",
+        "up_to": "Op til 8 gæster"
+      },
+      "story_paras": [
+        "Denne 1-times private bådtur er den perfekte måde at opleve København fra vandet på kort tid. Du vil sejle gennem byens kanaler og havn, mens din kaptajn deler lokale historier og peger på vigtige vartegn undervejs.",
+        "Under turen vil du passere nogle af Københavns mest ikoniske seværdigheder, herunder Islands Brygge, Amagers moderne havn, Den Sorte Diamant, Christiansborg Slot, Nyhavn, Operaen, Christianshavns kanaler og Vor Frelsers Kirke.",
+        "Dette er en afslappet sightseeing-tur — uden stop — designet til at give dig et komplet overblik over byen fra vandet, mens du nyder din egen musik, drikkevarer og private atmosfære ombord på <strong>Joda Tender 710</strong>.",
+        "<strong>Bemærk:</strong> Den Lille Havfrue og Reffen er ikke inkluderet i 1-times ruten."
+      ],
+      "highlights": [
+        "<strong>Byens højdepunkter:</strong> Se Københavns vigtigste vartegn fra vandet.",
+        "<strong>Privat oplevelse:</strong> Kun din gruppe og din kaptajn ombord.",
+        "<strong>Lokal guide:</strong> Oplev historier og skjulte detaljer om byen.",
+        "<strong>Afslappet tur:</strong> Nyd musik, drikkevarer og panoramaudsigt.",
+        "<strong>Perfekt på 1 time:</strong> Et komplet overblik over København på kort tid."
+      ],
+      "included": [
+        "1-times privat bådtur i København",
+        "Live kommentarer og guidning fra kaptajn Oni",
+        "Bluetooth-højtaler til din egen musik",
+        "Drikkevarer kan købes ombord"
+      ],
+      "excl_h3": "Eksklusivitet & Atmosfære",
+      "prep": {
+        "bring": [
+          "Valgfrit: Badetøj & håndklæde",
+          "Lag-på-lag tøj efter vejret",
+          "Solbriller & solcreme"
+        ],
+        "rules": [
+          "Ingen hop eller rygning ombord",
+          "Maks 8 gæster pr. booking",
+          "Kraftig regn: fuld refusion garanteret"
+        ]
+      },
+      "excl_text": "Din tur, din atmosfære: tilslut din playliste, åbn en kold drink fra køleboksen, og sejl med stil. Denne tur tilbyder total fleksibilitet for par, familier eller små grupper."
+    },
+    "city_highlights_10p": {
+      "page": {
+        "title": "Byens højdepunkter (10 gæster) | Seaduced Experience",
+        "desc": "Oplev Københavns højdepunkter på en 1-times privat bådtur med din egen kaptajn. Nyd musik, drikkevarer og panoramaudsigt over byen fra vandet."
+      },
+      "hero_html": "<span class=\"title-accent\">Byens</span> højdepunkter",
+      "intro": "Oplev Københavns vigtigste højdepunkter på en 1-times privat bådtur med din egen lokale kaptajn. Sejl gennem kanalerne, nyd musik og drikkevarer ombord, og se byens mest ikoniske vartegn fra vandet — alt sammen i et afslappet og behageligt tempo.",
+      "info": {
+        "participants_val": "Privat gruppe (maks 10)",
+        "duration_val": "1 time",
+        "guide_val": "Engelsk, Spansk"
+      },
+      "flag": "Populært valg",
+      "booking": {
+        "price": "2,999 DKK",
+        "price_note": "pr. gruppe op til 10",
+        "up_to": "Op til 10 gæster"
+      },
+      "story_paras": [
+        "Denne 1-times private bådtur er den perfekte måde at opleve København fra vandet på kort tid. Du vil sejle gennem byens kanaler og havn, mens din kaptajn deler lokale historier og peger på vigtige vartegn undervejs.",
+        "Under turen vil du passere nogle af Københavns mest ikoniske seværdigheder, herunder Islands Brygge, Amagers moderne havn, Den Sorte Diamant, Christiansborg Slot, Nyhavn, Operaen, Christianshavns kanaler og Vor Frelsers Kirke.",
+        "Dette er en afslappet sightseeing-tur — uden stop — designet til at give dig et komplet overblik over byen fra vandet, mens du nyder din egen musik, drikkevarer og private atmosfære ombord på <strong>Joda Tender 710</strong>.",
+        "<strong>Bemærk:</strong> Den Lille Havfrue og Reffen er ikke inkluderet i 1-times ruten."
+      ],
+      "highlights": [
+        "<strong>Byens højdepunkter:</strong> Se Københavns vigtigste vartegn fra vandet.",
+        "<strong>Privat oplevelse:</strong> Kun din gruppe og din kaptajn ombord.",
+        "<strong>Lokal guide:</strong> Oplev historier og skjulte detaljer om byen.",
+        "<strong>Afslappet tur:</strong> Nyd musik, drikkevarer og panoramaudsigt.",
+        "<strong>Perfekt på 1 time:</strong> Et komplet overblik over København på kort tid."
+      ],
+      "included": [
+        "1-times privat bådtur i København",
+        "Live kommentarer og guidning fra kaptajn Oni",
+        "Bluetooth-højtaler til din egen musik",
+        "Drikkevarer kan købes ombord"
+      ],
+      "excl_h3": "Eksklusivitet & Atmosfære",
+      "prep": {
+        "bring": [
+          "Valgfrit: Badetøj & håndklæde",
+          "Lag-på-lag tøj efter vejret",
+          "Solbriller & solcreme"
+        ],
+        "rules": [
+          "Ingen hop eller rygning ombord",
+          "Maks 10 gæster pr. booking",
+          "Kraftig regn: fuld refusion garanteret"
+        ]
+      },
+      "excl_text": "Din tur, din atmosfære: tilslut din playliste, åbn en kold drink fra køleboksen, og sejl med stil. Denne tur tilbyder total fleksibilitet for par, familier eller små grupper."
+    },
+    "reffen_3h": {
+      "page": {
+        "title": "Udvidet havnerundfart & Reffen-stop | Seaduced Experience",
+        "desc": "Oplev København på en udvidet 3-timers havnerundfart. Inkluderer byens højdepunkter plus et stop ved Reffen street food marked, musik og drikkevarer ombord."
+      },
+      "hero_html": "<span class=\"title-accent\">Udvidet havnerundfart</span> & Reffen-stop",
+      "intro": "Udforsk København ud over højdepunkterne på en 3-timers privat bådoplevelse med din egen kaptajn. Sejl gennem kanalerne, stop ved Reffen street food marked, nyd musik og drikkevarer ombord, og oplev byen i dit eget tempo — afslappet, fleksibelt og helt privat.",
+      "info": {
+        "participants_val": "Privat gruppe (maks. 8)",
+        "duration_val": "3 timer",
+        "guide_val": "Engelsk, Spansk"
+      },
+      "flag": "Populært valg",
+      "booking": {
+        "price": "4,299 DKK",
+        "price_note": "pr. gruppe op til 8",
+        "up_to": "Op til 8 gæster"
+      },
+      "story_paras": [
+        "Denne 3-timers private bådtur er den perfekte balance mellem sightseeing og oplevelse. Du vil udforske Københavns kanaler og havn i dybden, mens du har tid til at stoppe, slappe af og virkelig nyde byen fra vandet.",
+        "Undervejs kommer du forbi nogle af byens mest ikoniske vartegn, herunder Islands Brygge, Den Sorte Diamant, Christiansborg Slot, Nyhavn, Operahuset, Christianshavn og Vor Frelsers Kirke — alt imens din kaptajn deler lokale historier og indsigt.",
+        "I modsætning til kortere ture giver denne oplevelse dig tid til at sætte tempoet ned. Du kan stoppe ved Reffen street food marked, et af Københavns mest livlige steder, hvor du kan nyde mad fra hele verden enten på land eller tilbage på båden.",
+        "Der er også fleksibilitet til at tage en pause for en svømmetur, slappe af med en drink eller nyde din egen musik ombord på Joda Tender 710.",
+        "Ruten kan også inkludere et besøg ved Den Lille Havfrue.",
+        "Dette er din tid på vandet — fleksibel, privat og designet helt efter din stemning."
+      ],
+      "highlights": [
+        "<strong>By + Oplevelse:</strong> Gå ud over højdepunkterne med tid til at stoppe og udforske",
+        "<strong>Reffen Stop:</strong> Besøg Københavns berømte street food marked",
+        "<strong>Svømmemulighed:</strong> Valgfri svømmetur i havnen",
+        "<strong>Den Lille Havfrue:</strong> Besøg et af Danmarks mest ikoniske vartegn",
+        "<strong>Helt privat:</strong> Din gruppe, din musik, dit tempo"
+      ],
+      "included": [
+        "3-timers privat bådtur i København",
+        "Live kommentarer og guidning fra kaptajn Oni",
+        "Bluetooth-højtaler til din egen musik",
+        "Valgfrit stop ved Reffen",
+        "Drikkevarer kan købes ombord"
+      ],
+      "excl_h3": "Eksklusivitet & Vibe",
+      "prep": {
+        "bring": [
+          "Badetøj & håndklæde (anbefales)",
+          "Tøj efter vejret",
+          "Solbriller & solcreme"
+        ],
+        "rules": [
+          "Ingen udspring eller rygning ombord",
+          "Maks. 8 gæster pr. booking",
+          "Kraftig regn: fuld refusion garanteret",
+          "Mad ved Reffen er ikke inkluderet i prisen"
+        ]
+      },
+      "excl_text": "Din tur, din stemning: tilslut din playliste, åbn en kold drink fra køleboksen og sejl med stil. Denne tur tilbyder total fleksibilitet for par, familier eller små grupper."
+    },
+    "sea_fortress_4h": {
+      "page": {
+        "title": "Søfort & kystrejse | Seaduced Experience",
+        "desc": "Oplev den ultimative kystrejse i København. Inkluderer byens højdepunkter, Reffen street food marked, Den Lille Havfrue og en privat sejlads til det historiske Trekroner Fort."
+      },
+      "hero_html": "<span class=\"title-accent\">Søfort</span> & kystrejse",
+      "intro": "Oplev den ultimative bådtur i København på en 4-timers privat rejse med din egen kaptajn. Sejl gennem kanalerne, stop ved Reffen street food marked, besøg Den Lille Havfrue og sejl ud i åbent vand for at udforske det historiske Trekroner Fort — alt i dit eget tempo, helt privat.",
+      "info": {
+        "participants_val": "Privat gruppe (maks. 8)",
+        "duration_val": "4 timer",
+        "guide_val": "Engelsk, Spansk"
+      },
+      "flag": "Populært valg",
+      "booking": {
+        "price": "5,999 DKK",
+        "price_note": "pr. gruppe op til 8",
+        "up_to": "Op til 8 gæster"
+      },
+      "story_paras": [
+        "Denne 4-timers private bådtur er den fulde København-oplevelse. Du vil udforske byens kanaler og havn i dybden, med tid til at stoppe, slappe af og gå ud over de typiske ruter.",
+        "Undervejs kommer du forbi store vartegn som Islands Brygge, Den Sorte Diamant, Christiansborg Slot, Nyhavn, Operahuset, Christianshavn og Vor Frelsers Kirke — mens din kaptajn deler lokale historier og indsigt.",
+        "Du får mulighed for at stoppe ved Reffen street food marked, hvor du kan nyde mad fra hele verden i en livlig atmosfære ved vandet.",
+        "Rejsen fortsætter med et besøg ved Den Lille Havfrue, et af Danmarks mest ikoniske vartegn.",
+        "Derfra sejler du ud over byen i åbent vand for at nå Trekroner Fort — en historisk søfæstning bygget til at forsvare København, som tilbyder panoramaudsigt og et unikt perspektiv, som få besøgende oplever.",
+        "Du kan også tage tid til at svømme, slappe af, nyde drikkevarer eller spille din egen musik ombord på Joda Tender 710.",
+        "Dette er den mest komplette, fleksible og fordybende måde at opleve København fra vandet på."
+      ],
+      "highlights": [
+        "<strong>Fuld oplevelse:</strong> Den mest komplette bådtur i København",
+        "<strong>Reffen Stop:</strong> Nyd Københavns street food scene",
+        "<strong>Den Lille Havfrue:</strong> Besøg Danmarks mest ikoniske vartegn",
+        "<strong>Trekroner Fort:</strong> Sejl ud i åbent vand til en historisk søfæstning",
+        "<strong>Svøm & slap af:</strong> Tid til at nyde vandet og atmosfæren",
+        "<strong>Helt privat:</strong> Din gruppe, din musik, dit tempo"
+      ],
+      "included": [
+        "4-timers privat bådtur i København",
+        "Live kommentarer og guiding fra kaptajn Oni",
+        "Bluetooth-højtaler til din egen musik",
+        "Valgfrit stop ved Reffen",
+        "Besøg ved Den Lille Havfrue",
+        "Besøg ved Trekroner Fort",
+        "Drikkevarer kan købes ombord"
+      ],
+      "excl_h3": "Eksklusivitet & Vibe",
+      "prep": {
+        "bring": [
+          "Badetøj & håndklæde (anbefales)",
+          "Tøj efter vejret",
+          "Solbriller & solcreme"
+        ],
+        "rules": [
+          "Ingen udspring eller rygning ombord",
+          "Maks. 8 gæster pr. booking",
+          "Kraftig regn: fuld refusion garanteret",
+          "Mad ved Reffen er ikke inkluderet i prisen"
+        ]
+      },
+      "excl_text": "Din tur, din stemning: tilslut din playliste, åbn en kold drink fra køleboksen og sejl med stil. Denne tur tilbyder total fleksibilitet for par, familier eller små grupper."
+    },
+    "wine_tasting": {
+      "page": {
+        "title": "Flydende vinsmagning bådoplevelse | Seaduced Experience",
+        "desc": "Nyd en 2-timers privat bådtur i København med en guidet vinsmagning. Inkluderer 4 vine, en gourmet-platte med ost og pølse, og en afslappet premium-atmosfære på vandet."
+      },
+      "hero_html": "Flydende <span class=\"title-accent\">vinsmagning</span> oplevelse",
+      "intro": "Nyd en unik 2-timers privat bådoplevelse i København, der kombinerer sightseeing med en guidet vinsmagning. Slap af på vandet med din egen kaptajn og vært, smag fire nøje udvalgte vine, og nyd en gourmet-platte, mens du sejler gennem byens kanaler.",
+      "info": {
+        "participants_val": "Privat gruppe (maks. 6)",
+        "duration_val": "2 timer",
+        "guide_val": "Engelsk (vinvært)"
+      },
+      "flag": "Unik oplevelse",
+      "booking": {
+        "price": "3,499 DKK",
+        "price_note": "pr. gruppe op til 6",
+        "up_to": "Op til 6 gæster"
+      },
+      "story_paras": [
+        "Nyd København fra vandet på en 2-timers privat kanalrundfart kombineret med en guidet vinsmagning.",
+        "Mens din kaptajn navigerer gennem byens smukkeste kanaler og havneområder, vil din vært ombord guide dig gennem en kurateret smagning af fire udvalgte vine og forklare deres oprindelse, noter og karakteristika.",
+        "Som supplement til smagningen serveres en gourmet-platte ombord med kvalitetsoste, pølse og frisk brød.",
+        "Atmosfæren er afslappet, elegant og intim — ideel til par, venner, små fejringer eller rejsende, der leder efter en premium-oplevelse ud over en traditionel sightseeingtur.",
+        "Dette er en helt privat oplevelse kun for din gruppe, designet til at kombinere fantastisk udsigt, god vin og en rolig, eksklusiv ramme på vandet."
+      ],
+      "highlights": [
+        "<strong>Guidet vinsmagning:</strong> Smag 4 udvalgte vine",
+        "<strong>Gourmet-platte:</strong> Ost, pølse og brød inkluderet",
+        "<strong>Privat oplevelse:</strong> Kun din gruppe ombord",
+        "<strong>Premium Atmosfære:</strong> Afslappet, elegant og intim",
+        "<strong>Perfekt til fejringer:</strong> Ideel til par og særlige lejligheder"
+      ],
+      "included": [
+        "Privat båd med professionel kaptajn",
+        "2-timers kanalrundfart",
+        "Guidet vinsmagning (4 vine)",
+        "Gourmet-platte (ost, pølse, brød)",
+        "Glas, is og service ombord",
+        "Brændstof, havneafgifter og rengøring"
+      ],
+      "excl_h3": "Ikke inkluderet",
+      "prep": {
+        "bring": [
+          "Tøj efter vejret",
+          "Solbriller",
+          "Kamera"
+        ],
+        "rules": [
+          "Dette er en privat oplevelse kun for din gruppe",
+          "Minimumsalder: 18 år (der serveres alkohol)",
+          "Ruten kan variere afhængigt af vejr og havneforhold",
+          "Følg altid kaptajnens sikkerhedsinstrukser",
+          "Ved usikre vejrforhold kan turen blive ombooket"
+        ]
+      },
+      "excl_items": [
+        "Ekstra drikkevarer er ikke inkluderet",
+        "Mulighed for opgradering til champagne",
+        "Transport til/fra mødested"
+      ]
+    },
+    "land_tour": {
+      "page": {
+        "title": "Privat båd- & landtur i København, Dragør & Kronborg | Seaduced Experience",
+        "desc": "Oplev København til vands og til lands på en 5-timers privat tur. Nyd en kanalrundfart, besøg landsbyen Dragør og udforsk Helsingør med udsigt til Kronborg Slot — med mulighed for tapas og vin."
+      },
+      "hero_html": "Københavns private <span class=\"title-accent\">Båd- & Land</span> oplevelse",
+      "intro": "Oplev København fra to unikke perspektiver — vand og land. Start med en privat kanalrundfart, og fortsæt derefter i køretøj for at udforske Dragør og Helsingør, inklusiv udsigt til det ikoniske Kronborg Slot. En komplet premium-oplevelse, der kombinerer komfort, kultur og udforskning.",
+      "info": {
+        "participants_val": "Privat gruppe (maks. 6)",
+        "duration_val": "5 timer",
+        "guide_val": "Engelsk, Spansk"
+      },
+      "flag": "Komplet oplevelse",
+      "booking": {
+        "price": "8,999 DKK",
+        "price_note": "pr. gruppe op til 6",
+        "up_to": "Op til 6 gæster"
+      },
+      "story_paras": [
+        "Oplev København ud over den typiske tur ved at kombinere en privat kanalrundfart med en landrejse gennem nogle af Danmarks mest charmerende og historiske steder.",
+        "Begynd med en 2-timers privat bådtur gennem Københavns kanaler, hvor du passerer ikoniske vartegn, mens du nyder en afslappet og eksklusiv atmosfære på vandet.",
+        "Efter sejlturen fortsætter din oplevelse i et førsteklasses køretøj med 7 sæder og chauffør, mens vi kører ud af byen.",
+        "Dit første stop er Dragør, en malerisk kystlandsby kendt for sine traditionelle huse og historiske havn. Gå en tur gennem de charmerende gader og nyd den fredelige atmosfære.",
+        "Dernæst går turen til Helsingør, hvor du kan beundre det ydre af Kronborg Slot — den berømte ramme for Shakespeares Hamlet — placeret direkte ved kysten.",
+        "Under oplevelsen kan du også nyde spanske tapas med vin, med mulighed for at opgradere til champagne for et mere eksklusivt præg.",
+        "Denne oplevelse er designet til rejsende, der ønsker at kombinere sightseeing, komfort og kultur i én sammenhængende rejse."
+      ],
+      "highlights": [
+        "<strong>Vand + Land Oplevelse:</strong> Udforsk København fra to perspektiver",
+        "<strong>Privat kanalrundfart:</strong> 2-timers bådtur gennem byen",
+        "<strong>Landsbyen Dragør:</strong> Gå tur i en historisk kystby",
+        "<strong>Kronborg Slot:</strong> Se det berømte Hamlet-slot udefra",
+        "<strong>Premium Komfort:</strong> Rejs i et privat high-end køretøj",
+        "<strong>Valgfri Tapas & Vin:</strong> Opgrader din oplevelse"
+      ],
+      "included": [
+        "2-timers privat kanalrundfart",
+        "Professionel kaptajn",
+        "Premium køretøj (7 sæder)",
+        "Chauffør",
+        "Landtur til Dragør og Helsingør",
+        "Spanske tapas & vin"
+      ],
+      "excl_h3": "Vigtig information",
+      "prep": {
+        "bring": [
+          "Tøj efter vejret",
+          "Kamera",
+          "Solcreme"
+        ],
+        "rules": [
+          "Dette er en privat oplevelse",
+          "Ruten kan variere afhængigt af vejr og trafik",
+          "Følg guide og chaufførs anvisninger",
+          "Tapas og vin kan opgraderes til champagne"
+        ]
+      },
+      "excl_items": [
+        "Ikke egnet til personer over 150 kg",
+        "Ikke egnet til personer med tendens til søsyge"
+      ]
+    },
+    "malmo": {
+      "page": {
+        "title": "Privat bådtur fra København til Malmø | Seaduced Experience",
+        "desc": "Sejl fra København til Malmø på en privat bådtur. Udforsk byens vartegn, kryds Øresund og nyd fritid i Sverige — alt sammen i én unik heldagsoplevelse."
+      },
+      "hero_html": "Fra København til Malmø <span class=\"title-accent\">Privat bådoplevelse</span>",
+      "intro": "Oplev to lande på én uforglemmelig dag. Sejl fra København til Malmø på en privat båd, udforsk ikoniske vartegn fra vandet, kryds Øresund og nyd fritid i Sverige — alt sammen i dit eget tempo med din egen kaptajn.",
+      "info": {
+        "participants_val": "Privat gruppe (maks. 10)",
+        "duration_val": "7 timer",
+        "guide_val": "Engelsk, Spansk, Dansk"
+      },
+      "flag": "Episk rejse",
+      "booking": {
+        "price": "13,000 DKK",
+        "price_note": "pr. gruppe op til 10",
+        "up_to": "Op til 10 gæster"
+      },
+      "story_paras": [
+        "Begynd din rejse i København og sejl gennem byens livlige havn forbi nogle af dens mest ikoniske vartegn. Fra det farverige Nyhavn til det moderne Operahus og Den Sorte Diamant får du et unikt perspektiv på den danske hovedstad fra vandet.",
+        "Efterhånden som byen forsvinder bag dig, ændrer oplevelsen sig. Du krydser Øresund og forlader havnen til fordel for det åbne hav. Med musik i højttalerne, drikkevarer ombord og endeløs udsigt til horisonten bliver denne del af rejsen en sand privat flugt.",
+        "Ved ankomsten til Malmø har du cirka to timers fritid til at udforske byen i dit eget tempo. Gå gennem den charmerende gamle bydel, nyd en frokost ved vandet, eller oplev blot en anden skandinavisk by.",
+        "Efter dit besøg vender du tilbage til båden og sejler tilbage mod København, mens du nyder havets rolige rytme og den afslappede atmosfære ombord.",
+        "Dette er ikke bare en bådtur — det er en grænseoverskridende oplevelse, der kombinerer sightseeing, udforskning og eventyr på åbent vand."
+      ],
+      "highlights": [
+        "<strong>To lande på én dag:</strong> Danmark → Sverige",
+        "<strong>Byens højdepunkter:</strong> Se København fra vandet",
+        "<strong>Krydsning af åbent hav:</strong> Sejl over Øresund",
+        "<strong>Malmø-besøg:</strong> Fritid til at udforske i dit eget tempo",
+        "<strong>Drikkevarer & Musik:</strong> Slap af ombord under rejsen",
+        "<strong>Helt privat:</strong> Din gruppe, din oplevelse"
+      ],
+      "included": [
+        "Privat båd og kaptajn",
+        "Brændstof",
+        "Musik ombord",
+        "Drikkevarer (øl, vin, sodavand)",
+        "Sikkerhedsudstyr"
+      ],
+      "excl_h3": "Ikke inkluderet",
+      "prep": {
+        "bring": [
+          "Pas eller gyldig ID (kræves til grænseovergang)",
+          "Tøj efter vejret",
+          "Solbriller",
+          "Kamera"
+        ],
+        "rules": [
+          "Gyldig ID kræves (rejse mellem Danmark og Sverige)",
+          "Ruten afhænger af vejr og søforhold",
+          "Krydsning er kun mulig, hvis forholdene er sikre",
+          "Fuld refusion, hvis turen aflyses pga. vejrforhold",
+          "Følg altid kaptajnens sikkerhedsinstrukser"
+        ]
+      },
+      "excl_items": [
+        "Mad er ikke inkluderet",
+        "Ekstra drikkevarer kan købes"
+      ]
+    }
   }
 }

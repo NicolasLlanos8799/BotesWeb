@@ -1,0 +1,754 @@
+{
+  "page": {
+    "title": "Seaduced Experience | Private Boat Tours Copenhagen",
+    "description": "Discover Copenhagen from the water with a private and intimate boat experience. Cruise through scenic canals, uncover hidden corners of the city, and enjoy a relaxed tour guided by locals who know Copenhagen best."
+  },
+  "nav": {
+    "home": "Home",
+    "tours": "Tours",
+    "faq": "FAQ",
+    "contact": "Contact",
+    "cta": "Book Now"
+  },
+  "hero": {
+    "headline": "Private Boat Tours<br />in Copenhagen's<br /><em>Scenic Canals</em>",
+    "subtext": "Discover Copenhagen from the water with a private canal tour. Enjoy scenic routes, local stories, and a relaxed experience guided by locals.",
+    "cta": {
+      "book": "Book Your Tour",
+      "explore": "Explore Tours"
+    },
+    "img_alt": "Copenhagen canals boat tour"
+  },
+  "tours": {
+    "label": "Our Experiences",
+    "title": "Choose Your Copenhagen<br />Boat Experience",
+    "sub": "Discover our 8+ curated experiences, from 1-hour city highlights to 7-hour cross-border adventures. Each route is private, relaxed, and designed to show you Copenhagen from a personal perspective.",
+    "catalog_cta": "View All 8+ Private Experiences →",
+    "explore_line": "Explore our complete range of private routes"
+  },
+  "tour": {
+    "highlights": {
+      "tag": "Private · 1h",
+      "title": "City Highlights",
+      "desc": "Discover Copenhagen's city highlights on a private boat tour with your own local guide. Experience the authentic \"hygge\" lifestyle with music, drinks, and panoramic harbor views.",
+      "price_note": "per group up to 8",
+      "cta": "Book This Tour"
+    },
+    "premium": {
+      "tag": "Private · 4h",
+      "title": "Sea Fortress & Coastal Journey",
+      "desc": "4 hours of private sailing, including 1 hour at Reffen and 1 hour at Trekroner Fort. Swimming stop possibility and open water views.",
+      "price_note": "per group up to 8",
+      "cta": "Book This Tour"
+    },
+    "reffen": {
+      "tag": "Private · 3h",
+      "title": "Harbor Extended & Reffen Stop",
+      "desc": "Includes 3 hours of private sailing with a 1-hour stop at Reffen Street Food. Extended route beyond the central canals.",
+      "price_note": "per group up to 8",
+      "cta": "Book This Tour"
+    }
+  },
+  "bespoke": {
+    "label": "Bespoke Services",
+    "title": "Need Something Special?",
+    "text": "Looking for something unique? From corporate events to romantic surprises, we specialize in tailoring private cruises. <strong>Contact us today for a personalized offer and custom quote.</strong>",
+    "cta": "Get Your Custom Quote →"
+  },
+  "why": {
+    "label": "Why Choose Us",
+    "title": "A More Personal Way to<br />Experience Copenhagen",
+    "p1": "At Seaduced Experience, we believe the best way to discover Copenhagen is from the water. Our tours are private, relaxed, and designed to feel personal from beginning to end.",
+    "p2": "Instead of crowded tourist boats, we offer small and intimate experiences that let you enjoy the canals at your own pace. Every route is guided by locals who share stories, hidden spots, and a more authentic side of the city.",
+    "stat": {
+      "guests": "Happy Guests",
+      "rating": "Average Rating",
+      "private": "Private Tours"
+    },
+    "book_cta": "Book Your Experience"
+  },
+  "feature": {
+    "private": {
+      "title": "Private & Personalized",
+      "text": "Your tour is reserved only for your group, without crowds or strangers on board."
+    },
+    "guides": {
+      "title": "Local Expert Guides",
+      "text": "Our guides know Copenhagen's canals, landmarks, and hidden corners, and bring each route to life with local stories."
+    },
+    "routes": {
+      "title": "Scenic Hidden Routes",
+      "text": "We explore beautiful waterways and charming areas that many larger tours miss."
+    },
+    "comfort": {
+      "title": "Comfort & Atmosphere",
+      "text": "From summer cruises to winter hygge moments, every detail is designed to make the experience relaxed and memorable."
+    }
+  },
+  "reviews": {
+    "label": "Guest Reviews",
+    "title": "What Our Guests Say",
+    "anna": {
+      "text": "\"Best private boat tour in Copenhagen. Cozy, personal and unforgettable experience.\"",
+      "author": "— Anna, Germany"
+    },
+    "mark": {
+      "text": "\"Amazing private canal tour. Way better than big tourist boats.\"",
+      "author": "— Mark, USA"
+    },
+    "lucia": {
+      "text": "\"Perfect hygge experience on the water. Highly recommended.\"",
+      "author": "— Lucia, Spain"
+    },
+    "tcard": {
+      "dawn": "This tour was one of the highlights of our trip! Our guide Oni's knowledge of the canals and history was outstanding, and he even recommended a delicious meal at Reffen.",
+      "laura": "Our guide Oni was terrific – he tailored the tour just for us. This was a wonderful family-friendly experience, and we highly recommend it.",
+      "oliver": "A perfect afternoon exploring Copenhagen from the canals. Beautiful views and insightful stories – highly recommended!",
+      "karina": "Perfect Sunday visiting Copenhagen from the canals. We had the best guide we could wish. Highly recommended!",
+      "shannon": "This was a great tour!! He was an amazing guide and provided great information while also being fun.",
+      "thomas": "We had a fantastic trip with Oni. He told us all about Copenhagen, saw all of the sites, had some great food at the Reffen stop, and most importantly had a lot of laughs."
+    },
+    "more_sub": "Want to see more reviews from our guests? Visit our GetYourGuide page to explore detailed feedback from travelers like you.",
+    "more_cta": "Read More Reviews"
+  },
+  "cta": {
+    "headline": "Ready to Experience Copenhagen<br />from the Water?",
+    "sub": "Book your private boat tour and discover the city from a calm, intimate, and unforgettable perspective.",
+    "book": "Book Now",
+    "contact": "Contact Us"
+  },
+  "faq": {
+    "label": "FAQ",
+    "title": "Frequently Asked Questions",
+    "sub": "Everything you need to know before your tour.",
+    "availability": {
+      "q": "Are the tours private and available year-round?",
+      "a": "<p>Yes. Every Seaduced Experience tour is 100% private, reserved only for your group. We operate year-round, and our tours are designed to offer a warm and cozy hygge experience even in the colder months.</p>"
+    },
+    "route": {
+      "q": "What is the route and how long are the tours?",
+      "a": "<p>Our tours typically last 1 to 2 hours, with options up to 4 hours. We explore central canals (Nyhavn, Christianshavn, Islands Brygge) and can include stops at Reffen or Trekroner Fort on longer trips. As everything is private, your captain can customize the route to your interests.</p>"
+    },
+    "amenities": {
+      "q": "What is included and what should we bring?",
+      "a": "<p>We provide blankets and hot drinks in winter, and cold water in summer. Some packages include snacks or champagne. You are welcome to bring your own food/drinks for trips of 3+ hours. We recommend comfortable clothing and layers for the weather.</p>"
+    },
+    "policies": {
+      "q": "Payment Methods & Cancellation Policy",
+      "a": "<p><strong>Payments:</strong> We accept Credit/Debit cards (Visa, MC, AMEX), MobilePay, Apple Pay, SumUp, and Revolut.</p><p style=\"margin-top: 1rem;\"><strong>Cancellations:</strong></p><ul style=\"margin: 0.5rem 0 1rem 1.5rem; line-height: 1.6;\"><li>7+ days before: Full refund.</li><li>7 days to 48h before: 50% refund.</li><li>Within 48h: Non-refundable.</li></ul><p>In case of bad weather/unsafe conditions, we reschedule or offer a full refund. Refunds take 5–10 business days.</p>"
+    },
+    "meetingpoint": {
+      "q": "Where does the tour start?",
+      "a": "<p>Meeting point details are shared after booking confirmation.</p>"
+    }
+  },
+  "footer": {
+    "location": "Based in Copenhagen, Denmark",
+    "hours": {
+      "summer": "Daily (Summer): 9:00 – 20:00",
+      "winter": "Daily (Winter): 10:00 – 17:00"
+    },
+    "note": "Tours by appointment; weather dependent.",
+    "copy": "© 2025 – 2026 Seaduced Experience. All rights reserved."
+  },
+  "book": {
+    "page": {
+      "title": "Book Your Tour | Seaduced Experience – Private Boat Tours Copenhagen",
+      "description": "Choose and book your private Copenhagen boat tour. Spring, Summer and Winter experiences available. Secure booking, free cancellation 48h."
+    },
+    "hero": {
+      "label": "Choose Your Experience",
+      "title": "Discover Copenhagen<br /><em>from the Sea</em>",
+      "intro": "Experience the canals like never before. Our unique tours combine stunning views with the Danish concept of <strong>hygge</strong>, offering an intimate and unforgettable way to explore the city.",
+      "badge": {
+        "secure": "🔒 Secure booking",
+        "cancel": "✅ Free cancellation 48h",
+        "private": "🛥️ 100% Private tours"
+      }
+    },
+    "season": "🌿 Spring — Summer 2026",
+    "section1": {
+      "title": "Canal Essentials & Adventures",
+      "desc": "The best way to see the city. From our popular 1-hour highlights to extended 3-hour harbor explorations."
+    },
+    "section2": {
+      "title": "Signature & Specialty Experiences",
+      "desc": "Curated journeys for the curious traveler. Discover sea fortresses, wine tastings, or land-and-water adventures."
+    },
+    "section3": {
+      "title": "Exclusive Day Trips",
+      "desc": "The ultimate adventure. Cross borders and discover the beauty of the Øresund Strait on a full-day private journey."
+    },
+    "card": {
+      "cta": "Book Now →",
+      "badge_popular": "Most Popular",
+      "badge_large": "Large Group",
+      "badge_fullday": "Full Day",
+      "highlights": {
+        "title": "City Highlights",
+        "desc": "Our signature 1-hour private boat tour with your own guide. Perfect for a first visit.",
+        "price_note": "per group up to 8"
+      },
+      "10p": {
+        "title": "City Highlights (10 Guests)",
+        "desc": "Ideal for larger groups. A premium 1-hour private tour with extra space for everyone.",
+        "price_note": "per group up to 10"
+      },
+      "reffen": {
+        "title": "Harbor Extended & Reffen Stop",
+        "desc": "3 hours of private sailing with a 1-hour stop at Reffen Street Food. Explore beyond the center.",
+        "price_note": "per group up to 8"
+      },
+      "premium": {
+        "title": "Sea Fortress & Coastal Journey",
+        "desc": "Includes stops at Reffen and Trekroner Fort. Swimming possible and open water views.",
+        "price_note": "per group up to 8"
+      },
+      "wine": {
+        "title": "Floating Wine Tasting",
+        "desc": "Wine tasting guided by a host. Includes four selected wines and a gourmet board.",
+        "price_note": "per group up to 6"
+      },
+      "land": {
+        "title": "Boat & Land Escape",
+        "desc": "Combine a 2-hour canal cruise with a private land tour to Dragør and Kronborg.",
+        "price_note": "per group up to 6"
+      },
+      "malmo": {
+        "title": "Copenhagen to Malmö",
+        "desc": "Cross-border adventure to Sweden. Explore Malmö with plenty of free time.",
+        "price_note": "per group up to 10"
+      }
+    },
+    "bespoke": {
+      "label": "Bespoke Services",
+      "title": "Need Something Special?",
+      "text": "Looking for something unique? From corporate events to romantic surprises, we specialize in tailoring private cruises. Contact us today for a personalized offer and custom quote.",
+      "cta": "Get Your Custom Quote →"
+    },
+    "footer": {
+      "back": "Back to Home"
+    }
+  },
+  "reserve": {
+    "page": {
+      "title": "Complete Your Reservation | Seaduced Experience"
+    },
+    "nav": {
+      "back_label": "Back to selection"
+    },
+    "steps": {
+      "contact": "Contact",
+      "payment": "Payment"
+    },
+    "section": {
+      "personal": "Enter your personal details",
+      "extras": "Enhance Your Experience"
+    },
+    "form": {
+      "name": "Full Name",
+      "email": "Email Address",
+      "phone": "Phone Number"
+    },
+    "extra": {
+      "badge": "Captain's Choice",
+      "title": "Gourmet Charcuterie",
+      "desc": "Selection of 2 cheeses, 2 meats, local marmalade, organic bread, nuts and olives."
+    },
+    "summary": {
+      "title": "Reservation Details",
+      "experience": "Selected Experience",
+      "datetime": "Date & Time",
+      "participants": "Participants",
+      "language": "Language",
+      "lang_value": "English",
+      "edit": "Change date or number of participants",
+      "total": "Total",
+      "confirm_btn": "Confirm & Proceed to Payment"
+    },
+    "mobile": {
+      "complete_btn": "Complete Booking"
+    },
+    "payment": {
+      "title": "Initiating payment…",
+      "message": "Please wait"
+    }
+  },
+  "experiences": {
+    "ui": {
+      "tabs": {
+        "discover": "Discover",
+        "included": "Included",
+        "prep": "Preparation",
+        "meeting": "Meeting"
+      },
+      "accordion": {
+        "discover": "What you’ll experience",
+        "included": "What’s included in your experience",
+        "prep": "Before you go",
+        "meeting": "Where we’ll meet"
+      },
+      "info": {
+        "cancellation": "Cancellation",
+        "cancellation_val": "Free up to 24h before",
+        "participants": "Participants",
+        "duration": "Duration",
+        "guide": "Guide"
+      },
+      "story": {
+        "in_detail": "In detail",
+        "highlights": "Highlights",
+        "included": "Included"
+      },
+      "prep": {
+        "bring": "Bring with you",
+        "rules": "Rules / Before you go"
+      },
+      "meeting": {
+        "address": "Address",
+        "open_maps": "Open in Maps"
+      },
+      "booking": {
+        "from": "From",
+        "participants": "Participants",
+        "people_head": "Number of people",
+        "done": "Done",
+        "date_label": "Select date",
+        "date_placeholder": "Choose date",
+        "dates_only": "Available dates only",
+        "time_label": "Select time",
+        "time_placeholder": "Date first",
+        "times_head": "Available times",
+        "times_sub": "Choose your slot",
+        "times_empty": "Select a date first",
+        "lang_label": "Guide language",
+        "lang_head": "Guide language",
+        "lang_sub": "Choose the language of your guide",
+        "lang_en": "English",
+        "lang_es": "Spanish",
+        "continue": "Continue",
+        "free_cancel": "Free cancellation",
+        "free_cancel_text": "Full refund if you cancel up to 24 hours in advance."
+      },
+      "weekdays": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu",
+        "Fri",
+        "Sat",
+        "Sun"
+      ],
+      "footer": {
+        "back": "Back to Home"
+      },
+      "mobile_cta": {
+        "book": "Book now"
+      }
+    },
+    "city_highlights": {
+      "page": {
+        "title": "City Highlights | Seaduced Experience",
+        "desc": "Discover Copenhagen’s highlights on a 1-hour private boat tour with your own captain. Enjoy music, drinks, and panoramic views of the city from the water."
+      },
+      "hero_html": "<span class=\"title-accent\">City</span> Highlights",
+      "intro": "Discover Copenhagen’s main highlights on a 1-hour private boat tour with your own local captain. Cruise through the canals, enjoy music and drinks on board, and take in the city’s most iconic landmarks from the water — all at a relaxed, comfortable pace.",
+      "info": {
+        "participants_val": "Private group (max 8)",
+        "duration_val": "1 hour",
+        "guide_val": "English, Spanish"
+      },
+      "flag": "Popular choice",
+      "booking": {
+        "price": "2,499 DKK",
+        "price_note": "per group up to 8",
+        "up_to": "Up to 8 guests"
+      },
+      "story_paras": [
+        "This 1-hour private boat tour is the perfect way to experience Copenhagen from the water in a short time. You’ll cruise through the city’s canals and harbor while your captain shares local stories and points out key landmarks along the way.",
+        "During the tour, you’ll pass by some of Copenhagen’s most iconic sights, including Islands Brygge, the modern harbor of Amager, the Black Diamond library, Christiansborg Palace, Nyhavn, the Opera House, Christianshavn canals, and the Church of Our Saviour.",
+        "This is a relaxed sightseeing cruise — no stops — designed to give you a complete overview of the city from the water while enjoying your own music, drinks, and private atmosphere on board the <strong>Joda Tender 710</strong>.",
+        "<strong>Note:</strong> The Little Mermaid and Reffen are not included in the 1-hour route."
+      ],
+      "highlights": [
+        "<strong>City Highlights:</strong> See Copenhagen’s main landmarks from the water.",
+        "<strong>Private Experience:</strong> Only your group and your captain on board.",
+        "<strong>Local Guide:</strong> Discover stories and hidden details of the city.",
+        "<strong>Relaxed Cruise:</strong> Enjoy music, drinks, and panoramic views.",
+        "<strong>Perfect in 1 Hour:</strong> A complete overview of Copenhagen in a short time."
+      ],
+      "included": [
+        "1-hour private boat tour in Copenhagen",
+        "Live commentary and guiding from captain Oni",
+        "Bluetooth speaker for your own music",
+        "Drinks available for purchase on board"
+      ],
+      "excl_h3": "Exclusivity & Vibe",
+      "prep": {
+        "bring": [
+          "Optional: Swimwear & Towel",
+          "Weather-appropriate layers",
+          "Sunglasses & Sunscreen"
+        ],
+        "rules": [
+          "No jumping or smoking on board",
+          "Max 8 guests per booking",
+          "Heavy rain: full refund guaranteed"
+        ]
+      },
+      "excl_text": "Your trip, your vibe: connect your playlist, open a cold drink from the cooler, and cruise in style. This tour offers total flexibility for couples, families, or small groups."
+    },
+    "city_highlights_10p": {
+      "page": {
+        "title": "City Highlights | Seaduced Experience",
+        "desc": "Discover Copenhagen’s highlights on a 1-hour private boat tour with your own captain. Enjoy music, drinks, and panoramic views of the city from the water."
+      },
+      "hero_html": "<span class=\"title-accent\">City</span> Highlights",
+      "intro": "Discover Copenhagen’s main highlights on a 1-hour private boat tour with your own local captain. Cruise through the canals, enjoy music and drinks on board, and take in the city’s most iconic landmarks from the water — all at a relaxed, comfortable pace.",
+      "info": {
+        "participants_val": "Private group (max 10)",
+        "duration_val": "1 hour",
+        "guide_val": "English, Spanish"
+      },
+      "flag": "Popular choice",
+      "booking": {
+        "price": "2,999 DKK",
+        "price_note": "per group up to 10",
+        "up_to": "Up to 10 guests"
+      },
+      "story_paras": [
+        "This 1-hour private boat tour is the perfect way to experience Copenhagen from the water in a short time. You’ll cruise through the city’s canals and harbor while your captain shares local stories and points out key landmarks along the way.",
+        "During the tour, you’ll pass by some of Copenhagen’s most iconic sights, including Islands Brygge, the modern harbor of Amager, the Black Diamond library, Christiansborg Palace, Nyhavn, the Opera House, Christianshavn canals, and the Church of Our Saviour.",
+        "This is a relaxed sightseeing cruise — no stops — designed to give you a complete overview of the city from the water while enjoying your own music, drinks, and private atmosphere on board the <strong>Joda Tender 710</strong>.",
+        "<strong>Note:</strong> The Little Mermaid and Reffen are not included in the 1-hour route."
+      ],
+      "highlights": [
+        "<strong>City Highlights:</strong> See Copenhagen’s main landmarks from the water.",
+        "<strong>Private Experience:</strong> Only your group and your captain on board.",
+        "<strong>Local Guide:</strong> Discover stories and hidden details of the city.",
+        "<strong>Relaxed Cruise:</strong> Enjoy music, drinks, and panoramic views.",
+        "<strong>Perfect in 1 Hour:</strong> A complete overview of Copenhagen in a short time."
+      ],
+      "included": [
+        "1-hour private boat tour in Copenhagen",
+        "Live commentary and guiding from captain Oni",
+        "Bluetooth speaker for your own music",
+        "Drinks available for purchase on board"
+      ],
+      "excl_h3": "Exclusivity & Vibe",
+      "prep": {
+        "bring": [
+          "Optional: Swimwear & Towel",
+          "Weather-appropriate layers",
+          "Sunglasses & Sunscreen"
+        ],
+        "rules": [
+          "No jumping or smoking on board",
+          "Max 10 guests per booking",
+          "Heavy rain: full refund guaranteed"
+        ]
+      },
+      "excl_text": "Your trip, your vibe: connect your playlist, open a cold drink from the cooler, and cruise in style. This tour offers total flexibility for couples, families, or small groups."
+    },
+    "reffen_3h": {
+      "page": {
+        "title": "Harbor Extended & Reffen Stop | Seaduced Experience",
+        "desc": "Experience Copenhagen on an extended 3-hour harbor tour. Includes city highlights plus a stop at Reffen street food market, music, and drinks on board."
+      },
+      "hero_html": "<span class=\"title-accent\">Harbor Extended</span> & Reffen Stop",
+      "intro": "Explore Copenhagen beyond the highlights on a 3-hour private boat experience with your own captain. Cruise through the canals, stop at Reffen street food market, enjoy music and drinks on board, and experience the city at your own pace — relaxed, flexible, and fully private.",
+      "info": {
+        "participants_val": "Private group (max 8)",
+        "duration_val": "3 hours",
+        "guide_val": "English, Spanish"
+      },
+      "flag": "Popular choice",
+      "booking": {
+        "price": "4,299 DKK",
+        "price_note": "per group up to 8",
+        "up_to": "Up to 8 guests"
+      },
+      "story_paras": [
+        "This 3-hour private boat tour is the perfect balance between sightseeing and experience. You’ll explore Copenhagen’s canals and harbor in depth, while having time to stop, relax, and truly enjoy the city from the water.",
+        "Along the way, you’ll pass by some of the city’s most iconic landmarks, including Islands Brygge, the Black Diamond, Christiansborg Palace, Nyhavn, the Opera House, Christianshavn, and the Church of Our Saviour — all while your captain shares local stories and insights.",
+        "Unlike shorter tours, this experience gives you time to slow down. You can stop at Reffen street food market, one of Copenhagen’s most vibrant spots, where you can enjoy food from around the world either on land or back on the boat.",
+        "There’s also flexibility to pause for a swim, relax with a drink, or enjoy your own music on board the Joda Tender 710.",
+        "The route can also include a visit to the Little Mermaid.",
+        "This is your time on the water — flexible, private, and designed entirely around your vibe."
+      ],
+      "highlights": [
+        "<strong>City + Experience:</strong> Go beyond highlights with time to stop and explore",
+        "<strong>Reffen Stop:</strong> Visit Copenhagen’s famous street food market",
+        "<strong>Swim Option:</strong> Optional swimming in the harbor",
+        "<strong>Little Mermaid:</strong> Visit one of Denmark’s most iconic landmarks",
+        "<strong>Fully Private:</strong> Your group, your music, your pace"
+      ],
+      "included": [
+        "3-hour private boat tour in Copenhagen",
+        "Live commentary and guiding from captain Oni",
+        "Bluetooth speaker for your own music",
+        "Optional stop at Reffen",
+        "Drinks available for purchase on board"
+      ],
+      "excl_h3": "Exclusivity & Vibe",
+      "prep": {
+        "bring": [
+          "Swimwear & Towel (recommended)",
+          "Weather-appropriate layers",
+          "Sunglasses & Sunscreen"
+        ],
+        "rules": [
+          "No jumping or smoking on board",
+          "Max 8 guests per booking",
+          "Heavy rain: full refund guaranteed",
+          "Food at Reffen is not included in the price"
+        ]
+      },
+      "excl_text": "Your trip, your vibe: connect your playlist, open a cold drink from the cooler, and cruise in style. This tour offers total flexibility for couples, families, or small groups."
+    },
+    "sea_fortress_4h": {
+      "page": {
+        "title": "Sea Fortress & Coastal Journey | Seaduced Experience",
+        "desc": "Experience the ultimate Copenhagen coastal journey. Includes city highlights, Reffen street food market, the Little Mermaid, and a private sail to the historic Trekroner Fort."
+      },
+      "hero_html": "<span class=\"title-accent\">Sea Fortress</span> & Coastal Journey",
+      "intro": "Experience the ultimate Copenhagen boat tour on a 4-hour private journey with your own captain. Cruise through the canals, stop at Reffen street food market, visit the Little Mermaid, and sail into open water to explore the historic Trekroner Fort — all at your own pace, fully private.",
+      "info": {
+        "participants_val": "Private group (max 8)",
+        "duration_val": "4 hours",
+        "guide_val": "English, Spanish"
+      },
+      "flag": "Popular choice",
+      "booking": {
+        "price": "5,999 DKK",
+        "price_note": "per group up to 8",
+        "up_to": "Up to 8 guests"
+      },
+      "story_paras": [
+        "This 4-hour private boat tour is the full Copenhagen experience. You’ll explore the city’s canals and harbor in depth, with time to stop, relax, and go beyond the typical routes.",
+        "Along the way, you’ll pass by major landmarks such as Islands Brygge, the Black Diamond, Christiansborg Palace, Nyhavn, the Opera House, Christianshavn, and the Church of Our Saviour — while your captain shares local stories and insights.",
+        "You’ll have the opportunity to stop at Reffen street food market, where you can enjoy food from around the world in a vibrant waterfront setting.",
+        "The journey continues with a visit to the Little Mermaid, one of Denmark’s most iconic landmarks.",
+        "From there, you’ll sail beyond the city into open water to reach Trekroner Fort — a historic sea fortress built to defend Copenhagen, offering panoramic views and a unique perspective that few visitors experience.",
+        "You can also take time to swim, relax, enjoy drinks, or play your own music on board the Joda Tender 710.",
+        "This is the most complete, flexible, and immersive way to experience Copenhagen from the water."
+      ],
+      "highlights": [
+        "<strong>Full Experience:</strong> The most complete Copenhagen boat tour",
+        "<strong>Reffen Stop:</strong> Enjoy Copenhagen’s street food scene",
+        "<strong>Little Mermaid:</strong> Visit Denmark’s most iconic landmark",
+        "<strong>Trekroner Fort:</strong> Sail into open water to a historic sea fortress",
+        "<strong>Swim & Relax:</strong> Time to enjoy the water and atmosphere",
+        "<strong>Fully Private:</strong> Your group, your music, your pace"
+      ],
+      "included": [
+        "4-hour private boat tour in Copenhagen",
+        "Live commentary and guiding from captain Oni",
+        "Bluetooth speaker for your own music",
+        "Optional stop at Reffen",
+        "Visit to the Little Mermaid",
+        "Visit to Trekroner Fort",
+        "Drinks available for purchase on board"
+      ],
+      "excl_h3": "Exclusivity & Vibe",
+      "prep": {
+        "bring": [
+          "Swimwear & Towel (recommended)",
+          "Weather-appropriate layers",
+          "Sunglasses & Sunscreen"
+        ],
+        "rules": [
+          "No jumping or smoking on board",
+          "Max 8 guests per booking",
+          "Heavy rain: full refund guaranteed",
+          "Food at Reffen is not included in the price"
+        ]
+      },
+      "excl_text": "Your trip, your vibe: connect your playlist, open a cold drink from the cooler, and cruise in style. This tour offers total flexibility for couples, families, or small groups."
+    },
+    "wine_tasting": {
+      "page": {
+        "title": "Floating Wine Tasting Boat Experience | Seaduced Experience",
+        "desc": "Enjoy a 2-hour private boat tour in Copenhagen with a guided wine tasting experience. Includes 4 wines, a gourmet cheese and charcuterie board, and a relaxed, premium atmosphere on the water."
+      },
+      "hero_html": "Floating <span class=\"title-accent\">Wine Tasting</span> Experience",
+      "intro": "Enjoy a unique 2-hour private boat experience in Copenhagen combining sightseeing with a guided wine tasting. Relax on the water with your own captain and host, taste four carefully selected wines, and enjoy a gourmet board while cruising through the city’s canals.",
+      "info": {
+        "participants_val": "Private group (max 6)",
+        "duration_val": "2 hours",
+        "guide_val": "English (wine host)"
+      },
+      "flag": "Unique Experience",
+      "booking": {
+        "price": "3,499 DKK",
+        "price_note": "per group up to 6",
+        "up_to": "Up to 6 guests"
+      },
+      "story_paras": [
+        "Enjoy Copenhagen from the water on a 2-hour private canal cruise combined with a guided wine tasting experience.",
+        "While your captain navigates through the city’s most scenic canals and harbor areas, your onboard host will guide you through a curated tasting of four selected wines, explaining their origin, notes, and characteristics.",
+        "To complement the tasting, a gourmet board is served on board, including quality cheeses, cured meats, and fresh bread.",
+        "The atmosphere is relaxed, elegant, and intimate — ideal for couples, friends, small celebrations, or travelers looking for a premium experience beyond a traditional sightseeing tour.",
+        "This is a fully private experience for your group only, designed to combine great views, great wine, and a calm, exclusive setting on the water."
+      ],
+      "highlights": [
+        "<strong>Guided Wine Tasting:</strong> Taste 4 selected wines",
+        "<strong>Gourmet Board:</strong> Cheese, charcuterie, and bread included",
+        "<strong>Private Experience:</strong> Only your group on board",
+        "<strong>Premium Atmosphere:</strong> Relaxed, elegant, and intimate",
+        "<strong>Perfect for Celebrations:</strong> Ideal for couples and special occasions"
+      ],
+      "included": [
+        "Private boat with professional captain",
+        "2-hour canal cruise",
+        "Guided wine tasting (4 wines)",
+        "Gourmet board (cheese, charcuterie, bread)",
+        "Glassware, ice, and onboard service",
+        "Fuel, port fees, and cleaning"
+      ],
+      "excl_h3": "Not Included",
+      "prep": {
+        "bring": [
+          "Weather-appropriate clothing",
+          "Sunglasses",
+          "Camera"
+        ],
+        "rules": [
+          "This is a private experience for your group only",
+          "Minimum age: 18 years (alcohol served)",
+          "Route may vary depending on weather and harbor conditions",
+          "Follow captain’s safety instructions at all times",
+          "In unsafe weather conditions, the tour may be rescheduled"
+        ]
+      },
+      "excl_items": [
+        "Additional drinks not included",
+        "Champagne upgrade available",
+        "Transport to/from meeting point"
+      ]
+    },
+    "land_tour": {
+      "page": {
+        "title": "Private Boat & Land Tour in Copenhagen, Dragør & Kronborg | Seaduced Experience",
+        "desc": "Experience Copenhagen by water and land on a 5-hour private tour. Enjoy a canal cruise, visit Dragør village, and explore Helsingør with views of Kronborg Castle — with optional tapas and wine."
+      },
+      "hero_html": "Copenhagen Private <span class=\"title-accent\">Boat & Land</span> Experience",
+      "intro": "Discover Copenhagen from two unique perspectives — water and land. Start with a private canal cruise, then continue by vehicle to explore Dragør and Helsingør, including views of the iconic Kronborg Castle. A complete, premium experience combining comfort, culture, and exploration.",
+      "info": {
+        "participants_val": "Private group (max 6)",
+        "duration_val": "5 hours",
+        "guide_val": "English, Spanish"
+      },
+      "flag": "Complete Experience",
+      "booking": {
+        "price": "8,999 DKK",
+        "price_note": "per group up to 6",
+        "up_to": "Up to 6 guests"
+      },
+      "story_paras": [
+        "Experience Copenhagen beyond the typical tour by combining a private canal cruise with a land journey through some of Denmark’s most charming and historic locations.",
+        "Begin with a 2-hour private boat tour through Copenhagen’s canals, passing iconic landmarks while enjoying a relaxed and exclusive atmosphere on the water.",
+        "After the cruise, continue your experience in a premium 7-seat vehicle with driver, heading outside the city.",
+        "Your first stop is Dragør, a picturesque coastal village known for its traditional houses and historic harbor. Stroll through its charming streets and enjoy the peaceful atmosphere.",
+        "Next, travel to Helsingør, where you’ll admire the exterior of Kronborg Castle — the famous setting of Shakespeare’s Hamlet — located right on the coast.",
+        "During the experience, you can also enjoy Spanish tapas with wine, with the option to upgrade to champagne for a more exclusive touch.",
+        "This experience is designed for travelers who want to combine sightseeing, comfort, and culture in one seamless journey."
+      ],
+      "highlights": [
+        "<strong>Water + Land Experience:</strong> Explore Copenhagen from two perspectives",
+        "<strong>Private Canal Cruise:</strong> 2-hour boat tour through the city",
+        "<strong>Dragør Village:</strong> Walk through a historic coastal town",
+        "<strong>Kronborg Castle:</strong> See the famous Hamlet castle from outside",
+        "<strong>Premium Comfort:</strong> Travel in a private high-end vehicle",
+        "<strong>Optional Tapas & Wine:</strong> Upgrade your experience"
+      ],
+      "included": [
+        "2-hour private canal boat tour",
+        "Professional captain",
+        "Premium vehicle (7 seats)",
+        "Driver",
+        "Land tour to Dragør and Helsingør",
+        "Spanish tapas & Wine"
+      ],
+      "excl_h3": "Important Notice",
+      "prep": {
+        "bring": [
+          "Weather-appropriate clothing",
+          "Camera",
+          "Sunscreen"
+        ],
+        "rules": [
+          "This is a private experience",
+          "Route may vary depending on weather and traffic",
+          "Follow guide and driver instructions",
+          "Tapas and wine can be upgraded to champagne"
+        ]
+      },
+      "excl_items": [
+        "Not suitable for people over 150 kg",
+        "Not suitable for people prone to seasickness"
+      ]
+    },
+    "malmo": {
+      "page": {
+        "title": "Private Boat Tour from Copenhagen to Malmö | Seaduced Experience",
+        "desc": "Cruise from Copenhagen to Malmö on a private boat tour. Explore city landmarks, cross the Øresund Strait, and enjoy free time in Sweden — all in one unique full-day experience."
+      },
+      "hero_html": "Copenhagen to Malmö <span class=\"title-accent\">Private Boat</span> Experience",
+      "intro": "Discover two countries in one unforgettable day. Cruise from Copenhagen to Malmö on a private boat, explore iconic landmarks from the water, cross the Øresund Strait, and enjoy free time in Sweden — all at your own pace with your own captain.",
+      "info": {
+        "participants_val": "Private group (max 10)",
+        "duration_val": "7 hours",
+        "guide_val": "English, Spanish, Danish"
+      },
+      "flag": "Epic Journey",
+      "booking": {
+        "price": "13,000 DKK",
+        "price_note": "per group up to 10",
+        "up_to": "Up to 10 guests"
+      },
+      "story_paras": [
+        "Begin your journey in Copenhagen, cruising through the city’s vibrant harbor and passing some of its most iconic landmarks. From the colorful Nyhavn to the modern Opera House and the Black Diamond, enjoy a unique perspective of the Danish capital from the water.",
+        "As the city fades behind you, the experience transforms. You’ll cross the Øresund Strait, leaving the harbor for open sea. With music playing, drinks on board, and endless views of the horizon, this part of the journey becomes a true private escape.",
+        "Arriving in Malmö, Sweden, you’ll have around two hours of free time to explore at your own pace. Walk through the charming old town, enjoy lunch by the waterfront, or simply experience a second Scandinavian city.",
+        "After your visit, return to the boat and cruise back to Copenhagen, enjoying the calm rhythm of the sea and the relaxed atmosphere on board.",
+        "This is not just a boat tour — it’s a cross-border experience combining sightseeing, exploration, and open-water adventure."
+      ],
+      "highlights": [
+        "<strong>Two Countries in One Day:</strong> Denmark → Sweden",
+        "<strong>City Highlights:</strong> See Copenhagen from the water",
+        "<strong>Open Sea Crossing:</strong> Sail across the Øresund Strait",
+        "<strong>Malmö Visit:</strong> Free time to explore at your own pace",
+        "<strong>Drinks & Music:</strong> Relax on board during the journey",
+        "<strong>Fully Private:</strong> Your group, your experience"
+      ],
+      "included": [
+        "Private boat and captain",
+        "Fuel",
+        "Music onboard",
+        "Drinks (beer, wine, soft drinks)",
+        "Safety equipment"
+      ],
+      "excl_h3": "Not Included",
+      "prep": {
+        "bring": [
+          "Passport or valid ID (required for border crossing)",
+          "Weather-appropriate clothing",
+          "Sunglasses",
+          "Camera"
+        ],
+        "rules": [
+          "Valid ID required (travel between Denmark and Sweden)",
+          "Route depends on weather and sea conditions",
+          "Crossing is only possible if conditions are safe",
+          "Full refund if canceled due to weather conditions",
+          "Follow captain’s safety instructions at all times"
+        ]
+      },
+      "excl_items": [
+        "Food not included",
+        "Additional drinks available for purchase"
+      ]
+    }
+  }
+}

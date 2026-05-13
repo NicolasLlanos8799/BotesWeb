@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="/css/pages.css" />
 </head>
 
-<body class="reserve-page">
+<body class="reserve-page" data-i18n-title="reserve.page.title">
     <div class="preloader">
         <div class="preloader__content">
             <svg class="preloader__anchor" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -28,7 +28,7 @@
         </div>
     </div>
     <nav class="reserve-nav">
-        <a href="/book" class="reserve-nav__back" aria-label="Back to selection">
+        <a href="/book" class="reserve-nav__back" aria-label="Back to selection" data-i18n-href="/book" data-i18n-attr="aria-label:reserve.nav.back_label">
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
                 style="width: 20px; height: 20px;">
                 <path d="M10 12L6 8l4-4" />
@@ -47,11 +47,11 @@
             <div class="reserve-steps">
                 <div class="step-item active" id="step-1-indicator">
                     <div class="step-number">1</div>
-                    <div class="step-label">Contacto</div>
+                    <div class="step-label" data-i18n="reserve.steps.contact">Contact</div>
                 </div>
                 <div class="step-item" id="step-2-indicator">
                     <div class="step-number">2</div>
-                    <div class="step-label">Pago</div>
+                    <div class="step-label" data-i18n="reserve.steps.payment">Payment</div>
                 </div>
             </div>
             
@@ -64,32 +64,32 @@
                 </div>
 
                 <section class="reserve-section">
-                    <h2 class="reserve-section__title">Enter your personal details</h2>
+                    <h2 class="reserve-section__title" data-i18n="reserve.section.personal">Enter your personal details</h2>
                     <div class="contact-compact-row">
                         <div class="input-group">
                             <input type="text" id="reserve-name" placeholder="Full Name" class="input-minimal"
-                                required />
+                                required data-i18n-attr="placeholder:reserve.form.name" />
                         </div>
                         <div class="input-group">
                             <input type="email" id="reserve-email" placeholder="Email Address" class="input-minimal"
-                                required />
+                                required data-i18n-attr="placeholder:reserve.form.email" />
                         </div>
                         <div class="input-group">
                             <input type="tel" id="reserve-phone" placeholder="Phone Number" class="input-minimal"
-                                required />
+                                required data-i18n-attr="placeholder:reserve.form.phone" />
                         </div>
                     </div>
                 </section>
 
                 <section class="reserve-section" id="extras-section">
-                    <h2 class="reserve-section__title">Enhance Your Experience</h2>
+                    <h2 class="reserve-section__title" data-i18n="reserve.section.extras">Enhance Your Experience</h2>
                     <div class="extra-card">
-                        <div class="badge-popular">Captain's Choice</div>
+                        <div class="badge-popular" data-i18n="reserve.extra.badge">Captain's Choice</div>
                         <img src="/assets/images/wine-tour/charcuterie.png" alt="Gourmet Charcuterie" class="extra-card__img"
                             loading="lazy" />
                         <div class="extra-card__info">
-                            <h3>Gourmet Charcuterie</h3>
-                            <p>Selection of 2 cheeses, 2 meats, local marmalade, organic bread, nuts and olives.</p>
+                            <h3 data-i18n="reserve.extra.title">Gourmet Charcuterie</h3>
+                            <p data-i18n="reserve.extra.desc">Selection of 2 cheeses, 2 meats, local marmalade, organic bread, nuts and olives.</p>
                         </div>
                         <div class="extra-card__price">
                             <span>225 DKK</span>
@@ -108,7 +108,7 @@
 
         <aside class="reserve-sidebar">
             <div class="summary-card">
-                <div class="selection-card__title">Reservation Details</div>
+                <div class="selection-card__title" data-i18n="reserve.summary.title">Reservation Details</div>
 
                 <!-- Compact Selection Info -->
                 <div class="selection-card__content">
@@ -125,7 +125,7 @@
                             </svg>
                         </div>
                         <div class="selection-card__info" style="width: 100%;">
-                            <span class="selection-card__label">Selected Experience</span>
+                            <span class="selection-card__label" data-i18n="reserve.summary.experience">Selected Experience</span>
                             <span class="selection-card__value" id="reserve-tour-display">...</span>
                         </div>
                     </div>
@@ -140,7 +140,7 @@
                             </svg>
                         </div>
                         <div class="selection-card__info" style="width: 100%;">
-                            <span class="selection-card__label">Date & Time</span>
+                            <span class="selection-card__label" data-i18n="reserve.summary.datetime">Date & Time</span>
                             <span class="selection-card__value" id="reserve-schedule-display">...</span>
                         </div>
                     </div>
@@ -153,7 +153,7 @@
                             </svg>
                         </div>
                         <div class="selection-card__info" style="width: 100%;">
-                            <span class="selection-card__label">Participants</span>
+                            <span class="selection-card__label" data-i18n="reserve.summary.participants">Participants</span>
                             <span class="selection-card__value">
                                 <span id="reserve-people-display">1</span> <span id="reserve-people-label">person</span>
                             </span>
@@ -171,8 +171,8 @@
                             </svg>
                         </div>
                         <div class="selection-card__info" style="width: 100%;">
-                            <span class="selection-card__label">Language</span>
-                            <span class="selection-card__value" id="reserve-lang-display">English</span>
+                            <span class="selection-card__label" data-i18n="reserve.summary.language">Language</span>
+                            <span class="selection-card__value" id="reserve-lang-display" data-i18n="reserve.summary.lang_value">English</span>
                         </div>
                     </div>
                     <div class="selection-card__item" id="edit-booking-link-row"
@@ -186,7 +186,7 @@
                         </div>
                         <div class="selection-card__info">
                             <a href="#" class="selection-card__edit-link" id="edit-booking-link">
-                                <span>Change date or number of participants</span>
+                                <span data-i18n="reserve.summary.edit">Change date or number of participants</span>
                             </a>
                         </div>
                     </div>
@@ -202,11 +202,11 @@
                     <span>0 DKK</span>
                 </div>
                 <div class="summary-item--total">
-                    <span>Total</span>
+                    <span data-i18n="reserve.summary.total">Total</span>
                     <span id="summary-total">0 DKK</span>
                 </div>
                 <button id="complete-request-btn" class="btn btn--primary reserve-btn">
-                    Confirm & Proceed to Payment
+                    <span data-i18n="reserve.summary.confirm_btn">Confirm & Proceed to Payment</span>
                     <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
                         style="width: 16px; height: 16px;">
                         <path d="M6 12l4-4-4-4" />
@@ -218,11 +218,11 @@
     </div>
     <div id="mobile-sticky-bar" class="mobile-sticky-bar">
         <div class="mobile-sticky-bar__info">
-            <span class="mobile-sticky-bar__label">Total</span>
+            <span class="mobile-sticky-bar__label" data-i18n="reserve.summary.total">Total</span>
             <span class="mobile-sticky-bar__price" id="sticky-total">0 DKK</span>
         </div>
         <button id="sticky-complete-btn" class="btn btn--primary">
-            Complete Booking
+            <span data-i18n="reserve.mobile.complete_btn">Complete Booking</span>
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
                 style="width: 14px; height: 14px; margin-left: 4px;">
                 <path d="M6 12l4-4-4-4" />
@@ -236,8 +236,8 @@
             <div class="po-icon">
                 <div class="po-spinner"></div>
             </div>
-            <h2 class="po-title">Initiating payment…</h2>
-            <p class="po-message">Please wait</p>
+            <h2 class="po-title" data-i18n="reserve.payment.title">Initiating payment…</h2>
+            <p class="po-message" data-i18n="reserve.payment.message">Please wait</p>
             <p class="po-hint" style="display:none;"></p>
             <div class="po-progress-bar" style="display:none;">
                 <div class="po-progress-bar__track">
@@ -248,6 +248,7 @@
         </div>
     </div>
 
+    <script type="module" src="/js/i18n.js"></script>
     <script type="module" src="/js/main.js?v=1.2"></script>
 </body>
 

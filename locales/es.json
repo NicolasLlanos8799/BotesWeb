@@ -153,5 +153,605 @@
     },
     "note": "Tours con reserva previa · Sujeto a las condiciones climáticas.",
     "copy": "© 2025 – 2026 Seaduced Experience. Reservados todos los derechos."
+  },
+  "book": {
+    "page": {
+      "title": "Reserva Tu Tour | Seaduced Experience – Tours Privados en Barco Copenhague",
+      "description": "Elige y reserva tu tour privado en barco por Copenhague. Experiencias de primavera, verano e invierno. Reserva segura, cancelación gratuita 48h."
+    },
+    "hero": {
+      "label": "Elige tu Experiencia",
+      "title": "Descubre Copenhague<br /><em>desde el Mar</em>",
+      "intro": "Vive los canales como nunca antes. Nuestros tours únicos combinan vistas impresionantes con el concepto danés de <strong>hygge</strong>, ofreciendo una forma íntima e inolvidable de explorar la ciudad.",
+      "badge": {
+        "secure": "🔒 Reserva segura",
+        "cancel": "✅ Cancelación gratuita 48h",
+        "private": "🛥️ Tours 100% Privados"
+      }
+    },
+    "season": "🌿 Primavera — Verano 2026",
+    "section1": {
+      "title": "Esenciales de los Canales y Aventuras",
+      "desc": "La mejor forma de ver la ciudad. Desde nuestros populares tours de 1 hora hasta exploraciones extendidas del puerto de 3 horas."
+    },
+    "section2": {
+      "title": "Experiencias Exclusivas y Especiales",
+      "desc": "Viajes curados para el viajero curioso. Descubre fortalezas marinas, catas de vino o aventuras por tierra y agua."
+    },
+    "section3": {
+      "title": "Excursiones Exclusivas de un Día",
+      "desc": "La aventura definitiva. Cruza fronteras y descubre la belleza del estrecho de Øresund en un viaje privado de día completo."
+    },
+    "card": {
+      "cta": "Reservar Ahora →",
+      "badge_popular": "Más Popular",
+      "badge_large": "Grupo Grande",
+      "badge_fullday": "Día Completo",
+      "highlights": {
+        "title": "Lo Mejor de la Ciudad",
+        "desc": "Nuestro tour privado insignia de 1 hora con tu propio guía. Perfecto para una primera visita.",
+        "price_note": "por grupo (hasta 8 pers.)"
+      },
+      "10p": {
+        "title": "Lo Mejor de la Ciudad (10 Personas)",
+        "desc": "Ideal para grupos grandes. Un tour privado premium de 1 hora con espacio extra para todos.",
+        "price_note": "por grupo (hasta 10 pers.)"
+      },
+      "reffen": {
+        "title": "Puerto Extendido y Parada en Reffen",
+        "desc": "3 horas de navegación privada con una parada de 1 hora en Reffen Street Food. Explora más allá del centro.",
+        "price_note": "por grupo (hasta 8 pers.)"
+      },
+      "premium": {
+        "title": "Fortaleza Marina y Viaje Costero",
+        "desc": "Incluye paradas en Reffen y el Fuerte de Trekroner. Posibilidad de nadar y vistas a mar abierto.",
+        "price_note": "por grupo (hasta 8 pers.)"
+      },
+      "wine": {
+        "title": "Cata de Vinos Flotante",
+        "desc": "Cata de vinos guiada por un anfitrión. Incluye cuatro vinos seleccionados y una tabla gourmet.",
+        "price_note": "por grupo (hasta 6 pers.)"
+      },
+      "land": {
+        "title": "Escapada por Tierra y Mar",
+        "desc": "Combina un crucero de 2 horas con un tour privado por tierra a Dragør y Kronborg.",
+        "price_note": "por grupo (hasta 6 pers.)"
+      },
+      "malmo": {
+        "title": "De Copenhague a Malmö",
+        "desc": "Aventura transfronteriza a Suecia. Explora Malmö con tiempo libre suficiente.",
+        "price_note": "por grupo (hasta 10 pers.)"
+      }
+    },
+    "bespoke": {
+      "label": "Servicios a Medida",
+      "title": "¿Necesitas algo Especial?",
+      "text": "¿Buscas algo único? Desde eventos corporativos hasta sorpresas románticas, nos especializamos en personalizar cruceros privados. Contáctanos hoy para una oferta personalizada y presupuesto a medida.",
+      "cta": "Pide tu Presupuesto a Medida →"
+    },
+    "footer": {
+      "back": "Volver al Inicio"
+    }
+  },
+  "reserve": {
+    "page": {
+      "title": "Completa tu Reserva | Seaduced Experience"
+    },
+    "nav": {
+      "back_label": "Volver a la selección"
+    },
+    "steps": {
+      "contact": "Contacto",
+      "payment": "Pago"
+    },
+    "section": {
+      "personal": "Ingresa tus datos personales",
+      "extras": "Mejora tu Experiencia"
+    },
+    "form": {
+      "name": "Nombre Completo",
+      "email": "Correo Electrónico",
+      "phone": "Número de Teléfono"
+    },
+    "extra": {
+      "badge": "Elección del Capitán",
+      "title": "Tabla de Charcutería Gourmet",
+      "desc": "Selección de 2 quesos, 2 embutidos, mermelada local, pan orgánico, frutos secos y aceitunas."
+    },
+    "summary": {
+      "title": "Detalles de la Reserva",
+      "experience": "Experiencia Seleccionada",
+      "datetime": "Fecha y Hora",
+      "participants": "Participantes",
+      "language": "Idioma",
+      "lang_value": "Español",
+      "edit": "Cambiar fecha o número de participantes",
+      "total": "Total",
+      "confirm_btn": "Confirmar y Proceder al Pago"
+    },
+    "mobile": {
+      "complete_btn": "Completar Reserva"
+    },
+    "payment": {
+      "title": "Iniciando pago…",
+      "message": "Por favor espera"
+    }
+  },
+  "experiences": {
+    "ui": {
+      "tabs": {
+        "discover": "Descubrir",
+        "included": "Incluido",
+        "prep": "Preparación",
+        "meeting": "Encuentro"
+      },
+      "accordion": {
+        "discover": "Qué vas a vivir",
+        "included": "Qué incluye tu experiencia",
+        "prep": "Antes de salir",
+        "meeting": "Punto de encuentro"
+      },
+      "info": {
+        "cancellation": "Cancelación",
+        "cancellation_val": "Gratis hasta 24h antes",
+        "participants": "Participantes",
+        "duration": "Duración",
+        "guide": "Guía"
+      },
+      "story": {
+        "in_detail": "En detalle",
+        "highlights": "Lo más destacado",
+        "included": "Incluido"
+      },
+      "prep": {
+        "bring": "Qué traer",
+        "rules": "Reglas y Recomendaciones"
+      },
+      "meeting": {
+        "address": "Dirección",
+        "open_maps": "Abrir en Google Maps"
+      },
+      "booking": {
+        "from": "Desde",
+        "participants": "Participantes",
+        "people_head": "Número de personas",
+        "done": "Listo",
+        "date_label": "Seleccionar fecha",
+        "date_placeholder": "Elegir fecha",
+        "dates_only": "Solo fechas disponibles",
+        "time_label": "Seleccionar hora",
+        "time_placeholder": "Primero la fecha",
+        "times_head": "Horarios disponibles",
+        "times_sub": "Elige tu turno",
+        "times_empty": "Elige una fecha primero",
+        "lang_label": "Idioma del guía",
+        "lang_head": "Idioma del guía",
+        "lang_sub": "Elige el idioma para tu tour",
+        "lang_en": "Inglés",
+        "lang_es": "Español",
+        "continue": "Continuar",
+        "free_cancel": "Cancelación gratuita",
+        "free_cancel_text": "Reembolso total si cancelas con hasta 24 horas de antelación."
+      },
+      "weekdays": [
+        "Lun",
+        "Mar",
+        "Mié",
+        "Jue",
+        "Vie",
+        "Sáb",
+        "Dom"
+      ],
+      "footer": {
+        "back": "Volver al Inicio"
+      },
+      "mobile_cta": {
+        "book": "Reservar ahora"
+      }
+    },
+    "city_highlights": {
+      "page": {
+        "title": "Lo Mejor de la Ciudad | Seaduced Experience",
+        "desc": "Descubre lo mejor de Copenhague en un tour privado en barco de 1 hora con tu propio capitán. Disfruta de música, bebidas y vistas panorámicas de la ciudad desde el agua."
+      },
+      "hero_html": "Lo Mejor de la <span class=\"title-accent\">Ciudad</span>",
+      "intro": "Descubre los principales puntos de interés de Copenhague en un tour privado en barco de 1 hora con tu propio capitán local. Navega por los canales, disfruta de música y bebidas a bordo, y contempla los monumentos más icónicos de la ciudad desde el agua — todo a un ritmo relajado y cómodo.",
+      "info": {
+        "participants_val": "Grupo privado (máx 8)",
+        "duration_val": "1 hora",
+        "guide_val": "Inglés, Español"
+      },
+      "flag": "Opción popular",
+      "booking": {
+        "price": "2,499 DKK",
+        "price_note": "por grupo (hasta 8)",
+        "up_to": "Hasta 8 personas"
+      },
+      "story_paras": [
+        "Este tour privado en barco de 1 hora es la forma perfecta de conocer Copenhague desde el agua en poco tiempo. Navegarás por los canales y el puerto de la ciudad mientras tu capitán comparte historias locales y señala los monumentos clave.",
+        "Durante el tour, pasarás por algunos de los lugares más emblemáticos de Copenhague, incluyendo Islands Brygge, el puerto moderno de Amager, la biblioteca Diamante Negro, el Palacio de Christiansborg, Nyhavn, la Ópera, los canales de Christianshavn y la Iglesia de San Salvador.",
+        "Este es un crucero panorámico relajado — sin paradas — diseñado para darte una visión completa de la ciudad desde el agua mientras disfrutas de tu propia música, bebidas y una atmósfera privada a bordo del <strong>Joda Tender 710</strong>.",
+        "<strong>Nota:</strong> La Sirenita y Reffen no están incluidos en la ruta de 1 hora."
+      ],
+      "highlights": [
+        "<strong>Lo Mejor de la Ciudad:</strong> Mira los monumentos de Copenhague desde el agua.",
+        "<strong>Experiencia Privada:</strong> Solo tu grupo y tu capitán a bordo.",
+        "<strong>Guía Local:</strong> Descubre historias y detalles ocultos de la ciudad.",
+        "<strong>Crucero Relajado:</strong> Disfruta de música, bebidas y vistas panorámicas.",
+        "<strong>Perfecto en 1 Hora:</strong> Una visión completa de la ciudad en poco tiempo."
+      ],
+      "included": [
+        "Tour privado de 1 hora en Copenhague",
+        "Comentarios en vivo y guía por el capitán Oni",
+        "Altavoz Bluetooth para tu propia música",
+        "Bebidas disponibles para compra a bordo"
+      ],
+      "excl_h3": "Exclusividad y Ambiente",
+      "prep": {
+        "bring": [
+          "Opcional: Ropa de baño y toalla",
+          "Ropa adecuada según el clima (capas)",
+          "Gafas de sol y protector solar"
+        ],
+        "rules": [
+          "Prohibido saltar o fumar a bordo",
+          "Máximo 8 personas por reserva",
+          "Lluvia fuerte: reembolso total garantizado"
+        ]
+      },
+      "excl_text": "Tu viaje, tu ambiente: conecta tu lista de reproducción, abre una bebida fría de la nevera y navega con estilo. Este tour ofrece flexibilidad total para parejas, familias o grupos pequeños."
+    },
+    "city_highlights_10p": {
+      "page": {
+        "title": "Lo Mejor de la Ciudad | Seaduced Experience",
+        "desc": "Descubre lo mejor de Copenhague en un tour privado en barco de 1 hora con tu propio capitán. Disfruta de música, bebidas y vistas panorámicas de la ciudad desde el agua."
+      },
+      "hero_html": "Lo Mejor de la <span class=\"title-accent\">Ciudad</span>",
+      "intro": "Descubre los principales puntos de interés de Copenhague en un tour privado en barco de 1 hora con tu propio capitán local. Navega por los canales, disfruta de música y bebidas a bordo, y contempla los monumentos más icónicos de la ciudad desde el agua — todo a un ritmo relajado y cómodo.",
+      "info": {
+        "participants_val": "Grupo privado (máx 10)",
+        "duration_val": "1 hora",
+        "guide_val": "Inglés, Español"
+      },
+      "flag": "Opción popular",
+      "booking": {
+        "price": "2,999 DKK",
+        "price_note": "por grupo (hasta 10)",
+        "up_to": "Hasta 10 personas"
+      },
+      "story_paras": [
+        "Este tour privado en barco de 1 hora es la forma perfecta de conocer Copenhague desde el agua en poco tiempo. Navegarás por los canales y el puerto de la ciudad mientras tu capitán comparte historias locales y señala los monumentos clave.",
+        "Durante el tour, pasarás por algunos de los lugares más emblemáticos de Copenhague, incluyendo Islands Brygge, el puerto moderno de Amager, la biblioteca Diamante Negro, el Palacio de Christiansborg, Nyhavn, la Ópera, los canales de Christianshavn y la Iglesia de San Salvador.",
+        "Este es un crucero panorámico relajado — sin paradas — diseñado para darte una visión completa de la ciudad desde el agua mientras disfrutas de tu propia música, bebidas y una atmósfera privada a bordo del <strong>Joda Tender 710</strong>.",
+        "<strong>Nota:</strong> La Sirenita y Reffen no están incluidos en la ruta de 1 hora."
+      ],
+      "highlights": [
+        "<strong>Lo Mejor de la Ciudad:</strong> Mira los monumentos de Copenhague desde el agua.",
+        "<strong>Experiencia Privada:</strong> Solo tu grupo y tu capitán a bordo.",
+        "<strong>Guía Local:</strong> Descubre historias y detalles ocultos de la ciudad.",
+        "<strong>Crucero Relajado:</strong> Disfruta de música, bebidas y vistas panorámicas.",
+        "<strong>Perfecto en 1 Hora:</strong> Una visión completa de la ciudad en poco tiempo."
+      ],
+      "included": [
+        "1-hour private boat tour in Copenhagen",
+        "Comentarios en vivo y guía por el capitán Oni",
+        "Altavoz Bluetooth para tu propia música",
+        "Bebidas disponibles para compra a bordo"
+      ],
+      "excl_h3": "Exclusividad y Ambiente",
+      "prep": {
+        "bring": [
+          "Opcional: Ropa de baño y toalla",
+          "Ropa adecuada según el clima (capas)",
+          "Gafas de sol y protector solar"
+        ],
+        "rules": [
+          "Prohibido saltar o fumar a bordo",
+          "Máximo 10 personas por reserva",
+          "Lluvia fuerte: reembolso total garantizado"
+        ]
+      },
+      "excl_text": "Tu viaje, tu ambiente: conecta tu lista de reproducción, abre una bebida fría de la nevera y navega con estilo. Este tour ofrece flexibilidad total para parejas, familias o grupos pequeños."
+    },
+    "reffen_3h": {
+      "page": {
+        "title": "Puerto Extendido y Reffen | Seaduced Experience",
+        "desc": "Vive Copenhague en un tour extendido de 3 horas por el puerto. Incluye lo mejor de la ciudad más una parada en el mercado de comida callejera Reffen, música y bebidas a bordo."
+      },
+      "hero_html": "<span class=\"title-accent\">Puerto Extendido</span> y Reffen",
+      "intro": "Explora Copenhague más allá de los puntos turísticos en una experiencia privada de 3 horas con tu propio capitán. Navega por los canales, para en el mercado de Reffen, disfruta de música y bebidas a bordo y vive la ciudad a tu propio ritmo: relajado, flexible y totalmente privado.",
+      "info": {
+        "participants_val": "Grupo privado (máx 8)",
+        "duration_val": "3 horas",
+        "guide_val": "Inglés, Español"
+      },
+      "flag": "Opción favorita",
+      "booking": {
+        "price": "4,299 DKK",
+        "price_note": "por grupo (hasta 8)",
+        "up_to": "Hasta 8 personas"
+      },
+      "story_paras": [
+        "Este tour privado de 3 horas es el equilibrio perfecto entre turismo y experiencia. Explorarás los canales y el puerto de Copenhague en profundidad, con tiempo para parar, relajarte y disfrutar de verdad la ciudad desde el agua.",
+        "A lo largo del recorrido, pasarás por algunos de los monumentos más emblemáticos de la ciudad, incluyendo Islands Brygge, el Diamante Negro, el Palacio de Christiansborg, Nyhavn, la Ópera, Christianshavn y la Iglesia de San Salvador, mientras tu capitán comparte historias locales.",
+        "A diferencia de los tours más cortos, esta experiencia te permite ir más despacio. Puedes parar en el mercado de comida callejera Reffen, uno de los lugares más vibrantes de Copenhague, donde podrás disfrutar de comida de todo el mundo ya sea en tierra o de vuelta en el barco.",
+        "También hay flexibilidad para hacer una parada y nadar, relajarte con una bebida o disfrutar de tu propia música a bordo del Joda Tender 710.",
+        "La ruta también puede incluir una visita a la Sirenita.",
+        "Este es tu tiempo en el agua: flexible, privado y diseñado totalmente según tu estilo."
+      ],
+      "highlights": [
+        "<strong>Ciudad + Experiencia:</strong> Ve más allá de lo básico con tiempo para parar y explorar.",
+        "<strong>Parada en Reffen:</strong> Visita el famoso mercado de comida callejera de Copenhague.",
+        "<strong>Opción de nado:</strong> Nado opcional en el puerto.",
+        "<strong>Sirenita:</strong> Visita uno de los monumentos más icónicos de Dinamarca.",
+        "<strong>Totalmente privado:</strong> Tu grupo, tu música, tu ritmo."
+      ],
+      "included": [
+        "Tour privado de 3 horas por Copenhague",
+        "Guía y comentarios en vivo por el capitán Oni",
+        "Altavoz Bluetooth para tu propia música",
+        "Parada opcional en Reffen",
+        "Bebidas disponibles para compra a bordo"
+      ],
+      "excl_h3": "Exclusividad y Ambiente",
+      "prep": {
+        "bring": [
+          "Bañador y toalla (recomendado)",
+          "Ropa adecuada según el clima",
+          "Gafas de sol y protector solar"
+        ],
+        "rules": [
+          "Prohibido saltar o fumar a bordo",
+          "Máximo 8 personas por reserva",
+          "Lluvia fuerte: reembolso total garantizado",
+          "La comida en Reffen no está incluida en el precio"
+        ]
+      },
+      "excl_text": "Tu viaje, tu estilo: conecta tu música, abre una bebida fría y navega con clase. Este tour ofrece total flexibilidad para parejas, familias o grupos pequeños."
+    },
+    "sea_fortress_4h": {
+      "page": {
+        "title": "Fortaleza Marina y Viaje Costero | Seaduced Experience",
+        "desc": "Vive el viaje costero definitivo por Copenhague. Incluye monumentos, mercado de Reffen, la Sirenita y navegación privada a la fortaleza de Trekroner."
+      },
+      "hero_html": "<span class=\"title-accent\">Fortaleza Marina</span> y Viaje Costero",
+      "intro": "Vive el tour en barco definitivo por Copenhague en un viaje privado de 4 horas con tu propio capitán. Navega por los canales, para en el mercado de Reffen, visita a la Sirenita y navega a mar abierto para explorar la histórica fortaleza de Trekroner — todo a tu ritmo, totalmente privado.",
+      "info": {
+        "participants_val": "Grupo privado (máx 8)",
+        "duration_val": "4 horas",
+        "guide_val": "Inglés, Español"
+      },
+      "flag": "Opción popular",
+      "booking": {
+        "price": "5,999 DKK",
+        "price_note": "por grupo (hasta 8)",
+        "up_to": "Hasta 8 personas"
+      },
+      "story_paras": [
+        "Este tour privado en barco de 4 horas es la experiencia completa de Copenhague. Explorarás los canales y el puerto de la ciudad en profundidad, con tiempo para parar, relajarte y salir de las rutas típicas.",
+        "En el camino, pasarás por los principales monumentos como Islands Brygge, el Diamante Negro, el Palacio de Christiansborg, Nyhavn, la Ópera, Christianshavn y la Iglesia de San Salvador — mientras tu capitán comparte historias y curiosidades locales.",
+        "Tendrás la oportunidad de parar en el mercado de comida callejera Reffen, donde podrás disfrutar de platos de todo el mundo en un vibrante entorno frente al mar.",
+        "El viaje continúa con una visita a la Sirenita, uno de los monumentos más icónicos de Dinamarca.",
+        "Desde allí, navegarás más allá de la ciudad hacia mar abierto para llegar a la Fortaleza de Trekroner — una fortaleza marina histórica construida para defender Copenhague, que ofrece vistas panorámicas y una perspectiva única que pocos visitantes experimentan.",
+        "También puedes aprovechar para nadar, relajarte, disfrutar de bebidas o poner tu propia música a bordo del Joda Tender 710.",
+        "Esta es la forma más completa, flexible e inmersiva de vivir Copenhague desde el agua."
+      ],
+      "highlights": [
+        "<strong>Experiencia Completa:</strong> El tour en barco más completo de Copenhague.",
+        "<strong>Parada en Reffen:</strong> Disfruta de la escena gastronómica de Copenhague.",
+        "<strong>La Sirenita:</strong> Visita el monumento más icónico de Dinamarca.",
+        "<strong>Fortaleza Trekroner:</strong> Navega a mar abierto hacia una fortaleza histórica.",
+        "<strong>Nadar y Relajarse:</strong> Tiempo para disfrutar del agua y el ambiente.",
+        "<strong>Totalmente Privado:</strong> Tu grupo, tu música, tu ritmo."
+      ],
+      "included": [
+        "Tour privado de 4 horas en Copenhague",
+        "Comentarios en vivo y guía por el capitán Oni",
+        "Altavoz Bluetooth para tu propia música",
+        "Parada opcional en Reffen",
+        "Visita a la Sirenita",
+        "Visita a la Fortaleza de Trekroner",
+        "Bebidas disponibles para compra a bordo"
+      ],
+      "excl_h3": "Exclusividad y Ambiente",
+      "prep": {
+        "bring": [
+          "Ropa de baño y toalla (recomendado)",
+          "Ropa adecuada según el clima (capas)",
+          "Gafas de sol y protector solar"
+        ],
+        "rules": [
+          "Prohibido saltar o fumar a bordo",
+          "Máximo 8 personas por reserva",
+          "Lluvia fuerte: reembolso total garantizado",
+          "La comida en Reffen no está incluida en el precio"
+        ]
+      },
+      "excl_text": "Tu viaje, tu ambiente: conecta tu lista de reproducción, abre una bebida fría de la nevera y navega con estilo. Este tour ofrece flexibilidad total para parejas, familias o grupos pequeños."
+    },
+    "wine_tasting": {
+      "page": {
+        "title": "Cata de Vinos Flotante | Seaduced Experience",
+        "desc": "Disfruta de un tour privado de 2 horas en barco por Copenhague con una cata de vinos guiada. Incluye 4 vinos, tabla de quesos y embutidos gourmet, y un ambiente premium."
+      },
+      "hero_html": "<span class=\"title-accent\">Cata de Vinos</span> Flotante",
+      "intro": "Disfruta de una experiencia privada única de 2 horas en barco por Copenhague combinando turismo con una cata de vinos guiada. Relájate en el agua con tu propio capitán y anfitrión, degusta cuatro vinos seleccionados y disfruta de una tabla gourmet mientras navegas por los canales.",
+      "info": {
+        "participants_val": "Grupo privado (máx 6)",
+        "duration_val": "2 horas",
+        "guide_val": "Inglés (anfitrión vino)"
+      },
+      "flag": "Experiencia Única",
+      "booking": {
+        "price": "3,499 DKK",
+        "price_note": "por grupo (hasta 6)",
+        "up_to": "Hasta 6 personas"
+      },
+      "story_paras": [
+        "Disfruta de Copenhague desde el agua en un crucero privado de 2 horas combinado con una cata de vinos guiada.",
+        "Mientras tu capitán navega por los canales y zonas del puerto más pintorescas, tu anfitrión a bordo te guiará a través de una cata curada de cuatro vinos seleccionados, explicando su origen, notas y características.",
+        "Para complementar la cata, se sirve a bordo una tabla gourmet que incluye quesos de calidad, embutidos y pan fresco.",
+        "La atmósfera es relajada, elegante e íntima — ideal para parejas, amigos, pequeñas celebraciones o viajeros que buscan una experiencia premium más allá de un tour tradicional.",
+        "Esta es una experiencia totalmente privada solo para tu grupo, diseñada para combinar grandes vistas, buen vino y un entorno exclusivo y tranquilo sobre el agua."
+      ],
+      "highlights": [
+        "<strong>Cata de vinos guiada:</strong> Degusta 4 vinos seleccionados.",
+        "<strong>Tabla Gourmet:</strong> Quesos, embutidos y pan incluidos.",
+        "<strong>Experiencia Privada:</strong> Solo tu grupo a bordo.",
+        "<strong>Ambiente Premium:</strong> Relajado, elegante e íntimo.",
+        "<strong>Ideal para Celebraciones:</strong> Perfecto para parejas y ocasiones especiales."
+      ],
+      "included": [
+        "Barco privado con capitán profesional",
+        "Crucero por los canales de 2 horas",
+        "Cata de vinos guiada (4 vinos)",
+        "Tabla gourmet (quesos, embutidos, pan)",
+        "Cristalería, hielo y servicio a bordo",
+        "Combustible, tasas de puerto y limpieza"
+      ],
+      "excl_h3": "No Incluido",
+      "prep": {
+        "bring": [
+          "Ropa adecuada según el clima",
+          "Gafas de sol",
+          "Cámara de fotos"
+        ],
+        "rules": [
+          "Experiencia privada solo para tu grupo",
+          "Edad mínima: 18 años (se sirve alcohol)",
+          "La ruta puede variar según el clima y condiciones del puerto",
+          "Sigue las instrucciones de seguridad del capitán en todo momento",
+          "En condiciones climáticas inseguras, el tour puede reprogramarse"
+        ]
+      },
+      "excl_items": [
+        "Bebidas adicionales no incluidas",
+        "Opción de mejora a Champagne disponible",
+        "Transporte al punto de encuentro"
+      ]
+    },
+    "land_tour": {
+      "page": {
+        "title": "Experiencia Privada en Barco y Tierra | Copenhague, Dragør y Kronborg",
+        "desc": "Vive Copenhague por agua y tierra en un tour privado de 5 horas. Incluye crucero por los canales, visita al pueblo de Dragør y exploración de Helsingør con vistas al Castillo de Kronborg."
+      },
+      "hero_html": "Experiencia Privada en <span class=\"title-accent\">Barco y Tierra</span>",
+      "intro": "Descubre Copenhague desde dos perspectivas únicas: agua y tierra. Comienza con un crucero privado por los canales y luego continúa en vehículo para explorar Dragør y Helsingør, incluyendo vistas del icónico Castillo de Kronborg. Una experiencia completa y premium que combina confort, cultura y exploración.",
+      "info": {
+        "participants_val": "Grupo privado (máx 6)",
+        "duration_val": "5 horas",
+        "guide_val": "Inglés, Español"
+      },
+      "flag": "Experiencia Completa",
+      "booking": {
+        "price": "8,999 DKK",
+        "price_note": "por grupo (hasta 6)",
+        "up_to": "Hasta 6 personas"
+      },
+      "story_paras": [
+        "Vive Copenhague más allá del tour típico combinando un crucero privado por los canales con un viaje por tierra a través de algunos de los lugares más encantadores e históricos de Dinamarca.",
+        "Comienza con un tour privado en barco de 2 horas por los canales de Copenhague, pasando por monumentos icónicos mientras disfrutas de una atmósfera relajada y exclusiva sobre el agua.",
+        "Después del crucero, continúa tu experiencia en un vehículo premium de 7 plazas con conductor, dirigiéndote fuera de la ciudad.",
+        "Tu primera parada es Dragør, un pintoresco pueblo costero conocido por sus casas tradicionales y su puerto histórico. Pasea por sus encantadoras calles y disfruta de la atmósfera tranquila.",
+        "A continuación, viaja a Helsingør, donde podrás admirar el exterior del Castillo de Kronborg — el famoso escenario de Hamlet de Shakespeare — situado justo en la costa.",
+        "Durante la experiencia, también podrás disfrutar de tapas españolas con vino, con la opción de mejorar a champagne para un toque más exclusivo.",
+        "Esta experiencia está diseñada para viajeros que quieren combinar turismo, confort y cultura en un viaje sin interrupciones."
+      ],
+      "highlights": [
+        "<strong>Experiencia Agua + Tierra:</strong> Explora Copenhague desde dos perspectivas.",
+        "<strong>Crucero Privado por los Canales:</strong> Tour en barco de 2 horas por la ciudad.",
+        "<strong>Pueblo de Dragør:</strong> Paseo por una histórica ciudad costera.",
+        "<strong>Castillo de Kronborg:</strong> Mira el famoso castillo de Hamlet desde fuera.",
+        "<strong>Confort Premium:</strong> Viaja en un vehículo privado de alta gama.",
+        "<strong>Tapas y Vino Opcionales:</strong> Mejora tu experiencia."
+      ],
+      "included": [
+        "Tour privado en barco por los canales de 2 horas",
+        "Capitán profesional",
+        "Vehículo Premium (7 plazas)",
+        "Conductor",
+        "Tour por tierra a Dragør y Helsingør",
+        "Tapas españolas y vino"
+      ],
+      "excl_h3": "Aviso Importante",
+      "prep": {
+        "bring": [
+          "Ropa adecuada según el clima",
+          "Cámara de fotos",
+          "Protector solar"
+        ],
+        "rules": [
+          "Esta es una experiencia privada",
+          "La ruta puede variar según el clima y el tráfico",
+          "Sigue las instrucciones del guía y del conductor",
+          "Las tapas y el vino pueden mejorarse a champagne"
+        ]
+      },
+      "excl_items": [
+        "No apto para personas de más de 150 kg",
+        "No apto para personas propensas al mareo"
+      ]
+    },
+    "malmo": {
+      "page": {
+        "title": "Tour Privado en Barco de Copenhague a Malmö | Seaduced Experience",
+        "desc": "Navega de Copenhague a Malmö en un tour privado en barco. Explora monumentos, cruza el estrecho de Øresund y disfruta de tiempo libre en Suecia — todo en una experiencia única de día completo."
+      },
+      "hero_html": "De Copenhague a Malmö en <span class=\"title-accent\">Barco Privado</span>",
+      "intro": "Descubre dos países en un día inolvidable. Navega de Copenhague a Malmö en un barco privado, explora monumentos icónicos desde el agua, cruza el estrecho de Øresund y disfruta de tiempo libre en Suecia — todo a tu propio ritmo con tu propio capitán.",
+      "info": {
+        "participants_val": "Grupo privado (máx 10)",
+        "duration_val": "7 horas",
+        "guide_val": "Inglés, Español, Danés"
+      },
+      "flag": "Viaje Épico",
+      "booking": {
+        "price": "13,000 DKK",
+        "price_note": "por grupo (hasta 10)",
+        "up_to": "Hasta 10 personas"
+      },
+      "story_paras": [
+        "Comienza tu viaje en Copenhague, navegando por el vibrante puerto de la ciudad y pasando por algunos de sus monumentos más icónicos. Desde el colorido Nyhavn hasta la moderna Ópera y el Diamante Negro, disfruta de una perspectiva única de la capital danesa desde el agua.",
+        "A medida que la ciudad se desvanece tras de ti, la experiencia se transforma. Cruzarás el estrecho de Øresund, dejando el puerto por el mar abierto. Con música sonando, bebidas a bordo y vistas infinitas del horizonte, esta parte del viaje se convierte en una verdadera escapada privada.",
+        "Al llegar a Malmö, Suecia, tendrás unas dos horas de tiempo libre para explorar a tu ritmo. Pasea por el encantador casco antiguo, disfruta de un almuerzo frente al mar o simplemente vive una segunda ciudad escandinava.",
+        "Después de tu visita, regresa al barco y navega de vuelta a Copenhague, disfrutando del ritmo tranquilo del mar y de la atmósfera relajada a bordo.",
+        "Esto no es solo un tour en barco — es una experiencia transfronteriza que combina turismo, exploración y aventura en mar abierto."
+      ],
+      "highlights": [
+        "<strong>Dos Países en un Día:</strong> Dinamarca → Suecia.",
+        "<strong>Lo Mejor de la Ciudad:</strong> Mira Copenhague desde el agua.",
+        "<strong>Cruce de Mar Abierto:</strong> Navega a través del estrecho de Øresund.",
+        "<strong>Visita a Malmö:</strong> Tiempo libre para explorar a tu ritmo.",
+        "<strong>Bebidas y Música:</strong> Relájate a bordo durante el viaje.",
+        "<strong>Totalmente Privado:</strong> Tu grupo, tu experiencia."
+      ],
+      "included": [
+        "Barco privado y capitán",
+        "Combustible",
+        "Música a bordo",
+        "Bebidas (cerveza, vino, refrescos)",
+        "Equipo de seguridad"
+      ],
+      "excl_h3": "No Incluido",
+      "prep": {
+        "bring": [
+          "Pasaporte o identificación válida (obligatorio para el cruce de frontera)",
+          "Ropa adecuada según el clima",
+          "Gafas de sol",
+          "Cámara de fotos"
+        ],
+        "rules": [
+          "Identificación válida requerida (viaje entre Dinamarca y Suecia)",
+          "La ruta depende del clima y condiciones del mar",
+          "El cruce solo es posible si las condiciones son seguras",
+          "Reembolso total si se cancela por condiciones climáticas",
+          "Sigue las instrucciones de seguridad del capitán en todo momento"
+        ]
+      },
+      "excl_items": [
+        "Comida no incluida",
+        "Bebidas adicionales disponibles para compra"
+      ]
+    }
   }
 }
