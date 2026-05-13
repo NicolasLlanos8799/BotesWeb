@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Floating Wine Tasting Boat Experience | Seaduced Experience</title>
   <meta name="description"
-    content="Enjoy a 2-hour private boat tour in Copenhagen with a guided wine tasting experience. Includes 4 wines, a gourmet cheese and charcuterie board, and a relaxed, premium atmosphere on the water." />
+    content="" data-i18n-attr="content:experiences.wine_tasting.page.desc" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -20,7 +20,7 @@
 
 </head>
 
-<body class="experience-page" data-experience-id="book-wine">
+<body class="experience-page" data-i18n-title="experiences.wine_tasting.page.title" data-experience-id="book-wine">
   <div class="preloader">
     <div class="preloader__content">
       <svg class="preloader__anchor" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -43,18 +43,18 @@
       </a>
 
       <nav class="navbar__nav" id="navMenu" role="navigation" aria-label="Main navigation">
-        <a href="/" class="nav-link">Home</a>
-        <a href="/book" class="nav-link" id="nav-tours">Tours</a>
-        <a href="/#faq" class="nav-link">FAQ</a>
-        <a href="/#contact" class="nav-link">Contact</a>
+        <a href="/" class="nav-link" data-i18n="nav.home" data-i18n-href="/">Home</a>
+        <a href="/book" class="nav-link" id="nav-tours" data-i18n="nav.tours" data-i18n-href="/book">Tours</a>
+        <a href="/#faq" class="nav-link" data-i18n="nav.faq" data-i18n-href="/#faq">FAQ</a>
+        <a href="/#contact" class="nav-link" data-i18n="nav.contact" data-i18n-href="/#contact">Contact</a>
       </nav>
 
       <div class="navbar__actions">
-        <a href="/book" class="btn btn--primary btn--sm">Book Now</a>
+        <a href="/book" class="btn btn--primary btn--sm" data-i18n="nav.cta" data-i18n-href="/book">Book Now</a>
         <div class="lang-switcher">
           <a href="/" class="lang-link is-active" title="English"><img src="/assets/icons/flag-en.svg" alt="EN"></a>
-                  <a href="/da/" class="lang-link" title="Dansk"><img src="/assets/icons/flag-da.svg" alt="DA"></a>
-          <a href="/es/" class="lang-link" title="Español"><img src="/assets/icons/flag-es.svg" alt="ES"></a>
+                  <a href="/" class="lang-link" title="Dansk"><img src="/assets/icons/flag-da.svg" alt="DA"></a>
+          <a href="/" class="lang-link" title="Español"><img src="/assets/icons/flag-es.svg" alt="ES"></a>
         </div>
         <button class="navbar__hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
           <span></span><span></span><span></span>
@@ -63,16 +63,16 @@
     </div>
 
     <div class="navbar__mobile" id="mobileMenu">
-      <a href="/" class="nav-link">Home</a>
-      <a href="/book" class="nav-link" id="mob-tours">Tours</a>
-      <a href="/#faq" class="nav-link">FAQ</a>
-      <a href="/#contact" class="nav-link">Contact</a>
+      <a href="/" class="nav-link" data-i18n="nav.home" data-i18n-href="/">Home</a>
+      <a href="/book" class="nav-link" id="mob-tours" data-i18n="nav.tours" data-i18n-href="/book">Tours</a>
+      <a href="/#faq" class="nav-link" data-i18n="nav.faq" data-i18n-href="/#faq">FAQ</a>
+      <a href="/#contact" class="nav-link" data-i18n="nav.contact" data-i18n-href="/#contact">Contact</a>
       <div class="lang-switcher">
           <a href="/" class="lang-link is-active" title="English"><img src="/assets/icons/flag-en.svg" alt="EN"></a>
-                  <a href="/da/" class="lang-link" title="Dansk"><img src="/assets/icons/flag-da.svg" alt="DA"></a>
-        <a href="/es/" class="lang-link" title="Español"><img src="/assets/icons/flag-es.svg" alt="ES"></a>
+                  <a href="/" class="lang-link" title="Dansk"><img src="/assets/icons/flag-da.svg" alt="DA"></a>
+        <a href="/" class="lang-link" title="Español"><img src="/assets/icons/flag-es.svg" alt="ES"></a>
       </div>
-      <a href="/book" class="btn btn--primary mt-1">Book Now</a>
+      <a href="/book" class="btn btn--primary mt-1" data-i18n="nav.cta" data-i18n-href="/book">Book Now</a>
     </div>
   </header>
 
@@ -81,7 +81,7 @@
     <div class="experience-shell">
       <div class="experience-content">
         <header class="experience-heading reveal">
-          <h1>Floating <span class="title-accent">Wine Tasting</span> Experience</h1>
+          <h1 data-i18n-html="experiences.wine_tasting.hero_html">City Highlights</h1>
         </header>
 
         <!-- PREMIUM MOSAIC GALLERY (Desktop Only) -->
@@ -134,11 +134,9 @@
           <div class="mobile-gallery__dots"></div>
         </div>
 
-        <p class="experience-intro reveal">
-          Enjoy a unique 2-hour private boat experience in Copenhagen combining sightseeing with a guided wine tasting.
+        <p class="experience-intro reveal" data-i18n="experiences.wine_tasting.intro">Enjoy a unique 2-hour private boat experience in Copenhagen combining sightseeing with a guided wine tasting.
           Relax on the water with your own captain and host, taste four carefully selected wines, and enjoy a gourmet
-          board while cruising through the city’s canals.
-        </p>
+          board while cruising through the city’s canals.</p>
 
         <div class="experience-sections">
           <!-- QUICK INFO ALWAYS VISIBLE -->
@@ -152,8 +150,8 @@
                     <path d="m8.5 12 2.3 2.3 4.7-5.1"></path>
                   </svg>
                 </span>
-                <strong>Cancellation</strong>
-                <p>Free up to 24h before</p>
+                <strong data-i18n="experiences.ui.info.cancellation">Cancellation</strong>
+                <p data-i18n="experiences.ui.info.cancellation_val">Free up to 24h before</p>
               </article>
               <article class="experience-info-card">
                 <span class="experience-info-card__icon" aria-hidden="true">
@@ -165,8 +163,8 @@
                     <path d="M16.5 4.13a3 3 0 0 1 0 5.74"></path>
                   </svg>
                 </span>
-                <strong>Participants</strong>
-                <p>Private group (max 6)</p>
+                <strong data-i18n="experiences.ui.info.participants">Participants</strong>
+                <p><span data-i18n="experiences.wine_tasting.info.participants_val">Private group (max 6)</span></p>
               </article>
               <article class="experience-info-card">
                 <span class="experience-info-card__icon" aria-hidden="true">
@@ -178,8 +176,8 @@
                     <path d="M12 3v2"></path>
                   </svg>
                 </span>
-                <strong>Duration</strong>
-                <p>2 hours</p>
+                <strong data-i18n="experiences.ui.info.duration">Duration</strong>
+                <p><span data-i18n="experiences.wine_tasting.info.duration_val">2 hours</span></p>
               </article>
               <article class="experience-info-card">
                 <span class="experience-info-card__icon" aria-hidden="true">
@@ -191,8 +189,8 @@
                     <path d="M12 3a15 15 0 0 0 0 18"></path>
                   </svg>
                 </span>
-                <strong>Guide</strong>
-                <p>English (wine host)</p>
+                <strong data-i18n="experiences.ui.info.guide">Guide</strong>
+                <p><span data-i18n="experiences.wine_tasting.info.guide_val">English (wine host)</span></p>
               </article>
             </div>
           </section>
@@ -205,7 +203,7 @@
                 <circle cx="11" cy="11" r="8"></circle>
                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
               </svg>
-              <span>Discover</span>
+              <span><span data-i18n="experiences.ui.tabs.discover">Discover</span></span>
             </button>
             <button class="experience-tab-btn" role="tab" aria-selected="false" aria-controls="tab-info">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -213,7 +211,7 @@
                 <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
                 <polyline points="22 4 12 14.01 9 11.01"></polyline>
               </svg>
-              <span>Included</span>
+              <span><span data-i18n="experiences.ui.tabs.included">Included</span></span>
             </button>
             <button class="experience-tab-btn" role="tab" aria-selected="false" aria-controls="tab-prep">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -221,7 +219,7 @@
                 <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
                 <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
               </svg>
-              <span>Preparation</span>
+              <span><span data-i18n="experiences.ui.tabs.prep">Preparation</span></span>
             </button>
             <button class="experience-tab-btn" role="tab" aria-selected="false" aria-controls="tab-meeting">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -229,7 +227,7 @@
                 <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                 <circle cx="12" cy="10" r="3"></circle>
               </svg>
-              <span>Meeting</span>
+              <span><span data-i18n="experiences.ui.tabs.meeting">Meeting</span></span>
             </button>
           </nav>
 
@@ -255,30 +253,30 @@
               <section class="experience-section" style="border-top:none; padding-top:0;">
                 <div class="experience-story-grid">
                   <div class="experience-story__text">
-                    <h2>In detail</h2>
+                    <h2 data-i18n="experiences.ui.story.in_detail">In detail</h2>
 
-                    <p>
+                    <p data-i18n-html="experiences.wine_tasting.story_paras.0">
                       Enjoy Copenhagen from the water on a 2-hour private canal cruise combined with a guided wine
                       tasting experience.
                     </p>
 
-                    <p>
+                    <p data-i18n-html="experiences.wine_tasting.story_paras.1">
                       While your captain navigates through the city’s most scenic canals and harbor areas, your onboard
                       host will guide you through a curated tasting of four selected wines, explaining their origin,
                       notes, and characteristics.
                     </p>
 
-                    <p>
+                    <p data-i18n-html="experiences.wine_tasting.story_paras.2">
                       To complement the tasting, a gourmet board is served on board, including quality cheeses, cured
                       meats, and fresh bread.
                     </p>
 
-                    <p>
+                    <p data-i18n-html="experiences.wine_tasting.story_paras.3">
                       The atmosphere is relaxed, elegant, and intimate — ideal for couples, friends, small celebrations,
                       or travelers looking for a premium experience beyond a traditional sightseeing tour.
                     </p>
 
-                    <p>
+                    <p data-i18n-html="experiences.wine_tasting.story_paras.4">
                       This is a fully private experience for your group only, designed to combine great views, great
                       wine, and a calm, exclusive setting on the water.
                     </p>
@@ -286,15 +284,14 @@
 
                   <hr class="experience-separator">
 
-                  <div class="experience-story__highlights">
-                    <h3>Highlights</h3>
+                  <div class="experience-story__highlights"><h3 data-i18n="experiences.ui.story.highlights">Highlights</h3>
                     <ul class="experience-highlights-grid">
                       <li>
                         <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
                           stroke-linecap="round" stroke-linejoin="round">
                           <polyline points="20 6 9 17 4 12"></polyline>
                         </svg>
-                        <span><strong>Guided Wine Tasting:</strong> Taste 4 selected wines</span>
+                        <span data-i18n-html="experiences.wine_tasting.highlights.0"><strong>Guided Wine Tasting:</strong> Taste 4 selected wines</span>
                       </li>
 
                       <li>
@@ -302,7 +299,7 @@
                           stroke-linecap="round" stroke-linejoin="round">
                           <polyline points="20 6 9 17 4 12"></polyline>
                         </svg>
-                        <span><strong>Gourmet Board:</strong> Cheese, charcuterie, and bread included</span>
+                        <span data-i18n-html="experiences.wine_tasting.highlights.1"><strong>Gourmet Board:</strong> Cheese, charcuterie, and bread included</span>
                       </li>
 
                       <li>
@@ -310,7 +307,7 @@
                           stroke-linecap="round" stroke-linejoin="round">
                           <polyline points="20 6 9 17 4 12"></polyline>
                         </svg>
-                        <span><strong>Private Experience:</strong> Only your group on board</span>
+                        <span data-i18n-html="experiences.wine_tasting.highlights.2"><strong>Private Experience:</strong> Only your group on board</span>
                       </li>
 
                       <li>
@@ -318,7 +315,7 @@
                           stroke-linecap="round" stroke-linejoin="round">
                           <polyline points="20 6 9 17 4 12"></polyline>
                         </svg>
-                        <span><strong>Premium Atmosphere:</strong> Relaxed, elegant, and intimate</span>
+                        <span data-i18n-html="experiences.wine_tasting.highlights.3"><strong>Premium Atmosphere:</strong> Relaxed, elegant, and intimate</span>
                       </li>
 
                       <li>
@@ -326,7 +323,7 @@
                           stroke-linecap="round" stroke-linejoin="round">
                           <polyline points="20 6 9 17 4 12"></polyline>
                         </svg>
-                        <span><strong>Perfect for Celebrations:</strong> Ideal for couples and special occasions</span>
+                        <span data-i18n-html="experiences.wine_tasting.highlights.4"><strong>Perfect for Celebrations:</strong> Ideal for couples and special occasions</span>
                       </li>
                     </ul>
                   </div>
@@ -356,52 +353,52 @@
               <section class="experience-section" style="border-top:none; padding-top:0;">
                 <div class="experience-details-grid">
                   <div>
-                    <h3>Included</h3>
+                    <h3 data-i18n="experiences.ui.story.included">Included</h3>
                     <ul class="experience-details-list">
                       <li><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
                           stroke-linecap="round" stroke-linejoin="round">
                           <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg><span>Private boat with professional captain</span></li>
+                        </svg><span data-i18n="experiences.wine_tasting.included.0">Private boat with professional captain</span></li>
                       <li><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
                           stroke-linecap="round" stroke-linejoin="round">
                           <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg><span>2-hour canal cruise</span></li>
+                        </svg><span data-i18n="experiences.wine_tasting.included.1">2-hour canal cruise</span></li>
                       <li><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
                           stroke-linecap="round" stroke-linejoin="round">
                           <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg><span>Guided wine tasting (4 wines)</span></li>
+                        </svg><span data-i18n="experiences.wine_tasting.included.2">Guided wine tasting (4 wines)</span></li>
                       <li><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
                           stroke-linecap="round" stroke-linejoin="round">
                           <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg><span>Gourmet board (cheese, charcuterie, bread)</span></li>
+                        </svg><span data-i18n="experiences.wine_tasting.included.3">Gourmet board (cheese, charcuterie, bread)</span></li>
                       <li><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
                           stroke-linecap="round" stroke-linejoin="round">
                           <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg><span>Glassware, ice, and onboard service</span></li>
+                        </svg><span data-i18n="experiences.wine_tasting.included.4">Glassware, ice, and onboard service</span></li>
                       <li><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
                           stroke-linecap="round" stroke-linejoin="round">
                           <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg><span>Fuel, port fees, and cleaning</span></li>
+                        </svg><span data-i18n="experiences.wine_tasting.included.5">Fuel, port fees, and cleaning</span></li>
                     </ul>
                   </div>
                   <div>
-                    <h3>Not Included</h3>
+                    <h3 data-i18n="experiences.wine_tasting.excl_h3">Not Included</h3>
                     <ul class="experience-details-list">
                       <li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
                           stroke-width="2" style="opacity: 0.5; margin-right: 8px;">
                           <line x1="18" y1="6" x2="6" y2="18"></line>
                           <line x1="6" y1="6" x2="18" y2="18"></line>
-                        </svg><span>Additional drinks not included</span></li>
+                        </svg><span data-i18n="experiences.wine_tasting.excl_items.0">Additional drinks not included</span></li>
                       <li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
                           stroke-width="2" style="opacity: 0.5; margin-right: 8px;">
                           <line x1="18" y1="6" x2="6" y2="18"></line>
                           <line x1="6" y1="6" x2="18" y2="18"></line>
-                        </svg><span>Champagne upgrade available</span></li>
+                        </svg><span data-i18n="experiences.wine_tasting.excl_items.1">Champagne upgrade available</span></li>
                       <li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
                           stroke-width="2" style="opacity: 0.5; margin-right: 8px;">
                           <line x1="18" y1="6" x2="6" y2="18"></line>
                           <line x1="6" y1="6" x2="18" y2="18"></line>
-                        </svg><span>Transport to/from meeting point</span></li>
+                        </svg><span data-i18n="experiences.wine_tasting.excl_items.2">Transport to/from meeting point</span></li>
                     </ul>
                   </div>
                 </div>
@@ -420,7 +417,7 @@
                       <path d="M3 6h18" />
                       <path d="M16 10a4 4 0 0 1-8 0" />
                     </svg></span>
-                  Before you go
+                  <span data-i18n="experiences.ui.accordion.prep">Before you go</span>
                 </span>
               </span>
               <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
@@ -434,19 +431,19 @@
                   <div class="experience-important__col">
                     <strong>Preparation</strong>
                     <ul>
-                      <li>Weather-appropriate clothing</li>
-                      <li>Sunglasses</li>
-                      <li>Camera</li>
+                      <li data-i18n="experiences.wine_tasting.prep.bring.0">Weather-appropriate clothing</li>
+                      <li data-i18n="experiences.wine_tasting.prep.bring.1">Sunglasses</li>
+                      <li data-i18n="experiences.wine_tasting.prep.bring.2">Camera</li>
                     </ul>
                   </div>
                   <div>
-                    <strong>Rules / Before you go</strong>
+                    <strong data-i18n="experiences.ui.prep.rules">Rules / Before you go</strong>
                     <ul>
-                      <li>This is a private experience for your group only</li>
-                      <li>Minimum age: 18 years (alcohol served)</li>
-                      <li>Route may vary depending on weather and harbor conditions</li>
-                      <li>Follow captain’s safety instructions at all times</li>
-                      <li>In unsafe weather conditions, the tour may be rescheduled</li>
+                      <li data-i18n="experiences.wine_tasting.prep.rules.0">This is a private experience for your group only</li>
+                      <li data-i18n="experiences.wine_tasting.prep.rules.1">Minimum age: 18 years (alcohol served)</li>
+                      <li data-i18n="experiences.wine_tasting.prep.rules.2">Route may vary depending on weather and harbor conditions</li>
+                      <li data-i18n="experiences.wine_tasting.prep.rules.3">Follow captain’s safety instructions at all times</li>
+                      <li data-i18n="experiences.wine_tasting.prep.rules.4">In unsafe weather conditions, the tour may be rescheduled</li>
                     </ul>
                   </div>
                 </div>
@@ -476,11 +473,11 @@
               <section class="experience-section" style="border-top:none; padding-top:0;">
                 <div class="experience-meeting-point">
                   <div class="experience-meeting-point__info">
-                    <strong>Address</strong>
+                    <strong data-i18n="experiences.ui.meeting.address">Address</strong>
                     <p>Havnegade 1, 1058 København, Denmark</p>
                   </div>
                   <a href="https://maps.app.goo.gl/..." target="_blank" class="btn btn--outline btn--sm">
-                    Open in Maps
+                    <span data-i18n="experiences.ui.meeting.open_maps">Open in Maps</span>
                   </a>
                 </div>
               </section>
@@ -491,11 +488,11 @@
 
       <aside class="experience-sidebar">
         <div class="experience-booking">
-          <span class="experience-booking__flag">Unique Experience</span>
-          <span class="experience-booking__label">From</span>
+          <span class="experience-booking__flag" data-i18n="experiences.wine_tasting.flag">Unique Experience</span>
+          <span class="experience-booking__label" data-i18n="experiences.ui.booking.from">From</span>
           <div class="experience-booking__price">
             <strong>3,499 DKK</strong>
-            <span>per group up to 6</span>
+            <span><span data-i18n="experiences.wine_tasting.booking.price_note">per group up to 6</span></span>
           </div>
 
           <div class="experience-booking__details">
@@ -512,15 +509,15 @@
                     <path d="M16.5 4.13a3 3 0 0 1 0 5.74"></path>
                   </svg>
                 </span>
-                <span class="experience-booking__control-label">Participants</span>
+                <span class="experience-booking__control-label" data-i18n="experiences.ui.booking.participants">Participants</span>
                 <span class="experience-booking__control-value" id="experience-people-value">1</span>
               </button>
 
               <div class="experience-booking__people-panel" id="experience-people-panel" hidden>
                 <div class="experience-booking__people-card">
                   <div class="experience-booking__people-head">
-                    <strong>Number of people</strong>
-                    <span>Up to 6 guests</span>
+                    <strong data-i18n="experiences.ui.booking.people_head">Number of people</strong>
+                    <span data-i18n="experiences.wine_tasting.booking.up_to">Up to 6 guests</span>
                   </div>
                   <div class="experience-booking__people-counter">
                     <button class="experience-booking__stepper" type="button" id="experience-people-minus"
@@ -530,7 +527,7 @@
                       aria-label="Increase number of people">+</button>
                   </div>
                   <button class="experience-booking__people-done" type="button"
-                    id="experience-people-done">Done</button>
+                    id="experience-people-done" data-i18n="experiences.ui.booking.done">Done</button>
                 </div>
               </div>
             </div>
@@ -551,8 +548,8 @@
                     <path d="M16 14h.01"></path>
                   </svg>
                 </span>
-                <span class="experience-booking__control-label">Select date</span>
-                <span class="experience-booking__control-value" id="experience-date-value">Choose date</span>
+                <span class="experience-booking__control-label" data-i18n="experiences.ui.booking.date_label">Select date</span>
+                <span class="experience-booking__control-value" id="experience-date-value" data-i18n="experiences.ui.booking.date_placeholder">Choose date</span>
               </button>
 
               <div class="experience-booking__date-panel" id="experience-date-panel" hidden>
@@ -565,11 +562,11 @@
                       aria-label="Next month">›</button>
                   </div>
                   <div class="experience-booking__calendar-weekdays" aria-hidden="true">
-                    <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+                    <span data-i18n="experiences.ui.weekdays.0">Mon</span><span data-i18n="experiences.ui.weekdays.1">Tue</span><span data-i18n="experiences.ui.weekdays.2">Wed</span><span data-i18n="experiences.ui.weekdays.3">Thu</span><span data-i18n="experiences.ui.weekdays.4">Fri</span><span data-i18n="experiences.ui.weekdays.5">Sat</span><span data-i18n="experiences.ui.weekdays.6">Sun</span>
                   </div>
                   <div class="experience-booking__calendar-grid" id="experience-date-grid"></div>
-                  <div class="experience-booking__date-note">Available dates only</div>
-                  <button class="experience-booking__people-done" type="button" id="experience-date-done">Done</button>
+                  <div class="experience-booking__date-note" data-i18n="experiences.ui.booking.dates_only">Available dates only</div>
+                  <button class="experience-booking__people-done" type="button" id="experience-date-done" data-i18n="experiences.ui.booking.done">Done</button>
                 </div>
               </div>
             </div>
@@ -585,21 +582,20 @@
                     <polyline points="12 6 12 12 16 14"></polyline>
                   </svg>
                 </span>
-                <span class="experience-booking__control-label">Select time</span>
-                <span class="experience-booking__control-value" id="experience-time-value">Date first</span>
+                <span class="experience-booking__control-label" data-i18n="experiences.ui.booking.time_label">Select time</span>
+                <span class="experience-booking__control-value" id="experience-time-value" data-i18n="experiences.ui.booking.time_placeholder">Date first</span>
               </button>
 
               <div class="experience-booking__time-panel" id="experience-time-panel" hidden>
                 <div class="experience-booking__time-card">
                   <div class="experience-booking__time-head">
-                    <strong>Available times</strong>
-                    <span>Choose your slot</span>
+                    <strong data-i18n="experiences.ui.booking.times_head">Available times</strong>
+                    <span><span data-i18n="experiences.ui.booking.times_sub">Choose your slot</span></span>
                   </div>
                   <div class="experience-booking__time-grid" id="experience-time-grid">
-                    <p class="small-text" style="grid-column: 1/-1; text-align: center; padding: 1rem; opacity: 0.6;">
-                      Select a date first</p>
+                    <p class="small-text" style="grid-column: 1/-1; text-align: center; padding: 1rem; opacity: 0.6;" data-i18n="experiences.ui.booking.times_empty">Select a date first</p>
                   </div>
-                  <button class="experience-booking__people-done" type="button" id="experience-time-done">Done</button>
+                  <button class="experience-booking__people-done" type="button" id="experience-time-done" data-i18n="experiences.ui.booking.done">Done</button>
                 </div>
               </div>
             </div>
@@ -617,15 +613,15 @@
                     <path d="M12 3a15 15 0 0 0 0 18"></path>
                   </svg>
                 </span>
-                <span class="experience-booking__control-label">Guide language</span>
+                <span class="experience-booking__control-label" data-i18n="experiences.ui.booking.lang_label">Guide language</span>
                 <span class="experience-booking__control-value" id="experience-language-value">English</span>
               </button>
 
               <div class="experience-booking__language-panel" id="experience-language-panel" hidden>
                 <div class="experience-booking__language-card">
                   <div class="experience-booking__language-head">
-                    <strong>Guide language</strong>
-                    <span>Choose the language of your guide</span>
+                    <strong data-i18n="experiences.ui.booking.lang_head">Guide language</strong>
+                    <span data-i18n="experiences.ui.booking.lang_sub">Choose the language of your guide</span>
                   </div>
                   <div class="experience-booking__language-options" role="listbox" aria-label="Guide language options">
                     <button class="experience-booking__language-option is-selected" type="button"
@@ -638,7 +634,7 @@
                           <path d="M12 0v16M0 8h24" stroke="#fff" stroke-width="4.5" />
                           <path d="M12 0v16M0 8h24" stroke="#C8102E" stroke-width="3" />
                         </svg></span>
-                      <span>English</span>
+                      <span><span data-i18n="experiences.ui.booking.lang_en">English</span></span>
                     </button>
                     <button class="experience-booking__language-option" type="button" data-language-option="spanish"
                       aria-selected="false">
@@ -647,11 +643,11 @@
                           <rect width="24" height="16" fill="#AA151B" />
                           <rect y="4" width="24" height="8" fill="#F1BF00" />
                         </svg></span>
-                      <span>Spanish</span>
+                      <span><span data-i18n="experiences.ui.booking.lang_es">Spanish</span></span>
                     </button>
                   </div>
                   <button class="experience-booking__people-done" type="button"
-                    id="experience-language-done">Done</button>
+                    id="experience-language-done" data-i18n="experiences.ui.booking.done">Done</button>
                 </div>
               </div>
             </div>
@@ -671,8 +667,8 @@
                 </svg>
               </span>
               <div>
-                <strong>Free cancellation</strong>
-                <p>Full refund if you cancel up to 24 hours in advance.</p>
+                <strong data-i18n="experiences.ui.booking.free_cancel">Free cancellation</strong>
+                <p data-i18n="experiences.ui.booking.free_cancel_text">Full refund if you cancel up to 24 hours in advance.</p>
               </div>
             </div>
           </div>
@@ -689,18 +685,17 @@
         <path d="M12 7v14" />
         <path d="M5 14l7 7 7-7" />
         <path d="M5 10h14" />
-      </svg>© 2025 – 2026 Seaduced Experience &nbsp;·&nbsp; <a href="/" style="color: inherit;">Back to Home</a></p>
+      </svg>© 2025 – 2026 Seaduced Experience &nbsp;·&nbsp; <a href="/" style="color: inherit;" data-i18n="experiences.ui.footer.back" data-i18n-href="/">Back to Home</a></p>
   </footer>
 
+  <script type="module" src="/js/i18n.js"></script>
   <script type="module" src="/js/main.js?v=1.2"></script>
   <div class="mobile-sticky-cta">
     <div class="mobile-sticky-cta__price">
       <strong>3,499 DKK</strong>
-      <span>per group up to 6</span>
+      <span><span data-i18n="experiences.wine_tasting.booking.price_note">per group up to 6</span></span>
     </div>
-    <button type="button" class="btn" id="mobile-sticky-cta-button">
-      Book now
-    </button>
+    <button type="button" class="btn" id="mobile-sticky-cta-button"><span data-i18n="experiences.ui.mobile_cta.book">Book now</span></button>
   </div>
 </body>
 
