@@ -64,8 +64,11 @@ function initNavbar() {
   document.querySelectorAll('#nav-tours, #mob-tours').forEach(link => {
     link.addEventListener('click', (e) => {
       e.preventDefault();
-      const isSpanish = window.location.pathname.startsWith('/es/');
-      window.location.href = isSpanish ? '/es/book' : '/book';
+      const path = window.location.pathname;
+      const isSpanish = path.startsWith('/es/');
+      const isDanish = path.startsWith('/da/');
+      const target = isSpanish ? '/es/book' : (isDanish ? '/da/book' : '/book');
+      window.location.href = target;
     });
   });
 }
@@ -73,31 +76,38 @@ function initNavbar() {
 function initLanguagePersistence() {
   const PREF_LANG_KEY = "preferred_language";
   const currentPath = window.location.pathname;
-  // Detect if current path is already in the Spanish section
+  
   const isSpanish = currentPath.startsWith('/es/') || currentPath === '/es';
-  const currentLang = isSpanish ? 'es' : 'en';
+  const isDanish = currentPath.startsWith('/da/') || currentPath === '/da';
+  const currentLang = isSpanish ? 'es' : (isDanish ? 'da' : 'en');
 
   const preferredLang = localStorage.getItem(PREF_LANG_KEY);
 
-  // Redirect logic: if preference exists and doesn't match current version, 
-  // and we are at a "landing" point (root or book), redirect.
   if (preferredLang && preferredLang !== currentLang) {
-    const isAtRoot = currentPath === '/' || currentPath === '/es' || currentPath === '/es/';
-    const isAtBook = currentPath === '/book' || currentPath === '/book/' || currentPath === '/es/book' || currentPath === '/es/book/';
+    const isAtRoot = currentPath === '/' || currentPath === '/es' || currentPath === '/es/' || currentPath === '/da' || currentPath === '/da/';
+    const isAtBook = currentPath === '/book' || currentPath === '/book/' || currentPath.includes('/book/');
     const isExperience = currentPath.includes('/experiences/');
 
     if (isAtRoot || isAtBook || isExperience) {
       let targetPath = currentPath;
-      if (preferredLang === 'es' && !isSpanish) {
-        // Only prepend /es if it's not already there
-        targetPath = '/es' + (currentPath === '/' ? '' : currentPath);
-      } else if (preferredLang === 'en' && isSpanish) {
-        // Remove /es prefix
-        targetPath = currentPath.replace(/^\/es/, '') || '/';
+      
+      // Clear existing prefixes
+      let cleanPath = currentPath.replace(/^\/(es|da)/, '') || '/';
+      if (cleanPath === '') cleanPath = '/';
+
+      if (preferredLang === 'es') {
+        targetPath = '/es' + (cleanPath === '/' ? '' : cleanPath);
+      } else if (preferredLang === 'da') {
+        targetPath = '/da' + (cleanPath === '/' ? '' : cleanPath);
+      } else {
+        targetPath = cleanPath;
       }
 
-      // Final safety: ensure we don't have double slashes or double /es/es
-      targetPath = targetPath.replace(/\/es\/es/, '/es');
+      // Cleanup
+      targetPath = targetPath.replace(/\/+/g, '/').replace(/\/$/, '') || '/';
+      // If it was /es or /da originally, it might need the prefix back if we are at root
+      if (preferredLang === 'es' && targetPath === '') targetPath = '/es';
+      if (preferredLang === 'da' && targetPath === '') targetPath = '/da';
 
       if (targetPath !== currentPath) {
         window.location.href = targetPath;
@@ -106,16 +116,15 @@ function initLanguagePersistence() {
     }
   }
 
-  // Update preference to match current page language if we didn't redirect
   localStorage.setItem(PREF_LANG_KEY, currentLang);
 
-  // Handle language switcher clicks to update preference immediately
   document.querySelectorAll('.lang-link').forEach(link => {
     link.addEventListener('click', (e) => {
       const href = link.getAttribute('href');
-      // Set preference before navigating
       if (href.startsWith('/es')) {
         localStorage.setItem(PREF_LANG_KEY, 'es');
+      } else if (href.startsWith('/da')) {
+        localStorage.setItem(PREF_LANG_KEY, 'da');
       } else {
         localStorage.setItem(PREF_LANG_KEY, 'en');
       }

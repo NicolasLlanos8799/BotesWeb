@@ -149,6 +149,11 @@ function initBookingPanel() {
     languageValueInput.value = booking.lang;
   }
 
+  const path = window.location.pathname;
+  const isSpanishUI = path.startsWith('/es/') || path.includes('/es/experiences/');
+  const isDanishUI = path.startsWith('/da/') || path.includes('/da/experiences/');
+  const uiLocale = isSpanishUI ? "es-ES" : (isDanishUI ? "da-DK" : "en-GB");
+
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
@@ -175,7 +180,7 @@ function initBookingPanel() {
     const tourId = document.body.dataset.experienceId || "book-1h";
     const tourConfig = TOURS[tourId] || {};
     const maxPeople = tourConfig.maxParticipants || 8;
-    
+
     const safeValue = Math.max(1, Math.min(maxPeople, nextValue));
     peopleValueInput.value = String(safeValue);
     peopleValueLabel.textContent = String(safeValue);
@@ -193,7 +198,7 @@ function initBookingPanel() {
   }
 
   function formatDateLabel(date) {
-    return new Intl.DateTimeFormat("en-GB", {
+    return new Intl.DateTimeFormat(uiLocale, {
       day: "numeric",
       month: "short",
       year: "numeric",
@@ -214,7 +219,7 @@ function initBookingPanel() {
 
     // ELITE SYNC LOGIC: Prioritize verified persistent data
     const yearMonth = dateStr.substring(0, 7);
-    
+
     // Check global persistent cache again (in case background sync finished)
     const pCache = getPersistentCache(calId);
     if (!availabilityCache[calId]) availabilityCache[calId] = pCache;
@@ -281,7 +286,7 @@ function initBookingPanel() {
   function handleApiResponse(data, dateContext) {
     const tourId = document.body.dataset.experienceId || "book-1h";
     const calId = TOURS[tourId]?.calendar || "boat1";
-    
+
     // 1. Handle monthly map { "YYYY-MM-DD": [...], ... }
     if (data && !Array.isArray(data) && typeof data === 'object') {
 
@@ -319,18 +324,18 @@ function initBookingPanel() {
         const tourId = document.body.dataset.experienceId || "book-1h";
         const tourConfig = TOURS[tourId] || {};
         const cal = tourConfig.calendar || "boat1";
-        
+
         const response = await fetch(`${GAS_URL}?action=getMonthlyAvailability&date=${dateStr}&calendar=${cal}&t=${Date.now()}`);
         if (!response.ok) throw new Error("Network issue");
         const data = await response.json();
-        
+
         // Populate and persist cache
         if (data && typeof data === 'object') {
           savePersistentCache(cal, data);
           if (!availabilityCache[cal]) availabilityCache[cal] = {};
           Object.assign(availabilityCache[cal], data);
         }
-        
+
         return data;
       } catch (error) {
         console.warn(`Monthly sync failed for ${yearMonth}:`, error);
@@ -458,7 +463,7 @@ function initBookingPanel() {
   }
 
   function renderCalendar() {
-    dateMonthLabel.textContent = new Intl.DateTimeFormat("en-US", {
+    dateMonthLabel.textContent = new Intl.DateTimeFormat(uiLocale, {
       month: "long",
       year: "numeric",
     }).format(visibleMonth);
@@ -500,7 +505,7 @@ function initBookingPanel() {
           const dateStr = formatDateValue(currentDate);
           const tourId = document.body.dataset.experienceId || "book-1h";
           const calId = TOURS[tourId]?.calendar || "boat1";
-          
+
           if (!availabilityCache[calId]?.[dateStr]) {
             fetchAvailability(dateStr);
           }
@@ -753,10 +758,10 @@ function initDesktopCarousel() {
     // Clamp index
     if (index < 0) index = 0;
     if (index >= totalSlides) index = totalSlides - 1;
-    
+
     currentIndex = index;
     const slideWidth = slides[0].offsetWidth;
-    
+
     track.scrollTo({
       left: currentIndex * slideWidth,
       behavior: 'smooth'
@@ -772,7 +777,7 @@ function initDesktopCarousel() {
   function handleScrollSync() {
     const slideWidth = slides[0].offsetWidth;
     if (slideWidth <= 0) return;
-    
+
     const newIndex = Math.round(track.scrollLeft / slideWidth);
     if (newIndex !== currentIndex) {
       currentIndex = newIndex;
