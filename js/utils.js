@@ -4,8 +4,10 @@ export const TOURS = {
   "book-1h": {
     id: "book-1h",
     title: "City Highlights",
+    titleEs: "Lo Mejor de la Ciudad",
     price: 2499,
     duration: "1 Hour",
+    durationEs: "1 Hora",
     img: "/assets/images/city-highlights/island-brygge-guests.webp",
     url: "/experiences/private-boat-copenhagen/",
     calendar: "boat1",
@@ -13,8 +15,10 @@ export const TOURS = {
   "book-winter": {
     id: "book-winter",
     title: "2-Hour Winter Hygge 2026",
+    titleEs: "2 Horas de Hygge Invernal 2026",
     price: 4999,
     duration: "2 Hours",
+    durationEs: "2 Horas",
     img: "/assets/images/winter-seasonal/tour_winter_hygge.webp",
     url: "/experiences/private-boat-copenhagen-3h/", // Placeholder until real path confirmed
     calendar: "boat1",
@@ -22,8 +26,10 @@ export const TOURS = {
   "book-reffen": {
     id: "book-reffen",
     title: "Private 3-Hour Extended (Reffen)",
+    titleEs: "Puerto Extendido (Parada en Reffen)",
     price: 4299,
     duration: "3 Hours",
+    durationEs: "3 Horas",
     img: "/assets/images/reffen-3h/bote-reffen.webp",
     url: "/experiences/private-boat-copenhagen-3h/",
     calendar: "boat1",
@@ -31,8 +37,10 @@ export const TOURS = {
   "book-premium": {
     id: "book-premium",
     title: "Sea Fortress & Coastal Journey (4-Hour)",
+    titleEs: "Fortaleza Marina y Viaje Costero",
     price: 5999,
     duration: "4 Hours",
+    durationEs: "4 Horas",
     img: "/assets/images/sea-fortress-4h/black-diamond-guests.webp",
     url: "/experiences/private-boat-copenhagen-4h/",
     calendar: "boat1",
@@ -40,8 +48,10 @@ export const TOURS = {
   "book-winter-captain": {
     id: "book-winter-captain",
     title: "Private Boat Tour with Captain",
+    titleEs: "Tour Privado en Barco con Capitán",
     price: 2499,
     duration: "1 Hour",
+    durationEs: "1 Hora",
     img: "/assets/images/city-highlights/island-brygge-guests.webp",
     url: "/experiences/private-boat-copenhagen/",
     calendar: "boat1",
@@ -49,8 +59,10 @@ export const TOURS = {
   "book-winter-hygge": {
     id: "book-winter-hygge",
     title: "Private Hygge Winter Tour",
+    titleEs: "Tour Privado de Invierno Hygge",
     price: 4999,
     duration: "2 Hours",
+    durationEs: "2 Horas",
     img: "/assets/images/winter-seasonal/tour_winter_hygge_book.webp",
     url: "/experiences/private-boat-copenhagen-3h/",
     calendar: "boat1",
@@ -58,8 +70,10 @@ export const TOURS = {
   "book-christmas": {
     id: "book-christmas",
     title: "Christmas Tour w. Tapas & Champagne",
+    titleEs: "Tour Navideño con Tapas y Champagne",
     price: 5999,
     duration: "2 Hours",
+    durationEs: "2 Horas",
     img: "/assets/images/winter-seasonal/tour_christmas_champagne.webp",
     url: "/experiences/private-boat-copenhagen-3h/",
     calendar: "boat1",
@@ -67,8 +81,10 @@ export const TOURS = {
   "book-malmo": {
     id: "book-malmo",
     title: "Copenhagen to Malmö Experience",
+    titleEs: "Experiencia de Copenhague a Malmö",
     price: 13000,
     duration: "7 Hours",
+    durationEs: "7 Horas",
     img: "/assets/images/malmo/tour_malmo.webp",
     url: "/experiences/private-boat-copenhagen-malmo/",
     maxParticipants: 10,
@@ -77,8 +93,10 @@ export const TOURS = {
   "book-land": {
     id: "book-land",
     title: "Copenhagen Private Boat y Land Experience",
+    titleEs: "Escapada por Tierra y Mar",
     price: 8999,
     duration: "4 Hours",
+    durationEs: "4 Horas",
     img: "/assets/images/land-tour/helsingor.png",
     url: "/experiences/private-boat-copenhagen-land-tour/",
     maxParticipants: 6,
@@ -87,8 +105,10 @@ export const TOURS = {
   "book-wine": {
     id: "book-wine",
     title: "Floating Wine Tasting Experience",
+    titleEs: "Cata de Vinos Flotante",
     price: 3499,
     duration: "2 Hours",
+    durationEs: "2 Horas",
     img: "/assets/images/wine-tour/wine-tour-guests.png",
     url: "/experiences/private-boat-copenhagen-wine-tour/",
     maxParticipants: 6,
@@ -97,8 +117,10 @@ export const TOURS = {
   "book-10p": {
     id: "book-10p",
     title: "City Highlights (10 Guests)",
+    titleEs: "Lo Mejor de la Ciudad (10 Personas)",
     price: 2999,
     duration: "1 Hour",
+    durationEs: "1 Hora",
     img: "/assets/images/city-highlights-10/city-highlights-10.webp",
     url: "/experiences/city-highlights-10-people/",
     maxParticipants: 10,
@@ -108,18 +130,20 @@ export const TOURS = {
 
 export const EXTRA_CHARCUTERIE = {
   title: "Charcuterie",
+  titleEs: "Tabla de Charcutería Gourmet",
   price: 225,
   img: "/assets/images/winter-seasonal/tour_christmas_champagne.webp",
 };
 
 function getDefaultBooking() {
+  const isSpanish = window.location.pathname.startsWith('/es/') || window.location.pathname === '/es/reserve' || window.location.pathname === '/es';
   return {
     tour: null,
     qty: 1,
     tapas: 0,
     date: "",
     time: "",
-    lang: "english",
+    lang: isSpanish ? "spanish" : "english",
     contact: {
       name: "",
       email: "",
@@ -245,6 +269,7 @@ export function readBookingFromUrl(search = window.location.search) {
 
 export function buildReserveUrl(booking = getBooking()) {
   const params = new URLSearchParams();
+  const isSpanish = window.location.pathname.startsWith('/es/');
 
   if (booking.tour) params.set("tour", booking.tour);
   params.set("qty", String(booking.qty || 1));
@@ -254,7 +279,8 @@ export function buildReserveUrl(booking = getBooking()) {
   if (booking.time) params.set("time", booking.time);
   if (booking.lang) params.set("lang", booking.lang);
 
-  return `/reserve?${params.toString()}`;
+  const prefix = isSpanish ? "/es" : "";
+  return `${prefix}/reserve?${params.toString()}`;
 }
 
 export function navigateToReserve(tourId, overrides = {}) {
@@ -268,4 +294,9 @@ export function navigateToReserve(tourId, overrides = {}) {
   });
 
   window.location.href = buildReserveUrl(next);
+}
+
+export function getLocalizedValue(item, key, lang) {
+  const localizedKey = lang === "spanish" ? `${key}Es` : key;
+  return item[localizedKey] || item[key];
 }
