@@ -81,6 +81,29 @@ function initLanguagePersistence() {
   const isDanish = currentPath.startsWith('/da/') || currentPath === '/da';
   const currentLang = isSpanish ? 'es' : (isDanish ? 'da' : 'en');
 
+  // Calculate clean path without language prefix
+  let cleanPath = currentPath.replace(/^\/(es|da)/, '') || '/';
+  if (!cleanPath.startsWith('/')) cleanPath = '/' + cleanPath;
+
+  // Update language switcher UI (links and active state)
+  document.querySelectorAll('.lang-switcher .lang-link').forEach(link => {
+    const title = link.getAttribute('title')?.toLowerCase() || '';
+    const isLinkSpanish = title.includes('español') || title.includes('es');
+    const isLinkDanish = title.includes('dansk') || title.includes('da');
+    const isLinkEnglish = !isLinkSpanish && !isLinkDanish;
+
+    // Set dynamic href to stay on the same page when switching languages
+    if (isLinkSpanish) link.setAttribute('href', '/es' + (cleanPath === '/' ? '' : cleanPath));
+    else if (isLinkDanish) link.setAttribute('href', '/da' + (cleanPath === '/' ? '' : cleanPath));
+    else link.setAttribute('href', cleanPath);
+
+    // Set active class
+    link.classList.remove('is-active');
+    if (currentLang === 'es' && isLinkSpanish) link.classList.add('is-active');
+    else if (currentLang === 'da' && isLinkDanish) link.classList.add('is-active');
+    else if (currentLang === 'en' && isLinkEnglish) link.classList.add('is-active');
+  });
+
   const preferredLang = localStorage.getItem(PREF_LANG_KEY);
 
   if (preferredLang && preferredLang !== currentLang) {
