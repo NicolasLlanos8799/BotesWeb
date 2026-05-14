@@ -564,6 +564,10 @@ html[lang="es"] .tour-card__price::before {
   content: 'Desde';
 }
 
+html[lang="da"] .tour-card__price::before {
+  content: 'Fra';
+}
+
 html[lang="es"] .tour-card__price-note {
   font-size: 0.65rem; /* Slightly smaller for Spanish to fit */
 }
@@ -571,6 +575,10 @@ html[lang="es"] .tour-card__price-note {
 /* Booking card price prefix fix */
 html[lang="es"] .booking-card__price::before {
   content: 'Desde';
+}
+
+html[lang="da"] .booking-card__price::before {
+  content: 'Fra';
 }
 
 .booking-card__price {

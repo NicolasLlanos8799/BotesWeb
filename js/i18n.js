@@ -70,15 +70,10 @@ const I18n = {
       el.dataset.cardLink = prefix + el.dataset.i18nCardLink;
     });
 
-    // Page title and meta description
-    const title = this.t('page.title');
+    // Page title — body[data-i18n-title] overrides default 'page.title' key
+    const titleKey = document.body.dataset.i18nTitle || 'page.title';
+    const title = this.t(titleKey);
     if (title) document.title = title;
-
-    const desc = this.t('page.description');
-    if (desc) {
-      const meta = document.querySelector('meta[name="description"]');
-      if (meta) meta.content = desc;
-    }
   },
 };
 
