@@ -104,7 +104,19 @@ function initLanguagePersistence() {
     else if (currentLang === 'en' && isLinkEnglish) link.classList.add('is-active');
   });
 
-  const preferredLang = localStorage.getItem(PREF_LANG_KEY);
+  let preferredLang = localStorage.getItem(PREF_LANG_KEY);
+
+  // --- NEW: Browser Language Detection ---
+  if (!preferredLang) {
+    const browserLang = navigator.language.split('-')[0]; // 'es', 'da', etc.
+    if (['es', 'da'].includes(browserLang)) {
+      preferredLang = browserLang;
+      localStorage.setItem(PREF_LANG_KEY, preferredLang);
+    } else {
+      preferredLang = 'en';
+      localStorage.setItem(PREF_LANG_KEY, 'en');
+    }
+  }
 
   if (preferredLang && preferredLang !== currentLang) {
     const isAtRoot = currentPath === '/' || currentPath === '/es' || currentPath === '/es/' || currentPath === '/da' || currentPath === '/da/';
@@ -128,9 +140,9 @@ function initLanguagePersistence() {
 
       // Cleanup
       targetPath = targetPath.replace(/\/+/g, '/').replace(/\/$/, '') || '/';
-      // If it was /es or /da originally, it might need the prefix back if we are at root
-      if (preferredLang === 'es' && targetPath === '') targetPath = '/es';
-      if (preferredLang === 'da' && targetPath === '') targetPath = '/da';
+      
+      if (preferredLang === 'es' && (targetPath === '/' || targetPath === '')) targetPath = '/es/';
+      if (preferredLang === 'da' && (targetPath === '/' || targetPath === '')) targetPath = '/da/';
 
       if (targetPath !== currentPath) {
         window.location.href = targetPath;
