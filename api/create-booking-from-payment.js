@@ -50,33 +50,32 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: "Metadata not found" });
     }
 
-    // 3. CREATE booking in MySQL
+    // 3. CREATE booking in Postgres
     try {
-      const [result] = await db.execute(
-        `INSERT INTO bookings (tour_id, tour_name, customer_name, customer_email, customer_phone, passengers, booking_date, booking_time, total_price, payment_status, sumup_id, lang) 
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-        [
-          metadata.tour || null,
-          metadata.tourTitle || null,
-          metadata.name || null,
-          metadata.email || null,
-          metadata.phone || null,
-          metadata.qty || 1,
-          metadata.date || null,
-          metadata.time || null,
-          metadata.total || 0,
-          "PAID",
-          checkout_id,
-          metadata.lang || 'english'
-        ]
-      );
-      console.log("[FALLBACK] Saved to MySQL. ID:", result.insertId);
+      await db`
+        INSERT INTO bookings (tour_id, tour_name, customer_name, customer_email, customer_phone, passengers, booking_date, booking_time, total_price, payment_status, sumup_id, lang) 
+        VALUES (
+          ${metadata.tour || null},
+          ${metadata.tourTitle || null},
+          ${metadata.name || null},
+          ${metadata.email || null},
+          ${metadata.phone || null},
+          ${metadata.qty || 1},
+          ${metadata.date || null},
+          ${metadata.time || null},
+          ${metadata.total || 0},
+          'PAID',
+          ${checkout_id},
+          ${metadata.lang || 'english'}
+        )
+      `;
+      console.log("[FALLBACK] Saved to Postgres.");
     } catch (dbErr) {
-      // If it fails because of duplicate sumup_id, it's fine
-      if (dbErr.code === 'ER_DUP_ENTRY') {
-        console.log("[FALLBACK] Duplicate entry in MySQL. Skipping insert.");
+      // Postgres unique violation code is 23505
+      if (dbErr.code === '23505') {
+        console.log("[FALLBACK] Duplicate entry in Postgres. Skipping insert.");
       } else {
-        console.error("[FALLBACK] MySQL Error:", dbErr.message);
+        console.error("[FALLBACK] Postgres Error:", dbErr.message);
       }
     }
 

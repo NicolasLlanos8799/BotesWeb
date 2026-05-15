@@ -1,4 +1,46 @@
-.vercel
-.env*
+# Dependency directories
 node_modules/
+jspm_packages/
+
+# Vercel
+.vercel
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# OS specific files
 .DS_Store
+.DS_Store?
+._*
+Thumbs.db
+
+# IDEs and editors
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.claude/
+.gemini/
+
+# Scratch and temp files
+scratch/
+tmp/
+temp/
+
+# Python (if using scripts like convert_to_webp.py)
+__pycache__/
+*.py[cod]
+*$py.class
