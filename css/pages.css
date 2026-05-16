@@ -559,6 +559,10 @@
     display: none;
   }
 
+  .tours-bespoke__actions {
+    margin-left: 0;
+  }
+
   .tours-bespoke__text {
     margin: 0 auto;
   }
