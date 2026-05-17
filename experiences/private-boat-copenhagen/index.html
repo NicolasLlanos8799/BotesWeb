@@ -501,6 +501,43 @@
               </div>
             </div>
 
+            <div class="experience-booking__duration" id="experience-duration-picker">
+              <input id="experience-duration" type="hidden" value="1" />
+              <button class="experience-booking__control experience-booking__control--button" type="button"
+                id="experience-duration-trigger" aria-expanded="false" aria-controls="experience-duration-panel">
+                <span class="experience-booking__control-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                </span>
+                <span class="experience-booking__control-label">Duration</span>
+                <span class="experience-booking__control-value" id="experience-duration-value">1 Hour</span>
+              </button>
+
+              <div class="experience-booking__duration-panel" id="experience-duration-panel" hidden>
+                <div class="experience-booking__duration-card">
+                  <div class="experience-booking__duration-head">
+                    <strong>Duration</strong>
+                    <span>Choose the duration of your navigation</span>
+                  </div>
+                  <div class="experience-booking__duration-options" role="listbox" aria-label="Duration options">
+                    <button class="experience-booking__duration-option is-selected" type="button"
+                      data-duration-option="1" aria-selected="true">
+                      <span>1 Hour</span>
+                    </button>
+                    <button class="experience-booking__duration-option" type="button" data-duration-option="2"
+                      aria-selected="false">
+                      <span>2 Hours</span>
+                    </button>
+                  </div>
+                  <button class="experience-booking__people-done" type="button"
+                    id="experience-duration-done">Done</button>
+                </div>
+              </div>
+            </div>
+
             <div class="experience-booking__date" id="experience-date-picker">
               <input id="experience-date" type="hidden" value="" />
               <button class="experience-booking__control experience-booking__control--button" type="button"

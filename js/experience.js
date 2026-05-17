@@ -10,7 +10,9 @@ const DEFAULT_SLOTS = [
   { time: "13:00", available: true },
   { time: "14:00", available: true },
   { time: "15:00", available: true },
-  { time: "16:00", available: true }
+  { time: "16:00", available: true },
+  { time: "17:00", available: true },
+  { time: "18:00", available: true }
 ];
 
 export function initExperiencePage() {
@@ -92,6 +94,19 @@ function initBookingPanel() {
   // Aggressive reset on entry to ensure fresh selection
   clearBookingSelection();
 
+  function getCurrentTourId() {
+    let tourId = document.body.dataset.experienceId || "book-1h";
+    const durationInput = document.getElementById("experience-duration");
+    if (durationInput) {
+      const duration = durationInput.value;
+      if (duration === "2") {
+        if (tourId === "book-1h") tourId = "book-1h-2h";
+        else if (tourId === "book-10p") tourId = "book-10p-2h";
+      }
+    }
+    return tourId;
+  }
+
   const booking = getBooking();
   const peoplePicker = document.getElementById("experience-people-picker");
   const peopleTrigger = document.getElementById("experience-people-trigger");
@@ -121,6 +136,14 @@ function initBookingPanel() {
   const languageValueLabel = document.getElementById("experience-language-value");
   const languageDone = document.getElementById("experience-language-done");
   const languageOptions = Array.from(document.querySelectorAll("[data-language-option]"));
+
+  const durationPicker = document.getElementById("experience-duration-picker");
+  const durationTrigger = document.getElementById("experience-duration-trigger");
+  const durationPanel = document.getElementById("experience-duration-panel");
+  const durationValueInput = document.getElementById("experience-duration");
+  const durationValueLabel = document.getElementById("experience-duration-value");
+  const durationDone = document.getElementById("experience-duration-done");
+  const durationOptions = Array.from(document.querySelectorAll("[data-duration-option]"));
 
   const timePicker = document.getElementById("experience-time-picker");
   const timeTrigger = document.getElementById("experience-time-trigger");
@@ -166,7 +189,7 @@ function initBookingPanel() {
   let visibleMonth = new Date(dateStart.getFullYear(), dateStart.getMonth(), 1);
 
   function syncStoredBooking() {
-    const tourId = document.body.dataset.experienceId || "book-1h";
+    const tourId = getCurrentTourId();
     saveBooking({
       tour: tourId,
       qty: Number.parseInt(peopleValueInput.value, 10) || 1,
@@ -177,7 +200,7 @@ function initBookingPanel() {
   }
 
   function syncPeopleValue(nextValue) {
-    const tourId = document.body.dataset.experienceId || "book-1h";
+    const tourId = getCurrentTourId();
     const tourConfig = TOURS[tourId] || {};
     const maxPeople = tourConfig.maxParticipants || 8;
 
@@ -213,7 +236,7 @@ function initBookingPanel() {
     timeValueInput.value = "";
 
     const dateStr = formatDateValue(date);
-    const tourId = document.body.dataset.experienceId || "book-1h";
+    const tourId = getCurrentTourId();
     const tourConfig = TOURS[tourId] || {};
     const calId = tourConfig.calendar || "boat1";
 
@@ -284,7 +307,7 @@ function initBookingPanel() {
   let syncPromises = {}; // Tracks ongoing monthly syncs to avoid redundant requests
 
   function handleApiResponse(data, dateContext) {
-    const tourId = document.body.dataset.experienceId || "book-1h";
+    const tourId = getCurrentTourId();
     const calId = TOURS[tourId]?.calendar || "boat1";
 
     // 1. Handle monthly map { "YYYY-MM-DD": [...], ... }
@@ -321,7 +344,7 @@ function initBookingPanel() {
 
     syncPromises[yearMonth] = (async () => {
       try {
-        const tourId = document.body.dataset.experienceId || "book-1h";
+        const tourId = getCurrentTourId();
         const tourConfig = TOURS[tourId] || {};
         const cal = tourConfig.calendar || "boat1";
 
@@ -353,7 +376,7 @@ function initBookingPanel() {
     const requestId = ++lastAvailabilityRequestId;
 
     try {
-      const tourId = document.body.dataset.experienceId || "book-1h";
+      const tourId = getCurrentTourId();
       const tourConfig = TOURS[tourId] || {};
       const cal = tourConfig.calendar || "boat1";
 
@@ -383,12 +406,29 @@ function initBookingPanel() {
     const isToday = dateValueInput.value === formatDateValue(today);
     const now = today.getHours() * 60 + today.getMinutes();
 
+    const tourId = getCurrentTourId();
+    const tourConfig = TOURS[tourId] || {};
+    const durationHours = parseInt(tourConfig.duration) || 1;
+    const maxHour = 19 - durationHours;
+
     if (isLoading) {
       // We removed the "Syncing with calendar..." text to make it feel instant.
       // The slots will simply update in the background.
     }
 
-    slots.forEach(slot => {
+    // Ensure we have slots up to maxHour if they are missing
+    const allSlots = [];
+    for (let h = 9; h <= maxHour; h++) {
+      const timeStr = `${String(h).padStart(2, '0')}:00`;
+      const existingSlot = slots.find(s => s.time === timeStr);
+      if (existingSlot) {
+        allSlots.push(existingSlot);
+      } else {
+        allSlots.push({ time: timeStr, available: true });
+      }
+    }
+
+    allSlots.forEach(slot => {
       const btn = document.createElement("button");
       btn.type = "button";
       btn.className = "experience-booking__time-slot";
@@ -434,6 +474,39 @@ function initBookingPanel() {
       option.classList.toggle("is-selected", isSelected);
       option.setAttribute("aria-selected", isSelected ? "true" : "false");
     });
+    syncStoredBooking();
+  }
+
+  function syncDurationValue(safeValue) {
+    durationValueInput.value = safeValue;
+    const label = safeValue === "2" ? "2 Hours" : "1 Hour";
+    durationValueLabel.textContent = label;
+    durationOptions.forEach((option) => {
+      const isSelected = option.getAttribute("data-duration-option") === safeValue;
+      option.classList.toggle("is-selected", isSelected);
+      option.setAttribute("aria-selected", isSelected ? "true" : "false");
+    });
+    
+    // Update price display!
+    const tourId = getCurrentTourId();
+    const tourConfig = TOURS[tourId] || {};
+    const priceEl = document.querySelector(".experience-booking__price strong");
+    if (priceEl && tourConfig.price) {
+      priceEl.textContent = `${tourConfig.price.toLocaleString('en-US')} DKK`;
+    }
+    
+    // Re-render time slots because duration changed!
+    const dateStr = dateValueInput.value;
+    if (dateStr) {
+      const calId = tourConfig.calendar || "boat1";
+      if (availabilityCache[calId]?.[dateStr]) {
+        renderTimeSlots(availabilityCache[calId][dateStr], false);
+      } else {
+        renderTimeSlots(DEFAULT_SLOTS, false);
+        fetchAvailability(dateStr);
+      }
+    }
+    
     syncStoredBooking();
   }
 
@@ -503,7 +576,7 @@ function initBookingPanel() {
         // Anticipate the click: start syncing the moment the user hovers the day
         dayButton.addEventListener("mouseenter", () => {
           const dateStr = formatDateValue(currentDate);
-          const tourId = document.body.dataset.experienceId || "book-1h";
+          const tourId = getCurrentTourId();
           const calId = TOURS[tourId]?.calendar || "boat1";
 
           if (!availabilityCache[calId]?.[dateStr]) {
@@ -610,6 +683,26 @@ function initBookingPanel() {
   });
   languageDone?.addEventListener("click", () => togglePanel(languagePicker, languagePanel, languageTrigger, false));
 
+  if (durationPicker) {
+    durationTrigger?.addEventListener("click", () => {
+      togglePanel(
+        durationPicker,
+        durationPanel,
+        durationTrigger,
+        !durationPicker.classList.contains("is-open")
+      );
+    });
+    durationOptions.forEach((option) => {
+      option.addEventListener("click", () => {
+        syncDurationValue(option.getAttribute("data-duration-option"));
+        if (window.innerWidth > 768) {
+          togglePanel(durationPicker, durationPanel, durationTrigger, false);
+        }
+      });
+    });
+    durationDone?.addEventListener("click", () => togglePanel(durationPicker, durationPanel, durationTrigger, false));
+  }
+
   timeTrigger?.addEventListener("click", () => {
     if (timeTrigger.disabled) return;
     togglePanel(timePicker, timePanel, timeTrigger, !timePicker.classList.contains("is-open"));
@@ -621,6 +714,7 @@ function initBookingPanel() {
     if (!datePicker?.contains(event.target)) togglePanel(datePicker, datePanel, dateTrigger, false);
     if (!timePicker?.contains(event.target)) togglePanel(timePicker, timePanel, timeTrigger, false);
     if (!languagePicker?.contains(event.target)) togglePanel(languagePicker, languagePanel, languageTrigger, false);
+    if (durationPicker && !durationPicker.contains(event.target)) togglePanel(durationPicker, durationPanel, durationTrigger, false);
   });
 
   document.addEventListener("keydown", (event) => {
@@ -629,6 +723,7 @@ function initBookingPanel() {
     togglePanel(datePicker, datePanel, dateTrigger, false);
     togglePanel(timePicker, timePanel, timeTrigger, false);
     togglePanel(languagePicker, languagePanel, languageTrigger, false);
+    togglePanel(durationPicker, durationPanel, durationTrigger, false);
   });
 
   availabilityButton.addEventListener("click", () => {
@@ -639,7 +734,7 @@ function initBookingPanel() {
       return;
     }
 
-    const tourId = document.body.dataset.experienceId || "book-1h";
+    const tourId = getCurrentTourId();
     navigateToReserve(tourId, {
       qty: Number.parseInt(peopleValueInput.value, 10) || 1,
       date: dateValueInput.value,
