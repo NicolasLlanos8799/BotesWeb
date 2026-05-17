@@ -38,15 +38,15 @@
     "premium": {
       "tag": "Privat · 4t",
       "img_alt": "Privat 4-timers premium oplevelse",
-      "title": "Søfort & Kystrejse",
+      "title": "Søfort og Kystrejse",
       "desc": "4 timers privat sejlads, inklusiv 1 time ved Reffen og 1 time ved Trekroner Fort. Mulighed for svømmestop og udsigt over det åbne vand.",
       "price_note": "pr. gruppe op til 8",
       "cta": "Book denne tur"
     },
     "reffen": {
       "tag": "Privat · 3t",
-      "img_alt": "Udvidet Havnerundfart & Reffen-stop",
-      "title": "Udvidet Havnerundfart & Reffen-stop",
+      "img_alt": "Udvidet Havnerundfart og Reffen-stop",
+      "title": "Udvidet Havnerundfart og Reffen-stop",
       "desc": "Inkluderer 3 timers privat sejlads med et 1-times stop ved Reffen Street Food. Udvidet rute ud over de centrale kanaler.",
       "price_note": "pr. gruppe op til 8",
       "cta": "Book denne tur"
@@ -72,7 +72,7 @@
   },
   "feature": {
     "private": {
-      "title": "Privat & Personligt",
+      "title": "Privat og Personligt",
       "text": "Din tur er reserveret kun til din gruppe, uden menneskemængder eller fremmede ombord."
     },
     "guides": {
@@ -84,7 +84,7 @@
       "text": "Vi udforsker smukke vandveje og charmerende områder, som mange større ture overser."
     },
     "comfort": {
-      "title": "Komfort & Atmosfære",
+      "title": "Komfort og Atmosfære",
       "text": "Fra sommercruises til vinterhygge-øjeblikke er hver detalje designet til at gøre oplevelsen afslappet og mindeværdig."
     }
   },
@@ -137,7 +137,7 @@
       "a": "<p>Vi tilbyder tæpper og varme drikke om vinteren, og koldt vand om sommeren. Nogle pakker inkluderer snacks eller champagne. Du er velkommen til at medbringe din egen mad/drikke på ture på 3+ timer. Vi anbefaler behageligt tøj efter vejret.</p>"
     },
     "policies": {
-      "q": "Betalingsmetoder & afbestillingsregler",
+      "q": "Betalingsmetoder og afbestillingsregler",
       "a": "<p><strong>Betalinger:</strong> Vi accepterer kredit-/betalingskort (Visa, MC, AMEX), MobilePay, Apple Pay, SumUp og Revolut.</p><p style=\"margin-top: 1rem;\"><strong>Afbestillinger:</strong></p><ul style=\"margin: 0.5rem 0 1rem 1.5rem; line-height: 1.6;\"><li>7+ dage før: Fuld refusion.</li><li>7 dage til 48 timer før: 50% refusion.</li><li>Inden for 48 timer: Ingen refusion.</li></ul><p>I tilfælde af dårligt vejr/usikre forhold planlægger vi en ny tid eller tilbyder fuld refusion. Refusioner tager 5-10 hverdage.</p>"
     },
     "meetingpoint": {
@@ -171,11 +171,11 @@
     },
     "season": "🌿 Forår — Sommer 2026",
     "section1": {
-      "title": "Kanal-essentials & eventyr",
+      "title": "Kanal-essentials og eventyr",
       "desc": "Den bedste måde at se byen på. Fra vores populære 1-times højdepunkter til udvidede 3-timers havneudforskninger."
     },
     "section2": {
-      "title": "Signatur- & specialoplevelser",
+      "title": "Signatur- og specialoplevelser",
       "desc": "Nøje udvalgte rejser til den nysgerrige rejsende. Oplev søfæstninger, vinsmagninger eller eventyr til lands og til vands."
     },
     "section3": {
@@ -198,12 +198,12 @@
         "price_note": "pr. gruppe op til 10"
       },
       "reffen": {
-        "title": "Udvidet havnerundfart & Reffen-stop",
+        "title": "Udvidet havnerundfart og Reffen-stop",
         "desc": "3 timers privat sejlads med et 1-times stop ved Reffen Street Food. Udforsk mere end blot centrum.",
         "price_note": "pr. gruppe op til 8"
       },
       "premium": {
-        "title": "Søfæstning & kystrejse",
+        "title": "Søfæstning og kystrejse",
         "desc": "Inkluderer stop ved Reffen og Trekroner Fort. Mulighed for svømning og udsigt over åbent vand.",
         "price_note": "pr. gruppe op til 8"
       },
@@ -213,7 +213,7 @@
         "price_note": "pr. gruppe op til 6"
       },
       "land": {
-        "title": "Båd- & land-escape",
+        "title": "Båd- og land-escape",
         "desc": "Kombiner en 2-timers kanalrundfart med en privat landtur til Dragør og Kronborg.",
         "price_note": "pr. gruppe op til 6"
       },
@@ -261,7 +261,7 @@
     "summary": {
       "title": "Reservationsoplysninger",
       "experience": "Valgt oplevelse",
-      "datetime": "Dato & tid",
+      "datetime": "Dato og tid",
       "participants": "Deltagere",
       "language": "Sprog",
       "lang_value": "Dansk",
@@ -386,12 +386,12 @@
         "Bluetooth-højtaler til din egen musik",
         "Drikkevarer kan købes ombord"
       ],
-      "excl_h3": "Eksklusivitet & Atmosfære",
+      "excl_h3": "Eksklusivitet og Atmosfære",
       "prep": {
         "bring": [
-          "Valgfrit: Badetøj & håndklæde",
+          "Valgfrit: Badetøj og håndklæde",
           "Lag-på-lag tøj efter vejret",
-          "Solbriller & solcreme"
+          "Solbriller og solcreme"
         ],
         "rules": [
           "Ingen hop eller rygning ombord",
@@ -438,12 +438,12 @@
         "Bluetooth-højtaler til din egen musik",
         "Drikkevarer kan købes ombord"
       ],
-      "excl_h3": "Eksklusivitet & Atmosfære",
+      "excl_h3": "Eksklusivitet og Atmosfære",
       "prep": {
         "bring": [
-          "Valgfrit: Badetøj & håndklæde",
+          "Valgfrit: Badetøj og håndklæde",
           "Lag-på-lag tøj efter vejret",
-          "Solbriller & solcreme"
+          "Solbriller og solcreme"
         ],
         "rules": [
           "Ingen hop eller rygning ombord",
@@ -455,10 +455,10 @@
     },
     "reffen_3h": {
       "page": {
-        "title": "Udvidet havnerundfart & Reffen-stop | Seaduced Experience",
+        "title": "Udvidet havnerundfart og Reffen-stop | Seaduced Experience",
         "desc": "Oplev København på en udvidet 3-timers havnerundfart. Inkluderer byens højdepunkter plus et stop ved Reffen street food marked, musik og drikkevarer ombord."
       },
-      "hero_html": "<span class=\"title-accent\">Udvidet havnerundfart</span> & Reffen-stop",
+      "hero_html": "<span class=\"title-accent\">Udvidet havnerundfart</span> og Reffen-stop",
       "intro": "Udforsk København ud over højdepunkterne på en 3-timers privat bådoplevelse med din egen kaptajn. Sejl gennem kanalerne, stop ved Reffen street food marked, nyd musik og drikkevarer ombord, og oplev byen i dit eget tempo — afslappet, fleksibelt og helt privat.",
       "info": {
         "participants_val": "Privat gruppe (maks. 8)",
@@ -493,12 +493,12 @@
         "Valgfrit stop ved Reffen",
         "Drikkevarer kan købes ombord"
       ],
-      "excl_h3": "Eksklusivitet & Vibe",
+      "excl_h3": "Eksklusivitet og Vibe",
       "prep": {
         "bring": [
-          "Badetøj & håndklæde (anbefales)",
+          "Badetøj og håndklæde (anbefales)",
           "Tøj efter vejret",
-          "Solbriller & solcreme"
+          "Solbriller og solcreme"
         ],
         "rules": [
           "Ingen udspring eller rygning ombord",
@@ -511,10 +511,10 @@
     },
     "sea_fortress_4h": {
       "page": {
-        "title": "Søfort & kystrejse | Seaduced Experience",
+        "title": "Søfort og kystrejse | Seaduced Experience",
         "desc": "Oplev den ultimative kystrejse i København. Inkluderer byens højdepunkter, Reffen street food marked, Den Lille Havfrue og en privat sejlads til det historiske Trekroner Fort."
       },
-      "hero_html": "<span class=\"title-accent\">Søfort</span> & kystrejse",
+      "hero_html": "<span class=\"title-accent\">Søfort</span> og kystrejse",
       "intro": "Oplev den ultimative bådtur i København på en 4-timers privat rejse med din egen kaptajn. Sejl gennem kanalerne, stop ved Reffen street food marked, besøg Den Lille Havfrue og sejl ud i åbent vand for at udforske det historiske Trekroner Fort — alt i dit eget tempo, helt privat.",
       "info": {
         "participants_val": "Privat gruppe (maks. 8)",
@@ -541,7 +541,7 @@
         "<strong>Reffen Stop:</strong> Nyd Københavns street food scene",
         "<strong>Den Lille Havfrue:</strong> Besøg Danmarks mest ikoniske vartegn",
         "<strong>Trekroner Fort:</strong> Sejl ud i åbent vand til en historisk søfæstning",
-        "<strong>Svøm & slap af:</strong> Tid til at nyde vandet og atmosfæren",
+        "<strong>Svøm og slap af:</strong> Tid til at nyde vandet og atmosfæren",
         "<strong>Helt privat:</strong> Din gruppe, din musik, dit tempo"
       ],
       "included": [
@@ -553,12 +553,12 @@
         "Besøg ved Trekroner Fort",
         "Drikkevarer kan købes ombord"
       ],
-      "excl_h3": "Eksklusivitet & Vibe",
+      "excl_h3": "Eksklusivitet og Vibe",
       "prep": {
         "bring": [
-          "Badetøj & håndklæde (anbefales)",
+          "Badetøj og håndklæde (anbefales)",
           "Tøj efter vejret",
-          "Solbriller & solcreme"
+          "Solbriller og solcreme"
         ],
         "rules": [
           "Ingen udspring eller rygning ombord",
@@ -632,10 +632,10 @@
     },
     "land_tour": {
       "page": {
-        "title": "Privat båd- & landtur i København, Dragør & Kronborg | Seaduced Experience",
+        "title": "Privat båd- og landtur i København, Dragør og Kronborg | Seaduced Experience",
         "desc": "Oplev København til vands og til lands på en 5-timers privat tur. Nyd en kanalrundfart, besøg landsbyen Dragør og udforsk Helsingør med udsigt til Kronborg Slot — med mulighed for tapas og vin."
       },
-      "hero_html": "Københavns private <span class=\"title-accent\">Båd- & Land</span> oplevelse",
+      "hero_html": "Københavns private <span class=\"title-accent\">Båd- og Land</span> oplevelse",
       "intro": "Oplev København fra to unikke perspektiver — vand og land. Start med en privat kanalrundfart, og fortsæt derefter i køretøj for at udforske Dragør og Helsingør, inklusiv udsigt til det ikoniske Kronborg Slot. En komplet premium-oplevelse, der kombinerer komfort, kultur og udforskning.",
       "info": {
         "participants_val": "Privat gruppe (maks. 6)",
@@ -663,7 +663,7 @@
         "<strong>Landsbyen Dragør:</strong> Gå tur i en historisk kystby",
         "<strong>Kronborg Slot:</strong> Se det berømte Hamlet-slot udefra",
         "<strong>Premium Komfort:</strong> Rejs i et privat high-end køretøj",
-        "<strong>Valgfri Tapas & Vin:</strong> Opgrader din oplevelse"
+        "<strong>Valgfri Tapas og Vin:</strong> Opgrader din oplevelse"
       ],
       "included": [
         "2-timers privat kanalrundfart",
@@ -671,7 +671,7 @@
         "Premium køretøj (7 sæder)",
         "Chauffør",
         "Landtur til Dragør og Helsingør",
-        "Spanske tapas & vin"
+        "Spanske tapas og vin"
       ],
       "excl_h3": "Vigtig information",
       "prep": {
@@ -722,7 +722,7 @@
         "<strong>Byens højdepunkter:</strong> Se København fra vandet",
         "<strong>Krydsning af åbent hav:</strong> Sejl over Øresund",
         "<strong>Malmø-besøg:</strong> Fritid til at udforske i dit eget tempo",
-        "<strong>Drikkevarer & Musik:</strong> Slap af ombord under rejsen",
+        "<strong>Drikkevarer og Musik:</strong> Slap af ombord under rejsen",
         "<strong>Helt privat:</strong> Din gruppe, din oplevelse"
       ],
       "included": [

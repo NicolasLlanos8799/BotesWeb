@@ -36,14 +36,14 @@
     },
     "premium": {
       "tag": "Private · 4h",
-      "title": "Sea Fortress & Coastal Journey",
+      "title": "Sea Fortress and Coastal Journey",
       "desc": "4 hours of private sailing, including 1 hour at Reffen and 1 hour at Trekroner Fort. Swimming stop possibility and open water views.",
       "price_note": "per group up to 8",
       "cta": "Book This Tour"
     },
     "reffen": {
       "tag": "Private · 3h",
-      "title": "Harbor Extended & Reffen Stop",
+      "title": "Harbor Extended and Reffen Stop",
       "desc": "Includes 3 hours of private sailing with a 1-hour stop at Reffen Street Food. Extended route beyond the central canals.",
       "price_note": "per group up to 8",
       "cta": "Book This Tour"
@@ -69,7 +69,7 @@
   },
   "feature": {
     "private": {
-      "title": "Private & Personalized",
+      "title": "Private and Personalized",
       "text": "Your tour is reserved only for your group, without crowds or strangers on board."
     },
     "guides": {
@@ -81,7 +81,7 @@
       "text": "We explore beautiful waterways and charming areas that many larger tours miss."
     },
     "comfort": {
-      "title": "Comfort & Atmosphere",
+      "title": "Comfort and Atmosphere",
       "text": "From summer cruises to winter hygge moments, every detail is designed to make the experience relaxed and memorable."
     }
   },
@@ -134,7 +134,7 @@
       "a": "<p>We provide blankets and hot drinks in winter, and cold water in summer. Some packages include snacks or champagne. You are welcome to bring your own food/drinks for trips of 3+ hours. We recommend comfortable clothing and layers for the weather.</p>"
     },
     "policies": {
-      "q": "Payment Methods & Cancellation Policy",
+      "q": "Payment Methods and Cancellation Policy",
       "a": "<p><strong>Payments:</strong> We accept Credit/Debit cards (Visa, MC, AMEX), MobilePay, Apple Pay, SumUp, and Revolut.</p><p style=\"margin-top: 1rem;\"><strong>Cancellations:</strong></p><ul style=\"margin: 0.5rem 0 1rem 1.5rem; line-height: 1.6;\"><li>7+ days before: Full refund.</li><li>7 days to 48h before: 50% refund.</li><li>Within 48h: Non-refundable.</li></ul><p>In case of bad weather/unsafe conditions, we reschedule or offer a full refund. Refunds take 5–10 business days.</p>"
     },
     "meetingpoint": {
@@ -168,11 +168,11 @@
     },
     "season": "🌿 Spring — Summer 2026",
     "section1": {
-      "title": "Canal Essentials & Adventures",
+      "title": "Canal Essentials and Adventures",
       "desc": "The best way to see the city. From our popular 1-hour highlights to extended 3-hour harbor explorations."
     },
     "section2": {
-      "title": "Signature & Specialty Experiences",
+      "title": "Signature and Specialty Experiences",
       "desc": "Curated journeys for the curious traveler. Discover sea fortresses, wine tastings, or land-and-water adventures."
     },
     "section3": {
@@ -195,12 +195,12 @@
         "price_note": "per group up to 10"
       },
       "reffen": {
-        "title": "Harbor Extended & Reffen Stop",
+        "title": "Harbor Extended and Reffen Stop",
         "desc": "3 hours of private sailing with a 1-hour stop at Reffen Street Food. Explore beyond the center.",
         "price_note": "per group up to 8"
       },
       "premium": {
-        "title": "Sea Fortress & Coastal Journey",
+        "title": "Sea Fortress and Coastal Journey",
         "desc": "Includes stops at Reffen and Trekroner Fort. Swimming possible and open water views.",
         "price_note": "per group up to 8"
       },
@@ -210,7 +210,7 @@
         "price_note": "per group up to 6"
       },
       "land": {
-        "title": "Boat & Land Escape",
+        "title": "Boat and Land Escape",
         "desc": "Combine a 2-hour canal cruise with a private land tour to Dragør and Kronborg.",
         "price_note": "per group up to 6"
       },
@@ -258,13 +258,13 @@
     "summary": {
       "title": "Reservation Details",
       "experience": "Selected Experience",
-      "datetime": "Date & Time",
+      "datetime": "Date and Time",
       "participants": "Participants",
       "language": "Language",
       "lang_value": "English",
       "edit": "Change date or number of participants",
       "total": "Total",
-      "confirm_btn": "Confirm & Proceed to Payment"
+      "confirm_btn": "Confirm and Proceed to Payment"
     },
     "mobile": {
       "complete_btn": "Complete Booking"
@@ -383,12 +383,12 @@
         "Bluetooth speaker for your own music",
         "Drinks available for purchase on board"
       ],
-      "excl_h3": "Exclusivity & Vibe",
+      "excl_h3": "Exclusivity and Vibe",
       "prep": {
         "bring": [
-          "Optional: Swimwear & Towel",
+          "Optional: Swimwear and Towel",
           "Weather-appropriate layers",
-          "Sunglasses & Sunscreen"
+          "Sunglasses and Sunscreen"
         ],
         "rules": [
           "No jumping or smoking on board",
@@ -435,12 +435,12 @@
         "Bluetooth speaker for your own music",
         "Drinks available for purchase on board"
       ],
-      "excl_h3": "Exclusivity & Vibe",
+      "excl_h3": "Exclusivity and Vibe",
       "prep": {
         "bring": [
-          "Optional: Swimwear & Towel",
+          "Optional: Swimwear and Towel",
           "Weather-appropriate layers",
-          "Sunglasses & Sunscreen"
+          "Sunglasses and Sunscreen"
         ],
         "rules": [
           "No jumping or smoking on board",
@@ -452,10 +452,10 @@
     },
     "reffen_3h": {
       "page": {
-        "title": "Harbor Extended & Reffen Stop | Seaduced Experience",
+        "title": "Harbor Extended and Reffen Stop | Seaduced Experience",
         "desc": "Experience Copenhagen on an extended 3-hour harbor tour. Includes city highlights plus a stop at Reffen street food market, music, and drinks on board."
       },
-      "hero_html": "<span class=\"title-accent\">Harbor Extended</span> & Reffen Stop",
+      "hero_html": "<span class=\"title-accent\">Harbor Extended</span> and Reffen Stop",
       "intro": "Explore Copenhagen beyond the highlights on a 3-hour private boat experience with your own captain. Cruise through the canals, stop at Reffen street food market, enjoy music and drinks on board, and experience the city at your own pace — relaxed, flexible, and fully private.",
       "info": {
         "participants_val": "Private group (max 8)",
@@ -490,12 +490,12 @@
         "Optional stop at Reffen",
         "Drinks available for purchase on board"
       ],
-      "excl_h3": "Exclusivity & Vibe",
+      "excl_h3": "Exclusivity and Vibe",
       "prep": {
         "bring": [
-          "Swimwear & Towel (recommended)",
+          "Swimwear and Towel (recommended)",
           "Weather-appropriate layers",
-          "Sunglasses & Sunscreen"
+          "Sunglasses and Sunscreen"
         ],
         "rules": [
           "No jumping or smoking on board",
@@ -508,10 +508,10 @@
     },
     "sea_fortress_4h": {
       "page": {
-        "title": "Sea Fortress & Coastal Journey | Seaduced Experience",
+        "title": "Sea Fortress and Coastal Journey | Seaduced Experience",
         "desc": "Experience the ultimate Copenhagen coastal journey. Includes city highlights, Reffen street food market, the Little Mermaid, and a private sail to the historic Trekroner Fort."
       },
-      "hero_html": "<span class=\"title-accent\">Sea Fortress</span> & Coastal Journey",
+      "hero_html": "<span class=\"title-accent\">Sea Fortress</span> and Coastal Journey",
       "intro": "Experience the ultimate Copenhagen boat tour on a 4-hour private journey with your own captain. Cruise through the canals, stop at Reffen street food market, visit the Little Mermaid, and sail into open water to explore the historic Trekroner Fort — all at your own pace, fully private.",
       "info": {
         "participants_val": "Private group (max 8)",
@@ -538,7 +538,7 @@
         "<strong>Reffen Stop:</strong> Enjoy Copenhagen’s street food scene",
         "<strong>Little Mermaid:</strong> Visit Denmark’s most iconic landmark",
         "<strong>Trekroner Fort:</strong> Sail into open water to a historic sea fortress",
-        "<strong>Swim & Relax:</strong> Time to enjoy the water and atmosphere",
+        "<strong>Swim and Relax:</strong> Time to enjoy the water and atmosphere",
         "<strong>Fully Private:</strong> Your group, your music, your pace"
       ],
       "included": [
@@ -550,12 +550,12 @@
         "Visit to Trekroner Fort",
         "Drinks available for purchase on board"
       ],
-      "excl_h3": "Exclusivity & Vibe",
+      "excl_h3": "Exclusivity and Vibe",
       "prep": {
         "bring": [
-          "Swimwear & Towel (recommended)",
+          "Swimwear and Towel (recommended)",
           "Weather-appropriate layers",
-          "Sunglasses & Sunscreen"
+          "Sunglasses and Sunscreen"
         ],
         "rules": [
           "No jumping or smoking on board",
@@ -629,10 +629,10 @@
     },
     "land_tour": {
       "page": {
-        "title": "Private Boat & Land Tour in Copenhagen, Dragør & Kronborg | Seaduced Experience",
+        "title": "Private Boat and Land Tour in Copenhagen, Dragør and Kronborg | Seaduced Experience",
         "desc": "Experience Copenhagen by water and land on a 5-hour private tour. Enjoy a canal cruise, visit Dragør village, and explore Helsingør with views of Kronborg Castle — with optional tapas and wine."
       },
-      "hero_html": "Copenhagen Private <span class=\"title-accent\">Boat & Land</span> Experience",
+      "hero_html": "Copenhagen Private <span class=\"title-accent\">Boat and Land</span> Experience",
       "intro": "Discover Copenhagen from two unique perspectives — water and land. Start with a private canal cruise, then continue by vehicle to explore Dragør and Helsingør, including views of the iconic Kronborg Castle. A complete, premium experience combining comfort, culture, and exploration.",
       "info": {
         "participants_val": "Private group (max 6)",
@@ -660,7 +660,7 @@
         "<strong>Dragør Village:</strong> Walk through a historic coastal town",
         "<strong>Kronborg Castle:</strong> See the famous Hamlet castle from outside",
         "<strong>Premium Comfort:</strong> Travel in a private high-end vehicle",
-        "<strong>Optional Tapas & Wine:</strong> Upgrade your experience"
+        "<strong>Optional Tapas and Wine:</strong> Upgrade your experience"
       ],
       "included": [
         "2-hour private canal boat tour",
@@ -668,7 +668,7 @@
         "Premium vehicle (7 seats)",
         "Driver",
         "Land tour to Dragør and Helsingør",
-        "Spanish tapas & Wine"
+        "Spanish tapas and Wine"
       ],
       "excl_h3": "Important Notice",
       "prep": {
@@ -719,7 +719,7 @@
         "<strong>City Highlights:</strong> See Copenhagen from the water",
         "<strong>Open Sea Crossing:</strong> Sail across the Øresund Strait",
         "<strong>Malmö Visit:</strong> Free time to explore at your own pace",
-        "<strong>Drinks & Music:</strong> Relax on board during the journey",
+        "<strong>Drinks and Music:</strong> Relax on board during the journey",
         "<strong>Fully Private:</strong> Your group, your experience"
       ],
       "included": [

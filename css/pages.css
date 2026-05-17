@@ -399,11 +399,10 @@
   left: var(--space-sm);
   background: rgba(232, 131, 74, 0.92);
   color: #fff;
-  font-size: var(--fs-xs);
-  font-weight: var(--font-weight-semibold);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  padding: 0.3em 0.75em;
+  font-size: var(--fs-caption);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 0.4em 0.8em;
   border-radius: var(--radius-full);
   backdrop-filter: blur(4px);
 }
@@ -1361,7 +1360,35 @@
 }
 
 .experience-gallery__badge {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: var(--clr-sunset) !important;
+  color: #fff !important;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.4rem 0.8rem;
+  border-radius: 99px;
+  z-index: 10;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.experience-heading__duration {
+  font-size: 1rem;
+  color: var(--clr-navy);
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.experience-heading__duration-badge {
+  background: var(--clr-sunset);
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.2rem 0.6rem;
+  border-radius: 99px;
 }
 
 /* Desktop Carousel Styles */
