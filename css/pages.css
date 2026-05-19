@@ -4344,6 +4344,13 @@
   margin-top: 0.5rem;
 }
 
+.meeting-point-desc {
+  font-size: 0.9rem;
+  color: #4a5568;
+  font-weight: 400;
+  margin-top: 0.35rem;
+}
+
 
 /* ── Important info / Not allowed ─── */
 .experience-important-grid {

@@ -306,7 +306,9 @@
       },
       "meeting": {
         "address": "Address",
-        "open_maps": "Open in Maps"
+        "open_maps": "Open in Maps",
+        "description": "At the dock, in front of the Kayak Bar. Look for the Seaduced boat.",
+        "meetingPointDescription": "At the dock, in front of the Kayak Bar. Look for the Seaduced boat."
       },
       "booking": {
         "from": "From",
@@ -400,10 +402,10 @@
     },
     "city_highlights_10p": {
       "page": {
-        "title": "City Highlights | Seaduced Experience",
+        "title": "City Highlights (10 Guests) | Seaduced Experience",
         "desc": "Discover Copenhagen’s highlights on a 1-hour private boat tour with your own captain. Enjoy music, drinks, and panoramic views of the city from the water."
       },
-      "hero_html": "<span class=\"title-accent\">City</span> Highlights",
+      "hero_html": "<span class=\"title-accent\">City</span> Highlights <span style=\"font-size:0.75em\">(10)</span>",
       "intro": "Discover Copenhagen’s main highlights on a 1-hour private boat tour with your own local captain. Cruise through the canals, enjoy music and drinks on board, and take in the city’s most iconic landmarks from the water — all at a relaxed, comfortable pace.",
       "info": {
         "participants_val": "Private group (max 10)",
@@ -576,7 +578,7 @@
       "info": {
         "participants_val": "Private group (max 6)",
         "duration_val": "2 hours",
-        "guide_val": "English (wine host)"
+        "guide_val": "English"
       },
       "flag": "Unique Experience",
       "booking": {

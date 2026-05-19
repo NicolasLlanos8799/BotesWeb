@@ -33,6 +33,16 @@
   gap: var(--space-md);
 }
 
+.navbar__inner.container {
+  max-width: 1700px;
+}
+
+@media (min-width: 769px) {
+  .navbar__inner {
+    padding-inline: clamp(0.75rem, 2vw, 1.25rem);
+  }
+}
+
 .navbar__logo {
   display: flex;
   align-items: center;

@@ -309,7 +309,9 @@
       },
       "meeting": {
         "address": "Adresse",
-        "open_maps": "Åbn i Maps"
+        "open_maps": "Åbn i Maps",
+        "description": "Ved kajen, foran Kayak Bar. Kig efter Seaduced-båden.",
+        "meetingPointDescription": "Ved kajen, foran Kayak Bar. Kig efter Seaduced-båden."
       },
       "booking": {
         "from": "Fra",
@@ -579,7 +581,7 @@
       "info": {
         "participants_val": "Privat gruppe (maks. 6)",
         "duration_val": "2 timer",
-        "guide_val": "Engelsk (vinvært)"
+        "guide_val": "Engelsk"
       },
       "flag": "Unik oplevelse",
       "booking": {

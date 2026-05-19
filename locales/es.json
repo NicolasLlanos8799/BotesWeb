@@ -309,7 +309,9 @@
       },
       "meeting": {
         "address": "Dirección",
-        "open_maps": "Abrir en Google Maps"
+        "open_maps": "Abrir en Google Maps",
+        "description": "En el muelle, frente al bar Kayak. Busca el barco de Seaduced.",
+        "meetingPointDescription": "En el muelle, frente al bar Kayak. Busca el barco de Seaduced."
       },
       "booking": {
         "from": "Desde",
@@ -403,10 +405,10 @@
     },
     "city_highlights_10p": {
       "page": {
-        "title": "Lo Mejor de la Ciudad | Seaduced Experience",
+        "title": "Lo Mejor de la Ciudad (10 personas) | Seaduced Experience",
         "desc": "Descubre lo mejor de Copenhague en un tour privado en barco de 1 hora con tu propio capitán. Disfruta de música, bebidas y vistas panorámicas de la ciudad desde el agua."
       },
-      "hero_html": "Lo Mejor de la <span class=\"title-accent\">Ciudad</span>",
+      "hero_html": "Lo Mejor de la <span class=\"title-accent\">Ciudad</span> <span style=\"font-size:0.75em\">(10)</span>",
       "intro": "Descubre los principales puntos de interés de Copenhague en un tour privado en barco de 1 hora con tu propio capitán local. Navega por los canales, disfruta de música y bebidas a bordo, y contempla los monumentos más icónicos de la ciudad desde el agua — todo a un ritmo relajado y cómodo.",
       "info": {
         "participants_val": "Grupo privado (máx 10)",
@@ -579,7 +581,7 @@
       "info": {
         "participants_val": "Grupo privado (máx 6)",
         "duration_val": "2 horas",
-        "guide_val": "Inglés (anfitrión vino)"
+        "guide_val": "Inglés"
       },
       "flag": "Experiencia Única",
       "booking": {

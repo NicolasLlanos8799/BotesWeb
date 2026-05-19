@@ -4,6 +4,7 @@ import { initReservePage } from "./reserve.js";
 import {
   readBookingFromUrl,
   saveBooking,
+  buildGoogleMapsUrl,
 } from "./utils.js";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -28,7 +29,18 @@ document.addEventListener("DOMContentLoaded", () => {
   if (document.body.classList.contains("experience-page")) {
     initExperiencePage();
   }
+  initGoogleMapsLinks();
 });
+
+function initGoogleMapsLinks() {
+  document.querySelectorAll("[data-google-maps-link]").forEach(el => {
+    const lat = el.getAttribute("data-lat");
+    const lng = el.getAttribute("data-lng");
+    if (lat && lng) {
+      el.href = buildGoogleMapsUrl(lat, lng);
+    }
+  });
+}
 
 function initNavbar() {
   const navbar = document.getElementById("navbar");

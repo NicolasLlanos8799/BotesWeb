@@ -20,7 +20,7 @@ const I18n = {
     if (this.locale === 'en') return;
 
     try {
-      const res = await fetch(`/locales/${this.locale}.json`);
+      const res = await fetch(`/locales/${this.locale}.json?v=1.2`);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       this.data = await res.json();
     } catch (e) {
@@ -42,13 +42,21 @@ const I18n = {
     // Text content
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const val = this.t(el.dataset.i18n);
-      if (val != null) el.textContent = val;
+      if (val != null) {
+        el.textContent = val;
+      } else if (this.locale !== 'en') {
+        console.warn(`[i18n] Missing translation for key: "${el.dataset.i18n}"`);
+      }
     });
 
     // HTML content
     document.querySelectorAll('[data-i18n-html]').forEach(el => {
       const val = this.t(el.dataset.i18nHtml);
-      if (val != null) el.innerHTML = val;
+      if (val != null) {
+        el.innerHTML = val;
+      } else if (this.locale !== 'en') {
+        console.warn(`[i18n] Missing HTML translation for key: "${el.dataset.i18nHtml}"`);
+      }
     });
 
     // Attributes: data-i18n-attr="attr:key" or "attr1:key1,attr2:key2"
@@ -56,7 +64,11 @@ const I18n = {
       el.dataset.i18nAttr.split(',').forEach(pair => {
         const [attr, key] = pair.trim().split(':');
         const val = this.t(key);
-        if (val != null) el.setAttribute(attr, val);
+        if (val != null) {
+          el.setAttribute(attr, val);
+        } else if (this.locale !== 'en') {
+          console.warn(`[i18n] Missing attribute translation for key: "${key}" (attr: ${attr})`);
+        }
       });
     });
 
