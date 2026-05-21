@@ -50,10 +50,10 @@
     }
   },
   "bespoke": {
-    "label": "Bespoke Services",
-    "title": "Need Something Special?",
-    "text": "Looking for something unique? From corporate events to romantic surprises, we specialize in tailoring private cruises. <strong>Contact us today for a personalized offer and custom quote.</strong>",
-    "cta": "Get Your Custom Quote →"
+    "label": "Personalized Service",
+    "title": "Ready to Sail Copenhagen?",
+    "text": "Tell us how you imagine your ideal experience — a special celebration, a sunset cruise, or an exclusive canal route — and we’ll create a fully personalized experience for you.",
+    "cta": "Plan Your Route"
   },
   "why": {
     "label": "Why Choose Us",

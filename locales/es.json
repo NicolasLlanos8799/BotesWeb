@@ -53,10 +53,10 @@
     }
   },
   "bespoke": {
-    "label": "Servicios Personalizados",
-    "title": "¿Buscas algo especial?",
-    "text": "¿Buscas algo único? Desde eventos corporativos hasta sorpresas románticas, nos especializamos en personalizar cruceros privados. <strong>Contáctanos hoy para una oferta personalizada.</strong>",
-    "cta": "Pide tu presupuesto →"
+    "label": "Servicio personalizado",
+    "title": "¿Preparado para navegar por Copenhague?",
+    "text": "Cuéntanos cómo imaginas tu experiencia ideal —una celebración especial, un paseo al atardecer o un recorrido exclusivo por los canales— crearemos una experiencia totalmente personalizada para ti.",
+    "cta": "Planifica tu recorrido"
   },
   "why": {
     "label": "Por qué elegirnos",

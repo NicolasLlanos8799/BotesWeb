@@ -53,10 +53,10 @@
     }
   },
   "bespoke": {
-    "label": "Skræddersyede tjenester",
-    "title": "Brug for noget særligt?",
-    "text": "Leder du efter noget unikt? Fra firmaarrangementer til romantiske overraskelser, vi specialiserer os i at skræddersy private sejlture. <strong>Kontakt os i dag for et personligt tilbud og et skræddersyet estimat.</strong>",
-    "cta": "Få dit tilbud →"
+    "label": "Personlig service",
+    "title": "Er du klar til at sejle gennem København?",
+    "text": "Fortæl os, hvordan du forestiller dig din ideelle oplevelse — en særlig fejring, en solnedgangstur eller en eksklusiv rute gennem kanalerne — vi skaber en helt skræddersyet oplevelse til dig.",
+    "cta": "Planlæg din rute"
   },
   "why": {
     "label": "Hvorfor vælge os",
