@@ -186,12 +186,12 @@
       "badge_fullday": "Full Day",
       "highlights": {
         "title": "City Highlights",
-        "desc": "Our signature 1-hour private boat tour with your own guide. Perfect for a first visit.",
+        "desc": "Our signature 1 or 2 hours private boat tour with your own guide. Perfect for a first visit.",
         "price_note": "per group up to 8"
       },
       "10p": {
         "title": "City Highlights (10 Guests)",
-        "desc": "Ideal for larger groups. A premium 1-hour private tour with extra space for everyone.",
+        "desc": "Ideal for larger groups. A premium 1 or 2 hours private tour with extra space for everyone.",
         "price_note": "per group up to 10"
       },
       "reffen": {
@@ -323,6 +323,9 @@
         "times_head": "Available times",
         "times_sub": "Choose your slot",
         "times_empty": "Select a date first",
+        "duration_1h": "1 Hour",
+        "duration_2h": "2 Hours",
+        "duration_sub": "Choose the duration of your navigation",
         "lang_label": "Guide language",
         "lang_head": "Guide language",
         "lang_sub": "Choose the language of your guide",
@@ -354,10 +357,10 @@
         "desc": "Discover Copenhagen’s highlights on a 1-hour private boat tour with your own captain. Enjoy music, drinks, and panoramic views of the city from the water."
       },
       "hero_html": "<span class=\"title-accent\">City</span> Highlights",
-      "intro": "Discover Copenhagen’s main highlights on a 1-hour private boat tour with your own local captain. Cruise through the canals, enjoy music and drinks on board, and take in the city’s most iconic landmarks from the water — all at a relaxed, comfortable pace.",
+      "intro": "Discover Copenhagen from the water on a private tour with a local captain. Sail through the city’s canals, enjoy music and drinks on board, and take in some of the most iconic sights from a unique and relaxed perspective.",
       "info": {
         "participants_val": "Private group (max 8)",
-        "duration_val": "1 hour",
+        "duration_val": "1 or 2 hours",
         "guide_val": "English, Spanish"
       },
       "flag": "Popular choice",
@@ -385,7 +388,7 @@
         "Bluetooth speaker for your own music",
         "Drinks available for purchase on board"
       ],
-      "excl_h3": "Exclusivity and Vibe",
+      "excl_h3": "Exclusivity and Atmosphere",
       "prep": {
         "bring": [
           "Optional: Swimwear and Towel",
@@ -398,15 +401,15 @@
           "Heavy rain: full refund guaranteed"
         ]
       },
-      "excl_text": "Your trip, your vibe: connect your playlist, open a cold drink from the cooler, and cruise in style. This tour offers total flexibility for couples, families, or small groups."
+      "excl_text": "A private, relaxed route to enjoy Copenhagen at your own pace. Connect your music, enjoy a drink, and create the perfect atmosphere on board."
     },
     "city_highlights_10p": {
       "page": {
         "title": "City Highlights (10 Guests) | Seaduced Experience",
-        "desc": "Discover Copenhagen’s highlights on a 1-hour private boat tour with your own captain. Enjoy music, drinks, and panoramic views of the city from the water."
+        "desc": "Discover Copenhagen’s highlights on a private boat tour with your own captain. Enjoy music, drinks, and panoramic views of the city from the water."
       },
       "hero_html": "<span class=\"title-accent\">City</span> Highlights <span style=\"font-size:0.75em\">(10)</span>",
-      "intro": "Discover Copenhagen’s main highlights on a 1-hour private boat tour with your own local captain. Cruise through the canals, enjoy music and drinks on board, and take in the city’s most iconic landmarks from the water — all at a relaxed, comfortable pace.",
+      "intro": "Discover Copenhagen’s main highlights on a private boat tour with your own local captain. Cruise through the canals, enjoy music and drinks on board, and take in the city’s most iconic landmarks from the water — all at a relaxed, comfortable pace.",
       "info": {
         "participants_val": "Private group (max 10)",
         "duration_val": "1 hour",
@@ -419,20 +422,20 @@
         "up_to": "Up to 10 guests"
       },
       "story_paras": [
-        "This 1-hour private boat tour is the perfect way to experience Copenhagen from the water in a short time. You’ll cruise through the city’s canals and harbor while your captain shares local stories and points out key landmarks along the way.",
+        "This private boat tour is the perfect way to experience Copenhagen from the water in a short time. You’ll cruise through the city’s canals and harbor while your captain shares local stories and points out key landmarks along the way.",
         "During the tour, you’ll pass by some of Copenhagen’s most iconic sights, including Islands Brygge, the modern harbor of Amager, the Black Diamond library, Christiansborg Palace, Nyhavn, the Opera House, Christianshavn canals, and the Church of Our Saviour.",
         "This is a relaxed sightseeing cruise — no stops — designed to give you a complete overview of the city from the water while enjoying your own music, drinks, and private atmosphere on board the <strong>Joda Tender 710</strong>.",
-        "<strong>Note:</strong> The Little Mermaid and Reffen are not included in the 1-hour route."
+        "<strong>Note:</strong> The Little Mermaid and Reffen are not included in the route."
       ],
       "highlights": [
         "<strong>City Highlights:</strong> See Copenhagen’s main landmarks from the water.",
         "<strong>Private Experience:</strong> Only your group and your captain on board.",
         "<strong>Local Guide:</strong> Discover stories and hidden details of the city.",
         "<strong>Relaxed Cruise:</strong> Enjoy music, drinks, and panoramic views.",
-        "<strong>Perfect in 1 Hour:</strong> A complete overview of Copenhagen in a short time."
+        "<strong>Perfect Overview:</strong> A complete overview of Copenhagen in a short time."
       ],
       "included": [
-        "1-hour private boat tour in Copenhagen",
+        "Private boat tour in Copenhagen",
         "Live commentary and guiding from captain Oni",
         "Bluetooth speaker for your own music",
         "Drinks available for purchase on board"
@@ -475,7 +478,7 @@
         "Along the way, you’ll pass by some of the city’s most iconic landmarks, including Islands Brygge, the Black Diamond, Christiansborg Palace, Nyhavn, the Opera House, Christianshavn, and the Church of Our Saviour — all while your captain shares local stories and insights.",
         "Unlike shorter tours, this experience gives you time to slow down. You can stop at Reffen street food market, one of Copenhagen’s most vibrant spots, where you can enjoy food from around the world either on land or back on the boat.",
         "There’s also flexibility to pause for a swim, relax with a drink, or enjoy your own music on board the Joda Tender 710.",
-        "The route can also include a visit to the Little Mermaid.",
+        "The route includes a visit to the Little Mermaid",
         "This is your time on the water — flexible, private, and designed entirely around your vibe."
       ],
       "highlights": [
@@ -547,7 +550,7 @@
         "4-hour private boat tour in Copenhagen",
         "Live commentary and guiding from captain Oni",
         "Bluetooth speaker for your own music",
-        "Optional stop at Reffen",
+        "Stop at Reffen",
         "Visit to the Little Mermaid",
         "Visit to Trekroner Fort",
         "Drinks available for purchase on board"

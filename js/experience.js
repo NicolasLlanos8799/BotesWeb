@@ -479,12 +479,13 @@ function initBookingPanel() {
 
   function syncDurationValue(safeValue) {
     durationValueInput.value = safeValue;
-    const label = safeValue === "2" ? "2 Hours" : "1 Hour";
-    durationValueLabel.textContent = label;
     durationOptions.forEach((option) => {
       const isSelected = option.getAttribute("data-duration-option") === safeValue;
       option.classList.toggle("is-selected", isSelected);
       option.setAttribute("aria-selected", isSelected ? "true" : "false");
+      if (isSelected) {
+        durationValueLabel.innerHTML = option.querySelector('span').innerHTML;
+      }
     });
     
     // Update price display!

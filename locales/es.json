@@ -189,12 +189,12 @@
       "badge_fullday": "Día Completo",
       "highlights": {
         "title": "Lo Mejor de la Ciudad",
-        "desc": "Nuestro tour privado insignia de 1 hora con tu propio guía. Perfecto para una primera visita.",
+        "desc": "Nuestro tour privado insignia de 1 o 2 horas con tu propio guía. Perfecto para una primera visita.",
         "price_note": "por grupo (hasta 8 pers.)"
       },
       "10p": {
         "title": "Lo Mejor de la Ciudad (10 Personas)",
-        "desc": "Ideal para grupos grandes. Un tour privado premium de 1 hora con espacio extra para todos.",
+        "desc": "Ideal para grupos grandes. Un tour privado premium de 1 o 2 horas con espacio extra para todos.",
         "price_note": "por grupo (hasta 10 pers.)"
       },
       "reffen": {
@@ -326,6 +326,9 @@
         "times_head": "Horarios disponibles",
         "times_sub": "Elige tu turno",
         "times_empty": "Elige una fecha primero",
+        "duration_1h": "1 Hora",
+        "duration_2h": "2 Horas",
+        "duration_sub": "Elige la duración de tu navegación",
         "lang_label": "Idioma del guía",
         "lang_head": "Idioma del guía",
         "lang_sub": "Elige el idioma para tu tour",
@@ -357,10 +360,10 @@
         "desc": "Descubre lo mejor de Copenhague en un tour privado en barco de 1 hora con tu propio capitán. Disfruta de música, bebidas y vistas panorámicas de la ciudad desde el agua."
       },
       "hero_html": "Lo Mejor de la <span class=\"title-accent\">Ciudad</span>",
-      "intro": "Descubre los principales puntos de interés de Copenhague en un tour privado en barco de 1 hora con tu propio capitán local. Navega por los canales, disfruta de música y bebidas a bordo, y contempla los monumentos más icónicos de la ciudad desde el agua — todo a un ritmo relajado y cómodo.",
+      "intro": "Descubre Copenhague desde el agua en un tour privado con capitán local. Navega por los canales de la ciudad, disfruta de música y bebidas a bordo, y contempla algunos de los lugares más emblemáticos desde una perspectiva única y relajada.",
       "info": {
         "participants_val": "Grupo privado (máx 8)",
-        "duration_val": "1 hora",
+        "duration_val": "1 o 2 horas",
         "guide_val": "Inglés, Español"
       },
       "flag": "Opción popular",
@@ -382,12 +385,6 @@
         "<strong>Crucero Relajado:</strong> Disfruta de música, bebidas y vistas panorámicas.",
         "<strong>Perfecto en 1 Hora:</strong> Una visión completa de la ciudad en poco tiempo."
       ],
-      "included": [
-        "Tour privado de 1 hora en Copenhague",
-        "Comentarios en vivo y guía por el capitán Oni",
-        "Altavoz Bluetooth para tu propia música",
-        "Bebidas disponibles para compra a bordo"
-      ],
       "excl_h3": "Exclusividad y Ambiente",
       "prep": {
         "bring": [
@@ -401,15 +398,15 @@
           "Lluvia fuerte: reembolso total garantizado"
         ]
       },
-      "excl_text": "Tu viaje, tu ambiente: conecta tu lista de reproducción, abre una bebida fría de la nevera y navega con estilo. Este tour ofrece flexibilidad total para parejas, familias o grupos pequeños."
+      "excl_text": "Un recorrido privado y relajado para disfrutar Copenhague a tu ritmo. Conecta tu música, disfruta una bebida y crea el ambiente perfecto a bordo."
     },
     "city_highlights_10p": {
       "page": {
         "title": "Lo Mejor de la Ciudad (10 personas) | Seaduced Experience",
-        "desc": "Descubre lo mejor de Copenhague en un tour privado en barco de 1 hora con tu propio capitán. Disfruta de música, bebidas y vistas panorámicas de la ciudad desde el agua."
+        "desc": "Descubre lo mejor de Copenhague en un tour privado en barco con tu propio capitán. Disfruta de música, bebidas y vistas panorámicas de la ciudad desde el agua."
       },
       "hero_html": "Lo Mejor de la <span class=\"title-accent\">Ciudad</span> <span style=\"font-size:0.75em\">(10)</span>",
-      "intro": "Descubre los principales puntos de interés de Copenhague en un tour privado en barco de 1 hora con tu propio capitán local. Navega por los canales, disfruta de música y bebidas a bordo, y contempla los monumentos más icónicos de la ciudad desde el agua — todo a un ritmo relajado y cómodo.",
+      "intro": "Descubre los principales puntos de interés de Copenhague en un tour privado en barco con tu propio capitán local. Navega por los canales, disfruta de música y bebidas a bordo, y contempla los monumentos más icónicos de la ciudad desde el agua — todo a un ritmo relajado y cómodo.",
       "info": {
         "participants_val": "Grupo privado (máx 10)",
         "duration_val": "1 hora",
@@ -422,20 +419,20 @@
         "up_to": "Hasta 10 personas"
       },
       "story_paras": [
-        "Este tour privado en barco de 1 hora es la forma perfecta de conocer Copenhague desde el agua en poco tiempo. Navegarás por los canales y el puerto de la ciudad mientras tu capitán comparte historias locales y señala los monumentos clave.",
+        "Este tour privado en barco es la forma perfecta de conocer Copenhague desde el agua en poco tiempo. Navegarás por los canales y el puerto de la ciudad mientras tu capitán comparte historias locales y señala los monumentos clave.",
         "Durante el tour, pasarás por algunos de los lugares más emblemáticos de Copenhague, incluyendo Islands Brygge, el puerto moderno de Amager, la biblioteca Diamante Negro, el Palacio de Christiansborg, Nyhavn, la Ópera, los canales de Christianshavn y la Iglesia de San Salvador.",
         "Este es un crucero panorámico relajado — sin paradas — diseñado para darte una visión completa de la ciudad desde el agua mientras disfrutas de tu propia música, bebidas y una atmósfera privada a bordo del <strong>Joda Tender 710</strong>.",
-        "<strong>Nota:</strong> La Sirenita y Reffen no están incluidos en la ruta de 1 hora."
+        "<strong>Nota:</strong> La Sirenita y Reffen no están incluidos en la ruta."
       ],
       "highlights": [
         "<strong>Lo Mejor de la Ciudad:</strong> Mira los monumentos de Copenhague desde el agua.",
         "<strong>Experiencia Privada:</strong> Solo tu grupo y tu capitán a bordo.",
         "<strong>Guía Local:</strong> Descubre historias y detalles ocultos de la ciudad.",
         "<strong>Crucero Relajado:</strong> Disfruta de música, bebidas y vistas panorámicas.",
-        "<strong>Perfecto en 1 Hora:</strong> Una visión completa de la ciudad en poco tiempo."
+        "<strong>Visión Completa:</strong> Una visión completa de la ciudad en poco tiempo."
       ],
       "included": [
-        "1-hour private boat tour in Copenhagen",
+        "Tour privado en barco en Copenhague",
         "Comentarios en vivo y guía por el capitán Oni",
         "Altavoz Bluetooth para tu propia música",
         "Bebidas disponibles para compra a bordo"
@@ -478,7 +475,7 @@
         "A lo largo del recorrido, pasarás por algunos de los monumentos más emblemáticos de la ciudad, incluyendo Islands Brygge, el Diamante Negro, el Palacio de Christiansborg, Nyhavn, la Ópera, Christianshavn y la Iglesia de San Salvador, mientras tu capitán comparte historias locales.",
         "A diferencia de los tours más cortos, esta experiencia te permite ir más despacio. Puedes parar en el mercado de comida callejera Reffen, uno de los lugares más vibrantes de Copenhague, donde podrás disfrutar de comida de todo el mundo ya sea en tierra o de vuelta en el barco.",
         "También hay flexibilidad para hacer una parada y nadar, relajarte con una bebida o disfrutar de tu propia música a bordo del Joda Tender 710.",
-        "La ruta también puede incluir una visita a la Sirenita.",
+        "La ruta incluye una visita a la Sirenita.",
         "Este es tu tiempo en el agua: flexible, privado y diseñado totalmente según tu estilo."
       ],
       "highlights": [
@@ -550,7 +547,7 @@
         "Tour privado de 4 horas en Copenhague",
         "Comentarios en vivo y guía por el capitán Oni",
         "Altavoz Bluetooth para tu propia música",
-        "Parada opcional en Reffen",
+        "Parada en Reffen",
         "Visita a la Sirenita",
         "Visita a la Fortaleza de Trekroner",
         "Bebidas disponibles para compra a bordo"

@@ -189,12 +189,12 @@
       "badge_fullday": "Heldagstur",
       "highlights": {
         "title": "Byens højdepunkter",
-        "desc": "Vores signatur 1-times private bådtur med din egen guide. Perfekt til det første besøg.",
+        "desc": "Vores signatur 1 eller 2 timer private bådtur med din egen guide. Perfekt til det første besøg.",
         "price_note": "pr. gruppe op til 8"
       },
       "10p": {
         "title": "Byens højdepunkter (10 gæster)",
-        "desc": "Ideel til større grupper. En eksklusiv 1-times privat tur med ekstra plads til alle.",
+        "desc": "Ideel til større grupper. En eksklusiv 1 eller 2 timer privat tur med ekstra plads til alle.",
         "price_note": "pr. gruppe op til 10"
       },
       "reffen": {
@@ -326,6 +326,9 @@
         "times_head": "Ledige tider",
         "times_sub": "Vælg din tid",
         "times_empty": "Vælg en dato først",
+        "duration_1h": "1 Time",
+        "duration_2h": "2 Timer",
+        "duration_sub": "Vælg varigheden af din sejlads",
         "lang_label": "Sprog (guide)",
         "lang_head": "Sprog (guide)",
         "lang_sub": "Vælg sproget for din guide",
@@ -357,10 +360,10 @@
         "desc": "Oplev Københavns højdepunkter på en 1-times privat bådtur med din egen kaptajn. Nyd musik, drikkevarer og panoramaudsigt over byen fra vandet."
       },
       "hero_html": "<span class=\"title-accent\">Byens</span> højdepunkter",
-      "intro": "Oplev Københavns vigtigste højdepunkter på en 1-times privat bådtur med din egen lokale kaptajn. Sejl gennem kanalerne, nyd musik og drikkevarer ombord, og se byens mest ikoniske vartegn fra vandet — alt sammen i et afslappet og behageligt tempo.",
+      "intro": "Oplev København fra vandet på en privat tur med lokal kaptajn. Sejl gennem byens kanaler, nyd musik og drikkevarer ombord, og betrag nogle af de mest ikoniske seværdigheder fra et unikt og afslappet perspektiv.",
       "info": {
         "participants_val": "Privat gruppe (maks 8)",
-        "duration_val": "1 time",
+        "duration_val": "1 eller 2 timer",
         "guide_val": "Engelsk, Spansk"
       },
       "flag": "Populært valg",
@@ -401,7 +404,7 @@
           "Kraftig regn: fuld refusion garanteret"
         ]
       },
-      "excl_text": "Din tur, din atmosfære: tilslut din playliste, åbn en kold drink fra køleboksen, og sejl med stil. Denne tur tilbyder total fleksibilitet for par, familier eller små grupper."
+      "excl_text": "En privat og afslappet tur til at nyde København i dit eget tempo. Forbind din musik, nyd en drink, og skab den perfekte stemning om bord."
     },
     "city_highlights_10p": {
       "page": {
@@ -412,7 +415,7 @@
       "intro": "Oplev Københavns vigtigste højdepunkter på en 1-times privat bådtur med din egen lokale kaptajn. Sejl gennem kanalerne, nyd musik og drikkevarer ombord, og se byens mest ikoniske vartegn fra vandet — alt sammen i et afslappet og behageligt tempo.",
       "info": {
         "participants_val": "Privat gruppe (maks 10)",
-        "duration_val": "1 time",
+        "duration_val": "1 eller 2 timer",
         "guide_val": "Engelsk, Spansk"
       },
       "flag": "Populært valg",
@@ -478,7 +481,7 @@
         "Undervejs kommer du forbi nogle af byens mest ikoniske vartegn, herunder Islands Brygge, Den Sorte Diamant, Christiansborg Slot, Nyhavn, Operahuset, Christianshavn og Vor Frelsers Kirke — alt imens din kaptajn deler lokale historier og indsigt.",
         "I modsætning til kortere ture giver denne oplevelse dig tid til at sætte tempoet ned. Du kan stoppe ved Reffen street food marked, et af Københavns mest livlige steder, hvor du kan nyde mad fra hele verden enten på land eller tilbage på båden.",
         "Der er også fleksibilitet til at tage en pause for en svømmetur, slappe af med en drink eller nyde din egen musik ombord på Joda Tender 710.",
-        "Ruten kan også inkludere et besøg ved Den Lille Havfrue.",
+        "Ruten inkluderer et besøg hos Den Lille Havfrue.",
         "Dette er din tid på vandet — fleksibel, privat og designet helt efter din stemning."
       ],
       "highlights": [
@@ -550,7 +553,7 @@
         "4-timers privat bådtur i København",
         "Live kommentarer og guiding fra kaptajn Oni",
         "Bluetooth-højtaler til din egen musik",
-        "Valgfrit stop ved Reffen",
+        "Stop ved Reffen",
         "Besøg ved Den Lille Havfrue",
         "Besøg ved Trekroner Fort",
         "Drikkevarer kan købes ombord"
