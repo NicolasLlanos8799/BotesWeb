@@ -50,6 +50,14 @@
       "desc": "Incluye 3 horas de navegación privada con una parada de 1 hora en Reffen Street Food. Ruta extendida más allá de los canales centrales.",
       "price_note": "por grupo (hasta 8)",
       "cta": "Reservar este Tour"
+    },
+    "wine": {
+      "tag": "Privado · 2h",
+      "img_alt": "Experiencia de cata de vinos en barco",
+      "title": "Cata de Vinos Flotante",
+      "desc": "Disfruta de un tour privado de 2 horas en barco por Copenhague con una cata de vinos guiada, una tabla gourmet y una atmósfera relajada y premium en el agua.",
+      "price_note": "por grupo (hasta 6 pers.)",
+      "cta": "Reserva este tour"
     }
   },
   "bespoke": {
@@ -209,7 +217,7 @@
       },
       "wine": {
         "title": "Cata de Vinos Flotante",
-        "desc": "Cata de vinos guiada por un anfitrión. Incluye cuatro vinos seleccionados y una tabla gourmet.",
+        "desc": "Cata de vino guiada por un anfitrión. Incluye cuatro vinos seleccionados y una tabla gourmet.",
         "price_note": "por grupo (hasta 6 pers.)"
       },
       "land": {

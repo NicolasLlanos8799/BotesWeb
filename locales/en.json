@@ -47,6 +47,13 @@
       "desc": "Includes 3 hours of private sailing with a 1-hour stop at Reffen Street Food. Extended route beyond the central canals.",
       "price_note": "per group up to 8",
       "cta": "Book This Tour"
+    },
+    "wine": {
+      "tag": "Private · 2h",
+      "title": "Floating Wine Tasting",
+      "desc": "Enjoy a private 2-hour Copenhagen boat tour featuring a guided wine tasting, gourmet board, and a relaxed, premium atmosphere on the water.",
+      "price_note": "per group up to 6",
+      "cta": "Book This Tour"
     }
   },
   "bespoke": {
