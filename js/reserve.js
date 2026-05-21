@@ -117,7 +117,7 @@ export function initReservePage() {
         }).format(dateObj);
         elements.scheduleDisplay.textContent = dateStr;
       } else {
-        let selectMsg = "Select a date & time";
+        let selectMsg = "Select a date and time";
         if (currentLocale === "spanish") selectMsg = "Selecciona fecha y hora";
         else if (currentLocale === "danish") selectMsg = "Vælg dato og tid";
         elements.scheduleDisplay.textContent = selectMsg;
@@ -449,7 +449,7 @@ export function initReservePage() {
     const buttons = [elements.complete, elements.stickyBtn].filter(Boolean);
     buttons.forEach(btn => {
       btn.disabled = false;
-      let originalText = isEs ? "Confirmar y Proceder al Pago" : (isDa ? "Bekræft og fortsæt til betaling" : "Confirm & Proceed to Payment");
+      let originalText = isEs ? "Confirmar y Proceder al Pago" : (isDa ? "Bekræft og fortsæt til betaling" : "Confirm and Proceed to Payment");
       btn.textContent = btn.dataset.originalText || originalText;
     });
   }
