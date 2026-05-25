@@ -249,7 +249,31 @@
 }
 
 .tours-section .header-cta-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-top: 0.5rem;
+  /* Centering is explicit (flex) — not inherited text-align, which breaks on
+     narrow viewports when button width exceeds container width. */
+}
+
+.tours-grid-footer {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-md);
+}
+
+.tours-all-link {
+  font-size: var(--fs-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--clr-sunset);
+  letter-spacing: 0.01em;
+  opacity: 0.75;
+  transition: opacity var(--transition-fast);
+}
+
+.tours-all-link:hover {
+  opacity: 1;
 }
 
 .tours-section .perfect-for-line {
