@@ -2461,6 +2461,42 @@
   box-shadow: 0 0 0 3px rgba(45, 106, 159, 0.1);
 }
 
+/* ── Sidebar scroll: desktop panel overrides (min-width: 901px) ─────────────
+   On desktop the sidebar has overflow-y:auto — position:absolute panels get
+   clipped by the scroll container. Override to in-flow max-height animation.
+   Mobile (≤900px) retains position:absolute overlay behavior unchanged.
+─────────────────────────────────────────────────────────────────────────── */
+@media (min-width: 901px) {
+  .experience-booking__people-panel,
+  .experience-booking__date-panel,
+  .experience-booking__language-panel,
+  .experience-booking__time-panel,
+  .experience-booking__duration-panel {
+    position: static;
+    top: auto;
+    left: auto;
+    right: auto;
+    width: auto;
+    z-index: auto;
+    padding-top: 0;
+    transform: none;
+    overflow: hidden;
+    max-height: 0;
+    margin-top: 0;
+    transition: max-height 0.22s ease, opacity 0.18s ease, margin-top 0.22s ease;
+  }
+
+  .experience-booking__people.is-open .experience-booking__people-panel,
+  .experience-booking__date.is-open .experience-booking__date-panel,
+  .experience-booking__language.is-open .experience-booking__language-panel,
+  .experience-booking__time.is-open .experience-booking__time-panel,
+  .experience-booking__duration.is-open .experience-booking__duration-panel {
+    max-height: 500px;
+    transform: none;
+    margin-top: 0.55rem;
+  }
+}
+
 .experience-booking__select,
 .experience-booking__input {
   flex: 0 0 auto;
@@ -4391,8 +4427,16 @@
 }
 
 /* ── Sidebar / Booking panel ─── */
-.experience-sidebar {
-  top: calc(var(--navbar-h) + 2rem);
+/* Sidebar scroll arch: desktop only (below 901px sidebar is position:relative, not sticky) */
+@media (min-width: 901px) {
+  .experience-sidebar {
+    top: calc(var(--navbar-h) + 2rem);
+    max-height: calc(100dvh - var(--navbar-h) - 4rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(15, 30, 53, 0.1) transparent;
+  }
 }
 
 .experience-booking {
