@@ -1,7 +1,7 @@
 /* ── 7. HERO SECTION ────────────────────────────────────────────────────── */
 .hero {
   position: relative;
-  height: calc(var(--vh, 1vh) * 100);
+  height: min(calc(var(--vh, 1vh) * 100), 860px); /* FullHD calibration: cap prevents 1005px hero on 1080p */
   display: flex;
   align-items: center;
   overflow: clip;
@@ -59,13 +59,13 @@
   position: relative;
   z-index: 1;
   padding-top: calc(var(--navbar-h) + var(--space-xl));
-  padding-bottom: var(--space-3xl);
+  padding-bottom: var(--space-2xl); /* Desktop calibration: was space-3xl — reduces dead-air below CTAs */
   max-width: 800px;
   /* Centered hero layout */
   margin-left: auto;
   margin-right: auto;
   text-align: center;
-  margin-top: 11vh;
+  margin-top: 7vh; /* Desktop calibration: was 9vh — lifts content block upward */
 }
 
 @media (max-width: 768px) {
@@ -121,9 +121,9 @@
 .hero__headline {
   font-family: var(--font-display);
   font-size: var(--fs-hero-title);
-  /* 56px - 72px */
+  /* 60px – 67px (desktop calibration: token max 4.2rem) */
   font-weight: var(--font-weight-semibold);
-  line-height: var(--lh-tight);
+  line-height: 1.05; /* Desktop calibration: was var(--lh-tight)/1.1 — slightly tighter at display size */
   color: var(--clr-white);
   margin-bottom: var(--space-lg-f);
   animation-delay: 0.2s;
@@ -581,7 +581,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
   gap: var(--space-lg);
-  margin-top: 4rem;
+  margin-top: var(--space-xl); /* FullHD calibration: was 4rem (64px) → now fluid max 56px */
 }
 
 .features-grid--spaced {
@@ -609,7 +609,7 @@
 }
 
 .bestseller-card--large .bestseller-card__img {
-  height: 480px;
+  height: clamp(280px, 33vw, 480px);
 }
 
 .bestseller-card__img img {
@@ -673,7 +673,7 @@
 }
 
 .bestseller-card--sm .bestseller-card__img {
-  height: 220px;
+  height: clamp(160px, 16vw, 220px);
 }
 
 /* ── 10. WELCOME / BRAND SECTION ────────────────────────────────────────── */
@@ -759,7 +759,7 @@
 
 .img-stack__main {
   width: 100%;
-  height: 520px;
+  height: clamp(320px, 38vw, 520px);
   object-fit: cover;
   border-radius: var(--radius-xl);
   transition: transform var(--transition-slow);
@@ -806,7 +806,7 @@
 
 .booking-hero {
   background: linear-gradient(135deg, var(--clr-navy) 0%, var(--clr-navy-mid) 100%);
-  padding: calc(var(--navbar-h) + 4rem) var(--space-lg) 4rem;
+  padding: calc(var(--navbar-h) + var(--space-xl)) var(--space-lg) var(--space-xl); /* FullHD calibration: was 4rem fixed → now fluid via --space-xl */
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -1196,11 +1196,11 @@
   background: var(--clr-navy);
   color: var(--clr-white);
   border-radius: var(--radius-lg);
-  padding: 3.5rem;
+  padding: clamp(2rem, 2.5vw, 3rem); /* FullHD calibration: was 3.5rem (56px) → max 48px */
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 3.5rem;
+  gap: clamp(2rem, 2.5vw, 3rem); /* FullHD calibration: was 3.5rem → max 48px */
   box-shadow: var(--shadow-lg);
 }
 
@@ -1233,7 +1233,7 @@
   flex-shrink: 0;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   .booking-bespoke__inner {
     flex-direction: column;
     text-align: center;
@@ -1412,7 +1412,7 @@
 /* Desktop Carousel Styles */
 .experience-gallery {
   max-width: 1000px;
-  height: 450px;
+  height: clamp(280px, 32vw, 450px);
   margin-inline: auto;
   margin-bottom: 2rem;
   border-radius: 16px;
@@ -1574,6 +1574,7 @@
 }
 
 /* ── Info grid (4 items) ─── */
+/* Responsive: 4-col desktop → 2-col tablet/mobile (also overridden below in refactored block) */
 .experience-info-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -1584,6 +1585,13 @@
   border-radius: 16px;
   margin-top: 0.5rem;
   margin-bottom: 0.8rem;
+}
+
+@media (max-width: 900px) {
+  .experience-info-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.65rem;
+  }
 }
 
 .experience-info-card {
@@ -2872,15 +2880,7 @@
   transition: transform var(--transition-smooth);
 }
 
-.reserve-container {
-  display: grid;
-  grid-template-columns: 1fr 360px;
-  gap: var(--space-lg);
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: var(--space-lg) var(--space-md);
-  position: relative;
-}
+/* .reserve-container primary definition is below (canonical, 380px sidebar) */
 
 .reserve-main {
   display: flex;
@@ -2964,7 +2964,7 @@
 
 .story-img {
   width: 100%;
-  height: 500px;
+  height: clamp(280px, 36vw, 500px);
   object-fit: cover;
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-lg);
@@ -3403,17 +3403,8 @@
 }
 
 
-/* Route Cards */
-.extra-card {
-  border: 1px solid var(--clr-sand);
-  padding: 1rem;
-  border-radius: var(--radius-md);
-  display: grid;
-  grid-template-columns: 90px 1fr auto;
-  gap: 1.25rem;
-  align-items: center;
-}
-
+/* Route Cards — NOTE: canonical .extra-card definition is below (120px col, refined version).
+   This block intentionally kept minimal; the full styles are in the reserve-page block. */
 .extra-card__img {
   width: 90px;
   height: 90px;
@@ -5178,75 +5169,6 @@
 #experience-book-cta {
   margin-inline: auto !important;
   display: inline-flex !important;
-}
-
-/* ── Mobile Sticky Booking Bar ── */
-.mobile-sticky-bar {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(12px);
-  padding: 1rem 1.5rem;
-  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  z-index: 1000;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
-  border-top: 1px solid rgba(15, 30, 53, 0.05);
-  visibility: hidden;
-  opacity: 0;
-  transform: translateY(100%);
-}
-
-@media (max-width: 992px) {
-  .mobile-sticky-bar {
-    visibility: visible;
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.mobile-sticky-bar.hidden {
-  opacity: 0 !important;
-  transform: translateY(100%) !important;
-  pointer-events: none;
-}
-
-.mobile-sticky-bar__info {
-  display: flex;
-  flex-direction: column;
-}
-
-.mobile-sticky-bar__label {
-  font-size: 0.7rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  color: var(--clr-text-light);
-  letter-spacing: 0.05em;
-  margin-bottom: -0.1rem;
-}
-
-.mobile-sticky-bar__price {
-  font-size: 1.2rem;
-  font-weight: 800;
-  color: var(--clr-navy);
-}
-
-.mobile-sticky-bar button {
-  flex: 1;
-  max-width: 220px;
-  margin: 0 !important;
-  font-size: 1rem !important;
-  padding: 0.85rem 1.2rem !important;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.4rem;
-  box-shadow: 0 4px 12px rgba(234, 137, 76, 0.25) !important;
 }
 
 /* ── Mobile Sticky Booking Bar ── */

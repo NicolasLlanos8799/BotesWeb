@@ -48,7 +48,7 @@
   --fs-h2: var(--fs-xl);
   --fs-h3: var(--fs-lg);
   --fs-label: var(--fs-sm);
-  --fs-hero-title: clamp(3.75rem, 8.57vw, 4.82rem);
+  --fs-hero-title: clamp(3.75rem, 8.57vw, 4.2rem);   /* Desktop calibration: max 77→67px (-13%). Matches ES locale rhythm. */
   --fs-hero-title-mobile: clamp(1.73rem, 8.57vw, 2.14rem);
   --fs-hero-sub: clamp(1.21rem, 2.14vw, 1.47rem);
   --fs-nav: 1.05rem;
@@ -77,9 +77,9 @@
   --space-sm: clamp(0.75rem, 1vw, 1rem);
   --space-md: clamp(1.25rem, 1.5vw, 1.5rem);
   --space-lg: clamp(2rem, 2.5vw, 2.5rem);
-  --space-xl: clamp(3rem, 4vw, 4rem);
-  --space-2xl: clamp(4rem, 6vw, 6rem);
-  --space-3xl: clamp(5rem, 8vw, 8rem);
+  --space-xl: clamp(3rem, 3.5vw, 3.5rem);    /* FullHD calibration: max 64→56px */
+  --space-2xl: clamp(4rem, 5vw, 5rem);       /* FullHD calibration: max 96→80px */
+  --space-3xl: clamp(5rem, 6vw, 6.5rem);     /* FullHD calibration: max 128→104px */
 
   /* Fixed Spacing (Tokens) */
   --space-2xs-f: 8px;
@@ -110,6 +110,18 @@
   /* ── Container ── */
   --max-width: 1400px;
   --navbar-h: 72px;
+
+  /* ── Responsive Breakpoints (canonical — use these, not arbitrary values) ──
+     lg   : 1024px  → tablet landscape / small laptop
+     md   : 768px   → tablet portrait / mobile landscape (main mobile gate)
+     sm   : 600px   → large phone / panels full-width
+     xs   : 480px   → small phone adjustments
+     ─────────────────────────────────────────────────────────────────────────
+     Exceptions documented in code:
+     • 900px  — experience-shell sidebar collapse (intentional, tighter than lg)
+     • 640px  — experience-page mobile refinements (between sm and md)
+     • 992px  — mobile-sticky-bar on experience page (close to lg, keep)
+  ── */
 }
 
 /* ── 2. RESET & BASE ────────────────────────────────────────────────────── */
@@ -367,7 +379,7 @@ button {
   font-family: var(--font-display);
   font-size: clamp(1.75rem, 4vw, 2.5rem);
   font-weight: var(--font-weight-semibold);
-  line-height: var(--line-height-tight);
+  line-height: var(--lh-tight);
   letter-spacing: var(--letter-spacing-tight);
   color: var(--clr-navy);
   margin-bottom: var(--space-sm);

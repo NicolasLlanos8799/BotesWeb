@@ -394,6 +394,8 @@ button:focus-visible,
   gap: 0.4rem;
 }
 
+/* NOTE: this overrides the base.css .section-title clamp() definition.
+   Intentional: booking panel section titles use fixed fs-h1 (32px). */
 .section-title {
   font-family: var(--font-display);
   font-size: var(--fs-h1);
