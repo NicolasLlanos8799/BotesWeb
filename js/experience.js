@@ -409,22 +409,30 @@ function initBookingPanel() {
     const tourId = getCurrentTourId();
     const tourConfig = TOURS[tourId] || {};
     const durationHours = parseInt(tourConfig.duration) || 1;
-    const maxHour = 19 - durationHours;
+    // All tours cap at 18:00 last slot, except those with fixedLastSlot:false
+    // (Escapada por Tierra y Mar and Copenhagen to Malmö keep 19 - durationHours).
+    const maxHour = tourConfig.fixedLastSlot === false ? (19 - durationHours) : 18;
 
     if (isLoading) {
       // We removed the "Syncing with calendar..." text to make it feel instant.
       // The slots will simply update in the background.
     }
 
-    // Ensure we have slots up to maxHour if they are missing
+    // Build the slot list based on tour config
     const allSlots = [];
-    for (let h = 9; h <= maxHour; h++) {
-      const timeStr = `${String(h).padStart(2, '0')}:00`;
-      const existingSlot = slots.find(s => s.time === timeStr);
-      if (existingSlot) {
-        allSlots.push(existingSlot);
-      } else {
-        allSlots.push({ time: timeStr, available: true });
+    if (tourConfig.customSlots) {
+      // Fixed explicit list (e.g. Malmö: only 10:00)
+      tourConfig.customSlots.forEach(s => {
+        const live = slots.find(sl => sl.time === s.time);
+        allSlots.push(live || s);
+      });
+    } else {
+      // Variable list: every `slotInterval` hours (default 1) from 09:00 up to maxHour
+      const interval = tourConfig.slotInterval || 1;
+      for (let h = 9; h <= maxHour; h += interval) {
+        const timeStr = `${String(h).padStart(2, '0')}:00`;
+        const existingSlot = slots.find(s => s.time === timeStr);
+        allSlots.push(existingSlot || { time: timeStr, available: true });
       }
     }
 
@@ -752,7 +760,11 @@ function initStickyCta() {
   const availabilityButton = document.getElementById("experience-check-availability");
 
   stickyButton?.addEventListener("click", () => {
-    availabilityButton?.scrollIntoView({ behavior: "smooth", block: "center" });
+    const sidebar = document.querySelector(".experience-sidebar");
+    if (!sidebar) return;
+    const navH = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--navbar-h')) || 72;
+    const top = sidebar.getBoundingClientRect().top + window.scrollY - navH - 8;
+    window.scrollTo({ top, behavior: 'smooth' });
   });
 
   if (!stickyCta || !bookingCard || !("IntersectionObserver" in window)) {

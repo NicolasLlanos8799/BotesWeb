@@ -105,6 +105,8 @@ export const TOURS = {
     url: "/experiences/private-boat-copenhagen-malmo/",
     maxParticipants: 10,
     calendar: "boat2",
+    fixedLastSlot: false,
+    customSlots: [{ time: "10:00", available: true }], // single fixed departure
   },
   "book-land": {
     id: "book-land",
@@ -119,6 +121,7 @@ export const TOURS = {
     url: "/experiences/private-boat-copenhagen-land-tour/",
     maxParticipants: 6,
     calendar: "boat1",
+    slotInterval: 2, // every 2h: 09:00, 11:00, 13:00, 15:00, 17:00 (capped at 18)
   },
   "book-wine": {
     id: "book-wine",
