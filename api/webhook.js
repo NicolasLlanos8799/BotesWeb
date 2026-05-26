@@ -46,7 +46,7 @@ export default async function handler(req, res) {
                'PAID',
                ${checkoutId},
                ${metadata.lang || 'english'})
-            ON CONFLICT (sumup_id) DO NOTHING
+            ON CONFLICT (sumup_id) DO UPDATE SET payment_status = 'PAID'
           `;
           console.log("Webhook: Saved to Postgres:", checkoutId);
         } catch (dbErr) {

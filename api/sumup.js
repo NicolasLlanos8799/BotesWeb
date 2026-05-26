@@ -53,9 +53,39 @@ export default async function handler(req, res) {
       });
 
       const data = await sumupResponse.json();
-      
+
       if (!sumupResponse.ok) {
         console.error("SumUp API Error Details:", JSON.stringify(data, null, 2));
+      }
+
+      // Save as PENDING immediately — captures abandoned bookings too.
+      // If the user pays, the webhook/fallback will UPDATE status to PAID.
+      if (sumupResponse.ok && data.id && metadata) {
+        try {
+          await db`
+            INSERT INTO bookings
+              (tour_id, tour_name, customer_name, customer_email, customer_phone,
+               passengers, booking_date, booking_time, total_price, payment_status, sumup_id, lang)
+            VALUES
+              (${metadata.calendar || null},
+               ${metadata.tourTitle || metadata.tour || null},
+               ${metadata.name || null},
+               ${metadata.email || null},
+               ${metadata.phone || null},
+               ${parseInt(metadata.qty) || 1},
+               ${metadata.date || null},
+               ${metadata.time || null},
+               ${parseFloat(metadata.total) || amount},
+               'PENDING',
+               ${data.id},
+               ${metadata.lang || 'english'})
+            ON CONFLICT (sumup_id) DO NOTHING
+          `;
+          console.log("createCheckout: PENDING booking saved for", data.id);
+        } catch (dbErr) {
+          // Non-blocking — don't fail the checkout if DB write fails
+          console.error("createCheckout: DB error (non-blocking):", dbErr.message);
+        }
       }
 
       return res.status(sumupResponse.status).json(data);
@@ -124,9 +154,9 @@ export default async function handler(req, res) {
                    'PAID',
                    ${checkoutId},
                    ${metadata.lang || 'english'})
-                ON CONFLICT (sumup_id) DO NOTHING
+                ON CONFLICT (sumup_id) DO UPDATE SET payment_status = 'PAID'
               `;
-              console.log("Webhook (sumup.js): Saved to Postgres:", checkoutId);
+              console.log("Webhook (sumup.js): Saved/updated to Postgres:", checkoutId);
             } catch (dbErr) {
               console.error("Webhook (sumup.js): Postgres error:", dbErr.message);
             }

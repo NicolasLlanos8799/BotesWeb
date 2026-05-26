@@ -1,4 +1,5 @@
 import { getBooking, navigateToReserve, saveBooking, clearBookingSelection, TOURS, getPersistentCache, savePersistentCache } from "./utils.js";
+import { seaAlert } from "./modal.js";
 
 const GAS_URL = "/api/proxy";
 
@@ -734,9 +735,9 @@ function initBookingPanel() {
     togglePanel(durationPicker, durationPanel, durationTrigger, false);
   });
 
-  availabilityButton.addEventListener("click", () => {
+  availabilityButton.addEventListener("click", async () => {
     if (!dateValueInput.value || !timeValueInput.value) {
-      alert("Please select both a date and a time.");
+      await seaAlert("Please select both a date and a time.", { type: "warning" });
       if (!dateValueInput.value) dateTrigger.focus();
       else timeTrigger.focus();
       return;

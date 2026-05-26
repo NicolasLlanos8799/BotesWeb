@@ -9,6 +9,7 @@ import {
   TOURS,
   getLocalizedValue,
 } from "./utils.js";
+import { seaAlert } from "./modal.js";
 
 export function initReservePage() {
   const incoming = readBookingFromUrl();
@@ -553,7 +554,7 @@ export function initReservePage() {
       let alertMsg = "Please fill in all contact details (Name, Email, and Phone) before continuing.";
       if (isEs) alertMsg = "Por favor, completa todos los datos de contacto (Nombre, Correo y Teléfono) antes de continuar.";
       else if (isDa) alertMsg = "Udfyld venligst alle kontaktoplysninger (navn, e-mail og telefon), før du fortsætter.";
-      window.alert(alertMsg);
+      await seaAlert(alertMsg, { type: "warning", lang: currentLocale });
       return;
     }
 
@@ -619,7 +620,7 @@ export function initReservePage() {
       let errorMsg = "Apologies, we encountered an issue initiating your payment. Please try again or contact us directly via WhatsApp.";
       if (isEs) errorMsg = "Disculpa, encontramos un problema al iniciar tu pago. Por favor, inténtalo de nuevo o contáctanos directamente por WhatsApp.";
       else if (isDa) errorMsg = "Beklager, vi stødte på et problem med at starte din betaling. Prøv venligst igen eller kontakt os direkte via WhatsApp.";
-      window.alert(errorMsg);
+      await seaAlert(errorMsg, { type: "error", lang: currentLocale });
       resetButtons();
     }
   }

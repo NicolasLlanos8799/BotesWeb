@@ -116,7 +116,7 @@ async function initBookingsPage() {
     const pagedData = data.slice(start, end);
 
     if (data.length === 0) {
-      tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; padding: 3rem; color: rgba(255,255,255,0.4);">No bookings found for this period.</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; padding: 3rem; color: rgba(255,255,255,0.4);">No bookings found for this period.</td></tr>`;
       renderPagination(0);
       return;
     }
@@ -136,6 +136,7 @@ async function initBookingsPage() {
             <div style="font-weight: 600;">${b.customerName}</div>
             <div style="font-size: 0.8rem; opacity: 0.5;">${b.customerEmail}</div>
           </td>
+          <td style="font-size: 0.85rem;">${b.customerPhone || '—'}</td>
           <td>${b.tourName}</td>
           <td>${b.passengers} pax</td>
           <td><span style="text-transform: capitalize;">${b.calendar}</span></td>
@@ -172,7 +173,7 @@ async function initBookingsPage() {
   };
 
   const loadData = async () => {
-    tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; padding: 4rem;"><div class="po-spinner" style="margin: 0 auto 1rem;"></div>Loading bookings...</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; padding: 4rem;"><div class="po-spinner" style="margin: 0 auto 1rem;"></div>Loading bookings...</td></tr>`;
     allBookings = await fetchAllBookings();
     allBookings.sort((a, b) => new Date(b.start) - new Date(a.start));
     filteredBookings = [...allBookings];

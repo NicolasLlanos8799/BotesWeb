@@ -71,7 +71,7 @@ export default async function handler(req, res) {
           ${checkout_id},
           ${metadata.lang || 'english'}
         )
-        ON CONFLICT (sumup_id) DO NOTHING
+        ON CONFLICT (sumup_id) DO UPDATE SET payment_status = 'PAID'
       `;
       console.log("[FALLBACK] Saved to Postgres.");
     } catch (dbErr) {
