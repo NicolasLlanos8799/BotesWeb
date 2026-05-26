@@ -1,8 +1,11 @@
+import db from "../lib/db.js";
+
 /**
  * Production-Safe Booking Fallback Endpoint
- * 
- * Verifies payment with SumUp and ensures booking is created in Google Calendar.
- * Idempotent — GAS deduplicates via sumup_checkout_id.
+ *
+ * Verifies payment with SumUp, saves to Postgres, and triggers GAS for
+ * Google Calendar event + confirmation email.
+ * Idempotent — Postgres deduplicates via sumup_id UNIQUE constraint.
  */
 export default async function handler(req, res) {
   const SUMUP_API_BASE = "https://api.sumup.com";
@@ -48,7 +51,38 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: "Metadata not found" });
     }
 
-    // 3. CREATE booking in GAS (GAS deduplicates via sumup_checkout_id)
+    // 3. SAVE to Postgres (idempotent — ON CONFLICT DO NOTHING)
+    try {
+      await db`
+        INSERT INTO bookings (
+          tour_id, tour_name, customer_name, customer_email, customer_phone,
+          passengers, booking_date, booking_time, total_price, payment_status, sumup_id, lang
+        ) VALUES (
+          ${metadata.tour || null},
+          ${metadata.tourTitle || null},
+          ${metadata.name || null},
+          ${metadata.email || null},
+          ${metadata.phone || null},
+          ${metadata.qty || 1},
+          ${metadata.date || null},
+          ${metadata.time || null},
+          ${metadata.total || checkout.amount || 0},
+          'PAID',
+          ${checkout_id},
+          ${metadata.lang || 'english'}
+        )
+        ON CONFLICT (sumup_id) DO NOTHING
+      `;
+      console.log("[FALLBACK] Saved to Postgres.");
+    } catch (dbErr) {
+      if (dbErr.code === '23505') {
+        console.log("[FALLBACK] Duplicate in Postgres, skipping insert.");
+      } else {
+        console.error("[FALLBACK] Postgres error:", dbErr.message);
+      }
+    }
+
+    // 4. TRIGGER GAS — creates Google Calendar event + sends confirmation email
     const bookingData = {
       ...metadata,
       payment_status: "PAID",
