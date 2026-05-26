@@ -4,6 +4,12 @@
   "description": "Seaduced Experience Booking System",
   "main": "index.html",
   "type": "module",
+  "scripts": {
+    "init-db": "node scripts/init-db.js"
+  },
+  "dependencies": {
+    "@vercel/postgres": "^0.10.0"
+  },
   "devDependencies": {
     "vercel": "^52.0.0"
   }

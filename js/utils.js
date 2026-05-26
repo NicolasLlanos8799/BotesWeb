@@ -6,7 +6,7 @@ export const TOURS = {
     title: "City Highlights",
     titleEs: "Lo Mejor de la Ciudad",
     titleDa: "Byens Højdepunkter",
-    price: 10,
+    price: 2499,
     duration: "1 Hour",
     durationEs: "1 Hora",
     durationDa: "1 Time",

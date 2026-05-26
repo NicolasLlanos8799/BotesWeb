@@ -8,6 +8,7 @@ import {
 } from "./utils.js";
 
 document.addEventListener("DOMContentLoaded", () => {
+  initDemoModeBanner();
   initBookingFlow();
   initNavbar();
   initRevealAnimations();
@@ -397,6 +398,37 @@ window.addEventListener('load', () => {
     }, 400);
   }
 });
+
+// ---------------------------------------------------------------------------
+// DEMO MODE BANNER
+// ---------------------------------------------------------------------------
+function initDemoModeBanner() {
+  fetch("/api/app-env")
+    .then(r => r.json())
+    .then(({ env }) => {
+      if (env !== "demo") return;
+
+      const banner = document.createElement("div");
+      banner.id = "demo-mode-banner";
+      banner.innerHTML = `
+        <span>⚠️ DEMO MODE — Payments, emails &amp; calendar are in test mode</span>
+        <button id="demo-banner-close" aria-label="Close">✕</button>
+      `;
+      document.body.prepend(banner);
+
+      // Push page content down so banner doesn't overlap anything
+      const bannerHeight = banner.offsetHeight || 40;
+      document.documentElement.style.setProperty("--demo-banner-height", `${bannerHeight}px`);
+
+      document.getElementById("demo-banner-close")?.addEventListener("click", () => {
+        banner.remove();
+        document.documentElement.style.removeProperty("--demo-banner-height");
+      });
+    })
+    .catch(() => {
+      // Silently fail — banner is non-critical
+    });
+}
 
 function initPreloader() {
   // Preloader logic handled in 'load' event above
