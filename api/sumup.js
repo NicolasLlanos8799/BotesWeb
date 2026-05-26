@@ -1,3 +1,5 @@
+import db from "../lib/db.js";
+
 /**
  * Vercel Serverless Function: SumUp API Proxy
  */
@@ -103,19 +105,46 @@ export default async function handler(req, res) {
           const metadata = details.metadata || {};
 
           if (metadata.date && metadata.time) {
+            // Save to Postgres (idempotent)
+            try {
+              await db`
+                INSERT INTO bookings
+                  (tour_id, tour_name, customer_name, customer_email, customer_phone,
+                   passengers, booking_date, booking_time, total_price, payment_status, sumup_id, lang)
+                VALUES
+                  (${metadata.tour || null},
+                   ${metadata.tourTitle || null},
+                   ${metadata.name || null},
+                   ${metadata.email || null},
+                   ${metadata.phone || null},
+                   ${metadata.qty || 1},
+                   ${metadata.date},
+                   ${metadata.time},
+                   ${metadata.total || details.amount || 0},
+                   'PAID',
+                   ${checkoutId},
+                   ${metadata.lang || 'english'})
+                ON CONFLICT (sumup_id) DO NOTHING
+              `;
+              console.log("Webhook (sumup.js): Saved to Postgres:", checkoutId);
+            } catch (dbErr) {
+              console.error("Webhook (sumup.js): Postgres error:", dbErr.message);
+            }
+
+            // Trigger GAS — Google Calendar + email
             const bookingData = {
               ...metadata,
               payment_status: "PAID",
-              sumup_checkout_id: checkoutId
+              sumup_checkout_id: checkoutId,
+              amount: details.amount,
+              currency: details.currency
             };
-
             console.log("Webhook: BOOKING DATA:", JSON.stringify(bookingData));
             const gasResponse = await fetch(GAS_URL, {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({ action: "createBooking", ...bookingData })
             });
-
             const gasResult = await gasResponse.text();
             console.log("Webhook: GAS response", gasResponse.status, gasResult);
           } else {

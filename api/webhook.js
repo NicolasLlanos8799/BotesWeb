@@ -1,6 +1,6 @@
+import db from "../lib/db.js";
 
 export default async function handler(req, res) {
-
   const SUMUP_API_BASE = "https://api.sumup.com";
   const ACCESS_TOKEN = process.env.SUMUP_ACCESS_TOKEN;
   const GAS_URL = process.env.GAS_URL;
@@ -14,7 +14,7 @@ export default async function handler(req, res) {
     const checkoutId = event.id || (event.data && event.data.id);
     if (!checkoutId) return res.status(200).json({ received: true });
 
-    // Verificar el estado real con SumUp
+    // 1. Verify with SumUp
     const response = await fetch(`${SUMUP_API_BASE}/v0.1/checkouts/${checkoutId}`, {
       method: "GET",
       headers: { "Authorization": `Bearer ${ACCESS_TOKEN}` }
@@ -26,8 +26,34 @@ export default async function handler(req, res) {
     if (checkout.status === "PAID") {
       const metadata = checkout.metadata;
 
-      // Solo procedemos si SumUp nos da los metadatos (el webhook no tiene backup de frontend)
       if (metadata && metadata.date && metadata.time) {
+        // 2. Save to Postgres (idempotent)
+        try {
+          await db`
+            INSERT INTO bookings
+              (tour_id, tour_name, customer_name, customer_email, customer_phone,
+               passengers, booking_date, booking_time, total_price, payment_status, sumup_id, lang)
+            VALUES
+              (${metadata.tour || null},
+               ${metadata.tourTitle || null},
+               ${metadata.name || null},
+               ${metadata.email || null},
+               ${metadata.phone || null},
+               ${metadata.qty || 1},
+               ${metadata.date},
+               ${metadata.time},
+               ${metadata.total || checkout.amount || 0},
+               'PAID',
+               ${checkoutId},
+               ${metadata.lang || 'english'})
+            ON CONFLICT (sumup_id) DO NOTHING
+          `;
+          console.log("Webhook: Saved to Postgres:", checkoutId);
+        } catch (dbErr) {
+          console.error("Webhook: Postgres error:", dbErr.message);
+        }
+
+        // 3. Trigger GAS — Google Calendar + confirmation email
         const bookingData = {
           ...metadata,
           payment_status: "PAID",
@@ -35,15 +61,14 @@ export default async function handler(req, res) {
           amount: checkout.amount,
           currency: checkout.currency
         };
-        
-        console.log("Webhook: Creating booking in Google...");
+        console.log("Webhook: Sending to GAS...");
         await fetch(GAS_URL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ action: "createBooking", ...bookingData })
         });
       } else {
-        console.warn("Webhook: Missing metadata in SumUp response. Fallback endpoint will handle it via Polling.");
+        console.warn("Webhook: Missing metadata, fallback endpoint will handle it.");
       }
     }
 
