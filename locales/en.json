@@ -260,7 +260,8 @@
     "extra": {
       "badge": "Captain's Choice",
       "title": "Gourmet Charcuterie",
-      "desc": "Selection of 2 cheeses, 2 meats, local marmalade, organic bread, nuts and olives."
+      "desc": "Selection of 2 cheeses, 2 meats, local marmalade, organic bread, nuts and olives.",
+      "notice": "Available with 48h advance booking"
     },
     "summary": {
       "title": "Reservation Details",

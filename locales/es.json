@@ -264,7 +264,8 @@
     "extra": {
       "badge": "Elección del Capitán",
       "title": "Tabla de Charcutería Gourmet",
-      "desc": "Selección de 2 quesos, 2 embutidos, mermelada local, pan orgánico, frutos secos y aceitunas."
+      "desc": "Selección de 2 quesos, 2 embutidos, mermelada local, pan orgánico, frutos secos y aceitunas.",
+      "notice": "Disponible con 48h de antelación"
     },
     "summary": {
       "title": "Detalles de la Reserva",

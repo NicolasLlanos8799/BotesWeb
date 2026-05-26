@@ -35,6 +35,8 @@ export function initReservePage() {
     tapasQty: document.getElementById("tapas-qty-display"),
     tapasPlus: document.getElementById("tapas-plus"),
     tapasMinus: document.getElementById("tapas-minus"),
+    tapasNotice: document.getElementById("tapas-notice"),
+    tapasCard: document.getElementById("extra-card-charcuterie"),
     name: document.getElementById("reserve-name"),
     email: document.getElementById("reserve-email"),
     phone: document.getElementById("reserve-phone"),
@@ -156,6 +158,30 @@ export function initReservePage() {
       const extraTitle = getLocalizedValue(EXTRA_CHARCUTERIE, "title", currentLocale);
       elements.summaryExtra.innerHTML = `<span>${extraTitle} (x${current.tapas})</span><span>${formatCurrency(tapasTotal)}</span>`;
     } else {
+      elements.summaryExtra.style.display = "none";
+      elements.summaryExtra.innerHTML = "";
+    }
+
+    // 48h advance check for charcuterie add-on
+    const has48hAdvance = (() => {
+      if (!current.date || !current.time) return false;
+      const reservationDateTime = new Date(`${current.date}T${current.time}:00`);
+      const hoursDiff = (reservationDateTime - Date.now()) / (1000 * 60 * 60);
+      return hoursDiff >= 48;
+    })();
+
+    // Disable only the buttons (not the whole card) so the notice stays readable
+    if (elements.tapasPlus) elements.tapasPlus.disabled = !has48hAdvance;
+    if (elements.tapasMinus) elements.tapasMinus.disabled = !has48hAdvance;
+    if (elements.tapasNotice) elements.tapasNotice.style.display = has48hAdvance ? "none" : "block";
+    if (elements.tapasCard) {
+      elements.tapasCard.style.opacity = has48hAdvance ? "1" : "0.6";
+    }
+
+    // If charcuterie was already added but date changed to < 48h, reset it
+    if (!has48hAdvance && current.tapas > 0) {
+      current = saveBooking({ tour: current.tour, tapas: 0 });
+      if (elements.tapasQty) elements.tapasQty.textContent = "0";
       elements.summaryExtra.style.display = "none";
       elements.summaryExtra.innerHTML = "";
     }

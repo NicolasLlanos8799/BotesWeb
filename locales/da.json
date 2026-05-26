@@ -263,7 +263,8 @@
     "extra": {
       "badge": "Kaptajnens valg",
       "title": "Gourmet-charcuteri",
-      "desc": "Udvalg af 2 oste, 2 slags kød, lokal marmelade, økologisk brød, nødder og oliven."
+      "desc": "Udvalg af 2 oste, 2 slags kød, lokal marmelade, økologisk brød, nødder og oliven.",
+      "notice": "Tilgængelig ved bestilling 48 timer i forvejen"
     },
     "summary": {
       "title": "Reservationsoplysninger",

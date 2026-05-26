@@ -3510,9 +3510,18 @@
 }
 
 .extra-card__price {
-  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
   font-weight: 700;
   color: var(--clr-navy);
+}
+
+.extra-card__price-row {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
 }
 
 .extra-card__price span {
@@ -4080,16 +4089,22 @@
 
   .extra-card__price {
     grid-column: 1 / -1;
-    /* Price and controls occupy full width below */
-    text-align: left;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    align-items: stretch;
     border-top: 1px solid rgba(15, 30, 53, 0.05);
     padding-top: 0.75rem;
     margin-top: 0.25rem;
     width: 100%;
+  }
+
+  .extra-card__price-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    gap: 0;
   }
 
   .extra-card__price span {
