@@ -4,8 +4,22 @@ const I18n = {
 
   detectLocale() {
     const path = window.location.pathname;
+
+    // If URL already has a language prefix, respect it
     if (path.startsWith('/da')) return 'da';
     if (path.startsWith('/es')) return 'es';
+
+    // On root paths, auto-detect from browser language and redirect
+    const browserLang = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
+    if (browserLang.startsWith('es')) {
+      window.location.replace('/es' + path + window.location.search + window.location.hash);
+      return 'es';
+    }
+    if (browserLang.startsWith('da')) {
+      window.location.replace('/da' + path + window.location.search + window.location.hash);
+      return 'da';
+    }
+
     return 'en';
   },
 
