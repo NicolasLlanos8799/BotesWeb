@@ -181,7 +181,6 @@ function initBookingPanel() {
   today.setHours(0, 0, 0, 0);
 
   const dateStart = new Date(today);
-  dateStart.setDate(dateStart.getDate() + 1);
 
   const dateEnd = new Date(today);
   dateEnd.setDate(dateEnd.getDate() + 90);
@@ -387,7 +386,7 @@ function initBookingPanel() {
       // Safety: Ignore if a newer request has started
       if (requestId !== lastAvailabilityRequestId) return;
 
-      handleApiResponse(data, date);
+      handleApiResponse(data.busy || data, date);
     } catch (error) {
       if (requestId !== lastAvailabilityRequestId) return;
       console.warn("Daily availability fetch failed:", error);

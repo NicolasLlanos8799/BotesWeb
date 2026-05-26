@@ -49,7 +49,13 @@ export default async function handler(req, res) {
     }
 
     // 3. CREATE booking in GAS (GAS deduplicates via sumup_checkout_id)
-    const bookingData = { ...metadata, payment_status: "PAID", sumup_checkout_id: checkout_id };
+    const bookingData = {
+      ...metadata,
+      payment_status: "PAID",
+      sumup_checkout_id: checkout_id,
+      amount: checkout.amount,
+      currency: checkout.currency
+    };
     console.log("[FALLBACK] Sending to GAS:", JSON.stringify(bookingData));
 
     const gasResponse = await fetch(GAS_URL, {

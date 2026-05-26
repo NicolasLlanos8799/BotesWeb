@@ -28,10 +28,12 @@ export default async function handler(req, res) {
 
       // Solo procedemos si SumUp nos da los metadatos (el webhook no tiene backup de frontend)
       if (metadata && metadata.date && metadata.time) {
-        const bookingData = { 
-          ...metadata, 
-          payment_status: "PAID", 
-          sumup_checkout_id: checkoutId 
+        const bookingData = {
+          ...metadata,
+          payment_status: "PAID",
+          sumup_checkout_id: checkoutId,
+          amount: checkout.amount,
+          currency: checkout.currency
         };
         
         console.log("Webhook: Creating booking in Google...");
