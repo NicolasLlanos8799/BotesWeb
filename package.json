@@ -5,14 +5,15 @@
   "main": "index.html",
   "type": "module",
   "scripts": {
-    "init-db":    "node scripts/init-db.js",
-    "seed":       "node scripts/seed-bookings.js",
+    "init-db": "node scripts/init-db.js",
+    "seed": "node scripts/seed-bookings.js",
     "seed:clean": "node scripts/cleanup-and-seed.js",
-    "test:db":    "node scripts/test-db-save.js",
+    "test:db": "node scripts/test-db-save.js",
     "import:gas": "node scripts/import-from-gas.js"
   },
   "dependencies": {
-    "@vercel/postgres": "^0.10.0"
+    "@vercel/postgres": "^0.10.0",
+    "pg": "^8.21.0"
   },
   "devDependencies": {
     "vercel": "^52.0.0"

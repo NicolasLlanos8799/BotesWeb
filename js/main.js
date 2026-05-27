@@ -164,7 +164,11 @@ function initLanguagePersistence() {
     }
   }
 
-  localStorage.setItem(PREF_LANG_KEY, currentLang);
+  // Only update localStorage if we don't already have an explicit preference
+  // This prevents overwriting the user's choice (e.g. if they picked English while on /es/)
+  if (!localStorage.getItem(PREF_LANG_KEY)) {
+    localStorage.setItem(PREF_LANG_KEY, currentLang);
+  }
 
   document.querySelectorAll('.lang-link').forEach(link => {
     link.addEventListener('click', (e) => {
