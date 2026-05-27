@@ -7,8 +7,8 @@
    TEST FUNCTION — run this from the editor to authorize Gmail
 ═══════════════════════════════════════════════════════════ */
 function testCalendar() {
-  var cal1 = CalendarApp.getCalendarById('ad4644278f9ee9075ebb8a8bb0c8eca457cdc3fe908bd4b1eb7cd3b5f751ca71@group.calendar.google.com');
-  var cal2 = CalendarApp.getCalendarById('2772126ed76f0380789fb1af0e56d9e55313cc013cfc55f6e4f3b12b7cc35e72@group.calendar.google.com');
+  var cal1 = CalendarApp.getCalendarById('478b8158512db83e1d3083ee1eafb31255589a8636a34944aeff9f38d10787f2@group.calendar.google.com');
+  var cal2 = CalendarApp.getCalendarById('3bcf707af9af431820c23c5f7684b5f6929ab45fbdd2d2a858783cce5ce9e820@group.calendar.google.com');
   Logger.log("Calendario 1: " + (cal1 ? cal1.getName() : "NULL (No encontrado)"));
   Logger.log("Calendario 2: " + (cal2 ? cal2.getName() : "NULL (No encontrado)"));
 }
@@ -16,7 +16,7 @@ function testCalendar() {
 function testEmail() {
   var data = {
     name:               "Nick",
-    email:              "nicolasllanossw@gmail.com",
+    email:              "seaducedexperience@gmail.com",
     phone:              "+45 123 312",
     tour:               "Copenhagen City Highlights",
     date:               "2026-05-26",
@@ -30,6 +30,8 @@ function testEmail() {
   var start = new Date(2026, 4, 26, 10, 0);
   var end   = new Date(2026, 4, 26, 11, 0);
   sendBookingEmails(data, t, start, end);
+  Logger.log("Guest email sent to: " + data.email);
+  Logger.log("Admin email sent to: " + Session.getEffectiveUser().getEmail());
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -76,8 +78,8 @@ function doPost(e) {
 ═══════════════════════════════════════════════════════════ */
 function getCalendar(name) {
   var map = {
-    'boat1': 'ad4644278f9ee9075ebb8a8bb0c8eca457cdc3fe908bd4b1eb7cd3b5f751ca71@group.calendar.google.com',
-    'boat2': '2772126ed76f0380789fb1af0e56d9e55313cc013cfc55f6e4f3b12b7cc35e72@group.calendar.google.com'
+    'boat1': '478b8158512db83e1d3083ee1eafb31255589a8636a34944aeff9f38d10787f2@group.calendar.google.com',
+    'boat2': '3bcf707af9af431820c23c5f7684b5f6929ab45fbdd2d2a858783cce5ce9e820@group.calendar.google.com'
   };
   return CalendarApp.getCalendarById(map[name] || map['boat1']);
 }
@@ -104,12 +106,12 @@ function handleGetMonthlyAvailability(calendarName, month, year) {
   var startOfMonth = new Date(year, month - 1, 1);
   var endOfMonth   = new Date(year, month, 0, 23, 59, 59);
   var daysData     = {};
-  
+
   calendar.getEvents(startOfMonth, endOfMonth).forEach(function(e) {
     var start = e.getStartTime();
     var dStr = start.getFullYear() + "-" + ("0" + (start.getMonth() + 1)).slice(-2) + "-" + ("0" + start.getDate()).slice(-2);
     if (!daysData[dStr]) daysData[dStr] = [];
-    
+
     var startH = start.getHours();
     var endH = e.getEndTime().getHours();
     for (var h = startH; h < endH; h++) {
@@ -389,8 +391,8 @@ function getGuestHtmlTemplate(data, t) {
 /* ── Header ── */
 '<table width="100%" cellpadding="0" cellspacing="0"><tr>' +
   '<td style="background-color:#0f1e35;padding:32px 20px;text-align:center;">' +
-    '<div style="font-size:13px;letter-spacing:5px;color:#ffffff;font-weight:700;">SEADUCED</div>' +
-    '<div style="font-size:9px;letter-spacing:4px;color:#e8834a;margin-top:6px;">EXPERIENCE &nbsp;·&nbsp; COPENHAGEN</div>' +
+    '<div translate="no" style="font-size:13px;letter-spacing:5px;color:#ffffff;font-weight:700;">SEADUCED</div>' +
+    '<div translate="no" style="font-size:9px;letter-spacing:4px;color:#e8834a;margin-top:6px;">EXPERIENCE &nbsp;·&nbsp; COPENHAGEN</div>' +
   '</td>' +
 '</tr></table>' +
 
@@ -415,7 +417,7 @@ function getGuestHtmlTemplate(data, t) {
       '<td style="background-color:#0f1e35;padding:20px 28px;">' +
         '<div style="font-size:10px;letter-spacing:3px;color:#e8834a;font-weight:700;margin-bottom:8px;">YOUR EXPERIENCE</div>' +
         '<div style="font-size:18px;color:#ffffff;font-weight:600;">' + tourName + '</div>' +
-        '<div style="margin-top:6px;font-size:12px;color:#718096;">Seaduced Experience · Copenhagen</div>' +
+        '<div translate="no" style="margin-top:6px;font-size:12px;color:#718096;">Seaduced Experience · Copenhagen</div>' +
       '</td>' +
     '</tr></table>' +
 
@@ -464,7 +466,7 @@ function getGuestHtmlTemplate(data, t) {
   /* ── Footer ── */
   '<tr><td style="padding:32px 0 16px;text-align:center;">' +
     '<p style="margin:0 0 4px;font-size:14px;color:#718096;font-style:italic;">' + t.tagline + '</p>' +
-    '<p style="margin:8px 0 0;font-size:11px;letter-spacing:1px;color:#a0aec0;">' + t.footer + '</p>' +
+    '<p translate="no" style="margin:8px 0 0;font-size:11px;letter-spacing:1px;color:#a0aec0;">' + t.footer + '</p>' +
   '</td></tr>' +
 
 '</table>' +
@@ -503,8 +505,8 @@ function getAdminHtmlTemplate(data, t) {
   '<td style="background-color:#0f1e35;padding:24px 32px;">' +
     '<table width="100%" cellpadding="0" cellspacing="0"><tr>' +
       '<td>' +
-        '<div style="font-size:13px;letter-spacing:4px;color:#ffffff;font-weight:700;">SEADUCED</div>' +
-        '<div style="font-size:9px;letter-spacing:3px;color:#e8834a;margin-top:4px;">BOOKING SYSTEM</div>' +
+        '<div translate="no" style="font-size:13px;letter-spacing:4px;color:#ffffff;font-weight:700;">SEADUCED</div>' +
+        '<div translate="no" style="font-size:9px;letter-spacing:3px;color:#e8834a;margin-top:4px;">BOOKING SYSTEM</div>' +
       '</td>' +
       '<td style="text-align:right;">' +
         '<div style="display:inline-block;background-color:#1c3a1a;border:1px solid #2d5a1b;border-radius:4px;padding:6px 14px;">' +
@@ -567,7 +569,7 @@ function getAdminHtmlTemplate(data, t) {
 
   /* ── Footer strip ── */
   '<tr><td style="background-color:#0f1e35;border-radius:0 0 12px 12px;padding:16px 32px;text-align:center;">' +
-    '<p style="margin:0;font-size:10px;letter-spacing:2px;color:#4a6080;">SEADUCED EXPERIENCE &nbsp;·&nbsp; PANEL INTERNO</p>' +
+    '<p translate="no" style="margin:0;font-size:10px;letter-spacing:2px;color:#4a6080;">SEADUCED EXPERIENCE &nbsp;·&nbsp; PANEL INTERNO</p>' +
   '</td></tr>' +
 
 '</table>' +
