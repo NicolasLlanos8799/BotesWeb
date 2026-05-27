@@ -9,15 +9,29 @@ const I18n = {
     if (path.startsWith('/da')) return 'da';
     if (path.startsWith('/es')) return 'es';
 
-    // On root paths, auto-detect from browser language and redirect
-    const browserLang = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
-    if (browserLang.startsWith('es')) {
+    // Check if the user has explicitly set a preferred language
+    const prefLang = localStorage.getItem('preferred_language');
+    if (prefLang === 'en') {
+      return 'en';
+    } else if (prefLang === 'es') {
       window.location.replace('/es' + path + window.location.search + window.location.hash);
       return 'es';
-    }
-    if (browserLang.startsWith('da')) {
+    } else if (prefLang === 'da') {
       window.location.replace('/da' + path + window.location.search + window.location.hash);
       return 'da';
+    }
+
+    // On root paths, auto-detect from browser language and redirect if no pref
+    if (!prefLang) {
+      const browserLang = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
+      if (browserLang.startsWith('es')) {
+        window.location.replace('/es' + path + window.location.search + window.location.hash);
+        return 'es';
+      }
+      if (browserLang.startsWith('da')) {
+        window.location.replace('/da' + path + window.location.search + window.location.hash);
+        return 'da';
+      }
     }
 
     return 'en';
