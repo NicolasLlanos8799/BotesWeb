@@ -431,7 +431,8 @@
       "booking": {
         "price": "2,999 DKK",
         "price_note": "per group up to 10",
-        "up_to": "Up to 10 guests"
+        "up_to": "Up to 10 guests",
+        "save_2h": "You save 999 DKK"
       },
       "story_paras": [
         "This private boat tour is the perfect way to experience Copenhagen from the water in a short time. You’ll cruise through the city’s canals and harbor while your captain shares local stories and points out key landmarks along the way.",

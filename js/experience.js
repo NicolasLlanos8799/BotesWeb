@@ -507,7 +507,7 @@ function initBookingPanel() {
     // Show/hide 2h savings badge
     const save2hEl = document.getElementById("experience-save-2h");
     if (save2hEl) {
-      save2hEl.hidden = !(safeValue === "2" && tourId === "book-1h-2h");
+      save2hEl.hidden = !(safeValue === "2" && (tourId === "book-1h-2h" || tourId === "book-10p-2h"));
     }
     
     // Re-render time slots because duration changed!
