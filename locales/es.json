@@ -21,16 +21,16 @@
   },
   "tours": {
     "label": "Nuestras Experiencias",
-    "title": "Elige tu Experiencia en<br />Barco por Copenhague",
-    "sub": "Descubre nuestras más de 8 experiencias seleccionadas, desde tours de 1 hora por los puntos destacados hasta aventuras de 7 horas cruzando fronteras. Cada ruta es privada, relajada y diseñada para mostrarte Copenhague desde una perspectiva personal.",
+    "title": "Elige tu experiencia en<br />barco por Copenhague",
+    "sub": "Explora nuestras más de 8 experiencias privadas en barco, desde recorridos cortos por los lugares más icónicos de Copenhague hasta travesías de día completo. Navega con calma, comodidad y una perspectiva única de la ciudad.",
     "catalog_cta": "Ver todas las experiencias →",
     "explore_line": "Explora nuestra gama completa de rutas privadas"
   },
   "tour": {
     "highlights": {
       "tag": "Privado · 1h",
-      "img_alt": "Tour privado en barco City Highlights",
-      "title": "City Highlights",
+      "img_alt": "Tour privado en barco Copenhague Lo Mejor de la Ciudad",
+      "title": "Copenhague Lo Mejor de la Ciudad",
       "desc": "Descubre lo mejor de Copenhague en un barco privado con tu propio guía local. Vive el auténtico estilo \"hygge\" con música, bebidas y vistas panorámicas del puerto.",
       "price_note": "por grupo (hasta 8)",
       "cta": "Reservar este Tour"
@@ -142,7 +142,7 @@
     },
     "amenities": {
       "q": "¿Qué está incluido y qué debemos llevar?",
-      "a": "<p>Proporcionamos mantas y bebidas calientes en invierno, y agua fría en verano. Algunos paquetes incluyen snacks o champagne. Puedes traer tu propia comida/bebida para viajes de más de 3 horas. Recomendamos ropa cómoda según el clima.</p>"
+      "a": "<p>Proporcionamos mantas y bebidas calientes en invierno, y agua fría en verano. Algunos paquetes incluyen snacks o champagne. Vendemos bebidas a bordo — no está permitido traer comida ni bebidas externas. Recomendamos ropa cómoda según el clima.</p>"
     },
     "policies": {
       "q": "Métodos de Pago y Política de Cancelación",
@@ -160,7 +160,8 @@
       "winter": "Invierno: 10:00 – 17:00"
     },
     "note": "Tours con reserva previa · Sujeto a las condiciones climáticas.",
-    "copy": "© 2025 – 2026 Seaduced Experience. Reservados todos los derechos."
+    "copy": "© 2025 – 2026 Seaduced Experience. Reservados todos los derechos.",
+    "dev": "Desarrollado por"
   },
   "book": {
     "page": {
@@ -196,12 +197,12 @@
       "badge_large": "Grupo Grande",
       "badge_fullday": "Día Completo",
       "highlights": {
-        "title": "Lo Mejor de la Ciudad",
+        "title": "Copenhague Lo Mejor de la Ciudad",
         "desc": "Nuestro tour privado insignia de 1 o 2 horas con tu propio guía. Perfecto para una primera visita.",
         "price_note": "por grupo (hasta 8 pers.)"
       },
       "10p": {
-        "title": "Lo Mejor de la Ciudad (10 Personas)",
+        "title": "Copenhague Lo Mejor de la Ciudad (10 Personas)",
         "desc": "Ideal para grupos grandes. Un tour privado premium de 1 o 2 horas con espacio extra para todos.",
         "price_note": "por grupo (hasta 10 pers.)"
       },
@@ -238,7 +239,8 @@
       "cta": "Pide tu Presupuesto a Medida →"
     },
     "footer": {
-      "back": "Volver al Inicio"
+      "back": "Volver al Inicio",
+      "dev": "Desarrollado por"
     }
   },
   "reserve": {
@@ -357,7 +359,8 @@
         "Dom"
       ],
       "footer": {
-        "back": "Volver al Inicio"
+        "back": "Volver al Inicio",
+        "dev": "Desarrollado por"
       },
       "mobile_cta": {
         "book": "Reservar ahora"
@@ -365,10 +368,10 @@
     },
     "city_highlights": {
       "page": {
-        "title": "Lo Mejor de la Ciudad | Seaduced Experience",
+        "title": "Copenhague Lo Mejor de la Ciudad | Seaduced Experience",
         "desc": "Descubre lo mejor de Copenhague en un tour privado en barco de 1 hora con tu propio capitán. Disfruta de música, bebidas y vistas panorámicas de la ciudad desde el agua."
       },
-      "hero_html": "Lo Mejor de la <span class=\"title-accent\">Ciudad</span>",
+      "hero_html": "Copenhague Lo Mejor de la <span class=\"title-accent\">Ciudad</span>",
       "intro": "Descubre Copenhague desde el agua en un tour privado con capitán local. Navega por los canales de la ciudad, disfruta de música y bebidas a bordo, y contempla algunos de los lugares más emblemáticos desde una perspectiva única y relajada.",
       "info": {
         "participants_val": "Grupo privado (máx 8)",
@@ -379,7 +382,8 @@
       "booking": {
         "price": "2,499 DKK",
         "price_note": "por grupo (hasta 8)",
-        "up_to": "Hasta 8 personas"
+        "up_to": "Hasta 8 personas",
+        "save_2h": "Te ahorras 898 coronas"
       },
       "story_paras": [
         "Este tour privado en barco de 1 hora es la forma perfecta de conocer Copenhague desde el agua en poco tiempo. Navegarás por los canales y el puerto de la ciudad mientras tu capitán comparte historias locales y señala los monumentos clave.",
@@ -388,7 +392,7 @@
         "<strong>Nota:</strong> La Sirenita y Reffen no están incluidos en la ruta de 1 hora."
       ],
       "highlights": [
-        "<strong>Lo Mejor de la Ciudad:</strong> Mira los monumentos de Copenhague desde el agua.",
+        "<strong>Copenhague Lo Mejor de la Ciudad:</strong> Mira los monumentos de Copenhague desde el agua.",
         "<strong>Experiencia Privada:</strong> Solo tu grupo y tu capitán a bordo.",
         "<strong>Guía Local:</strong> Descubre historias y detalles ocultos de la ciudad.",
         "<strong>Crucero Relajado:</strong> Disfruta de música, bebidas y vistas panorámicas.",
@@ -417,10 +421,10 @@
     },
     "city_highlights_10p": {
       "page": {
-        "title": "Lo Mejor de la Ciudad (10 personas) | Seaduced Experience",
+        "title": "Copenhague Lo Mejor de la Ciudad (10 personas) | Seaduced Experience",
         "desc": "Descubre lo mejor de Copenhague en un tour privado en barco con tu propio capitán. Disfruta de música, bebidas y vistas panorámicas de la ciudad desde el agua."
       },
-      "hero_html": "Lo Mejor de la <span class=\"title-accent\">Ciudad</span> <span style=\"font-size:0.75em\">(10)</span>",
+      "hero_html": "Copenhague Lo Mejor de la <span class=\"title-accent\">Ciudad</span> <span style=\"font-size:0.75em\">(10)</span>",
       "intro": "Descubre los principales puntos de interés de Copenhague en un tour privado en barco con tu propio capitán local. Navega por los canales, disfruta de música y bebidas a bordo, y contempla los monumentos más icónicos de la ciudad desde el agua — todo a un ritmo relajado y cómodo.",
       "info": {
         "participants_val": "Grupo privado (máx 10)",
@@ -440,7 +444,7 @@
         "<strong>Nota:</strong> La Sirenita y Reffen no están incluidos en la ruta."
       ],
       "highlights": [
-        "<strong>Lo Mejor de la Ciudad:</strong> Mira los monumentos de Copenhague desde el agua.",
+        "<strong>Copenhague Lo Mejor de la Ciudad:</strong> Mira los monumentos de Copenhague desde el agua.",
         "<strong>Experiencia Privada:</strong> Solo tu grupo y tu capitán a bordo.",
         "<strong>Guía Local:</strong> Descubre historias y detalles ocultos de la ciudad.",
         "<strong>Crucero Relajado:</strong> Disfruta de música, bebidas y vistas panorámicas.",
@@ -733,7 +737,7 @@
       ],
       "highlights": [
         "<strong>Dos Países en un Día:</strong> Dinamarca → Suecia.",
-        "<strong>Lo Mejor de la Ciudad:</strong> Mira Copenhague desde el agua.",
+        "<strong>Copenhague Lo Mejor de la Ciudad:</strong> Mira Copenhague desde el agua.",
         "<strong>Cruce de Mar Abierto:</strong> Navega a través del estrecho de Øresund.",
         "<strong>Visita a Malmö:</strong> Tiempo libre para explorar a tu ritmo.",
         "<strong>Bebidas y Música:</strong> Relájate a bordo durante el viaje.",

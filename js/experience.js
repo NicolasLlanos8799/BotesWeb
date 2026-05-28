@@ -474,13 +474,13 @@ function initBookingPanel() {
 
     languageValueInput.value = safeValue;
 
-    // Capitalize first letter for label
-    const label = safeValue.charAt(0).toUpperCase() + safeValue.slice(1);
-    languageValueLabel.textContent = label;
     languageOptions.forEach((option) => {
       const isSelected = option.getAttribute("data-language-option") === safeValue;
       option.classList.toggle("is-selected", isSelected);
       option.setAttribute("aria-selected", isSelected ? "true" : "false");
+      if (isSelected) {
+        languageValueLabel.innerHTML = option.querySelector("span").innerHTML;
+      }
     });
     syncStoredBooking();
   }
@@ -502,6 +502,12 @@ function initBookingPanel() {
     const priceEl = document.querySelector(".experience-booking__price strong");
     if (priceEl && tourConfig.price) {
       priceEl.textContent = `${tourConfig.price.toLocaleString('en-US')} DKK`;
+    }
+
+    // Show/hide 2h savings badge
+    const save2hEl = document.getElementById("experience-save-2h");
+    if (save2hEl) {
+      save2hEl.hidden = !(safeValue === "2" && tourId === "book-1h-2h");
     }
     
     // Re-render time slots because duration changed!
@@ -638,6 +644,12 @@ function initBookingPanel() {
 
   syncPeopleValue(Number.parseInt(peopleValueInput.value, 10) || 1);
   syncLanguageValue(languageValueInput.value);
+
+  // Re-sync language label after i18n applies translations
+  document.addEventListener('i18nready', () => {
+    syncLanguageValue(languageValueInput.value);
+  });
+
   // 1. Initial Render
   renderCalendar();
 

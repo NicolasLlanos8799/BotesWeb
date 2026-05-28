@@ -22,15 +22,15 @@
   "tours": {
     "label": "Vores oplevelser",
     "title": "Vælg din bådoplevelse<br />i København",
-    "sub": "Oplev vores mere end 8 nøje udvalgte ture, fra 1-times byhøjdepunkter til 7-timers eventyr. Hver rute er privat, afslappet og designet til at vise dig København fra et personligt perspektiv.",
+    "sub": "Udforsk vores mere end 8 private bådoplevelser, fra korte ture til Københavns mest ikoniske steder til heldagsture. Sejl i dit eget tempo, med komfort og et unikt blik på byen.",
     "catalog_cta": "Se alle oplevelser →",
     "explore_line": "Udforsk vores fulde udvalg af private ruter"
   },
   "tour": {
     "highlights": {
       "tag": "Privat · 1t",
-      "img_alt": "Byens højdepunkter privat bådtur",
-      "title": "Byens højdepunkter",
+      "img_alt": "København Byens højdepunkter privat bådtur",
+      "title": "København Byens højdepunkter",
       "desc": "Oplev Københavns højdepunkter på en privat bådtur med din egen lokale guide. Oplev den autentiske \"hygge\"-livsstil med musik, drikkevarer og panoramaudsigt over havnen.",
       "price_note": "pr. gruppe op til 8",
       "cta": "Book denne tur"
@@ -141,7 +141,7 @@
     },
     "amenities": {
       "q": "Hvad er inkluderet, og hvad skal vi medbringe?",
-      "a": "<p>Vi tilbyder tæpper og varme drikke om vinteren, og koldt vand om sommeren. Nogle pakker inkluderer snacks eller champagne. Du er velkommen til at medbringe din egen mad/drikke på ture på 3+ timer. Vi anbefaler behageligt tøj efter vejret.</p>"
+      "a": "<p>Vi tilbyder tæpper og varme drikke om vinteren, og koldt vand om sommeren. Nogle pakker inkluderer snacks eller champagne. Vi sælger drikkevarer ombord — det er ikke tilladt at medbringe egen mad eller drikke. Vi anbefaler behageligt tøj efter vejret.</p>"
     },
     "policies": {
       "q": "Betalingsmetoder og afbestillingsregler",
@@ -159,7 +159,8 @@
       "winter": "Dagligt (Vinter): 10:00 – 17:00"
     },
     "note": "Ture efter aftale; afhængigt af vejret.",
-    "copy": "© 2025 – 2026 Seaduced Experience. Alle rettigheder forbeholdes."
+    "copy": "© 2025 – 2026 Seaduced Experience. Alle rettigheder forbeholdes.",
+    "dev": "Udviklet af"
   },
   "book": {
     "page": {
@@ -195,12 +196,12 @@
       "badge_large": "Stor gruppe",
       "badge_fullday": "Heldagstur",
       "highlights": {
-        "title": "Byens højdepunkter",
+        "title": "København Byens højdepunkter",
         "desc": "Vores signatur 1 eller 2 timer private bådtur med din egen guide. Perfekt til det første besøg.",
         "price_note": "pr. gruppe op til 8"
       },
       "10p": {
-        "title": "Byens højdepunkter (10 gæster)",
+        "title": "København Byens højdepunkter (10 gæster)",
         "desc": "Ideel til større grupper. En eksklusiv 1 eller 2 timer privat tur med ekstra plads til alle.",
         "price_note": "pr. gruppe op til 10"
       },
@@ -237,7 +238,8 @@
       "cta": "Planlæg din rute →"
     },
     "footer": {
-      "back": "Tilbage til forsiden"
+      "back": "Tilbage til forsiden",
+      "dev": "Udviklet af"
     }
   },
   "reserve": {
@@ -356,7 +358,8 @@
         "Søn"
       ],
       "footer": {
-        "back": "Tilbage til forsiden"
+        "back": "Tilbage til forsiden",
+        "dev": "Udviklet af"
       },
       "mobile_cta": {
         "book": "Book nu"
@@ -364,10 +367,10 @@
     },
     "city_highlights": {
       "page": {
-        "title": "Byens højdepunkter | Seaduced Experience",
+        "title": "København Byens højdepunkter | Seaduced Experience",
         "desc": "Oplev Københavns højdepunkter på en 1-times privat bådtur med din egen kaptajn. Nyd musik, drikkevarer og panoramaudsigt over byen fra vandet."
       },
-      "hero_html": "<span class=\"title-accent\">Byens</span> højdepunkter",
+      "hero_html": "Copenhagen <span class=\"title-accent\">Byens</span> højdepunkter",
       "intro": "Oplev København fra vandet på en privat tur med lokal kaptajn. Sejl gennem byens kanaler, nyd musik og drikkevarer ombord, og betrag nogle af de mest ikoniske seværdigheder fra et unikt og afslappet perspektiv.",
       "info": {
         "participants_val": "Privat gruppe (maks 8)",
@@ -378,7 +381,8 @@
       "booking": {
         "price": "2,499 DKK",
         "price_note": "pr. gruppe op til 8",
-        "up_to": "Op til 8 gæster"
+        "up_to": "Op til 8 gæster",
+        "save_2h": "Du sparer 898 kr."
       },
       "story_paras": [
         "Denne 1-times private bådtur er den perfekte måde at opleve København fra vandet på kort tid. Du vil sejle gennem byens kanaler og havn, mens din kaptajn deler lokale historier og peger på vigtige vartegn undervejs.",
@@ -387,7 +391,7 @@
         "<strong>Bemærk:</strong> Den Lille Havfrue og Reffen er ikke inkluderet i 1-times ruten."
       ],
       "highlights": [
-        "<strong>Byens højdepunkter:</strong> Se Københavns vigtigste vartegn fra vandet.",
+        "<strong>København Byens højdepunkter:</strong> Se Københavns vigtigste vartegn fra vandet.",
         "<strong>Privat oplevelse:</strong> Kun din gruppe og din kaptajn ombord.",
         "<strong>Lokal guide:</strong> Oplev historier og skjulte detaljer om byen.",
         "<strong>Afslappet tur:</strong> Nyd musik, drikkevarer og panoramaudsigt.",
@@ -416,10 +420,10 @@
     },
     "city_highlights_10p": {
       "page": {
-        "title": "Byens højdepunkter (10 gæster) | Seaduced Experience",
+        "title": "København Byens højdepunkter (10 gæster) | Seaduced Experience",
         "desc": "Oplev Københavns højdepunkter på en 1-times privat bådtur med din egen kaptajn. Nyd musik, drikkevarer og panoramaudsigt over byen fra vandet."
       },
-      "hero_html": "<span class=\"title-accent\">Byens</span> højdepunkter",
+      "hero_html": "Copenhagen <span class=\"title-accent\">Byens</span> højdepunkter",
       "intro": "Oplev Københavns vigtigste højdepunkter på en 1-times privat bådtur med din egen lokale kaptajn. Sejl gennem kanalerne, nyd musik og drikkevarer ombord, og se byens mest ikoniske vartegn fra vandet — alt sammen i et afslappet og behageligt tempo.",
       "info": {
         "participants_val": "Privat gruppe (maks 10)",
@@ -439,7 +443,7 @@
         "<strong>Bemærk:</strong> Den Lille Havfrue og Reffen er ikke inkluderet i 1-times ruten."
       ],
       "highlights": [
-        "<strong>Byens højdepunkter:</strong> Se Københavns vigtigste vartegn fra vandet.",
+        "<strong>København Byens højdepunkter:</strong> Se Københavns vigtigste vartegn fra vandet.",
         "<strong>Privat oplevelse:</strong> Kun din gruppe og din kaptajn ombord.",
         "<strong>Lokal guide:</strong> Oplev historier og skjulte detaljer om byen.",
         "<strong>Afslappet tur:</strong> Nyd musik, drikkevarer og panoramaudsigt.",
@@ -732,7 +736,7 @@
       ],
       "highlights": [
         "<strong>To lande på én dag:</strong> Danmark → Sverige",
-        "<strong>Byens højdepunkter:</strong> Se København fra vandet",
+        "<strong>København Byens højdepunkter:</strong> Se København fra vandet",
         "<strong>Krydsning af åbent hav:</strong> Sejl over Øresund",
         "<strong>Malmø-besøg:</strong> Fritid til at udforske i dit eget tempo",
         "<strong>Drikkevarer og Musik:</strong> Slap af ombord under rejsen",

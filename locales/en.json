@@ -22,14 +22,14 @@
   "tours": {
     "label": "Our Experiences",
     "title": "Choose Your Copenhagen<br />Boat Experience",
-    "sub": "Discover our 8+ curated experiences, from 1-hour city highlights to 7-hour cross-border adventures. Each route is private, relaxed, and designed to show you Copenhagen from a personal perspective.",
+    "sub": "Explore our 8+ private boat experiences, from short tours of Copenhagen's most iconic spots to full-day journeys. Cruise at your own pace, in comfort, and with a unique perspective of the city.",
     "catalog_cta": "View all experiences →",
     "explore_line": "Explore our complete range of private routes"
   },
   "tour": {
     "highlights": {
       "tag": "Private · 1h",
-      "title": "City Highlights",
+      "title": "Copenhagen City Highlights",
       "desc": "Discover Copenhagen's city highlights on a private boat tour with your own local guide. Experience the authentic \"hygge\" lifestyle with music, drinks, and panoramic harbor views.",
       "price_note": "per group up to 8",
       "cta": "Book This Tour"
@@ -138,7 +138,7 @@
     },
     "amenities": {
       "q": "What is included and what should we bring?",
-      "a": "<p>We provide blankets and hot drinks in winter, and cold water in summer. Some packages include snacks or champagne. You are welcome to bring your own food/drinks for trips of 3+ hours. We recommend comfortable clothing and layers for the weather.</p>"
+      "a": "<p>We provide blankets and hot drinks in winter, and cold water in summer. Some packages include snacks or champagne. We sell drinks on board — outside food and beverages are not permitted. We recommend comfortable clothing and layers for the weather.</p>"
     },
     "policies": {
       "q": "Payment Methods and Cancellation Policy",
@@ -156,7 +156,8 @@
       "winter": "Daily (Winter): 10:00 – 17:00"
     },
     "note": "Tours by appointment; weather dependent.",
-    "copy": "© 2025 – 2026 Seaduced Experience. All rights reserved."
+    "copy": "© 2025 – 2026 Seaduced Experience. All rights reserved.",
+    "dev": "Developed by"
   },
   "book": {
     "page": {
@@ -192,12 +193,12 @@
       "badge_large": "Large Group",
       "badge_fullday": "Full Day",
       "highlights": {
-        "title": "City Highlights",
+        "title": "Copenhagen City Highlights",
         "desc": "Our signature 1 or 2 hours private boat tour with your own guide. Perfect for a first visit.",
         "price_note": "per group up to 8"
       },
       "10p": {
-        "title": "City Highlights (10 Guests)",
+        "title": "Copenhagen City Highlights (10 Guests)",
         "desc": "Ideal for larger groups. A premium 1 or 2 hours private tour with extra space for everyone.",
         "price_note": "per group up to 10"
       },
@@ -234,7 +235,8 @@
       "cta": "Get Your Custom Quote →"
     },
     "footer": {
-      "back": "Back to Home"
+      "back": "Back to Home",
+      "dev": "Developed by"
     }
   },
   "reserve": {
@@ -353,7 +355,8 @@
         "Sun"
       ],
       "footer": {
-        "back": "Back to Home"
+        "back": "Back to Home",
+        "dev": "Developed by"
       },
       "mobile_cta": {
         "book": "Book now"
@@ -361,10 +364,10 @@
     },
     "city_highlights": {
       "page": {
-        "title": "City Highlights | Seaduced Experience",
+        "title": "Copenhagen City Highlights | Seaduced Experience",
         "desc": "Discover Copenhagen’s highlights on a 1-hour private boat tour with your own captain. Enjoy music, drinks, and panoramic views of the city from the water."
       },
-      "hero_html": "<span class=\"title-accent\">City</span> Highlights",
+      "hero_html": "Copenhagen <span class=\"title-accent\">City</span> Highlights",
       "intro": "Discover Copenhagen from the water on a private tour with a local captain. Sail through the city’s canals, enjoy music and drinks on board, and take in some of the most iconic sights from a unique and relaxed perspective.",
       "info": {
         "participants_val": "Private group (max 8)",
@@ -375,7 +378,8 @@
       "booking": {
         "price": "2,499 DKK",
         "price_note": "per group up to 8",
-        "up_to": "Up to 8 guests"
+        "up_to": "Up to 8 guests",
+        "save_2h": "You save 898 DKK"
       },
       "story_paras": [
         "This 1-hour private boat tour is the perfect way to experience Copenhagen from the water in a short time. You’ll cruise through the city’s canals and harbor while your captain shares local stories and points out key landmarks along the way.",
@@ -384,7 +388,7 @@
         "<strong>Note:</strong> The Little Mermaid and Reffen are not included in the 1-hour route."
       ],
       "highlights": [
-        "<strong>City Highlights:</strong> See Copenhagen’s main landmarks from the water.",
+        "<strong>Copenhagen City Highlights:</strong> See Copenhagen’s main landmarks from the water.",
         "<strong>Private Experience:</strong> Only your group and your captain on board.",
         "<strong>Local Guide:</strong> Discover stories and hidden details of the city.",
         "<strong>Relaxed Cruise:</strong> Enjoy music, drinks, and panoramic views.",
@@ -413,10 +417,10 @@
     },
     "city_highlights_10p": {
       "page": {
-        "title": "City Highlights (10 Guests) | Seaduced Experience",
+        "title": "Copenhagen City Highlights (10 Guests) | Seaduced Experience",
         "desc": "Discover Copenhagen’s highlights on a private boat tour with your own captain. Enjoy music, drinks, and panoramic views of the city from the water."
       },
-      "hero_html": "<span class=\"title-accent\">City</span> Highlights <span style=\"font-size:0.75em\">(10)</span>",
+      "hero_html": "Copenhagen <span class=\"title-accent\">City</span> Highlights <span style=\"font-size:0.75em\">(10)</span>",
       "intro": "Discover Copenhagen’s main highlights on a private boat tour with your own local captain. Cruise through the canals, enjoy music and drinks on board, and take in the city’s most iconic landmarks from the water — all at a relaxed, comfortable pace.",
       "info": {
         "participants_val": "Private group (max 10)",
@@ -436,7 +440,7 @@
         "<strong>Note:</strong> The Little Mermaid and Reffen are not included in the route."
       ],
       "highlights": [
-        "<strong>City Highlights:</strong> See Copenhagen’s main landmarks from the water.",
+        "<strong>Copenhagen City Highlights:</strong> See Copenhagen’s main landmarks from the water.",
         "<strong>Private Experience:</strong> Only your group and your captain on board.",
         "<strong>Local Guide:</strong> Discover stories and hidden details of the city.",
         "<strong>Relaxed Cruise:</strong> Enjoy music, drinks, and panoramic views.",
@@ -729,7 +733,7 @@
       ],
       "highlights": [
         "<strong>Two Countries in One Day:</strong> Denmark → Sweden",
-        "<strong>City Highlights:</strong> See Copenhagen from the water",
+        "<strong>Copenhagen City Highlights:</strong> See Copenhagen from the water",
         "<strong>Open Sea Crossing:</strong> Sail across the Øresund Strait",
         "<strong>Malmö Visit:</strong> Free time to explore at your own pace",
         "<strong>Drinks and Music:</strong> Relax on board during the journey",
