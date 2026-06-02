@@ -11,7 +11,7 @@ export default async function handler(req, res) {
 
   const origin = req.headers.origin || "";
   const referer = req.headers.referer || "";
-  const allowedDomains = ["vercel.app", "localhost", "127.0.0.1", "seaduced.dk"];
+  const allowedDomains = ["seaduced-experience.com", "vercel.app", "localhost", "127.0.0.1", "seaduced.dk"];
   const isAllowedDomain = allowedDomains.some(domain => origin.includes(domain) || referer.includes(domain));
 
   if (!isAllowedDomain && process.env.NODE_ENV === "production") {

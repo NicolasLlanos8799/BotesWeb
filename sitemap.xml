@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- Home -->
+  <url>
+    <loc>https://www.seaduced-experience.com/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.seaduced-experience.com/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.seaduced-experience.com/da/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.seaduced-experience.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.seaduced-experience.com/"/>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Book -->
+  <url>
+    <loc>https://www.seaduced-experience.com/book/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.seaduced-experience.com/book/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.seaduced-experience.com/da/book/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.seaduced-experience.com/es/book/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.seaduced-experience.com/book/"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Experience: City Highlights (1h) -->
+  <url>
+    <loc>https://www.seaduced-experience.com/experiences/private-boat-copenhagen/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.seaduced-experience.com/experiences/private-boat-copenhagen/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.seaduced-experience.com/da/experiences/private-boat-copenhagen/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.seaduced-experience.com/es/experiences/private-boat-copenhagen/"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Experience: Sea Fortress 4h -->
+  <url>
+    <loc>https://www.seaduced-experience.com/experiences/private-boat-copenhagen-4h/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.seaduced-experience.com/experiences/private-boat-copenhagen-4h/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.seaduced-experience.com/da/experiences/private-boat-copenhagen-4h/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.seaduced-experience.com/es/experiences/private-boat-copenhagen-4h/"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Experience: Harbor Extended 3h -->
+  <url>
+    <loc>https://www.seaduced-experience.com/experiences/private-boat-copenhagen-3h/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.seaduced-experience.com/experiences/private-boat-copenhagen-3h/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.seaduced-experience.com/da/experiences/private-boat-copenhagen-3h/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.seaduced-experience.com/es/experiences/private-boat-copenhagen-3h/"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Experience: Land Tour -->
+  <url>
+    <loc>https://www.seaduced-experience.com/experiences/private-boat-copenhagen-land-tour/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.seaduced-experience.com/experiences/private-boat-copenhagen-land-tour/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.seaduced-experience.com/da/experiences/private-boat-copenhagen-land-tour/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.seaduced-experience.com/es/experiences/private-boat-copenhagen-land-tour/"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Experience: City Highlights 10 people -->
+  <url>
+    <loc>https://www.seaduced-experience.com/experiences/city-highlights-10-people/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.seaduced-experience.com/experiences/city-highlights-10-people/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.seaduced-experience.com/da/experiences/city-highlights-10-people/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.seaduced-experience.com/es/experiences/city-highlights-10-people/"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Experience: Wine Tour -->
+  <url>
+    <loc>https://www.seaduced-experience.com/experiences/private-boat-copenhagen-wine-tour/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.seaduced-experience.com/experiences/private-boat-copenhagen-wine-tour/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.seaduced-experience.com/da/experiences/private-boat-copenhagen-wine-tour/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.seaduced-experience.com/es/experiences/private-boat-copenhagen-wine-tour/"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Experience: Copenhagen to Malmö -->
+  <url>
+    <loc>https://www.seaduced-experience.com/experiences/private-boat-copenhagen-malmo/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.seaduced-experience.com/experiences/private-boat-copenhagen-malmo/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.seaduced-experience.com/da/experiences/private-boat-copenhagen-malmo/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.seaduced-experience.com/es/experiences/private-boat-copenhagen-malmo/"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+</urlset>

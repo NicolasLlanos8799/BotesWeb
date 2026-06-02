@@ -574,7 +574,7 @@ export function initReservePage() {
         amount: total,
         currency: "DKK",
         checkout_reference: `RESERVE-${Date.now()}-${name.substring(0, 3).toUpperCase()}`,
-        return_url: "https://botes-web.vercel.app/reserve/success.html",
+        return_url: "https://seaduced-experience.com/reserve/success.html",
         description: `Seaduced Experience: ${getLocalizedValue(currentTour, "title", current.lang)}`,
         metadata: {
           name: String(name),

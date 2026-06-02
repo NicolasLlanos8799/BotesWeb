@@ -10,7 +10,7 @@ export default async function handler(req, res) {
   // 1. Domain Lockdown (Only allows your site or localhost for testing)
   const origin = req.headers.origin || "";
   const referer = req.headers.referer || "";
-  const allowedDomains = ["vercel.app", "localhost", "127.0.0.1", "seaduced.dk"];
+  const allowedDomains = ["seaduced-experience.com", "vercel.app", "localhost", "127.0.0.1", "seaduced.dk"];
   const isAllowedDomain = allowedDomains.some(domain => origin.includes(domain) || referer.includes(domain));
 
   if (!isAllowedDomain) {

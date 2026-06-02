@@ -19,9 +19,33 @@
     <link rel="stylesheet" href="/css/components.css" />
     <link rel="stylesheet" href="/css/pages.css" />
   <link rel="stylesheet" href="/css/desktop-constraints.css" />
-    <link rel="alternate" hreflang="en" href="https://seaducedexperience.com/book/" />
-    <link rel="alternate" hreflang="da" href="https://seaducedexperience.com/da/book/" />
-    <link rel="alternate" hreflang="es" href="https://seaducedexperience.com/es/book/" />
+    <link rel="canonical" href="https://www.seaduced-experience.com/book/" />
+    <link rel="alternate" hreflang="en" href="https://www.seaduced-experience.com/book/" />
+    <link rel="alternate" hreflang="da" href="https://www.seaduced-experience.com/da/book/" />
+    <link rel="alternate" hreflang="es" href="https://www.seaduced-experience.com/es/book/" />
+    <link rel="alternate" hreflang="x-default" href="https://www.seaduced-experience.com/book/" />
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Seaduced Experience" />
+  <meta property="og:url" content="https://www.seaduced-experience.com/book/" />
+  <meta property="og:title" content="Book Your Tour | Seaduced Experience – Private Boat Tours Copenhagen" />
+  <meta property="og:description" content="Choose and book your private Copenhagen boat tour. Spring, Summer and Winter experiences available. Secure booking, free cancellation 48h." />
+  <meta property="og:image" content="https://www.seaduced-experience.com/assets/images/general/hero_canal_copenhagen.webp" />
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Book Your Tour | Seaduced Experience – Private Boat Tours Copenhagen" />
+  <meta name="twitter:description" content="Choose and book your private Copenhagen boat tour. Spring, Summer and Winter experiences available. Secure booking, free cancellation 48h." />
+  <meta name="twitter:image" content="https://www.seaduced-experience.com/assets/images/general/hero_canal_copenhagen.webp" />
+  
+  
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6RZJ21L1R2"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-6RZJ21L1R2');
+  </script>
 </head>
 
 <body class="booking-page" data-i18n-title="book.page.title">
@@ -60,10 +84,10 @@
                 <a href="/book" class="btn btn--primary btn--sm" id="nav-cta" data-i18n="nav.cta"
                     data-i18n-href="/book">Book Now</a>
                 <div class="lang-switcher">
-                    <a href="/" class="lang-link is-active" title="English"><img src="/assets/icons/flag-en.svg"
+                    <a href="/" class="lang-link is-active" title="English"><img width="32" height="24" src="/assets/icons/flag-en.svg"
                             alt="EN"></a>
-                    <a href="/da/" class="lang-link" title="Dansk"><img src="/assets/icons/flag-da.svg" alt="DA"></a>
-                    <a href="/es/" class="lang-link" title="Español"><img src="/assets/icons/flag-es.svg" alt="ES"></a>
+                    <a href="/da/" class="lang-link" title="Dansk"><img width="32" height="24" src="/assets/icons/flag-da.svg" alt="DA"></a>
+                    <a href="/es/" class="lang-link" title="Español"><img width="32" height="24" src="/assets/icons/flag-es.svg" alt="ES"></a>
                 </div>
                 <button class="navbar__hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
                     <span></span><span></span><span></span>
@@ -79,10 +103,10 @@
             <a href="/#contact" class="nav-link" id="mob-contact" data-i18n="nav.contact"
                 data-i18n-href="/#contact">Contact</a>
             <div class="lang-switcher">
-                <a href="/" class="lang-link is-active" title="English"><img src="/assets/icons/flag-en.svg"
+                <a href="/" class="lang-link is-active" title="English"><img width="32" height="24" src="/assets/icons/flag-en.svg"
                         alt="EN"></a>
-                <a href="/da/" class="lang-link" title="Dansk"><img src="/assets/icons/flag-da.svg" alt="DA"></a>
-                <a href="/es/" class="lang-link" title="Español"><img src="/assets/icons/flag-es.svg" alt="ES"></a>
+                <a href="/da/" class="lang-link" title="Dansk"><img width="32" height="24" src="/assets/icons/flag-da.svg" alt="DA"></a>
+                <a href="/es/" class="lang-link" title="Español"><img width="32" height="24" src="/assets/icons/flag-es.svg" alt="ES"></a>
             </div>
             <a href="/book" class="btn btn--primary mt-1" id="mob-cta" data-i18n="nav.cta" data-i18n-href="/book">Book
                 Now</a>
@@ -388,7 +412,7 @@
         <!-- Bespoke / Custom CTA Banner -->
         <div class="tours-bespoke reveal">
             <div class="tours-bespoke__icon">
-                <img src="/assets/icons/features/boat_waves.png" alt="Boat on waves icon" loading="lazy">
+                <img width="120" height="120" src="/assets/icons/features/boat_waves.png" alt="Boat on waves icon" loading="lazy">
             </div>
             <div class="tours-bespoke__content">
                 <span class="tours-bespoke__label" data-i18n="bespoke.label">Personalized Service</span>
@@ -416,6 +440,37 @@
         </p>
     </footer>
 
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.seaduced-experience.com/"},
+            {"@type": "ListItem", "position": 2, "name": "Book a Tour", "item": "https://www.seaduced-experience.com/book/"}
+          ]
+        },
+        {
+          "@type": "ItemList",
+          "name": "Private Boat Tours Copenhagen — All Experiences",
+          "description": "Choose from 7 private boat experiences in Copenhagen. From 1-hour canal highlights to full-day adventures across the Øresund.",
+          "url": "https://www.seaduced-experience.com/book/",
+          "numberOfItems": 7,
+          "itemListElement": [
+            {"@type": "ListItem", "position": 1, "url": "https://www.seaduced-experience.com/experiences/private-boat-copenhagen/", "name": "City Highlights — 1-2h Private Boat Tour"},
+            {"@type": "ListItem", "position": 2, "url": "https://www.seaduced-experience.com/experiences/city-highlights-10-people/", "name": "City Highlights for Groups up to 10"},
+            {"@type": "ListItem", "position": 3, "url": "https://www.seaduced-experience.com/experiences/private-boat-copenhagen-3h/", "name": "Harbor Extended & Reffen Stop — 3h"},
+            {"@type": "ListItem", "position": 4, "url": "https://www.seaduced-experience.com/experiences/private-boat-copenhagen-4h/", "name": "Sea Fortress & Coastal Journey — 4h"},
+            {"@type": "ListItem", "position": 5, "url": "https://www.seaduced-experience.com/experiences/private-boat-copenhagen-wine-tour/", "name": "Floating Wine Tasting — 2h"},
+            {"@type": "ListItem", "position": 6, "url": "https://www.seaduced-experience.com/experiences/private-boat-copenhagen-land-tour/", "name": "Boat & Land Tour — Copenhagen, Dragør & Kronborg"},
+            {"@type": "ListItem", "position": 7, "url": "https://www.seaduced-experience.com/experiences/private-boat-copenhagen-malmo/", "name": "Copenhagen to Malmö — Full Day Private Boat"}
+          ]
+        }
+      ]
+    }
+    </script>
     <script type="module" src="/js/i18n.js"></script>
     <script type="module" src="/js/main.js?v=1.2"></script>
 </body>
