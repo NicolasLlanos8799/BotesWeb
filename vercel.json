@@ -1,6 +1,14 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
+  "redirects": [
+    { "source": "/book-here", "destination": "/book/", "permanent": true },
+    { "source": "/tours", "destination": "/book/", "permanent": true },
+    { "source": "/contact", "destination": "/#contact", "permanent": true }
+  ],
+  "errorRoutes": [
+    { "statusCode": 404, "destination": "/404.html" }
+  ],
   "rewrites": [
     { "source": "/da/:path*", "destination": "/:path*" },
     { "source": "/es/:path*", "destination": "/:path*" }

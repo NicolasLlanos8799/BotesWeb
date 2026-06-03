@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found | Seaduced Experience</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --clr-navy: #0f1e35;
+            --clr-gold: #c9a55c;
+            --clr-off-white: #f8f6f1;
+            --clr-white: #ffffff;
+            --clr-text-mid: #6b7280;
+            --ff-serif: 'Playfair Display', Georgia, serif;
+            --ff-sans: 'Inter', system-ui, sans-serif;
+        }
+        body {
+            font-family: var(--ff-sans);
+            background: var(--clr-off-white);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            text-align: center;
+        }
+        .card {
+            max-width: 520px;
+            width: 100%;
+            background: var(--clr-white);
+            border-radius: 24px;
+            padding: 3rem 2rem;
+            box-shadow: 0 20px 40px rgba(15, 30, 53, 0.07);
+            animation: fadeUp 0.5s ease-out;
+        }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(16px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .icon {
+            width: 72px;
+            height: 72px;
+            margin: 0 auto 1.5rem;
+            color: var(--clr-gold);
+        }
+        h1 {
+            font-family: var(--ff-serif);
+            font-size: 2rem;
+            color: var(--clr-navy);
+            margin-bottom: 0.75rem;
+        }
+        p {
+            color: var(--clr-text-mid);
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+        .links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        a.btn {
+            display: block;
+            padding: 0.85rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        a.btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(15, 30, 53, 0.12);
+        }
+        a.btn--primary {
+            background: var(--clr-navy);
+            color: var(--clr-white);
+        }
+        a.btn--outline {
+            border: 1.5px solid var(--clr-navy);
+            color: var(--clr-navy);
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 5V21M7 16H2M17 16H22M5 16C5 19.866 8.134 23 12 23C15.866 23 19 19.866 19 16M12 5C13.105 5 14 4.105 14 3C14 1.895 13.105 1 12 1C10.895 1 10 1.895 10 3C10 4.105 10.895 5 12 5Z"/>
+        </svg>
+        <h1>Page Not Found</h1>
+        <p>The page you're looking for has moved or no longer exists. Let us help you find your perfect Copenhagen experience.</p>
+        <div class="links">
+            <a href="/" class="btn btn--primary">Back to Homepage</a>
+            <a href="/book/" class="btn btn--outline">Browse All Experiences</a>
+        </div>
+    </div>
+</body>
+</html>
