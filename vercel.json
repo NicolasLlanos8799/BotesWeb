@@ -6,10 +6,7 @@
     { "source": "/tours", "destination": "/book/", "permanent": true },
     { "source": "/contact", "destination": "/#contact", "permanent": true }
   ],
-  "errorRoutes": [
-    { "statusCode": 404, "destination": "/404.html" }
-  ],
-  "rewrites": [
+"rewrites": [
     { "source": "/da/:path*", "destination": "/:path*" },
     { "source": "/es/:path*", "destination": "/:path*" }
   ],
