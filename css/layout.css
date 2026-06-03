@@ -565,8 +565,7 @@ html[lang="es"] .hero__headline {
 
 /* Price line normalization */
 .tour-card__price {
-  flex-wrap: nowrap;
-  white-space: nowrap;
+  flex-wrap: wrap;
   letter-spacing: -0.01em;
 }
 
@@ -576,10 +575,6 @@ html[lang="es"] .tour-card__price::before {
 
 html[lang="da"] .tour-card__price::before {
   content: 'Fra';
-}
-
-html[lang="es"] .tour-card__price-note {
-  font-size: 0.65rem; /* Slightly smaller for Spanish to fit */
 }
 
 /* Booking card price prefix fix */
@@ -592,5 +587,5 @@ html[lang="da"] .booking-card__price::before {
 }
 
 .booking-card__price {
-  white-space: nowrap;
+  flex-wrap: wrap;
 }
