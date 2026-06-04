@@ -84,39 +84,47 @@ function getCalendar(name) {
   return CalendarApp.getCalendarById(map[name] || map['boat1']);
 }
 
+
 function handleGetAvailability(calendarName, dateStr) {
-  var calendar  = getCalendar(calendarName);
-  var day       = new Date(dateStr);
+  var day        = new Date(dateStr);
   var startOfDay = new Date(day.getFullYear(), day.getMonth(), day.getDate(), 8,  0, 0);
   var endOfDay   = new Date(day.getFullYear(), day.getMonth(), day.getDate(), 21, 0, 0);
   var busySlots  = [];
+
+  // Boat calendar: all events block availability
+  // Main calendar: only events matching BOOKING_KEYWORDS block availability
+  var calendar = getCalendar(calendarName);
+  if (!calendar) return ContentService.createTextOutput(JSON.stringify({ busy: [] })).setMimeType(ContentService.MimeType.JSON);
+
   calendar.getEvents(startOfDay, endOfDay).forEach(function(e) {
     var startH = e.getStartTime().getHours();
-    var endH = e.getEndTime().getHours();
-    for (var h = startH; h < endH; h++) {
+    var endH   = e.getEndTime().getHours();
+    for (var h = startH; h < endH; h++)
       busySlots.push({ time: ("0" + h).slice(-2) + ":00", available: false });
-    }
   });
+
   return ContentService.createTextOutput(JSON.stringify({ busy: busySlots }))
     .setMimeType(ContentService.MimeType.JSON);
 }
 
 function handleGetMonthlyAvailability(calendarName, month, year) {
-  var calendar     = getCalendar(calendarName);
   var startOfMonth = new Date(year, month - 1, 1);
   var endOfMonth   = new Date(year, month, 0, 23, 59, 59);
   var daysData     = {};
 
+  var calendar = getCalendar(calendarName);
+  if (!calendar) return ContentService.createTextOutput(JSON.stringify({})).setMimeType(ContentService.MimeType.JSON);
+
   calendar.getEvents(startOfMonth, endOfMonth).forEach(function(e) {
     var start = e.getStartTime();
-    var dStr = start.getFullYear() + "-" + ("0" + (start.getMonth() + 1)).slice(-2) + "-" + ("0" + start.getDate()).slice(-2);
+    var dStr  = start.getFullYear() + "-"
+      + ("0" + (start.getMonth() + 1)).slice(-2) + "-"
+      + ("0" + start.getDate()).slice(-2);
     if (!daysData[dStr]) daysData[dStr] = [];
-
     var startH = start.getHours();
-    var endH = e.getEndTime().getHours();
-    for (var h = startH; h < endH; h++) {
+    var endH   = e.getEndTime().getHours();
+    for (var h = startH; h < endH; h++)
       daysData[dStr].push({ time: ("0" + h).slice(-2) + ":00", available: false });
-    }
   });
 
   return ContentService.createTextOutput(JSON.stringify(daysData))
@@ -230,6 +238,234 @@ function findEventBySumUpId(sumupId) {
     }
   }
   return null;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   GYG EMAIL PARSER — Auto-sync GetYourGuide bookings to Calendar
+
+   SETUP (one-time):
+     1. Run setupGYGTrigger() once from the Apps Script editor
+     2. Authorize Gmail access when prompted
+     3. Done — runs automatically every 15 min
+
+   TEST:
+     Run testGYGParser() to process the latest unread GYG email
+═══════════════════════════════════════════════════════════ */
+
+/**
+ * Main entry point — called by time-based trigger every 15 min.
+ * Scans unread GYG booking emails, creates calendar events, marks read.
+ */
+function processGYGBookings() {
+  var threads = GmailApp.search(
+    'from:do-not-reply@notification.getyourguide.com is:unread subject:Booking'
+  );
+
+  threads.forEach(function(thread) {
+    thread.getMessages().forEach(function(msg) {
+      if (!msg.isUnread()) return;
+      try {
+        var booking = parseGYGEmail(msg);
+        if (booking) {
+          var eventId = createGYGCalendarEvent(booking);
+          Logger.log("GYG booked → " + booking.gygRef + " | event: " + eventId);
+        }
+        msg.markRead();
+      } catch (e) {
+        Logger.log("GYG parse error: " + e.toString());
+      }
+    });
+  });
+}
+
+/**
+ * Parses a GYG booking confirmation email.
+ * Returns a booking object, or null if not a booking / already exists.
+ */
+function parseGYGEmail(msg) {
+  var subject = msg.getSubject();
+  var body    = msg.getPlainBody();
+
+  // GYG ref from subject: "Booking - S467793 - GYG6H8ALG4M9"
+  var refMatch = subject.match(/\b(GYG[A-Z0-9]+)\b/);
+  if (!refMatch) return null;
+  var gygRef = refMatch[1];
+
+  // Deduplication
+  if (findGYGEvent(gygRef)) {
+    Logger.log("Already in calendar: " + gygRef);
+    return null;
+  }
+
+  // Tour name — first line after "Your offer has been booked:"
+  var tourMatch = body.match(/Your offer has been booked:\s*\n+([^\n]+)/);
+  var tour = tourMatch ? tourMatch[1].trim() : 'GYG Tour';
+
+  // Date — line after "Date" label
+  var dateStr = '—';
+  var dateMatch = body.match(/\bDate\b\s*\n([^\n]+)/);
+  if (dateMatch) {
+    var d = new Date(dateMatch[1].trim());
+    if (!isNaN(d.getTime())) {
+      dateStr = d.getFullYear() + '-'
+        + ('0' + (d.getMonth() + 1)).slice(-2) + '-'
+        + ('0' + d.getDate()).slice(-2);
+    }
+  }
+
+  // Participants — handles "1 x Group up to 6 (2 Persons)" and "2 x Adult"
+  var qty = '1';
+  var paxMatch = body.match(/Number of participants\s*\n([^\n]+)/);
+  if (paxMatch) {
+    var parenMatch = paxMatch[1].match(/\((\d+)\s*Persons?\)/i);
+    if (parenMatch) {
+      qty = parenMatch[1];
+    } else {
+      var simpleMatch = paxMatch[1].match(/^(\d+)\s*x/);
+      if (simpleMatch) qty = simpleMatch[1];
+    }
+  }
+
+  // Customer name — line after "Main customer"
+  var nameMatch = body.match(/Main customer\s*\n([^\n]+)/);
+  var name = nameMatch ? nameMatch[1].trim() : 'GYG Guest';
+
+  // Customer email — GYG reply address
+  var emailMatch = body.match(/customer-[a-z0-9]+@reply\.getyourguide\.com/);
+  var email = emailMatch ? emailMatch[0] : '';
+
+  // Phone
+  var phoneMatch = body.match(/Phone:\s*([^\n]+)/);
+  var phone = phoneMatch ? phoneMatch[1].trim() : '';
+
+  // Language (first Language: occurrence = customer language)
+  var lang = 'english';
+  var langMatch = body.match(/Language:\s*([^\n]+)/);
+  if (langMatch) {
+    var l = langMatch[1].toLowerCase();
+    if (l.indexOf('spanish') !== -1 || l.indexOf('español') !== -1) lang = 'spanish';
+    else if (l.indexOf('danish') !== -1 || l.indexOf('dansk') !== -1) lang = 'danish';
+  }
+
+  // Price — "DKK 8,999.00"
+  var amount = '', currency = 'DKK';
+  var priceMatch = body.match(/\bPrice\b\s*\n([^\n]+)/);
+  if (priceMatch) {
+    var ps = priceMatch[1].trim();
+    var currMatch = ps.match(/^([A-Z]{3})/);
+    if (currMatch) currency = currMatch[1];
+    var numMatch = ps.match(/([\d,\.]+)/);
+    if (numMatch) amount = numMatch[1].replace(/,/g, '');
+  }
+
+  return {
+    gygRef: gygRef, tour: tour, date: dateStr, time: '10:00',
+    qty: qty, name: name, email: email, phone: phone,
+    lang: lang, amount: amount, currency: currency
+  };
+}
+
+/**
+ * Creates a Google Calendar event from a parsed GYG booking.
+ * Color: ORANGE to distinguish from direct bookings (YELLOW).
+ * Time defaults to 10:00 — GYG doesn't provide a time slot.
+ */
+function createGYGCalendarEvent(booking) {
+  // Duration — extend map as needed for GYG-specific tour names
+  var durationH = 2;
+  var t = booking.tour;
+  if (t.indexOf('1-Hour')      !== -1 || t.indexOf('Highlights') !== -1) durationH = 1;
+  if (t.indexOf('Floating Wine') !== -1)                                  durationH = 2;
+  if (t.indexOf('3-Hour')      !== -1)                                    durationH = 3;
+  if (t.indexOf('4-Hour')      !== -1 || t.indexOf('Canal Cruise') !== -1) durationH = 4;
+  if (t.indexOf('Malmö')       !== -1 || t.indexOf('Dragør')       !== -1
+   || t.indexOf('Helsingør')   !== -1)                                    durationH = 7;
+
+  var dp = booking.date.split('-');
+  var tp = booking.time.split(':');
+  var start = new Date(+dp[0], +dp[1] - 1, +dp[2], +tp[0], +tp[1]);
+  var end   = new Date(start.getTime() + durationH * 3600000);
+
+  var description =
+    "✨ " + booking.tour.toUpperCase() + "\n" +
+    "📅 " + booking.date + " | 🕒 " + booking.time + " ⚠️ (confirm time with guest)\n" +
+    "👥 Passengers: " + booking.qty + "\n" +
+    "🌍 Language: " + booking.lang + "\n\n" +
+    "👤 CONTACT\n" +
+    "Name: "  + booking.name  + "\n" +
+    "Email: " + booking.email + "\n" +
+    "Phone: " + booking.phone + "\n" +
+    "──────────────────────────\n" +
+    "GYG Ref: " + booking.gygRef + "\n" +
+    "Amount: " + booking.amount + " " + booking.currency + "\n" +
+    "Source: GetYourGuide";
+
+  var calendar = getCalendar('boat1');
+  var event = calendar.createEvent(
+    "🟠 GYG: " + booking.name,
+    start, end,
+    { description: description }
+  );
+  event.setColor(CalendarApp.EventColor.ORANGE);
+
+  return event.getId();
+}
+
+/**
+ * Checks both calendars for an existing event with this GYG reference.
+ */
+function findGYGEvent(gygRef) {
+  var calendars = [getCalendar('boat1'), getCalendar('boat2')]
+    .filter(function(c) { return c !== null; });
+  var now    = new Date();
+  var future = new Date(now.getFullYear() + 1, now.getMonth(), now.getDate());
+
+  for (var i = 0; i < calendars.length; i++) {
+    var events = calendars[i].getEvents(now, future);
+    for (var j = 0; j < events.length; j++) {
+      var desc = events[j].getDescription();
+      if (desc && desc.indexOf("GYG Ref: " + gygRef) !== -1) return events[j];
+    }
+  }
+  return null;
+}
+
+/**
+ * One-time setup — run once from the editor to install the trigger.
+ * Deletes any existing GYG triggers first to avoid duplicates.
+ */
+function setupGYGTrigger() {
+  ScriptApp.getProjectTriggers()
+    .filter(function(t) { return t.getHandlerFunction() === 'processGYGBookings'; })
+    .forEach(function(t) { ScriptApp.deleteTrigger(t); });
+
+  ScriptApp.newTrigger('processGYGBookings')
+    .timeBased()
+    .everyMinutes(15)
+    .create();
+
+  Logger.log("✅ GYG trigger set — processGYGBookings() runs every 15 min.");
+}
+
+/**
+ * Test helper — processes the latest unread GYG booking email.
+ * Run this manually from the editor to verify parsing.
+ */
+function testGYGParser() {
+  var threads = GmailApp.search(
+    'from:do-not-reply@notification.getyourguide.com subject:Booking',
+    0, 1
+  );
+  if (!threads.length) { Logger.log("No GYG emails found."); return; }
+
+  var msg     = threads[0].getMessages()[0];
+  var booking = parseGYGEmail(msg);
+  Logger.log("Parsed booking: " + JSON.stringify(booking, null, 2));
+
+  if (booking) {
+    var eventId = createGYGCalendarEvent(booking);
+    Logger.log("✅ Event created: " + eventId);
+  }
 }
 
 /* ═══════════════════════════════════════════════════════════
