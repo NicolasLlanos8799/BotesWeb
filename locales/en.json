@@ -300,7 +300,7 @@
       },
       "info": {
         "cancellation": "Cancellation",
-        "cancellation_val": "Free up to 24h before",
+        "cancellation_val": "Free up to 48h before",
         "participants": "Participants",
         "duration": "Duration",
         "guide": "Guide"
@@ -343,7 +343,7 @@
         "lang_es": "Spanish",
         "continue": "Continue",
         "free_cancel": "Free cancellation",
-        "free_cancel_text": "Full refund if you cancel up to 24 hours in advance."
+        "free_cancel_text": "Full refund if you cancel up to 48 hours in advance."
       },
       "weekdays": [
         "Mon",

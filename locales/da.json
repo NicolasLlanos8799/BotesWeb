@@ -303,7 +303,7 @@
       },
       "info": {
         "cancellation": "Afbestilling",
-        "cancellation_val": "Gratis op til 24t før",
+        "cancellation_val": "Gratis op til 48t før",
         "participants": "Deltagere",
         "duration": "Varighed",
         "guide": "Guide"
@@ -346,7 +346,7 @@
         "lang_es": "Spansk",
         "continue": "Fortsæt",
         "free_cancel": "Gratis afbestilling",
-        "free_cancel_text": "Fuld refusion hvis du afbestiller op til 24 timer i forvejen."
+        "free_cancel_text": "Fuld refusion hvis du afbestiller op til 48 timer i forvejen."
       },
       "weekdays": [
         "Man",

@@ -304,7 +304,7 @@
       },
       "info": {
         "cancellation": "Cancelación",
-        "cancellation_val": "Gratis hasta 24h antes",
+        "cancellation_val": "Gratis hasta 48h antes",
         "participants": "Participantes",
         "duration": "Duración",
         "guide": "Guía"
@@ -347,7 +347,7 @@
         "lang_es": "Español",
         "continue": "Continuar",
         "free_cancel": "Cancelación gratuita",
-        "free_cancel_text": "Reembolso total si cancelas con hasta 24 horas de antelación."
+        "free_cancel_text": "Reembolso total si cancelas con hasta 48 horas de antelación."
       },
       "weekdays": [
         "Lun",
