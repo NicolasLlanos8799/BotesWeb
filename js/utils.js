@@ -369,11 +369,11 @@ export function buildGoogleMapsUrl(lat, lng) {
   const latitude = parseFloat(lat);
   const longitude = parseFloat(lng);
   if (isNaN(latitude) || isNaN(longitude)) {
-    return "https://maps.app.goo.gl/43BRSB1fvjzAkYx78";
+    return "https://maps.app.goo.gl/yNtVvucLdrH4oaVo9";
   }
   // Return the user's specific short URL for the main meeting point
   if (Math.abs(latitude - 55.678722) < 0.0001 && Math.abs(longitude - 12.590747) < 0.0001) {
-    return "https://maps.app.goo.gl/43BRSB1fvjzAkYx78";
+    return "https://maps.app.goo.gl/yNtVvucLdrH4oaVo9";
   }
   return `https://maps.google.com/?q=${latitude},${longitude}`;
 }

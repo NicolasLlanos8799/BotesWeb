@@ -149,7 +149,7 @@
     },
     "meetingpoint": {
       "q": "Hvor starter turen?",
-      "a": "<p>Detaljer om mødested deles efter reservationsbekræftelse.</p>"
+      "a": "<p>Vi mødes ved Christians Brygge 28, c/o Housing Group A, S, sal sttv, 1219 København — lige ved siden af The Raft.</p>"
     }
   },
   "footer": {
@@ -320,8 +320,8 @@
       "meeting": {
         "address": "Adresse",
         "open_maps": "Åbn i Maps",
-        "description": "Ved kajen, foran Kayak Bar. Kig efter Seaduced-båden.",
-        "meetingPointDescription": "Ved kajen, foran Kayak Bar. Kig efter Seaduced-båden."
+        "description": "Christians Brygge 28, c/o Housing Group A, S, sal sttv, 1219 København — Lige ved siden af The Raft.",
+        "meetingPointDescription": "Christians Brygge 28, c/o Housing Group A, S, sal sttv, 1219 København — Lige ved siden af The Raft."
       },
       "booking": {
         "from": "Fra",
