@@ -9,6 +9,7 @@
     <xhtml:link rel="alternate" hreflang="da" href="https://www.seaduced-experience.com/da/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.seaduced-experience.com/es/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.seaduced-experience.com/"/>
+    <lastmod>2026-06-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -20,6 +21,7 @@
     <xhtml:link rel="alternate" hreflang="da" href="https://www.seaduced-experience.com/da/book/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.seaduced-experience.com/es/book/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.seaduced-experience.com/book/"/>
+    <lastmod>2026-06-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -30,6 +32,7 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://www.seaduced-experience.com/experiences/private-boat-copenhagen/"/>
     <xhtml:link rel="alternate" hreflang="da" href="https://www.seaduced-experience.com/da/experiences/private-boat-copenhagen/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.seaduced-experience.com/es/experiences/private-boat-copenhagen/"/>
+    <lastmod>2026-06-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -40,6 +43,7 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://www.seaduced-experience.com/experiences/private-boat-copenhagen-4h/"/>
     <xhtml:link rel="alternate" hreflang="da" href="https://www.seaduced-experience.com/da/experiences/private-boat-copenhagen-4h/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.seaduced-experience.com/es/experiences/private-boat-copenhagen-4h/"/>
+    <lastmod>2026-06-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -50,6 +54,7 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://www.seaduced-experience.com/experiences/private-boat-copenhagen-3h/"/>
     <xhtml:link rel="alternate" hreflang="da" href="https://www.seaduced-experience.com/da/experiences/private-boat-copenhagen-3h/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.seaduced-experience.com/es/experiences/private-boat-copenhagen-3h/"/>
+    <lastmod>2026-06-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -60,6 +65,7 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://www.seaduced-experience.com/experiences/private-boat-copenhagen-land-tour/"/>
     <xhtml:link rel="alternate" hreflang="da" href="https://www.seaduced-experience.com/da/experiences/private-boat-copenhagen-land-tour/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.seaduced-experience.com/es/experiences/private-boat-copenhagen-land-tour/"/>
+    <lastmod>2026-06-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -70,6 +76,7 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://www.seaduced-experience.com/experiences/city-highlights-10-people/"/>
     <xhtml:link rel="alternate" hreflang="da" href="https://www.seaduced-experience.com/da/experiences/city-highlights-10-people/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.seaduced-experience.com/es/experiences/city-highlights-10-people/"/>
+    <lastmod>2026-06-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -80,6 +87,7 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://www.seaduced-experience.com/experiences/private-boat-copenhagen-wine-tour/"/>
     <xhtml:link rel="alternate" hreflang="da" href="https://www.seaduced-experience.com/da/experiences/private-boat-copenhagen-wine-tour/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.seaduced-experience.com/es/experiences/private-boat-copenhagen-wine-tour/"/>
+    <lastmod>2026-06-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -90,8 +98,25 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://www.seaduced-experience.com/experiences/private-boat-copenhagen-malmo/"/>
     <xhtml:link rel="alternate" hreflang="da" href="https://www.seaduced-experience.com/da/experiences/private-boat-copenhagen-malmo/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.seaduced-experience.com/es/experiences/private-boat-copenhagen-malmo/"/>
+    <lastmod>2026-06-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+  </url>
+
+  <!-- Guide: Canal Tour Copenhagen -->
+  <url>
+    <loc>https://www.seaduced-experience.com/guides/canal-tour-copenhagen/</loc>
+    <lastmod>2026-06-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Guide: Nyhavn Boat Tour -->
+  <url>
+    <loc>https://www.seaduced-experience.com/guides/nyhavn-boat-tour/</loc>
+    <lastmod>2026-06-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
 
 </urlset>
