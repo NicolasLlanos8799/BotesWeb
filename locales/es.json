@@ -56,7 +56,7 @@
       "img_alt": "Experiencia de cata de vinos en barco",
       "title": "Cata de Vinos Flotante",
       "desc": "Disfruta de un tour privado de 2 horas en barco por Copenhague con una cata de vinos guiada, una tabla gourmet y una atmósfera relajada y premium en el agua.",
-      "price_note": "por grupo (hasta 6 pers.)",
+      "price_note": "por grupo (hasta 6)",
       "cta": "Reserva este tour"
     }
   },
@@ -142,7 +142,7 @@
     },
     "amenities": {
       "q": "¿Qué está incluido y qué debemos llevar?",
-      "a": "<p>Proporcionamos mantas y bebidas calientes en invierno, y agua fría en verano. Algunos paquetes incluyen snacks o champagne. Vendemos bebidas a bordo — no está permitido traer comida ni bebidas externas. Recomendamos ropa cómoda según el clima.</p>"
+      "a": "<p>Proporcionamos mantas y bebidas calientes en invierno, y agua fría en verano. Algunos paquetes incluyen snacks o champagne. Vendemos bebidas a bordo — <strong>no está permitido traer comida ni bebidas externas.</strong> Recomendamos ropa cómoda según el clima.</p>"
     },
     "policies": {
       "q": "Métodos de Pago y Política de Cancelación",
@@ -156,7 +156,7 @@
   "footer": {
     "location": "Estamos en Copenhague, Dinamarca",
     "hours": {
-      "summer": "Todos los días · Verano: 9:00 – 20:00",
+      "summer": "Verano: 9:00 – 20:00",
       "winter": "Invierno: 10:00 – 17:00"
     },
     "note": "Tours con reserva previa · Sujeto a las condiciones climáticas.",
@@ -173,9 +173,9 @@
       "title": "Descubre Copenhague<br /><em>desde el Mar</em>",
       "intro": "Vive los canales como nunca antes. Nuestros tours únicos combinan vistas impresionantes con el concepto danés de <strong>hygge</strong>, ofreciendo una forma íntima e inolvidable de explorar la ciudad.",
       "badge": {
-        "secure": "🔒 Reserva segura",
-        "cancel": "✅ Cancelación gratuita 48h",
-        "private": "🛥️ Tours 100% Privados"
+        "secure": "Reserva segura",
+        "cancel": "Cancelación gratuita 48h",
+        "private": "Tours 100% Privados"
       }
     },
     "season": "🌿 Primavera — Verano 2026",
@@ -199,37 +199,37 @@
       "highlights": {
         "title": "Copenhague Lo Mejor de la Ciudad",
         "desc": "Nuestro tour privado insignia de 1 o 2 horas con tu propio guía. Perfecto para una primera visita.",
-        "price_note": "por grupo (hasta 8 pers.)"
+        "price_note": "por grupo (hasta 8)"
       },
       "10p": {
         "title": "Copenhague Lo Mejor de la Ciudad (10 Personas)",
         "desc": "Ideal para grupos grandes. Un tour privado premium de 1 o 2 horas con espacio extra para todos.",
-        "price_note": "por grupo (hasta 10 pers.)"
+        "price_note": "por grupo (hasta 10)"
       },
       "reffen": {
         "title": "Puerto Extendido y Parada en Reffen",
         "desc": "3 horas de navegación privada con una parada de 1 hora en Reffen Street Food. Explora más allá del centro.",
-        "price_note": "por grupo (hasta 8 pers.)"
+        "price_note": "por grupo (hasta 8)"
       },
       "premium": {
         "title": "Fortaleza Marina y Viaje Costero",
         "desc": "Incluye paradas en Reffen y el Fuerte de Trekroner. Posibilidad de nadar y vistas a mar abierto.",
-        "price_note": "por grupo (hasta 8 pers.)"
+        "price_note": "por grupo (hasta 8)"
       },
       "wine": {
         "title": "Cata de Vinos Flotante",
         "desc": "Cata de vino guiada por un anfitrión. Incluye cuatro vinos seleccionados y una tabla gourmet.",
-        "price_note": "por grupo (hasta 6 pers.)"
+        "price_note": "por grupo (hasta 6)"
       },
       "land": {
         "title": "Escapada por Tierra y Mar",
         "desc": "Combina un crucero de 2 horas con un tour privado por tierra a Dragør y Kronborg.",
-        "price_note": "por grupo (hasta 6 pers.)"
+        "price_note": "por grupo (hasta 6)"
       },
       "malmo": {
         "title": "De Copenhague a Malmö",
         "desc": "Aventura transfronteriza a Suecia. Explora Malmö con tiempo libre suficiente.",
-        "price_note": "por grupo (hasta 10 pers.)"
+        "price_note": "por grupo (hasta 10)"
       }
     },
     "bespoke": {

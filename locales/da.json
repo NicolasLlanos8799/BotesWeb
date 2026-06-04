@@ -141,7 +141,7 @@
     },
     "amenities": {
       "q": "Hvad er inkluderet, og hvad skal vi medbringe?",
-      "a": "<p>Vi tilbyder tæpper og varme drikke om vinteren, og koldt vand om sommeren. Nogle pakker inkluderer snacks eller champagne. Vi sælger drikkevarer ombord — det er ikke tilladt at medbringe egen mad eller drikke. Vi anbefaler behageligt tøj efter vejret.</p>"
+      "a": "<p>Vi tilbyder tæpper og varme drikke om vinteren, og koldt vand om sommeren. Nogle pakker inkluderer snacks eller champagne. Vi sælger drikkevarer ombord — <strong>det er ikke tilladt at medbringe egen mad eller drikke.</strong> Vi anbefaler behageligt tøj efter vejret.</p>"
     },
     "policies": {
       "q": "Betalingsmetoder og afbestillingsregler",
@@ -172,9 +172,9 @@
       "title": "Oplev København<br /><em>fra vandet</em>",
       "intro": "Oplev kanalerne som aldrig før. Vores unikke ture kombinerer fantastiske udsigter med det danske koncept <strong>hygge</strong>, hvilket giver en intim og uforglemmelig måde at udforske byen på.",
       "badge": {
-        "secure": "🔒 Sikker booking",
-        "cancel": "✅ Gratis afbestilling 48t",
-        "private": "🛥️ 100% Private ture"
+        "secure": "Sikker booking",
+        "cancel": "Gratis afbestilling 48t",
+        "private": "100% Private ture"
       }
     },
     "season": "🌿 Forår — Sommer 2026",

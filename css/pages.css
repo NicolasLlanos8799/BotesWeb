@@ -896,6 +896,15 @@
   padding: 0.4em 1.1em;
   border-radius: var(--radius-full);
   backdrop-filter: blur(4px);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+}
+
+.booking-hero__badges span::before {
+  content: '✓';
+  font-size: 0.85em;
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .booking-main {
@@ -1145,18 +1154,25 @@
   }
 
   .booking-card__amount {
-    font-size: 1.25rem;
+    font-size: clamp(0.75rem, 3.2vw, 1rem);
+    white-space: nowrap;
   }
 
   .booking-card__price-note {
-    font-size: 0.7rem;
+    font-size: 0.58rem;
+    white-space: nowrap;
   }
 
   .booking-card__price {
-    gap: 0.3rem;
+    gap: 0.2rem;
+    flex-wrap: nowrap;
+    align-items: center;
   }
 
-  /* Spanish wraps naturally — no font shrinking needed */
+  .booking-card__price::before {
+    font-size: 0.55rem;
+    white-space: nowrap;
+  }
 }
 
 .booking-card__amount {

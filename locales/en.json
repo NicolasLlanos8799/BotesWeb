@@ -138,7 +138,7 @@
     },
     "amenities": {
       "q": "What is included and what should we bring?",
-      "a": "<p>We provide blankets and hot drinks in winter, and cold water in summer. Some packages include snacks or champagne. We sell drinks on board — outside food and beverages are not permitted. We recommend comfortable clothing and layers for the weather.</p>"
+      "a": "<p>We provide blankets and hot drinks in winter, and cold water in summer. Some packages include snacks or champagne. We sell drinks on board — <strong>outside food and beverages are not permitted.</strong> We recommend comfortable clothing and layers for the weather.</p>"
     },
     "policies": {
       "q": "Payment Methods and Cancellation Policy",
@@ -169,9 +169,9 @@
       "title": "Discover Copenhagen<br /><em>from the Sea</em>",
       "intro": "Experience the canals like never before. Our unique tours combine stunning views with the Danish concept of <strong>hygge</strong>, offering an intimate and unforgettable way to explore the city.",
       "badge": {
-        "secure": "🔒 Secure booking",
-        "cancel": "✅ Free cancellation 48h",
-        "private": "🛥️ 100% Private tours"
+        "secure": "Secure booking",
+        "cancel": "Free cancellation 48h",
+        "private": "100% Private tours"
       }
     },
     "season": "🌿 Spring — Summer 2026",
