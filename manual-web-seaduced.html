@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Manual de Uso — Seaduced Experience</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      color: #1a1a1a;
+      background: #fff;
+      font-size: 10.5pt;
+      line-height: 1.55;
+    }
+
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 0 auto;
+      padding: 13mm 16mm 13mm 16mm;
+    }
+
+    /* Header */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-bottom: 1.5px solid #c9a55c;
+      padding-bottom: 10px;
+      margin-bottom: 16px;
+    }
+    .header-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 22pt;
+      font-weight: 600;
+      color: #1a1a1a;
+      letter-spacing: -0.3px;
+    }
+    .header-brand em {
+      font-style: italic;
+      color: #c9a55c;
+    }
+    .header-meta {
+      text-align: right;
+      font-size: 8pt;
+      color: #888;
+      line-height: 1.6;
+    }
+    .header-meta strong {
+      display: block;
+      color: #555;
+      font-weight: 500;
+    }
+
+    /* Doc title */
+    .doc-title {
+      margin-bottom: 14px;
+    }
+    .doc-title h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 16pt;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 4px;
+    }
+    .doc-title p {
+      font-size: 9.5pt;
+      color: #666;
+      font-weight: 300;
+    }
+
+    /* Intro box */
+    .intro-box {
+      background: #fdf8ef;
+      border-left: 3px solid #c9a55c;
+      padding: 10px 14px;
+      margin-bottom: 18px;
+      border-radius: 0 4px 4px 0;
+    }
+    .intro-box p {
+      font-size: 9.5pt;
+      color: #444;
+      line-height: 1.6;
+    }
+
+    /* Section title */
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 11.5pt;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 13px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #e8e0d0;
+    }
+    .section-title .section-tag {
+      font-family: 'Inter', sans-serif;
+      font-size: 7.5pt;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      padding: 2px 8px;
+      border-radius: 3px;
+      background: #f5f5f5;
+      color: #777;
+    }
+
+    /* Steps */
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-bottom: 20px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 36px 1fr;
+      gap: 0 14px;
+    }
+
+    .step-left {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .step-num {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: #c9a55c;
+      color: #fff;
+      font-family: 'Playfair Display', serif;
+      font-size: 12pt;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      z-index: 1;
+    }
+
+    .step-num.admin {
+      background: #2a5298;
+    }
+
+    .step-line {
+      width: 1.5px;
+      flex: 1;
+      background: #e8e0d0;
+      margin-top: 4px;
+      margin-bottom: 4px;
+      min-height: 14px;
+    }
+
+    .step:last-child .step-line {
+      display: none;
+    }
+
+    .step-body {
+      padding-bottom: 16px;
+      padding-top: 3px;
+    }
+
+    .step-title {
+      font-weight: 600;
+      font-size: 10.5pt;
+      color: #1a1a1a;
+      margin-bottom: 4px;
+    }
+    .step-url {
+      display: inline-block;
+      font-size: 7.5pt;
+      color: #c9a55c;
+      background: #fdf8ef;
+      border: 1px solid #e8d9b8;
+      border-radius: 3px;
+      padding: 1px 6px;
+      font-family: 'Inter', monospace;
+      margin-bottom: 5px;
+    }
+    .step-desc {
+      font-size: 9.5pt;
+      color: #444;
+      line-height: 1.6;
+    }
+    .step-desc strong {
+      color: #1a1a1a;
+      font-weight: 600;
+    }
+
+    /* Tour grid */
+    .tour-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 7px;
+      margin-top: 7px;
+    }
+    .tour-card {
+      border: 1px solid #e8e0d0;
+      border-radius: 5px;
+      padding: 7px 9px;
+      background: #fafafa;
+    }
+    .tour-card-cat {
+      font-size: 7.5pt;
+      color: #c9a55c;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+    .tour-card-item {
+      font-size: 8.5pt;
+      color: #444;
+      line-height: 1.5;
+      padding: 1px 0;
+    }
+    .tour-card-item::before {
+      content: '·  ';
+      color: #c9a55c;
+    }
+
+    /* Form fields */
+    .form-fields {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 7px;
+    }
+    .form-field {
+      background: #f5f5f5;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+      padding: 3px 9px;
+      font-size: 8.5pt;
+      color: #555;
+    }
+
+    /* Tags */
+    .tag {
+      display: inline-block;
+      font-size: 8pt;
+      font-weight: 600;
+      border-radius: 3px;
+      padding: 2px 7px;
+      margin-right: 4px;
+    }
+    .tag-gold {
+      background: #fdf8ef;
+      color: #a07d2e;
+      border: 1px solid #e8d9b8;
+    }
+    .tag-green {
+      background: #f0faf4;
+      color: #2a7a4b;
+      border: 1px solid #b8dfc7;
+    }
+
+    /* Confirm box */
+    .confirm-box {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7px;
+      margin-top: 7px;
+    }
+    .confirm-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 7px;
+      background: #f8f8f8;
+      border: 1px solid #e8e0d0;
+      border-radius: 4px;
+      padding: 7px 10px;
+    }
+    .confirm-icon {
+      font-size: 13pt;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+    .confirm-text {
+      font-size: 8.5pt;
+      color: #444;
+      line-height: 1.5;
+    }
+    .confirm-text strong {
+      display: block;
+      color: #1a1a1a;
+      font-weight: 600;
+      margin-bottom: 1px;
+    }
+
+    /* Divider */
+    .section-divider {
+      border: none;
+      border-top: 2px dashed #e8e0d0;
+      margin: 20px 0 18px 0;
+    }
+
+    /* Admin calendar grid */
+    .cal-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .cal-card {
+      border-radius: 5px;
+      padding: 9px 12px;
+      border: 1px solid;
+    }
+    .cal-card.boat1 {
+      background: #eef4ff;
+      border-color: #b3cef5;
+    }
+    .cal-card.boat2 {
+      background: #f0f7ff;
+      border-color: #aacaf0;
+    }
+    .cal-card-name {
+      font-size: 9pt;
+      font-weight: 700;
+      color: #2a5298;
+      margin-bottom: 4px;
+    }
+    .cal-card-desc {
+      font-size: 8.5pt;
+      color: #444;
+      line-height: 1.5;
+    }
+
+    /* Admin event detail */
+    .event-detail {
+      background: #f5f8ff;
+      border: 1px solid #c5d8f5;
+      border-radius: 5px;
+      padding: 9px 12px;
+      margin-top: 8px;
+    }
+    .event-detail-title {
+      font-size: 8.5pt;
+      font-weight: 600;
+      color: #2a5298;
+      margin-bottom: 5px;
+    }
+    .event-detail-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3px 16px;
+    }
+    .event-detail-row {
+      font-size: 8pt;
+      color: #555;
+      line-height: 1.5;
+    }
+    .event-detail-row strong {
+      color: #1a1a1a;
+    }
+
+    /* Admin email */
+    .admin-email-box {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      background: #fffbf0;
+      border: 1px solid #f0dfa0;
+      border-radius: 5px;
+      padding: 9px 12px;
+      margin-top: 8px;
+    }
+    .admin-email-icon { font-size: 14pt; flex-shrink: 0; }
+    .admin-email-text { font-size: 8.5pt; color: #444; line-height: 1.5; }
+    .admin-email-text strong { color: #1a1a1a; font-weight: 600; }
+
+    /* Footer */
+    .footer {
+      border-top: 1px solid #e8e0d0;
+      margin-top: 18px;
+      padding-top: 9px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-left { font-size: 8pt; color: #aaa; }
+    .footer-right { font-size: 8pt; color: #aaa; text-align: right; }
+    .footer-right a { color: #c9a55c; text-decoration: none; }
+
+    @media print {
+      body { background: #fff; }
+      .page { margin: 0; padding: 11mm 14mm; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-brand">Seaduced <em>Experience</em></div>
+    <div class="header-meta">
+      <strong>Manual de Uso — Web</strong>
+      Versión 1.1 &nbsp;·&nbsp; Junio 2026
+    </div>
+  </div>
+
+  <!-- Doc title -->
+  <div class="doc-title">
+    <h1>Cómo funciona el sitio web</h1>
+    <p>Flujo completo: desde que el cliente llega al sitio hasta lo que tú ves automáticamente después de cada reserva.</p>
+  </div>
+
+  <!-- Intro -->
+  <div class="intro-box">
+    <p>El sitio web <strong>seaduced-experience.com</strong> permite que cualquier visitante reserve y pague una experiencia de forma completamente autónoma, las 24 horas. Cada reserva confirmada se registra automáticamente en tu Google Calendar y te llega un aviso por email — sin ningún paso manual de tu parte.</p>
+  </div>
+
+  <!-- PARTE 1: Cliente -->
+  <div class="section-title">Lo que ve y hace el cliente <span class="section-tag">Público</span></div>
+
+  <div class="steps">
+
+    <div class="step">
+      <div class="step-left"><div class="step-num">1</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-title">Llega al sitio web</div>
+        <span class="step-url">seaduced-experience.com</span>
+        <p class="step-desc">Accede desde Google, redes sociales o enlace directo. Puede cambiar el idioma (inglés, danés o español) desde el menú de navegación.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-left"><div class="step-num">2</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-title">Explora y elige una experiencia</div>
+        <span class="step-url">seaduced-experience.com/book</span>
+        <div class="tour-grid">
+          <div class="tour-card">
+            <div class="tour-card-cat">Canal Essentials</div>
+            <div class="tour-card-item">Tour privado 1 hora</div>
+            <div class="tour-card-item">Grupo hasta 10 personas</div>
+            <div class="tour-card-item">Tour privado 3h + Reffen</div>
+          </div>
+          <div class="tour-card">
+            <div class="tour-card-cat">Signature Experiences</div>
+            <div class="tour-card-item">Tour premium 4 horas</div>
+            <div class="tour-card-item">Wine tasting tour</div>
+            <div class="tour-card-item">Canal + City Land Tour</div>
+          </div>
+          <div class="tour-card">
+            <div class="tour-card-cat">Day Trips</div>
+            <div class="tour-card-item">Viaje a Malmö, Suecia</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-left"><div class="step-num">3</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-title">Selecciona fecha, hora y pasajeros</div>
+        <p class="step-desc">Un calendario muestra los días disponibles. Los días completos o bloqueados no son seleccionables. El precio total se actualiza automáticamente.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-left"><div class="step-num">4</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-title">Ingresa sus datos e extras opcionales</div>
+        <div class="form-fields">
+          <div class="form-field">Nombre completo</div>
+          <div class="form-field">Email</div>
+          <div class="form-field">Teléfono</div>
+        </div>
+        <p class="step-desc" style="margin-top:6px;">Puede agregar opcionalmente: <span class="tag tag-gold">Gourmet Charcuterie</span> — tabla de quesos, embutidos, pan orgánico y aceitunas. Ve un resumen completo de su reserva antes de confirmar.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-left"><div class="step-num">5</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-title">Paga con tarjeta (SumUp)</div>
+        <p class="step-desc">Al confirmar, se abre una pasarela de pago segura de <strong>SumUp</strong>. Acepta tarjeta de crédito y débito. El proceso es encriptado y tarda menos de un minuto.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-left"><div class="step-num">6</div></div>
+      <div class="step-body">
+        <div class="step-title">Recibe confirmación instantánea</div>
+        <div class="confirm-box">
+          <div class="confirm-item">
+            <div class="confirm-icon">✉️</div>
+            <div class="confirm-text">
+              <strong>Email de confirmación</strong>
+              Con todos los detalles: experiencia, fecha, hora, punto de encuentro y precio.
+            </div>
+          </div>
+          <div class="confirm-item">
+            <div class="confirm-icon">📅</div>
+            <div class="confirm-text">
+              <strong>Invitación de calendario (.ics)</strong>
+              Adjunta al email, para añadir la salida a Google Calendar, Apple o Outlook.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /steps cliente -->
+
+  <hr class="section-divider" />
+
+  <!-- PARTE 2: Administrador -->
+  <div class="section-title">Lo que ves tú automáticamente <span class="section-tag">Administrador</span></div>
+
+  <div class="steps">
+
+    <div class="step">
+      <div class="step-left"><div class="step-num admin">A</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-title">La reserva aparece en tu Google Calendar</div>
+        <p class="step-desc">Cada reserva pagada se crea automáticamente como un evento en el calendario de Google correspondiente al barco asignado. Tienes dos calendarios separados:</p>
+        <div class="cal-grid">
+          <div class="cal-card boat1">
+            <div class="cal-card-name">📅 Seaduced Experience WEB — Boat 1</div>
+            <div class="cal-card-desc">Recibe las reservas asignadas al primer barco. Los eventos bloquean esa franja horaria automáticamente.</div>
+          </div>
+          <div class="cal-card boat2">
+            <div class="cal-card-name">📅 Seaduced Experience WEB — Boat 2</div>
+            <div class="cal-card-desc">Recibe las reservas asignadas al segundo barco. Permite gestionar dos salidas en paralelo.</div>
+          </div>
+        </div>
+        <div class="event-detail">
+          <div class="event-detail-title">📌 Cada evento de calendario incluye:</div>
+          <div class="event-detail-grid">
+            <div class="event-detail-row">✦ Nombre del tour</div>
+            <div class="event-detail-row">✦ Nombre del cliente</div>
+            <div class="event-detail-row">✦ Email y teléfono</div>
+            <div class="event-detail-row">✦ Número de pasajeros</div>
+            <div class="event-detail-row">✦ Fecha y duración exacta</div>
+            <div class="event-detail-row">✦ Precio total pagado</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-left"><div class="step-num admin">B</div><div class="step-line"></div></div>
+      <div class="step-body">
+        <div class="step-title">El calendario controla la disponibilidad en la web</div>
+        <p class="step-desc">Cuando un cliente abre el calendario en el sitio web para elegir fecha y hora, la web consulta en tiempo real el Google Calendar del barco correspondiente. <strong>Cualquier hora que ya tenga un evento creado queda automáticamente bloqueada</strong> y no es seleccionable.</p>
+        <div class="event-detail" style="background:#f5fff8; border-color:#b8dfc7; margin-top:8px;">
+          <div class="event-detail-title" style="color:#2a7a4b;">✦ Esto significa que puedes bloquear fechas manualmente</div>
+          <p class="step-desc" style="margin-top:5px;">Si necesitas bloquear un día o una franja horaria (por mantenimiento, reserva privada, día libre, etc.), simplemente <strong>crea un evento en el Google Calendar de ese barco</strong> con las horas que quieras bloquear. La web lo tomará en cuenta de inmediato y ese horario dejará de aparecer como disponible para los clientes.</p>
+        </div>
+        <p class="step-desc" style="margin-top:8px;">El horario disponible para reservas es de <strong>09:00 a 18:00</strong> (última reserva a las 18:00). Fuera de ese rango, la web no muestra horarios.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-left"><div class="step-num admin">C</div></div>
+      <div class="step-body">
+        <div class="step-title">Recibes un email de notificación</div>
+        <div class="admin-email-box">
+          <div class="admin-email-icon">⚓</div>
+          <div class="admin-email-text">
+            <strong>Email automático a seaducedexperience@gmail.com</strong>
+            Cada vez que se confirma una reserva, recibes un aviso con el resumen completo: nombre del cliente, tour, fecha, hora, pasajeros y total pagado. No necesitas revisar nada manualmente — la información llega directamente a tu inbox.
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /steps admin -->
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="footer-left">Seaduced Experience &nbsp;·&nbsp; Manual de Uso Web v1.1</div>
+    <div class="footer-right">Desarrollado por <a href="#">WeAreLeba</a></div>
+  </div>
+
+</div>
+</body>
+</html>
