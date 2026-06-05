@@ -407,7 +407,8 @@ button {
 <link rel="icon" href="/assets/icons/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/assets/icons/favicon.png" type="image/png" sizes="192x192" />
     <link rel="apple-touch-icon" href="/assets/icons/favicon.png" />
-  <link rel="preload" as="image" href="/assets/images/general/hero_canal_copenhagen3.webp" fetchpriority="high" />
+  <link rel="preload" as="image" href="/assets/images/general/hero_canal_copenhagen3-mobile.webp" fetchpriority="high" media="(max-width: 768px)" />
+  <link rel="preload" as="image" href="/assets/images/general/hero_canal_copenhagen3.webp" fetchpriority="high" media="(min-width: 769px)" />
 
   <meta name="robots" content="index, follow" />
   <meta name="author" content="Seaduced Experience" />
@@ -524,6 +525,7 @@ button {
     <section class="hero" id="hero">
       <div class="hero__bg">
         <picture>
+          <source media="(max-width: 768px)" srcset="/assets/images/general/hero_canal_copenhagen3-mobile.webp">
           <img fetchpriority="high" src="/assets/images/general/hero_canal_copenhagen3.webp" alt="Copenhagen canals boat tour" title="Private boat tour through Copenhagen's scenic canals"
             class="hero__bg-img" data-i18n-attr="alt:hero.img_alt" />
         </picture>
@@ -590,6 +592,8 @@ button {
               aria-label="View Copenhagen private guided boat tour details">
               <div class="tour-card__img-wrap">
                 <img src="/assets/images/city-highlights/island-brygge-guests.webp"
+                  srcset="/assets/images/city-highlights/island-brygge-guests-mobile.webp 700w, /assets/images/city-highlights/island-brygge-guests.webp 960w"
+                  sizes="(max-width: 768px) 700px, 960px"
                   alt="City Highlights private boat tour" title="City Highlights – private boat tour Copenhagen, Islands Brygge" loading="lazy" width="960" height="600"
                   data-i18n-attr="alt:tour.highlights.img_alt" />
                 <span class="tour-card__tag"><span data-i18n="experiences.ui.info.duration">Duration</span> 1h -
@@ -624,6 +628,8 @@ button {
               aria-label="View Floating Wine Tasting experience details">
               <div class="tour-card__img-wrap">
                 <img src="/assets/images/wine-tour/wine-tour-guests.webp"
+                  srcset="/assets/images/wine-tour/wine-tour-guests-mobile.webp 700w, /assets/images/wine-tour/wine-tour-guests.webp 960w"
+                  sizes="(max-width: 768px) 700px, 960px"
                   alt="Floating wine tasting boat tour in Copenhagen" title="Private floating wine tasting boat tour in Copenhagen" loading="lazy" width="960" height="600" />
                 <span class="tour-card__tag"><span data-i18n="experiences.ui.info.duration">Duration</span> 2h</span>
               </div>
@@ -652,7 +658,10 @@ button {
               data-i18n-href="/experiences/private-boat-copenhagen-4h/"
               aria-label="View Private Boat and Sea Fortress Highlights details">
               <div class="tour-card__img-wrap">
-                <img src="/assets/images/sea-fortress-4h/fortress.webp" alt="Private 4-Hour Premium Experience"
+                <img src="/assets/images/sea-fortress-4h/fortress.webp"
+                  srcset="/assets/images/sea-fortress-4h/fortress-mobile.webp 700w, /assets/images/sea-fortress-4h/fortress.webp 960w"
+                  sizes="(max-width: 768px) 700px, 960px"
+                  alt="Private 4-Hour Premium Experience"
                   title="Private 4-hour boat tour to Trekroner Sea Fortress, Copenhagen" loading="lazy" width="960" height="600" data-i18n-attr="alt:tour.premium.img_alt" />
                 <span class="tour-card__tag"><span data-i18n="experiences.ui.info.duration">Duration</span> 4h</span>
               </div>
@@ -748,7 +757,10 @@ button {
 
           <div class="welcome-split__images reveal">
             <div class="img-stack">
-              <img src="/assets/images/general/oni.webp" alt="Captain Oni welcoming guests on board" title="Captain Oni – local guide for private boat tours in Copenhagen" loading="lazy"
+              <img src="/assets/images/general/oni.webp"
+                srcset="/assets/images/general/oni-mobile.webp 700w, /assets/images/general/oni.webp 816w"
+                sizes="(max-width: 768px) 700px, 816px"
+                alt="Captain Oni welcoming guests on board" title="Captain Oni – local guide for private boat tours in Copenhagen" loading="lazy"
                 width="600" height="800" />
             </div>
           </div>

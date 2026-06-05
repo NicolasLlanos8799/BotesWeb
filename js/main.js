@@ -1,6 +1,3 @@
-import { initBookingPage } from "./booking.js";
-import { initExperiencePage } from "./experience.js";
-import { initReservePage } from "./reserve.js";
 import {
   readBookingFromUrl,
   saveBooking,
@@ -20,15 +17,15 @@ document.addEventListener("DOMContentLoaded", () => {
   initLanguagePersistence();
 
   if (document.body.classList.contains("booking-page")) {
-    initBookingPage();
+    import("./booking.js").then(({ initBookingPage }) => initBookingPage());
   }
 
   if (document.body.classList.contains("reserve-page")) {
-    initReservePage();
+    import("./reserve.js").then(({ initReservePage }) => initReservePage());
   }
 
   if (document.body.classList.contains("experience-page")) {
-    initExperiencePage();
+    import("./experience.js").then(({ initExperiencePage }) => initExperiencePage());
   }
   initGoogleMapsLinks();
 });
