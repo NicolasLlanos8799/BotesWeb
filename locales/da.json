@@ -32,7 +32,7 @@
       "img_alt": "København Byens højdepunkter privat bådtur",
       "title": "København Byens højdepunkter",
       "desc": "Oplev Københavns højdepunkter på en privat bådtur med din egen lokale guide. Oplev den autentiske \"hygge\"-livsstil med musik, drikkevarer og panoramaudsigt over havnen.",
-      "price_note": "pr. gruppe op til 8",
+      "price_note": "pr. gruppe op til 6",
       "cta": "Book denne tur"
     },
     "premium": {
@@ -40,7 +40,7 @@
       "img_alt": "Privat 4-timers premium oplevelse",
       "title": "Søfort og Kystrejse",
       "desc": "4 timers privat sejlads, inklusiv 1 time ved Reffen og 1 time ved Trekroner Fort. Mulighed for svømmestop og udsigt over det åbne vand.",
-      "price_note": "pr. gruppe op til 8",
+      "price_note": "pr. gruppe op til 6",
       "cta": "Book denne tur"
     },
     "reffen": {
@@ -48,7 +48,7 @@
       "img_alt": "Udvidet Havnerundfart og Reffen-stop",
       "title": "Udvidet Havnerundfart og Reffen-stop",
       "desc": "Inkluderer 3 timers privat sejlads med et 1-times stop ved Reffen Street Food. Udvidet rute ud over de centrale kanaler.",
-      "price_note": "pr. gruppe op til 8",
+      "price_note": "pr. gruppe op til 6",
       "cta": "Book denne tur"
     },
     "wine": {
@@ -198,7 +198,7 @@
       "highlights": {
         "title": "København Byens højdepunkter",
         "desc": "Vores signatur 1 eller 2 timer private bådtur med din egen guide. Perfekt til det første besøg.",
-        "price_note": "pr. gruppe op til 8"
+        "price_note": "pr. gruppe op til 6"
       },
       "10p": {
         "title": "København Byens højdepunkter (10 gæster)",
@@ -208,7 +208,7 @@
       "reffen": {
         "title": "Udvidet havnerundfart og Reffen-stop",
         "desc": "3 timers privat sejlads med et 1-times stop ved Reffen Street Food. Udforsk mere end blot centrum.",
-        "price_note": "pr. gruppe op til 8"
+        "price_note": "pr. gruppe op til 6"
       },
       "wine": {
         "title": "Flydende vinsmagning",
@@ -218,7 +218,7 @@
       "premium": {
         "title": "Søfæstning og kystrejse",
         "desc": "Inkluderer stop ved Reffen og Trekroner Fort. Mulighed for svømning og udsigt over åbent vand.",
-        "price_note": "pr. gruppe op til 8"
+        "price_note": "pr. gruppe op til 6"
       },
       "land": {
         "title": "Båd- og land-escape",
@@ -373,15 +373,15 @@
       "hero_html": "Copenhagen <span class=\"title-accent\">Byens</span> højdepunkter",
       "intro": "Oplev København fra vandet på en privat tur med lokal kaptajn. Sejl gennem byens kanaler, nyd musik og drikkevarer ombord, og betrag nogle af de mest ikoniske seværdigheder fra et unikt og afslappet perspektiv.",
       "info": {
-        "participants_val": "Privat gruppe (maks 8)",
+        "participants_val": "Privat gruppe (maks 6)",
         "duration_val": "1 eller 2 timer",
         "guide_val": "Engelsk, Spansk"
       },
       "flag": "Populært valg",
       "booking": {
         "price": "2,499 DKK",
-        "price_note": "pr. gruppe op til 8",
-        "up_to": "Op til 8 gæster",
+        "price_note": "pr. gruppe op til 6",
+        "up_to": "Op til 6 gæster",
         "save_2h": "Du sparer 898 kr."
       },
       "story_paras": [
@@ -412,7 +412,7 @@
         ],
         "rules": [
           "Ingen hop eller rygning ombord",
-          "Maks 8 gæster pr. booking",
+          "Maks 6 gæster pr. booking",
           "Kraftig regn: fuld refusion garanteret"
         ]
       },
@@ -479,15 +479,15 @@
       "hero_html": "<span class=\"title-accent\">Udvidet havnerundfart</span> og Reffen-stop",
       "intro": "Udforsk København ud over højdepunkterne på en 3-timers privat bådoplevelse med din egen kaptajn. Sejl gennem kanalerne, stop ved Reffen street food marked, nyd musik og drikkevarer ombord, og oplev byen i dit eget tempo — afslappet, fleksibelt og helt privat.",
       "info": {
-        "participants_val": "Privat gruppe (maks. 8)",
+        "participants_val": "Privat gruppe (maks. 6)",
         "duration_val": "3 timer",
         "guide_val": "Engelsk, Spansk"
       },
       "flag": "Populært valg",
       "booking": {
         "price": "4,299 DKK",
-        "price_note": "pr. gruppe op til 8",
-        "up_to": "Op til 8 gæster"
+        "price_note": "pr. gruppe op til 6",
+        "up_to": "Op til 6 gæster"
       },
       "story_paras": [
         "Denne 3-timers private bådtur er den perfekte balance mellem sightseeing og oplevelse. Du vil udforske Københavns kanaler og havn i dybden, mens du har tid til at stoppe, slappe af og virkelig nyde byen fra vandet.",
@@ -520,7 +520,7 @@
         ],
         "rules": [
           "Ingen udspring eller rygning ombord",
-          "Maks. 8 gæster pr. booking",
+          "Maks. 6 gæster pr. booking",
           "Kraftig regn: fuld refusion garanteret",
           "Mad ved Reffen er ikke inkluderet i prisen"
         ]
@@ -535,15 +535,15 @@
       "hero_html": "<span class=\"title-accent\">Søfort</span> og kystrejse",
       "intro": "Oplev den ultimative bådtur i København på en 4-timers privat rejse med din egen kaptajn. Sejl gennem kanalerne, stop ved Reffen street food marked, besøg Den Lille Havfrue og sejl ud i åbent vand for at udforske det historiske Trekroner Fort — alt i dit eget tempo, helt privat.",
       "info": {
-        "participants_val": "Privat gruppe (maks. 8)",
+        "participants_val": "Privat gruppe (maks. 6)",
         "duration_val": "4 timer",
         "guide_val": "Engelsk, Spansk"
       },
       "flag": "Populært valg",
       "booking": {
         "price": "5,999 DKK",
-        "price_note": "pr. gruppe op til 8",
-        "up_to": "Op til 8 gæster"
+        "price_note": "pr. gruppe op til 6",
+        "up_to": "Op til 6 gæster"
       },
       "story_paras": [
         "Denne 4-timers private bådtur er den fulde København-oplevelse. Du vil udforske byens kanaler og havn i dybden, med tid til at stoppe, slappe af og gå ud over de typiske ruter.",
@@ -580,7 +580,7 @@
         ],
         "rules": [
           "Ingen udspring eller rygning ombord",
-          "Maks. 8 gæster pr. booking",
+          "Maks. 6 gæster pr. booking",
           "Kraftig regn: fuld refusion garanteret",
           "Mad ved Reffen er ikke inkluderet i prisen"
         ]

@@ -31,21 +31,21 @@
       "tag": "Private · 1h",
       "title": "Copenhagen City Highlights",
       "desc": "Discover Copenhagen's city highlights on a private boat tour with your own local guide. Experience the authentic \"hygge\" lifestyle with music, drinks, and panoramic harbor views.",
-      "price_note": "per group up to 8",
+      "price_note": "per group up to 6",
       "cta": "Book This Tour"
     },
     "premium": {
       "tag": "Private · 4h",
       "title": "Sea Fortress and Coastal Journey",
       "desc": "4 hours of private sailing, including 1 hour at Reffen and 1 hour at Trekroner Fort. Swimming stop possibility and open water views.",
-      "price_note": "per group up to 8",
+      "price_note": "per group up to 6",
       "cta": "Book This Tour"
     },
     "reffen": {
       "tag": "Private · 3h",
       "title": "Harbor Extended and Reffen Stop",
       "desc": "Includes 3 hours of private sailing with a 1-hour stop at Reffen Street Food. Extended route beyond the central canals.",
-      "price_note": "per group up to 8",
+      "price_note": "per group up to 6",
       "cta": "Book This Tour"
     },
     "wine": {
@@ -195,7 +195,7 @@
       "highlights": {
         "title": "Copenhagen City Highlights",
         "desc": "Our signature 1 or 2 hours private boat tour with your own guide. Perfect for a first visit.",
-        "price_note": "per group up to 8"
+        "price_note": "per group up to 6"
       },
       "10p": {
         "title": "Copenhagen City Highlights (10 Guests)",
@@ -205,12 +205,12 @@
       "reffen": {
         "title": "Harbor Extended and Reffen Stop",
         "desc": "3 hours of private sailing with a 1-hour stop at Reffen Street Food. Explore beyond the center.",
-        "price_note": "per group up to 8"
+        "price_note": "per group up to 6"
       },
       "premium": {
         "title": "Sea Fortress and Coastal Journey",
         "desc": "Includes stops at Reffen and Trekroner Fort. Swimming possible and open water views.",
-        "price_note": "per group up to 8"
+        "price_note": "per group up to 6"
       },
       "wine": {
         "title": "Floating Wine Tasting",
@@ -370,15 +370,15 @@
       "hero_html": "Copenhagen <span class=\"title-accent\">City</span> Highlights",
       "intro": "Discover Copenhagen from the water on a private tour with a local captain. Sail through the city’s canals, enjoy music and drinks on board, and take in some of the most iconic sights from a unique and relaxed perspective.",
       "info": {
-        "participants_val": "Private group (max 8)",
+        "participants_val": "Private group (max 6)",
         "duration_val": "1 or 2 hours",
         "guide_val": "English, Spanish"
       },
       "flag": "Popular choice",
       "booking": {
         "price": "2,499 DKK",
-        "price_note": "per group up to 8",
-        "up_to": "Up to 8 guests",
+        "price_note": "per group up to 6",
+        "up_to": "Up to 6 guests",
         "save_2h": "You save 898 DKK"
       },
       "story_paras": [
@@ -409,7 +409,7 @@
         ],
         "rules": [
           "No jumping or smoking on board",
-          "Max 8 guests per booking",
+          "Max 6 guests per booking",
           "Heavy rain: full refund guaranteed"
         ]
       },
@@ -476,15 +476,15 @@
       "hero_html": "<span class=\"title-accent\">Harbor Extended</span> and Reffen Stop",
       "intro": "Explore Copenhagen beyond the highlights on a 3-hour private boat experience with your own captain. Cruise through the canals, stop at Reffen street food market, enjoy music and drinks on board, and experience the city at your own pace — relaxed, flexible, and fully private.",
       "info": {
-        "participants_val": "Private group (max 8)",
+        "participants_val": "Private group (max 6)",
         "duration_val": "3 hours",
         "guide_val": "English, Spanish"
       },
       "flag": "Popular choice",
       "booking": {
         "price": "4,299 DKK",
-        "price_note": "per group up to 8",
-        "up_to": "Up to 8 guests"
+        "price_note": "per group up to 6",
+        "up_to": "Up to 6 guests"
       },
       "story_paras": [
         "This 3-hour private boat tour is the perfect balance between sightseeing and experience. You’ll explore Copenhagen’s canals and harbor in depth, while having time to stop, relax, and truly enjoy the city from the water.",
@@ -517,7 +517,7 @@
         ],
         "rules": [
           "No jumping or smoking on board",
-          "Max 8 guests per booking",
+          "Max 6 guests per booking",
           "Heavy rain: full refund guaranteed",
           "Food at Reffen is not included in the price"
         ]
@@ -532,15 +532,15 @@
       "hero_html": "<span class=\"title-accent\">Sea Fortress</span> and Coastal Journey",
       "intro": "Experience the ultimate Copenhagen boat tour on a 4-hour private journey with your own captain. Cruise through the canals, stop at Reffen street food market, visit the Little Mermaid, and sail into open water to explore the historic Trekroner Fort — all at your own pace, fully private.",
       "info": {
-        "participants_val": "Private group (max 8)",
+        "participants_val": "Private group (max 6)",
         "duration_val": "4 hours",
         "guide_val": "English, Spanish"
       },
       "flag": "Popular choice",
       "booking": {
         "price": "5,999 DKK",
-        "price_note": "per group up to 8",
-        "up_to": "Up to 8 guests"
+        "price_note": "per group up to 6",
+        "up_to": "Up to 6 guests"
       },
       "story_paras": [
         "This 4-hour private boat tour is the full Copenhagen experience. You’ll explore the city’s canals and harbor in depth, with time to stop, relax, and go beyond the typical routes.",
@@ -577,7 +577,7 @@
         ],
         "rules": [
           "No jumping or smoking on board",
-          "Max 8 guests per booking",
+          "Max 6 guests per booking",
           "Heavy rain: full refund guaranteed",
           "Food at Reffen is not included in the price"
         ]

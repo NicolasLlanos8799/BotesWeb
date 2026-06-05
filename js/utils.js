@@ -12,6 +12,7 @@ export const TOURS = {
     durationDa: "1 Time",
     img: "/assets/images/city-highlights/island-brygge-guests.webp",
     url: "/experiences/private-boat-copenhagen/",
+    maxParticipants: 6,
     calendar: "boat1",
   },
   "book-winter": {
@@ -25,6 +26,7 @@ export const TOURS = {
     durationDa: "2 Timer",
     img: "/assets/images/winter-seasonal/tour_winter_hygge.webp",
     url: "/experiences/private-boat-copenhagen-3h/", // Placeholder until real path confirmed
+    maxParticipants: 6,
     calendar: "boat1",
   },
   "book-reffen": {
@@ -38,6 +40,7 @@ export const TOURS = {
     durationDa: "3 Timer",
     img: "/assets/images/reffen-3h/bote-reffen.webp",
     url: "/experiences/private-boat-copenhagen-3h/",
+    maxParticipants: 6,
     calendar: "boat1",
   },
   "book-premium": {
@@ -51,6 +54,7 @@ export const TOURS = {
     durationDa: "4 Timer",
     img: "/assets/images/sea-fortress-4h/black-diamond-guests.webp",
     url: "/experiences/private-boat-copenhagen-4h/",
+    maxParticipants: 6,
     calendar: "boat1",
   },
   "book-winter-captain": {
@@ -64,6 +68,7 @@ export const TOURS = {
     durationDa: "1 Time",
     img: "/assets/images/city-highlights/island-brygge-guests.webp",
     url: "/experiences/private-boat-copenhagen/",
+    maxParticipants: 6,
     calendar: "boat1",
   },
   "book-winter-hygge": {
@@ -77,6 +82,7 @@ export const TOURS = {
     durationDa: "2 Timer",
     img: "/assets/images/winter-seasonal/tour_winter_hygge_book.webp",
     url: "/experiences/private-boat-copenhagen-3h/",
+    maxParticipants: 6,
     calendar: "boat1",
   },
   "book-christmas": {
@@ -90,6 +96,7 @@ export const TOURS = {
     durationDa: "2 Timer",
     img: "/assets/images/winter-seasonal/tour_christmas_champagne.webp",
     url: "/experiences/private-boat-copenhagen-3h/",
+    maxParticipants: 6,
     calendar: "boat1",
   },
   "book-malmo": {
@@ -162,6 +169,7 @@ export const TOURS = {
     durationDa: "2 Timer",
     img: "/assets/images/city-highlights/island-brygge-guests.webp",
     url: "/experiences/private-boat-copenhagen/",
+    maxParticipants: 6,
     calendar: "boat1",
   },
   "book-10p-2h": {

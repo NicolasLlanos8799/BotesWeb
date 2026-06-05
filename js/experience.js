@@ -202,7 +202,7 @@ function initBookingPanel() {
   function syncPeopleValue(nextValue) {
     const tourId = getCurrentTourId();
     const tourConfig = TOURS[tourId] || {};
-    const maxPeople = tourConfig.maxParticipants || 8;
+    const maxPeople = tourConfig.maxParticipants || 6;
 
     const safeValue = Math.max(1, Math.min(maxPeople, nextValue));
     peopleValueInput.value = String(safeValue);
