@@ -1,0 +1,82 @@
+import db from "../lib/db.js";
+
+/**
+ * DEMO Booking Endpoint
+ *
+ * Bypasses SumUp entirely. Accepts booking metadata directly,
+ * saves to Postgres with a DEMO- prefixed fake sumup_id,
+ * and triggers GAS_DEMO_URL to create the calendar event + send email.
+ * Only works when APP_ENV === "demo".
+ */
+export default async function handler(req, res) {
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method not allowed" });
+  }
+
+  if ((process.env.APP_ENV || "demo") !== "demo") {
+    return res.status(403).json({ error: "Demo endpoint not available in production" });
+  }
+
+  const GAS_DEMO_URL = process.env.GAS_DEMO_URL;
+  const metadata = req.body || {};
+
+  if (!metadata.date || !metadata.time || !metadata.name) {
+    return res.status(400).json({ error: "Missing required booking fields" });
+  }
+
+  const fakeSumupId = `DEMO-${Date.now()}`;
+
+  // Save to Postgres
+  try {
+    await db`
+      INSERT INTO bookings (
+        tour_id, tour_name, customer_name, customer_email, customer_phone,
+        passengers, booking_date, booking_time, total_price, payment_status, sumup_id, lang
+      ) VALUES (
+        ${metadata.tour || null},
+        ${metadata.tourTitle || null},
+        ${metadata.name || null},
+        ${metadata.email || null},
+        ${metadata.phone || null},
+        ${metadata.qty || 1},
+        ${metadata.date || null},
+        ${metadata.time || null},
+        ${metadata.total || 0},
+        'PAID',
+        ${fakeSumupId},
+        ${metadata.lang || 'english'}
+      )
+      ON CONFLICT (sumup_id) DO NOTHING
+    `;
+    console.log("[DEMO] Saved to Postgres:", fakeSumupId);
+  } catch (dbErr) {
+    console.error("[DEMO] Postgres error:", dbErr.message);
+    // Non-fatal — continue to GAS
+  }
+
+  // Trigger GAS (demo AppScript) → calendar event + email
+  if (GAS_DEMO_URL) {
+    try {
+      const gasResponse = await fetch(GAS_DEMO_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: "createBooking",
+          ...metadata,
+          payment_status: "PAID",
+          sumup_checkout_id: fakeSumupId,
+          amount: metadata.total || 0,
+          currency: "DKK"
+        })
+      });
+      const gasResult = await gasResponse.text();
+      console.log("[DEMO] GAS response:", gasResponse.status, gasResult);
+    } catch (gasErr) {
+      console.error("[DEMO] GAS error:", gasErr.message);
+    }
+  } else {
+    console.warn("[DEMO] GAS_DEMO_URL not set — skipping calendar/email");
+  }
+
+  return res.status(200).json({ success: true, demo: true, sumup_id: fakeSumupId });
+}

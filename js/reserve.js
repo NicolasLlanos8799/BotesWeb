@@ -220,6 +220,8 @@ export function initReservePage() {
   let pollingInterval = null;
   let pollingTimeout = null;
   let currentCheckoutId = null;
+  let appEnv = null; // fetched once at init
+  fetch("/api/app-env").then(r => r.json()).then(d => { appEnv = d.env; }).catch(() => {});
 
   function getOverlay() {
     return document.getElementById("payment-overlay");
@@ -569,6 +571,46 @@ export function initReservePage() {
     const currentTour = getTour(current.tour) || tour;
     const tapasTotal = current.tapas * EXTRA_CHARCUTERIE.price;
     const total = currentTour.price + tapasTotal;
+
+    // ── DEMO MODE: skip SumUp, create booking directly ────────────────────
+    if (appEnv === null) {
+      try { const r = await fetch("/api/app-env"); const d = await r.json(); appEnv = d.env; } catch (_) {}
+    }
+    if (appEnv === "demo") {
+      try {
+        const demoMetadata = {
+          name: String(name),
+          email: String(email),
+          phone: String(phone),
+          tour: String(currentTour.id || getLocalizedValue(currentTour, "title", current.lang)),
+          tourTitle: String(getLocalizedValue(currentTour, "title", current.lang)),
+          calendar: String(currentTour.calendar || "boat1"),
+          date: String(current.date),
+          time: String(current.time),
+          qty: String(current.qty),
+          lang: String(current.lang),
+          tapas: String(tapasTotal > 0 ? (tapasTotal / 350) : "0"),
+          total: String(total)
+        };
+        const demoRes = await fetch("/api/demo-booking", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(demoMetadata)
+        });
+        const demoResult = await demoRes.json();
+        if (demoResult.success) {
+          showSuccessUI(getLocalizedValue(currentTour, "title", current.lang));
+        } else {
+          throw new Error(demoResult.error || "Demo booking failed");
+        }
+      } catch (err) {
+        console.error("Demo booking error:", err);
+        await seaAlert("Demo booking error: " + err.message, { type: "error", lang: currentLocale });
+        resetButtons();
+      }
+      return;
+    }
+    // ── END DEMO MODE ──────────────────────────────────────────────────────
 
     try {
       const checkoutData = {

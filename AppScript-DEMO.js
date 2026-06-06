@@ -163,7 +163,9 @@ function handleCreateBooking(data) {
   // Duration
   var durationH = 1;
   var tour = data.tour || data.tourTitle || "";
-  if (tour.includes('1-Hour') || tour.includes('Highlights') || tour.includes('book-1h')) durationH = 1;
+  // 2-hour Highlights variants must be checked BEFORE the generic 'Highlights' → 1h rule
+  if (tour.includes('2 Hours') || tour.includes('book-1h-2h') || tour.includes('book-10p-2h')) durationH = 2;
+  else if (tour.includes('1-Hour') || tour.includes('Highlights') || tour.includes('book-1h') || tour.includes('book-10p')) durationH = 1;
   if (tour.includes('Floating Wine')) durationH = 2;
   if (tour.includes('3-Hour')) durationH = 3;
   if (tour.includes('4-Hour')) durationH = 4;
