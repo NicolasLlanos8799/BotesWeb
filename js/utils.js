@@ -233,7 +233,8 @@ export function normalizeBooking(input = {}) {
   };
 
   next.tour = next.tour && TOURS[next.tour] ? next.tour : defaults.tour;
-  next.qty = Math.min(12, Math.max(1, toPositiveInt(next.qty, defaults.qty)));
+  const maxQty = TOURS[next.tour]?.maxParticipants || 6;
+  next.qty = Math.min(maxQty, Math.max(1, toPositiveInt(next.qty, defaults.qty)));
   next.tapas = Math.max(0, toPositiveInt(next.tapas, defaults.tapas));
 
   const allowedLangs = ["english", "spanish", "danish"];

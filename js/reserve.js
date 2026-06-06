@@ -143,7 +143,8 @@ export function initReservePage() {
       elements.peopleMinus.disabled = (current.qty || 1) <= 1;
     }
     if (elements.peoplePlus) {
-      elements.peoplePlus.disabled = (current.qty || 1) >= 8;
+      const maxQty = TOURS[current.tour]?.maxParticipants || 6;
+      elements.peoplePlus.disabled = (current.qty || 1) >= maxQty;
     }
     if (elements.langDisplay) {
       const langMap = {
