@@ -546,8 +546,7 @@ function initBookingPanel() {
   }
 
   function isDateAvailable(date) {
-    const weekday = date.getDay();
-    return date >= dateStart && date <= dateEnd && weekday !== 1;
+    return date >= dateStart && date <= dateEnd;
   }
 
   function renderCalendar() {
