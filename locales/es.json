@@ -383,7 +383,8 @@
         "price": "2,499 DKK",
         "price_note": "por grupo (hasta 6)",
         "up_to": "Hasta 6 personas",
-        "save_2h": "Te ahorras 898 DKK"
+        "save_2h": "Te ahorras 898 DKK",
+        "group_tip_html": "¿Más de 6? <strong>Ver nuestro tour para 10 →</strong>"
       },
       "story_paras": [
         "Este tour privado en barco de 1 hora es la forma perfecta de conocer Copenhague desde el agua en poco tiempo. Navegarás por los canales y el puerto de la ciudad mientras tu capitán comparte historias locales y señala los monumentos clave.",

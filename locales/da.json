@@ -382,7 +382,8 @@
         "price": "2,499 DKK",
         "price_note": "pr. gruppe op til 6",
         "up_to": "Op til 6 gæster",
-        "save_2h": "Du sparer 898 kr."
+        "save_2h": "Du sparer 898 kr.",
+        "group_tip_html": "Mer end 6? <strong>Se vores tur for 10 →</strong>"
       },
       "story_paras": [
         "Denne 1-times private bådtur er den perfekte måde at opleve København fra vandet på kort tid. Du vil sejle gennem byens kanaler og havn, mens din kaptajn deler lokale historier og peger på vigtige vartegn undervejs.",

@@ -4507,6 +4507,33 @@ body.booking-open {
   cursor: not-allowed;
 }
 
+.experience-booking__group-tip {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.85rem;
+  padding: 0.6rem 0.85rem;
+  background: var(--clr-sky);
+  border-radius: 10px;
+  font-size: var(--fs-sm, 0.82rem);
+  color: var(--clr-navy);
+  text-decoration: none;
+  transition: background var(--transition-fast);
+}
+
+.experience-booking__group-tip:hover {
+  background: #b8d8ee;
+}
+
+.experience-booking__group-tip svg {
+  flex-shrink: 0;
+  color: var(--clr-blue);
+}
+
+.experience-booking__group-tip strong {
+  color: var(--clr-blue);
+}
+
 .experience-booking__people-done {
   margin-top: 0.95rem;
   width: 100%;
