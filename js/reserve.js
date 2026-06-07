@@ -585,28 +585,29 @@ export function initReservePage() {
       tapas: String(tapasTotal > 0 ? (tapasTotal / 350) : "0"),
       total: String(total)
     };
-    const demoRes = await fetch("/api/demo-booking", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(demoMetadata)
-    });
-    if (demoRes.status !== 403) {
-      // We're in demo — handle result and stop here
-      try {
+    try {
+      const demoRes = await fetch("/api/demo-booking", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(demoMetadata)
+      });
+      if (demoRes.status !== 403) {
+        // We're in demo — handle result and stop here
         const demoResult = await demoRes.json();
         if (demoResult.success) {
           showSuccessUI(getLocalizedValue(currentTour, "title", current.lang));
         } else {
           throw new Error(demoResult.error || "Demo booking failed");
         }
-      } catch (err) {
-        console.error("Demo booking error:", err);
-        await seaAlert("Demo booking error: " + err.message, { type: "error", lang: currentLocale });
-        resetButtons();
+        return;
       }
+      // 403 = production env, fall through to SumUp
+    } catch (err) {
+      console.error("Demo booking error:", err);
+      await seaAlert("Demo booking error: " + err.message, { type: "error", lang: currentLocale });
+      resetButtons();
       return;
     }
-    // 403 = production env, fall through to SumUp
     // ── END DEMO MODE ──────────────────────────────────────────────────────
 
     try {
