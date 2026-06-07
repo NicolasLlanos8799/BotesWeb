@@ -595,6 +595,7 @@ export function initReservePage() {
         // We're in demo — handle result and stop here
         const demoResult = await demoRes.json();
         if (demoResult.success) {
+          showPaymentWaitingUI(); // activates the overlay
           showSuccessUI(getLocalizedValue(currentTour, "title", current.lang));
         } else {
           throw new Error(demoResult.error || "Demo booking failed");

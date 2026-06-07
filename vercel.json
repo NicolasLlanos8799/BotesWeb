@@ -4,7 +4,21 @@
   "redirects": [
     { "source": "/book-here", "destination": "/book/", "permanent": true },
     { "source": "/tours", "destination": "/book/", "permanent": true },
-    { "source": "/contact", "destination": "/#contact", "permanent": true }
+    { "source": "/contact", "destination": "/#contact", "permanent": true },
+    { "source": "/experiences/private-boat-copenhagen/", "destination": "/experiences/copenhagen-city-highlights/", "permanent": true },
+    { "source": "/experiences/private-boat-copenhagen", "destination": "/experiences/copenhagen-city-highlights/", "permanent": true },
+    { "source": "/experiences/private-boat-copenhagen-3h/", "destination": "/experiences/copenhagen-harbor-extended/", "permanent": true },
+    { "source": "/experiences/private-boat-copenhagen-3h", "destination": "/experiences/copenhagen-harbor-extended/", "permanent": true },
+    { "source": "/experiences/private-boat-copenhagen-4h/", "destination": "/experiences/copenhagen-sea-fortress/", "permanent": true },
+    { "source": "/experiences/private-boat-copenhagen-4h", "destination": "/experiences/copenhagen-sea-fortress/", "permanent": true },
+    { "source": "/experiences/private-boat-copenhagen-land-tour/", "destination": "/experiences/copenhagen-land-tour/", "permanent": true },
+    { "source": "/experiences/private-boat-copenhagen-land-tour", "destination": "/experiences/copenhagen-land-tour/", "permanent": true },
+    { "source": "/experiences/private-boat-copenhagen-wine-tour/", "destination": "/experiences/copenhagen-wine-tour/", "permanent": true },
+    { "source": "/experiences/private-boat-copenhagen-wine-tour", "destination": "/experiences/copenhagen-wine-tour/", "permanent": true },
+    { "source": "/experiences/private-boat-copenhagen-malmo/", "destination": "/experiences/copenhagen-to-malmo/", "permanent": true },
+    { "source": "/experiences/private-boat-copenhagen-malmo", "destination": "/experiences/copenhagen-to-malmo/", "permanent": true },
+    { "source": "/experiences/city-highlights-10-people/", "destination": "/experiences/copenhagen-city-highlights-10/", "permanent": true },
+    { "source": "/experiences/city-highlights-10-people", "destination": "/experiences/copenhagen-city-highlights-10/", "permanent": true }
   ],
 "rewrites": [
     { "source": "/da/:path*", "destination": "/:path*" },

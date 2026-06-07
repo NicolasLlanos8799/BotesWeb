@@ -17,7 +17,7 @@ export default async function handler(req, res) {
     return res.status(403).json({ error: "Demo endpoint not available in production" });
   }
 
-  const GAS_DEMO_URL = process.env.GAS_DEMO_URL;
+  const GAS_DEMO_URL = process.env.GAS_DEMO_URL || process.env.GAS_URL;
   const metadata = req.body || {};
 
   if (!metadata.date || !metadata.time || !metadata.name) {
@@ -56,21 +56,26 @@ export default async function handler(req, res) {
 
   // Trigger GAS (demo AppScript) → calendar event + email
   if (GAS_DEMO_URL) {
+    const gasPayload = {
+      action: "createBooking",
+      ...metadata,
+      payment_status: "PAID",
+      sumup_checkout_id: fakeSumupId,
+      amount: Number(metadata.total) || 0,
+      currency: "DKK"
+    };
+    console.log("[DEMO] Calling GAS:", GAS_DEMO_URL);
+    console.log("[DEMO] GAS payload:", JSON.stringify(gasPayload));
     try {
       const gasResponse = await fetch(GAS_DEMO_URL, {
         method: "POST",
+        redirect: "follow",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          action: "createBooking",
-          ...metadata,
-          payment_status: "PAID",
-          sumup_checkout_id: fakeSumupId,
-          amount: metadata.total || 0,
-          currency: "DKK"
-        })
+        body: JSON.stringify(gasPayload)
       });
       const gasResult = await gasResponse.text();
-      console.log("[DEMO] GAS response:", gasResponse.status, gasResult);
+      console.log("[DEMO] GAS status:", gasResponse.status);
+      console.log("[DEMO] GAS result:", gasResult);
     } catch (gasErr) {
       console.error("[DEMO] GAS error:", gasErr.message);
     }
