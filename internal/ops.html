@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Seaduced · Internal Ops</title>
+  <style>
+    :root {
+      --bg: #080c14;
+      --surface: #0f1623;
+      --surface2: #161f30;
+      --border: #1c2a40;
+      --text: #cdd6e8;
+      --muted: #4a6080;
+      --ok: #22c55e;
+      --warn: #f59e0b;
+      --err: #ef4444;
+      --accent: #38bdf8;
+      --font: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+      --font-ui: system-ui, -apple-system, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: var(--font-ui); font-size: 13px; min-height: 100vh; }
+
+    /* TOP BAR */
+    .topbar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 20px; background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; z-index: 100;
+    }
+    .topbar-left { display: flex; align-items: center; gap: 10px; }
+    .logo { font-family: var(--font); font-weight: 700; font-size: 13px; color: var(--accent); letter-spacing: 0.5px; }
+    .badge { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 3px; text-transform: uppercase; letter-spacing: 0.8px; font-family: var(--font); }
+    .badge-prod    { background: rgba(239,68,68,0.15);  color: #f87171; border: 1px solid rgba(239,68,68,0.3); }
+    .badge-demo    { background: rgba(245,158,11,0.12); color: #fbbf24; border: 1px solid rgba(245,158,11,0.25); }
+    .badge-unknown { background: rgba(74,96,128,0.2);   color: var(--muted); border: 1px solid var(--border); }
+
+    .system-status { display: flex; align-items: center; gap: 8px; font-family: var(--font); font-size: 12px; }
+    .pulse { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); animation: pulse-ok 2.5s infinite; }
+    .pulse.warn { background: var(--warn); animation: pulse-warn 2s infinite; }
+    .pulse.err  { background: var(--err);  animation: pulse-err 1s infinite; }
+    @keyframes pulse-ok   { 0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,0.5)}  60%{box-shadow:0 0 0 5px rgba(34,197,94,0)} }
+    @keyframes pulse-warn { 0%,100%{box-shadow:0 0 0 0 rgba(245,158,11,0.5)} 60%{box-shadow:0 0 0 5px rgba(245,158,11,0)} }
+    @keyframes pulse-err  { 0%,100%{box-shadow:0 0 0 0 rgba(239,68,68,0.6)}  50%{box-shadow:0 0 0 7px rgba(239,68,68,0)} }
+
+    .topbar-right { display: flex; align-items: center; gap: 14px; }
+    .ts { color: var(--muted); font-family: var(--font); font-size: 11px; }
+    .btn { background: var(--surface2); border: 1px solid var(--border); color: var(--text); padding: 5px 12px; border-radius: 5px; cursor: pointer; font-size: 12px; font-family: var(--font-ui); transition: background .15s; }
+    .btn:hover { background: var(--border); }
+    .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    /* LAYOUT */
+    .container { padding: 20px; max-width: 1400px; margin: 0 auto; }
+    .section-label {
+      font-family: var(--font); font-size: 10px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted);
+      margin: 24px 0 10px; display: flex; align-items: center; gap: 8px;
+    }
+    .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    /* ALERTS */
+    .alert { border-radius: 6px; padding: 10px 14px; margin-bottom: 8px; display: flex; gap: 10px; font-size: 12px; font-family: var(--font); }
+    .alert-ok   { background: rgba(34,197,94,0.07);  border: 1px solid rgba(34,197,94,0.2);  color: #86efac; }
+    .alert-warn { background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.2); color: #fcd34d; }
+    .alert-err  { background: rgba(239,68,68,0.08);  border: 1px solid rgba(239,68,68,0.2);  color: #fca5a5; }
+    .alert-icon { flex-shrink: 0; }
+
+    /* DEPLOYMENT CARDS */
+    .deploy-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+    .deploy-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; }
+    .deploy-label { font-family: var(--font); font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
+    .deploy-val { font-family: var(--font); font-size: 13px; color: var(--text); word-break: break-all; }
+    .deploy-val.accent { color: var(--accent); }
+    .deploy-val.muted  { color: var(--muted); font-size: 11px; }
+
+    /* SERVICE ROW */
+    .svc-row { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+    .svc-left { display: flex; align-items: center; gap: 10px; }
+    .svc-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .dot-ok { background: var(--ok); } .dot-warn { background: var(--warn); } .dot-err { background: var(--err); }
+    .svc-name { font-weight: 600; font-size: 13px; }
+    .svc-meta { font-size: 11px; color: var(--muted); margin-top: 2px; font-family: var(--font); }
+    .svc-right { text-align: right; }
+    .svc-latency { font-family: var(--font); font-size: 14px; font-weight: 700; }
+    .lat-ok { color: var(--ok); } .lat-warn { color: var(--warn); } .lat-err { color: var(--err); } .lat-none { color: var(--muted); }
+    .svc-status-label { font-size: 10px; color: var(--muted); margin-top: 1px; font-family: var(--font); }
+    .svc-status-label.ok { color: var(--ok); } .svc-status-label.warn { color: var(--warn); } .svc-status-label.err { color: var(--err); }
+
+    /* DB DETAIL */
+    .db-chips { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 8px; }
+    .db-chip { background: var(--surface2); border: 1px solid var(--border); border-radius: 6px; padding: 9px 12px; }
+    .db-chip-label { font-family: var(--font); font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 3px; }
+    .db-chip-val { font-family: var(--font); font-size: 13px; }
+    .ok { color: var(--ok); } .warn { color: var(--warn); } .err { color: var(--err); }
+
+    /* WEBHOOK */
+    .webhook-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; margin-top: 8px; }
+    .wh-row { display: flex; justify-content: space-between; align-items: baseline; padding: 3px 0; }
+    .wh-label { font-family: var(--font); font-size: 11px; color: var(--muted); }
+    .wh-val { font-family: var(--font); font-size: 12px; }
+
+    /* ENDPOINT MATRIX */
+    .ep-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .ep-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; }
+    .ep-path { font-family: var(--font); font-size: 11px; color: var(--accent); margin-bottom: 8px; word-break: break-all; }
+    .ep-status { display: flex; align-items: center; justify-content: space-between; }
+    .ep-badge { font-family: var(--font); font-size: 11px; font-weight: 700; padding: 2px 7px; border-radius: 3px; }
+    .ep-ok      { background: rgba(34,197,94,0.12);  color: var(--ok); }
+    .ep-err     { background: rgba(239,68,68,0.12);  color: var(--err); }
+    .ep-pinging { background: rgba(56,189,248,0.1);  color: var(--accent); }
+    .ep-lat { font-family: var(--font); font-size: 12px; font-weight: 700; }
+    .ep-method { font-size: 10px; font-family: var(--font); color: var(--muted); margin-bottom: 4px; }
+    .ep-desc { font-size: 11px; color: var(--muted); margin-top: 5px; }
+
+    /* ENV AUDIT */
+    .env-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+    .env-row { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 9px 12px; display: flex; align-items: center; justify-content: space-between; }
+    .env-key  { font-family: var(--font); font-size: 11px; }
+    .env-hint { font-family: var(--font); font-size: 11px; color: var(--muted); margin-top: 2px; }
+    .env-tags { display: flex; align-items: center; gap: 5px; }
+    .tag-set     { font-family: var(--font); font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 3px; background: rgba(34,197,94,0.12);  color: var(--ok);  border: 1px solid rgba(34,197,94,0.2); }
+    .tag-missing { font-family: var(--font); font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 3px; background: rgba(239,68,68,0.12);  color: var(--err); border: 1px solid rgba(239,68,68,0.25); }
+    .tag-crit    { font-family: var(--font); font-size: 9px; padding: 1px 5px; border-radius: 3px; background: rgba(239,68,68,0.08); color: rgba(239,68,68,0.6); border: 1px solid rgba(239,68,68,0.15); }
+
+    /* LOADING */
+    .loading { display: flex; align-items: center; justify-content: center; padding: 80px; gap: 12px; color: var(--muted); font-family: var(--font); }
+    .spinner { width: 18px; height: 18px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin .6s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    @media (max-width: 900px) {
+      .deploy-grid, .ep-grid, .db-chips { grid-template-columns: 1fr 1fr; }
+      .env-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .deploy-grid, .ep-grid, .db-chips { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-left">
+    <div class="logo">⚓ seaduced / internal</div>
+    <div class="badge badge-unknown" id="env-badge">—</div>
+  </div>
+  <div class="system-status">
+    <div class="pulse" id="status-pulse"></div>
+    <span id="status-text" style="color:var(--muted)">connecting…</span>
+  </div>
+  <div class="topbar-right">
+    <span class="ts" id="ts-label">—</span>
+    <button class="btn" id="btn-refresh" onclick="loadData()">↻ refresh</button>
+  </div>
+</div>
+
+<div class="container" id="main">
+  <div class="loading"><div class="spinner"></div><span>fetching system state…</span></div>
+</div>
+
+<script>
+  let countdownTimer = null;
+  const REFRESH_MS = 30000;
+
+  function timeAgo(iso) {
+    if (!iso) return '—';
+    const s = Math.floor((Date.now() - new Date(iso)) / 1000);
+    if (s < 60)    return s + 's ago';
+    if (s < 3600)  return Math.floor(s/60) + 'm ago';
+    if (s < 86400) return Math.floor(s/3600) + 'h ago';
+    return Math.floor(s/86400) + 'd ago';
+  }
+  function fmtMs(ms) { return ms !== undefined && ms !== null ? ms + 'ms' : '—'; }
+  function latClass(ms) {
+    if (!ms) return 'lat-none';
+    if (ms < 400)  return 'lat-ok';
+    if (ms < 1200) return 'lat-warn';
+    return 'lat-err';
+  }
+  function dotClass(s) { return s === 'ok' ? 'dot-ok' : s === 'warn' ? 'dot-warn' : 'dot-err'; }
+  function svcStatusLabel(s) { return s === 'ok' ? '● ONLINE' : s === 'warn' ? '◐ DEGRADED' : '○ OFFLINE'; }
+  function svcStatusColor(s) { return s === 'ok' ? 'ok' : s === 'warn' ? 'warn' : 'err'; }
+
+  // ── endpoint pings (browser-side) ──────────────────────────────────────────
+  const ENDPOINTS = [
+    { path: '/api/sumup',                       method: 'GET',  desc: 'SumUp proxy & checkout creation' },
+    { path: '/api/webhook',                     method: 'GET',  desc: 'SumUp webhook receiver' },
+    { path: '/api/create-booking-from-payment', method: 'POST', desc: 'Fallback payment confirmation' },
+    { path: '/api/proxy',                       method: 'GET',  desc: 'General API proxy' },
+    { path: '/api/demo-booking',                method: 'POST', desc: 'Demo booking endpoint' },
+    { path: '/api/admin/get-bookings',          method: 'GET',  desc: 'Admin bookings list' },
+  ];
+
+  function epCardId(ep) { return 'ep' + ep.path.replace(/\//g, '_'); }
+
+  function renderEpCard(ep, result) {
+    const alive = result && result.status === 'ok';
+    const pinging = !result;
+    const cls   = pinging ? 'ep-pinging' : alive ? 'ep-ok' : 'ep-err';
+    const label = pinging ? 'pinging…' : alive ? 'HTTP ' + result.httpCode : (result.error || 'HTTP ' + result.httpCode);
+    const lat   = result ? `<span class="${latClass(result.latency)} ep-lat">${fmtMs(result.latency)}</span>` : '';
+    return `
+      <div class="ep-card" id="${epCardId(ep)}">
+        <div class="ep-method">${ep.method}</div>
+        <div class="ep-path">${ep.path}</div>
+        <div class="ep-status">
+          <span class="ep-badge ${cls}">${label}</span>
+          ${lat}
+        </div>
+        <div class="ep-desc">${ep.desc}</div>
+      </div>`;
+  }
+
+  async function pingEndpoint(ep) {
+    const start = Date.now();
+    try {
+      const opts = { method: ep.method, credentials: 'include', signal: AbortSignal.timeout(8000) };
+      if (ep.method === 'POST') { opts.headers = { 'Content-Type': 'application/json' }; opts.body = '{}'; }
+      const res = await fetch(ep.path, opts);
+      const latency = Date.now() - start;
+      return { status: res.status >= 500 ? 'err' : 'ok', httpCode: res.status, latency };
+    } catch (e) {
+      return { status: 'err', error: e.message, latency: Date.now() - start };
+    }
+  }
+
+  async function runEndpointPings() {
+    const grid = document.getElementById('ep-grid');
+    if (!grid) return;
+    ENDPOINTS.forEach(async ep => {
+      const result = await pingEndpoint(ep);
+      const el = document.getElementById(epCardId(ep));
+      if (el) el.outerHTML = renderEpCard(ep, result);
+    });
+  }
+
+  // ── render ─────────────────────────────────────────────────────────────────
+  function render(data) {
+    const { deployment, services, envAudit } = data;
+    const db    = services.db;
+    const sumup = services.sumup;
+    const gas   = services.gas;
+
+    // Alerts
+    const alerts = [];
+    if (db.status === 'error')      alerts.push({ t:'err',  msg:`<strong>Database offline.</strong> ${db.error||''}` });
+    if (sumup.status === 'error')   alerts.push({ t:'err',  msg:`<strong>SumUp API unreachable.</strong> Payments will fail. ${sumup.error||''}` });
+    if (gas.status === 'error')     alerts.push({ t:'err',  msg:`<strong>GAS offline.</strong> No confirmation emails or calendar events.` });
+    else if (gas.status === 'warn') alerts.push({ t:'warn', msg:`<strong>GAS HTTP ${gas.httpCode}.</strong> Email/calendar may be degraded.` });
+    if ((db.abandonedCheckouts||0) > 0) alerts.push({ t:'warn', msg:`<strong>${db.abandonedCheckouts} abandoned checkout${db.abandonedCheckouts>1?'s':''}.</strong> PENDING > 1 hour with no payment.` });
+    const missingCrit = envAudit.filter(v => v.critical && !v.present);
+    if (missingCrit.length) alerts.push({ t:'err', msg:`<strong>Missing critical env vars:</strong> ${missingCrit.map(v=>v.key).join(', ')}` });
+    if (!alerts.length)     alerts.push({ t:'ok',  msg:'<strong>All systems nominal.</strong> No issues detected.' });
+
+    const alertsHtml = alerts.map(a => `
+      <div class="alert alert-${a.t}">
+        <span class="alert-icon">${a.t==='ok'?'✓':a.t==='warn'?'⚠':'✗'}</span>
+        <span>${a.msg}</span>
+      </div>`).join('');
+
+    // Deployment
+    const deployHtml = `
+      <div class="deploy-grid">
+        <div class="deploy-card"><div class="deploy-label">Vercel Env</div><div class="deploy-val accent">${deployment.env||'—'}</div></div>
+        <div class="deploy-card"><div class="deploy-label">Region</div><div class="deploy-val">${deployment.region||'—'}</div></div>
+        <div class="deploy-card"><div class="deploy-label">Commit SHA</div><div class="deploy-val accent">${deployment.commitSha||'—'}</div></div>
+        <div class="deploy-card"><div class="deploy-label">Node.js</div><div class="deploy-val">${deployment.nodeVersion||'—'}</div></div>
+        <div class="deploy-card" style="grid-column:span 2"><div class="deploy-label">Commit Message</div><div class="deploy-val">${deployment.commitMsg||'—'}</div></div>
+        <div class="deploy-card" style="grid-column:span 2"><div class="deploy-label">Deployment URL</div><div class="deploy-val muted">${deployment.url?'https://'+deployment.url:'—'}</div></div>
+      </div>`;
+
+    // Services
+    function svcRow(icon, name, svc, meta) {
+      return `
+        <div class="svc-row">
+          <div class="svc-left">
+            <div class="svc-dot ${dotClass(svc.status)}"></div>
+            <div>
+              <div class="svc-name">${icon} ${name}</div>
+              ${meta ? `<div class="svc-meta">${meta}</div>` : ''}
+              ${svc.error ? `<div class="svc-meta err">${svc.error}</div>` : ''}
+            </div>
+          </div>
+          <div class="svc-right">
+            <div class="svc-latency ${latClass(svc.latency)}">${fmtMs(svc.latency)}</div>
+            <div class="svc-status-label ${svcStatusColor(svc.status)}">${svcStatusLabel(svc.status)}</div>
+          </div>
+        </div>`;
+    }
+
+    const servicesHtml =
+      svcRow('🗄', 'Neon PostgreSQL', db,
+        `host: ${db.host||'—'} &nbsp;·&nbsp; db: ${db.database||'—'} &nbsp;·&nbsp; ${db.usingPooler ? 'pooler ✓' : '⚠ direct connection'}`) +
+      svcRow('💳', 'SumUp Payments API', sumup,
+        [sumup.merchant&&`merchant: ${sumup.merchant}`, sumup.country&&`country: ${sumup.country}`, sumup.httpCode&&`HTTP ${sumup.httpCode}`].filter(Boolean).join(' · ')) +
+      svcRow('📅', 'Google Apps Script', gas,
+        gas.httpCode ? `HTTP ${gas.httpCode}` : null);
+
+    // DB detail + webhook
+    const paid = db.bookingCounts?.['PAID']    || 0;
+    const pend = db.bookingCounts?.['PENDING']  || 0;
+    const wh   = db.lastWebhook;
+    const dbDetailHtml = `
+      <div class="db-chips">
+        <div class="db-chip">
+          <div class="db-chip-label">Connection mode</div>
+          <div class="db-chip-val ${db.usingPooler?'ok':'warn'}">${db.usingPooler ? 'Pooler ✓' : 'Direct (no pooler)'}</div>
+        </div>
+        <div class="db-chip">
+          <div class="db-chip-label">PAID bookings</div>
+          <div class="db-chip-val ok">${paid}</div>
+        </div>
+        <div class="db-chip">
+          <div class="db-chip-label">PENDING / Abandoned</div>
+          <div class="db-chip-val ${pend>0?'warn':'ok'}">${pend} / <span class="${(db.abandonedCheckouts||0)>0?'err':'ok'}">${db.abandonedCheckouts||0}</span></div>
+        </div>
+      </div>
+      <div class="webhook-card">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+          <div class="svc-dot ${wh?'dot-ok':'dot-warn'}"></div>
+          <div class="svc-name" style="font-size:12px">Last Confirmed Webhook (SumUp → DB)</div>
+        </div>
+        ${wh ? `
+          <div class="wh-row"><span class="wh-label">when</span><span class="wh-val ok">${timeAgo(wh.at)}&nbsp; <span style="color:var(--muted)">${new Date(wh.at).toLocaleString('en-DK')}</span></span></div>
+          <div class="wh-row"><span class="wh-label">sumup_id</span><span class="wh-val" style="color:var(--accent)">${wh.sumupId}</span></div>
+          <div class="wh-row"><span class="wh-label">tour</span><span class="wh-val">${wh.tour||'—'}</span></div>
+          <div class="wh-row"><span class="wh-label">customer</span><span class="wh-val" style="color:var(--muted)">${wh.email||'—'}</span></div>
+        ` : `<div style="color:var(--muted);font-family:var(--font);font-size:12px">No confirmed payments recorded yet.</div>`}
+      </div>`;
+
+    // Env audit
+    const envHtml = `
+      <div class="env-grid">
+        ${envAudit.map(v => `
+          <div class="env-row">
+            <div>
+              <div class="env-key">${v.key}</div>
+              <div class="env-hint">${v.hint || v.label}</div>
+            </div>
+            <div class="env-tags">
+              ${v.critical && !v.present ? '<span class="tag-crit">critical</span>' : ''}
+              <span class="${v.present?'tag-set':'tag-missing'}">${v.present?'SET':'MISSING'}</span>
+            </div>
+          </div>`).join('')}
+      </div>`;
+
+    document.getElementById('main').innerHTML = `
+      <div class="section-label">alerts</div>
+      ${alertsHtml}
+
+      <div class="section-label">deployment</div>
+      ${deployHtml}
+
+      <div class="section-label">external services</div>
+      ${servicesHtml}
+
+      <div class="section-label">database detail · webhook tracker</div>
+      ${dbDetailHtml}
+
+      <div class="section-label">endpoint health matrix</div>
+      <div class="ep-grid" id="ep-grid">
+        ${ENDPOINTS.map(ep => renderEpCard(ep, null)).join('')}
+      </div>
+
+      <div class="section-label">environment variables audit</div>
+      ${envHtml}
+
+      <div style="height:40px"></div>`;
+
+    runEndpointPings();
+
+    // Topbar
+    const s = data.systemStatus;
+    document.getElementById('status-pulse').className = 'pulse' + (s==='critical'?' err':s==='warn'?' warn':'');
+    const stxt = document.getElementById('status-text');
+    stxt.textContent = s==='ok' ? 'all systems nominal' : s==='warn' ? 'warnings detected' : 'critical issues';
+    stxt.style.color  = s==='ok' ? 'var(--ok)' : s==='warn' ? 'var(--warn)' : 'var(--err)';
+
+    const badge = document.getElementById('env-badge');
+    badge.textContent = data.env === 'production' ? 'PROD' : data.env || 'unknown';
+    badge.className = 'badge ' + (data.env==='production' ? 'badge-prod' : data.env==='demo' ? 'badge-demo' : 'badge-unknown');
+  }
+
+  // ── fetch + countdown ──────────────────────────────────────────────────────
+  async function loadData() {
+    clearTimeout(countdownTimer);
+    const btn = document.getElementById('btn-refresh');
+    btn.disabled = true; btn.textContent = '↻ loading…';
+    try {
+      const res = await fetch('/api/admin/ops', { credentials: 'include' });
+      if (res.status === 401) {
+        document.getElementById('main').innerHTML = `
+          <div class="loading" style="flex-direction:column;gap:12px">
+            <div style="font-size:28px">🔒</div>
+            <div>Session expired. <a href="/admin/login.html" style="color:var(--accent)">Log in again</a></div>
+          </div>`;
+        return;
+      }
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const data = await res.json();
+      render(data);
+
+      let rem = REFRESH_MS / 1000;
+      const tick = setInterval(() => {
+        const el = document.getElementById('ts-label');
+        if (!el) { clearInterval(tick); return; }
+        const t = new Date().toLocaleTimeString('en-DK', { hour:'2-digit', minute:'2-digit', second:'2-digit' });
+        el.textContent = `${t} · next in ${--rem}s`;
+        if (rem <= 0) clearInterval(tick);
+      }, 1000);
+      document.getElementById('ts-label').textContent =
+        new Date().toLocaleTimeString('en-DK', { hour:'2-digit', minute:'2-digit', second:'2-digit' });
+
+      countdownTimer = setTimeout(loadData, REFRESH_MS);
+    } catch (e) {
+      document.getElementById('main').innerHTML = `
+        <div class="loading" style="flex-direction:column;gap:10px">
+          <div style="font-size:28px">⚠</div>
+          <div class="err" style="font-family:var(--font)">${e.message}</div>
+          <button class="btn" onclick="loadData()">retry</button>
+        </div>`;
+    } finally {
+      btn.disabled = false; btn.textContent = '↻ refresh';
+    }
+  }
+
+  loadData();
+</script>
+</body>
+</html>
