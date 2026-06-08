@@ -32,11 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function initGoogleMapsLinks() {
   document.querySelectorAll("[data-google-maps-link]").forEach(el => {
-    const lat = el.getAttribute("data-lat");
-    const lng = el.getAttribute("data-lng");
-    if (lat && lng) {
-      el.href = buildGoogleMapsUrl(lat, lng);
-    }
+    el.href = "https://maps.app.goo.gl/1bTZ36xp3zxR5xLA8";
   });
 }
 
