@@ -321,7 +321,7 @@
         "address": "Adresse",
         "open_maps": "Åbn i Maps",
         "description": "Christians Brygge 28, c/o Housing Group A, S, sal sttv, 1219 København — Lige ved siden af The Raft.",
-        "meetingPointDescription": "Christians Brygge 28, c/o Housing Group A, S, sal sttv, 1219 København — Lige ved siden af The Raft."
+        "meetingPointDescription": "Lige ved siden af The Raft."
       },
       "booking": {
         "from": "Fra",
@@ -414,7 +414,8 @@
         "rules": [
           "Ingen hop eller rygning ombord",
           "Maks 6 gæster pr. booking",
-          "Kraftig regn: fuld refusion garanteret"
+          "Kraftig regn: fuld refusion garanteret",
+          "Ingen mad eller drikkevarer udefra tilladt"
         ]
       },
       "excl_text": "En privat og afslappet tur til at nyde København i dit eget tempo. Forbind din musik, nyd en drink, og skab den perfekte stemning om bord."
@@ -467,7 +468,8 @@
         "rules": [
           "Ingen hop eller rygning ombord",
           "Maks 10 gæster pr. booking",
-          "Kraftig regn: fuld refusion garanteret"
+          "Kraftig regn: fuld refusion garanteret",
+          "Ingen mad eller drikkevarer udefra tilladt"
         ]
       },
       "excl_text": "Din tur, din atmosfære: tilslut din playliste, åbn en kold drink fra køleboksen, og sejl med stil. Denne tur tilbyder total fleksibilitet for par, familier eller små grupper."
@@ -523,7 +525,8 @@
           "Ingen udspring eller rygning ombord",
           "Maks. 6 gæster pr. booking",
           "Kraftig regn: fuld refusion garanteret",
-          "Mad ved Reffen er ikke inkluderet i prisen"
+          "Mad ved Reffen er ikke inkluderet i prisen",
+          "Ingen mad eller drikkevarer udefra tilladt"
         ]
       },
       "excl_text": "Din tur, din stemning: tilslut din playliste, åbn en kold drink fra køleboksen og sejl med stil. Denne tur tilbyder total fleksibilitet for par, familier eller små grupper."
@@ -583,7 +586,8 @@
           "Ingen udspring eller rygning ombord",
           "Maks. 6 gæster pr. booking",
           "Kraftig regn: fuld refusion garanteret",
-          "Mad ved Reffen er ikke inkluderet i prisen"
+          "Mad ved Reffen er ikke inkluderet i prisen",
+          "Ingen mad eller drikkevarer udefra tilladt"
         ]
       },
       "excl_text": "Din tur, din stemning: tilslut din playliste, åbn en kold drink fra køleboksen og sejl med stil. Denne tur tilbyder total fleksibilitet for par, familier eller små grupper."
@@ -640,7 +644,8 @@
           "Minimumsalder: 18 år (der serveres alkohol)",
           "Ruten kan variere afhængigt af vejr og havneforhold",
           "Følg altid kaptajnens sikkerhedsinstrukser",
-          "Ved usikre vejrforhold kan turen blive ombooket"
+          "Ved usikre vejrforhold kan turen blive ombooket",
+          "Ingen mad eller drikkevarer udefra tilladt"
         ]
       },
       "excl_items": [
@@ -703,7 +708,8 @@
           "Dette er en privat oplevelse",
           "Ruten kan variere afhængigt af vejr og trafik",
           "Følg guide og chaufførs anvisninger",
-          "Tapas og vin kan opgraderes til champagne"
+          "Tapas og vin kan opgraderes til champagne",
+          "Ingen mad eller drikkevarer udefra tilladt"
         ]
       },
       "excl_items": [
@@ -764,7 +770,8 @@
           "Ruten afhænger af vejr og søforhold",
           "Krydsning er kun mulig, hvis forholdene er sikre",
           "Fuld refusion, hvis turen aflyses pga. vejrforhold",
-          "Følg altid kaptajnens sikkerhedsinstrukser"
+          "Følg altid kaptajnens sikkerhedsinstrukser",
+          "Ingen mad eller drikkevarer udefra tilladt"
         ]
       },
       "excl_items": [

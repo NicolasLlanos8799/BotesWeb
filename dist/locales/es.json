@@ -322,7 +322,7 @@
         "address": "Dirección",
         "open_maps": "Abrir en Google Maps",
         "description": "Christians Brygge 28, c/o Housing Group A, S, sal sttv, 1219 København — Justo al lado de The Raft.",
-        "meetingPointDescription": "Christians Brygge 28, c/o Housing Group A, S, sal sttv, 1219 København — Justo al lado de The Raft."
+        "meetingPointDescription": "Justo al lado de The Raft."
       },
       "booking": {
         "from": "Desde",
@@ -415,7 +415,8 @@
         "rules": [
           "Prohibido saltar o fumar a bordo",
           "Máximo 6 personas por reserva",
-          "Lluvia fuerte: reembolso total garantizado"
+          "Lluvia fuerte: reembolso total garantizado",
+          "No se permiten alimentos ni bebidas externos"
         ]
       },
       "excl_text": "Un recorrido privado y relajado para disfrutar Copenhague a tu ritmo. Conecta tu música, disfruta una bebida y crea el ambiente perfecto a bordo."
@@ -468,7 +469,8 @@
         "rules": [
           "Prohibido saltar o fumar a bordo",
           "Máximo 10 personas por reserva",
-          "Lluvia fuerte: reembolso total garantizado"
+          "Lluvia fuerte: reembolso total garantizado",
+          "No se permiten alimentos ni bebidas externos"
         ]
       },
       "excl_text": "Tu viaje, tu ambiente: conecta tu lista de reproducción, abre una bebida fría de la nevera y navega con estilo. Este tour ofrece flexibilidad total para parejas, familias o grupos pequeños."
@@ -524,7 +526,8 @@
           "Prohibido saltar o fumar a bordo",
           "Máximo 6 personas por reserva",
           "Lluvia fuerte: reembolso total garantizado",
-          "La comida en Reffen no está incluida en el precio"
+          "La comida en Reffen no está incluida en el precio",
+          "No se permiten alimentos ni bebidas externos"
         ]
       },
       "excl_text": "Tu viaje, tu estilo: conecta tu música, abre una bebida fría y navega con clase. Este tour ofrece total flexibilidad para parejas, familias o grupos pequeños."
@@ -584,7 +587,8 @@
           "Prohibido saltar o fumar a bordo",
           "Máximo 6 personas por reserva",
           "Lluvia fuerte: reembolso total garantizado",
-          "La comida en Reffen no está incluida en el precio"
+          "La comida en Reffen no está incluida en el precio",
+          "No se permiten alimentos ni bebidas externos"
         ]
       },
       "excl_text": "Tu viaje, tu ambiente: conecta tu lista de reproducción, abre una bebida fría de la nevera y navega con estilo. Este tour ofrece flexibilidad total para parejas, familias o grupos pequeños."
@@ -641,7 +645,8 @@
           "Edad mínima: 18 años (se sirve alcohol)",
           "La ruta puede variar según el clima y condiciones del puerto",
           "Sigue las instrucciones de seguridad del capitán en todo momento",
-          "En condiciones climáticas inseguras, el tour puede reprogramarse"
+          "En condiciones climáticas inseguras, el tour puede reprogramarse",
+          "No se permiten alimentos ni bebidas externos"
         ]
       },
       "excl_items": [
@@ -704,7 +709,8 @@
           "Esta es una experiencia privada",
           "La ruta puede variar según el clima y el tráfico",
           "Sigue las instrucciones del guía y del conductor",
-          "Las tapas y el vino pueden mejorarse a champagne"
+          "Las tapas y el vino pueden mejorarse a champagne",
+          "No se permiten alimentos ni bebidas externos"
         ]
       },
       "excl_items": [
@@ -765,7 +771,8 @@
           "La ruta depende del clima y condiciones del mar",
           "El cruce solo es posible si las condiciones son seguras",
           "Reembolso total si se cancela por condiciones climáticas",
-          "Sigue las instrucciones de seguridad del capitán en todo momento"
+          "Sigue las instrucciones de seguridad del capitán en todo momento",
+          "No se permiten alimentos ni bebidas externos"
         ]
       },
       "excl_items": [

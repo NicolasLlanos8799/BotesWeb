@@ -318,7 +318,7 @@
         "address": "Address",
         "open_maps": "Open in Maps",
         "description": "Christians Brygge 28, c/o Housing Group A, S, sal sttv, 1219 København — Right beside The Raft.",
-        "meetingPointDescription": "Christians Brygge 28, c/o Housing Group A, S, sal sttv, 1219 København — Right beside The Raft."
+        "meetingPointDescription": "Right beside The Raft."
       },
       "booking": {
         "from": "From",
@@ -411,7 +411,8 @@
         "rules": [
           "No jumping or smoking on board",
           "Max 6 guests per booking",
-          "Heavy rain: full refund guaranteed"
+          "Heavy rain: full refund guaranteed",
+          "No outside food or beverages"
         ]
       },
       "excl_text": "A private, relaxed route to enjoy Copenhagen at your own pace. Connect your music, enjoy a drink, and create the perfect atmosphere on board."
@@ -464,7 +465,8 @@
         "rules": [
           "No jumping or smoking on board",
           "Max 10 guests per booking",
-          "Heavy rain: full refund guaranteed"
+          "Heavy rain: full refund guaranteed",
+          "No outside food or beverages"
         ]
       },
       "excl_text": "Your trip, your vibe: connect your playlist, open a cold drink from the cooler, and cruise in style. This tour offers total flexibility for couples, families, or small groups."
@@ -520,7 +522,8 @@
           "No jumping or smoking on board",
           "Max 6 guests per booking",
           "Heavy rain: full refund guaranteed",
-          "Food at Reffen is not included in the price"
+          "Food at Reffen is not included in the price",
+          "No outside food or beverages"
         ]
       },
       "excl_text": "Your trip, your vibe: connect your playlist, open a cold drink from the cooler, and cruise in style. This tour offers total flexibility for couples, families, or small groups."
@@ -580,7 +583,8 @@
           "No jumping or smoking on board",
           "Max 6 guests per booking",
           "Heavy rain: full refund guaranteed",
-          "Food at Reffen is not included in the price"
+          "Food at Reffen is not included in the price",
+          "No outside food or beverages"
         ]
       },
       "excl_text": "Your trip, your vibe: connect your playlist, open a cold drink from the cooler, and cruise in style. This tour offers total flexibility for couples, families, or small groups."
@@ -637,7 +641,8 @@
           "Minimum age: 18 years (alcohol served)",
           "Route may vary depending on weather and harbor conditions",
           "Follow captain’s safety instructions at all times",
-          "In unsafe weather conditions, the tour may be rescheduled"
+          "In unsafe weather conditions, the tour may be rescheduled",
+          "No outside food or beverages"
         ]
       },
       "excl_items": [
@@ -700,7 +705,8 @@
           "This is a private experience",
           "Route may vary depending on weather and traffic",
           "Follow guide and driver instructions",
-          "Tapas and wine can be upgraded to champagne"
+          "Tapas and wine can be upgraded to champagne",
+          "No outside food or beverages"
         ]
       },
       "excl_items": [
@@ -761,7 +767,8 @@
           "Route depends on weather and sea conditions",
           "Crossing is only possible if conditions are safe",
           "Full refund if canceled due to weather conditions",
-          "Follow captain’s safety instructions at all times"
+          "Follow captain’s safety instructions at all times",
+          "No outside food or beverages"
         ]
       },
       "excl_items": [

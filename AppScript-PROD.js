@@ -532,7 +532,8 @@ function getTranslations(lang) {
       extras: "Extras",
       amount: "Amount paid",
       location: "Meeting point",
-      locationVal: "Havnegade 1, 1058 København",
+      locationVal: "Christians Brygge 28, c/o Housing Group A, S, sal sttv, 1219 København",
+      locationHint: "Right beside The Raft. At the dock, in front of the Kayak Bar. Look for the Seaduced boat.",
       mapButton: "Get directions",
       helpTitle: "Need help?",
       helpBody: "Contact us via WhatsApp or reply to this email — we're always happy to help.",
@@ -553,7 +554,8 @@ function getTranslations(lang) {
       extras: "Extras",
       amount: "Importe pagado",
       location: "Punto de encuentro",
-      locationVal: "Havnegade 1, 1058 København",
+      locationVal: "Christians Brygge 28, c/o Housing Group A, S, sal sttv, 1219 København",
+      locationHint: "Justo al lado de The Raft. En el muelle, frente al Kayak Bar. Busca el barco de Seaduced.",
       mapButton: "Cómo llegar",
       helpTitle: "¿Necesitas ayuda?",
       helpBody: "Contáctanos por WhatsApp o respondiendo este email — estamos aquí para ayudarte.",
@@ -574,7 +576,8 @@ function getTranslations(lang) {
       extras: "Extras",
       amount: "Betalt beløb",
       location: "Mødested",
-      locationVal: "Havnegade 1, 1058 København",
+      locationVal: "Christians Brygge 28, c/o Housing Group A, S, sal sttv, 1219 København",
+      locationHint: "Lige ved siden af The Raft. Ved molen, foran Kayak Bar. Find Seaduced-båden.",
       mapButton: "Se rutevejledning",
       helpTitle: "Brug for hjælp?",
       helpBody: "Kontakt os via WhatsApp eller svar på denne e-mail — vi hjælper altid gerne.",
@@ -741,13 +744,14 @@ function getGuestHtmlTemplate(data, t) {
     '<td style="background-color:#f5f6f8;border-top:1px solid #e8ecf2;padding:16px 28px;">' +
     '<div style="font-size:10px;letter-spacing:2px;color:#718096;margin-bottom:4px;">MEETING POINT</div>' +
     '<div style="font-size:13px;color:#0f1e35;font-weight:600;">' + t.locationVal + '</div>' +
+    '<div style="font-size:12px;color:#4a5568;margin-top:4px;">' + t.locationHint + '</div>' +
     '</td>' +
     '</tr></table>' +
 
     /* CTA */
     '<table width="100%" cellpadding="0" cellspacing="0"><tr>' +
     '<td style="padding:24px 28px;text-align:center;">' +
-    '<a href="https://www.google.com/maps/search/?api=1&query=Havnegade+1+1058+Kobenhavn" ' +
+    '<a href="https://www.google.com/maps/search/?api=1&query=Christians+Brygge+28+1219+Kobenhavn" ' +
     'style="display:inline-block;background-color:#e8834a;color:#ffffff;padding:14px 36px;text-decoration:none;border-radius:6px;font-size:13px;font-weight:700;letter-spacing:1px;">' +
     t.mapButton.toUpperCase() +
     '</a>' +
