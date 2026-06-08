@@ -3,7 +3,8 @@
  *
  * 1. Bundles JS entry points with esbuild (content-hashed filenames)
  * 2. Copies all static files to dist/
- * 3. Rewrites HTML <script src> tags to use hashed filenames
+ * 3. Rewrites HTML <script src> tags to use hashed JS filenames
+ * 4. Hashes bundle.css and rewrites HTML <link href> tags
  *
  * Run: node build.js
  * Output: dist/  (served by Vercel via outputDirectory)
@@ -12,6 +13,7 @@
 import * as esbuild from 'esbuild';
 import fs from 'fs';
 import path from 'path';
+import crypto from 'crypto';
 
 const ROOT = '.';
 const DIST = './dist';
@@ -132,5 +134,42 @@ function walkHtml(dir) {
 
 console.log('Updating HTML references...');
 walkHtml(DIST);
+
+// ─── 5. Hash CSS bundle and rewrite HTML <link href> ────────────────────────
+
+console.log('Hashing CSS bundle...');
+
+const CSS_FILES = ['bundle.css', 'admin.css'];
+
+for (const cssFile of CSS_FILES) {
+  const srcCss = path.join(DIST, 'css', cssFile);
+  if (!fs.existsSync(srcCss)) continue;
+
+  const content = fs.readFileSync(srcCss);
+  const hash = crypto.createHash('sha256').update(content).digest('hex').slice(0, 8);
+  const baseName = path.basename(cssFile, '.css');
+  const hashedName = `${baseName}-${hash}.css`;
+
+  fs.renameSync(srcCss, path.join(DIST, 'css', hashedName));
+
+  // Rewrite all HTML files: /css/bundle.css → /css/bundle-[hash].css
+  function rewriteCssInHtml(dir) {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const p = path.join(dir, entry.name);
+      if (entry.isDirectory()) rewriteCssInHtml(p);
+      else if (entry.name.endsWith('.html')) {
+        const html = fs.readFileSync(p, 'utf8');
+        const updated = html.replace(
+          new RegExp(`/css/${cssFile}(?:\\?[^"'\\s>]*)?`, 'g'),
+          `/css/${hashedName}`
+        );
+        if (updated !== html) fs.writeFileSync(p, updated, 'utf8');
+      }
+    }
+  }
+
+  rewriteCssInHtml(DIST);
+  console.log(`  ${cssFile} → ${hashedName}`);
+}
 
 console.log(`\n✓ Build complete → ${DIST}/`);
