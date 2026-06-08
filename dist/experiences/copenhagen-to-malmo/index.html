@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Private Boat Tour from Copenhagen to Malmö | Seaduced Experience</title>
+  <meta name="description" content="Private 7-hour boat journey from Copenhagen across the Øresund to Malmö, Sweden. Explore Malmö at your own pace and sail back. From DKK 13,000 per group of up to 10." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;600;700&display=swap"></noscript>
+  <style>
+/* Critical CSS - inline */
+/* ─────────────────────────────────────────────────────────────────────────
+   Seaduced Experience — Premium Stylesheet
+   ─────────────────────────────────────────────────────────────────────────  */
+
+/* ── 1. DESIGN TOKENS ──────────────────────────────────────────────────── */
+:root {
+  /* ── Color Palette ── */
+  --clr-navy: #0f1e35;
+  --clr-navy-mid: #1a2d4a;
+  --clr-navy-light: #243d5e;
+  --clr-blue: #2d6a9f;
+  --clr-blue-soft: #5b9ecf;
+  --clr-sky: #d0e8f5;
+  --clr-beige: #f5ede0;
+  --clr-sand: #e8d5b7;
+  --clr-sand-lt: #f6efe4;
+  --clr-sunset: #e8834a;
+  --clr-sunset-lt: #f4a96b;
+  --clr-white: #ffffff;
+  --clr-off-white: #fafaf8;
+  --clr-text: #1a1a2e;
+  --clr-text-mid: #4a5568;
+  --clr-text-light: #718096;
+  --clr-border: rgba(255, 255, 255, 0.12);
+
+  /* ── Typography — Unified System ─────────────────────────────────────── */
+  /* Font families */
+  --font-base: var(--font-body);
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-display: 'Playfair Display', serif;
+
+  /* Text colors */
+  --text-color-primary: #2b2f33;
+  --text-color-secondary: #5a6675;
+  --text-color-muted: #8a94a6;
+
+  /* Font sizes (Base Scale) */
+  --fs-xs: 12px;
+  --fs-sm: 13px;
+  --fs-md: 15px;
+  --fs-lg: 18px;
+  --fs-xl: 24px;
+  --fs-xxl: 32px;
+
+  /* Semantic Font Sizes */
+  --fs-p: var(--fs-md);
+  --fs-h1: var(--fs-xxl);
+  --fs-h2: var(--fs-xl);
+  --fs-h3: var(--fs-lg);
+  --fs-label: var(--fs-sm);
+  --fs-hero-title: clamp(3.75rem, 8.57vw, 4.2rem);   /* Desktop calibration: max 77→67px (-13%). Matches ES locale rhythm. */
+  --fs-hero-title-mobile: clamp(1.73rem, 8.57vw, 2.14rem);
+  --fs-hero-sub: clamp(1.21rem, 2.14vw, 1.47rem);
+  --fs-nav: 1.05rem;
+  --fs-badge: 0.82rem;
+  --fs-tag: 0.75rem;
+  --fs-caption: 0.72rem;
+
+  /* Line heights */
+  --lh-tight: 1.1;
+  --lh-normal: 1.5;
+  --lh-relaxed: 1.65;
+  --lh-base: var(--lh-normal);
+
+  /* Font weights */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Letter spacing */
+  --letter-spacing-tight: -0.01em;
+
+  /* ── Spacing Scale ── */
+  /* Fluid Spacing (Clamps) */
+  --space-xs: clamp(0.25rem, 0.5vw, 0.5rem);
+  --space-sm: clamp(0.75rem, 1vw, 1rem);
+  --space-md: clamp(1.25rem, 1.5vw, 1.5rem);
+  --space-lg: clamp(2rem, 2.5vw, 2.5rem);
+  --space-xl: clamp(3rem, 3.5vw, 3.5rem);    /* FullHD calibration: max 64→56px */
+  --space-2xl: clamp(4rem, 5vw, 5rem);       /* FullHD calibration: max 96→80px */
+  --space-3xl: clamp(5rem, 6vw, 6.5rem);     /* FullHD calibration: max 128→104px */
+
+  /* Fixed Spacing (Tokens) */
+  --space-2xs-f: 8px;
+  --space-xs-f: 12px;
+  --space-sm-f: 16px;
+  --space-md-f: 24px;
+  --space-lg-f: 32px;
+  --space-xl-f: 40px;
+
+  /* ── Radii ── */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --radius-full: 999px;
+
+  /* ── Shadows ── */
+  --shadow-sm: 0 4px 12px rgba(15, 30, 53, 0.04);
+  --shadow-md: 0 12px 32px rgba(15, 30, 53, 0.06);
+  --shadow-lg: 0 30px 70px rgba(15, 30, 53, 0.08);
+  --shadow-card: 0 15px 40px rgba(15, 30, 53, 0.05);
+
+  /* ── Transitions ── */
+  --transition-fast: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --transition-smooth: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --transition-slow: 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+  /* ── Container ── */
+  --max-width: 1400px;
+  --navbar-h: 72px;
+
+  /* ── Responsive Breakpoints (canonical — use these, not arbitrary values) ──
+     lg   : 1024px  → tablet landscape / small laptop
+     md   : 768px   → tablet portrait / mobile landscape (main mobile gate)
+     sm   : 600px   → large phone / panels full-width
+     xs   : 480px   → small phone adjustments
+     ─────────────────────────────────────────────────────────────────────────
+     Exceptions documented in code:
+     • 900px  — experience-shell sidebar collapse (intentional, tighter than lg)
+     • 640px  — experience-page mobile refinements (between sm and md)
+     • 992px  — mobile-sticky-bar on experience page (close to lg, keep)
+  ── */
+}
+
+/* ── 2. RESET & BASE ────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--fs-p);
+  line-height: var(--lh-base);
+  color: var(--text-color-primary);
+  font-weight: var(--font-weight-regular);
+  letter-spacing: var(--letter-spacing-tight);
+  background: var(--clr-off-white);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+}
+
+h1 {
+  font-size: var(--fs-h1);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--lh-tight);
+  letter-spacing: -0.02em;
+  color: var(--clr-navy);
+}
+
+h2 {
+  font-size: var(--fs-h2);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--lh-tight);
+  color: var(--clr-navy);
+}
+
+h3 {
+  font-size: var(--fs-h3);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--lh-tight);
+  color: var(--clr-navy);
+}
+
+h4 {
+  font-size: var(--fs-xs);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-color-muted);
+}
+
+p {
+  font-size: var(--fs-p);
+  line-height: var(--lh-base);
+  color: var(--text-color-secondary);
+}
+
+ul,
+ol {
+  padding-left: 1.25rem;
+}
+
+li {
+  font-size: var(--fs-p);
+  line-height: var(--lh-relaxed);
+  margin-bottom: var(--space-2xs-f);
+  color: var(--text-color-secondary);
+}
+
+/* ── UI Text Utilities ── */
+.label,
+.small-text {
+  font-size: var(--fs-label);
+  color: var(--text-color-muted);
+  font-weight: var(--font-weight-medium);
+}
+
+/* ── Price Styling ── */
+.price {
+  font-size: var(--fs-h2);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -0.02em;
+  color: var(--clr-navy);
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  image-rendering: -webkit-optimize-contrast;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: var(--fs-h2);
+  }
+
+  h2 {
+    font-size: var(--fs-h3);
+  }
+}
+
+/* ── 3. UTILITY ─────────────────────────────────────────────────────────── */
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding-inline: clamp(1rem, 4vw, 2rem);
+  width: 100%;
+}
+
+.mt-1 {
+  margin-top: var(--space-sm);
+}
+
+.mt-2 {
+  margin-top: var(--space-lg);
+}
+
+.mt-3 {
+  margin-top: var(--space-xl);
+}
+
+.mb-1 {
+  margin-bottom: var(--space-sm);
+}
+
+.mb-2 {
+  margin-bottom: var(--space-lg);
+}
+
+.mb-3 {
+  margin-bottom: var(--space-xl);
+}
+
+.p-lg {
+  padding: var(--space-lg);
+}
+
+.px-lg {
+  padding-inline: var(--space-lg);
+}
+
+.py-lg {
+  padding-block: var(--space-lg);
+}
+
+.gap-sm {
+  gap: var(--space-sm);
+.navbar {
+  position: fixed;
+  top: var(--demo-banner-height, 0px);
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  height: var(--navbar-h);
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: background var(--transition-smooth), backdrop-filter var(--transition-smooth), box-shadow var(--transition-smooth);
+}
+
+/* Force solid blue on experience pages as requested */
+.experience-page .navbar {
+  background: var(--clr-navy);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
+}
+
+.navbar--scrolled,
+.experience-page .navbar--scrolled {
+  background: rgba(10, 20, 38, 0.96);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 2px 24px rgba(0, 0, 0, 0.25);
+}
+
+.navbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  gap: var(--space-md);
+}
+
+.navbar__inner.container {
+  max-width: 1700px;
+}
+
+@media (min-width: 769px) {
+  .navbar__inner {
+    padding-inline: clamp(0.75rem, 2vw, 1.25rem);
+  }
+}
+
+.navbar__logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.logo-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.1em;
+  height: 1.1em;
+  color: #9aa3b0; /* Consistent gray as requested */
+}
+
+.logo-icon svg {
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.anchor-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1em;
+  height: 1em;
+  color: #9aa3b0;
+  vertical-align: middle;
+}
+/* ── 7. HERO SECTION ────────────────────────────────────────────────────── */
+.hero {
+  position: relative;
+  height: min(calc(var(--vh, 1vh) * 100), 860px); /* FullHD calibration: cap prevents 1005px hero on 1080p */
+  display: flex;
+  align-items: center;
+  overflow: clip;
+}
+  </style>
+  <link rel="stylesheet" href="/css/bundle.css">
+<link rel="icon" href="/assets/icons/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/assets/icons/favicon.png" type="image/png" sizes="192x192" />
+    <link rel="apple-touch-icon" href="/assets/icons/favicon.png" />
+
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Seaduced Experience" />
+  <meta name="publisher" content="Seaduced Experience" />
+  <link rel="canonical" href="https://www.seaduced-experience.com/experiences/copenhagen-to-malmo/" />
+  <link rel="alternate" hreflang="en" href="https://www.seaduced-experience.com/experiences/copenhagen-to-malmo/" />
+  <link rel="alternate" hreflang="da" href="https://www.seaduced-experience.com/da/experiences/copenhagen-to-malmo/" />
+  <link rel="alternate" hreflang="es" href="https://www.seaduced-experience.com/es/experiences/copenhagen-to-malmo/" />
+  <link rel="alternate" hreflang="x-default" href="https://www.seaduced-experience.com/experiences/copenhagen-to-malmo/" />
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Seaduced Experience" />
+  <meta property="og:url" content="https://www.seaduced-experience.com/experiences/copenhagen-to-malmo/" />
+  <meta property="og:title" content="Private Boat Tour Copenhagen to Malmö — Cross-Border Day Trip" />
+  <meta property="og:description" content="Private 7-hour boat journey from Copenhagen across the Øresund to Malmö, Sweden. Explore Malmö at your own pace and sail back. From DKK 13,000 per group of up to 10." />
+  <meta property="og:image" content="https://www.seaduced-experience.com/assets/images/general/hero_canal_copenhagen3.png" />
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Private Boat Tour Copenhagen to Malmö — Cross-Border Day Trip" />
+  <meta name="twitter:description" content="Private 7-hour boat journey from Copenhagen across the Øresund to Malmö, Sweden. Explore Malmö at your own pace and sail back. From DKK 13,000 per group of up to 10." />
+  <meta name="twitter:image" content="https://www.seaduced-experience.com/assets/images/general/hero_canal_copenhagen3.png" />
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.seaduced-experience.com/"},
+          {"@type": "ListItem", "position": 2, "name": "Book a Tour", "item": "https://www.seaduced-experience.com/book/"},
+          {"@type": "ListItem", "position": 3, "name": "Private Boat Tour from Copenhagen to Malmö", "item": "https://www.seaduced-experience.com/experiences/copenhagen-to-malmo/"}
+        ]
+      },
+      {
+        "@type": "TouristTrip",
+        "@id": "https://www.seaduced-experience.com/experiences/copenhagen-to-malmo/#trip",
+        "name": "Private Boat Tour from Copenhagen to Malmö",
+        "description": "7-hour private cross-border boat trip from Copenhagen to Malmö, Sweden. Cross the Øresund strait and explore Malmö with plenty of free time before the return sail.",
+        "url": "https://www.seaduced-experience.com/experiences/copenhagen-to-malmo/",
+        "image": "https://www.seaduced-experience.com/assets/images/general/private-boat-copenhagen-exterior.png",
+        "provider": {"@id": "https://www.seaduced-experience.com/#business"},
+        "duration": "PT7H",
+        "maximumAttendeeCapacity": 10,
+        "availableLanguage": ["English", "Spanish"],
+        "touristType": ["Couple", "Family", "SmallGroup", "Tourist"],
+        "offers": {
+          "@type": "Offer",
+          "price": "13000",
+          "priceCurrency": "DKK",
+          "availability": "https://schema.org/InStock",
+          "url": "https://www.seaduced-experience.com/experiences/copenhagen-to-malmo/"
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- FAQPage Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is included in the Copenhagen to Malmö private boat tour?",
+        "acceptedAnswer": {"@type": "Answer", "text": "A full-day private boat experience: Copenhagen canal highlights, an open-sea crossing of the Øresund Strait, approximately 2 hours of free time in Malmö, and the return journey — all with your own captain. Drinks are included."}
+      },
+      {
+        "@type": "Question",
+        "name": "Do we need a passport for the Copenhagen to Malmö boat tour?",
+        "acceptedAnswer": {"@type": "Answer", "text": "Yes — a valid passport or national ID is required as the tour crosses the Danish-Swedish border."}
+      },
+      {
+        "@type": "Question",
+        "name": "How long is the Copenhagen to Malmö private boat tour?",
+        "acceptedAnswer": {"@type": "Answer", "text": "Approximately 7 hours total, including the canal cruise, the Øresund crossing, free time in Malmö, and the return."}
+      },
+      {
+        "@type": "Question",
+        "name": "How many people can join the Copenhagen to Malmö tour?",
+        "acceptedAnswer": {"@type": "Answer", "text": "Up to 10 guests per booking."}
+      },
+      {
+        "@type": "Question",
+        "name": "What is the price of the Copenhagen to Malmö boat tour?",
+        "acceptedAnswer": {"@type": "Answer", "text": "DKK 13,000 per group for up to 10 people."}
+      }
+    ]
+  }
+  </script>
+
+  <!-- Microsoft Clarity -->
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "x199obzcqz");
+  </script>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6RZJ21L1R2"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-6RZJ21L1R2');
+  </script>
+</head>
+
+<body class="experience-page" data-i18n-title="experiences.malmo.page.title" data-experience-id="book-malmo">
+  <div class="preloader">
+    <div class="preloader__content">
+      <svg class="preloader__anchor" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path
+          d="M12 5V21M7 16H2M17 16H22M5 16C5 19.866 8.13401 23 12 23C15.866 23 19 19.866 19 16M12 5C13.1046 5 14 4.10457 14 3C14 1.89543 13.1046 1 12 1C10.8954 1 10 1.89543 10 3C10 4.10457 10.8954 5 12 5Z" />
+      </svg>
+      <div class="preloader__text">Seaduced Experience</div>
+    </div>
+  </div>
+  <header class="navbar" id="navbar">
+    <div class="container navbar__inner">
+      <a href="/" class="navbar__logo" aria-label="Seaduced Experience Home">
+        <span class="logo-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 5V21M7 16H2M17 16H22M5 16C5 19.866 8.13401 23 12 23C15.866 23 19 19.866 19 16M12 5C13.1046 5 14 4.10457 14 3C14 1.89543 13.1046 1 12 1C10.8954 1 10 1.89543 10 3C10 4.10457 10.8954 5 12 5Z" />
+          </svg>
+        </span>
+        <span class="logo-text">Seaduced<em>Experience</em></span>
+      </a>
+
+      <nav class="navbar__nav" id="navMenu" role="navigation" aria-label="Main navigation">
+        <a href="/" class="nav-link" data-i18n="nav.home" data-i18n-href="/">Home</a>
+        <a href="/book" class="nav-link" id="nav-tours" data-i18n="nav.tours" data-i18n-href="/book">Tours</a>
+        <a href="/#faq" class="nav-link" data-i18n="nav.faq" data-i18n-href="/#faq">FAQ</a>
+        <a href="/#contact" class="nav-link" data-i18n="nav.contact" data-i18n-href="/#contact">Contact</a>
+      </nav>
+
+      <div class="navbar__actions">
+        <a href="/book" class="btn btn--primary btn--sm" data-i18n="nav.cta" data-i18n-href="/book">Book Now</a>
+        <div class="lang-switcher">
+          <a href="/" class="lang-link is-active" title="English"><img width="32" height="24" src="/assets/icons/flag-en.svg" alt="EN"></a>
+                  <a href="/da/experiences/copenhagen-to-malmo/" class="lang-link" title="Dansk"><img width="32" height="24" src="/assets/icons/flag-da.svg" alt="DA"></a>
+          <a href="/es/experiences/copenhagen-to-malmo/" class="lang-link" title="Español"><img width="32" height="24" src="/assets/icons/flag-es.svg" alt="ES"></a>
+        </div>
+        <button class="navbar__hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="navbar__mobile" id="mobileMenu">
+      <a href="/" class="nav-link" data-i18n="nav.home" data-i18n-href="/">Home</a>
+      <a href="/book" class="nav-link" id="mob-tours" data-i18n="nav.tours" data-i18n-href="/book">Tours</a>
+      <a href="/#faq" class="nav-link" data-i18n="nav.faq" data-i18n-href="/#faq">FAQ</a>
+      <a href="/#contact" class="nav-link" data-i18n="nav.contact" data-i18n-href="/#contact">Contact</a>
+      <div class="lang-switcher">
+          <a href="/" class="lang-link is-active" title="English"><img width="32" height="24" src="/assets/icons/flag-en.svg" alt="EN"></a>
+                  <a href="/da/experiences/copenhagen-to-malmo/" class="lang-link" title="Dansk"><img width="32" height="24" src="/assets/icons/flag-da.svg" alt="DA"></a>
+        <a href="/es/experiences/copenhagen-to-malmo/" class="lang-link" title="Español"><img width="32" height="24" src="/assets/icons/flag-es.svg" alt="ES"></a>
+      </div>
+      <a href="/book" class="btn btn--primary mt-1" data-i18n="nav.cta" data-i18n-href="/book">Book Now</a>
+    </div>
+  </header>
+
+  <main class="experience-main">
+
+    <div class="experience-shell">
+      <div class="experience-content">
+        <header class="experience-heading reveal">
+          <h1 data-i18n-html="experiences.malmo.hero_html">Copenhagen to Malmö <span class="title-accent">Private Boat</span> Experience</h1>
+        </header>
+
+        <!-- PREMIUM CAROUSEL GALLERY (Desktop Only) -->
+        <section class="experience-gallery reveal" aria-label="Tour gallery">
+          <div class="experience-gallery__badge">
+            <span data-i18n="experiences.ui.info.duration">Duration</span> 7h
+          </div>
+          <div class="experience-gallery__track">
+            <div class="experience-gallery__slide">
+              <img src="/assets/images/malmo/copenhague-malmo.png" alt="Private boat tour from Copenhagen to Malmö"
+                width="1000" height="450" loading="lazy" />
+            </div>
+            <div class="experience-gallery__slide">
+              <img src="/assets/images/malmo/copenhague-malmo-guests.png" alt="Crossing the Øresund Strait"
+                width="1000" height="450" loading="lazy" />
+            </div>
+            <div class="experience-gallery__slide">
+              <img src="/assets/images/malmo/copenhague.png" alt="Copenhagen landmarks from the water"
+                width="1000" height="450" loading="lazy" />
+            </div>
+          </div>
+          <button class="experience-gallery__nav experience-gallery__nav--prev" aria-label="Previous photo">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+          </button>
+          <button class="experience-gallery__nav experience-gallery__nav--next" aria-label="Next photo">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </button>
+          <div class="experience-gallery__dots"></div>
+        </section>
+
+        <!-- MOBILE GALLERY (Mobile Only) -->
+        <div class="mobile-gallery">
+          <div class="mobile-gallery__track">
+
+            <div class="mobile-gallery__slide">
+              <img loading="lazy" src="/assets/images/malmo/copenhague-malmo.png" alt="Copenhagen to Malmö Boat Tour">
+            </div>
+
+            <div class="mobile-gallery__slide">
+              <img loading="lazy" src="/assets/images/malmo/copenhague-malmo-guests.png" alt="Crossing the Øresund Strait">
+            </div>
+
+            <div class="mobile-gallery__slide">
+              <img loading="lazy" src="/assets/images/malmo/copenhague.png" alt="Copenhagen landmarks from the water">
+            </div>
+
+          </div>
+          <div class="mobile-gallery__dots"></div>
+        </div>
+
+        <p class="experience-intro reveal" data-i18n="experiences.malmo.intro">Discover two countries in one unforgettable day. Cruise from Copenhagen to Malmö on a private boat, explore
+          iconic landmarks from the water, cross the Øresund Strait, and enjoy free time in Sweden — all at your own
+          pace with your own captain.</p>
+
+        <div class="experience-sections">
+          <!-- QUICK INFO ALWAYS VISIBLE -->
+          <section class="experience-section" style="border-top:none; padding-top:0;">
+            <div class="experience-info-grid">
+              <article class="experience-info-card">
+                <span class="experience-info-card__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="9"></circle>
+                    <path d="m8.5 12 2.3 2.3 4.7-5.1"></path>
+                  </svg>
+                </span>
+                <strong data-i18n="experiences.ui.info.cancellation">Cancellation</strong>
+                <p data-i18n="experiences.ui.info.cancellation_val">Free up to 48h before</p>
+              </article>
+              <article class="experience-info-card">
+                <span class="experience-info-card__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9.5" cy="7" r="3"></circle>
+                    <path d="M20 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M16.5 4.13a3 3 0 0 1 0 5.74"></path>
+                  </svg>
+                </span>
+                <strong data-i18n="experiences.ui.info.participants">Participants</strong>
+                <p><span data-i18n="experiences.malmo.info.participants_val">Private group (max 10)</span></p>
+              </article>
+              <article class="experience-info-card">
+                <span class="experience-info-card__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="12" cy="13" r="8"></circle>
+                    <path d="M12 9v4l2.5 1.5"></path>
+                    <path d="M9 3h6"></path>
+                    <path d="M12 3v2"></path>
+                  </svg>
+                </span>
+                <strong data-i18n="experiences.ui.info.duration">Duration</strong>
+                <p><span data-i18n="experiences.malmo.info.duration_val">7 hours</span></p>
+              </article>
+              <article class="experience-info-card">
+                <span class="experience-info-card__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="9"></circle>
+                    <path d="M3 12h18"></path>
+                    <path d="M12 3a15 15 0 0 1 0 18"></path>
+                    <path d="M12 3a15 15 0 0 0 0 18"></path>
+                  </svg>
+                </span>
+                <strong data-i18n="experiences.ui.info.guide">Guide</strong>
+                <p><span data-i18n="experiences.malmo.info.guide_val">English, Spanish, Danish</span></p>
+              </article>
+            </div>
+          </section>
+
+          <!-- MODULAR TABS NAVIGATION (Desktop Only) -->
+          <nav class="experience-tabs-nav" role="tablist">
+            <button class="experience-tab-btn is-active" role="tab" aria-selected="true" aria-controls="tab-discover">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" class="tab-icon">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <span><span data-i18n="experiences.ui.tabs.discover">Discover</span></span>
+            </button>
+            <button class="experience-tab-btn" role="tab" aria-selected="false" aria-controls="tab-info">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" class="tab-icon">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+              <span><span data-i18n="experiences.ui.tabs.included">Included</span></span>
+            </button>
+            <button class="experience-tab-btn" role="tab" aria-selected="false" aria-controls="tab-prep">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" class="tab-icon">
+                <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+                <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+              </svg>
+              <span><span data-i18n="experiences.ui.tabs.prep">Preparation</span></span>
+            </button>
+            <button class="experience-tab-btn" role="tab" aria-selected="false" aria-controls="tab-meeting">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" class="tab-icon">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+              <span><span data-i18n="experiences.ui.tabs.meeting">Meeting</span></span>
+            </button>
+          </nav>
+
+          <!-- ACCORDION ITEM 1: DESCUBRIR -->
+          <div id="tab-discover" class="experience-tab-panel is-active" role="tabpanel">
+            <button class="accordion-trigger" aria-expanded="true" aria-controls="accordion-discover">
+              <span class="accordion-trigger__inner">
+                <span class="accordion-trigger__title">
+                  <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                      stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                      <path
+                        d="M12 22V8M5 12H2M19 12h3M12 8c-1.657 0-3-1.343-3-3s1.343-3 3-3 3 1.343 3 3-1.343 3-3 3zM5 12c0 3.866 3.134 7 7 7s7-3.134 7-7" />
+                    </svg></span>
+                  <span data-i18n="experiences.ui.accordion.discover">What you'll experience</span>
+                </span>
+              </span>
+              <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </button>
+            <div class="accordion-content" id="accordion-discover">
+              <section class="experience-section" style="border-top:none; padding-top:0;">
+                <div class="experience-story-grid">
+                  <div class="experience-story__text">
+                    <h2 data-i18n="experiences.ui.story.in_detail">In detail</h2>
+
+                    <p data-i18n-html="experiences.malmo.story_paras.0">
+                      Begin your journey in Copenhagen, cruising through the city’s vibrant harbor and passing some of
+                      its most iconic landmarks. From the colorful Nyhavn to the modern Opera House and the Black
+                      Diamond, enjoy a unique perspective of the Danish capital from the water.
+                    </p>
+
+                    <p data-i18n-html="experiences.malmo.story_paras.1">
+                      As the city fades behind you, the experience transforms. You’ll cross the Øresund Strait, leaving
+                      the harbor for open sea. With music playing, drinks on board, and endless views of the horizon,
+                      this part of the journey becomes a true private escape.
+                    </p>
+
+                    <p data-i18n-html="experiences.malmo.story_paras.2">
+                      Arriving in Malmö, Sweden, you’ll have around two hours of free time to explore at your own pace.
+                      Walk through the charming old town, enjoy lunch by the waterfront, or simply experience a second
+                      Scandinavian city.
+                    </p>
+
+                    <p data-i18n-html="experiences.malmo.story_paras.3">
+                      After your visit, return to the boat and cruise back to Copenhagen, enjoying the calm rhythm of
+                      the sea and the relaxed atmosphere on board.
+                    </p>
+
+                    <p data-i18n-html="experiences.malmo.story_paras.4">
+                      This is not just a boat tour — it’s a cross-border experience combining sightseeing, exploration,
+                      and open-water adventure.
+                    </p>
+                  </div>
+
+                  <hr class="experience-separator">
+
+                  <div class="experience-story__highlights"><h3 data-i18n="experiences.ui.story.highlights">Highlights</h3>
+                    <ul class="experience-highlights-grid">
+                      <li>
+                        <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                          stroke-linecap="round" stroke-linejoin="round">
+                          <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span data-i18n-html="experiences.malmo.highlights.0"><strong>Two Countries in One Day:</strong> Denmark → Sweden</span>
+                      </li>
+
+                      <li>
+                        <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                          stroke-linecap="round" stroke-linejoin="round">
+                          <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span data-i18n-html="experiences.malmo.highlights.1"><strong>City Highlights:</strong> See Copenhagen from the water</span>
+                      </li>
+
+                      <li>
+                        <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                          stroke-linecap="round" stroke-linejoin="round">
+                          <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span data-i18n-html="experiences.malmo.highlights.2"><strong>Open Sea Crossing:</strong> Sail across the Øresund Strait</span>
+                      </li>
+
+                      <li>
+                        <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                          stroke-linecap="round" stroke-linejoin="round">
+                          <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span data-i18n-html="experiences.malmo.highlights.3"><strong>Malmö Visit:</strong> Free time to explore at your own pace</span>
+                      </li>
+
+                      <li>
+                        <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                          stroke-linecap="round" stroke-linejoin="round">
+                          <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span data-i18n-html="experiences.malmo.highlights.4"><strong>Drinks and Music:</strong> Relax on board during the journey</span>
+                      </li>
+
+                      <li>
+                        <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                          stroke-linecap="round" stroke-linejoin="round">
+                          <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span data-i18n-html="experiences.malmo.highlights.5"><strong>Fully Private:</strong> Your group, your experience</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
+
+          <!-- ACCORDION ITEM 2: INCLUIDO -->
+          <div id="tab-info" class="experience-tab-panel" role="tabpanel">
+            <button class="accordion-trigger" aria-expanded="false" aria-controls="accordion-info">
+              <span class="accordion-trigger__inner">
+                <span class="accordion-trigger__title">
+                  <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                      stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 3L13.16 9.84L20 11L13.16 12.16L12 19L10.84 12.16L4 11L10.84 9.84L12 3Z" />
+                    </svg></span>
+                  <span data-i18n="experiences.ui.accordion.included">What's included in your experience</span>
+                </span>
+              </span>
+              <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </button>
+            <div class="accordion-content" id="accordion-info">
+              <section class="experience-section" style="border-top:none; padding-top:0;">
+                <div class="experience-details-grid">
+                  <div>
+                    <h3 data-i18n="experiences.ui.story.included">Included</h3>
+                    <ul class="experience-details-list">
+                      <li><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                          stroke-linecap="round" stroke-linejoin="round">
+                          <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg><span data-i18n="experiences.malmo.included.0">Private boat and captain</span></li>
+                      <li><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                          stroke-linecap="round" stroke-linejoin="round">
+                          <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg><span data-i18n="experiences.malmo.included.1">Fuel</span></li>
+                      <li><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                          stroke-linecap="round" stroke-linejoin="round">
+                          <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg><span data-i18n="experiences.malmo.included.2">Music onboard</span></li>
+                      <li><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                          stroke-linecap="round" stroke-linejoin="round">
+                          <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg><span data-i18n="experiences.malmo.included.3">Drinks (beer, wine, soft drinks)</span></li>
+                      <li><svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                          stroke-linecap="round" stroke-linejoin="round">
+                          <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg><span data-i18n="experiences.malmo.included.4">Safety equipment</span></li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h3 data-i18n="experiences.malmo.excl_h3">Not Included</h3>
+                    <ul class="experience-details-list">
+                      <li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+                          stroke-width="2" style="opacity: 0.5; margin-right: 8px;">
+                          <line x1="18" y1="6" x2="6" y2="18"></line>
+                          <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg><span data-i18n="experiences.malmo.excl_items.0">Food not included</span></li>
+                      <li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+                          stroke-width="2" style="opacity: 0.5; margin-right: 8px;">
+                          <line x1="18" y1="6" x2="6" y2="18"></line>
+                          <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg><span data-i18n="experiences.malmo.excl_items.1">Additional drinks available for purchase</span></li>
+                    </ul>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
+
+          <!-- ACCORDION ITEM 3: PREPARACIÓN -->
+          <div id="tab-prep" class="experience-tab-panel" role="tabpanel">
+            <button class="accordion-trigger" aria-expanded="false" aria-controls="accordion-prep">
+              <span class="accordion-trigger__inner">
+                <span class="accordion-trigger__title">
+                  <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                      stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" />
+                      <path d="M3 6h18" />
+                      <path d="M16 10a4 4 0 0 1-8 0" />
+                    </svg></span>
+                  <span data-i18n="experiences.ui.accordion.prep">Before you go</span>
+                </span>
+              </span>
+              <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </button>
+            <div class="accordion-content" id="accordion-prep">
+              <section class="experience-section experience-important" style="border-top:none; padding-top:0;">
+                <div class="experience-important-grid">
+                  <div class="experience-important__col">
+                    <strong>Preparation</strong>
+                    <ul>
+                      <li data-i18n="experiences.malmo.prep.bring.0">Passport or valid ID (required for border crossing)</li>
+                      <li data-i18n="experiences.malmo.prep.bring.1">Weather-appropriate clothing</li>
+                      <li data-i18n="experiences.malmo.prep.bring.2">Sunglasses</li>
+                      <li data-i18n="experiences.malmo.prep.bring.3">Camera</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <strong data-i18n="experiences.ui.prep.rules">Rules / Before you go</strong>
+                    <ul>
+                      <li data-i18n="experiences.malmo.prep.rules.0">Valid ID required (travel between Denmark and Sweden)</li>
+                      <li data-i18n="experiences.malmo.prep.rules.1">Route depends on weather and sea conditions</li>
+                      <li data-i18n="experiences.malmo.prep.rules.2">Crossing is only possible if conditions are safe</li>
+                      <li data-i18n="experiences.malmo.prep.rules.3">Full refund if canceled due to weather conditions</li>
+                      <li data-i18n="experiences.malmo.prep.rules.4">Follow captain’s safety instructions at all times</li>
+                    </ul>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
+
+          <!-- ACCORDION ITEM 4: ENCUENTRO -->
+          <div id="tab-meeting" class="experience-tab-panel" role="tabpanel">
+            <button class="accordion-trigger" aria-expanded="false" aria-controls="accordion-meeting">
+              <span class="accordion-trigger__inner">
+                <span class="accordion-trigger__title">
+                  <span class="accordion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                      stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z" />
+                      <circle cx="12" cy="10" r="3"></circle>
+                    </svg></span>
+                  <span data-i18n="experiences.ui.accordion.meeting">Where we'll meet</span>
+                </span>
+              </span>
+              <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </button>
+            <div class="accordion-content" id="accordion-meeting">
+              <section class="experience-section" style="border-top:none; padding-top:0;">
+                <div class="experience-meeting-point">
+                  <div class="experience-meeting-point__info">
+                    <strong data-i18n="experiences.ui.meeting.address">Address</strong>
+                    <p>Havnegade 1, 1058 København, Denmark</p>
+                    <p class="meeting-point-desc" data-i18n="experiences.ui.meeting.meetingPointDescription">At the dock, in front of the Kayak Bar. Look for the Seaduced boat.</p>
+                  </div>
+                  <a href="#" data-google-maps-link data-lat="55.678722" data-lng="12.590747" target="_blank" class="btn btn--outline btn--sm">
+                    <span data-i18n="experiences.ui.meeting.open_maps">Open in Maps</span>
+                  </a>
+                </div>
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="experience-sidebar">
+        <div class="experience-booking">
+          <span class="experience-booking__flag" data-i18n="experiences.malmo.flag">Epic Journey</span>
+          <span class="experience-booking__label" data-i18n="experiences.ui.booking.from">From</span>
+          <div class="experience-booking__price">
+            <strong>13,000 DKK</strong>
+            <span><span data-i18n="experiences.malmo.booking.price_note">per group up to 10</span></span>
+          </div>
+
+          <div class="experience-booking__details">
+            <div class="experience-booking__people" id="experience-people-picker">
+              <input id="experience-participants" type="hidden" value="1" />
+              <button class="experience-booking__control experience-booking__control--button" type="button"
+                id="experience-people-trigger" aria-expanded="false" aria-controls="experience-people-panel">
+                <span class="experience-booking__control-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9.5" cy="7" r="3"></circle>
+                    <path d="M20 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M16.5 4.13a3 3 0 0 1 0 5.74"></path>
+                  </svg>
+                </span>
+                <span class="experience-booking__control-label" data-i18n="experiences.ui.booking.participants">Participants</span>
+                <span class="experience-booking__control-value" id="experience-people-value">1</span>
+              </button>
+
+              <div class="experience-booking__people-panel" id="experience-people-panel" hidden>
+                <div class="experience-booking__people-card">
+                  <div class="experience-booking__people-head">
+                    <strong data-i18n="experiences.ui.booking.people_head">Number of people</strong>
+                    <span data-i18n="experiences.malmo.booking.up_to">Up to 10 guests</span>
+                  </div>
+                  <div class="experience-booking__people-counter">
+                    <button class="experience-booking__stepper" type="button" id="experience-people-minus"
+                      aria-label="Decrease number of people">−</button>
+                    <span class="experience-booking__people-number" id="experience-people-number">1</span>
+                    <button class="experience-booking__stepper" type="button" id="experience-people-plus"
+                      aria-label="Increase number of people">+</button>
+                  </div>
+                  <button class="experience-booking__people-done" type="button"
+                    id="experience-people-done" data-i18n="experiences.ui.booking.done">Done</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="experience-booking__date" id="experience-date-picker">
+              <input id="experience-date" type="hidden" value="" />
+              <button class="experience-booking__control experience-booking__control--button" type="button"
+                id="experience-date-trigger" aria-expanded="false" aria-controls="experience-date-panel">
+                <span class="experience-booking__control-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <rect x="3" y="4" width="18" height="17" rx="3"></rect>
+                    <path d="M8 2v4"></path>
+                    <path d="M16 2v4"></path>
+                    <path d="M3 10h18"></path>
+                    <path d="M8 14h.01"></path>
+                    <path d="M12 14h.01"></path>
+                    <path d="M16 14h.01"></path>
+                  </svg>
+                </span>
+                <span class="experience-booking__control-label" data-i18n="experiences.ui.booking.date_label">Select date</span>
+                <span class="experience-booking__control-value" id="experience-date-value" data-i18n="experiences.ui.booking.date_placeholder">Choose date</span>
+              </button>
+
+              <div class="experience-booking__date-panel" id="experience-date-panel" hidden>
+                <div class="experience-booking__date-card">
+                  <div class="experience-booking__date-head">
+                    <button class="experience-booking__calendar-nav" type="button" id="experience-date-prev"
+                      aria-label="Previous month">‹</button>
+                    <div class="experience-booking__date-month" id="experience-date-month">Month 2026</div>
+                    <button class="experience-booking__calendar-nav" type="button" id="experience-date-next"
+                      aria-label="Next month">›</button>
+                  </div>
+                  <div class="experience-booking__calendar-weekdays" aria-hidden="true">
+                    <span data-i18n="experiences.ui.weekdays.0">Mon</span><span data-i18n="experiences.ui.weekdays.1">Tue</span><span data-i18n="experiences.ui.weekdays.2">Wed</span><span data-i18n="experiences.ui.weekdays.3">Thu</span><span data-i18n="experiences.ui.weekdays.4">Fri</span><span data-i18n="experiences.ui.weekdays.5">Sat</span><span data-i18n="experiences.ui.weekdays.6">Sun</span>
+                  </div>
+                  <div class="experience-booking__calendar-grid" id="experience-date-grid"></div>
+                  <div class="experience-booking__date-note" data-i18n="experiences.ui.booking.dates_only">Available dates only</div>
+                  <button class="experience-booking__people-done" type="button" id="experience-date-done" data-i18n="experiences.ui.booking.done">Done</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="experience-booking__time" id="experience-time-picker">
+              <input id="experience-time" type="hidden" value="" />
+              <button class="experience-booking__control experience-booking__control--button" type="button"
+                id="experience-time-trigger" aria-expanded="false" aria-controls="experience-time-panel" disabled>
+                <span class="experience-booking__control-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                </span>
+                <span class="experience-booking__control-label" data-i18n="experiences.ui.booking.time_label">Select time</span>
+                <span class="experience-booking__control-value" id="experience-time-value" data-i18n="experiences.ui.booking.time_placeholder">Date first</span>
+              </button>
+
+              <div class="experience-booking__time-panel" id="experience-time-panel" hidden>
+                <div class="experience-booking__time-card">
+                  <div class="experience-booking__time-head">
+                    <strong data-i18n="experiences.ui.booking.times_head">Available times</strong>
+                    <span><span data-i18n="experiences.ui.booking.times_sub">Choose your slot</span></span>
+                  </div>
+                  <div class="experience-booking__time-grid" id="experience-time-grid">
+                    <p class="small-text" style="grid-column: 1/-1; text-align: center; padding: 1rem; opacity: 0.6;" data-i18n="experiences.ui.booking.times_empty">Select a date first</p>
+                  </div>
+                  <button class="experience-booking__people-done" type="button" id="experience-time-done" data-i18n="experiences.ui.booking.done">Done</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="experience-booking__language" id="experience-language-picker">
+              <input id="experience-language" type="hidden" value="english" />
+              <button class="experience-booking__control experience-booking__control--button" type="button"
+                id="experience-language-trigger" aria-expanded="false" aria-controls="experience-language-panel">
+                <span class="experience-booking__control-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="9"></circle>
+                    <path d="M3 12h18"></path>
+                    <path d="M12 3a15 15 0 0 1 0 18"></path>
+                    <path d="M12 3a15 15 0 0 0 0 18"></path>
+                  </svg>
+                </span>
+                <span class="experience-booking__control-label" data-i18n="experiences.ui.booking.lang_label">Guide language</span>
+                <span class="experience-booking__control-value" id="experience-language-value">English</span>
+              </button>
+
+              <div class="experience-booking__language-panel" id="experience-language-panel" hidden>
+                <div class="experience-booking__language-card">
+                  <div class="experience-booking__language-head">
+                    <strong data-i18n="experiences.ui.booking.lang_head">Guide language</strong>
+                    <span data-i18n="experiences.ui.booking.lang_sub">Choose the language of your guide</span>
+                  </div>
+                  <div class="experience-booking__language-options" role="listbox" aria-label="Guide language options">
+                    <button class="experience-booking__language-option is-selected" type="button"
+                      data-language-option="english" aria-selected="true">
+                      <span><span data-i18n="experiences.ui.booking.lang_en">English</span></span>
+                    </button>
+                    <button class="experience-booking__language-option" type="button" data-language-option="spanish"
+                      aria-selected="false">
+                      <span><span data-i18n="experiences.ui.booking.lang_es">Spanish</span></span>
+                    </button>
+                    <button class="experience-booking__language-option" type="button" data-language-option="danish"
+                      aria-selected="false">
+                      <span>Danish</span>
+                    </button>
+                  </div>
+                  <button class="experience-booking__people-done" type="button"
+                    id="experience-language-done" data-i18n="experiences.ui.booking.done">Done</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button class="btn btn--primary btn--lg" type="button" id="experience-check-availability"
+            style="width: 100%;">Check
+            availability</button>
+
+          <div class="experience-booking__benefits">
+            <div class="experience-booking__benefit">
+              <span class="experience-booking__benefit-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="9"></circle>
+                  <path d="m8.5 12 2.3 2.3 4.7-5.1"></path>
+                </svg>
+              </span>
+              <div>
+                <strong data-i18n="experiences.ui.booking.free_cancel">Free cancellation</strong>
+                <p data-i18n="experiences.ui.booking.free_cancel_text">Full refund if you cancel up to 24 hours in advance.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="booking-footer">
+    <p><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.7"
+        stroke-linecap="round" stroke-linejoin="round"
+        style="display:inline-block;vertical-align:middle;margin-right:0.35em;opacity:0.6">
+        <circle cx="12" cy="5" r="2" />
+        <path d="M12 7v14" />
+        <path d="M5 14l7 7 7-7" />
+        <path d="M5 10h14" />
+      </svg>© 2025 – 2026 Seaduced Experience &nbsp;·&nbsp; <span data-i18n="experiences.ui.footer.dev">Developed by</span> <a href="https://www.weareleba.com" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;">Leba Agency</a> &nbsp;·&nbsp; <a href="/" style="color: inherit;" data-i18n="experiences.ui.footer.back" data-i18n-href="/">Back to Home</a></p>
+  </footer>
+
+  <script type="module" src="/js/i18n-4WSVNZS2.js"></script>
+  <script type="module" src="/js/main-HSFU3PPB.js"></script>
+  <div class="mobile-sticky-cta">
+    <div class="mobile-sticky-cta__price">
+      <strong>13,000 DKK</strong>
+      <span><span data-i18n="experiences.malmo.booking.price_note">per group up to 10</span></span>
+    </div>
+    <button type="button" class="btn" id="mobile-sticky-cta-button"><span data-i18n="experiences.ui.mobile_cta.book">Book now</span></button>
+  </div>
+  <script type="module" src="/js/analytics-62FEXRTA.js"></script>
+</body>
+
+</html>

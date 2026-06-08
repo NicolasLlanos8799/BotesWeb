@@ -1,0 +1,332 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   DESKTOP LAYOUT CONSTRAINT SYSTEM — Seaduced Experience
+   ───────────────────────────────────────────────────────────────────────────
+   Scope:   Desktop & widescreen only (≥ 1025 px)
+   Goal:    Preserve the visual composition seen at ~1600×900 across
+            1920×1080, ultrawide, and large Windows desktop displays.
+   Rule:    ✦ NO mobile changes  ✦ NO redesign  ✦ Additive only
+            All overrides use min-width media queries so they never
+            interfere with anything at or below 768 px.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+
+/* ───────────────────────────────────────────────────────────────────────────
+   1. HERO — Cap viewport-height growth on large/tall displays
+   At 1600×900 the hero is 900 px.  On 1920×1080 it would grow to 1080 px,
+   stretching the composition.  Hard-capping at 900 px keeps it identical.
+   ─────────────────────────────────────────────────────────────────────────── */
+@media (min-width: 1025px) {
+  .hero {
+    max-height: 900px;
+  }
+}
+
+
+/* ───────────────────────────────────────────────────────────────────────────
+   2. TOURS GRID — Deterministic 3-column layout
+   Card count: 3  →  repeat(3, 1fr)  is exactly right.
+   Replaces: repeat(auto-fit, minmax(min(100%, 320px), 1fr))
+   ─────────────────────────────────────────────────────────────────────────── */
+@media (min-width: 1025px) {
+  .tours-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+
+/* ───────────────────────────────────────────────────────────────────────────
+   3. FEATURES GRID — Deterministic 4-column layout
+   Card count: 4  →  repeat(4, 1fr).
+   auto-fit below 1280 px was producing a 3+1 orphan split; this locks
+   all four "Why Choose Us" pillars into one stable row from 1025 px up.
+   Replaces: repeat(auto-fit, minmax(min(100%, 260px), 1fr))
+   ─────────────────────────────────────────────────────────────────────────── */
+@media (min-width: 1025px) {
+  .features-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+
+/* ───────────────────────────────────────────────────────────────────────────
+   4. WELCOME SPLIT — Stable explicit 2-column on desktop
+   The auto-fit version already collapses to 2 cols above 800 px, but the
+   deterministic declaration makes rendering cross-browser predictable and
+   prevents any edge-case reflow at the 1025-px boundary.
+   Replaces: repeat(auto-fit, minmax(min(100%, 400px), 1fr))
+   ─────────────────────────────────────────────────────────────────────────── */
+@media (min-width: 1025px) {
+  .welcome-split {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+
+/* ───────────────────────────────────────────────────────────────────────────
+   5. BOOKING GRID — Deterministic 3-column layout
+   The book page has three separate .booking-grid instances:
+     • Essentials  → 3 cards  (3-col ✓)
+     • Specialty   → 3 cards  (3-col ✓)
+     • Exclusive   → 1 card   (handled by :only-child rule below)
+   The existing max-width: 1280px on .booking-grid is preserved; we only
+   replace the elastic auto-fit with an explicit column count.
+   Replaces: repeat(auto-fit, minmax(min(100%, 350px), 400px))
+   ─────────────────────────────────────────────────────────────────────────── */
+@media (min-width: 1025px) {
+  .booking-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    justify-content: initial; /* remove the flex-like centering; grid handles it */
+  }
+
+  /* Single-card grids (e.g. "Exclusive" Malmö section):
+     Span all 3 columns and center the lone card at a comfortable width.
+     This requires no HTML changes — pure CSS :only-child selector. */
+  .booking-grid > .booking-card:only-child {
+    grid-column: 1 / -1;
+    max-width: 480px;
+    width: 100%;
+    margin-inline: auto;
+  }
+}
+
+
+/* ───────────────────────────────────────────────────────────────────────────
+   6. QUICK REVIEWS — Deterministic 3-column layout
+   Card count: 3  →  repeat(3, 1fr).
+   Replaces: repeat(auto-fit, minmax(min(100%, 280px), 1fr))
+   ─────────────────────────────────────────────────────────────────────────── */
+@media (min-width: 1025px) {
+  .quick-reviews {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+
+/* ───────────────────────────────────────────────────────────────────────────
+   7. ROUTES GRID — Defensive deterministic 4-column layout
+   Replaces: repeat(auto-fit, minmax(220px, 1fr))
+   ─────────────────────────────────────────────────────────────────────────── */
+@media (min-width: 1025px) {
+  .routes-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+
+/* ───────────────────────────────────────────────────────────────────────────
+   8. BESTSELLERS GRID — Stable asymmetric 2-column layout
+   Preserves the large-card / side-cards composition on desktop.
+   The existing @media (max-width: 1024px) collapse to 1fr is untouched.
+   ─────────────────────────────────────────────────────────────────────────── */
+@media (min-width: 1025px) {
+  .bestsellers-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: var(--space-lg);
+    align-items: stretch;
+  }
+}
+
+
+/* ───────────────────────────────────────────────────────────────────────────
+   9. NAVBAR — Prevent inner rail from over-stretching on ultrawide
+   At the default 1700 px max-width the navbar feels tight on 4K displays.
+   Capping at 1600 px for viewport ≥ 1800 px keeps visual density right.
+   ─────────────────────────────────────────────────────────────────────────── */
+@media (min-width: 1800px) {
+  .navbar__inner.container {
+    max-width: 1600px;
+  }
+}
+
+
+/* ───────────────────────────────────────────────────────────────────────────
+   10. SECTION TEXT BLOCKS — Prevent excessively wide text on ultrawide
+   Most headers already have max-width: 680px from base.css.
+   The booking-hero intro and CTA sub-copy get a slight bump
+   to match the expanded container breathing room, but stay capped.
+   ─────────────────────────────────────────────────────────────────────────── */
+@media (min-width: 1440px) {
+  .section-header {
+    max-width: 760px;
+  }
+
+  .booking-hero__intro {
+    max-width: 760px;
+  }
+
+  .cta-section__sub {
+    max-width: 580px;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   DESKTOP VERTICAL DENSITY SYSTEM — Seaduced Experience
+   ───────────────────────────────────────────────────────────────────────────
+   Scope:   Widescreen & large desktop (≥ 1600 px)
+   Goal:    Compact vertical composition on 1920×1080 and widescreen monitors
+            so booking sidebar and primary CTAs remain above the fold.
+   Problem: At 1600px+ the following accumulate vertically, pushing booking
+            controls off-screen:
+              • hero content positioned 11vh (~119px) down
+              • section padding = 128px × 2 = 256px per section
+              • experience gallery fixed at 450px
+              • experience-main min-height: 100vh (guarantees scrolling)
+              • experience intro = 7rem (112px) of spacing alone
+              • booking hero = 200px of vertical padding
+              • img-stack and bestseller images oversized at widescreen ratios
+   Rule:    ✦ NO mobile changes  ✦ NO redesign  ✦ Additive only
+            All rules use min-width: 1600px — zero impact at laptop/tablet.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (min-width: 1600px) {
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     D1. HOMEPAGE HERO CONTENT POSITIONING
+     Severity: HIGH
+     Root cause: margin-top: 11vh = ~119px at 1080p viewport. The hero
+     headline is sunken deep in the frame. Combined with padding-bottom of
+     128px (--space-3xl), the content block occupies excessive vertical room
+     inside the hero before the next section is reached.
+     Fix: margin-top 11vh → 4vh (~43px). padding-bottom capped to --space-xl
+     (64px). Hero composition tightens while remaining premium.
+  ───────────────────────────────────────────────────────────────────────── */
+  .hero__content {
+    margin-top: 4vh;
+    padding-bottom: var(--space-xl);
+  }
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     D2. SECTION VERTICAL PADDING
+     Severity: HIGH
+     Root cause: .section { padding: var(--space-3xl) 0 } resolves to 128px
+     top + 128px bottom = 256px of padding per section. On a 1080p screen,
+     2 sections = 512px of whitespace — half the viewport in pure air.
+     Fix: Override to 5rem (80px) top/bottom. Recovers 96px per section.
+     Breathing room is preserved; bloat is eliminated.
+  ───────────────────────────────────────────────────────────────────────── */
+  .section {
+    padding: 5rem 0;
+  }
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     D3. BOOKING PAGE HERO PADDING
+     Severity: HIGH
+     Root cause: padding: calc(72px + 64px) top + 64px bottom = 200px of
+     vertical padding on the booking hero banner. The banner content (heading
+     + sub) is short; the padding makes the section feel like a cinema curtain.
+     Fix: Reduce top offset to +2rem (total ~104px) and bottom to 2.5rem.
+     The dark gradient hero still reads as a distinct hero section.
+  ───────────────────────────────────────────────────────────────────────── */
+  .booking-hero {
+    padding-top: calc(var(--navbar-h) + 2rem);
+    padding-bottom: 2.5rem;
+  }
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     D4. EXPERIENCE GALLERY HEIGHT
+     Severity: CRITICAL — primary cause of sidebar below-fold failure
+     Root cause: height: 450px is a fixed floor that doesn't respond to
+     viewport height. At 1080p, page top padding (~107px) + gallery (450px) =
+     557px consumed before the heading even renders. The booking sidebar
+     (which starts at the shell level, below gallery+heading+intro) is pushed
+     ~800px+ from the top — off-screen on all 1080p monitors.
+     Fix: 450px → 340px. Saves ~110px. Gallery is still immersive and
+     proportional to its 1000px max-width container.
+  ───────────────────────────────────────────────────────────────────────── */
+  .experience-gallery {
+    height: 415px;
+  }
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     D5. EXPERIENCE MAIN — REMOVE VIEWPORT FLOOR, TIGHTEN PADDING
+     Severity: CRITICAL — structural guarantee of scroll requirement
+     Root cause: min-height: 100vh ensures the page is always at least 1080px
+     tall at 1080p, meaning the page ALWAYS requires scrolling regardless of
+     content density. Combined with padding-top: 107px + padding-bottom: 80px,
+     the page wrapper itself adds 187px of vertical space before content.
+     Fix: min-height: auto removes the artificial floor. Padding-top tightened
+     by ~35px, padding-bottom from 80px to 48px.
+  ───────────────────────────────────────────────────────────────────────── */
+  .experience-main {
+    min-height: auto;
+    padding-top: calc(var(--navbar-h) + 1rem);
+    padding-bottom: 3rem;
+  }
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     D6. EXPERIENCE INTRO TYPOGRAPHY & SPACING
+     Severity: HIGH
+     Root cause: margin-top(2rem) + margin-bottom(2.5rem) + padding-bottom
+     (2.5rem) = 7rem (112px) of spacing around a single intro paragraph.
+     font-size: 1.2rem / line-height: 1.8 makes it airy and tall. On a 1320px
+     wide layout, the intro paragraph occupies considerable height because
+     max-width: 950px allows very wide text (fewer line breaks = shorter block,
+     but the spacings dominate).
+     Fix: Spacing cut to 3.5rem total (56px). Font tightened to 1.05rem/1.65.
+     Intro still reads as the premium intro; spacing inflation is gone.
+  ───────────────────────────────────────────────────────────────────────── */
+  .experience-intro {
+    font-size: 1.05rem;
+    line-height: 1.65;
+    margin-top: 1rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 1.25rem;
+  }
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     D7. EXPERIENCE HEADING BLOCK BOTTOM MARGIN
+     Severity: MEDIUM
+     Root cause: margin-bottom: 1.5rem (24px) stacks under the gallery,
+     above the intro. Minor individually, but cumulative with D4–D6 it adds
+     to the vertical distance before the booking sidebar begins.
+     Fix: Tightened to 0.75rem. Heading still has clear separation from meta.
+  ───────────────────────────────────────────────────────────────────────── */
+  .experience-heading {
+    margin-bottom: 0.75rem;
+  }
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     D8. HOMEPAGE WELCOME SPLIT — IMG-STACK HEIGHT
+     Severity: MEDIUM
+     Root cause: img-stack__main at 520px sits in one half of a 2-column
+     layout at 1600px+ (column = ~690px). Aspect ratio 690×520 = 1.33:1 — a
+     near-square image block. The tall image forces the section to be 520px+
+     minimum, dominating the welcome section visually.
+     Fix: 520px → 400px. Still tall and immersive; 4:3 ratio at full column.
+  ───────────────────────────────────────────────────────────────────────── */
+  .img-stack__main {
+    height: 400px;
+  }
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     D9. HOMEPAGE BESTSELLER LARGE CARD IMAGE
+     Severity: MEDIUM
+     Root cause: height: 480px in a 1.4fr column at 1400px container (~830px
+     wide). 830×480 = 1.73:1 widescreen aspect. Combined with the side-cards
+     column, the bestsellers section balloons to 500px+ vertically — nearly
+     half the 1080p viewport consumed by one section's imagery.
+     Fix: 480px → 360px. The large card image remains dominant and premium
+     relative to the side cards without bloating vertical rhythm.
+  ───────────────────────────────────────────────────────────────────────── */
+  .bestseller-card--large .bestseller-card__img {
+    height: 360px;
+  }
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     D10. BOOKING BESPOKE SECTION — PADDING & GAP
+     Severity: MEDIUM
+     Root cause: padding: 3.5rem (56px all sides) + gap: 3.5rem (56px column
+     gap) = 168px of horizontal air on a dark navy CTA block. The section
+     height is driven by the taller column; 56px top/bottom padding adds 112px
+     of vertical space to the booking page.
+     Fix: padding → 2.25rem (36px), gap → 2rem (32px). The navy block remains
+     visually distinct and premium; vertical inflation is cut by ~40px.
+  ───────────────────────────────────────────────────────────────────────── */
+  .booking-bespoke__inner {
+    padding: 2.25rem;
+    gap: 2rem;
+  }
+
+}

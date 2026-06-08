@@ -5,6 +5,7 @@
   "main": "index.html",
   "type": "module",
   "scripts": {
+    "build": "node build.js",
     "init-db": "node scripts/init-db.js",
     "seed": "node scripts/seed-bookings.js",
     "seed:clean": "node scripts/cleanup-and-seed.js",
@@ -16,6 +17,7 @@
     "pg": "^8.21.0"
   },
   "devDependencies": {
+    "esbuild": "^0.25.0",
     "vercel": "^52.0.0"
   }
 }

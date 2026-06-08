@@ -1,0 +1,514 @@
+/* ─────────────────────────────────────────────────────────────────────────
+   Seaduced Experience — Premium Stylesheet
+   ─────────────────────────────────────────────────────────────────────────  */
+
+/* ── 1. DESIGN TOKENS ──────────────────────────────────────────────────── */
+:root {
+  /* ── Color Palette ── */
+  --clr-navy: #0f1e35;
+  --clr-navy-mid: #1a2d4a;
+  --clr-navy-light: #243d5e;
+  --clr-blue: #2d6a9f;
+  --clr-blue-soft: #5b9ecf;
+  --clr-sky: #d0e8f5;
+  --clr-beige: #f5ede0;
+  --clr-sand: #e8d5b7;
+  --clr-sand-lt: #f6efe4;
+  --clr-sunset: #e8834a;
+  --clr-sunset-lt: #f4a96b;
+  --clr-white: #ffffff;
+  --clr-off-white: #fafaf8;
+  --clr-text: #1a1a2e;
+  --clr-text-mid: #4a5568;
+  --clr-text-light: #718096;
+  --clr-border: rgba(255, 255, 255, 0.12);
+
+  /* ── Typography — Unified System ─────────────────────────────────────── */
+  /* Font families */
+  --font-base: var(--font-body);
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-display: 'Playfair Display', serif;
+
+  /* Text colors */
+  --text-color-primary: #2b2f33;
+  --text-color-secondary: #5a6675;
+  --text-color-muted: #8a94a6;
+
+  /* Font sizes (Base Scale) */
+  --fs-xs: 12px;
+  --fs-sm: 13px;
+  --fs-md: 15px;
+  --fs-lg: 18px;
+  --fs-xl: 24px;
+  --fs-xxl: 32px;
+
+  /* Semantic Font Sizes */
+  --fs-p: var(--fs-md);
+  --fs-h1: var(--fs-xxl);
+  --fs-h2: var(--fs-xl);
+  --fs-h3: var(--fs-lg);
+  --fs-label: var(--fs-sm);
+  --fs-hero-title: clamp(3.75rem, 8.57vw, 4.2rem);   /* Desktop calibration: max 77→67px (-13%). Matches ES locale rhythm. */
+  --fs-hero-title-mobile: clamp(1.73rem, 8.57vw, 2.14rem);
+  --fs-hero-sub: clamp(1.21rem, 2.14vw, 1.47rem);
+  --fs-nav: 1.05rem;
+  --fs-badge: 0.82rem;
+  --fs-tag: 0.75rem;
+  --fs-caption: 0.72rem;
+
+  /* Line heights */
+  --lh-tight: 1.1;
+  --lh-normal: 1.5;
+  --lh-relaxed: 1.65;
+  --lh-base: var(--lh-normal);
+
+  /* Font weights */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Letter spacing */
+  --letter-spacing-tight: -0.01em;
+
+  /* ── Spacing Scale ── */
+  /* Fluid Spacing (Clamps) */
+  --space-xs: clamp(0.25rem, 0.5vw, 0.5rem);
+  --space-sm: clamp(0.75rem, 1vw, 1rem);
+  --space-md: clamp(1.25rem, 1.5vw, 1.5rem);
+  --space-lg: clamp(2rem, 2.5vw, 2.5rem);
+  --space-xl: clamp(3rem, 3.5vw, 3.5rem);    /* FullHD calibration: max 64→56px */
+  --space-2xl: clamp(4rem, 5vw, 5rem);       /* FullHD calibration: max 96→80px */
+  --space-3xl: clamp(5rem, 6vw, 6.5rem);     /* FullHD calibration: max 128→104px */
+
+  /* Fixed Spacing (Tokens) */
+  --space-2xs-f: 8px;
+  --space-xs-f: 12px;
+  --space-sm-f: 16px;
+  --space-md-f: 24px;
+  --space-lg-f: 32px;
+  --space-xl-f: 40px;
+
+  /* ── Radii ── */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --radius-full: 999px;
+
+  /* ── Shadows ── */
+  --shadow-sm: 0 4px 12px rgba(15, 30, 53, 0.04);
+  --shadow-md: 0 12px 32px rgba(15, 30, 53, 0.06);
+  --shadow-lg: 0 30px 70px rgba(15, 30, 53, 0.08);
+  --shadow-card: 0 15px 40px rgba(15, 30, 53, 0.05);
+
+  /* ── Transitions ── */
+  --transition-fast: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --transition-smooth: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --transition-slow: 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+  /* ── Container ── */
+  --max-width: 1400px;
+  --navbar-h: 72px;
+
+  /* ── Responsive Breakpoints (canonical — use these, not arbitrary values) ──
+     lg   : 1024px  → tablet landscape / small laptop
+     md   : 768px   → tablet portrait / mobile landscape (main mobile gate)
+     sm   : 600px   → large phone / panels full-width
+     xs   : 480px   → small phone adjustments
+     ─────────────────────────────────────────────────────────────────────────
+     Exceptions documented in code:
+     • 900px  — experience-shell sidebar collapse (intentional, tighter than lg)
+     • 640px  — experience-page mobile refinements (between sm and md)
+     • 992px  — mobile-sticky-bar on experience page (close to lg, keep)
+  ── */
+}
+
+/* ── 2. RESET & BASE ────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--fs-p);
+  line-height: var(--lh-base);
+  color: var(--text-color-primary);
+  font-weight: var(--font-weight-regular);
+  letter-spacing: var(--letter-spacing-tight);
+  background: var(--clr-off-white);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+}
+
+h1 {
+  font-size: var(--fs-h1);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--lh-tight);
+  letter-spacing: -0.02em;
+  color: var(--clr-navy);
+}
+
+h2 {
+  font-size: var(--fs-h2);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--lh-tight);
+  color: var(--clr-navy);
+}
+
+h3 {
+  font-size: var(--fs-h3);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--lh-tight);
+  color: var(--clr-navy);
+}
+
+h4 {
+  font-size: var(--fs-xs);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-color-muted);
+}
+
+p {
+  font-size: var(--fs-p);
+  line-height: var(--lh-base);
+  color: var(--text-color-secondary);
+}
+
+ul,
+ol {
+  padding-left: 1.25rem;
+}
+
+li {
+  font-size: var(--fs-p);
+  line-height: var(--lh-relaxed);
+  margin-bottom: var(--space-2xs-f);
+  color: var(--text-color-secondary);
+}
+
+/* ── UI Text Utilities ── */
+.label,
+.small-text {
+  font-size: var(--fs-label);
+  color: var(--text-color-muted);
+  font-weight: var(--font-weight-medium);
+}
+
+/* ── Price Styling ── */
+.price {
+  font-size: var(--fs-h2);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -0.02em;
+  color: var(--clr-navy);
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  image-rendering: -webkit-optimize-contrast;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: var(--fs-h2);
+  }
+
+  h2 {
+    font-size: var(--fs-h3);
+  }
+}
+
+/* ── 3. UTILITY ─────────────────────────────────────────────────────────── */
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding-inline: clamp(1rem, 4vw, 2rem);
+  width: 100%;
+}
+
+.mt-1 {
+  margin-top: var(--space-sm);
+}
+
+.mt-2 {
+  margin-top: var(--space-lg);
+}
+
+.mt-3 {
+  margin-top: var(--space-xl);
+}
+
+.mb-1 {
+  margin-bottom: var(--space-sm);
+}
+
+.mb-2 {
+  margin-bottom: var(--space-lg);
+}
+
+.mb-3 {
+  margin-bottom: var(--space-xl);
+}
+
+.p-lg {
+  padding: var(--space-lg);
+}
+
+.px-lg {
+  padding-inline: var(--space-lg);
+}
+
+.py-lg {
+  padding-block: var(--space-lg);
+}
+
+.gap-sm {
+  gap: var(--space-sm);
+}
+
+.gap-md {
+  gap: var(--space-md);
+}
+
+.gap-lg {
+  gap: var(--space-lg);
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.bg-navy {
+  background: var(--clr-navy);
+}
+
+.bg-white {
+  background: var(--clr-white);
+}
+
+.text-white {
+  color: var(--clr-white);
+}
+
+.shadow-md {
+  box-shadow: var(--shadow-md);
+}
+
+.shadow-lg {
+  box-shadow: var(--shadow-lg);
+}
+
+.rounded-lg {
+  border-radius: var(--radius-lg);
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.section {
+  padding: var(--space-3xl) 0;
+}
+
+.section-label {
+  display: inline-block;
+  font-size: var(--fs-xs);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--clr-blue);
+  background: rgba(45, 106, 159, 0.06);
+  padding: 0.4em 1em;
+  border-radius: var(--radius-full);
+  margin-bottom: var(--space-sm);
+}
+
+.section-header {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto var(--space-xl);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--letter-spacing-tight);
+  color: var(--clr-navy);
+  margin-bottom: var(--space-sm);
+}
+
+.section-title em {
+  font-style: italic;
+  color: var(--clr-blue);
+}
+
+.section-sub {
+  font-size: var(--fs-md);
+  color: var(--text-color-secondary);
+  line-height: var(--lh-relaxed);
+}
+
+/* ── 4. SCROLL REVEAL ANIMATION ─────────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── 5. PRELOADER ────────────────────────────────────────────────────────── */
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background-color: var(--clr-off-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    visibility 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.preloader--hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.preloader__content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.preloader__anchor {
+  width: 64px;
+  height: 64px;
+  stroke: var(--clr-navy);
+  stroke-width: 1.25;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  animation: anchor-breath 2.5s ease-in-out infinite;
+}
+
+@keyframes anchor-breath {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.5;
+  }
+
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(0.9);
+    opacity: 0.5;
+  }
+}
+
+.preloader__text {
+  font-family: var(--font-display);
+  font-size: var(--fs-sm);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--clr-navy-light);
+  opacity: 0.8;
+}
+/* ── DEMO MODE BANNER ─────────────────────────────────────────────────────── */
+#demo-mode-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 0.5rem 1rem;
+  background: #f59e0b;
+  color: #1a1a1a;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+#demo-mode-banner span {
+  flex: 1;
+  text-align: center;
+}
+
+#demo-banner-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #1a1a1a;
+  opacity: 0.6;
+  padding: 0 0.25rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+#demo-banner-close:hover {
+  opacity: 1;
+}

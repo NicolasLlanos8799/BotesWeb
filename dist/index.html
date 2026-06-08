@@ -1,0 +1,1392 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Private Boat Tours Copenhagen | Seaduced Experience</title>
+  <meta name="description"
+    content="Private boat tours in Copenhagen's iconic canals. Sail past Nyhavn, Christiansborg &amp; Christianshavn with your own local captain. Fully private — just your group. From DKK 2,499." />
+  <meta name="keywords"
+    content="private boat tour Copenhagen, canal tour Copenhagen, Nyhavn boat tour, Copenhagen boat rental, private canal cruise, Copenhagen harbour tour, boat tour Denmark, private sailing Copenhagen, Copenhagen water tour, guided boat tour Copenhagen" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;600;700&display=swap"
+    as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;600;700&display=swap">
+  </noscript>
+  <style>
+    /* Critical CSS - inline */
+    /* ─────────────────────────────────────────────────────────────────────────
+   Seaduced Experience — Premium Stylesheet
+   ─────────────────────────────────────────────────────────────────────────  */
+
+    /* ── 1. DESIGN TOKENS ──────────────────────────────────────────────────── */
+    :root {
+      /* ── Color Palette ── */
+      --clr-navy: #0f1e35;
+      --clr-navy-mid: #1a2d4a;
+      --clr-navy-light: #243d5e;
+      --clr-blue: #2d6a9f;
+      --clr-blue-soft: #5b9ecf;
+      --clr-sky: #d0e8f5;
+      --clr-beige: #f5ede0;
+      --clr-sand: #e8d5b7;
+      --clr-sand-lt: #f6efe4;
+      --clr-sunset: #e8834a;
+      --clr-sunset-lt: #f4a96b;
+      --clr-white: #ffffff;
+      --clr-off-white: #fafaf8;
+      --clr-text: #1a1a2e;
+      --clr-text-mid: #4a5568;
+      --clr-text-light: #718096;
+      --clr-border: rgba(255, 255, 255, 0.12);
+
+      /* ── Typography — Unified System ─────────────────────────────────────── */
+      /* Font families */
+      --font-base: var(--font-body);
+      --font-body: 'Inter', system-ui, sans-serif;
+      --font-display: 'Playfair Display', serif;
+
+      /* Text colors */
+      --text-color-primary: #2b2f33;
+      --text-color-secondary: #5a6675;
+      --text-color-muted: #8a94a6;
+
+      /* Font sizes (Base Scale) */
+      --fs-xs: 12px;
+      --fs-sm: 13px;
+      --fs-md: 15px;
+      --fs-lg: 18px;
+      --fs-xl: 24px;
+      --fs-xxl: 32px;
+
+      /* Semantic Font Sizes */
+      --fs-p: var(--fs-md);
+      --fs-h1: var(--fs-xxl);
+      --fs-h2: var(--fs-xl);
+      --fs-h3: var(--fs-lg);
+      --fs-label: var(--fs-sm);
+      --fs-hero-title: clamp(3.75rem, 8.57vw, 4.2rem);
+      /* Desktop calibration: max 77→67px (-13%). Matches ES locale rhythm. */
+      --fs-hero-title-mobile: clamp(1.73rem, 8.57vw, 2.14rem);
+      --fs-hero-sub: clamp(1.21rem, 2.14vw, 1.47rem);
+      --fs-nav: 1.05rem;
+      --fs-badge: 0.82rem;
+      --fs-tag: 0.75rem;
+      --fs-caption: 0.72rem;
+
+      /* Line heights */
+      --lh-tight: 1.1;
+      --lh-normal: 1.5;
+      --lh-relaxed: 1.65;
+      --lh-base: var(--lh-normal);
+
+      /* Font weights */
+      --font-weight-regular: 400;
+      --font-weight-medium: 500;
+      --font-weight-semibold: 600;
+      --font-weight-bold: 700;
+
+      /* Letter spacing */
+      --letter-spacing-tight: -0.01em;
+
+      /* ── Spacing Scale ── */
+      /* Fluid Spacing (Clamps) */
+      --space-xs: clamp(0.25rem, 0.5vw, 0.5rem);
+      --space-sm: clamp(0.75rem, 1vw, 1rem);
+      --space-md: clamp(1.25rem, 1.5vw, 1.5rem);
+      --space-lg: clamp(2rem, 2.5vw, 2.5rem);
+      --space-xl: clamp(3rem, 3.5vw, 3.5rem);
+      /* FullHD calibration: max 64→56px */
+      --space-2xl: clamp(4rem, 5vw, 5rem);
+      /* FullHD calibration: max 96→80px */
+      --space-3xl: clamp(5rem, 6vw, 6.5rem);
+      /* FullHD calibration: max 128→104px */
+
+      /* Fixed Spacing (Tokens) */
+      --space-2xs-f: 8px;
+      --space-xs-f: 12px;
+      --space-sm-f: 16px;
+      --space-md-f: 24px;
+      --space-lg-f: 32px;
+      --space-xl-f: 40px;
+
+      /* ── Radii ── */
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --radius-xl: 32px;
+      --radius-full: 999px;
+
+      /* ── Shadows ── */
+      --shadow-sm: 0 4px 12px rgba(15, 30, 53, 0.04);
+      --shadow-md: 0 12px 32px rgba(15, 30, 53, 0.06);
+      --shadow-lg: 0 30px 70px rgba(15, 30, 53, 0.08);
+      --shadow-card: 0 15px 40px rgba(15, 30, 53, 0.05);
+
+      /* ── Transitions ── */
+      --transition-fast: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --transition-smooth: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --transition-slow: 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+      /* ── Container ── */
+      --max-width: 1400px;
+      --navbar-h: 72px;
+
+      /* ── Responsive Breakpoints (canonical — use these, not arbitrary values) ──
+     lg   : 1024px  → tablet landscape / small laptop
+     md   : 768px   → tablet portrait / mobile landscape (main mobile gate)
+     sm   : 600px   → large phone / panels full-width
+     xs   : 480px   → small phone adjustments
+     ─────────────────────────────────────────────────────────────────────────
+     Exceptions documented in code:
+     • 900px  — experience-shell sidebar collapse (intentional, tighter than lg)
+     • 640px  — experience-page mobile refinements (between sm and md)
+     • 992px  — mobile-sticky-bar on experience page (close to lg, keep)
+  ── */
+    }
+
+    /* ── 2. RESET & BASE ────────────────────────────────────────────────────── */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      font-family: var(--font-body);
+      font-size: var(--fs-p);
+      line-height: var(--lh-base);
+      color: var(--text-color-primary);
+      font-weight: var(--font-weight-regular);
+      letter-spacing: var(--letter-spacing-tight);
+      background: var(--clr-off-white);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-family: var(--font-display);
+    }
+
+    h1 {
+      font-size: var(--fs-h1);
+      font-weight: var(--font-weight-bold);
+      line-height: var(--lh-tight);
+      letter-spacing: -0.02em;
+      color: var(--clr-navy);
+    }
+
+    h2 {
+      font-size: var(--fs-h2);
+      font-weight: var(--font-weight-bold);
+      line-height: var(--lh-tight);
+      color: var(--clr-navy);
+    }
+
+    h3 {
+      font-size: var(--fs-h3);
+      font-weight: var(--font-weight-bold);
+      line-height: var(--lh-tight);
+      color: var(--clr-navy);
+    }
+
+    h4 {
+      font-size: var(--fs-xs);
+      font-weight: var(--font-weight-semibold);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-color-muted);
+    }
+
+    p {
+      font-size: var(--fs-p);
+      line-height: var(--lh-base);
+      color: var(--text-color-secondary);
+    }
+
+    ul,
+    ol {
+      padding-left: 1.25rem;
+    }
+
+    li {
+      font-size: var(--fs-p);
+      line-height: var(--lh-relaxed);
+      margin-bottom: var(--space-2xs-f);
+      color: var(--text-color-secondary);
+    }
+
+    /* ── UI Text Utilities ── */
+    .label,
+    .small-text {
+      font-size: var(--fs-label);
+      color: var(--text-color-muted);
+      font-weight: var(--font-weight-medium);
+    }
+
+    /* ── Price Styling ── */
+    .price {
+      font-size: var(--fs-h2);
+      font-weight: var(--font-weight-bold);
+      letter-spacing: -0.02em;
+      color: var(--clr-navy);
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      image-rendering: -webkit-optimize-contrast;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    button {
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: var(--fs-h2);
+      }
+
+      h2 {
+        font-size: var(--fs-h3);
+      }
+    }
+
+    /* ── 3. UTILITY ─────────────────────────────────────────────────────────── */
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding-inline: clamp(1rem, 4vw, 2rem);
+      width: 100%;
+    }
+
+    .mt-1 {
+      margin-top: var(--space-sm);
+    }
+
+    .mt-2 {
+      margin-top: var(--space-lg);
+    }
+
+    .mt-3 {
+      margin-top: var(--space-xl);
+    }
+
+    .mb-1 {
+      margin-bottom: var(--space-sm);
+    }
+
+    .mb-2 {
+      margin-bottom: var(--space-lg);
+    }
+
+    .mb-3 {
+      margin-bottom: var(--space-xl);
+    }
+
+    .p-lg {
+      padding: var(--space-lg);
+    }
+
+    .px-lg {
+      padding-inline: var(--space-lg);
+    }
+
+    .py-lg {
+      padding-block: var(--space-lg);
+    }
+
+    .gap-sm {
+      gap: var(--space-sm);
+
+      .navbar {
+        position: fixed;
+        top: var(--demo-banner-height, 0px);
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        height: var(--navbar-h);
+        background: rgba(0, 0, 0, 0.25);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        transition: background var(--transition-smooth), backdrop-filter var(--transition-smooth), box-shadow var(--transition-smooth);
+      }
+
+      /* Force solid blue on experience pages as requested */
+      .experience-page .navbar {
+        background: var(--clr-navy);
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
+      }
+
+      .navbar--scrolled,
+      .experience-page .navbar--scrolled {
+        background: rgba(10, 20, 38, 0.96);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        box-shadow: 0 2px 24px rgba(0, 0, 0, 0.25);
+      }
+
+      .navbar__inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 100%;
+        gap: var(--space-md);
+      }
+
+      .navbar__inner.container {
+        max-width: 1700px;
+      }
+
+      @media (min-width: 769px) {
+        .navbar__inner {
+          padding-inline: clamp(0.75rem, 2vw, 1.25rem);
+        }
+      }
+
+      .navbar__logo {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        flex-shrink: 0;
+      }
+
+      .logo-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 1.1em;
+        height: 1.1em;
+        color: #9aa3b0;
+        /* Consistent gray as requested */
+      }
+
+      .logo-icon svg {
+        width: 100%;
+        height: 100%;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .anchor-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 1em;
+        height: 1em;
+        color: #9aa3b0;
+        vertical-align: middle;
+      }
+
+      /* ── 7. HERO SECTION ────────────────────────────────────────────────────── */
+      .hero {
+        position: relative;
+        height: min(calc(var(--vh, 1vh) * 100), 860px);
+        /* FullHD calibration: cap prevents 1005px hero on 1080p */
+        display: flex;
+        align-items: center;
+        overflow: clip;
+      }
+  </style>
+  <link rel="stylesheet" href="/css/bundle.css">
+  <link rel="icon" href="/assets/icons/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/assets/icons/favicon.png" type="image/png" sizes="192x192" />
+  <link rel="apple-touch-icon" href="/assets/icons/favicon.png" />
+  <link rel="preload" as="image" href="/assets/images/general/hero_canal_copenhagen3.png" fetchpriority="high" />
+
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Seaduced Experience" />
+  <meta name="publisher" content="Seaduced Experience" />
+  <link rel="canonical" href="https://www.seaduced-experience.com/" />
+  <link rel="alternate" hreflang="en" href="https://www.seaduced-experience.com/" />
+  <link rel="alternate" hreflang="da" href="https://www.seaduced-experience.com/da/" />
+  <link rel="alternate" hreflang="es" href="https://www.seaduced-experience.com/es/" />
+  <link rel="alternate" hreflang="x-default" href="https://www.seaduced-experience.com/" />
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Seaduced Experience" />
+  <meta property="og:url" content="https://www.seaduced-experience.com/" />
+  <meta property="og:title" content="Private Boat Tours Copenhagen | Seaduced Experience" />
+  <meta property="og:description"
+    content="Private boat tours in Copenhagen's iconic canals. Sail past Nyhavn, Christiansborg &amp; Christianshavn with your own local captain. Fully private — just your group. From DKK 2,499." />
+  <meta property="og:image"
+    content="https://www.seaduced-experience.com/assets/images/general/hero_canal_copenhagen3.png" />
+  <meta property="og:locale" content="en_US" />
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Private Boat Tours Copenhagen | Seaduced Experience" />
+  <meta name="twitter:description"
+    content="Private boat tours in Copenhagen's iconic canals. Sail past Nyhavn, Christiansborg &amp; Christianshavn with your own local captain. Fully private — just your group. From DKK 2,499." />
+  <meta name="twitter:image"
+    content="https://www.seaduced-experience.com/assets/images/general/hero_canal_copenhagen3.png" />
+
+
+
+  <!-- Microsoft Clarity -->
+  <script type="text/javascript">
+    (function (c, l, a, r, i, t, y) {
+      c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
+      t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+      y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+    })(window, document, "clarity", "script", "x199obzcqz");
+  </script>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6RZJ21L1R2"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-6RZJ21L1R2');
+  </script>
+</head>
+
+<body class="home-page">
+  <div class="preloader">
+    <div class="preloader__content">
+      <svg class="preloader__anchor" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path
+          d="M12 5V21M7 16H2M17 16H22M5 16C5 19.866 8.13401 23 12 23C15.866 23 19 19.866 19 16M12 5C13.1046 5 14 4.10457 14 3C14 1.89543 13.1046 1 12 1C10.8954 1 10 1.89543 10 3C10 4.10457 10.8954 5 12 5Z" />
+      </svg>
+      <div class="preloader__text">Seaduced Experience</div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       NAVBAR
+  ═══════════════════════════════════════════ -->
+  <header class="navbar" id="navbar">
+    <div class="container navbar__inner">
+      <a href="/" class="navbar__logo" aria-label="Seaduced Experience Home">
+        <span class="logo-icon">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M12 5V21M7 16H2M17 16H22M5 16C5 19.866 8.13401 23 12 23C15.866 23 19 19.866 19 16M12 5C13.1046 5 14 4.10457 14 3C14 1.89543 13.1046 1 12 1C10.8954 1 10 1.89543 10 3C10 4.10457 10.8954 5 12 5Z" />
+          </svg>
+        </span>
+        <span class="logo-text">Seaduced<em>Experience</em></span>
+      </a>
+
+      <nav class="navbar__nav" id="navMenu" role="navigation" aria-label="Main navigation">
+        <a href="/" title="Seaduced Experience – Private Boat Tours Copenhagen" class="nav-link" id="nav-home"
+          data-i18n="nav.home" data-i18n-href="/">Home</a>
+        <a href="/book" title="View All Private Boat Tours in Copenhagen" class="nav-link" id="nav-tours"
+          data-i18n="nav.tours" data-i18n-href="/book">Tours</a>
+        <a href="/#faq" title="Frequently Asked Questions – Seaduced Experience" class="nav-link" id="nav-faq"
+          data-i18n="nav.faq" data-i18n-href="/#faq">FAQ</a>
+        <a href="/#contact" title="Contact Seaduced Experience" class="nav-link" id="nav-contact"
+          data-i18n="nav.contact" data-i18n-href="/#contact">Contact</a>
+      </nav>
+
+      <div class="navbar__actions">
+        <a href="/book" title="Book a Private Boat Tour in Copenhagen" class="btn btn--primary btn--sm" id="nav-cta"
+          data-i18n="nav.cta" data-i18n-href="/book">Book
+          Now</a>
+        <div class="lang-switcher">
+          <a href="/" class="lang-link is-active" title="English"><img width="32" height="24"
+              src="/assets/icons/flag-en.svg" alt="EN" title="View site in English"></a>
+          <a href="/da/" class="lang-link" title="Dansk"><img width="32" height="24" src="/assets/icons/flag-da.svg"
+              alt="DA" title="Se siden på dansk"></a>
+          <a href="/es/" class="lang-link" title="Español"><img width="32" height="24" src="/assets/icons/flag-es.svg"
+              alt="ES" title="Ver sitio en español"></a>
+        </div>
+        <button class="navbar__hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div class="navbar__mobile" id="mobileMenu">
+      <a href="/" title="Seaduced Experience – Private Boat Tours Copenhagen" class="nav-link" id="mob-home"
+        data-i18n="nav.home" data-i18n-href="/">Home</a>
+      <a href="/book" title="View All Private Boat Tours in Copenhagen" class="nav-link" id="mob-tours"
+        data-i18n="nav.tours" data-i18n-href="/book">Tours</a>
+      <a href="/#faq" title="Frequently Asked Questions – Seaduced Experience" class="nav-link" id="mob-faq"
+        data-i18n="nav.faq" data-i18n-href="/#faq">FAQ</a>
+      <a href="/#contact" title="Contact Seaduced Experience" class="nav-link" id="mob-contact" data-i18n="nav.contact"
+        data-i18n-href="/#contact">Contact</a>
+      <div class="lang-switcher">
+        <a href="/" class="lang-link is-active" title="English"><img width="32" height="24"
+            src="/assets/icons/flag-en.svg" alt="EN" title="View site in English"></a>
+        <a href="/da/" class="lang-link" title="Dansk"><img width="32" height="24" src="/assets/icons/flag-da.svg"
+            alt="DA" title="Se siden på dansk"></a>
+        <a href="/es/" class="lang-link" title="Español"><img width="32" height="24" src="/assets/icons/flag-es.svg"
+            alt="ES" title="Ver sitio en español"></a>
+      </div>
+      <a href="/book" title="Book a Private Boat Tour in Copenhagen" class="btn btn--primary mt-1" id="mob-cta"
+        data-i18n="nav.cta" data-i18n-href="/book">Book Now</a>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ═══════════════════════════════════════════
+         SECTION 1 — HERO
+    ═══════════════════════════════════════════ -->
+    <section class="hero" id="hero">
+      <div class="hero__bg">
+        <picture>
+          <img fetchpriority="high" src="/assets/images/general/hero_canal_copenhagen3.png"
+            alt="Copenhagen canals boat tour" title="Private boat tour through Copenhagen's scenic canals"
+            class="hero__bg-img" data-i18n-attr="alt:hero.img_alt" />
+        </picture>
+        <div class="hero__overlay"></div>
+      </div>
+
+      <div class="container hero__content">
+
+
+        <h1 class="hero__headline reveal" data-i18n-html="hero.headline">
+          Private Boat Tours<br />
+          in Copenhagen's<br />
+          <em>Scenic Canals</em>
+        </h1>
+
+        <p class="hero__subtext reveal" data-i18n="hero.subtext">
+          Discover Copenhagen from the water with a private canal tour. Enjoy scenic routes, local stories, and a
+          relaxed
+          experience guided by locals.
+        </p>
+
+        <div class="hero__ctas reveal">
+          <a href="/book" title="Book a Private Boat Tour in Copenhagen" class="btn btn--primary btn--lg"
+            id="hero-book-cta" data-i18n="hero.cta.book" data-i18n-href="/book">Book Your Tour</a>
+          <a href="#tours" title="Explore Private Boat Tours in Copenhagen" class="btn btn--ghost btn--lg"
+            id="hero-explore-cta" data-i18n="hero.cta.explore">Explore
+            Tours</a>
+        </div>
+
+      </div>
+
+      <a href="#tours" title="Scroll to tours" class="hero__scroll-cue" aria-label="Scroll down">
+        <div class="scroll-arrow"></div>
+      </a>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         SECTION 2 — TOURS
+    ═══════════════════════════════════════════ -->
+    <section class="section tours-section" id="tours">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-label" data-i18n="tours.label">Our Experiences</span>
+          <h2 class="section-title" data-i18n-html="tours.title">Choose Your Copenhagen<br />Boat Experience</h2>
+          <p class="section-sub" data-i18n="tours.sub">Explore our 8+ private boat experiences, from short tours of
+            Copenhagen's most iconic spots to full-day journeys. Cruise at your own pace, in comfort, and with a unique
+            perspective of the city.
+          </p>
+          <div class="header-cta-link">
+            <a href="/book" title="View All Copenhagen Boat Experiences"
+              class="btn btn--primary btn--catalog attention-pulse" data-i18n="tours.catalog_cta"
+              data-i18n-href="/book">View All Experiences →</a>
+          </div>
+          <p class="perfect-for-line">
+            <span data-i18n="tours.explore_line">Explore our complete range of private routes</span>
+          </p>
+        </div>
+
+        <div class="tours-grid">
+
+          <article class="tour-card tour-card--clickable reveal" id="tour-highlights"
+            data-card-link="/experiences/copenhagen-city-highlights/"
+            data-i18n-card-link="/experiences/copenhagen-city-highlights/" tabindex="0" role="link"
+            aria-label="Open Copenhagen private guided boat tour experience page">
+            <a class="tour-card__media-link" href="/experiences/copenhagen-city-highlights/"
+              title="City Highlights – Private Boat Tour Copenhagen (1-2h)"
+              data-i18n-href="/experiences/copenhagen-city-highlights/"
+              aria-label="View Copenhagen private guided boat tour details">
+              <div class="tour-card__img-wrap">
+                <img src="/assets/images/city-highlights/island-brygge-guests.png"
+                  alt="City Highlights private boat tour"
+                  title="City Highlights – private boat tour Copenhagen, Islands Brygge" loading="lazy" width="960"
+                  height="600" data-i18n-attr="alt:tour.highlights.img_alt" />
+                <span class="tour-card__tag"><span data-i18n="experiences.ui.info.duration">Duration</span> 1h -
+                  2h</span>
+              </div>
+            </a>
+            <div class="tour-card__body">
+              <h3 class="tour-card__title"><a class="tour-card__title-link"
+                  href="/experiences/copenhagen-city-highlights/" data-i18n="tour.highlights.title"
+                  data-i18n-href="/experiences/copenhagen-city-highlights/">Copenhagen City
+                  Highlights</a></h3>
+              <p class="tour-card__desc" data-i18n="tour.highlights.desc">Discover Copenhagen's city highlights on a
+                private boat tour with your own
+                local guide. Experience the authentic "hygge" lifestyle with music, drinks, and panoramic harbor views.
+              </p>
+              <div class="tour-card__price">
+                <span class="tour-card__amount">2,499 DKK</span>
+                <span class="tour-card__price-note" data-i18n="tour.highlights.price_note">per group up to 6</span>
+              </div>
+              <button data-book-tour="book-1h" class="btn btn--outline btn--sm" id="tour-card-private-cta"
+                data-i18n="tour.highlights.cta">Book This
+                Tour</button>
+            </div>
+          </article>
+
+          <article class="tour-card tour-card--clickable reveal" id="tour-wine"
+            data-card-link="/experiences/copenhagen-wine-tour/" data-i18n-card-link="/experiences/copenhagen-wine-tour/"
+            tabindex="0" role="link" aria-label="Open Floating Wine Tasting experience page">
+            <a class="tour-card__media-link" href="/experiences/copenhagen-wine-tour/"
+              title="Floating Wine Tasting – Private Boat Tour Copenhagen"
+              data-i18n-href="/experiences/copenhagen-wine-tour/"
+              aria-label="View Floating Wine Tasting experience details">
+              <div class="tour-card__img-wrap">
+                <img src="/assets/images/wine-tour/wine-tour-guests.png"
+                  alt="Floating wine tasting boat tour in Copenhagen"
+                  title="Private floating wine tasting boat tour in Copenhagen" loading="lazy" width="960"
+                  height="600" />
+                <span class="tour-card__tag"><span data-i18n="experiences.ui.info.duration">Duration</span> 2h</span>
+              </div>
+            </a>
+            <div class="tour-card__body">
+              <h3 class="tour-card__title"><a class="tour-card__title-link" href="/experiences/copenhagen-wine-tour/"
+                  data-i18n="book.card.wine.title" data-i18n-href="/experiences/copenhagen-wine-tour/">Floating Wine
+                  Tasting</a></h3>
+              <p class="tour-card__desc" data-i18n="tour.wine.desc">Enjoy a private 2-hour Copenhagen boat tour
+                featuring a guided wine tasting, gourmet board, and a relaxed, premium atmosphere on the water.</p>
+              <div class="tour-card__price">
+                <span class="tour-card__amount">3,499 DKK</span>
+                <span class="tour-card__price-note" data-i18n="book.card.wine.price_note">per group up to 6</span>
+              </div>
+              <button data-book-tour="book-wine" class="btn btn--outline btn--sm" id="tour-card-wine-cta"
+                data-i18n="book.card.cta">Book This Tour</button>
+            </div>
+          </article>
+
+          <article class="tour-card tour-card--clickable reveal" id="tour-premium"
+            data-card-link="/experiences/copenhagen-sea-fortress/"
+            data-i18n-card-link="/experiences/copenhagen-sea-fortress/" tabindex="0" role="link"
+            aria-label="Open Private Boat and Sea Fortress Highlights experience page">
+            <a class="tour-card__media-link" href="/experiences/copenhagen-sea-fortress/"
+              title="Sea Fortress – 4-Hour Private Boat Tour Copenhagen"
+              data-i18n-href="/experiences/copenhagen-sea-fortress/"
+              aria-label="View Private Boat and Sea Fortress Highlights details">
+              <div class="tour-card__img-wrap">
+                <img src="/assets/images/sea-fortress-4h/fortress.png" alt="Private 4-Hour Premium Experience"
+                  title="Private 4-hour boat tour to Trekroner Sea Fortress, Copenhagen" loading="lazy" width="960"
+                  height="600" data-i18n-attr="alt:tour.premium.img_alt" />
+                <span class="tour-card__tag"><span data-i18n="experiences.ui.info.duration">Duration</span> 4h</span>
+              </div>
+            </a>
+            <div class="tour-card__body">
+              <h3 class="tour-card__title"><a class="tour-card__title-link" href="/experiences/copenhagen-sea-fortress/"
+                  data-i18n="tour.premium.title" data-i18n-href="/experiences/copenhagen-sea-fortress/">Sea Fortress and
+                  Coastal Journey</a></h3>
+              <p class="tour-card__desc" data-i18n="tour.premium.desc">4 hours of private sailing, including 1 hour at
+                Reffen and 1 hour at Trekroner
+                Fort. Swimming stop possibility and open water views.</p>
+              <div class="tour-card__price">
+                <span class="tour-card__amount">5,999 DKK</span>
+                <span class="tour-card__price-note" data-i18n="tour.premium.price_note">per group up to 6</span>
+              </div>
+              <button data-book-tour="book-premium" class="btn btn--outline btn--sm" id="tour-card-events-cta"
+                data-i18n="tour.premium.cta">Book This
+                Tour</button>
+            </div>
+          </article>
+
+
+        </div>
+
+        <div class="tours-grid-footer">
+          <a href="/book" title="View All Copenhagen Boat Experiences" class="tours-all-link"
+            data-i18n="tours.catalog_cta" data-i18n-href="/book">View all
+            experiences →</a>
+        </div>
+
+        <!-- Bespoke / Custom CTA Banner -->
+        <div class="tours-bespoke reveal">
+          <div class="tours-bespoke__icon">
+            <img width="120" height="120" src="/assets/icons/features/boat_waves.png" alt="Boat on waves icon"
+              title="Bespoke private boat experiences in Copenhagen" loading="lazy">
+          </div>
+          <div class="tours-bespoke__content">
+            <span class="tours-bespoke__label" data-i18n="bespoke.label">Bespoke Services</span>
+            <h2 class="tours-bespoke__title" data-i18n="bespoke.title">Need Something Special?</h2>
+            <p class="tours-bespoke__text" data-i18n-html="bespoke.text">Looking for something unique? From corporate
+              events to romantic surprises, we
+              specialize in tailoring private cruises. <strong>Contact us today for a personalized offer and custom
+                quote.</strong></p>
+          </div>
+          <div class="tours-bespoke__actions">
+            <a href="mailto:seaducedexperience@gmail.com?subject=Inquiry: Bespoke Seaduced Experience"
+              title="Request a Custom Private Boat Tour Quote" class="btn btn--primary" id="home-bespoke-cta"
+              data-i18n="bespoke.cta">Get Your Custom Quote →</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         SECTION 3 — THE SEADUCED EXPERIENCE
+         (Merged: Welcome + Why Choose Us + Story)
+    ═══════════════════════════════════════════ -->
+    <section class="section why-section" id="experience">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-label" data-i18n="why.label">Why Choose Us</span>
+          <h2 class="section-title" data-i18n-html="why.title">A More Personal Way to<br />Experience Copenhagen</h2>
+        </div>
+
+        <div class="welcome-split">
+
+          <div class="welcome-split__text reveal">
+            <p class="welcome-p" data-i18n="why.p1">
+              At Seaduced Experience, we believe the best way to discover Copenhagen is from the water. Our tours are
+              private, relaxed, and designed to feel personal from beginning to end.
+            </p>
+            <p class="welcome-p" data-i18n="why.p2">
+              Instead of crowded tourist boats, we offer small and intimate experiences that let you enjoy the canals at
+              your own pace. Every route is guided by locals who share stories, hidden spots, and a more authentic side
+              of the city.
+            </p>
+            <div class="welcome-stats">
+              <div class="stat">
+                <span class="stat-number">500+</span>
+                <span class="stat-label" data-i18n="why.stat.guests">Happy Guests</span>
+              </div>
+              <div class="stat">
+                <span class="stat-number">5★</span>
+                <span class="stat-label" data-i18n="why.stat.rating">Average Rating</span>
+              </div>
+              <div class="stat">
+                <span class="stat-number">100%</span>
+                <span class="stat-label" data-i18n="why.stat.private">Private Tours</span>
+              </div>
+            </div>
+            <a href="/book" title="Book a Private Boat Tour in Copenhagen" class="btn btn--primary mt-2"
+              id="experience-book-cta" data-i18n="why.book_cta" data-i18n-href="/book">Book Your Experience</a>
+          </div>
+
+          <div class="welcome-split__images reveal">
+            <div class="img-stack">
+              <img src="/assets/images/general/oni.webp" alt="Captain Oni welcoming guests on board"
+                title="Captain Oni – local guide for private boat tours in Copenhagen" loading="lazy" width="600"
+                height="800" />
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Feature cards -->
+        <div class="features-grid features-grid--spaced">
+          <div class="feature-card reveal" id="feature-private">
+            <div class="feature-card__icon"><img width="80" height="80" src="/assets/icons/features/boat.png"
+                alt="Boat icon" title="Private and personalized boat tours in Copenhagen" loading="lazy">
+            </div>
+            <h3 class="feature-card__title" data-i18n="feature.private.title">Private and Personalized</h3>
+            <p class="feature-card__text" data-i18n="feature.private.text">Your tour is reserved only for your group,
+              without crowds or strangers on
+              board.</p>
+          </div>
+          <div class="feature-card reveal" id="feature-guides">
+            <div class="feature-card__icon"><img width="80" height="80" src="/assets/icons/features/compass.png"
+                alt="Compass icon" title="Local expert guides for Copenhagen canal tours" loading="lazy"></div>
+            <h3 class="feature-card__title" data-i18n="feature.guides.title">Local Expert Guides</h3>
+            <p class="feature-card__text" data-i18n="feature.guides.text">Our guides know Copenhagen's canals,
+              landmarks, and hidden corners, and bring
+              each route to life with local stories.</p>
+          </div>
+          <div class="feature-card reveal" id="feature-routes">
+            <div class="feature-card__icon"><img width="80" height="80" src="/assets/icons/features/map.png"
+                alt="Map icon" title="Scenic hidden routes through Copenhagen's canals" loading="lazy">
+            </div>
+            <h3 class="feature-card__title" data-i18n="feature.routes.title">Scenic Hidden Routes</h3>
+            <p class="feature-card__text" data-i18n="feature.routes.text">We explore beautiful waterways and charming
+              areas that many larger tours
+              miss.</p>
+          </div>
+          <div class="feature-card reveal" id="feature-comfort">
+            <div class="feature-card__icon"><img width="80" height="80" src="/assets/icons/features/comfort.png"
+                alt="Comfort icon" title="Comfortable and atmospheric private boat experience" loading="lazy"></div>
+            <h3 class="feature-card__title" data-i18n="feature.comfort.title">Comfort and Atmosphere</h3>
+            <p class="feature-card__text" data-i18n="feature.comfort.text">From summer cruises to winter hygge moments,
+              every detail is designed to make
+              the experience relaxed and memorable.</p>
+          </div>
+        </div>
+
+
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         SECTION 4 — REVIEWS
+    ═══════════════════════════════════════════ -->
+    <section class="section testimonials-section" id="reviews">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-label" data-i18n="reviews.label">Guest Reviews</span>
+          <h2 class="section-title" data-i18n="reviews.title">What Our Guests Say</h2>
+        </div>
+
+        <!-- Quick reviews -->
+        <div class="quick-reviews reveal">
+          <div class="quick-review" id="review-anna">
+            <div class="stars">★★★★★</div>
+            <p class="quick-review__text" data-i18n="reviews.anna.text">"Best private boat tour in Copenhagen. Cozy,
+              personal and unforgettable
+              experience."</p>
+            <span class="quick-review__author" data-i18n="reviews.anna.author">— Anna, Germany</span>
+          </div>
+          <div class="quick-review" id="review-mark">
+            <div class="stars">★★★★★</div>
+            <p class="quick-review__text" data-i18n="reviews.mark.text">"Amazing private canal tour. Way better than big
+              tourist boats."</p>
+            <span class="quick-review__author" data-i18n="reviews.mark.author">— Mark, USA</span>
+          </div>
+          <div class="quick-review" id="review-lucia">
+            <div class="stars">★★★★★</div>
+            <p class="quick-review__text" data-i18n="reviews.lucia.text">"Perfect hygge experience on the water. Highly
+              recommended."</p>
+            <span class="quick-review__author" data-i18n="reviews.lucia.author">— Lucia, Spain</span>
+          </div>
+        </div>
+
+        <!-- Detailed testimonial carousel -->
+        <div class="testimonial-carousel reveal" id="testimonialCarousel">
+          <div class="testimonial-track" id="testimonialTrack">
+
+            <div class="testimonial-card" id="tcard-dawn">
+              <div class="testimonial-card__quote">"</div>
+              <p class="testimonial-card__text" data-i18n="reviews.tcard.dawn">This tour was one of the highlights of
+                our trip! Our guide Oni's
+                knowledge of the canals and history was outstanding, and he even recommended a delicious meal at Reffen.
+              </p>
+              <div class="testimonial-card__footer">
+                <div class="testimonial-avatar" aria-hidden="true">D</div>
+                <div>
+                  <div class="testimonial-stars">★★★★★</div>
+                  <span class="testimonial-author">Dawn, USA</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="testimonial-card" id="tcard-laura">
+              <div class="testimonial-card__quote">"</div>
+              <p class="testimonial-card__text" data-i18n="reviews.tcard.laura">Our guide Oni was terrific – he tailored
+                the tour just for us. This was
+                a wonderful family-friendly experience, and we highly recommend it.</p>
+              <div class="testimonial-card__footer">
+                <div class="testimonial-avatar" aria-hidden="true">L</div>
+                <div>
+                  <div class="testimonial-stars">★★★★★</div>
+                  <span class="testimonial-author">Laura, Denmark</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="testimonial-card" id="tcard-oliver">
+              <div class="testimonial-card__quote">"</div>
+              <p class="testimonial-card__text" data-i18n="reviews.tcard.oliver">A perfect afternoon exploring
+                Copenhagen from the canals. Beautiful
+                views and insightful stories – highly recommended!</p>
+              <div class="testimonial-card__footer">
+                <div class="testimonial-avatar" aria-hidden="true">O</div>
+                <div>
+                  <div class="testimonial-stars">★★★★★</div>
+                  <span class="testimonial-author">Oliver Hartman</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="testimonial-card" id="tcard-karina">
+              <div class="testimonial-card__quote">"</div>
+              <p class="testimonial-card__text" data-i18n="reviews.tcard.karina">Perfect Sunday visiting Copenhagen from
+                the canals. We had the best
+                guide we could wish. Highly recommended!</p>
+              <div class="testimonial-card__footer">
+                <div class="testimonial-avatar" aria-hidden="true">K</div>
+                <div>
+                  <div class="testimonial-stars">★★★★★</div>
+                  <span class="testimonial-author">Karina, Italy</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="testimonial-card" id="tcard-shannon">
+              <div class="testimonial-card__quote">"</div>
+              <p class="testimonial-card__text" data-i18n="reviews.tcard.shannon">This was a great tour!! He was an
+                amazing guide and provided great
+                information while also being fun.</p>
+              <div class="testimonial-card__footer">
+                <div class="testimonial-avatar" aria-hidden="true">S</div>
+                <div>
+                  <div class="testimonial-stars">★★★★★</div>
+                  <span class="testimonial-author">Shannon, United Kingdom</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="testimonial-card" id="tcard-thomas">
+              <div class="testimonial-card__quote">"</div>
+              <p class="testimonial-card__text" data-i18n="reviews.tcard.thomas">We had a fantastic trip with Oni. He
+                told us all about Copenhagen, saw
+                all of the sites, had some great food at the Reffen stop, and most importantly had a lot of laughs.</p>
+              <div class="testimonial-card__footer">
+                <div class="testimonial-avatar" aria-hidden="true">T</div>
+                <div>
+                  <div class="testimonial-stars">★★★★★</div>
+                  <span class="testimonial-author">Thomas and Emma, Denmark</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="carousel-controls">
+            <button class="carousel-btn carousel-btn--prev" id="carouselPrev"
+              aria-label="Previous review">&#8592;</button>
+            <div class="carousel-dots" id="carouselDots" role="tablist"></div>
+            <button class="carousel-btn carousel-btn--next" id="carouselNext" aria-label="Next review">&#8594;</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         SECTION 5 — CALL TO ACTION
+    ═══════════════════════════════════════════ -->
+    <section class="cta-section" id="booking">
+      <div class="container cta-section__inner reveal">
+        <h2 class="cta-section__headline" data-i18n-html="cta.headline">Ready to Experience Copenhagen<br />from the
+          Water?</h2>
+        <p class="cta-section__sub" data-i18n="cta.sub">Book your private boat tour and discover the city from a calm,
+          intimate, and
+          unforgettable perspective.</p>
+        <div class="cta-section__buttons">
+          <a href="/book" title="Book a Private Boat Tour in Copenhagen" class="btn btn--primary btn--lg"
+            id="cta-book-now" data-i18n="cta.book" data-i18n-href="/book">Book Now</a>
+          <a href="#contact" title="Contact Seaduced Experience" class="btn btn--ghost-dark btn--lg" id="cta-contact-us"
+            data-i18n="cta.contact">Contact
+            Us</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+         SECTION 6 — FAQ
+    ═══════════════════════════════════════════ -->
+    <section class="section faq-section" id="faq">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-label" data-i18n="faq.label">FAQ</span>
+          <h2 class="section-title" data-i18n="faq.title">Frequently Asked Questions</h2>
+          <p class="section-sub" data-i18n="faq.sub">Everything you need to know before your tour.</p>
+        </div>
+
+        <div class="faq-list">
+
+          <div class="faq-item reveal" id="faq-availability">
+            <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-availability">
+              <span data-i18n="faq.availability.q">Are the tours private and available year-round?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer" id="faq-answer-availability" data-i18n-html="faq.availability.a" hidden>
+              <p>Yes. Every Seaduced Experience tour is 100% private, reserved only for your group. We operate
+                year-round, and our tours are designed to offer a warm and cozy hygge experience even in the colder
+                months.</p>
+            </div>
+          </div>
+
+          <div class="faq-item reveal" id="faq-route-logistics">
+            <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-route-logistics">
+              <span data-i18n="faq.route.q">What is the route and how long are the tours?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer" id="faq-answer-route-logistics" data-i18n-html="faq.route.a" hidden>
+              <p>Our tours typically last 1 to 2 hours, with options up to 4 hours. We explore central canals (Nyhavn,
+                Christianshavn, Islands Brygge) and can include stops at Reffen or Trekroner Fort on longer trips. As
+                everything is private, your captain can customize the route to your interests.</p>
+            </div>
+          </div>
+
+          <div class="faq-item reveal" id="faq-amenities-bring">
+            <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-amenities-bring">
+              <span data-i18n="faq.amenities.q">What is included and what should we bring?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer" id="faq-answer-amenities-bring" data-i18n-html="faq.amenities.a" hidden>
+              <p>We provide blankets and hot drinks in winter, and cold water in summer. Some packages include snacks or
+                champagne. We sell drinks on board — <strong>outside food and beverages are not permitted.</strong> We
+                recommend comfortable
+                clothing for the weather.</p>
+            </div>
+          </div>
+
+          <div class="faq-item reveal" id="faq-policies">
+            <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-policies">
+              <span data-i18n="faq.policies.q">Payment Methods and Cancellation Policy</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer" id="faq-answer-policies" data-i18n-html="faq.policies.a" hidden>
+              <p><strong>Payments:</strong> We accept Credit/Debit cards (Visa, MC, AMEX), MobilePay, Apple Pay, SumUp,
+                and Revolut.</p>
+              <p style="margin-top: 1rem;"><strong>Cancellations:</strong></p>
+              <ul style="margin: 0.5rem 0 1rem 1.5rem; line-height: 1.6;">
+                <li>7+ days before: Full refund.</li>
+                <li>7 days to 48h before: 50% refund.</li>
+                <li>Within 48h: Non-refundable.</li>
+              </ul>
+              <p>In case of bad weather/unsafe conditions, we reschedule or offer a full refund. Refunds take 5–10
+                business days.</p>
+            </div>
+          </div>
+
+          <div class="faq-item reveal" id="faq-meetingpoint">
+            <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-meetingpoint">
+              <span data-i18n="faq.meetingpoint.q">Where does the tour start?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer" id="faq-answer-meetingpoint" data-i18n-html="faq.meetingpoint.a" hidden>
+              <p>We meet at Christians Brygge 28, c/o Housing Group A, S, hall sttv, 1219 Copenhagen — right next to The
+                Raft.</p>
+            </div>
+          </div>
+
+
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 7 — FOOTER
+  ═══════════════════════════════════════════ -->
+  <footer class="footer" id="contact">
+    <div class="container footer__centered">
+
+
+      <a href="/" class="footer-logo" aria-label="Seaduced Experience">
+        <span class="logo-icon">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M12 5V21M7 16H2M17 16H22M5 16C5 19.866 8.13401 23 12 23C15.866 23 19 19.866 19 16M12 5C13.1046 5 14 4.10457 14 3C14 1.89543 13.1046 1 12 1C10.8954 1 10 1.89543 10 3C10 4.10457 10.8954 5 12 5Z" />
+          </svg>
+        </span>
+        <span class="logo-text">Seaduced<em>Experience</em></span>
+      </a>
+
+      <div class="footer__contact-main">
+        <p class="footer-contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+            <circle cx="12" cy="10" r="3"></circle>
+          </svg> <span data-i18n="footer.location">Based in Copenhagen, Denmark</span></p>
+
+        <p class="footer-contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          <span class="footer-hours">
+            <span data-i18n="footer.hours.summer">Daily (Summer): 9:00 – 20:00</span>
+            <span class="footer-hours-sep">&nbsp;·&nbsp;</span>
+            <span data-i18n="footer.hours.winter">Daily (Winter): 10:00 – 17:00</span>
+          </span>
+        </p>
+
+        <div class="footer__contact-row">
+          <p class="footer-contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg> <a href="mailto:seaducedexperience@gmail.com"
+              title="Email Seaduced Experience">seaducedexperience@gmail.com</a></p>
+          <p class="footer-contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path
+                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
+              </path>
+            </svg> <a href="tel:+4522561882" title="Call Seaduced Experience">+45 22 56 18 82</a></p>
+        </div>
+
+        <p class="footer-contact-note" data-i18n="footer.note">Tours by appointment; weather dependent.</p>
+      </div>
+
+      <div class="footer__socials">
+        <a href="https://www.instagram.com/seaduced_experience/" title="Seaduced Experience on Instagram"
+          class="social-link" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+          </svg>
+        </a>
+        <a href="https://www.facebook.com/SeaducedExperience/" title="Seaduced Experience on Facebook"
+          class="social-link" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+          </svg>
+        </a>
+        <a href="https://www.tiktok.com/@seaducedexperience" title="Seaduced Experience on TikTok" class="social-link"
+          aria-label="TikTok">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path>
+          </svg>
+        </a>
+      </div>
+
+    </div>
+
+    <div class="footer__bottom">
+      <div class="container">
+        <p class="footer__copy" data-i18n="footer.copy">© 2025 – 2026 Seaduced Experience. All rights reserved.</p>
+        <p class="footer__copy" style="margin-top:4px;font-size:0.8em;"><span data-i18n="footer.dev">Developed by</span>
+          <a href="https://www.weareleba.com" title="Leba Agency – Web Development Copenhagen" target="_blank"
+            rel="noopener" style="color:inherit;text-decoration:underline;">Leba Agency</a></p>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- JSON-LD Structured Data for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://www.seaduced-experience.com/#website",
+        "url": "https://www.seaduced-experience.com/",
+        "name": "Seaduced Experience",
+        "description": "Private boat tours in Copenhagen's scenic canals",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": { "@type": "EntryPoint", "urlTemplate": "https://www.seaduced-experience.com/book/?q={search_term_string}" },
+          "query-input": "required name=search_term_string"
+        }
+      },
+      {
+        "@type": "LocalBusiness",
+        "@id": "https://www.seaduced-experience.com/#business",
+        "name": "Seaduced Experience",
+        "description": "Copenhagen's most intimate private boat tour. Discover the canals, Nyhavn, Christianshavn and beyond aboard a private vessel with your own local captain. Fully private — just your group.",
+        "url": "https://www.seaduced-experience.com/",
+        "image": "https://www.seaduced-experience.com/assets/images/general/hero_canal_copenhagen3.png",
+        "logo": "https://www.seaduced-experience.com/assets/icons/favicon.svg",
+        "telephone": "+4522561882",
+        "email": "info@seaduced-experience.com",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Christians Brygge 28",
+          "addressLocality": "København",
+          "postalCode": "1219",
+          "addressCountry": "DK"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 55.6776,
+          "longitude": 12.5902
+        },
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+            "opens": "09:00",
+            "closes": "20:00",
+            "validFrom": "2026-04-01",
+            "validThrough": "2026-09-30"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+            "opens": "10:00",
+            "closes": "17:00",
+            "validFrom": "2026-10-01",
+            "validThrough": "2027-03-31"
+          }
+        ],
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "5.0",
+          "reviewCount": "130",
+          "bestRating": "5"
+        },
+        "priceRange": "DKK 2499 - DKK 13000",
+        "currenciesAccepted": "DKK",
+        "paymentAccepted": "Credit Card, MobilePay, Apple Pay",
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Private Boat Tours Copenhagen",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "TouristTrip",
+                "name": "City Highlights – Private Boat Tour Copenhagen (1-2h)",
+                "url": "https://www.seaduced-experience.com/experiences/copenhagen-city-highlights/",
+                "duration": "PT1H"
+              },
+              "price": "2499",
+              "priceCurrency": "DKK"
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "TouristTrip",
+                "name": "Floating Wine Tasting – Private Boat Tour Copenhagen (2h)",
+                "url": "https://www.seaduced-experience.com/experiences/copenhagen-wine-tour/",
+                "duration": "PT2H"
+              },
+              "price": "3499",
+              "priceCurrency": "DKK"
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "TouristTrip",
+                "name": "Private 3-Hour Boat Tour Copenhagen – Harbor & Reffen",
+                "url": "https://www.seaduced-experience.com/experiences/copenhagen-harbor-extended/",
+                "duration": "PT3H"
+              },
+              "price": "4299",
+              "priceCurrency": "DKK"
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "TouristTrip",
+                "name": "Private 4-Hour Boat Tour Copenhagen – Sea Fortress",
+                "url": "https://www.seaduced-experience.com/experiences/copenhagen-sea-fortress/",
+                "duration": "PT4H"
+              },
+              "price": "5999",
+              "priceCurrency": "DKK"
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "TouristTrip",
+                "name": "Private Boat Tour from Copenhagen to Malmö (7h)",
+                "url": "https://www.seaduced-experience.com/experiences/copenhagen-to-malmo/",
+                "duration": "PT7H"
+              },
+              "price": "13000",
+              "priceCurrency": "DKK"
+            }
+          ]
+        },
+        "sameAs": [
+          "https://www.instagram.com/seaduced_experience/",
+          "https://www.facebook.com/SeaducedExperience/",
+          "https://www.tiktok.com/@seaducedexperience"
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Are the Seaduced Experience boat tours private and available year-round in Copenhagen?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes — all Seaduced Experience tours are 100% private. Your boat is exclusively reserved for your group with no strangers on board. Tours run year-round in Copenhagen, daily from 09:00-20:00 in summer (April–September) and 10:00-17:00 in winter (October–March), weather permitting."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the route and how long are the boat tours?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "We offer tours from 1 hour to 7 hours. The classic City Highlights tour (1-2h) sails through Christianshavn canals, past Nyhavn, Christiansborg Palace, the Black Diamond library, and Islands Brygge. Longer tours extend to Reffen street food market, Trekroner Sea Fortress, or even Malmö, Sweden."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is included in a Seaduced Experience boat tour?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "All tours include a private boat exclusively for your group, a local captain who acts as your guide, and a Bluetooth speaker to play your own music. Drinks are available for purchase on board. The wine tasting tour includes four curated wines and a gourmet board."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What are the payment methods and cancellation policy?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "We accept all major credit and debit cards. Cancellation is free up to 24 hours before your tour start time, and you will receive a full refund. In case of heavy rain or unsafe weather conditions, a full refund is also guaranteed."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Where does the Seaduced Experience boat tour depart from in Copenhagen?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Tours depart from Christians Brygge 28, c/o Housing Group A, S, sal sttv, 1219 København — right beside The Raft. The location is easily accessible by public transport and on foot from the city centre."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How much does a private boat tour in Copenhagen cost?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Prices start at DKK 2,499 per group (up to 6 people) for the 1-hour City Highlights tour — that works out to approximately DKK 312 per person in a full group. Tours range from DKK 2,499 to DKK 13,000 depending on duration and experience type."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the best private boat tour in Copenhagen for couples?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "For couples, the Floating Wine Tasting tour (2 hours, DKK 3,499) is the most popular choice — it includes four curated wines and a gourmet board in an intimate private setting on the water. The City Highlights tour (1-2h, DKK 2,499) is also excellent for a relaxed scenic cruise."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can you take a private boat from Copenhagen to Malmö?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes — Seaduced Experience offers a unique 7-hour private boat trip from Copenhagen across the Øresund strait to Malmö, Sweden. This cross-border adventure includes free time to explore Malmö before sailing back. Price is DKK 13,000 for groups of up to 10."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  <script type="module" src="/js/i18n-4WSVNZS2.js"></script>
+  <script type="module" src="/js/main-HSFU3PPB.js"></script>
+  <script type="module" src="/js/analytics-62FEXRTA.js"></script>
+</body>
+
+</html>

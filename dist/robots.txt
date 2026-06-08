@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Disallow transactional / private pages
+Disallow: /reserve/
+Disallow: /admin/
+
+Sitemap: https://www.seaduced-experience.com/sitemap.xml

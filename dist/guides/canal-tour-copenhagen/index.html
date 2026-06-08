@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Canal Tour Copenhagen: The Complete Guide (2026) | Seaduced Experience</title>
+  <meta name="description" content="Everything you need to know about canal tours in Copenhagen. Best routes, what to see, how to book a private boat tour, prices, and insider tips from local guides." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;600;700&display=swap"></noscript>
+  <style>
+/* Critical CSS - inline */
+/* ─────────────────────────────────────────────────────────────────────────
+   Seaduced Experience — Premium Stylesheet
+   ─────────────────────────────────────────────────────────────────────────  */
+
+/* ── 1. DESIGN TOKENS ──────────────────────────────────────────────────── */
+:root {
+  /* ── Color Palette ── */
+  --clr-navy: #0f1e35;
+  --clr-navy-mid: #1a2d4a;
+  --clr-navy-light: #243d5e;
+  --clr-blue: #2d6a9f;
+  --clr-blue-soft: #5b9ecf;
+  --clr-sky: #d0e8f5;
+  --clr-beige: #f5ede0;
+  --clr-sand: #e8d5b7;
+  --clr-sand-lt: #f6efe4;
+  --clr-sunset: #e8834a;
+  --clr-sunset-lt: #f4a96b;
+  --clr-white: #ffffff;
+  --clr-off-white: #fafaf8;
+  --clr-text: #1a1a2e;
+  --clr-text-mid: #4a5568;
+  --clr-text-light: #718096;
+  --clr-border: rgba(255, 255, 255, 0.12);
+
+  /* ── Typography — Unified System ─────────────────────────────────────── */
+  /* Font families */
+  --font-base: var(--font-body);
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-display: 'Playfair Display', serif;
+
+  /* Text colors */
+  --text-color-primary: #2b2f33;
+  --text-color-secondary: #5a6675;
+  --text-color-muted: #8a94a6;
+
+  /* Font sizes (Base Scale) */
+  --fs-xs: 12px;
+  --fs-sm: 13px;
+  --fs-md: 15px;
+  --fs-lg: 18px;
+  --fs-xl: 24px;
+  --fs-xxl: 32px;
+
+  /* Semantic Font Sizes */
+  --fs-p: var(--fs-md);
+  --fs-h1: var(--fs-xxl);
+  --fs-h2: var(--fs-xl);
+  --fs-h3: var(--fs-lg);
+  --fs-label: var(--fs-sm);
+  --fs-hero-title: clamp(3.75rem, 8.57vw, 4.2rem);   /* Desktop calibration: max 77→67px (-13%). Matches ES locale rhythm. */
+  --fs-hero-title-mobile: clamp(1.73rem, 8.57vw, 2.14rem);
+  --fs-hero-sub: clamp(1.21rem, 2.14vw, 1.47rem);
+  --fs-nav: 1.05rem;
+  --fs-badge: 0.82rem;
+  --fs-tag: 0.75rem;
+  --fs-caption: 0.72rem;
+
+  /* Line heights */
+  --lh-tight: 1.1;
+  --lh-normal: 1.5;
+  --lh-relaxed: 1.65;
+  --lh-base: var(--lh-normal);
+
+  /* Font weights */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Letter spacing */
+  --letter-spacing-tight: -0.01em;
+
+  /* ── Spacing Scale ── */
+  /* Fluid Spacing (Clamps) */
+  --space-xs: clamp(0.25rem, 0.5vw, 0.5rem);
+  --space-sm: clamp(0.75rem, 1vw, 1rem);
+  --space-md: clamp(1.25rem, 1.5vw, 1.5rem);
+  --space-lg: clamp(2rem, 2.5vw, 2.5rem);
+  --space-xl: clamp(3rem, 3.5vw, 3.5rem);    /* FullHD calibration: max 64→56px */
+  --space-2xl: clamp(4rem, 5vw, 5rem);       /* FullHD calibration: max 96→80px */
+  --space-3xl: clamp(5rem, 6vw, 6.5rem);     /* FullHD calibration: max 128→104px */
+
+  /* Fixed Spacing (Tokens) */
+  --space-2xs-f: 8px;
+  --space-xs-f: 12px;
+  --space-sm-f: 16px;
+  --space-md-f: 24px;
+  --space-lg-f: 32px;
+  --space-xl-f: 40px;
+
+  /* ── Radii ── */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --radius-full: 999px;
+
+  /* ── Shadows ── */
+  --shadow-sm: 0 4px 12px rgba(15, 30, 53, 0.04);
+  --shadow-md: 0 12px 32px rgba(15, 30, 53, 0.06);
+  --shadow-lg: 0 30px 70px rgba(15, 30, 53, 0.08);
+  --shadow-card: 0 15px 40px rgba(15, 30, 53, 0.05);
+
+  /* ── Transitions ── */
+  --transition-fast: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --transition-smooth: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --transition-slow: 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+  /* ── Container ── */
+  --max-width: 1400px;
+  --navbar-h: 72px;
+
+  /* ── Responsive Breakpoints (canonical — use these, not arbitrary values) ──
+     lg   : 1024px  → tablet landscape / small laptop
+     md   : 768px   → tablet portrait / mobile landscape (main mobile gate)
+     sm   : 600px   → large phone / panels full-width
+     xs   : 480px   → small phone adjustments
+     ─────────────────────────────────────────────────────────────────────────
+     Exceptions documented in code:
+     • 900px  — experience-shell sidebar collapse (intentional, tighter than lg)
+     • 640px  — experience-page mobile refinements (between sm and md)
+     • 992px  — mobile-sticky-bar on experience page (close to lg, keep)
+  ── */
+}
+
+/* ── 2. RESET & BASE ────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--fs-p);
+  line-height: var(--lh-base);
+  color: var(--text-color-primary);
+  font-weight: var(--font-weight-regular);
+  letter-spacing: var(--letter-spacing-tight);
+  background: var(--clr-off-white);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+}
+
+h1 {
+  font-size: var(--fs-h1);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--lh-tight);
+  letter-spacing: -0.02em;
+  color: var(--clr-navy);
+}
+
+h2 {
+  font-size: var(--fs-h2);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--lh-tight);
+  color: var(--clr-navy);
+}
+
+h3 {
+  font-size: var(--fs-h3);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--lh-tight);
+  color: var(--clr-navy);
+}
+
+h4 {
+  font-size: var(--fs-xs);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-color-muted);
+}
+
+p {
+  font-size: var(--fs-p);
+  line-height: var(--lh-base);
+  color: var(--text-color-secondary);
+}
+
+ul,
+ol {
+  padding-left: 1.25rem;
+}
+
+li {
+  font-size: var(--fs-p);
+  line-height: var(--lh-relaxed);
+  margin-bottom: var(--space-2xs-f);
+  color: var(--text-color-secondary);
+}
+
+/* ── UI Text Utilities ── */
+.label,
+.small-text {
+  font-size: var(--fs-label);
+  color: var(--text-color-muted);
+  font-weight: var(--font-weight-medium);
+}
+
+/* ── Price Styling ── */
+.price {
+  font-size: var(--fs-h2);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -0.02em;
+  color: var(--clr-navy);
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  image-rendering: -webkit-optimize-contrast;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: var(--fs-h2);
+  }
+
+  h2 {
+    font-size: var(--fs-h3);
+  }
+}
+
+/* ── 3. UTILITY ─────────────────────────────────────────────────────────── */
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding-inline: clamp(1rem, 4vw, 2rem);
+  width: 100%;
+}
+
+.mt-1 {
+  margin-top: var(--space-sm);
+}
+
+.mt-2 {
+  margin-top: var(--space-lg);
+}
+
+.mt-3 {
+  margin-top: var(--space-xl);
+}
+
+.mb-1 {
+  margin-bottom: var(--space-sm);
+}
+
+.mb-2 {
+  margin-bottom: var(--space-lg);
+}
+
+.mb-3 {
+  margin-bottom: var(--space-xl);
+}
+
+.p-lg {
+  padding: var(--space-lg);
+}
+
+.px-lg {
+  padding-inline: var(--space-lg);
+}
+
+.py-lg {
+  padding-block: var(--space-lg);
+}
+
+.gap-sm {
+  gap: var(--space-sm);
+.navbar {
+  position: fixed;
+  top: var(--demo-banner-height, 0px);
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  height: var(--navbar-h);
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: background var(--transition-smooth), backdrop-filter var(--transition-smooth), box-shadow var(--transition-smooth);
+}
+
+/* Force solid blue on experience pages as requested */
+.experience-page .navbar {
+  background: var(--clr-navy);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
+}
+
+.navbar--scrolled,
+.experience-page .navbar--scrolled {
+  background: rgba(10, 20, 38, 0.96);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 2px 24px rgba(0, 0, 0, 0.25);
+}
+
+.navbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  gap: var(--space-md);
+}
+
+.navbar__inner.container {
+  max-width: 1700px;
+}
+
+@media (min-width: 769px) {
+  .navbar__inner {
+    padding-inline: clamp(0.75rem, 2vw, 1.25rem);
+  }
+}
+
+.navbar__logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.logo-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.1em;
+  height: 1.1em;
+  color: #9aa3b0; /* Consistent gray as requested */
+}
+
+.logo-icon svg {
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.anchor-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1em;
+  height: 1em;
+  color: #9aa3b0;
+  vertical-align: middle;
+}
+/* ── 7. HERO SECTION ────────────────────────────────────────────────────── */
+.hero {
+  position: relative;
+  height: min(calc(var(--vh, 1vh) * 100), 860px); /* FullHD calibration: cap prevents 1005px hero on 1080p */
+  display: flex;
+  align-items: center;
+  overflow: clip;
+}
+  </style>
+  <link rel="stylesheet" href="/css/bundle.css">
+<link rel="icon" href="/assets/icons/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/assets/icons/favicon.png" type="image/png" sizes="192x192" />
+  <link rel="apple-touch-icon" href="/assets/icons/favicon.png" />
+
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Seaduced Experience" />
+  <link rel="canonical" href="https://www.seaduced-experience.com/guides/canal-tour-copenhagen/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Seaduced Experience" />
+  <meta property="og:url" content="https://www.seaduced-experience.com/guides/canal-tour-copenhagen/" />
+  <meta property="og:title" content="Canal Tour Copenhagen: The Complete Guide (2026)" />
+  <meta property="og:description" content="Everything you need to know about canal tours in Copenhagen. Best routes, what to see, how to book a private boat tour, prices, and insider tips from local guides." />
+  <meta property="og:image" content="https://www.seaduced-experience.com/assets/images/general/private-boat-copenhagen-group-wide.webp" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Canal Tour Copenhagen: The Complete Guide (2026)" />
+  <meta name="twitter:description" content="Everything you need to know about canal tours in Copenhagen. Best routes, what to see, prices, and insider tips." />
+  <meta name="twitter:image" content="https://www.seaduced-experience.com/assets/images/general/private-boat-copenhagen-group-wide.webp" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.seaduced-experience.com/"},
+          {"@type": "ListItem", "position": 2, "name": "Guides", "item": "https://www.seaduced-experience.com/guides/"},
+          {"@type": "ListItem", "position": 3, "name": "Canal Tour Copenhagen", "item": "https://www.seaduced-experience.com/guides/canal-tour-copenhagen/"}
+        ]
+      },
+      {
+        "@type": "Article",
+        "@id": "https://www.seaduced-experience.com/guides/canal-tour-copenhagen/#article",
+        "headline": "Canal Tour Copenhagen: The Complete Guide (2026)",
+        "description": "Everything you need to know about canal tours in Copenhagen. Best routes, what to see, how to book, prices, and insider tips from local guides.",
+        "image": "https://www.seaduced-experience.com/assets/images/general/private-boat-copenhagen-group-wide.webp",
+        "author": {"@type": "Organization", "name": "Seaduced Experience", "url": "https://www.seaduced-experience.com/"},
+        "publisher": {"@type": "Organization", "name": "Seaduced Experience", "logo": {"@type": "ImageObject", "url": "https://www.seaduced-experience.com/assets/icons/favicon.svg"}},
+        "datePublished": "2026-01-15",
+        "dateModified": "2026-06-04",
+        "mainEntityOfPage": {"@type": "WebPage", "@id": "https://www.seaduced-experience.com/guides/canal-tour-copenhagen/"}
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How much does a canal tour in Copenhagen cost?",
+            "acceptedAnswer": {"@type": "Answer", "text": "Shared tours cost around DKK 120–160 per person. Private canal tours start from DKK 2,499 per group for up to 6 people — very cost-effective for groups of 4+."}
+          },
+          {
+            "@type": "Question",
+            "name": "How long is a canal tour in Copenhagen?",
+            "acceptedAnswer": {"@type": "Answer", "text": "Most tours last 1–2 hours. Private tours can be extended to 3 or 4+ hours with stops at Reffen street food market or Trekroner Sea Fortress."}
+          },
+          {
+            "@type": "Question",
+            "name": "What can you see on a canal tour in Copenhagen?",
+            "acceptedAnswer": {"@type": "Answer", "text": "Nyhavn, Christiansborg Palace, the Black Diamond, the Opera House, Christianshavn canals, Islands Brygge, and the Church of Our Saviour. Longer tours also include the Little Mermaid."}
+          },
+          {
+            "@type": "Question",
+            "name": "Is a private canal tour worth it in Copenhagen?",
+            "acceptedAnswer": {"@type": "Answer", "text": "Yes — for groups of 4+, the per-person price is similar to a shared tour with a dramatically better experience: your own captain, pace, music, and atmosphere."}
+          },
+          {
+            "@type": "Question",
+            "name": "When is the best time for a canal boat trip in Copenhagen?",
+            "acceptedAnswer": {"@type": "Answer", "text": "May through September for warm weather. Winter tours with blankets and hot drinks offer a unique hygge atmosphere — very popular among locals."}
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "x199obzcqz");
+  </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6RZJ21L1R2"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-6RZJ21L1R2');
+  </script>
+
+  <style>
+    /* ── Guide hero — full-bleed image with overlay ── */
+    .guide-hero {
+      position: relative;
+      min-height: 520px;
+      display: flex;
+      align-items: flex-end;
+      color: #fff;
+      overflow: hidden;
+    }
+    .guide-hero__bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .guide-hero__bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 55%;
+      display: block;
+    }
+    .guide-hero__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(8, 20, 35, 0.45) 0%,
+        rgba(8, 20, 35, 0.72) 60%,
+        rgba(8, 20, 35, 0.88) 100%
+      );
+      z-index: 1;
+    }
+    .guide-hero__inner {
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 8rem 1.5rem 3.5rem;
+      text-align: center;
+      width: 100%;
+    }
+    .guide-hero__label {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #a8c4d8;
+      margin-bottom: 1rem;
+    }
+    .guide-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700;
+      line-height: 1.2;
+      color: #fff;
+      margin-bottom: 1rem;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.3);
+    }
+    .guide-hero h1 em { color: #7eb8d4; font-style: italic; }
+    .guide-hero__sub { color: rgba(255,255,255,0.82); font-size: 1rem; line-height: 1.65; margin-bottom: 0.75rem; }
+    .guide-hero__meta { font-size: 0.78rem; color: rgba(255,255,255,0.5); margin-top: 0.5rem; }
+
+    /* ── Article body ── */
+    .guide-body {
+      max-width: 740px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 5rem;
+    }
+    .guide-body h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.55rem;
+      font-weight: 700;
+      color: #0d1b2a;
+      margin: 2.75rem 0 0.75rem;
+      padding-top: 0.5rem;
+      border-top: 1px solid #e8f0f6;
+    }
+    .guide-body h2:first-of-type { border-top: none; margin-top: 1.5rem; }
+    .guide-body h3 { font-size: 1.05rem; font-weight: 600; color: #1a3a5c; margin: 1.75rem 0 0.4rem; }
+    .guide-body p { font-size: 0.975rem; line-height: 1.8; color: #3d4f5e; margin-bottom: 1rem; }
+    .guide-body ul, .guide-body ol { padding-left: 1.4rem; margin-bottom: 1.25rem; }
+    .guide-body li { font-size: 0.975rem; line-height: 1.75; color: #3d4f5e; margin-bottom: 0.35rem; }
+
+    /* ── Table of contents ── */
+    .guide-toc {
+      background: #f0f6fa;
+      border-left: 3px solid #2e7fb8;
+      border-radius: 0 8px 8px 0;
+      padding: 1.25rem 1.5rem;
+      margin: 1.75rem 0 2rem;
+    }
+    .guide-toc__title { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #1a3a5c; margin-bottom: 0.65rem; }
+    .guide-toc ol { margin: 0; padding-left: 1.2rem; }
+    .guide-toc li { margin-bottom: 0.25rem; }
+    .guide-toc a { color: #2e7fb8; text-decoration: none; font-size: 0.875rem; }
+    .guide-toc a:hover { text-decoration: underline; }
+
+    /* ── CTA box ── */
+    .guide-cta-box {
+      background: linear-gradient(135deg, #0d1b2a 0%, #1a3a5c 100%);
+      color: #fff;
+      border-radius: 12px;
+      padding: 2rem;
+      margin: 2.5rem 0;
+      text-align: center;
+    }
+    .guide-cta-box h3 {
+      color: #fff;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      margin: 0 0 0.5rem;
+    }
+    .guide-cta-box p { color: #a8c4d8; margin-bottom: 1.25rem; font-size: 0.9rem; }
+    .guide-cta-box .btn { margin: 0.3rem; }
+
+    /* ── Tip box ── */
+    .tip-box {
+      background: #eaf5fb;
+      border-left: 3px solid #2e7fb8;
+      border-radius: 0 8px 8px 0;
+      padding: 1rem 1.25rem;
+      margin: 1.25rem 0;
+      font-size: 0.925rem;
+      color: #1a3a5c;
+      line-height: 1.65;
+    }
+
+    /* ── Comparison table ── */
+    .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 1.25rem 0 1.75rem; }
+    .guide-comparison {
+      width: 100%;
+      min-width: 520px;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+    }
+    .guide-comparison th {
+      background: #0d1b2a;
+      color: #fff;
+      padding: 0.65rem 1rem;
+      text-align: left;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .guide-comparison td { padding: 0.6rem 1rem; border-bottom: 1px solid #e4ecf1; color: #3d4f5e; }
+    .guide-comparison tr:nth-child(even) td { background: #f7fbfd; }
+    .guide-comparison .highlight td { background: #eaf5fb; font-weight: 500; color: #0d1b2a; }
+
+    /* ── FAQ ── */
+    .guide-faq { margin-top: 2rem; }
+    .guide-faq__item { border-bottom: 1px solid #e4ecf1; padding: 1rem 0; }
+    .guide-faq__q { font-weight: 600; color: #0d1b2a; font-size: 0.95rem; margin-bottom: 0.35rem; }
+    .guide-faq__a { color: #3d4f5e; font-size: 0.925rem; line-height: 1.7; }
+
+    /* ── Mobile ── */
+    @media (max-width: 600px) {
+      .guide-hero { min-height: 380px; }
+      .guide-body { padding: 2rem 1.1rem 4rem; }
+      .guide-body h2 { font-size: 1.35rem; }
+      .guide-cta-box { padding: 1.5rem 1.1rem; }
+      .guide-cta-box .btn { display: block; margin: 0.4rem 0; }
+    }
+  </style>
+</head>
+
+<body class="guide-page">
+  <div class="preloader">
+    <div class="preloader__content">
+      <svg class="preloader__anchor" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path d="M12 5V21M7 16H2M17 16H22M5 16C5 19.866 8.13401 23 12 23C15.866 23 19 19.866 19 16M12 5C13.1046 5 14 4.10457 14 3C14 1.89543 13.1046 1 12 1C10.8954 1 10 1.89543 10 3C10 4.10457 10.8954 5 12 5Z" />
+      </svg>
+      <div class="preloader__text">Seaduced Experience</div>
+    </div>
+  </div>
+
+  <header class="navbar" id="navbar">
+    <div class="container navbar__inner">
+      <a href="/" class="navbar__logo" aria-label="Seaduced Experience Home">
+        <span class="logo-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 5V21M7 16H2M17 16H22M5 16C5 19.866 8.13401 23 12 23C15.866 23 19 19.866 19 16M12 5C13.1046 5 14 4.10457 14 3C14 1.89543 13.1046 1 12 1C10.8954 1 10 1.89543 10 3C10 4.10457 10.8954 5 12 5Z" />
+          </svg>
+        </span>
+        <span class="logo-text">Seaduced<em>Experience</em></span>
+      </a>
+      <nav class="navbar__nav" id="navMenu" role="navigation" aria-label="Main navigation">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/book" class="nav-link">Tours</a>
+        <a href="/#faq" class="nav-link">FAQ</a>
+        <a href="/#contact" class="nav-link">Contact</a>
+      </nav>
+      <div class="navbar__actions">
+        <a href="/book" class="btn btn--primary btn--sm">Book Now</a>
+        <button class="navbar__hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div class="navbar__mobile" id="mobileMenu">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/book" class="nav-link">Tours</a>
+      <a href="/#faq" class="nav-link">FAQ</a>
+      <a href="/#contact" class="nav-link">Contact</a>
+      <a href="/book" class="btn btn--primary mt-1">Book Now</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="guide-hero">
+      <div class="guide-hero__bg">
+        <img
+          src="/assets/images/city-highlights/island-brygge-guests.png"
+          alt="Group enjoying a private boat tour through the canals of Copenhagen"
+          width="1668" height="943"
+          loading="eager"
+          fetchpriority="high"
+        />
+      </div>
+      <div class="guide-hero__overlay"></div>
+      <div class="guide-hero__inner">
+        <span class="guide-hero__label">Copenhagen Travel Guide · 2026</span>
+        <h1>Canal Tour Copenhagen:<br /><em>The Complete Guide</em></h1>
+        <p class="guide-hero__sub">Best routes, what to see, private vs. public tours, prices, and insider tips — everything you need to experience Copenhagen from the water.</p>
+        <p class="guide-hero__meta">By Seaduced Experience · Updated June 2026 · 8 min read</p>
+      </div>
+    </section>
+
+    <article class="guide-body">
+
+      <nav class="guide-toc" aria-label="Table of contents">
+        <div class="guide-toc__title">In This Guide</div>
+        <ol>
+          <li><a href="#why-boat">Why See Copenhagen by Boat?</a></li>
+          <li><a href="#canal-map">The Main Canals & What You'll See</a></li>
+          <li><a href="#tour-types">Types of Canal Tours</a></li>
+          <li><a href="#private-vs-public">Private vs. Shared — Which to Choose</a></li>
+          <li><a href="#best-time">Best Time to Go</a></li>
+          <li><a href="#tips">Insider Tips</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ol>
+      </nav>
+
+      <h2 id="why-boat">Why See Copenhagen by Boat?</h2>
+      <p>Copenhagen is one of the few European capitals where water is genuinely central to the city — not just decorative. The canal network weaves between its most iconic neighborhoods, and many of the city's best landmarks simply cannot be seen from land the way they look from the water.</p>
+      <p>A canal boat trip gives you angles of Nyhavn, Christiansborg Palace, and Christianshavn that no walking tour can match. It also lets you escape the crowds — the canals are quiet, calm, and offer a completely different pace to the busy streets above.</p>
+      <p>Local guides who run boat tours carry stories and context you won't find in a guidebook. The harbor area has changed enormously over the past two decades, and a local captain can explain exactly what you're looking at and why it matters.</p>
+
+      <h2 id="canal-map">The Main Canals & What You'll See</h2>
+
+      <h3>Nyhavn</h3>
+      <p>The most photographed spot in Copenhagen — a 17th-century harbor lined with colorful townhouses and old wooden ships. From the water you get an unobstructed view of the full row, usually packed with street-level tourists. Hans Christian Andersen lived here at several addresses, and the canal was originally built to connect the city center to the sea.</p>
+
+      <h3>Christianshavn Canals</h3>
+      <p>Often called "Little Amsterdam," Christianshavn is a canal district of islands and bridges southeast of the city center. Quieter than Nyhavn, with houseboats, old warehouses converted into restaurants, and the golden spiral tower of the Church of Our Saviour rising above the rooflines. Most tourists miss it entirely on foot.</p>
+
+      <h3>Christiansborg Palace & the Black Diamond</h3>
+      <p>Seen from the water, Christiansborg — Denmark's parliament, supreme court, and royal reception palace all in one — looks genuinely impressive. Adjacent is the Black Diamond, the Royal Library's granite and glass extension that juts out over the harbor. Approaching both from the water is far more dramatic than from street level.</p>
+
+      <h3>Islands Brygge & the Harbor Bath</h3>
+      <p>Heading south from the city center, Islands Brygge is a former industrial waterfront now known for its harbor baths — public swimming areas built directly into the canal. On summer days this stretch is where Copenhageners actually swim. Seeing it from the water gives you a real sense of how the locals live.</p>
+
+      <h3>Copenhagen Opera House</h3>
+      <p>Sitting on its own island directly opposite Amalienborg Palace, the Opera House is one of the most expensive buildings ever constructed in Denmark. From the water you get the full perspective of its cantilevered roof — impossible to appreciate from land.</p>
+
+      <h3>The Little Mermaid (on longer tours)</h3>
+      <p>The bronze statue at Langelinie is included on 3h+ tours. The boat approach — arriving from the water as the statue intended — gives it far more dignity than the land route through crowds.</p>
+
+      <div class="guide-cta-box">
+        <h3>See All of This on a Private Tour</h3>
+        <p>Our City Highlights tour covers the full canal route in 1–2 hours, fully private for your group.</p>
+        <a href="/experiences/copenhagen-city-highlights/" class="btn btn--primary">View City Highlights Tour</a>
+        <a href="/book" class="btn btn--ghost" style="border-color:rgba(255,255,255,0.35);color:#fff;">See All Tours</a>
+      </div>
+
+      <h2 id="tour-types">Types of Canal Tours in Copenhagen</h2>
+
+      <h3>Private Boat Tours</h3>
+      <p>The entire boat is reserved exclusively for your group. Your own local captain, full flexibility on pace and stops, no strangers on board. Starting from DKK 2,499 for groups up to 6 — often cheaper per person than a shared tour for groups of 4+.</p>
+
+      <h3>Public Canal Buses (Havnebussen)</h3>
+      <p>Routes 991 and 992 are water transport, not tourist tours. They cross the harbor between Nordre Toldbod and Sydhavn. Cheap (standard transit ticket) and authentic, but no commentary and fixed stops only.</p>
+
+      <h3>Shared Sightseeing Boats</h3>
+      <p>Boats of 20–30 people following a fixed 1-hour route with commentary. Budget-friendly, but you share with strangers and have zero flexibility.</p>
+
+      <h3>Kayak & SUP Tours</h3>
+      <p>Popular in summer through Christianshavn. Slow, immersive, and physically engaging — but not suitable for everyone.</p>
+
+      <h3>Self-Drive Electric Boats</h3>
+      <p>Available for hire at several harbor points. No license required. Good for flexibility, though without a local guide you miss a lot of context.</p>
+
+      <h2 id="private-vs-public">Private Canal Tour vs. Shared — Which to Choose?</h2>
+
+      <div class="table-wrap">
+        <table class="guide-comparison" aria-label="Comparison of canal tour options in Copenhagen">
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>Private Tour</th>
+              <th>Shared Sightseeing</th>
+              <th>Harbor Bus</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="highlight">
+              <td>Price (group)</td>
+              <td>From DKK 2,499</td>
+              <td>DKK ~120–160/person</td>
+              <td>Transit ticket</td>
+            </tr>
+            <tr>
+              <td>Exclusive to your group</td>
+              <td>✓ Yes</td>
+              <td>✗ Shared</td>
+              <td>✗ Public</td>
+            </tr>
+            <tr>
+              <td>Local guide included</td>
+              <td>✓ Dedicated captain</td>
+              <td>✓ Commentary</td>
+              <td>✗ None</td>
+            </tr>
+            <tr>
+              <td>Flexible route</td>
+              <td>✓ Customizable</td>
+              <td>✗ Fixed</td>
+              <td>✗ Fixed stops</td>
+            </tr>
+            <tr>
+              <td>Drinks & music on board</td>
+              <td>✓ Yes</td>
+              <td>✗ Usually not</td>
+              <td>✗ No</td>
+            </tr>
+            <tr>
+              <td>Best for</td>
+              <td>Groups of 2–10</td>
+              <td>Solo / budget</td>
+              <td>Crossing the harbor</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="tip-box">
+        <strong>💡 Local tip:</strong> For a group of 4 or more, a private canal tour often costs the same or less per person than a shared tour — and the experience is incomparable. The boat is yours, the captain is yours, and you stay as long as you like at any spot.
+      </div>
+
+      <h2 id="best-time">Best Time for a Canal Tour in Copenhagen</h2>
+
+      <h3>Summer (May–September)</h3>
+      <p>Peak season — long days, warm evenings, the city at full life. July and August are the most popular. Book ahead, especially for weekend slots. Sunset cruises in June and July are exceptional with daylight until 10pm.</p>
+
+      <h3>Spring (April) & Early Autumn (October)</h3>
+      <p>Fewer crowds, quieter canals, beautiful light. A good alternative if summer dates are full.</p>
+
+      <h3>Winter (November–March)</h3>
+      <p>Cold and dark, but canal tours in winter have a genuinely unique atmosphere — blankets, hot drinks, and the Danish concept of <em>hygge</em> on the water. Christmas lights along the canals in December are spectacular.</p>
+
+      <div class="tip-box">
+        <strong>Best time of day:</strong> Late afternoon into early evening. Golden light, thinner crowds, and the harbor buzzes with kayakers and swimmers in summer.
+      </div>
+
+      <h2 id="tips">Insider Tips for Your Canal Tour</h2>
+      <ul>
+        <li><strong>Dress in layers.</strong> The water amplifies wind chill even on warm days.</li>
+        <li><strong>Book in advance for summer weekends.</strong> The best slots fill up from June through August.</li>
+        <li><strong>Ask about Reffen.</strong> Copenhagen's waterfront street food market is a stop on longer tours and worth extra time.</li>
+        <li><strong>Longer tours see the Little Mermaid.</strong> It's not on the 1-hour route — book the 3h Harbor Extended if this is a priority.</li>
+        <li><strong>Bring your own playlist.</strong> Private tours have a Bluetooth speaker on board.</li>
+        <li><strong>The harbor baths at Islands Brygge are swimmable.</strong> On the 4h tour there's time for an optional swim — the water is clean and warm in summer.</li>
+      </ul>
+
+      <h2 id="faq">Frequently Asked Questions</h2>
+      <div class="guide-faq">
+        <div class="guide-faq__item">
+          <div class="guide-faq__q">How much does a canal tour in Copenhagen cost?</div>
+          <div class="guide-faq__a">Shared tours: DKK 120–160 per person. Private tours from DKK 2,499 per group for up to 6 — great value for families or groups of 4+.</div>
+        </div>
+        <div class="guide-faq__item">
+          <div class="guide-faq__q">How long is a canal tour in Copenhagen?</div>
+          <div class="guide-faq__a">Most tours run 1–2 hours. Private tours can extend to 3 or 4 hours with stops at Reffen or Trekroner Sea Fortress.</div>
+        </div>
+        <div class="guide-faq__item">
+          <div class="guide-faq__q">What can you see on a canal tour?</div>
+          <div class="guide-faq__a">Nyhavn, Christiansborg Palace, the Black Diamond, the Opera House, Christianshavn canals, Islands Brygge, and the Church of Our Saviour. Longer tours include the Little Mermaid.</div>
+        </div>
+        <div class="guide-faq__item">
+          <div class="guide-faq__q">Is a private canal tour worth it?</div>
+          <div class="guide-faq__a">Yes — especially for groups of 4+. Same per-person price as shared, completely different experience: your captain, your pace, your atmosphere.</div>
+        </div>
+        <div class="guide-faq__item">
+          <div class="guide-faq__q">When is the best time for a canal boat trip?</div>
+          <div class="guide-faq__a">May–September for warm weather. Winter tours with blankets and hot drinks offer a uniquely Danish hygge experience many guests rate as their favorite.</div>
+        </div>
+      </div>
+
+      <div class="guide-cta-box" style="margin-top:3rem;">
+        <h3>Ready to Book Your Canal Tour?</h3>
+        <p>Fully private, guided by locals, from DKK 2,499 per group.</p>
+        <a href="/book" class="btn btn--primary">See All Tours & Prices</a>
+      </div>
+
+      <p style="margin-top:2rem;font-size:0.875rem;color:#6b8799;">
+        Also see: <a href="/guides/nyhavn-boat-tour/" style="color:#2e7fb8;">Nyhavn Boat Tour Guide →</a>
+      </p>
+
+    </article>
+  </main>
+
+  <footer class="footer" id="contact">
+    <div class="container footer__centered">
+      <a href="/" class="footer-logo" aria-label="Seaduced Experience">
+        <span class="logo-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 5V21M7 16H2M17 16H22M5 16C5 19.866 8.13401 23 12 23C15.866 23 19 19.866 19 16M12 5C13.1046 5 14 4.10457 14 3C14 1.89543 13.1046 1 12 1C10.8954 1 10 1.89543 10 3C10 4.10457 10.8954 5 12 5Z" />
+          </svg>
+        </span>
+        <span class="logo-text">Seaduced<em>Experience</em></span>
+      </a>
+      <div class="footer__contact-main">
+        <p class="footer-contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+          Based in Copenhagen, Denmark
+        </p>
+        <p class="footer-contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          <span class="footer-hours">
+            <span>Daily (Summer): 9:00 – 20:00</span>
+            <span class="footer-hours-sep">&nbsp;·&nbsp;</span>
+            <span>Daily (Winter): 10:00 – 17:00</span>
+          </span>
+        </p>
+        <div class="footer__contact-row">
+          <p class="footer-contact-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            <a href="mailto:seaducedexperience@gmail.com">seaducedexperience@gmail.com</a>
+          </p>
+          <p class="footer-contact-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+            <a href="tel:+4522561882">+45 22 56 18 82</a>
+          </p>
+        </div>
+        <p class="footer-contact-note">Tours by appointment; weather dependent.</p>
+      </div>
+      <div class="footer__socials">
+        <a href="https://www.instagram.com/seaduced_experience/" title="Instagram" class="social-link" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+        </a>
+        <a href="https://www.facebook.com/SeaducedExperience/" title="Facebook" class="social-link" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+        </a>
+        <a href="https://www.tiktok.com/@seaducedexperience" title="TikTok" class="social-link" aria-label="TikTok">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path></svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <div class="container">
+        <p class="footer__copy">© 2025–2026 Seaduced Experience. All rights reserved.</p>
+        <p class="footer__copy" style="margin-top:4px;font-size:0.8em;">Developed by <a href="https://www.weareleba.com" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;">Leba Agency</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="/js/main-HSFU3PPB.js"></script>
+</body>
+</html>

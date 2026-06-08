@@ -7,127 +7,137 @@
   <title>Private Boat Tours Copenhagen | Seaduced Experience</title>
   <meta name="description"
     content="Private boat tours in Copenhagen's iconic canals. Sail past Nyhavn, Christiansborg &amp; Christianshavn with your own local captain. Fully private — just your group. From DKK 2,499." />
-  <meta name="keywords" content="private boat tour Copenhagen, canal tour Copenhagen, Nyhavn boat tour, Copenhagen boat rental, private canal cruise, Copenhagen harbour tour, boat tour Denmark, private sailing Copenhagen, Copenhagen water tour, guided boat tour Copenhagen" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <meta name="keywords"
+    content="private boat tour Copenhagen, canal tour Copenhagen, Nyhavn boat tour, Copenhagen boat rental, private canal cruise, Copenhagen harbour tour, boat tour Denmark, private sailing Copenhagen, Copenhagen water tour, guided boat tour Copenhagen" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;600;700&display=swap"></noscript>
+  <link rel="preload"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;600;700&display=swap"
+    as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;600;700&display=swap">
+  </noscript>
   <style>
-/* Critical CSS - inline */
-/* ─────────────────────────────────────────────────────────────────────────
+    /* Critical CSS - inline */
+    /* ─────────────────────────────────────────────────────────────────────────
    Seaduced Experience — Premium Stylesheet
    ─────────────────────────────────────────────────────────────────────────  */
 
-/* ── 1. DESIGN TOKENS ──────────────────────────────────────────────────── */
-:root {
-  /* ── Color Palette ── */
-  --clr-navy: #0f1e35;
-  --clr-navy-mid: #1a2d4a;
-  --clr-navy-light: #243d5e;
-  --clr-blue: #2d6a9f;
-  --clr-blue-soft: #5b9ecf;
-  --clr-sky: #d0e8f5;
-  --clr-beige: #f5ede0;
-  --clr-sand: #e8d5b7;
-  --clr-sand-lt: #f6efe4;
-  --clr-sunset: #e8834a;
-  --clr-sunset-lt: #f4a96b;
-  --clr-white: #ffffff;
-  --clr-off-white: #fafaf8;
-  --clr-text: #1a1a2e;
-  --clr-text-mid: #4a5568;
-  --clr-text-light: #718096;
-  --clr-border: rgba(255, 255, 255, 0.12);
+    /* ── 1. DESIGN TOKENS ──────────────────────────────────────────────────── */
+    :root {
+      /* ── Color Palette ── */
+      --clr-navy: #0f1e35;
+      --clr-navy-mid: #1a2d4a;
+      --clr-navy-light: #243d5e;
+      --clr-blue: #2d6a9f;
+      --clr-blue-soft: #5b9ecf;
+      --clr-sky: #d0e8f5;
+      --clr-beige: #f5ede0;
+      --clr-sand: #e8d5b7;
+      --clr-sand-lt: #f6efe4;
+      --clr-sunset: #e8834a;
+      --clr-sunset-lt: #f4a96b;
+      --clr-white: #ffffff;
+      --clr-off-white: #fafaf8;
+      --clr-text: #1a1a2e;
+      --clr-text-mid: #4a5568;
+      --clr-text-light: #718096;
+      --clr-border: rgba(255, 255, 255, 0.12);
 
-  /* ── Typography — Unified System ─────────────────────────────────────── */
-  /* Font families */
-  --font-base: var(--font-body);
-  --font-body: 'Inter', system-ui, sans-serif;
-  --font-display: 'Playfair Display', serif;
+      /* ── Typography — Unified System ─────────────────────────────────────── */
+      /* Font families */
+      --font-base: var(--font-body);
+      --font-body: 'Inter', system-ui, sans-serif;
+      --font-display: 'Playfair Display', serif;
 
-  /* Text colors */
-  --text-color-primary: #2b2f33;
-  --text-color-secondary: #5a6675;
-  --text-color-muted: #8a94a6;
+      /* Text colors */
+      --text-color-primary: #2b2f33;
+      --text-color-secondary: #5a6675;
+      --text-color-muted: #8a94a6;
 
-  /* Font sizes (Base Scale) */
-  --fs-xs: 12px;
-  --fs-sm: 13px;
-  --fs-md: 15px;
-  --fs-lg: 18px;
-  --fs-xl: 24px;
-  --fs-xxl: 32px;
+      /* Font sizes (Base Scale) */
+      --fs-xs: 12px;
+      --fs-sm: 13px;
+      --fs-md: 15px;
+      --fs-lg: 18px;
+      --fs-xl: 24px;
+      --fs-xxl: 32px;
 
-  /* Semantic Font Sizes */
-  --fs-p: var(--fs-md);
-  --fs-h1: var(--fs-xxl);
-  --fs-h2: var(--fs-xl);
-  --fs-h3: var(--fs-lg);
-  --fs-label: var(--fs-sm);
-  --fs-hero-title: clamp(3.75rem, 8.57vw, 4.2rem);   /* Desktop calibration: max 77→67px (-13%). Matches ES locale rhythm. */
-  --fs-hero-title-mobile: clamp(1.73rem, 8.57vw, 2.14rem);
-  --fs-hero-sub: clamp(1.21rem, 2.14vw, 1.47rem);
-  --fs-nav: 1.05rem;
-  --fs-badge: 0.82rem;
-  --fs-tag: 0.75rem;
-  --fs-caption: 0.72rem;
+      /* Semantic Font Sizes */
+      --fs-p: var(--fs-md);
+      --fs-h1: var(--fs-xxl);
+      --fs-h2: var(--fs-xl);
+      --fs-h3: var(--fs-lg);
+      --fs-label: var(--fs-sm);
+      --fs-hero-title: clamp(3.75rem, 8.57vw, 4.2rem);
+      /* Desktop calibration: max 77→67px (-13%). Matches ES locale rhythm. */
+      --fs-hero-title-mobile: clamp(1.73rem, 8.57vw, 2.14rem);
+      --fs-hero-sub: clamp(1.21rem, 2.14vw, 1.47rem);
+      --fs-nav: 1.05rem;
+      --fs-badge: 0.82rem;
+      --fs-tag: 0.75rem;
+      --fs-caption: 0.72rem;
 
-  /* Line heights */
-  --lh-tight: 1.1;
-  --lh-normal: 1.5;
-  --lh-relaxed: 1.65;
-  --lh-base: var(--lh-normal);
+      /* Line heights */
+      --lh-tight: 1.1;
+      --lh-normal: 1.5;
+      --lh-relaxed: 1.65;
+      --lh-base: var(--lh-normal);
 
-  /* Font weights */
-  --font-weight-regular: 400;
-  --font-weight-medium: 500;
-  --font-weight-semibold: 600;
-  --font-weight-bold: 700;
+      /* Font weights */
+      --font-weight-regular: 400;
+      --font-weight-medium: 500;
+      --font-weight-semibold: 600;
+      --font-weight-bold: 700;
 
-  /* Letter spacing */
-  --letter-spacing-tight: -0.01em;
+      /* Letter spacing */
+      --letter-spacing-tight: -0.01em;
 
-  /* ── Spacing Scale ── */
-  /* Fluid Spacing (Clamps) */
-  --space-xs: clamp(0.25rem, 0.5vw, 0.5rem);
-  --space-sm: clamp(0.75rem, 1vw, 1rem);
-  --space-md: clamp(1.25rem, 1.5vw, 1.5rem);
-  --space-lg: clamp(2rem, 2.5vw, 2.5rem);
-  --space-xl: clamp(3rem, 3.5vw, 3.5rem);    /* FullHD calibration: max 64→56px */
-  --space-2xl: clamp(4rem, 5vw, 5rem);       /* FullHD calibration: max 96→80px */
-  --space-3xl: clamp(5rem, 6vw, 6.5rem);     /* FullHD calibration: max 128→104px */
+      /* ── Spacing Scale ── */
+      /* Fluid Spacing (Clamps) */
+      --space-xs: clamp(0.25rem, 0.5vw, 0.5rem);
+      --space-sm: clamp(0.75rem, 1vw, 1rem);
+      --space-md: clamp(1.25rem, 1.5vw, 1.5rem);
+      --space-lg: clamp(2rem, 2.5vw, 2.5rem);
+      --space-xl: clamp(3rem, 3.5vw, 3.5rem);
+      /* FullHD calibration: max 64→56px */
+      --space-2xl: clamp(4rem, 5vw, 5rem);
+      /* FullHD calibration: max 96→80px */
+      --space-3xl: clamp(5rem, 6vw, 6.5rem);
+      /* FullHD calibration: max 128→104px */
 
-  /* Fixed Spacing (Tokens) */
-  --space-2xs-f: 8px;
-  --space-xs-f: 12px;
-  --space-sm-f: 16px;
-  --space-md-f: 24px;
-  --space-lg-f: 32px;
-  --space-xl-f: 40px;
+      /* Fixed Spacing (Tokens) */
+      --space-2xs-f: 8px;
+      --space-xs-f: 12px;
+      --space-sm-f: 16px;
+      --space-md-f: 24px;
+      --space-lg-f: 32px;
+      --space-xl-f: 40px;
 
-  /* ── Radii ── */
-  --radius-sm: 8px;
-  --radius-md: 16px;
-  --radius-lg: 24px;
-  --radius-xl: 32px;
-  --radius-full: 999px;
+      /* ── Radii ── */
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --radius-xl: 32px;
+      --radius-full: 999px;
 
-  /* ── Shadows ── */
-  --shadow-sm: 0 4px 12px rgba(15, 30, 53, 0.04);
-  --shadow-md: 0 12px 32px rgba(15, 30, 53, 0.06);
-  --shadow-lg: 0 30px 70px rgba(15, 30, 53, 0.08);
-  --shadow-card: 0 15px 40px rgba(15, 30, 53, 0.05);
+      /* ── Shadows ── */
+      --shadow-sm: 0 4px 12px rgba(15, 30, 53, 0.04);
+      --shadow-md: 0 12px 32px rgba(15, 30, 53, 0.06);
+      --shadow-lg: 0 30px 70px rgba(15, 30, 53, 0.08);
+      --shadow-card: 0 15px 40px rgba(15, 30, 53, 0.05);
 
-  /* ── Transitions ── */
-  --transition-fast: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  --transition-smooth: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  --transition-slow: 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      /* ── Transitions ── */
+      --transition-fast: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --transition-smooth: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --transition-slow: 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
-  /* ── Container ── */
-  --max-width: 1400px;
-  --navbar-h: 72px;
+      /* ── Container ── */
+      --max-width: 1400px;
+      --navbar-h: 72px;
 
-  /* ── Responsive Breakpoints (canonical — use these, not arbitrary values) ──
+      /* ── Responsive Breakpoints (canonical — use these, not arbitrary values) ──
      lg   : 1024px  → tablet landscape / small laptop
      md   : 768px   → tablet portrait / mobile landscape (main mobile gate)
      sm   : 600px   → large phone / panels full-width
@@ -138,275 +148,279 @@
      • 640px  — experience-page mobile refinements (between sm and md)
      • 992px  — mobile-sticky-bar on experience page (close to lg, keep)
   ── */
-}
+    }
 
-/* ── 2. RESET & BASE ────────────────────────────────────────────────────── */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+    /* ── 2. RESET & BASE ────────────────────────────────────────────────────── */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-html {
-  scroll-behavior: smooth;
-  font-size: 16px;
-  -webkit-text-size-adjust: 100%;
-}
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+      -webkit-text-size-adjust: 100%;
+    }
 
-body {
-  font-family: var(--font-body);
-  font-size: var(--fs-p);
-  line-height: var(--lh-base);
-  color: var(--text-color-primary);
-  font-weight: var(--font-weight-regular);
-  letter-spacing: var(--letter-spacing-tight);
-  background: var(--clr-off-white);
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+    body {
+      font-family: var(--font-body);
+      font-size: var(--fs-p);
+      line-height: var(--lh-base);
+      color: var(--text-color-primary);
+      font-weight: var(--font-weight-regular);
+      letter-spacing: var(--letter-spacing-tight);
+      background: var(--clr-off-white);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
 
-h1,
-h2,
-h3,
-h4 {
-  font-family: var(--font-display);
-}
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-family: var(--font-display);
+    }
 
-h1 {
-  font-size: var(--fs-h1);
-  font-weight: var(--font-weight-bold);
-  line-height: var(--lh-tight);
-  letter-spacing: -0.02em;
-  color: var(--clr-navy);
-}
+    h1 {
+      font-size: var(--fs-h1);
+      font-weight: var(--font-weight-bold);
+      line-height: var(--lh-tight);
+      letter-spacing: -0.02em;
+      color: var(--clr-navy);
+    }
 
-h2 {
-  font-size: var(--fs-h2);
-  font-weight: var(--font-weight-bold);
-  line-height: var(--lh-tight);
-  color: var(--clr-navy);
-}
+    h2 {
+      font-size: var(--fs-h2);
+      font-weight: var(--font-weight-bold);
+      line-height: var(--lh-tight);
+      color: var(--clr-navy);
+    }
 
-h3 {
-  font-size: var(--fs-h3);
-  font-weight: var(--font-weight-bold);
-  line-height: var(--lh-tight);
-  color: var(--clr-navy);
-}
+    h3 {
+      font-size: var(--fs-h3);
+      font-weight: var(--font-weight-bold);
+      line-height: var(--lh-tight);
+      color: var(--clr-navy);
+    }
 
-h4 {
-  font-size: var(--fs-xs);
-  font-weight: var(--font-weight-semibold);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--text-color-muted);
-}
+    h4 {
+      font-size: var(--fs-xs);
+      font-weight: var(--font-weight-semibold);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-color-muted);
+    }
 
-p {
-  font-size: var(--fs-p);
-  line-height: var(--lh-base);
-  color: var(--text-color-secondary);
-}
+    p {
+      font-size: var(--fs-p);
+      line-height: var(--lh-base);
+      color: var(--text-color-secondary);
+    }
 
-ul,
-ol {
-  padding-left: 1.25rem;
-}
+    ul,
+    ol {
+      padding-left: 1.25rem;
+    }
 
-li {
-  font-size: var(--fs-p);
-  line-height: var(--lh-relaxed);
-  margin-bottom: var(--space-2xs-f);
-  color: var(--text-color-secondary);
-}
+    li {
+      font-size: var(--fs-p);
+      line-height: var(--lh-relaxed);
+      margin-bottom: var(--space-2xs-f);
+      color: var(--text-color-secondary);
+    }
 
-/* ── UI Text Utilities ── */
-.label,
-.small-text {
-  font-size: var(--fs-label);
-  color: var(--text-color-muted);
-  font-weight: var(--font-weight-medium);
-}
+    /* ── UI Text Utilities ── */
+    .label,
+    .small-text {
+      font-size: var(--fs-label);
+      color: var(--text-color-muted);
+      font-weight: var(--font-weight-medium);
+    }
 
-/* ── Price Styling ── */
-.price {
-  font-size: var(--fs-h2);
-  font-weight: var(--font-weight-bold);
-  letter-spacing: -0.02em;
-  color: var(--clr-navy);
-}
+    /* ── Price Styling ── */
+    .price {
+      font-size: var(--fs-h2);
+      font-weight: var(--font-weight-bold);
+      letter-spacing: -0.02em;
+      color: var(--clr-navy);
+    }
 
-img {
-  display: block;
-  max-width: 100%;
-  height: auto;
-  image-rendering: -webkit-optimize-contrast;
-}
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      image-rendering: -webkit-optimize-contrast;
+    }
 
-a {
-  text-decoration: none;
-  color: inherit;
-}
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
 
-button {
-  border: none;
-  background: none;
-  cursor: pointer;
-  font-family: inherit;
-}
+    button {
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-family: inherit;
+    }
 
-@media (max-width: 768px) {
-  h1 {
-    font-size: var(--fs-h2);
-  }
+    @media (max-width: 768px) {
+      h1 {
+        font-size: var(--fs-h2);
+      }
 
-  h2 {
-    font-size: var(--fs-h3);
-  }
-}
+      h2 {
+        font-size: var(--fs-h3);
+      }
+    }
 
-/* ── 3. UTILITY ─────────────────────────────────────────────────────────── */
-.container {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding-inline: clamp(1rem, 4vw, 2rem);
-  width: 100%;
-}
+    /* ── 3. UTILITY ─────────────────────────────────────────────────────────── */
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding-inline: clamp(1rem, 4vw, 2rem);
+      width: 100%;
+    }
 
-.mt-1 {
-  margin-top: var(--space-sm);
-}
+    .mt-1 {
+      margin-top: var(--space-sm);
+    }
 
-.mt-2 {
-  margin-top: var(--space-lg);
-}
+    .mt-2 {
+      margin-top: var(--space-lg);
+    }
 
-.mt-3 {
-  margin-top: var(--space-xl);
-}
+    .mt-3 {
+      margin-top: var(--space-xl);
+    }
 
-.mb-1 {
-  margin-bottom: var(--space-sm);
-}
+    .mb-1 {
+      margin-bottom: var(--space-sm);
+    }
 
-.mb-2 {
-  margin-bottom: var(--space-lg);
-}
+    .mb-2 {
+      margin-bottom: var(--space-lg);
+    }
 
-.mb-3 {
-  margin-bottom: var(--space-xl);
-}
+    .mb-3 {
+      margin-bottom: var(--space-xl);
+    }
 
-.p-lg {
-  padding: var(--space-lg);
-}
+    .p-lg {
+      padding: var(--space-lg);
+    }
 
-.px-lg {
-  padding-inline: var(--space-lg);
-}
+    .px-lg {
+      padding-inline: var(--space-lg);
+    }
 
-.py-lg {
-  padding-block: var(--space-lg);
-}
+    .py-lg {
+      padding-block: var(--space-lg);
+    }
 
-.gap-sm {
-  gap: var(--space-sm);
-.navbar {
-  position: fixed;
-  top: var(--demo-banner-height, 0px);
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  height: var(--navbar-h);
-  background: rgba(0, 0, 0, 0.25);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  transition: background var(--transition-smooth), backdrop-filter var(--transition-smooth), box-shadow var(--transition-smooth);
-}
+    .gap-sm {
+      gap: var(--space-sm);
 
-/* Force solid blue on experience pages as requested */
-.experience-page .navbar {
-  background: var(--clr-navy);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
-}
+      .navbar {
+        position: fixed;
+        top: var(--demo-banner-height, 0px);
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        height: var(--navbar-h);
+        background: rgba(0, 0, 0, 0.25);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        transition: background var(--transition-smooth), backdrop-filter var(--transition-smooth), box-shadow var(--transition-smooth);
+      }
 
-.navbar--scrolled,
-.experience-page .navbar--scrolled {
-  background: rgba(10, 20, 38, 0.96);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  box-shadow: 0 2px 24px rgba(0, 0, 0, 0.25);
-}
+      /* Force solid blue on experience pages as requested */
+      .experience-page .navbar {
+        background: var(--clr-navy);
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
+      }
 
-.navbar__inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 100%;
-  gap: var(--space-md);
-}
+      .navbar--scrolled,
+      .experience-page .navbar--scrolled {
+        background: rgba(10, 20, 38, 0.96);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        box-shadow: 0 2px 24px rgba(0, 0, 0, 0.25);
+      }
 
-.navbar__inner.container {
-  max-width: 1700px;
-}
+      .navbar__inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 100%;
+        gap: var(--space-md);
+      }
 
-@media (min-width: 769px) {
-  .navbar__inner {
-    padding-inline: clamp(0.75rem, 2vw, 1.25rem);
-  }
-}
+      .navbar__inner.container {
+        max-width: 1700px;
+      }
 
-.navbar__logo {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  flex-shrink: 0;
-}
+      @media (min-width: 769px) {
+        .navbar__inner {
+          padding-inline: clamp(0.75rem, 2vw, 1.25rem);
+        }
+      }
 
-.logo-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.1em;
-  height: 1.1em;
-  color: #9aa3b0; /* Consistent gray as requested */
-}
+      .navbar__logo {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        flex-shrink: 0;
+      }
 
-.logo-icon svg {
-  width: 100%;
-  height: 100%;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
+      .logo-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 1.1em;
+        height: 1.1em;
+        color: #9aa3b0;
+        /* Consistent gray as requested */
+      }
 
-.anchor-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 1em;
-  height: 1em;
-  color: #9aa3b0;
-  vertical-align: middle;
-}
-/* ── 7. HERO SECTION ────────────────────────────────────────────────────── */
-.hero {
-  position: relative;
-  height: min(calc(var(--vh, 1vh) * 100), 860px); /* FullHD calibration: cap prevents 1005px hero on 1080p */
-  display: flex;
-  align-items: center;
-  overflow: clip;
-}
+      .logo-icon svg {
+        width: 100%;
+        height: 100%;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .anchor-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 1em;
+        height: 1em;
+        color: #9aa3b0;
+        vertical-align: middle;
+      }
+
+      /* ── 7. HERO SECTION ────────────────────────────────────────────────────── */
+      .hero {
+        position: relative;
+        height: min(calc(var(--vh, 1vh) * 100), 860px);
+        /* FullHD calibration: cap prevents 1005px hero on 1080p */
+        display: flex;
+        align-items: center;
+        overflow: clip;
+      }
   </style>
   <link rel="stylesheet" href="/css/bundle.css">
-<link rel="icon" href="/assets/icons/favicon.svg" type="image/svg+xml" />
-    <link rel="icon" href="/assets/icons/favicon.png" type="image/png" sizes="192x192" />
-    <link rel="apple-touch-icon" href="/assets/icons/favicon.png" />
+  <link rel="icon" href="/assets/icons/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/assets/icons/favicon.png" type="image/png" sizes="192x192" />
+  <link rel="apple-touch-icon" href="/assets/icons/favicon.png" />
   <link rel="preload" as="image" href="/assets/images/general/hero_canal_copenhagen3.png" fetchpriority="high" />
 
   <meta name="robots" content="index, follow" />
@@ -422,23 +436,27 @@ button {
   <meta property="og:site_name" content="Seaduced Experience" />
   <meta property="og:url" content="https://www.seaduced-experience.com/" />
   <meta property="og:title" content="Private Boat Tours Copenhagen | Seaduced Experience" />
-  <meta property="og:description" content="Private boat tours in Copenhagen's iconic canals. Sail past Nyhavn, Christiansborg &amp; Christianshavn with your own local captain. Fully private — just your group. From DKK 2,499." />
-  <meta property="og:image" content="https://www.seaduced-experience.com/assets/images/general/hero_canal_copenhagen3.png" />
+  <meta property="og:description"
+    content="Private boat tours in Copenhagen's iconic canals. Sail past Nyhavn, Christiansborg &amp; Christianshavn with your own local captain. Fully private — just your group. From DKK 2,499." />
+  <meta property="og:image"
+    content="https://www.seaduced-experience.com/assets/images/general/hero_canal_copenhagen3.png" />
   <meta property="og:locale" content="en_US" />
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Private Boat Tours Copenhagen | Seaduced Experience" />
-  <meta name="twitter:description" content="Private boat tours in Copenhagen's iconic canals. Sail past Nyhavn, Christiansborg &amp; Christianshavn with your own local captain. Fully private — just your group. From DKK 2,499." />
-  <meta name="twitter:image" content="https://www.seaduced-experience.com/assets/images/general/hero_canal_copenhagen3.png" />
-  
-  
+  <meta name="twitter:description"
+    content="Private boat tours in Copenhagen's iconic canals. Sail past Nyhavn, Christiansborg &amp; Christianshavn with your own local captain. Fully private — just your group. From DKK 2,499." />
+  <meta name="twitter:image"
+    content="https://www.seaduced-experience.com/assets/images/general/hero_canal_copenhagen3.png" />
+
+
 
   <!-- Microsoft Clarity -->
   <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    (function (c, l, a, r, i, t, y) {
+      c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
+      t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+      y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
     })(window, document, "clarity", "script", "x199obzcqz");
   </script>
 
@@ -446,7 +464,7 @@ button {
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-6RZJ21L1R2"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
     gtag('config', 'G-6RZJ21L1R2');
   </script>
@@ -479,20 +497,27 @@ button {
       </a>
 
       <nav class="navbar__nav" id="navMenu" role="navigation" aria-label="Main navigation">
-        <a href="/" title="Seaduced Experience – Private Boat Tours Copenhagen" class="nav-link" id="nav-home" data-i18n="nav.home" data-i18n-href="/">Home</a>
-        <a href="/book" title="View All Private Boat Tours in Copenhagen" class="nav-link" id="nav-tours" data-i18n="nav.tours" data-i18n-href="/book">Tours</a>
-        <a href="/#faq" title="Frequently Asked Questions – Seaduced Experience" class="nav-link" id="nav-faq" data-i18n="nav.faq" data-i18n-href="/#faq">FAQ</a>
-        <a href="/#contact" title="Contact Seaduced Experience" class="nav-link" id="nav-contact" data-i18n="nav.contact"
-          data-i18n-href="/#contact">Contact</a>
+        <a href="/" title="Seaduced Experience – Private Boat Tours Copenhagen" class="nav-link" id="nav-home"
+          data-i18n="nav.home" data-i18n-href="/">Home</a>
+        <a href="/book" title="View All Private Boat Tours in Copenhagen" class="nav-link" id="nav-tours"
+          data-i18n="nav.tours" data-i18n-href="/book">Tours</a>
+        <a href="/#faq" title="Frequently Asked Questions – Seaduced Experience" class="nav-link" id="nav-faq"
+          data-i18n="nav.faq" data-i18n-href="/#faq">FAQ</a>
+        <a href="/#contact" title="Contact Seaduced Experience" class="nav-link" id="nav-contact"
+          data-i18n="nav.contact" data-i18n-href="/#contact">Contact</a>
       </nav>
 
       <div class="navbar__actions">
-        <a href="/book" title="Book a Private Boat Tour in Copenhagen" class="btn btn--primary btn--sm" id="nav-cta" data-i18n="nav.cta" data-i18n-href="/book">Book
+        <a href="/book" title="Book a Private Boat Tour in Copenhagen" class="btn btn--primary btn--sm" id="nav-cta"
+          data-i18n="nav.cta" data-i18n-href="/book">Book
           Now</a>
         <div class="lang-switcher">
-          <a href="/" class="lang-link is-active" title="English"><img width="32" height="24" src="/assets/icons/flag-en.svg" alt="EN" title="View site in English"></a>
-          <a href="/da/" class="lang-link" title="Dansk"><img width="32" height="24" src="/assets/icons/flag-da.svg" alt="DA" title="Se siden på dansk"></a>
-          <a href="/es/" class="lang-link" title="Español"><img width="32" height="24" src="/assets/icons/flag-es.svg" alt="ES" title="Ver sitio en español"></a>
+          <a href="/" class="lang-link is-active" title="English"><img width="32" height="24"
+              src="/assets/icons/flag-en.svg" alt="EN" title="View site in English"></a>
+          <a href="/da/" class="lang-link" title="Dansk"><img width="32" height="24" src="/assets/icons/flag-da.svg"
+              alt="DA" title="Se siden på dansk"></a>
+          <a href="/es/" class="lang-link" title="Español"><img width="32" height="24" src="/assets/icons/flag-es.svg"
+              alt="ES" title="Ver sitio en español"></a>
         </div>
         <button class="navbar__hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
           <span></span><span></span><span></span>
@@ -502,17 +527,24 @@ button {
 
     <!-- Mobile menu -->
     <div class="navbar__mobile" id="mobileMenu">
-      <a href="/" title="Seaduced Experience – Private Boat Tours Copenhagen" class="nav-link" id="mob-home" data-i18n="nav.home" data-i18n-href="/">Home</a>
-      <a href="/book" title="View All Private Boat Tours in Copenhagen" class="nav-link" id="mob-tours" data-i18n="nav.tours" data-i18n-href="/book">Tours</a>
-      <a href="/#faq" title="Frequently Asked Questions – Seaduced Experience" class="nav-link" id="mob-faq" data-i18n="nav.faq" data-i18n-href="/#faq">FAQ</a>
+      <a href="/" title="Seaduced Experience – Private Boat Tours Copenhagen" class="nav-link" id="mob-home"
+        data-i18n="nav.home" data-i18n-href="/">Home</a>
+      <a href="/book" title="View All Private Boat Tours in Copenhagen" class="nav-link" id="mob-tours"
+        data-i18n="nav.tours" data-i18n-href="/book">Tours</a>
+      <a href="/#faq" title="Frequently Asked Questions – Seaduced Experience" class="nav-link" id="mob-faq"
+        data-i18n="nav.faq" data-i18n-href="/#faq">FAQ</a>
       <a href="/#contact" title="Contact Seaduced Experience" class="nav-link" id="mob-contact" data-i18n="nav.contact"
         data-i18n-href="/#contact">Contact</a>
       <div class="lang-switcher">
-        <a href="/" class="lang-link is-active" title="English"><img width="32" height="24" src="/assets/icons/flag-en.svg" alt="EN" title="View site in English"></a>
-        <a href="/da/" class="lang-link" title="Dansk"><img width="32" height="24" src="/assets/icons/flag-da.svg" alt="DA" title="Se siden på dansk"></a>
-        <a href="/es/" class="lang-link" title="Español"><img width="32" height="24" src="/assets/icons/flag-es.svg" alt="ES" title="Ver sitio en español"></a>
+        <a href="/" class="lang-link is-active" title="English"><img width="32" height="24"
+            src="/assets/icons/flag-en.svg" alt="EN" title="View site in English"></a>
+        <a href="/da/" class="lang-link" title="Dansk"><img width="32" height="24" src="/assets/icons/flag-da.svg"
+            alt="DA" title="Se siden på dansk"></a>
+        <a href="/es/" class="lang-link" title="Español"><img width="32" height="24" src="/assets/icons/flag-es.svg"
+            alt="ES" title="Ver sitio en español"></a>
       </div>
-      <a href="/book" title="Book a Private Boat Tour in Copenhagen" class="btn btn--primary mt-1" id="mob-cta" data-i18n="nav.cta" data-i18n-href="/book">Book Now</a>
+      <a href="/book" title="Book a Private Boat Tour in Copenhagen" class="btn btn--primary mt-1" id="mob-cta"
+        data-i18n="nav.cta" data-i18n-href="/book">Book Now</a>
     </div>
   </header>
 
@@ -524,7 +556,8 @@ button {
     <section class="hero" id="hero">
       <div class="hero__bg">
         <picture>
-          <img fetchpriority="high" src="/assets/images/general/hero_canal_copenhagen3.png" alt="Copenhagen canals boat tour" title="Private boat tour through Copenhagen's scenic canals"
+          <img fetchpriority="high" src="/assets/images/general/hero_canal_copenhagen3.png"
+            alt="Copenhagen canals boat tour" title="Private boat tour through Copenhagen's scenic canals"
             class="hero__bg-img" data-i18n-attr="alt:hero.img_alt" />
         </picture>
         <div class="hero__overlay"></div>
@@ -546,9 +579,10 @@ button {
         </p>
 
         <div class="hero__ctas reveal">
-          <a href="/book" title="Book a Private Boat Tour in Copenhagen" class="btn btn--primary btn--lg" id="hero-book-cta" data-i18n="hero.cta.book"
-            data-i18n-href="/book">Book Your Tour</a>
-          <a href="#tours" title="Explore Private Boat Tours in Copenhagen" class="btn btn--ghost btn--lg" id="hero-explore-cta" data-i18n="hero.cta.explore">Explore
+          <a href="/book" title="Book a Private Boat Tour in Copenhagen" class="btn btn--primary btn--lg"
+            id="hero-book-cta" data-i18n="hero.cta.book" data-i18n-href="/book">Book Your Tour</a>
+          <a href="#tours" title="Explore Private Boat Tours in Copenhagen" class="btn btn--ghost btn--lg"
+            id="hero-explore-cta" data-i18n="hero.cta.explore">Explore
             Tours</a>
         </div>
 
@@ -567,10 +601,13 @@ button {
         <div class="section-header reveal">
           <span class="section-label" data-i18n="tours.label">Our Experiences</span>
           <h2 class="section-title" data-i18n-html="tours.title">Choose Your Copenhagen<br />Boat Experience</h2>
-          <p class="section-sub" data-i18n="tours.sub">Explore our 8+ private boat experiences, from short tours of Copenhagen's most iconic spots to full-day journeys. Cruise at your own pace, in comfort, and with a unique perspective of the city.
+          <p class="section-sub" data-i18n="tours.sub">Explore our 8+ private boat experiences, from short tours of
+            Copenhagen's most iconic spots to full-day journeys. Cruise at your own pace, in comfort, and with a unique
+            perspective of the city.
           </p>
           <div class="header-cta-link">
-            <a href="/book" title="View All Copenhagen Boat Experiences" class="btn btn--primary btn--catalog attention-pulse" data-i18n="tours.catalog_cta"
+            <a href="/book" title="View All Copenhagen Boat Experiences"
+              class="btn btn--primary btn--catalog attention-pulse" data-i18n="tours.catalog_cta"
               data-i18n-href="/book">View All Experiences →</a>
           </div>
           <p class="perfect-for-line">
@@ -590,15 +627,17 @@ button {
               aria-label="View Copenhagen private guided boat tour details">
               <div class="tour-card__img-wrap">
                 <img src="/assets/images/city-highlights/island-brygge-guests.png"
-                  alt="City Highlights private boat tour" title="City Highlights – private boat tour Copenhagen, Islands Brygge" loading="lazy" width="960" height="600"
-                  data-i18n-attr="alt:tour.highlights.img_alt" />
+                  alt="City Highlights private boat tour"
+                  title="City Highlights – private boat tour Copenhagen, Islands Brygge" loading="lazy" width="960"
+                  height="600" data-i18n-attr="alt:tour.highlights.img_alt" />
                 <span class="tour-card__tag"><span data-i18n="experiences.ui.info.duration">Duration</span> 1h -
                   2h</span>
               </div>
             </a>
             <div class="tour-card__body">
-              <h3 class="tour-card__title"><a class="tour-card__title-link" href="/experiences/copenhagen-city-highlights/"
-                  data-i18n="tour.highlights.title" data-i18n-href="/experiences/copenhagen-city-highlights/">Copenhagen City
+              <h3 class="tour-card__title"><a class="tour-card__title-link"
+                  href="/experiences/copenhagen-city-highlights/" data-i18n="tour.highlights.title"
+                  data-i18n-href="/experiences/copenhagen-city-highlights/">Copenhagen City
                   Highlights</a></h3>
               <p class="tour-card__desc" data-i18n="tour.highlights.desc">Discover Copenhagen's city highlights on a
                 private boat tour with your own
@@ -615,23 +654,24 @@ button {
           </article>
 
           <article class="tour-card tour-card--clickable reveal" id="tour-wine"
-            data-card-link="/experiences/copenhagen-wine-tour/"
-            data-i18n-card-link="/experiences/copenhagen-wine-tour/" tabindex="0" role="link"
-            aria-label="Open Floating Wine Tasting experience page">
+            data-card-link="/experiences/copenhagen-wine-tour/" data-i18n-card-link="/experiences/copenhagen-wine-tour/"
+            tabindex="0" role="link" aria-label="Open Floating Wine Tasting experience page">
             <a class="tour-card__media-link" href="/experiences/copenhagen-wine-tour/"
               title="Floating Wine Tasting – Private Boat Tour Copenhagen"
               data-i18n-href="/experiences/copenhagen-wine-tour/"
               aria-label="View Floating Wine Tasting experience details">
               <div class="tour-card__img-wrap">
                 <img src="/assets/images/wine-tour/wine-tour-guests.png"
-                  alt="Floating wine tasting boat tour in Copenhagen" title="Private floating wine tasting boat tour in Copenhagen" loading="lazy" width="960" height="600" />
+                  alt="Floating wine tasting boat tour in Copenhagen"
+                  title="Private floating wine tasting boat tour in Copenhagen" loading="lazy" width="960"
+                  height="600" />
                 <span class="tour-card__tag"><span data-i18n="experiences.ui.info.duration">Duration</span> 2h</span>
               </div>
             </a>
             <div class="tour-card__body">
-              <h3 class="tour-card__title"><a class="tour-card__title-link"
-                  href="/experiences/copenhagen-wine-tour/" data-i18n="book.card.wine.title"
-                  data-i18n-href="/experiences/copenhagen-wine-tour/">Floating Wine Tasting</a></h3>
+              <h3 class="tour-card__title"><a class="tour-card__title-link" href="/experiences/copenhagen-wine-tour/"
+                  data-i18n="book.card.wine.title" data-i18n-href="/experiences/copenhagen-wine-tour/">Floating Wine
+                  Tasting</a></h3>
               <p class="tour-card__desc" data-i18n="tour.wine.desc">Enjoy a private 2-hour Copenhagen boat tour
                 featuring a guided wine tasting, gourmet board, and a relaxed, premium atmosphere on the water.</p>
               <div class="tour-card__price">
@@ -652,16 +692,16 @@ button {
               data-i18n-href="/experiences/copenhagen-sea-fortress/"
               aria-label="View Private Boat and Sea Fortress Highlights details">
               <div class="tour-card__img-wrap">
-                <img src="/assets/images/sea-fortress-4h/fortress.png"
-                  alt="Private 4-Hour Premium Experience"
-                  title="Private 4-hour boat tour to Trekroner Sea Fortress, Copenhagen" loading="lazy" width="960" height="600" data-i18n-attr="alt:tour.premium.img_alt" />
+                <img src="/assets/images/sea-fortress-4h/fortress.png" alt="Private 4-Hour Premium Experience"
+                  title="Private 4-hour boat tour to Trekroner Sea Fortress, Copenhagen" loading="lazy" width="960"
+                  height="600" data-i18n-attr="alt:tour.premium.img_alt" />
                 <span class="tour-card__tag"><span data-i18n="experiences.ui.info.duration">Duration</span> 4h</span>
               </div>
             </a>
             <div class="tour-card__body">
-              <h3 class="tour-card__title"><a class="tour-card__title-link"
-                  href="/experiences/copenhagen-sea-fortress/" data-i18n="tour.premium.title"
-                  data-i18n-href="/experiences/copenhagen-sea-fortress/">Sea Fortress and Coastal Journey</a></h3>
+              <h3 class="tour-card__title"><a class="tour-card__title-link" href="/experiences/copenhagen-sea-fortress/"
+                  data-i18n="tour.premium.title" data-i18n-href="/experiences/copenhagen-sea-fortress/">Sea Fortress and
+                  Coastal Journey</a></h3>
               <p class="tour-card__desc" data-i18n="tour.premium.desc">4 hours of private sailing, including 1 hour at
                 Reffen and 1 hour at Trekroner
                 Fort. Swimming stop possibility and open water views.</p>
@@ -679,14 +719,16 @@ button {
         </div>
 
         <div class="tours-grid-footer">
-          <a href="/book" title="View All Copenhagen Boat Experiences" class="tours-all-link" data-i18n="tours.catalog_cta" data-i18n-href="/book">View all
+          <a href="/book" title="View All Copenhagen Boat Experiences" class="tours-all-link"
+            data-i18n="tours.catalog_cta" data-i18n-href="/book">View all
             experiences →</a>
         </div>
 
         <!-- Bespoke / Custom CTA Banner -->
         <div class="tours-bespoke reveal">
           <div class="tours-bespoke__icon">
-            <img width="120" height="120" src="/assets/icons/features/boat_waves.png" alt="Boat on waves icon" title="Bespoke private boat experiences in Copenhagen" loading="lazy">
+            <img width="120" height="120" src="/assets/icons/features/boat_waves.png" alt="Boat on waves icon"
+              title="Bespoke private boat experiences in Copenhagen" loading="lazy">
           </div>
           <div class="tours-bespoke__content">
             <span class="tours-bespoke__label" data-i18n="bespoke.label">Bespoke Services</span>
@@ -698,8 +740,8 @@ button {
           </div>
           <div class="tours-bespoke__actions">
             <a href="mailto:seaducedexperience@gmail.com?subject=Inquiry: Bespoke Seaduced Experience"
-              title="Request a Custom Private Boat Tour Quote"
-              class="btn btn--primary" id="home-bespoke-cta" data-i18n="bespoke.cta">Get Your Custom Quote →</a>
+              title="Request a Custom Private Boat Tour Quote" class="btn btn--primary" id="home-bespoke-cta"
+              data-i18n="bespoke.cta">Get Your Custom Quote →</a>
           </div>
         </div>
 
@@ -743,15 +785,15 @@ button {
                 <span class="stat-label" data-i18n="why.stat.private">Private Tours</span>
               </div>
             </div>
-            <a href="/book" title="Book a Private Boat Tour in Copenhagen" class="btn btn--primary mt-2" id="experience-book-cta" data-i18n="why.book_cta"
-              data-i18n-href="/book">Book Your Experience</a>
+            <a href="/book" title="Book a Private Boat Tour in Copenhagen" class="btn btn--primary mt-2"
+              id="experience-book-cta" data-i18n="why.book_cta" data-i18n-href="/book">Book Your Experience</a>
           </div>
 
           <div class="welcome-split__images reveal">
             <div class="img-stack">
-              <img src="/assets/images/general/oni.webp"
-                alt="Captain Oni welcoming guests on board" title="Captain Oni – local guide for private boat tours in Copenhagen" loading="lazy"
-                width="600" height="800" />
+              <img src="/assets/images/general/oni.webp" alt="Captain Oni welcoming guests on board"
+                title="Captain Oni – local guide for private boat tours in Copenhagen" loading="lazy" width="600"
+                height="800" />
             </div>
           </div>
 
@@ -760,7 +802,8 @@ button {
         <!-- Feature cards -->
         <div class="features-grid features-grid--spaced">
           <div class="feature-card reveal" id="feature-private">
-            <div class="feature-card__icon"><img width="80" height="80" src="/assets/icons/features/boat.png" alt="Boat icon" title="Private and personalized boat tours in Copenhagen" loading="lazy">
+            <div class="feature-card__icon"><img width="80" height="80" src="/assets/icons/features/boat.png"
+                alt="Boat icon" title="Private and personalized boat tours in Copenhagen" loading="lazy">
             </div>
             <h3 class="feature-card__title" data-i18n="feature.private.title">Private and Personalized</h3>
             <p class="feature-card__text" data-i18n="feature.private.text">Your tour is reserved only for your group,
@@ -768,15 +811,16 @@ button {
               board.</p>
           </div>
           <div class="feature-card reveal" id="feature-guides">
-            <div class="feature-card__icon"><img width="80" height="80" src="/assets/icons/features/compass.png" alt="Compass icon" title="Local expert guides for Copenhagen canal tours"
-                loading="lazy"></div>
+            <div class="feature-card__icon"><img width="80" height="80" src="/assets/icons/features/compass.png"
+                alt="Compass icon" title="Local expert guides for Copenhagen canal tours" loading="lazy"></div>
             <h3 class="feature-card__title" data-i18n="feature.guides.title">Local Expert Guides</h3>
             <p class="feature-card__text" data-i18n="feature.guides.text">Our guides know Copenhagen's canals,
               landmarks, and hidden corners, and bring
               each route to life with local stories.</p>
           </div>
           <div class="feature-card reveal" id="feature-routes">
-            <div class="feature-card__icon"><img width="80" height="80" src="/assets/icons/features/map.png" alt="Map icon" title="Scenic hidden routes through Copenhagen's canals" loading="lazy">
+            <div class="feature-card__icon"><img width="80" height="80" src="/assets/icons/features/map.png"
+                alt="Map icon" title="Scenic hidden routes through Copenhagen's canals" loading="lazy">
             </div>
             <h3 class="feature-card__title" data-i18n="feature.routes.title">Scenic Hidden Routes</h3>
             <p class="feature-card__text" data-i18n="feature.routes.text">We explore beautiful waterways and charming
@@ -784,8 +828,8 @@ button {
               miss.</p>
           </div>
           <div class="feature-card reveal" id="feature-comfort">
-            <div class="feature-card__icon"><img width="80" height="80" src="/assets/icons/features/comfort.png" alt="Comfort icon" title="Comfortable and atmospheric private boat experience"
-                loading="lazy"></div>
+            <div class="feature-card__icon"><img width="80" height="80" src="/assets/icons/features/comfort.png"
+                alt="Comfort icon" title="Comfortable and atmospheric private boat experience" loading="lazy"></div>
             <h3 class="feature-card__title" data-i18n="feature.comfort.title">Comfort and Atmosphere</h3>
             <p class="feature-card__text" data-i18n="feature.comfort.text">From summer cruises to winter hygge moments,
               every detail is designed to make
@@ -944,9 +988,10 @@ button {
           intimate, and
           unforgettable perspective.</p>
         <div class="cta-section__buttons">
-          <a href="/book" title="Book a Private Boat Tour in Copenhagen" class="btn btn--primary btn--lg" id="cta-book-now" data-i18n="cta.book"
-            data-i18n-href="/book">Book Now</a>
-          <a href="#contact" title="Contact Seaduced Experience" class="btn btn--ghost-dark btn--lg" id="cta-contact-us" data-i18n="cta.contact">Contact
+          <a href="/book" title="Book a Private Boat Tour in Copenhagen" class="btn btn--primary btn--lg"
+            id="cta-book-now" data-i18n="cta.book" data-i18n-href="/book">Book Now</a>
+          <a href="#contact" title="Contact Seaduced Experience" class="btn btn--ghost-dark btn--lg" id="cta-contact-us"
+            data-i18n="cta.contact">Contact
             Us</a>
         </div>
       </div>
@@ -996,7 +1041,8 @@ button {
             </button>
             <div class="faq-answer" id="faq-answer-amenities-bring" data-i18n-html="faq.amenities.a" hidden>
               <p>We provide blankets and hot drinks in winter, and cold water in summer. Some packages include snacks or
-                champagne. We sell drinks on board — <strong>outside food and beverages are not permitted.</strong> We recommend comfortable
+                champagne. We sell drinks on board — <strong>outside food and beverages are not permitted.</strong> We
+                recommend comfortable
                 clothing for the weather.</p>
             </div>
           </div>
@@ -1026,7 +1072,8 @@ button {
               <span class="faq-icon">+</span>
             </button>
             <div class="faq-answer" id="faq-answer-meetingpoint" data-i18n-html="faq.meetingpoint.a" hidden>
-              <p>Meeting point details are shared after booking confirmation.</p>
+              <p>We meet at Christians Brygge 28, c/o Housing Group A, S, hall sttv, 1219 Copenhagen — right next to The
+                Raft.</p>
             </div>
           </div>
 
@@ -1080,7 +1127,8 @@ button {
               stroke-linecap="round" stroke-linejoin="round">
               <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
               <polyline points="22,6 12,13 2,6"></polyline>
-            </svg> <a href="mailto:seaducedexperience@gmail.com" title="Email Seaduced Experience">seaducedexperience@gmail.com</a></p>
+            </svg> <a href="mailto:seaducedexperience@gmail.com"
+              title="Email Seaduced Experience">seaducedexperience@gmail.com</a></p>
           <p class="footer-contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
               stroke-linecap="round" stroke-linejoin="round">
               <path
@@ -1093,7 +1141,8 @@ button {
       </div>
 
       <div class="footer__socials">
-        <a href="https://www.instagram.com/seaduced_experience/" title="Seaduced Experience on Instagram" class="social-link" aria-label="Instagram">
+        <a href="https://www.instagram.com/seaduced_experience/" title="Seaduced Experience on Instagram"
+          class="social-link" aria-label="Instagram">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
             stroke-linejoin="round">
             <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
@@ -1101,13 +1150,15 @@ button {
             <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
           </svg>
         </a>
-        <a href="https://www.facebook.com/SeaducedExperience/" title="Seaduced Experience on Facebook" class="social-link" aria-label="Facebook">
+        <a href="https://www.facebook.com/SeaducedExperience/" title="Seaduced Experience on Facebook"
+          class="social-link" aria-label="Facebook">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
             stroke-linejoin="round">
             <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
           </svg>
         </a>
-        <a href="https://www.tiktok.com/@seaducedexperience" title="Seaduced Experience on TikTok" class="social-link" aria-label="TikTok">
+        <a href="https://www.tiktok.com/@seaducedexperience" title="Seaduced Experience on TikTok" class="social-link"
+          aria-label="TikTok">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
             stroke-linejoin="round">
             <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path>
@@ -1120,7 +1171,9 @@ button {
     <div class="footer__bottom">
       <div class="container">
         <p class="footer__copy" data-i18n="footer.copy">© 2025 – 2026 Seaduced Experience. All rights reserved.</p>
-        <p class="footer__copy" style="margin-top:4px;font-size:0.8em;"><span data-i18n="footer.dev">Developed by</span> <a href="https://www.weareleba.com" title="Leba Agency – Web Development Copenhagen" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;">Leba Agency</a></p>
+        <p class="footer__copy" style="margin-top:4px;font-size:0.8em;"><span data-i18n="footer.dev">Developed by</span>
+          <a href="https://www.weareleba.com" title="Leba Agency – Web Development Copenhagen" target="_blank"
+            rel="noopener" style="color:inherit;text-decoration:underline;">Leba Agency</a></p>
       </div>
     </div>
   </footer>
