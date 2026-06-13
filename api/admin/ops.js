@@ -154,7 +154,7 @@ function deploymentInfo() {
 
 // ── Handler ─────────────────────────────────────────────────────────────────
 export default async function handler(req, res) {
-  if (!isAdminAuthenticated(req)) {
+  if (!(await isAdminAuthenticated(req))) {
     return res.status(401).json({ error: "Unauthorized" });
   }
 

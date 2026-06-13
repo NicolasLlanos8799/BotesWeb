@@ -2,9 +2,10 @@ import db from "../../lib/db.js";
 import { isAdminAuthenticated } from "../../lib/adminAuth.js";
 
 export default async function handler(req, res) {
-  if (!isAdminAuthenticated(req)) {
+  if (!(await isAdminAuthenticated(req))) {
     return res.status(401).json({ error: 'Unauthorized' });
   }
+
 
   try {
     const result = await db`

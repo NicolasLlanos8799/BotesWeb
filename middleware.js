@@ -1,8 +1,10 @@
+import { verifySessionToken } from './lib/adminAuth.js';
+
 export const config = {
-  matcher: ['/admin/:path*', '/api/admin/:path*'],
+  matcher: ['/admin/:path*', '/api/admin/:path*', '/internal/:path*'],
 };
 
-export default function middleware(request) {
+export default async function middleware(request) {
   const { pathname } = new URL(request.url);
 
   // Allow login page and login/logout API
@@ -24,7 +26,10 @@ export default function middleware(request) {
   );
 
   const secret = process.env.ADMIN_SECRET;
-  if (!secret || cookies['admin_auth'] !== secret) {
+  const isValid = await verifySessionToken(cookies['admin_auth'], secret);
+
+  if (!isValid) {
     return Response.redirect(new URL('/admin/login', request.url));
   }
 }
+
