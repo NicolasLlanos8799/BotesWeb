@@ -82,14 +82,15 @@ async function handleAvailability(req, res) {
   const dateTo = to.toISOString().split("T")[0];
 
   try {
-    const bookings = tourIds.length > 0 ? await db`
+    const result = tourIds.length > 0 ? await db`
       SELECT booking_date, booking_time, SUM(passengers) as booked
       FROM bookings
       WHERE tour_id = ANY(${tourIds})
         AND booking_date BETWEEN ${dateFrom} AND ${dateTo}
         AND payment_status NOT IN ('CANCELLED', 'REFUNDED')
       GROUP BY booking_date, booking_time
-    ` : [];
+    ` : { rows: [] };
+    const bookings = result.rows ?? result;
 
     const bookedMap = {};
     for (const row of bookings) {
@@ -149,7 +150,7 @@ async function handleReserve(req, res) {
   const time = `${String(dateTime.getHours()).padStart(2, "0")}:${String(dateTime.getMinutes()).padStart(2, "0")}`;
 
   const tourIds = GYG_OPTION_TO_TOURS[optionId] || [];
-  const [{ booked }] = await db`
+  const reserveResult = await db`
     SELECT COALESCE(SUM(passengers), 0) as booked
     FROM bookings
     WHERE tour_id = ANY(${tourIds})
@@ -157,6 +158,7 @@ async function handleReserve(req, res) {
       AND booking_time = ${time}
       AND payment_status NOT IN ('CANCELLED', 'REFUNDED')
   `;
+  const [{ booked }] = reserveResult.rows ?? reserveResult;
 
   if (cfg.maxPax - parseInt(booked) < participants) {
     return res.status(409).json({ errorCode: "VALIDATION_FAILURE", errorMessage: "Not enough vacancies" });
