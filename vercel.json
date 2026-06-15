@@ -4,25 +4,93 @@
   "cleanUrls": true,
   "trailingSlash": true,
   "redirects": [
-    { "source": "/book-here", "destination": "/book/", "permanent": true },
-    { "source": "/tours", "destination": "/book/", "permanent": true },
-    { "source": "/contact", "destination": "/#contact", "permanent": true },
-    { "source": "/experiences/private-boat-copenhagen/", "destination": "/experiences/copenhagen-city-highlights/", "permanent": true },
-    { "source": "/experiences/private-boat-copenhagen", "destination": "/experiences/copenhagen-city-highlights/", "permanent": true },
-    { "source": "/experiences/private-boat-copenhagen-3h/", "destination": "/experiences/copenhagen-harbor-extended/", "permanent": true },
-    { "source": "/experiences/private-boat-copenhagen-3h", "destination": "/experiences/copenhagen-harbor-extended/", "permanent": true },
-    { "source": "/experiences/private-boat-copenhagen-4h/", "destination": "/experiences/copenhagen-sea-fortress/", "permanent": true },
-    { "source": "/experiences/private-boat-copenhagen-4h", "destination": "/experiences/copenhagen-sea-fortress/", "permanent": true },
-    { "source": "/experiences/private-boat-copenhagen-land-tour/", "destination": "/experiences/copenhagen-land-tour/", "permanent": true },
-    { "source": "/experiences/private-boat-copenhagen-land-tour", "destination": "/experiences/copenhagen-land-tour/", "permanent": true },
-    { "source": "/experiences/private-boat-copenhagen-wine-tour/", "destination": "/experiences/copenhagen-wine-tour/", "permanent": true },
-    { "source": "/experiences/private-boat-copenhagen-wine-tour", "destination": "/experiences/copenhagen-wine-tour/", "permanent": true },
-    { "source": "/experiences/private-boat-copenhagen-malmo/", "destination": "/experiences/copenhagen-to-malmo/", "permanent": true },
-    { "source": "/experiences/private-boat-copenhagen-malmo", "destination": "/experiences/copenhagen-to-malmo/", "permanent": true },
-    { "source": "/experiences/city-highlights-10-people/", "destination": "/experiences/copenhagen-city-highlights-10/", "permanent": true },
-    { "source": "/experiences/city-highlights-10-people", "destination": "/experiences/copenhagen-city-highlights-10/", "permanent": true }
+    {
+      "source": "/book-here",
+      "destination": "/book/",
+      "permanent": true
+    },
+    {
+      "source": "/tours",
+      "destination": "/book/",
+      "permanent": true
+    },
+    {
+      "source": "/contact",
+      "destination": "/#contact",
+      "permanent": true
+    },
+    {
+      "source": "/experiences/private-boat-copenhagen/",
+      "destination": "/experiences/copenhagen-city-highlights/",
+      "permanent": true
+    },
+    {
+      "source": "/experiences/private-boat-copenhagen",
+      "destination": "/experiences/copenhagen-city-highlights/",
+      "permanent": true
+    },
+    {
+      "source": "/experiences/private-boat-copenhagen-3h/",
+      "destination": "/experiences/copenhagen-harbor-extended/",
+      "permanent": true
+    },
+    {
+      "source": "/experiences/private-boat-copenhagen-3h",
+      "destination": "/experiences/copenhagen-harbor-extended/",
+      "permanent": true
+    },
+    {
+      "source": "/experiences/private-boat-copenhagen-4h/",
+      "destination": "/experiences/copenhagen-sea-fortress/",
+      "permanent": true
+    },
+    {
+      "source": "/experiences/private-boat-copenhagen-4h",
+      "destination": "/experiences/copenhagen-sea-fortress/",
+      "permanent": true
+    },
+    {
+      "source": "/experiences/private-boat-copenhagen-land-tour/",
+      "destination": "/experiences/copenhagen-land-tour/",
+      "permanent": true
+    },
+    {
+      "source": "/experiences/private-boat-copenhagen-land-tour",
+      "destination": "/experiences/copenhagen-land-tour/",
+      "permanent": true
+    },
+    {
+      "source": "/experiences/private-boat-copenhagen-wine-tour/",
+      "destination": "/experiences/copenhagen-wine-tour/",
+      "permanent": true
+    },
+    {
+      "source": "/experiences/private-boat-copenhagen-wine-tour",
+      "destination": "/experiences/copenhagen-wine-tour/",
+      "permanent": true
+    },
+    {
+      "source": "/experiences/private-boat-copenhagen-malmo/",
+      "destination": "/experiences/copenhagen-to-malmo/",
+      "permanent": true
+    },
+    {
+      "source": "/experiences/private-boat-copenhagen-malmo",
+      "destination": "/experiences/copenhagen-to-malmo/",
+      "permanent": true
+    },
+    {
+      "source": "/experiences/city-highlights-10-people/",
+      "destination": "/experiences/copenhagen-city-highlights-10/",
+      "permanent": true
+    },
+    {
+      "source": "/experiences/city-highlights-10-people",
+      "destination": "/experiences/copenhagen-city-highlights-10/",
+      "permanent": true
+    }
   ],
-"rewrites": [
+  "rewrites": [
     { "source": "/da/:path*", "destination": "/:path*" },
     { "source": "/es/:path*", "destination": "/:path*" },
     { "source": "/api/gyg/1/get-availabilities/", "destination": "/api/gyg-handler" },
@@ -35,53 +103,89 @@
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
-        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        }
       ]
     },
     {
       "source": "/(.*)\\.html",
       "headers": [
-        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
+        }
       ]
     },
     {
       "source": "/",
       "headers": [
-        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
+        }
       ]
     },
     {
       "source": "/js/(.*)\\.js",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
       ]
     },
     {
       "source": "/css/(.*)\\.css",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
       ]
     },
     {
       "source": "/assets/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
       ]
     },
     {
       "source": "/sitemap.xml",
       "headers": [
-        { "key": "Content-Type", "value": "application/xml; charset=utf-8" },
-        { "key": "Cache-Control", "value": "public, max-age=86400" }
+        {
+          "key": "Content-Type",
+          "value": "application/xml; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400"
+        }
       ]
     },
     {
       "source": "/robots.txt",
       "headers": [
-        { "key": "Content-Type", "value": "text/plain; charset=utf-8" },
-        { "key": "Cache-Control", "value": "public, max-age=86400" }
+        {
+          "key": "Content-Type",
+          "value": "text/plain; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400"
+        }
       ]
     }
   ]
