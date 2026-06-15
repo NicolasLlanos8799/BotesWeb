@@ -2,7 +2,7 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "cleanUrls": true,
-  "trailingSlash": false,
+  "trailingSlash": true,
   "redirects": [
     { "source": "/book-here", "destination": "/book/", "permanent": true },
     { "source": "/tours", "destination": "/book/", "permanent": true },
