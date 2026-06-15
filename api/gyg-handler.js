@@ -11,13 +11,13 @@
  * Auth: HTTP Basic Auth (GYG_BASIC_USER / GYG_BASIC_PASS)
  */
 
-import db from "../../lib/db.js";
+import db from "../lib/db.js";
 import {
   validateGYGAuth,
   GYG_OPTION_CONFIG,
   GYG_OPTION_TO_TOURS,
   getSlotsForOption,
-} from "../../lib/gyg-config.js";
+} from "../lib/gyg-config.js";
 
 // Price per adult per GYG option ID (in DKK øre = DKK * 100)
 const OPTION_PRICES = {

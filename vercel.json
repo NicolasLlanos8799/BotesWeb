@@ -24,7 +24,12 @@
   ],
 "rewrites": [
     { "source": "/da/:path*", "destination": "/:path*" },
-    { "source": "/es/:path*", "destination": "/:path*" }
+    { "source": "/es/:path*", "destination": "/:path*" },
+    { "source": "/api/gyg-handler/1/get-availabilities/", "destination": "/api/gyg-handler" },
+    { "source": "/api/gyg-handler/1/reserve/", "destination": "/api/gyg-handler" },
+    { "source": "/api/gyg-handler/1/book/", "destination": "/api/gyg-handler" },
+    { "source": "/api/gyg-handler/1/cancel-reservation/", "destination": "/api/gyg-handler" },
+    { "source": "/api/gyg-handler/1/cancel-booking/", "destination": "/api/gyg-handler" }
   ],
   "headers": [
     {
