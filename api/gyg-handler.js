@@ -291,3 +291,4 @@ function getOptionForProduct(productId) {
   }
   return { optionId: null, cfg: null };
 }
+// gyg-handler v2
