@@ -24,9 +24,7 @@
   ],
 "rewrites": [
     { "source": "/da/:path*", "destination": "/:path*" },
-    { "source": "/es/:path*", "destination": "/:path*" },
-    { "source": "/api/gyg/:path*/", "destination": "/api/gyg" },
-    { "source": "/api/gyg/:path*", "destination": "/api/gyg" }
+    { "source": "/es/:path*", "destination": "/:path*" }
   ],
   "headers": [
     {
