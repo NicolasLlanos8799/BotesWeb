@@ -59,6 +59,8 @@ function doPost(e) {
 
     var result = action === 'createBooking'
       ? handleCreateBooking(data)
+      : action === 'createCalendarOnly'
+      ? handleCreateCalendarOnly(data)
       : { success: false, error: "Action not recognized" };
 
     return ContentService.createTextOutput(JSON.stringify(result))
@@ -220,6 +222,59 @@ function handleCreateBooking(data) {
 
 function findEventBySumUpId(sumupId) {
   return findEventByDescriptionFragment("SumUp ID: " + sumupId);
+}
+
+/**
+ * GYG bookings — create calendar event only, no email.
+ * GYG already sends their own confirmation to the customer.
+ */
+function handleCreateCalendarOnly(data) {
+  var calendar = getCalendar(data.calendar || 'boat1');
+
+  if (data.gyg_booking_id) {
+    var existing = findEventByDescriptionFragment("GYG Ref: " + data.gyg_booking_id);
+    if (existing) {
+      Logger.log("Duplicate GYG booking: " + data.gyg_booking_id + ". Skipping.");
+      return { success: true, message: "Duplicate avoided", eventId: existing.getId() };
+    }
+  }
+
+  var tour = data.tour || data.tourTitle || "";
+  var range = buildStartEnd(data.date, data.time, getTourDurationHours(tour, 1));
+  var endTime = ('0' + range.end.getHours()).slice(-2) + ':' + ('0' + range.end.getMinutes()).slice(-2);
+
+  var description =
+    "✨ " + getTourDisplayName(tour) + "\n" +
+    "📅 " + data.date + " | 🕒 " + (data.time || "N/A") + " - " + endTime + "\n" +
+    "👥 Passengers: " + (data.qty || "N/A") + "\n" +
+    "🌍 Language: " + (data.lang || "N/A") + "\n\n" +
+    "👤 CONTACT\n" +
+    "Name: " + (data.name || "N/A") + "\n" +
+    "Email: " + (data.email || "N/A") + "\n" +
+    "Phone: " + (data.phone || "N/A") + "\n" +
+    "──────────────────────────\n" +
+    "GYG Ref: " + (data.gyg_booking_id || "N/A") + "\n" +
+    "Amount: " + (data.amount ? data.amount + " " + (data.currency || "") : "N/A") + "\n" +
+    "Source: GetYourGuide";
+
+  var event = calendar.createEvent(
+    "GYG: " + (data.name || 'Cliente') + " " + (data.qty || '') + "p",
+    range.start, range.end,
+    { description: description }
+  );
+  event.setColor(CalendarApp.EventColor.CYAN);
+
+  // Notify admin only
+  var adminEmail = Session.getEffectiveUser().getEmail();
+  GmailApp.sendEmail(
+    adminEmail,
+    "⚓ GYG Reserva — " + getTourDisplayName(tour) + " · " + (data.name || "") + " · " + (data.date || ""),
+    "",
+    { name: "Seaduced Bookings", htmlBody: getAdminHtmlTemplate({ ...data, sumup_checkout_id: data.gyg_booking_id }, getTranslations('english'), endTime) }
+  );
+
+  Logger.log("GYG calendar event created: " + event.getId());
+  return { success: true, eventId: event.getId() };
 }
 
 /* ═══════════════════════════════════════════════════════════

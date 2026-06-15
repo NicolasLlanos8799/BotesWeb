@@ -16,7 +16,9 @@ CREATE TABLE IF NOT EXISTS bookings (
     total_price     DECIMAL(10, 2),
     payment_status  VARCHAR(20) DEFAULT 'PENDING',
     sumup_id        VARCHAR(100) UNIQUE,
-    lang            VARCHAR(20) DEFAULT 'english'
+    lang            VARCHAR(20) DEFAULT 'english',
+    source          VARCHAR(20) DEFAULT 'web',       -- 'web' | 'gyg'
+    gyg_booking_id  VARCHAR(100) UNIQUE              -- GYG booking ref, nullable
 );
 
 -- Índices para búsquedas frecuentes del admin
@@ -24,3 +26,8 @@ CREATE INDEX IF NOT EXISTS idx_bookings_date     ON bookings (booking_date);
 CREATE INDEX IF NOT EXISTS idx_bookings_status   ON bookings (payment_status);
 CREATE INDEX IF NOT EXISTS idx_bookings_email    ON bookings (customer_email);
 CREATE INDEX IF NOT EXISTS idx_bookings_sumup_id ON bookings (sumup_id);
+CREATE INDEX IF NOT EXISTS idx_bookings_source   ON bookings (source);
+
+-- Run this on existing DBs to add new columns without recreating the table:
+-- ALTER TABLE bookings ADD COLUMN IF NOT EXISTS source VARCHAR(20) DEFAULT 'web';
+-- ALTER TABLE bookings ADD COLUMN IF NOT EXISTS gyg_booking_id VARCHAR(100) UNIQUE;
