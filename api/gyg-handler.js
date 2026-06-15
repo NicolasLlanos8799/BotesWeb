@@ -31,7 +31,7 @@ const OPTION_PRICES = {
 
 export default async function handler(req, res) {
   if (!validateGYGAuth(req)) {
-    return res.status(401).json({ errorCode: "AUTHORIZATION_FAILURE", errorMessage: "Unauthorized" });
+    return res.status(200).json({ errorCode: "AUTHORIZATION_FAILURE", errorMessage: "Unauthorized" });
   }
 
   const url = req.url || "";
@@ -56,7 +56,7 @@ export default async function handler(req, res) {
   }
 
   console.log(`[GYG] Unmatched: ${method} ${url}`);
-  return res.status(404).json({ errorCode: "VALIDATION_FAILURE", errorMessage: `Unknown endpoint: ${method} ${url}` });
+  return res.status(200).json({ errorCode: "VALIDATION_FAILURE", errorMessage: `Unknown endpoint: ${method} ${url}` });
 }
 
 /* ─── AVAILABILITY ─────────────────────────────────────────── */
@@ -65,13 +65,13 @@ async function handleAvailability(req, res) {
   const { productId, fromDateTime, toDateTime } = req.query;
 
   if (!productId || !fromDateTime || !toDateTime) {
-    return res.status(400).json({ errorCode: "VALIDATION_FAILURE", errorMessage: "Missing productId, fromDateTime or toDateTime" });
+    return res.status(200).json({ errorCode: "VALIDATION_FAILURE", errorMessage: "Missing productId, fromDateTime or toDateTime" });
   }
 
   // Find which GYG option this productId maps to
   const { optionId, cfg } = getOptionForProduct(productId);
   if (!cfg) {
-    return res.status(400).json({ errorCode: "INVALID_PRODUCT", errorMessage: `Unknown productId: ${productId}` });
+    return res.status(200).json({ errorCode: "INVALID_PRODUCT", errorMessage: `Unknown productId: ${productId}` });
   }
 
   const tourIds = GYG_OPTION_TO_TOURS[optionId] || [];
@@ -127,7 +127,7 @@ async function handleAvailability(req, res) {
 
   } catch (err) {
     console.error("[GYG availability] Error:", err.message);
-    return res.status(500).json({ errorCode: "INTERNAL_SYSTEM_FAILURE", errorMessage: err.message });
+    return res.status(200).json({ errorCode: "INTERNAL_SYSTEM_FAILURE", errorMessage: err.message });
   }
 }
 
@@ -136,12 +136,12 @@ async function handleAvailability(req, res) {
 async function handleReserve(req, res) {
   const { data } = req.body || {};
   if (!data?.productId || !data?.dateTime || !data?.bookingItems || !data?.gygBookingReference) {
-    return res.status(400).json({ errorCode: "VALIDATION_FAILURE", errorMessage: "Missing required fields" });
+    return res.status(200).json({ errorCode: "VALIDATION_FAILURE", errorMessage: "Missing required fields" });
   }
 
   const { optionId, cfg } = getOptionForProduct(data.productId);
   if (!cfg) {
-    return res.status(400).json({ errorCode: "INVALID_PRODUCT", errorMessage: `Unknown productId: ${data.productId}` });
+    return res.status(200).json({ errorCode: "INVALID_PRODUCT", errorMessage: `Unknown productId: ${data.productId}` });
   }
 
   const participants = data.bookingItems.reduce((sum, item) => sum + (item.count || 0), 0);
@@ -161,7 +161,7 @@ async function handleReserve(req, res) {
   const [{ booked }] = reserveResult.rows ?? reserveResult;
 
   if (cfg.maxPax - parseInt(booked) < participants) {
-    return res.status(409).json({ errorCode: "VALIDATION_FAILURE", errorMessage: "Not enough vacancies" });
+    return res.status(200).json({ errorCode: "VALIDATION_FAILURE", errorMessage: "Not enough vacancies" });
   }
 
   // Save as RESERVED (temporary hold — GYG will confirm with /book/)
@@ -179,7 +179,7 @@ async function handleReserve(req, res) {
     `;
   } catch (err) {
     console.error("[GYG reserve] DB error:", err.message);
-    return res.status(500).json({ errorCode: "INTERNAL_SYSTEM_FAILURE", errorMessage: err.message });
+    return res.status(200).json({ errorCode: "INTERNAL_SYSTEM_FAILURE", errorMessage: err.message });
   }
 
   return res.status(200).json({
@@ -195,7 +195,7 @@ async function handleReserve(req, res) {
 async function handleBook(req, res) {
   const { data } = req.body || {};
   if (!data?.gygBookingReference) {
-    return res.status(400).json({ errorCode: "VALIDATION_FAILURE", errorMessage: "Missing gygBookingReference" });
+    return res.status(200).json({ errorCode: "VALIDATION_FAILURE", errorMessage: "Missing gygBookingReference" });
   }
 
   try {
@@ -211,7 +211,7 @@ async function handleBook(req, res) {
     `;
 
     if (result.length === 0) {
-      return res.status(404).json({ errorCode: "VALIDATION_FAILURE", errorMessage: "Reservation not found" });
+      return res.status(200).json({ errorCode: "VALIDATION_FAILURE", errorMessage: "Reservation not found" });
     }
 
     const booking = result[0];
@@ -243,7 +243,7 @@ async function handleBook(req, res) {
 
   } catch (err) {
     console.error("[GYG book] Error:", err.message);
-    return res.status(500).json({ errorCode: "INTERNAL_SYSTEM_FAILURE", errorMessage: err.message });
+    return res.status(200).json({ errorCode: "INTERNAL_SYSTEM_FAILURE", errorMessage: err.message });
   }
 }
 
@@ -252,7 +252,7 @@ async function handleBook(req, res) {
 async function handleCancelReservation(req, res) {
   const { data } = req.body || {};
   if (!data?.gygBookingReference) {
-    return res.status(400).json({ errorCode: "VALIDATION_FAILURE", errorMessage: "Missing gygBookingReference" });
+    return res.status(200).json({ errorCode: "VALIDATION_FAILURE", errorMessage: "Missing gygBookingReference" });
   }
 
   await db`
@@ -269,7 +269,7 @@ async function handleCancelReservation(req, res) {
 async function handleCancelBooking(req, res) {
   const { data } = req.body || {};
   if (!data?.gygBookingReference) {
-    return res.status(400).json({ errorCode: "VALIDATION_FAILURE", errorMessage: "Missing gygBookingReference" });
+    return res.status(200).json({ errorCode: "VALIDATION_FAILURE", errorMessage: "Missing gygBookingReference" });
   }
 
   await db`
