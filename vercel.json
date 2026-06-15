@@ -91,6 +91,10 @@
     }
   ],
   "rewrites": [
+    { "source": "/da/", "destination": "/" },
+    { "source": "/da", "destination": "/" },
+    { "source": "/es/", "destination": "/" },
+    { "source": "/es", "destination": "/" },
     { "source": "/da/:path*", "destination": "/:path*" },
     { "source": "/es/:path*", "destination": "/:path*" },
     { "source": "/api/gyg/1/get-availabilities/", "destination": "/api/gyg-handler" },

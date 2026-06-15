@@ -56,7 +56,7 @@ function processGYGBookings() {
 
 function parseGYGEmail(msg, skipDedup) {
   var subject = msg.getSubject();
-  var body = msg.getPlainBody();
+  var html = msg.getBody();
 
   // GYG reference from subject
   var refMatch = subject.match(/\b(GYG[A-Z0-9]+)\b/);
@@ -65,9 +65,9 @@ function parseGYGEmail(msg, skipDedup) {
 
   // Reject non-booking emails — require structural fields
   var hasBookingFields =
-    body.indexOf('Reference number') !== -1 &&
-    body.indexOf('Number of participants') !== -1 &&
-    body.indexOf('Main customer') !== -1;
+    html.indexOf('Reference number') !== -1 &&
+    html.indexOf('Number of participants') !== -1 &&
+    html.indexOf('Main customer') !== -1;
   if (!hasBookingFields) return null;
 
   // Skip if already in calendar
@@ -76,26 +76,18 @@ function parseGYGEmail(msg, skipDedup) {
     return null;
   }
 
-  // Tour name — first non-empty, non-image line after booking trigger phrase
+  // Tour name — <p class="activity activity-title"> or image alt
   var tour = 'GYG Tour';
-  var lines = body.split('\n');
-  for (var i = 0; i < lines.length; i++) {
-    if (lines[i].indexOf('Your offer has been booked:') !== -1 ||
-        lines[i].indexOf("You've received a last-minute booking:") !== -1) {
-      for (var j = i + 1; j < lines.length; j++) {
-        var l = lines[j].trim();
-        if (l && l.indexOf('[image:') === -1) { tour = l; break; }
-      }
-      break;
-    }
-  }
+  var tourMatch = html.match(/class="activity activity-title"[^>]*>([^<]+)<\/p>/);
+  if (!tourMatch) tourMatch = html.match(/alt="([^"]+)"\s+src="[^"]+cdn\.getyourguide/);
+  if (tourMatch) tour = tourMatch[1].trim();
 
-  // Date + time
+  // Date + time — <strong> after "Date" label
   var dateStr = '—';
   var timeStr = '10:00';
-  var dateMatch = body.match(/\bDate\b\s*\n([^\n]+)/);
-  if (dateMatch) {
-    var d = new Date(dateMatch[1].trim());
+  var dateHtmlMatch = html.match(/>\s*Date\s*<\/p>[\s\S]{0,300}?<strong[^>]*>([^<]+)<\/strong>/);
+  if (dateHtmlMatch) {
+    var d = new Date(dateHtmlMatch[1].trim());
     if (!isNaN(d.getTime())) {
       dateStr = d.getFullYear() + '-'
         + ('0' + (d.getMonth() + 1)).slice(-2) + '-'
@@ -104,35 +96,25 @@ function parseGYGEmail(msg, skipDedup) {
     }
   }
 
-  // Participants — search 200 chars after label in plain body
-  // Fallback to HTML body if plain body doesn't include (X Persons)
+  // Participants — <strong>4</strong> Persons
   var qty = '1';
-  var paxIdx = body.indexOf('Number of participants');
-  if (paxIdx !== -1) {
-    var paxSection = body.substring(paxIdx, paxIdx + 200);
-    var parenMatch = paxSection.match(/\((\d+)\s*Persons?\)/i);
-    var groupMatch = paxSection.match(/(\d+)\s*x\s*(?:Group|Adult|Child)/i);
-    if (parenMatch) qty = parenMatch[1];
-    else if (groupMatch) qty = groupMatch[1];
-  }
-  if (qty === '1') {
-    var htmlBody = msg.getBody();
-    var htmlParenMatch = htmlBody.match(/\((\d+)\s*Persons?\)/i);
-    if (htmlParenMatch) qty = htmlParenMatch[1];
-  }
+  var paxMatch = html.match(/<strong>(\d+)<\/strong>\s*Persons?\)/i);
+  if (!paxMatch) paxMatch = html.match(/\((\d+)\s*Persons?\)/i);
+  if (paxMatch) qty = paxMatch[1];
 
   // Language
   var lang = 'english';
-  var langMatch = body.match(/Language:\s*([^\n]+)/);
+  var langMatch = html.match(/Language:\s*<\/span>[\s\S]{0,50}?<span[^>]*>([^<]+)<\/span>/);
+  if (!langMatch) langMatch = html.match(/Language:\s*([A-Za-z]+)/);
   if (langMatch) {
     var lv = langMatch[1].toLowerCase();
     if (lv.indexOf('spanish') !== -1 || lv.indexOf('español') !== -1) lang = 'spanish';
     else if (lv.indexOf('danish') !== -1 || lv.indexOf('dansk') !== -1) lang = 'danish';
   }
 
-  // Price — e.g. "DKK 8,999.00"
+  // Price — <span> after "Price" label
   var amount = '', currency = 'DKK';
-  var priceMatch = body.match(/\bPrice\b\s*\n([^\n]+)/);
+  var priceMatch = html.match(/>\s*Price\s*<\/p>[\s\S]{0,300}?<span[^>]*>([^<]+)<\/span>/);
   if (priceMatch) {
     var ps = priceMatch[1].trim();
     var currMatch = ps.match(/^([A-Z]{3})/);
@@ -141,9 +123,11 @@ function parseGYGEmail(msg, skipDedup) {
     if (numMatch) amount = numMatch[1].replace(/,/g, '');
   }
 
-  var nameMatch = body.match(/Main customer\s*\n([^\n]+)/);
-  var emailMatch = body.match(/customer-[a-z0-9]+@reply\.getyourguide\.com/);
-  var phoneMatch = body.match(/Phone:\s*([^\n]+)/);
+  // Customer
+  var nameMatch = html.match(/>\s*Main customer\s*<\/p>[\s\S]{0,300}?<span[^>]*>([^<]+)<\/span>/);
+  var emailMatch = html.match(/customer-[a-z0-9]+@reply\.getyourguide\.com/);
+  var phoneMatch = html.match(/Phone:\s*<\/span>[\s\S]{0,100}?<span[^>]*>([^<]+)<\/span>/);
+  if (!phoneMatch) phoneMatch = html.match(/Phone:\s*(\+[\d\s]+)/);
 
   return {
     gygRef: gygRef,
@@ -166,7 +150,7 @@ function createGYGCalendarEvent(booking) {
 
   var description =
     "✨ " + booking.tour.toUpperCase() + "\n" +
-    "📅 " + booking.date + " | 🕒 " + booking.time + " ⚠️ (confirm time with guest)\n" +
+    "📅 " + booking.date + " | 🕒 " + booking.time + "\n" +
     "👥 Passengers: " + booking.qty + "\n" +
     "🌍 Language: " + booking.lang + "\n\n" +
     "👤 CONTACT\n" +
