@@ -82,14 +82,14 @@ async function handleAvailability(req, res) {
   const dateTo = to.toISOString().split("T")[0];
 
   try {
-    const bookings = await db`
+    const bookings = tourIds.length > 0 ? await db`
       SELECT booking_date, booking_time, SUM(passengers) as booked
       FROM bookings
       WHERE tour_id = ANY(${tourIds})
         AND booking_date BETWEEN ${dateFrom} AND ${dateTo}
         AND payment_status NOT IN ('CANCELLED', 'REFUNDED')
       GROUP BY booking_date, booking_time
-    `;
+    ` : [];
 
     const bookedMap = {};
     for (const row of bookings) {
