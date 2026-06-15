@@ -172,4 +172,32 @@ for (const cssFile of CSS_FILES) {
   console.log(`  ${cssFile} → ${hashedName}`);
 }
 
+// ─── 6. Generate language subdirectories (es/, da/) ────────────────────────
+// Copy all HTML files to dist/es/ and dist/da/ preserving structure.
+// Assets use absolute paths so they work from any subdir.
+
+console.log('Generating language directories...');
+
+const LANGS = ['es', 'da'];
+
+function copyHtmlTree(src, langDest) {
+  for (const entry of fs.readdirSync(src, { withFileTypes: true })) {
+    const srcPath = path.join(src, entry.name);
+    const destPath = path.join(langDest, entry.name);
+    if (entry.isDirectory()) {
+      // Skip the language dirs themselves to avoid infinite nesting
+      if (LANGS.includes(entry.name)) continue;
+      copyHtmlTree(srcPath, destPath);
+    } else if (entry.name.endsWith('.html')) {
+      fs.mkdirSync(langDest, { recursive: true });
+      fs.copyFileSync(srcPath, destPath);
+    }
+  }
+}
+
+for (const lang of LANGS) {
+  copyHtmlTree(DIST, path.join(DIST, lang));
+  console.log(`  ✓ dist/${lang}/`);
+}
+
 console.log(`\n✓ Build complete → ${DIST}/`);
