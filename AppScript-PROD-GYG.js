@@ -82,6 +82,11 @@ function parseGYGEmail(msg, skipDedup) {
   if (!tourMatch) tourMatch = html.match(/alt="([^"]+)"\s+src="[^"]+cdn\.getyourguide/);
   if (tourMatch) tour = tourMatch[1].trim();
 
+  // Duration — extract from any tour name containing "X Hour" in the email
+  var duration = null;
+  var durationMatch = html.match(/(\d+)\s*Hour/i);
+  if (durationMatch) duration = parseInt(durationMatch[1], 10);
+
   // Date + time — <strong> after "Date" label
   var dateStr = '—';
   var timeStr = '10:00';
@@ -140,12 +145,13 @@ function parseGYGEmail(msg, skipDedup) {
     phone: phoneMatch ? phoneMatch[1].trim() : '',
     lang: lang,
     amount: amount,
-    currency: currency
+    currency: currency,
+    duration: duration
   };
 }
 
 function createGYGCalendarEvent(booking) {
-  var durationH = getTourDurationHours(booking.tour, 2);
+  var durationH = booking.duration || getTourDurationHours(booking.tour, 2);
   var range = buildStartEnd(booking.date, booking.time, durationH);
 
   var description =

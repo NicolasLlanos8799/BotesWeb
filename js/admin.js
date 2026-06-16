@@ -3,11 +3,11 @@ import { formatCurrency, TOURS } from "./utils.js";
 document.addEventListener("DOMContentLoaded", () => {
   const path = window.location.pathname;
 
-  if (path.endsWith("/admin/bookings") || path.includes("/admin/bookings.html")) {
+  if (path.includes("/admin/bookings")) {
     initBookingsPage();
-  } else if (path.endsWith("/admin/stats") || path.includes("/admin/stats.html")) {
+  } else if (path.includes("/admin/stats")) {
     initStatsPage();
-  } else if (path.endsWith("/admin/manifest") || path.includes("/admin/manifest.html")) {
+  } else if (path.includes("/admin/manifest")) {
     initManifestPage();
   } else if (path === "/admin" || path === "/admin/" || path.includes("/admin/index.html")) {
     initDashboard();
