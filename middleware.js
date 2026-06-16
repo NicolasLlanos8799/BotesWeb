@@ -10,6 +10,7 @@ export default async function middleware(request) {
   // Allow login page and login/logout API
   if (
     pathname === '/admin/login' ||
+    pathname === '/admin/login/' ||
     pathname === '/api/admin/login' ||
     pathname === '/api/admin/logout'
   ) {
