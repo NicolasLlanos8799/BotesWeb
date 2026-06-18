@@ -245,33 +245,40 @@ function handleCreateHoldEvent(data) {
     return { success: false, error: "Missing gyg_booking_id, date or time" };
   }
 
-  // Avoid duplicates
-  var existing = findEventByDescriptionFragment("GYG Ref: " + data.gyg_booking_id);
-  if (existing) {
-    return { success: true, message: "Hold already exists", eventId: existing.getId() };
+  // Serialize with lock to avoid race condition with confirmHoldEvent
+  var lock = LockService.getScriptLock();
+  lock.tryLock(10000);
+  try {
+    // Avoid duplicates — also catches case where confirmHoldEvent ran first
+    var existing = findEventByDescriptionFragment("GYG Ref: " + data.gyg_booking_id);
+    if (existing) {
+      return { success: true, message: "Event already exists (hold or confirmed)", eventId: existing.getId() };
+    }
+
+    var calendar = getCalendar(data.calendar || 'boat1');
+    var tour = data.tour || '';
+    var range = buildStartEnd(data.date, data.time, getTourDurationHours(tour, 1));
+
+    var description =
+      "⏳ GYG HOLD — pending confirmation\n" +
+      "📅 " + data.date + " | 🕒 " + data.time + "\n" +
+      "👥 Passengers: " + (data.qty || "N/A") + "\n" +
+      "──────────────────────────\n" +
+      "GYG Ref: " + data.gyg_booking_id + "\n" +
+      "Source: GetYourGuide (hold)";
+
+    var event = calendar.createEvent(
+      "⏳ GYG HOLD: " + (data.qty || '') + "p",
+      range.start, range.end,
+      { description: description }
+    );
+    event.setColor(CalendarApp.EventColor.GRAY);
+
+    Logger.log("GYG hold event created: " + data.gyg_booking_id + " | " + event.getId());
+    return { success: true, eventId: event.getId() };
+  } finally {
+    lock.releaseLock();
   }
-
-  var calendar = getCalendar(data.calendar || 'boat1');
-  var tour = data.tour || '';
-  var range = buildStartEnd(data.date, data.time, getTourDurationHours(tour, 1));
-
-  var description =
-    "⏳ GYG HOLD — pending confirmation\n" +
-    "📅 " + data.date + " | 🕒 " + data.time + "\n" +
-    "👥 Passengers: " + (data.qty || "N/A") + "\n" +
-    "──────────────────────────\n" +
-    "GYG Ref: " + data.gyg_booking_id + "\n" +
-    "Source: GetYourGuide (hold)";
-
-  var event = calendar.createEvent(
-    "⏳ GYG HOLD: " + (data.qty || '') + "p",
-    range.start, range.end,
-    { description: description }
-  );
-  event.setColor(CalendarApp.EventColor.GRAY);
-
-  Logger.log("GYG hold event created: " + data.gyg_booking_id + " | " + event.getId());
-  return { success: true, eventId: event.getId() };
 }
 
 /**
@@ -283,6 +290,9 @@ function handleConfirmHoldEvent(data) {
     return { success: false, error: "Missing gyg_booking_id" };
   }
 
+  var lock = LockService.getScriptLock();
+  lock.tryLock(10000);
+  try {
   var existing = findEventByDescriptionFragment("GYG Ref: " + data.gyg_booking_id);
 
   var calendar = getCalendar(data.calendar || 'boat1');
@@ -320,6 +330,9 @@ function handleConfirmHoldEvent(data) {
   event.setColor(CalendarApp.EventColor.CYAN);
   Logger.log("GYG confirmed event created (no prior hold): " + data.gyg_booking_id);
   return { success: true, eventId: event.getId(), action: "created" };
+  } finally {
+    lock.releaseLock();
+  }
 }
 
 /**

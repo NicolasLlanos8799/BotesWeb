@@ -33,7 +33,7 @@ function callGAS(payload) {
   }).catch(e => console.warn("[GYG→GAS] Error:", e.message));
 }
 
-// Price per adult per GYG option ID (in DKK øre = DKK * 100)
+// Price per group/vehicle per GYG option ID (in DKK øre = DKK * 100)
 const OPTION_PRICES = {
   1288168: 249900,  // City Highlights 1h — 2499 DKK
   1919949: 299900,  // City Highlights 10p — 2999 DKK
@@ -131,7 +131,7 @@ async function handleAvailability(req, res) {
           currency: "DKK",
           pricesByCategory: {
             retailPrices: [
-              { category: "ADULT", price: OPTION_PRICES[optionId] || 249900 },
+              { category: "GROUP", price: OPTION_PRICES[optionId] || 249900 },
             ],
           },
         });
