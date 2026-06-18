@@ -243,11 +243,12 @@ async function handleBook(req, res) {
       RETURNING *
     `;
 
-    if (result.length === 0) {
+    const rows = result.rows ?? result;
+    if (rows.length === 0) {
       return res.status(200).json({ errorCode: "VALIDATION_FAILURE", errorMessage: "Reservation not found" });
     }
 
-    const booking = result[0];
+    const booking = rows[0];
 
     // Upgrade HOLD → confirmed CYAN event in Google Calendar
     const bookingDate = booking.booking_date instanceof Date
