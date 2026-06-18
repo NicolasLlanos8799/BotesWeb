@@ -16,8 +16,22 @@ import {
   validateGYGAuth,
   GYG_OPTION_CONFIG,
   GYG_OPTION_TO_TOURS,
+  GYG_OPTION_MAP,
   getSlotsForOption,
 } from "../lib/gyg-config.js";
+
+// ── GAS helper ────────────────────────────────────────────────────────────────
+// Fire-and-forget call to Google Apps Script to sync Google Calendar.
+// Non-fatal: if GAS is unavailable the booking is already safe in the DB.
+function callGAS(payload) {
+  const GAS_URL = process.env.GAS_URL;
+  if (!GAS_URL) return;
+  fetch(GAS_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  }).catch(e => console.warn("[GYG→GAS] Error:", e.message));
+}
 
 // Price per adult per GYG option ID (in DKK øre = DKK * 100)
 const OPTION_PRICES = {
@@ -106,7 +120,8 @@ async function handleAvailability(req, res) {
         const booked = bookedMap[`${dateStr}_${time}`] || 0;
         const vacancies = Math.max(0, cfg.maxPax - booked);
         const [h, m] = time.split(":");
-        const dateTime = `${dateStr}T${time}:00+02:00`; // Copenhagen timezone (CEST)
+        const offset = isCopenhagnDST(d) ? "+02:00" : "+01:00";
+        const dateTime = `${dateStr}T${time}:00${offset}`;
 
         availabilities.push({
           productId,
@@ -161,7 +176,7 @@ async function handleReserve(req, res) {
   const [{ booked }] = reserveResult.rows ?? reserveResult;
 
   if (cfg.maxPax - parseInt(booked) < participants) {
-    return res.status(200).json({ errorCode: "VALIDATION_FAILURE", errorMessage: "Not enough vacancies" });
+    return res.status(200).json({ errorCode: "NO_AVAILABILITY", errorMessage: `Not enough vacancies: requested ${participants}, available ${cfg.maxPax - parseInt(booked)}` });
   }
 
   // Save as RESERVED (temporary hold — GYG will confirm with /book/)
@@ -182,10 +197,21 @@ async function handleReserve(req, res) {
     return res.status(200).json({ errorCode: "INTERNAL_SYSTEM_FAILURE", errorMessage: err.message });
   }
 
+  // Block slot in Google Calendar immediately (grey HOLD event)
+  callGAS({
+    action: "createHoldEvent",
+    gyg_booking_id: data.gygBookingReference,
+    tour: tourId,
+    calendar: "boat1",
+    date,
+    time,
+    qty: participants,
+  });
+
   return res.status(200).json({
     data: {
-      reservationId: data.gygBookingReference,
-      expiresAt: new Date(Date.now() + 60 * 60 * 1000).toISOString(), // 1h expiry
+      reservationReference: data.gygBookingReference,
+      reservationExpiration: new Date(Date.now() + 60 * 60 * 1000).toISOString(),
     },
   });
 }
@@ -199,13 +225,20 @@ async function handleBook(req, res) {
   }
 
   try {
+    // GYG sends travelers[], not customer{}
+    const traveler = data.travelers?.[0] || {};
+    const customerName = [traveler.firstName, traveler.lastName].filter(Boolean).join(" ") || null;
+    const customerEmail = traveler.email || null;
+    const customerPhone = traveler.phoneNumber || null;
+    const customerLang = (traveler.language || "english").toLowerCase();
+
     const result = await db`
       UPDATE bookings
       SET payment_status = 'PAID',
-          customer_name  = ${data.customer?.firstName + " " + (data.customer?.lastName || "") || null},
-          customer_email = ${data.customer?.email || null},
-          customer_phone = ${data.customer?.phone || null},
-          lang           = ${(data.customer?.language || "english").toLowerCase()}
+          customer_name  = ${customerName},
+          customer_email = ${customerEmail},
+          customer_phone = ${customerPhone},
+          lang           = ${customerLang}
       WHERE gyg_booking_id = ${data.gygBookingReference}
       RETURNING *
     `;
@@ -216,30 +249,42 @@ async function handleBook(req, res) {
 
     const booking = result[0];
 
-    // Trigger GAS — Calendar only, no email
-    const GAS_URL = process.env.GAS_URL;
-    if (GAS_URL) {
-      fetch(GAS_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          action: "createCalendarOnly",
-          tour: booking.tour_id,
-          name: booking.customer_name,
-          email: booking.customer_email,
-          phone: booking.customer_phone,
-          date: booking.booking_date,
-          time: booking.booking_time,
-          qty: booking.passengers,
-          lang: booking.lang,
-          gyg_booking_id: data.gygBookingReference,
-          source: "gyg",
-        }),
-      }).catch(e => console.warn("[GYG book] GAS error:", e.message));
-    }
+    // Upgrade HOLD → confirmed CYAN event in Google Calendar
+    const bookingDate = booking.booking_date instanceof Date
+      ? booking.booking_date.toISOString().split("T")[0]
+      : booking.booking_date;
+    const bookingTime = booking.booking_time?.slice(0, 5);
 
-    console.log(`[GYG book] Confirmed: ${data.gygBookingReference}`);
-    return res.status(200).json({ data: { bookingId: data.gygBookingReference, status: "confirmed" } });
+    callGAS({
+      action: "confirmHoldEvent",
+      gyg_booking_id: data.gygBookingReference,
+      tour: booking.tour_id,
+      calendar: "boat1",
+      date: bookingDate,
+      time: bookingTime,
+      qty: booking.passengers,
+      lang: customerLang,
+      name: customerName,
+      email: customerEmail,
+      phone: customerPhone,
+    });
+
+    // Build tickets array — one ticket per participant per category
+    const tickets = (data.bookingItems || []).flatMap(item =>
+      Array.from({ length: item.count || 0 }, (_, i) => ({
+        category: item.category,
+        ticketCode: `${data.gygBookingReference}-${item.category}-${i + 1}`,
+        ticketCodeType: "OTHER",
+      }))
+    );
+
+    console.log(`[GYG book] Confirmed: ${data.gygBookingReference} | tickets: ${tickets.length}`);
+    return res.status(200).json({
+      data: {
+        bookingReference: data.gygBookingReference,
+        tickets,
+      },
+    });
 
   } catch (err) {
     console.error("[GYG book] Error:", err.message);
@@ -261,6 +306,9 @@ async function handleCancelReservation(req, res) {
     AND payment_status = 'RESERVED'
   `;
 
+  // Remove HOLD event from Google Calendar — slot is free again
+  callGAS({ action: "deleteHoldEvent", gyg_booking_id: data.gygBookingReference });
+
   return res.status(200).json({ data: { status: "cancelled" } });
 }
 
@@ -276,6 +324,9 @@ async function handleCancelBooking(req, res) {
     UPDATE bookings SET payment_status = 'CANCELLED'
     WHERE gyg_booking_id = ${data.gygBookingReference}
   `;
+
+  // Remove confirmed event from Google Calendar — slot is free again
+  callGAS({ action: "deleteHoldEvent", gyg_booking_id: data.gygBookingReference });
 
   console.log(`[GYG cancel] Cancelled: ${data.gygBookingReference}`);
   return res.status(200).json({ data: { status: "cancelled" } });
@@ -293,4 +344,25 @@ function getOptionForProduct(productId) {
   }
   return { optionId: null, cfg: null };
 }
-// gyg-handler v2
+
+/**
+ * Returns true if the given date falls within Copenhagen DST (CEST = +02:00).
+ * DST in Denmark: last Sunday of March → last Sunday of October.
+ */
+function isCopenhagnDST(date) {
+  const year = date.getFullYear();
+  // Last Sunday of March
+  const dstStart = lastSundayOf(year, 2); // month 2 = March (0-indexed)
+  dstStart.setHours(2, 0, 0, 0);
+  // Last Sunday of October
+  const dstEnd = lastSundayOf(year, 9); // month 9 = October
+  dstEnd.setHours(3, 0, 0, 0);
+  return date >= dstStart && date < dstEnd;
+}
+
+function lastSundayOf(year, month) {
+  const d = new Date(year, month + 1, 0); // last day of month
+  d.setDate(d.getDate() - d.getDay()); // back to Sunday
+  return d;
+}
+// gyg-handler v3

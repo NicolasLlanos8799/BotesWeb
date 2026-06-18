@@ -61,6 +61,12 @@ function doPost(e) {
       ? handleCreateBooking(data)
       : action === 'createCalendarOnly'
       ? handleCreateCalendarOnly(data)
+      : action === 'createHoldEvent'
+      ? handleCreateHoldEvent(data)
+      : action === 'confirmHoldEvent'
+      ? handleConfirmHoldEvent(data)
+      : action === 'deleteHoldEvent'
+      ? handleDeleteHoldEvent(data)
       : { success: false, error: "Action not recognized" };
 
     return ContentService.createTextOutput(JSON.stringify(result))
@@ -222,6 +228,118 @@ function handleCreateBooking(data) {
 
 function findEventBySumUpId(sumupId) {
   return findEventByDescriptionFragment("SumUp ID: " + sumupId);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   GYG API — HOLD / CONFIRM / DELETE CALENDAR EVENTS
+   Called from gyg-handler.js (Vercel) on /reserve/, /book/,
+   /cancel-reservation/ and /cancel-booking/
+═══════════════════════════════════════════════════════════ */
+
+/**
+ * /reserve/ → create a grey "HOLD" event so the slot is blocked on the web immediately.
+ * data: { gyg_booking_id, tour, calendar, date, time, qty }
+ */
+function handleCreateHoldEvent(data) {
+  if (!data.gyg_booking_id || !data.date || !data.time) {
+    return { success: false, error: "Missing gyg_booking_id, date or time" };
+  }
+
+  // Avoid duplicates
+  var existing = findEventByDescriptionFragment("GYG Ref: " + data.gyg_booking_id);
+  if (existing) {
+    return { success: true, message: "Hold already exists", eventId: existing.getId() };
+  }
+
+  var calendar = getCalendar(data.calendar || 'boat1');
+  var tour = data.tour || '';
+  var range = buildStartEnd(data.date, data.time, getTourDurationHours(tour, 1));
+
+  var description =
+    "⏳ GYG HOLD — pending confirmation\n" +
+    "📅 " + data.date + " | 🕒 " + data.time + "\n" +
+    "👥 Passengers: " + (data.qty || "N/A") + "\n" +
+    "──────────────────────────\n" +
+    "GYG Ref: " + data.gyg_booking_id + "\n" +
+    "Source: GetYourGuide (hold)";
+
+  var event = calendar.createEvent(
+    "⏳ GYG HOLD: " + (data.qty || '') + "p",
+    range.start, range.end,
+    { description: description }
+  );
+  event.setColor(CalendarApp.EventColor.GRAY);
+
+  Logger.log("GYG hold event created: " + data.gyg_booking_id + " | " + event.getId());
+  return { success: true, eventId: event.getId() };
+}
+
+/**
+ * /book/ → upgrade the grey HOLD to a confirmed CYAN event with full customer details.
+ * data: { gyg_booking_id, tour, calendar, date, time, qty, name, email, phone, lang }
+ */
+function handleConfirmHoldEvent(data) {
+  if (!data.gyg_booking_id) {
+    return { success: false, error: "Missing gyg_booking_id" };
+  }
+
+  var existing = findEventByDescriptionFragment("GYG Ref: " + data.gyg_booking_id);
+
+  var calendar = getCalendar(data.calendar || 'boat1');
+  var tour = data.tour || '';
+  var range = buildStartEnd(data.date, data.time, getTourDurationHours(tour, 1));
+  var endTime = ('0' + range.end.getHours()).slice(-2) + ':' + ('0' + range.end.getMinutes()).slice(-2);
+
+  var description =
+    "✨ " + getTourDisplayName(tour) + "\n" +
+    "📅 " + data.date + " | 🕒 " + data.time + " - " + endTime + "\n" +
+    "👥 Passengers: " + (data.qty || "N/A") + "\n" +
+    "🌍 Language: " + (data.lang || "N/A") + "\n\n" +
+    "👤 CONTACT\n" +
+    "Name: " + (data.name || "N/A") + "\n" +
+    "Email: " + (data.email || "N/A") + "\n" +
+    "Phone: " + (data.phone || "N/A") + "\n" +
+    "──────────────────────────\n" +
+    "GYG Ref: " + data.gyg_booking_id + "\n" +
+    "Source: GetYourGuide";
+
+  var title = "GYG: " + (data.name || 'Guest') + " " + (data.qty || '') + "p";
+
+  if (existing) {
+    // Update in place
+    existing.setTitle(title);
+    existing.setDescription(description);
+    existing.setTime(range.start, range.end);
+    existing.setColor(CalendarApp.EventColor.CYAN);
+    Logger.log("GYG hold confirmed (updated): " + data.gyg_booking_id);
+    return { success: true, eventId: existing.getId(), action: "updated" };
+  }
+
+  // Hold event not found — create confirmed event directly
+  var event = calendar.createEvent(title, range.start, range.end, { description: description });
+  event.setColor(CalendarApp.EventColor.CYAN);
+  Logger.log("GYG confirmed event created (no prior hold): " + data.gyg_booking_id);
+  return { success: true, eventId: event.getId(), action: "created" };
+}
+
+/**
+ * /cancel-reservation/ and /cancel-booking/ → delete the calendar event.
+ * data: { gyg_booking_id }
+ */
+function handleDeleteHoldEvent(data) {
+  if (!data.gyg_booking_id) {
+    return { success: false, error: "Missing gyg_booking_id" };
+  }
+
+  var existing = findEventByDescriptionFragment("GYG Ref: " + data.gyg_booking_id);
+  if (!existing) {
+    Logger.log("GYG deleteHoldEvent: no event found for " + data.gyg_booking_id);
+    return { success: true, message: "No event found to delete" };
+  }
+
+  existing.deleteEvent();
+  Logger.log("GYG event deleted: " + data.gyg_booking_id);
+  return { success: true, message: "Event deleted" };
 }
 
 /**

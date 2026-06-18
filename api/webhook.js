@@ -1,4 +1,5 @@
 import db from "../lib/db.js";
+import { notifyGYGAvailability } from "../lib/gyg-notify.js";
 
 export default async function handler(req, res) {
   const SUMUP_API_BASE = "https://api.sumup.com";
@@ -67,6 +68,10 @@ export default async function handler(req, res) {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ action: "createBooking", ...bookingData })
         });
+
+        // Notify GYG — fire-and-forget (non-fatal, booking already saved)
+        notifyGYGAvailability(metadata.tour, metadata.date, metadata.time)
+          .catch(e => console.warn("[GYG notify] Error:", e.message));
       } else {
         console.warn("Webhook: Missing metadata, fallback endpoint will handle it.");
       }

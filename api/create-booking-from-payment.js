@@ -1,53 +1,5 @@
 import db from "../lib/db.js";
-import { GYG_OPTION_MAP, GYG_OPTION_TO_TOURS, GYG_OPTION_CONFIG } from "../lib/gyg-config.js";
-
-/**
- * Notify GYG that availability has changed for a given tour/date/time.
- * Called after a web booking is confirmed so GYG blocks the slot if sold out.
- */
-async function notifyGYGAvailability(tourId, date, time, passengersBooked) {
-  const GYG_GYG_USER = process.env.GYG_GYG_USER;
-  const GYG_GYG_PASS = process.env.GYG_GYG_PASS;
-  if (!GYG_GYG_USER || !GYG_GYG_PASS) return;
-
-  const optionId = GYG_OPTION_MAP[tourId];
-  if (!optionId) return; // tour not on GYG
-
-  const cfg = GYG_OPTION_CONFIG[optionId];
-  const tourIds = GYG_OPTION_TO_TOURS[optionId] || [];
-
-  // Count total booked for this slot across all tours sharing the option
-  try {
-    const [{ booked }] = await db`
-      SELECT COALESCE(SUM(passengers), 0) as booked
-      FROM bookings
-      WHERE tour_id = ANY(${tourIds})
-        AND booking_date = ${date}
-        AND booking_time = ${time}
-        AND payment_status NOT IN ('CANCELLED', 'REFUNDED')
-    `;
-    const vacancies = Math.max(0, cfg.maxPax - parseInt(booked));
-
-    const basicAuth = Buffer.from(`${GYG_GYG_USER}:${GYG_GYG_PASS}`).toString("base64");
-    await fetch("https://api.getyourguide.com/supplier/v1/notify-availability", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Basic ${basicAuth}`,
-      },
-      body: JSON.stringify({
-        option_id: optionId,
-        date,
-        time,
-        vacancies,
-      }),
-    });
-    console.log(`[GYG notify] option=${optionId} ${date} ${time} vacancies=${vacancies}`);
-  } catch (err) {
-    // Non-fatal — web booking is already saved
-    console.warn("[GYG notify] Failed:", err.message);
-  }
-}
+import { notifyGYGAvailability } from "../lib/gyg-notify.js";
 
 /**
  * Production-Safe Booking Fallback Endpoint
@@ -150,8 +102,9 @@ export default async function handler(req, res) {
     const gasResult = await gasResponse.text();
     console.log("[FALLBACK] GAS response:", gasResponse.status, gasResult);
 
-    // 5. NOTIFY GYG — block the slot if sold out
-    await notifyGYGAvailability(metadata.tour, metadata.date, metadata.time, metadata.qty || 1);
+    // 5. NOTIFY GYG — fire-and-forget (non-fatal, booking already saved)
+    notifyGYGAvailability(metadata.tour, metadata.date, metadata.time)
+      .catch(e => console.warn("[GYG notify] Error:", e.message));
 
     return res.status(200).json({ success: true, booking_created: true });
 
