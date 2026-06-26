@@ -116,7 +116,7 @@ async function initBookingsPage() {
     const pagedData = data.slice(start, end);
 
     if (data.length === 0) {
-      tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; padding: 3rem; color: rgba(255,255,255,0.4);">No bookings found for this period.</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="8" style="text-align: center; padding: 3rem; color: rgba(255,255,255,0.4);">No bookings found for this period.</td></tr>`;
       renderPagination(0);
       return;
     }
@@ -143,11 +143,50 @@ async function initBookingsPage() {
           <td>
             <span class="badge-status status-${b.status.toLowerCase()}">${b.status}</span>
           </td>
+          <td>
+            <div style="display: flex; gap: 0.4rem;">
+              ${b.status !== 'CANCELLED' ? `<button class="btn btn--outline btn--sm action-cancel" data-id="${b.id}" style="font-size:0.75rem; padding: 0.25rem 0.6rem; color: #fbbf24; border-color: #fbbf24;">Cancel</button>` : ''}
+              <button class="btn btn--outline btn--sm action-delete" data-id="${b.id}" style="font-size:0.75rem; padding: 0.25rem 0.6rem; color: #f87171; border-color: #f87171;">Delete</button>
+            </div>
+          </td>
         </tr>
       `;
     }).join("");
 
     renderPagination(data.length);
+
+    // Action buttons
+    tbody.querySelectorAll(".action-delete").forEach(btn => {
+      btn.addEventListener("click", async () => {
+        if (!confirm("Permanently delete this booking? This cannot be undone.")) return;
+        const id = btn.dataset.id;
+        const res = await fetch(`/api/admin/booking-action?id=${id}`, { method: "DELETE" });
+        if (res.ok) {
+          allBookings = allBookings.filter(b => String(b.id) !== String(id));
+          filteredBookings = filteredBookings.filter(b => String(b.id) !== String(id));
+          render(filteredBookings);
+        } else {
+          alert("Failed to delete booking.");
+        }
+      });
+    });
+
+    tbody.querySelectorAll(".action-cancel").forEach(btn => {
+      btn.addEventListener("click", async () => {
+        if (!confirm("Cancel this booking?")) return;
+        const id = btn.dataset.id;
+        const res = await fetch(`/api/admin/booking-action?id=${id}`, { method: "PATCH" });
+        if (res.ok) {
+          const booking = allBookings.find(b => String(b.id) === String(id));
+          if (booking) booking.status = "CANCELLED";
+          const fb = filteredBookings.find(b => String(b.id) === String(id));
+          if (fb) fb.status = "CANCELLED";
+          render(filteredBookings);
+        } else {
+          alert("Failed to cancel booking.");
+        }
+      });
+    });
   };
 
   const handleFilters = () => {
@@ -173,7 +212,7 @@ async function initBookingsPage() {
   };
 
   const loadData = async () => {
-    tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; padding: 4rem;"><div class="po-spinner" style="margin: 0 auto 1rem;"></div>Loading bookings...</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="8" style="text-align: center; padding: 4rem;"><div class="po-spinner" style="margin: 0 auto 1rem;"></div>Loading bookings...</td></tr>`;
     allBookings = await fetchAllBookings();
     allBookings.sort((a, b) => new Date(b.start) - new Date(a.start));
     filteredBookings = [...allBookings];
