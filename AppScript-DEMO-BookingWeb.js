@@ -60,10 +60,10 @@ function doPost(e) {
     var result = action === 'createBooking'
       ? handleCreateBooking(data)
       : action === 'createCalendarOnly'
-      ? handleCreateCalendarOnly(data)
-      : action === 'resendEmail'
-      ? handleResendEmail(data)
-      : { success: false, error: "Action not recognized" };
+        ? handleCreateCalendarOnly(data)
+        : action === 'resendEmail'
+          ? handleResendEmail(data)
+          : { success: false, error: "Action not recognized" };
 
     return ContentService.createTextOutput(JSON.stringify(result))
       .setMimeType(ContentService.MimeType.JSON);
@@ -153,19 +153,19 @@ function handleListAllBookings(startStr, endStr) {
 
 function getTourDisplayName(tourCode) {
   var names = {
-    'book-1h':             'City Highlights',
-    'book-1h-2h':          'City Highlights (2 Hours)',
-    'book-10p':            'City Highlights (10 Guests)',
-    'book-10p-2h':         'City Highlights (10 Guests) (2 Hours)',
-    'book-wine':           'Floating Wine Tasting Experience',
-    'book-premium':        'Sea Fortress and Coastal Journey (4-Hour)',
-    'book-reffen':         'Private 3-Hour Extended (Reffen)',
-    'book-malmo':          'Copenhagen to Malmö Experience',
-    'book-land':           'Copenhagen Private Boat y Land Experience',
-    'book-winter':         '2-Hour Winter Hygge 2026',
+    'book-1h': 'City Highlights',
+    'book-1h-2h': 'City Highlights (2 Hours)',
+    'book-10p': 'City Highlights (10 Guests)',
+    'book-10p-2h': 'City Highlights (10 Guests) (2 Hours)',
+    'book-wine': 'Floating Wine Tasting Experience',
+    'book-premium': 'Sea Fortress and Coastal Journey (4-Hour)',
+    'book-reffen': 'Private 3-Hour Extended (Reffen)',
+    'book-malmo': 'Copenhagen to Malmö Experience',
+    'book-land': 'Copenhagen Private Boat y Land Experience',
+    'book-winter': '2-Hour Winter Hygge 2026',
     'book-winter-captain': 'Private Boat Tour with Captain',
-    'book-winter-hygge':   'Private Hygge Winter Tour',
-    'book-christmas':      'Christmas Tour w. Tapas and Champagne'
+    'book-winter-hygge': 'Private Hygge Winter Tour',
+    'book-christmas': 'Christmas Tour w. Tapas and Champagne'
   };
   return names[tourCode] || tourCode;
 }
@@ -607,9 +607,9 @@ function getGuestHtmlTemplate(data, t, endTime) {
 function getRulesBlock(lang) {
   var content = {
     english: {
-      welcome:      "Welcome aboard Seaduced Experience",
+      welcome: "Welcome aboard Seaduced Experience",
       rulesHeading: "BEFORE WE DEPART",
-      rulesIntro:   "It's important to know that:",
+      rulesIntro: "It's important to know that:",
       rules: [
         "Bringing your own food or drinks isn't allowed.",
         "If your package includes food and drinks, they'll be served on board.",
@@ -618,9 +618,9 @@ function getRulesBlock(lang) {
       ]
     },
     spanish: {
-      welcome:      "Bienvenido a bordo de Seaduced Experience",
+      welcome: "Bienvenido a bordo de Seaduced Experience",
       rulesHeading: "ANTES DE PARTIR",
-      rulesIntro:   "Es importante que sepas que:",
+      rulesIntro: "Es importante que sepas que:",
       rules: [
         "No está permitido traer comida ni bebida propia.",
         "Si tu paquete incluye comida y bebida, serán servidos a bordo.",
@@ -629,9 +629,9 @@ function getRulesBlock(lang) {
       ]
     },
     danish: {
-      welcome:      "Velkommen om bord hos Seaduced Experience",
+      welcome: "Velkommen om bord hos Seaduced Experience",
       rulesHeading: "INDEN VI AFSEJLER",
-      rulesIntro:   "Det er vigtigt at vide:",
+      rulesIntro: "Det er vigtigt at vide:",
       rules: [
         "Det er ikke tilladt at medbringe egen mad eller drikkevarer.",
         "Hvis din pakke inkluderer mad og drikkevarer, serveres de om bord.",
@@ -643,7 +643,7 @@ function getRulesBlock(lang) {
 
   var c = content[lang] || content.english;
 
-  var rulesHtml = c.rules.map(function(item, i) {
+  var rulesHtml = c.rules.map(function (item, i) {
     var isLast = i === c.rules.length - 1;
     return '<tr><td style="padding:10px 0;' + (isLast ? '' : 'border-bottom:1px solid #f0f2f5;') + '">' +
       '<table width="100%" cellpadding="0" cellspacing="0"><tr>' +

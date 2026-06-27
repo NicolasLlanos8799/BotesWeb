@@ -8,7 +8,7 @@ export default async function handler(req, res) {
 
   // POST /api/admin/booking-action → resend email
   if (req.method === "POST") {
-    const { name, email, phone, tour, tourTitle, date, time, qty, lang, amount, currency, sumup_checkout_id } = req.body || {};
+    const { name, email, phone, tour, tourTitle, date, time, qty, lang, tapas, amount, currency, sumup_checkout_id } = req.body || {};
     if (!email || !date || !time) return res.status(400).json({ error: "Missing email, date or time" });
 
     try {
@@ -17,7 +17,7 @@ export default async function handler(req, res) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           action: "resendEmail",
-          name, email, phone, tour, tourTitle, date, time, qty, lang, amount, currency, sumup_checkout_id
+          name, email, phone, tour, tourTitle, date, time, qty, lang, tapas, amount, currency, sumup_checkout_id
         })
       });
       const result = await gasRes.json();
@@ -32,18 +32,19 @@ export default async function handler(req, res) {
 
   try {
     if (req.method === "PUT") {
-      const { name, email, phone, date, time, qty, lang, id: bodyId } = req.body || {};
+      const { name, email, phone, date, time, qty, extras, lang, id: bodyId } = req.body || {};
       const putId = id || bodyId;
       if (!putId) return res.status(400).json({ error: "Missing booking id" });
       const result = await db`
         UPDATE bookings SET
-          customer_name  = COALESCE(${name  || null}, customer_name),
-          customer_email = COALESCE(${email || null}, customer_email),
-          customer_phone = COALESCE(${phone || null}, customer_phone),
-          booking_date   = COALESCE(${date  || null}, booking_date),
-          booking_time   = COALESCE(${time  || null}, booking_time),
-          passengers     = COALESCE(${qty   ? parseInt(qty) : null}, passengers),
-          lang           = COALESCE(${lang  || null}, lang)
+          customer_name  = COALESCE(${name   || null}, customer_name),
+          customer_email = COALESCE(${email  || null}, customer_email),
+          customer_phone = COALESCE(${phone  || null}, customer_phone),
+          booking_date   = COALESCE(${date   || null}, booking_date),
+          booking_time   = COALESCE(${time   || null}, booking_time),
+          passengers     = COALESCE(${qty    ? parseInt(qty)    : null}, passengers),
+          extras         = COALESCE(${extras !== undefined && extras !== '' ? parseInt(extras) : null}, extras),
+          lang           = COALESCE(${lang   || null}, lang)
         WHERE id = ${putId}
         RETURNING id
       `;

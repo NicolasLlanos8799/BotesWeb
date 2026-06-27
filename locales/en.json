@@ -728,21 +728,22 @@
       },
       "flag": "Epic Journey",
       "booking": {
-        "price": "13,000 DKK",
+        "price": "9,999 DKK",
         "price_note": "per group up to 10",
         "up_to": "Up to 10 guests"
       },
       "story_paras": [
-        "Begin your journey in Copenhagen, cruising through the city’s vibrant harbor and passing some of its most iconic landmarks. From the colorful Nyhavn to the modern Opera House and the Black Diamond, enjoy a unique perspective of the Danish capital from the water.",
-        "As the city fades behind you, the experience transforms. You’ll cross the Øresund Strait, leaving the harbor for open sea. With music playing, drinks on board, and endless views of the horizon, this part of the journey becomes a true private escape.",
-        "Arriving in Malmö, Sweden, you’ll have around two hours of free time to explore at your own pace. Walk through the charming old town, enjoy lunch by the waterfront, or simply experience a second Scandinavian city.",
-        "After your visit, return to the boat and cruise back to Copenhagen, enjoying the calm rhythm of the sea and the relaxed atmosphere on board.",
-        "This is not just a boat tour — it’s a cross-border experience combining sightseeing, exploration, and open-water adventure."
+        "Embark on an exclusive cross‑border journey designed for travelers who appreciate refinement, comfort, and unforgettable moments. Your day begins with a private 5‑hour escape to Malmö, gliding effortlessly across the iconic Øresund Bridge into Sweden.",
+        "Upon arrival, discover the city’s most distinguished highlights — the sculptural beauty of Turning Torso, the historic elegance of Stortorget and Lilla Torg, and the serene grounds of Malmö Castle.",
+        "Enjoy time at leisure to explore, shop, or indulge in a refined lunch at one of Malmö’s charming cafés.",
+        "Upon returning to Copenhagen, your experience transitions into pure sophistication: a 2‑hour private boat voyage through the capital’s most breathtaking waterways. Drift past the pastel façades of Nyhavn, the architectural grandeur of the Opera House, and the sleek, modern lines of the Black Diamond — each landmark unfolding like a curated postcard from the city.",
+        "As the harbor opens into the Øresund Strait, the atmosphere shifts. The water widens, the horizon expands, and the experience becomes one of serene luxury — a quiet moment suspended between two countries, carried by the rhythm of the sea.",
+        "<strong>Weather Assurance</strong><br>Should strong winds or unfavorable conditions arise, the Malmö transfer — and the return to Copenhagen — will be conducted by private car, ensuring comfort and continuity without compromising the elegance of your day.",
+        "This is more than a tour. It is a seamless blend of culture, architecture, and coastal beauty crafted for guests who expect the extraordinary."
       ],
       "highlights": [
         "<strong>Two Countries in One Day:</strong> Denmark → Sweden",
         "<strong>Copenhagen City Highlights:</strong> See Copenhagen from the water",
-        "<strong>Open Sea Crossing:</strong> Sail across the Øresund Strait",
         "<strong>Malmö Visit:</strong> Free time to explore at your own pace",
         "<strong>Drinks and Music:</strong> Relax on board during the journey",
         "<strong>Fully Private:</strong> Your group, your experience"
@@ -751,7 +752,7 @@
         "Private boat and captain",
         "Fuel",
         "Music onboard",
-        "Drinks (beer, wine, soft drinks)",
+        "Drinks available for purchase on board",
         "Safety equipment"
       ],
       "excl_h3": "Not Included",
@@ -773,7 +774,7 @@
       },
       "excl_items": [
         "Food not included",
-        "Additional drinks available for purchase"
+        "Drinks not included"
       ]
     }
   }

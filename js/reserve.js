@@ -164,6 +164,11 @@ export function initReservePage() {
       elements.summaryExtra.innerHTML = "";
     }
 
+    // Hide extras section for wine tour (charcuterie already included)
+    const extrasSection = document.getElementById("extras-section");
+    const isWineTour = current.tour === "book-wine";
+    if (extrasSection) extrasSection.style.display = isWineTour ? "none" : "";
+
     // 48h advance check for charcuterie add-on
     const has48hAdvance = (() => {
       if (!current.date || !current.time) return false;

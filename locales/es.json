@@ -732,21 +732,22 @@
       },
       "flag": "Viaje Épico",
       "booking": {
-        "price": "13,000 DKK",
+        "price": "9,999 DKK",
         "price_note": "por grupo (hasta 10)",
         "up_to": "Hasta 10 personas"
       },
       "story_paras": [
-        "Comienza tu viaje en Copenhague, navegando por el vibrante puerto de la ciudad y pasando por algunos de sus monumentos más icónicos. Desde el colorido Nyhavn hasta la moderna Ópera y el Diamante Negro, disfruta de una perspectiva única de la capital danesa desde el agua.",
-        "A medida que la ciudad se desvanece tras de ti, la experiencia se transforma. Cruzarás el estrecho de Øresund, dejando el puerto por el mar abierto. Con música sonando, bebidas a bordo y vistas infinitas del horizonte, esta parte del viaje se convierte en una verdadera escapada privada.",
-        "Al llegar a Malmö, Suecia, tendrás unas dos horas de tiempo libre para explorar a tu ritmo. Pasea por el encantador casco antiguo, disfruta de un almuerzo frente al mar o simplemente vive una segunda ciudad escandinava.",
-        "Después de tu visita, regresa al barco y navega de vuelta a Copenhague, disfrutando del ritmo tranquilo del mar y de la atmósfera relajada a bordo.",
-        "Esto no es solo un tour en barco — es una experiencia transfronteriza que combina turismo, exploración y aventura en mar abierto."
+        "Embárcate en un viaje transfronterizo exclusivo diseñado para viajeros que aprecian la distinción, el confort y los momentos inolvidables. Tu día comienza con una escapada privada de 5 horas a Malmö, deslizándote sin esfuerzo a través del icónico Puente de Øresund hacia Suecia.",
+        "A tu llegada, descubre los puntos más emblemáticos de la ciudad — la belleza escultórica del Turning Torso, la elegancia histórica de Stortorget y Lilla Torg, y los serenos jardines del Castillo de Malmö.",
+        "Disfruta de tiempo libre para explorar, hacer compras o deleitarte con un almuerzo refinado en uno de los encantadores cafés de Malmö.",
+        "Al regresar a Copenhague, tu experiencia se convierte en pura sofisticación: un viaje privado de 2 horas en barco por las vías fluviales más impresionantes de la capital. Navega frente a las fachadas de colores pastel de Nyhavn, la grandiosidad arquitectónica de la Ópera y las líneas modernas del Diamante Negro — cada monumento desplegándose como una postal curada de la ciudad.",
+        "Cuando el puerto se abre hacia el estrecho de Øresund, la atmósfera cambia. El agua se amplía, el horizonte se expande y la experiencia se convierte en un lujo sereno — un momento tranquilo suspendido entre dos países, llevado por el ritmo del mar.",
+        "<strong>Garantía Meteorológica</strong><br>Si surgen vientos fuertes o condiciones desfavorables, el traslado a Malmö — y el regreso a Copenhague — se realizará en coche privado, asegurando comodidad y continuidad sin comprometer la elegancia de tu día.",
+        "Esto es más que un tour. Es una mezcla perfecta de cultura, arquitectura y belleza costera, diseñada para los huéspedes que esperan lo extraordinario."
       ],
       "highlights": [
         "<strong>Dos Países en un Día:</strong> Dinamarca → Suecia.",
         "<strong>Copenhague Lo Mejor de la Ciudad:</strong> Mira Copenhague desde el agua.",
-        "<strong>Cruce de Mar Abierto:</strong> Navega a través del estrecho de Øresund.",
         "<strong>Visita a Malmö:</strong> Tiempo libre para explorar a tu ritmo.",
         "<strong>Bebidas y Música:</strong> Relájate a bordo durante el viaje.",
         "<strong>Totalmente Privado:</strong> Tu grupo, tu experiencia."
@@ -755,7 +756,7 @@
         "Barco privado y capitán",
         "Combustible",
         "Música a bordo",
-        "Bebidas (cerveza, vino, refrescos)",
+        "Bebidas disponibles para comprar a bordo",
         "Equipo de seguridad"
       ],
       "excl_h3": "No Incluido",
@@ -777,7 +778,7 @@
       },
       "excl_items": [
         "Comida no incluida",
-        "Bebidas adicionales disponibles para compra"
+        "Bebidas no incluidas"
       ]
     }
   }

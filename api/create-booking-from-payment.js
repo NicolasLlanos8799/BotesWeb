@@ -57,7 +57,7 @@ export default async function handler(req, res) {
       await db`
         INSERT INTO bookings (
           tour_id, tour_name, customer_name, customer_email, customer_phone,
-          passengers, booking_date, booking_time, total_price, payment_status, sumup_id, lang
+          passengers, booking_date, booking_time, total_price, payment_status, sumup_id, lang, extras
         ) VALUES (
           ${metadata.tour || null},
           ${metadata.tourTitle || null},
@@ -70,7 +70,8 @@ export default async function handler(req, res) {
           ${metadata.total || checkout.amount || 0},
           'PAID',
           ${checkout_id},
-          ${metadata.lang || 'english'}
+          ${metadata.lang || 'english'},
+          ${parseInt(metadata.tapas) || 0}
         )
         ON CONFLICT (sumup_id) DO UPDATE SET payment_status = 'PAID'
       `;

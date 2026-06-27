@@ -731,21 +731,22 @@
       },
       "flag": "Episk rejse",
       "booking": {
-        "price": "13,000 DKK",
+        "price": "9,999 DKK",
         "price_note": "pr. gruppe op til 10",
         "up_to": "Op til 10 gæster"
       },
       "story_paras": [
-        "Begynd din rejse i København og sejl gennem byens livlige havn forbi nogle af dens mest ikoniske vartegn. Fra det farverige Nyhavn til det moderne Operahus og Den Sorte Diamant får du et unikt perspektiv på den danske hovedstad fra vandet.",
-        "Efterhånden som byen forsvinder bag dig, ændrer oplevelsen sig. Du krydser Øresund og forlader havnen til fordel for det åbne hav. Med musik i højttalerne, drikkevarer ombord og endeløs udsigt til horisonten bliver denne del af rejsen en sand privat flugt.",
-        "Ved ankomsten til Malmø har du cirka to timers fritid til at udforske byen i dit eget tempo. Gå gennem den charmerende gamle bydel, nyd en frokost ved vandet, eller oplev blot en anden skandinavisk by.",
-        "Efter dit besøg vender du tilbage til båden og sejler tilbage mod København, mens du nyder havets rolige rytme og den afslappede atmosfære ombord.",
-        "Dette er ikke bare en bådtur — det er en grænseoverskridende oplevelse, der kombinerer sightseeing, udforskning og eventyr på åbent vand."
+        "Giv dig i kast med en eksklusiv grænseoverskridende rejse designet til rejsende, der sætter pris på raffinement, komfort og uforglemmelige øjeblikke. Din dag begynder med en privat 5-timers flugt til Malmø og glider ubesværet over den ikoniske Øresundsbro og ind i Sverige.",
+        "Ved ankomsten opdager du byens mest fornemme seværdigheder — Turning Torsos skulpturelle skønhed, den historiske elegance ved Stortorget og Lilla Torg og de rolige omgivelser ved Malmø Slot.",
+        "Nyd tid til at udforske, shoppe eller forkæle dig selv med en udsøgt frokost på en af Malmøs charmerende caféer.",
+        "Når du vender tilbage til København, overgår din oplevelse til ren sofistikation: en 2-timers privat bådrejse gennem hovedstadens mest betagende vandveje. Glid forbi Nyhavns pastelfarvede facader, Operahusets arkitektoniske storslagenhed og Den Sorte Diamants slanke, moderne linjer — hvert vartegn folder sig ud som et kurateret postkort fra byen.",
+        "Når havnen åbner sig ud mod Øresund, skifter atmosfæren. Vandet udvider sig, horisonten vokser, og oplevelsen bliver en af rolig luksus — et stille øjeblik suspenderet mellem to lande, båret af havets rytme.",
+        "<strong>Vejrgaranti</strong><br>Hvis der opstår stærk vind eller ugunstige forhold, vil transporten til Malmø — og tilbagerejsen til København — blive foretaget med privat bil, hvilket sikrer komfort og kontinuitet uden at gå på kompromis med dagens elegance.",
+        "Dette er mere end en tur. Det er en sømløs blanding af kultur, arkitektur og kystskønhed, skabt til gæster, der forventer det ekstraordinære."
       ],
       "highlights": [
         "<strong>To lande på én dag:</strong> Danmark → Sverige",
         "<strong>København Byens højdepunkter:</strong> Se København fra vandet",
-        "<strong>Krydsning af åbent hav:</strong> Sejl over Øresund",
         "<strong>Malmø-besøg:</strong> Fritid til at udforske i dit eget tempo",
         "<strong>Drikkevarer og Musik:</strong> Slap af ombord under rejsen",
         "<strong>Helt privat:</strong> Din gruppe, din oplevelse"
@@ -754,7 +755,7 @@
         "Privat båd og kaptajn",
         "Brændstof",
         "Musik ombord",
-        "Drikkevarer (øl, vin, sodavand)",
+        "Drikkevarer tilgængelige til køb ombord",
         "Sikkerhedsudstyr"
       ],
       "excl_h3": "Ikke inkluderet",
@@ -776,7 +777,7 @@
       },
       "excl_items": [
         "Mad er ikke inkluderet",
-        "Ekstra drikkevarer kan købes"
+        "Drikkevarer er ikke inkluderet"
       ]
     }
   }

@@ -18,7 +18,8 @@ CREATE TABLE IF NOT EXISTS bookings (
     sumup_id        VARCHAR(100) UNIQUE,
     lang            VARCHAR(20) DEFAULT 'english',
     source          VARCHAR(20) DEFAULT 'web',       -- 'web' | 'gyg'
-    gyg_booking_id  VARCHAR(100) UNIQUE              -- GYG booking ref, nullable
+    gyg_booking_id  VARCHAR(100) UNIQUE,             -- GYG booking ref, nullable
+    extras          INTEGER DEFAULT 0                -- Charcuterie/tapas qty
 );
 
 -- Índices para búsquedas frecuentes del admin
@@ -31,3 +32,4 @@ CREATE INDEX IF NOT EXISTS idx_bookings_source   ON bookings (source);
 -- Run this on existing DBs to add new columns without recreating the table:
 -- ALTER TABLE bookings ADD COLUMN IF NOT EXISTS source VARCHAR(20) DEFAULT 'web';
 -- ALTER TABLE bookings ADD COLUMN IF NOT EXISTS gyg_booking_id VARCHAR(100) UNIQUE;
+-- ALTER TABLE bookings ADD COLUMN IF NOT EXISTS extras INTEGER DEFAULT 0;
