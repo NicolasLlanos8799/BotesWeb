@@ -220,7 +220,7 @@ async function initBookingsPage() {
           const res = await fetch(`/api/admin/booking-action?id=${b.id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(updated)
+            body: JSON.stringify({ ...updated, id: b.id })
           });
           if (res.ok) {
             Object.assign(b, {

@@ -61,6 +61,8 @@ function doPost(e) {
       ? handleCreateBooking(data)
       : action === 'createCalendarOnly'
       ? handleCreateCalendarOnly(data)
+      : action === 'resendEmail'
+      ? handleResendEmail(data)
       : { success: false, error: "Action not recognized" };
 
     return ContentService.createTextOutput(JSON.stringify(result))
@@ -426,26 +428,53 @@ function getTranslations(lang) {
    EMAIL
 ═══════════════════════════════════════════════════════════ */
 
+function handleResendEmail(data) {
+  if (!data.email || !data.date || !data.time) {
+    return { success: false, error: "Missing email, date or time" };
+  }
+  try {
+    var t = getTranslations(data.lang || 'english');
+    var range = buildStartEnd(data.date, data.time, getTourDurationHours(data.tour || '', 1));
+    sendBookingEmails(data, t, range.start, range.end);
+    Logger.log("Resend email sent to: " + data.email);
+    return { success: true };
+  } catch (e) {
+    Logger.log("Resend email error: " + e.toString());
+    return { success: false, error: e.toString() };
+  }
+}
+
 function sendBookingEmails(data, t, start, end) {
   var tourTitle = data.tour || data.tourTitle;
   var endTime = ('0' + end.getHours()).slice(-2) + ':' + ('0' + end.getMinutes()).slice(-2);
   var icsBlob = createIcsBlob("Seaduced Experience: " + getTourDisplayName(tourTitle), start, end, t.locationVal);
 
-  if (data.email) {
-    GmailApp.sendEmail(data.email, "Seaduced Experience — " + t.subject, "", {
-      name: "Seaduced Experience",
-      htmlBody: getGuestHtmlTemplate(data, t, endTime),
-      attachments: [icsBlob]
-    });
+  var isValidEmail = data.email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email);
+  if (isValidEmail) {
+    try {
+      GmailApp.sendEmail(data.email, "Seaduced Experience — " + t.subject, "", {
+        name: "Seaduced Experience",
+        htmlBody: getGuestHtmlTemplate(data, t, endTime),
+        attachments: [icsBlob]
+      });
+    } catch (e) {
+      Logger.log("Guest email error: " + e);
+    }
+  } else {
+    Logger.log("Invalid or missing guest email: " + data.email);
   }
 
   var adminEmail = Session.getEffectiveUser().getEmail();
-  GmailApp.sendEmail(
-    adminEmail,
-    "⚓ Nueva Reserva — " + getTourDisplayName(tourTitle) + " · " + (data.name || "") + " · " + (data.date || ""),
-    "",
-    { name: "Seaduced Bookings", htmlBody: getAdminHtmlTemplate(data, t, endTime) }
-  );
+  try {
+    GmailApp.sendEmail(
+      adminEmail,
+      "⚓ Nueva Reserva — " + getTourDisplayName(tourTitle) + " · " + (data.name || "") + " · " + (data.date || ""),
+      "",
+      { name: "Seaduced Bookings", htmlBody: getAdminHtmlTemplate(data, t, endTime) }
+    );
+  } catch (e) {
+    Logger.log("Admin email error: " + e);
+  }
 }
 
 function createIcsBlob(title, start, end, location) {
