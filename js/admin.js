@@ -145,6 +145,7 @@ async function initBookingsPage() {
           </td>
           <td>
             <div style="display: flex; gap: 0.4rem;">
+              <button class="btn btn--outline btn--sm action-resend" data-booking='${JSON.stringify(b).replace(/'/g, "&#39;")}' style="font-size:0.75rem; padding: 0.25rem 0.6rem; color: #60a5fa; border-color: #60a5fa;">✉ Resend</button>
               ${b.status !== 'CANCELLED' ? `<button class="btn btn--outline btn--sm action-cancel" data-id="${b.id}" style="font-size:0.75rem; padding: 0.25rem 0.6rem; color: #fbbf24; border-color: #fbbf24;">Cancel</button>` : ''}
               <button class="btn btn--outline btn--sm action-delete" data-id="${b.id}" style="font-size:0.75rem; padding: 0.25rem 0.6rem; color: #f87171; border-color: #f87171;">Delete</button>
             </div>
@@ -185,6 +186,13 @@ async function initBookingsPage() {
         } else {
           alert("Failed to cancel booking.");
         }
+      });
+    });
+
+    tbody.querySelectorAll(".action-resend").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const b = JSON.parse(btn.dataset.booking);
+        openResendModal(b);
       });
     });
   };
@@ -463,6 +471,107 @@ function renderBarChart(id, labels, data, label, color = '#e8834a') {
         y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: 'rgba(255,255,255,0.5)' } },
         x: { grid: { display: false }, ticks: { color: 'rgba(255,255,255,0.5)' } }
       }
+    }
+  });
+}
+
+/**
+ * RESEND EMAIL MODAL
+ */
+function openResendModal(booking) {
+  const existing = document.getElementById("resend-modal");
+  if (existing) existing.remove();
+
+  const modal = document.createElement("div");
+  modal.id = "resend-modal";
+  modal.style.cssText = "position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:9999;display:flex;align-items:center;justify-content:center;";
+
+  modal.innerHTML = `
+    <div style="background:#1a2a3a;border-radius:12px;padding:32px;width:100%;max-width:480px;border:1px solid rgba(255,255,255,0.1);">
+      <h2 style="margin:0 0 4px;font-size:1.2rem;color:#fff;">Resend Confirmation Email</h2>
+      <p style="margin:0 0 24px;font-size:0.85rem;color:rgba(255,255,255,0.4);">Edit fields before resending.</p>
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <label style="font-size:0.8rem;color:rgba(255,255,255,0.6);">Name
+          <input id="re-name" value="${booking.customerName || ''}" style="display:block;width:100%;margin-top:4px;padding:8px 12px;background:#0f1e35;border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#fff;font-size:0.9rem;box-sizing:border-box;">
+        </label>
+        <label style="font-size:0.8rem;color:rgba(255,255,255,0.6);">Email
+          <input id="re-email" value="${booking.customerEmail || ''}" style="display:block;width:100%;margin-top:4px;padding:8px 12px;background:#0f1e35;border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#fff;font-size:0.9rem;box-sizing:border-box;">
+        </label>
+        <label style="font-size:0.8rem;color:rgba(255,255,255,0.6);">Phone
+          <input id="re-phone" value="${booking.customerPhone || ''}" style="display:block;width:100%;margin-top:4px;padding:8px 12px;background:#0f1e35;border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#fff;font-size:0.9rem;box-sizing:border-box;">
+        </label>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <label style="font-size:0.8rem;color:rgba(255,255,255,0.6);">Date
+            <input id="re-date" value="${booking.date || ''}" style="display:block;width:100%;margin-top:4px;padding:8px 12px;background:#0f1e35;border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#fff;font-size:0.9rem;box-sizing:border-box;">
+          </label>
+          <label style="font-size:0.8rem;color:rgba(255,255,255,0.6);">Time
+            <input id="re-time" value="${(booking.time || '').substring(0,5)}" style="display:block;width:100%;margin-top:4px;padding:8px 12px;background:#0f1e35;border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#fff;font-size:0.9rem;box-sizing:border-box;">
+          </label>
+        </div>
+        <label style="font-size:0.8rem;color:rgba(255,255,255,0.6);">Language
+          <select id="re-lang" style="display:block;width:100%;margin-top:4px;padding:8px 12px;background:#0f1e35;border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#fff;font-size:0.9rem;box-sizing:border-box;">
+            <option value="english" ${(booking.lang||'english')==='english'?'selected':''}>English</option>
+            <option value="spanish" ${booking.lang==='spanish'?'selected':''}>Spanish</option>
+            <option value="danish" ${booking.lang==='danish'?'selected':''}>Danish</option>
+          </select>
+        </label>
+      </div>
+      <div id="re-error" style="margin-top:12px;color:#f87171;font-size:0.8rem;display:none;"></div>
+      <div style="display:flex;gap:12px;margin-top:24px;justify-content:flex-end;">
+        <button id="re-cancel" class="btn btn--outline btn--sm" style="color:rgba(255,255,255,0.5);">Cancel</button>
+        <button id="re-send" class="btn btn--sm" style="background:#e8834a;color:#fff;border:none;padding:8px 20px;border-radius:6px;cursor:pointer;font-weight:700;">Send Email</button>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+
+  document.getElementById("re-cancel").addEventListener("click", () => modal.remove());
+  modal.addEventListener("click", e => { if (e.target === modal) modal.remove(); });
+
+  document.getElementById("re-send").addEventListener("click", async () => {
+    const email = document.getElementById("re-email").value.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      const err = document.getElementById("re-error");
+      err.textContent = "Please enter a valid email address.";
+      err.style.display = "block";
+      return;
+    }
+
+    const sendBtn = document.getElementById("re-send");
+    sendBtn.textContent = "Sending...";
+    sendBtn.disabled = true;
+
+    const res = await fetch("/api/admin/resend-email", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: document.getElementById("re-name").value.trim(),
+        email,
+        phone: document.getElementById("re-phone").value.trim(),
+        tour: booking.calendar,
+        tourTitle: booking.tourName,
+        date: document.getElementById("re-date").value.trim(),
+        time: document.getElementById("re-time").value.trim(),
+        qty: String(booking.passengers),
+        lang: document.getElementById("re-lang").value,
+        amount: String(booking.price),
+        currency: "DKK",
+        sumup_checkout_id: booking.id
+      })
+    });
+
+    const result = await res.json();
+    if (result.success) {
+      modal.remove();
+      alert("✅ Email sent successfully!");
+    } else {
+      const err = document.getElementById("re-error");
+      err.textContent = "Error: " + (result.error || "Unknown error");
+      err.style.display = "block";
+      sendBtn.textContent = "Send Email";
+      sendBtn.disabled = false;
     }
   });
 }
