@@ -47,6 +47,25 @@ export default async function handler(req, res) {
       return res.status(200).json({ success: true, action: "cancelled" });
     }
 
+    if (req.method === "PUT") {
+      const { name, email, phone, date, time, qty, lang } = req.body || {};
+      const result = await db`
+        UPDATE bookings SET
+          customer_name  = COALESCE(${name  || null}, customer_name),
+          customer_email = COALESCE(${email || null}, customer_email),
+          customer_phone = COALESCE(${phone || null}, customer_phone),
+          booking_date   = COALESCE(${date  || null}, booking_date),
+          booking_time   = COALESCE(${time  || null}, booking_time),
+          passengers     = COALESCE(${qty   ? parseInt(qty) : null}, passengers),
+          lang           = COALESCE(${lang  || null}, lang)
+        WHERE id = ${id}
+        RETURNING id
+      `;
+      const rows = result.rows ?? result;
+      if (!rows.length) return res.status(404).json({ error: "Booking not found" });
+      return res.status(200).json({ success: true, action: "updated" });
+    }
+
     return res.status(405).json({ error: "Method not allowed" });
   } catch (err) {
     console.error("booking-action error:", err.message);

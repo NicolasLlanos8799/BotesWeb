@@ -144,10 +144,14 @@ async function initBookingsPage() {
             <span class="badge-status status-${b.status.toLowerCase()}">${b.status}</span>
           </td>
           <td>
-            <div style="display: flex; gap: 0.4rem;">
-              <button class="btn btn--outline btn--sm action-resend" data-booking='${JSON.stringify(b).replace(/'/g, "&#39;")}' style="font-size:0.75rem; padding: 0.25rem 0.6rem; color: #60a5fa; border-color: #60a5fa;">✉ Resend</button>
-              ${b.status !== 'CANCELLED' ? `<button class="btn btn--outline btn--sm action-cancel" data-id="${b.id}" style="font-size:0.75rem; padding: 0.25rem 0.6rem; color: #fbbf24; border-color: #fbbf24;">Cancel</button>` : ''}
-              <button class="btn btn--outline btn--sm action-delete" data-id="${b.id}" style="font-size:0.75rem; padding: 0.25rem 0.6rem; color: #f87171; border-color: #f87171;">Delete</button>
+            <div style="position:relative;display:inline-block;">
+              <button class="btn btn--outline btn--sm action-menu-btn" data-id="${b.id}" style="font-size:0.8rem;padding:0.25rem 0.7rem;letter-spacing:2px;">⋯</button>
+              <div class="action-dropdown" data-id="${b.id}" style="display:none;position:absolute;right:0;top:100%;margin-top:4px;background:#1a2a3a;border:1px solid rgba(255,255,255,0.12);border-radius:8px;z-index:100;min-width:150px;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,0.4);">
+                <button class="action-edit dropdown-item" data-booking='${JSON.stringify(b).replace(/'/g, "&#39;")}' style="display:block;width:100%;text-align:left;padding:10px 16px;background:none;border:none;color:#fff;font-size:0.85rem;cursor:pointer;">✏️ Edit</button>
+                <button class="action-resend dropdown-item" data-booking='${JSON.stringify(b).replace(/'/g, "&#39;")}' style="display:block;width:100%;text-align:left;padding:10px 16px;background:none;border:none;color:#60a5fa;font-size:0.85rem;cursor:pointer;">✉ Resend Email</button>
+                ${b.status !== 'CANCELLED' ? `<button class="action-cancel dropdown-item" data-id="${b.id}" style="display:block;width:100%;text-align:left;padding:10px 16px;background:none;border:none;color:#fbbf24;font-size:0.85rem;cursor:pointer;">⊘ Cancel</button>` : ''}
+                <button class="action-delete dropdown-item" data-id="${b.id}" style="display:block;width:100%;text-align:left;padding:10px 16px;background:none;border:none;color:#f87171;font-size:0.85rem;cursor:pointer;">🗑 Delete</button>
+              </div>
             </div>
           </td>
         </tr>
@@ -156,7 +160,20 @@ async function initBookingsPage() {
 
     renderPagination(data.length);
 
-    // Action buttons
+    // Dropdown toggle
+    tbody.querySelectorAll(".action-menu-btn").forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const id = btn.dataset.id;
+        document.querySelectorAll(".action-dropdown").forEach(d => {
+          d.style.display = d.dataset.id === id && d.style.display === "none" ? "block" : "none";
+        });
+      });
+    });
+    document.addEventListener("click", () => {
+      document.querySelectorAll(".action-dropdown").forEach(d => d.style.display = "none");
+    });
+
     tbody.querySelectorAll(".action-delete").forEach(btn => {
       btn.addEventListener("click", async () => {
         if (!confirm("Permanently delete this booking? This cannot be undone.")) return;
@@ -193,6 +210,37 @@ async function initBookingsPage() {
       btn.addEventListener("click", () => {
         const b = JSON.parse(btn.dataset.booking);
         openResendModal(b);
+      });
+    });
+
+    tbody.querySelectorAll(".action-edit").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const b = JSON.parse(btn.dataset.booking);
+        openEditModal(b, async (updated) => {
+          const res = await fetch(`/api/admin/booking-action?id=${b.id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(updated)
+          });
+          if (res.ok) {
+            Object.assign(b, {
+              customerName: updated.name || b.customerName,
+              customerEmail: updated.email || b.customerEmail,
+              customerPhone: updated.phone || b.customerPhone,
+              date: updated.date || b.date,
+              time: updated.time || b.time,
+              passengers: updated.qty ? parseInt(updated.qty) : b.passengers,
+              lang: updated.lang || b.lang
+            });
+            const idx = allBookings.findIndex(x => String(x.id) === String(b.id));
+            if (idx !== -1) allBookings[idx] = b;
+            const fidx = filteredBookings.findIndex(x => String(x.id) === String(b.id));
+            if (fidx !== -1) filteredBookings[fidx] = b;
+            render(filteredBookings);
+          } else {
+            alert("Failed to update booking.");
+          }
+        });
       });
     });
   };
@@ -472,6 +520,83 @@ function renderBarChart(id, labels, data, label, color = '#e8834a') {
         x: { grid: { display: false }, ticks: { color: 'rgba(255,255,255,0.5)' } }
       }
     }
+  });
+}
+
+/**
+ * EDIT BOOKING MODAL
+ */
+function openEditModal(booking, onSave) {
+  const existing = document.getElementById("edit-modal");
+  if (existing) existing.remove();
+
+  const modal = document.createElement("div");
+  modal.id = "edit-modal";
+  modal.style.cssText = "position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:9999;display:flex;align-items:center;justify-content:center;";
+
+  modal.innerHTML = `
+    <div style="background:#1a2a3a;border-radius:12px;padding:32px;width:100%;max-width:480px;border:1px solid rgba(255,255,255,0.1);">
+      <h2 style="margin:0 0 4px;font-size:1.2rem;color:#fff;">Edit Booking</h2>
+      <p style="margin:0 0 24px;font-size:0.85rem;color:rgba(255,255,255,0.4);">Changes are saved to the database.</p>
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <label style="font-size:0.8rem;color:rgba(255,255,255,0.6);">Name
+          <input id="ed-name" value="${booking.customerName || ''}" style="display:block;width:100%;margin-top:4px;padding:8px 12px;background:#0f1e35;border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#fff;font-size:0.9rem;box-sizing:border-box;">
+        </label>
+        <label style="font-size:0.8rem;color:rgba(255,255,255,0.6);">Email
+          <input id="ed-email" value="${booking.customerEmail || ''}" style="display:block;width:100%;margin-top:4px;padding:8px 12px;background:#0f1e35;border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#fff;font-size:0.9rem;box-sizing:border-box;">
+        </label>
+        <label style="font-size:0.8rem;color:rgba(255,255,255,0.6);">Phone
+          <input id="ed-phone" value="${booking.customerPhone || ''}" style="display:block;width:100%;margin-top:4px;padding:8px 12px;background:#0f1e35;border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#fff;font-size:0.9rem;box-sizing:border-box;">
+        </label>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <label style="font-size:0.8rem;color:rgba(255,255,255,0.6);">Date
+            <input id="ed-date" value="${booking.date || ''}" style="display:block;width:100%;margin-top:4px;padding:8px 12px;background:#0f1e35;border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#fff;font-size:0.9rem;box-sizing:border-box;">
+          </label>
+          <label style="font-size:0.8rem;color:rgba(255,255,255,0.6);">Time
+            <input id="ed-time" value="${(booking.time || '').substring(0,5)}" style="display:block;width:100%;margin-top:4px;padding:8px 12px;background:#0f1e35;border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#fff;font-size:0.9rem;box-sizing:border-box;">
+          </label>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <label style="font-size:0.8rem;color:rgba(255,255,255,0.6);">Passengers
+            <input id="ed-qty" value="${booking.passengers || ''}" type="number" min="1" style="display:block;width:100%;margin-top:4px;padding:8px 12px;background:#0f1e35;border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#fff;font-size:0.9rem;box-sizing:border-box;">
+          </label>
+          <label style="font-size:0.8rem;color:rgba(255,255,255,0.6);">Language
+            <select id="ed-lang" style="display:block;width:100%;margin-top:4px;padding:8px 12px;background:#0f1e35;border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#fff;font-size:0.9rem;box-sizing:border-box;">
+              <option value="english" ${(booking.lang||'english')==='english'?'selected':''}>English</option>
+              <option value="spanish" ${booking.lang==='spanish'?'selected':''}>Spanish</option>
+              <option value="danish" ${booking.lang==='danish'?'selected':''}>Danish</option>
+            </select>
+          </label>
+        </div>
+      </div>
+      <div style="display:flex;gap:12px;margin-top:24px;justify-content:flex-end;">
+        <button id="ed-cancel" class="btn btn--outline btn--sm" style="color:rgba(255,255,255,0.5);">Cancel</button>
+        <button id="ed-save" style="background:#e8834a;color:#fff;border:none;padding:8px 20px;border-radius:6px;cursor:pointer;font-weight:700;font-size:0.9rem;">Save Changes</button>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+
+  document.getElementById("ed-cancel").addEventListener("click", () => modal.remove());
+  modal.addEventListener("click", e => { if (e.target === modal) modal.remove(); });
+
+  document.getElementById("ed-save").addEventListener("click", async () => {
+    const saveBtn = document.getElementById("ed-save");
+    saveBtn.textContent = "Saving...";
+    saveBtn.disabled = true;
+
+    await onSave({
+      name:  document.getElementById("ed-name").value.trim(),
+      email: document.getElementById("ed-email").value.trim(),
+      phone: document.getElementById("ed-phone").value.trim(),
+      date:  document.getElementById("ed-date").value.trim(),
+      time:  document.getElementById("ed-time").value.trim(),
+      qty:   document.getElementById("ed-qty").value.trim(),
+      lang:  document.getElementById("ed-lang").value
+    });
+
+    modal.remove();
   });
 }
 
