@@ -445,9 +445,10 @@ function handleResendEmail(data) {
 }
 
 function sendBookingEmails(data, t, start, end) {
-  var tourTitle = data.tour || data.tourTitle;
+  var tourTitle = data.tourTitle || data.tour;
+  var tourDisplayName = data.tourTitle || getTourDisplayName(data.tour || "");
   var endTime = ('0' + end.getHours()).slice(-2) + ':' + ('0' + end.getMinutes()).slice(-2);
-  var icsBlob = createIcsBlob("Seaduced Experience: " + getTourDisplayName(tourTitle), start, end, t.locationVal);
+  var icsBlob = createIcsBlob("Seaduced Experience: " + tourDisplayName, start, end, t.locationVal);
 
   var isValidEmail = data.email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email);
   if (isValidEmail) {
@@ -468,7 +469,7 @@ function sendBookingEmails(data, t, start, end) {
   try {
     GmailApp.sendEmail(
       adminEmail,
-      "⚓ Nueva Reserva — " + getTourDisplayName(tourTitle) + " · " + (data.name || "") + " · " + (data.date || ""),
+      "⚓ Nueva Reserva — " + tourDisplayName + " · " + (data.name || "") + " · " + (data.date || ""),
       "",
       { name: "Seaduced Bookings", htmlBody: getAdminHtmlTemplate(data, t, endTime) }
     );
@@ -505,7 +506,7 @@ function adminRow(label, value, isLast) { return _tableRow(label, value, isLast,
 
 function getGuestHtmlTemplate(data, t, endTime) {
   var greeting = t.greeting.replace("{name}", data.name || "there");
-  var tourName = getTourDisplayName(data.tour || data.tourTitle || "");
+  var tourName = data.tourTitle || getTourDisplayName(data.tour || "");
   var extras = (data.tapas && data.tapas != "0") ? data.tapas + " Tapas / Charcuterie" : "—";
   var refNumber = data.sumup_checkout_id || "—";
   var langLabel = (data.lang || "english");
@@ -676,7 +677,7 @@ function getRulesBlock(lang) {
 }
 
 function getAdminHtmlTemplate(data, t, endTime) {
-  var tourName = getTourDisplayName(data.tour || data.tourTitle || "");
+  var tourName = data.tourTitle || getTourDisplayName(data.tour || "");
   var extras = (data.tapas && data.tapas != "0") ? data.tapas + " Tapas / Charcuterie" : "—";
   var refNumber = data.sumup_checkout_id || "—";
   var langLabel = (data.lang || "english");
