@@ -104,7 +104,7 @@ export const TOURS = {
     title: "Copenhagen to Malmö Experience",
     titleEs: "Experiencia de Copenhague a Malmö",
     titleDa: "København til Malmø Oplevelse",
-    price: 13000,
+    price: 9999,
     duration: "7 Hours",
     durationEs: "7 Horas",
     durationDa: "7 Timer",
