@@ -559,6 +559,15 @@ export function initReservePage() {
       return;
     }
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      let alertMsg = "Please enter a valid email address.";
+      if (isEs) alertMsg = "Por favor, ingresa un correo electrónico válido.";
+      else if (isDa) alertMsg = "Indtast venligst en gyldig e-mailadresse.";
+      await seaAlert(alertMsg, { type: "warning", lang: currentLocale });
+      return;
+    }
+
     const buttons = [elements.complete, elements.stickyBtn].filter(Boolean);
     buttons.forEach(btn => {
       btn.disabled = true;
@@ -582,7 +591,7 @@ export function initReservePage() {
       time: String(current.time),
       qty: String(current.qty),
       lang: String(current.lang),
-      tapas: String(tapasTotal > 0 ? (tapasTotal / 350) : "0"),
+      tapas: String(current.tapas || "0"),
       total: String(total)
     };
     try {
@@ -629,7 +638,7 @@ export function initReservePage() {
           time: String(current.time),
           qty: String(current.qty),
           lang: String(current.lang),
-          tapas: String(tapasTotal > 0 ? (tapasTotal / 350) : "0"),
+          tapas: String(current.tapas || "0"),
           total: String(total)
         }
       };
