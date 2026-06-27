@@ -543,7 +543,7 @@ function openResendModal(booking) {
     sendBtn.textContent = "Sending...";
     sendBtn.disabled = true;
 
-    const res = await fetch("/api/admin/resend-email", {
+    const res = await fetch("/api/admin/booking-action", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
