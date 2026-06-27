@@ -145,7 +145,7 @@ async function initBookingsPage() {
           </td>
           <td>
             <div style="position:relative;display:inline-block;">
-              <button class="btn btn--outline btn--sm action-menu-btn" data-id="${b.id}" style="font-size:0.8rem;padding:0.25rem 0.7rem;letter-spacing:2px;">⋯</button>
+              <button class="action-menu-btn" data-id="${b.id}" style="font-size:1rem;padding:4px 12px;letter-spacing:2px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.2);border-radius:6px;color:#fff;cursor:pointer;">⋯</button>
               <div class="action-dropdown" data-id="${b.id}" style="display:none;position:absolute;right:0;top:100%;margin-top:4px;background:#1a2a3a;border:1px solid rgba(255,255,255,0.12);border-radius:8px;z-index:100;min-width:150px;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,0.4);">
                 <button class="action-edit dropdown-item" data-booking='${JSON.stringify(b).replace(/'/g, "&#39;")}' style="display:block;width:100%;text-align:left;padding:10px 16px;background:none;border:none;color:#fff;font-size:0.85rem;cursor:pointer;">✏️ Edit</button>
                 <button class="action-resend dropdown-item" data-booking='${JSON.stringify(b).replace(/'/g, "&#39;")}' style="display:block;width:100%;text-align:left;padding:10px 16px;background:none;border:none;color:#60a5fa;font-size:0.85rem;cursor:pointer;">✉ Resend Email</button>
@@ -523,6 +523,9 @@ function renderBarChart(id, labels, data, label, color = '#e8834a') {
   });
 }
 
+const MODAL_INPUT_STYLE = "display:block;width:100%;margin-top:6px;padding:0.75rem 1.25rem;background:var(--admin-card-bg);border:1px solid var(--admin-card-border);border-radius:8px;color:#fff;font-size:0.9rem;box-sizing:border-box;font-family:inherit;transition:border-color 0.2s;";
+const MODAL_LABEL_STYLE = "font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:rgba(255,255,255,0.5);";
+
 /**
  * EDIT BOOKING MODAL
  */
@@ -532,36 +535,38 @@ function openEditModal(booking, onSave) {
 
   const modal = document.createElement("div");
   modal.id = "edit-modal";
-  modal.style.cssText = "position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:9999;display:flex;align-items:center;justify-content:center;";
+  modal.style.cssText = "position:fixed;inset:0;background:rgba(0,0,0,0.75);backdrop-filter:blur(4px);z-index:9999;display:flex;align-items:center;justify-content:center;padding:1rem;";
 
   modal.innerHTML = `
-    <div style="background:#1a2a3a;border-radius:12px;padding:32px;width:100%;max-width:480px;border:1px solid rgba(255,255,255,0.1);">
-      <h2 style="margin:0 0 4px;font-size:1.2rem;color:#fff;">Edit Booking</h2>
-      <p style="margin:0 0 24px;font-size:0.85rem;color:rgba(255,255,255,0.4);">Changes are saved to the database.</p>
-      <div style="display:flex;flex-direction:column;gap:12px;">
-        <label style="font-size:0.8rem;color:rgba(255,255,255,0.6);">Name
-          <input id="ed-name" value="${booking.customerName || ''}" style="display:block;width:100%;margin-top:4px;padding:8px 12px;background:#0f1e35;border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#fff;font-size:0.9rem;box-sizing:border-box;">
+    <div style="background:#0d1b2e;border:1px solid var(--admin-card-border);border-top:3px solid var(--admin-accent);border-radius:16px;padding:2rem;width:100%;max-width:500px;box-shadow:0 24px 64px rgba(0,0,0,0.6);">
+      <div style="margin-bottom:1.5rem;">
+        <div style="font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--admin-accent);font-weight:700;margin-bottom:6px;">Booking</div>
+        <h2 style="margin:0;font-size:1.4rem;color:#fff;font-weight:700;">Edit Details</h2>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1rem;">
+        <label style="${MODAL_LABEL_STYLE}">Name
+          <input id="ed-name" value="${booking.customerName || ''}" style="${MODAL_INPUT_STYLE}">
         </label>
-        <label style="font-size:0.8rem;color:rgba(255,255,255,0.6);">Email
-          <input id="ed-email" value="${booking.customerEmail || ''}" style="display:block;width:100%;margin-top:4px;padding:8px 12px;background:#0f1e35;border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#fff;font-size:0.9rem;box-sizing:border-box;">
+        <label style="${MODAL_LABEL_STYLE}">Email
+          <input id="ed-email" value="${booking.customerEmail || ''}" style="${MODAL_INPUT_STYLE}">
         </label>
-        <label style="font-size:0.8rem;color:rgba(255,255,255,0.6);">Phone
-          <input id="ed-phone" value="${booking.customerPhone || ''}" style="display:block;width:100%;margin-top:4px;padding:8px 12px;background:#0f1e35;border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#fff;font-size:0.9rem;box-sizing:border-box;">
+        <label style="${MODAL_LABEL_STYLE}">Phone
+          <input id="ed-phone" value="${booking.customerPhone || ''}" style="${MODAL_INPUT_STYLE}">
         </label>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-          <label style="font-size:0.8rem;color:rgba(255,255,255,0.6);">Date
-            <input id="ed-date" value="${booking.date || ''}" style="display:block;width:100%;margin-top:4px;padding:8px 12px;background:#0f1e35;border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#fff;font-size:0.9rem;box-sizing:border-box;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+          <label style="${MODAL_LABEL_STYLE}">Date
+            <input id="ed-date" value="${booking.date || ''}" style="${MODAL_INPUT_STYLE}">
           </label>
-          <label style="font-size:0.8rem;color:rgba(255,255,255,0.6);">Time
-            <input id="ed-time" value="${(booking.time || '').substring(0,5)}" style="display:block;width:100%;margin-top:4px;padding:8px 12px;background:#0f1e35;border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#fff;font-size:0.9rem;box-sizing:border-box;">
+          <label style="${MODAL_LABEL_STYLE}">Time
+            <input id="ed-time" value="${(booking.time || '').substring(0,5)}" style="${MODAL_INPUT_STYLE}">
           </label>
         </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-          <label style="font-size:0.8rem;color:rgba(255,255,255,0.6);">Passengers
-            <input id="ed-qty" value="${booking.passengers || ''}" type="number" min="1" style="display:block;width:100%;margin-top:4px;padding:8px 12px;background:#0f1e35;border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#fff;font-size:0.9rem;box-sizing:border-box;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+          <label style="${MODAL_LABEL_STYLE}">Passengers
+            <input id="ed-qty" value="${booking.passengers || ''}" type="number" min="1" style="${MODAL_INPUT_STYLE}">
           </label>
-          <label style="font-size:0.8rem;color:rgba(255,255,255,0.6);">Language
-            <select id="ed-lang" style="display:block;width:100%;margin-top:4px;padding:8px 12px;background:#0f1e35;border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#fff;font-size:0.9rem;box-sizing:border-box;">
+          <label style="${MODAL_LABEL_STYLE}">Language
+            <select id="ed-lang" style="${MODAL_INPUT_STYLE}">
               <option value="english" ${(booking.lang||'english')==='english'?'selected':''}>English</option>
               <option value="spanish" ${booking.lang==='spanish'?'selected':''}>Spanish</option>
               <option value="danish" ${booking.lang==='danish'?'selected':''}>Danish</option>
@@ -569,9 +574,9 @@ function openEditModal(booking, onSave) {
           </label>
         </div>
       </div>
-      <div style="display:flex;gap:12px;margin-top:24px;justify-content:flex-end;">
-        <button id="ed-cancel" class="btn btn--outline btn--sm" style="color:rgba(255,255,255,0.5);">Cancel</button>
-        <button id="ed-save" style="background:#e8834a;color:#fff;border:none;padding:8px 20px;border-radius:6px;cursor:pointer;font-weight:700;font-size:0.9rem;">Save Changes</button>
+      <div style="display:flex;gap:0.75rem;margin-top:1.75rem;justify-content:flex-end;">
+        <button id="ed-cancel" style="padding:0.65rem 1.25rem;background:transparent;border:1px solid var(--admin-card-border);border-radius:8px;color:rgba(255,255,255,0.5);cursor:pointer;font-size:0.9rem;font-family:inherit;">Cancel</button>
+        <button id="ed-save" style="padding:0.65rem 1.5rem;background:var(--admin-accent);border:none;border-radius:8px;color:#fff;cursor:pointer;font-size:0.9rem;font-weight:700;font-family:inherit;">Save Changes</button>
       </div>
     </div>
   `;
@@ -609,42 +614,44 @@ function openResendModal(booking) {
 
   const modal = document.createElement("div");
   modal.id = "resend-modal";
-  modal.style.cssText = "position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:9999;display:flex;align-items:center;justify-content:center;";
+  modal.style.cssText = "position:fixed;inset:0;background:rgba(0,0,0,0.75);backdrop-filter:blur(4px);z-index:9999;display:flex;align-items:center;justify-content:center;padding:1rem;";
 
   modal.innerHTML = `
-    <div style="background:#1a2a3a;border-radius:12px;padding:32px;width:100%;max-width:480px;border:1px solid rgba(255,255,255,0.1);">
-      <h2 style="margin:0 0 4px;font-size:1.2rem;color:#fff;">Resend Confirmation Email</h2>
-      <p style="margin:0 0 24px;font-size:0.85rem;color:rgba(255,255,255,0.4);">Edit fields before resending.</p>
-      <div style="display:flex;flex-direction:column;gap:12px;">
-        <label style="font-size:0.8rem;color:rgba(255,255,255,0.6);">Name
-          <input id="re-name" value="${booking.customerName || ''}" style="display:block;width:100%;margin-top:4px;padding:8px 12px;background:#0f1e35;border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#fff;font-size:0.9rem;box-sizing:border-box;">
+    <div style="background:#0d1b2e;border:1px solid var(--admin-card-border);border-top:3px solid #60a5fa;border-radius:16px;padding:2rem;width:100%;max-width:500px;box-shadow:0 24px 64px rgba(0,0,0,0.6);">
+      <div style="margin-bottom:1.5rem;">
+        <div style="font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;color:#60a5fa;font-weight:700;margin-bottom:6px;">Email</div>
+        <h2 style="margin:0;font-size:1.4rem;color:#fff;font-weight:700;">Resend Confirmation</h2>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1rem;">
+        <label style="${MODAL_LABEL_STYLE}">Name
+          <input id="re-name" value="${booking.customerName || ''}" style="${MODAL_INPUT_STYLE}">
         </label>
-        <label style="font-size:0.8rem;color:rgba(255,255,255,0.6);">Email
-          <input id="re-email" value="${booking.customerEmail || ''}" style="display:block;width:100%;margin-top:4px;padding:8px 12px;background:#0f1e35;border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#fff;font-size:0.9rem;box-sizing:border-box;">
+        <label style="${MODAL_LABEL_STYLE}">Email
+          <input id="re-email" value="${booking.customerEmail || ''}" style="${MODAL_INPUT_STYLE}">
         </label>
-        <label style="font-size:0.8rem;color:rgba(255,255,255,0.6);">Phone
-          <input id="re-phone" value="${booking.customerPhone || ''}" style="display:block;width:100%;margin-top:4px;padding:8px 12px;background:#0f1e35;border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#fff;font-size:0.9rem;box-sizing:border-box;">
+        <label style="${MODAL_LABEL_STYLE}">Phone
+          <input id="re-phone" value="${booking.customerPhone || ''}" style="${MODAL_INPUT_STYLE}">
         </label>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-          <label style="font-size:0.8rem;color:rgba(255,255,255,0.6);">Date
-            <input id="re-date" value="${booking.date || ''}" style="display:block;width:100%;margin-top:4px;padding:8px 12px;background:#0f1e35;border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#fff;font-size:0.9rem;box-sizing:border-box;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+          <label style="${MODAL_LABEL_STYLE}">Date
+            <input id="re-date" value="${booking.date || ''}" style="${MODAL_INPUT_STYLE}">
           </label>
-          <label style="font-size:0.8rem;color:rgba(255,255,255,0.6);">Time
-            <input id="re-time" value="${(booking.time || '').substring(0,5)}" style="display:block;width:100%;margin-top:4px;padding:8px 12px;background:#0f1e35;border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#fff;font-size:0.9rem;box-sizing:border-box;">
+          <label style="${MODAL_LABEL_STYLE}">Time
+            <input id="re-time" value="${(booking.time || '').substring(0,5)}" style="${MODAL_INPUT_STYLE}">
           </label>
         </div>
-        <label style="font-size:0.8rem;color:rgba(255,255,255,0.6);">Language
-          <select id="re-lang" style="display:block;width:100%;margin-top:4px;padding:8px 12px;background:#0f1e35;border:1px solid rgba(255,255,255,0.15);border-radius:6px;color:#fff;font-size:0.9rem;box-sizing:border-box;">
+        <label style="${MODAL_LABEL_STYLE}">Language
+          <select id="re-lang" style="${MODAL_INPUT_STYLE}">
             <option value="english" ${(booking.lang||'english')==='english'?'selected':''}>English</option>
             <option value="spanish" ${booking.lang==='spanish'?'selected':''}>Spanish</option>
             <option value="danish" ${booking.lang==='danish'?'selected':''}>Danish</option>
           </select>
         </label>
       </div>
-      <div id="re-error" style="margin-top:12px;color:#f87171;font-size:0.8rem;display:none;"></div>
-      <div style="display:flex;gap:12px;margin-top:24px;justify-content:flex-end;">
-        <button id="re-cancel" class="btn btn--outline btn--sm" style="color:rgba(255,255,255,0.5);">Cancel</button>
-        <button id="re-send" class="btn btn--sm" style="background:#e8834a;color:#fff;border:none;padding:8px 20px;border-radius:6px;cursor:pointer;font-weight:700;">Send Email</button>
+      <div id="re-error" style="margin-top:0.75rem;color:#f87171;font-size:0.8rem;display:none;"></div>
+      <div style="display:flex;gap:0.75rem;margin-top:1.75rem;justify-content:flex-end;">
+        <button id="re-cancel" style="padding:0.65rem 1.25rem;background:transparent;border:1px solid var(--admin-card-border);border-radius:8px;color:rgba(255,255,255,0.5);cursor:pointer;font-size:0.9rem;font-family:inherit;">Cancel</button>
+        <button id="re-send" style="padding:0.65rem 1.5rem;background:#60a5fa;border:none;border-radius:8px;color:#fff;cursor:pointer;font-size:0.9rem;font-weight:700;font-family:inherit;">✉ Send Email</button>
       </div>
     </div>
   `;
