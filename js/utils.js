@@ -135,7 +135,7 @@ export const TOURS = {
     title: "Floating Wine Tasting Experience",
     titleEs: "Cata de Vinos Flotante",
     titleDa: "Flydende Vinsmagning",
-    price: 3499,
+    price: 4999,
     duration: "2 Hours",
     durationEs: "2 Horas",
     durationDa: "2 Timer",

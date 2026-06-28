@@ -9,27 +9,27 @@ async function cleanupAndSeed() {
 
     console.log('🌱 Seeding 15 fresh mock bookings...');
     const tours = [
-      { id: 'book-1h',      name: 'City Highlights',                        price: 2499  },
-      { id: 'book-winter',  name: '2-Hour Winter Hygge 2026',               price: 4999  },
-      { id: 'book-reffen',  name: 'Private 3-Hour Extended (Reffen)',        price: 4299  },
-      { id: 'book-premium', name: 'Sea Fortress & Coastal Journey (4-Hour)', price: 5999  },
-      { id: 'book-malmo',   name: 'Copenhagen to Malmö Experience',          price: 13000 },
-      { id: 'book-wine',    name: 'Floating Wine Tasting Experience',        price: 3499  }
+      { id: 'book-1h', name: 'City Highlights', price: 2499 },
+      { id: 'book-winter', name: '2-Hour Winter Hygge 2026', price: 4999 },
+      { id: 'book-reffen', name: 'Private 3-Hour Extended (Reffen)', price: 4299 },
+      { id: 'book-premium', name: 'Sea Fortress & Coastal Journey (4-Hour)', price: 5999 },
+      { id: 'book-malmo', name: 'Copenhagen to Malmö Experience', price: 13000 },
+      { id: 'book-wine', name: 'Floating Wine Tasting Experience', price: 4999 }
     ];
     const names = ['Emma Jensen', 'Lars Nielsen', 'Sofia Hansen', 'Mads Pedersen',
       'Oliver Andersen', 'Freja Christensen', 'Hans Møller', 'Anya Berg', 'John Doe', 'Sarah Connor'];
 
     for (let i = 0; i < 15; i++) {
-      const tour   = tours[Math.floor(Math.random() * tours.length)];
-      const name   = names[Math.floor(Math.random() * names.length)];
-      const pax    = Math.floor(Math.random() * 8) + 1;
-      const day    = String(Math.floor(Math.random() * 28) + 1).padStart(2, '0');
-      const date   = `2026-05-${day}`;
-      const hour   = String(Math.floor(Math.random() * 8) + 9).padStart(2, '0');
-      const time   = `${hour}:00`;
+      const tour = tours[Math.floor(Math.random() * tours.length)];
+      const name = names[Math.floor(Math.random() * names.length)];
+      const pax = Math.floor(Math.random() * 8) + 1;
+      const day = String(Math.floor(Math.random() * 28) + 1).padStart(2, '0');
+      const date = `2026-05-${day}`;
+      const hour = String(Math.floor(Math.random() * 8) + 9).padStart(2, '0');
+      const time = `${hour}:00`;
       const status = Math.random() > 0.1 ? 'PAID' : 'PENDING';
-      const email  = name.toLowerCase().replace(' ', '.') + '@example.com';
-      const phone  = '+45 ' + (Math.floor(Math.random() * 89999999) + 10000000);
+      const email = name.toLowerCase().replace(' ', '.') + '@example.com';
+      const phone = '+45 ' + (Math.floor(Math.random() * 89999999) + 10000000);
       const mockId = 'mock_' + Math.random().toString(36).substring(2, 9);
 
       await db`
