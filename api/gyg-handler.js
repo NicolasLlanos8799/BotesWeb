@@ -222,7 +222,7 @@ async function handleReserve(req, res) {
   return res.status(200).json({
     data: {
       reservationReference: data.gygBookingReference,
-      reservationExpiration: new Date(Date.now() + 60 * 60 * 1000).toISOString(),
+      reservationExpiration: new Date(Date.now() + 60 * 60 * 1000).toISOString().replace(/\.\d{3}Z$/, "+00:00"),
     },
   });
 }
