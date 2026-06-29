@@ -118,7 +118,7 @@ async function handleAvailability(req, res) {
       const dateStr = d.toISOString().split("T")[0];
       for (const time of slots) {
         const booked = bookedMap[`${dateStr}_${time}`] || 0;
-        const vacancies = Math.max(0, cfg.maxPax - booked);
+        const vacancies = booked > 0 ? 0 : (cfg.maxGroups ?? 1); // 1 group slot per time point
         const [h, m] = time.split(":");
         const offset = isCopenhagnDST(d) ? "+02:00" : "+01:00";
         const dateTime = `${dateStr}T${time}:00${offset}`;
@@ -159,6 +159,16 @@ async function handleReserve(req, res) {
     return res.status(200).json({ errorCode: "INVALID_PRODUCT", errorMessage: `Unknown productId: ${data.productId}` });
   }
 
+  // Validate ticket categories — all our products are group-priced (GROUP only)
+  const invalidItem = data.bookingItems.find(item => item.category !== "GROUP");
+  if (invalidItem) {
+    return res.status(200).json({
+      errorCode: "INVALID_TICKET_CATEGORY",
+      errorMessage: `Ticket category ${invalidItem.category} is not supported. Only GROUP tickets are available.`,
+      ticketCategory: invalidItem.category,
+    });
+  }
+
   const participants = data.bookingItems.reduce((sum, item) => sum + (item.count || 0), 0);
   const dateTime = new Date(data.dateTime);
   const date = dateTime.toISOString().split("T")[0];
@@ -175,8 +185,9 @@ async function handleReserve(req, res) {
   `;
   const [{ booked }] = reserveResult.rows ?? reserveResult;
 
-  if (cfg.maxPax - parseInt(booked) < participants) {
-    return res.status(200).json({ errorCode: "NO_AVAILABILITY", errorMessage: `Not enough vacancies: requested ${participants}, available ${cfg.maxPax - parseInt(booked)}` });
+  const maxGroups = cfg.maxGroups ?? 1;
+  if (parseInt(booked) >= maxGroups) {
+    return res.status(200).json({ errorCode: "NO_AVAILABILITY", errorMessage: `No vacancies: slot is fully booked` });
   }
 
   // Save as RESERVED (temporary hold — GYG will confirm with /book/)
