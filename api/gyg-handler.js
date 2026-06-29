@@ -53,24 +53,29 @@ export default async function handler(req, res) {
 
   console.log(`[GYG] ${method} ${url}`);
 
-  if (method === "GET" && url.includes("get-availabilities")) {
-    return handleAvailability(req, res);
-  }
-  if (method === "POST" && url.includes("/reserve/")) {
-    return handleReserve(req, res);
-  }
-  if (method === "POST" && url.includes("/book/")) {
-    return handleBook(req, res);
-  }
-  if (method === "POST" && url.includes("cancel-reservation")) {
-    return handleCancelReservation(req, res);
-  }
-  if (method === "POST" && url.includes("cancel-booking")) {
-    return handleCancelBooking(req, res);
-  }
+  try {
+    if (method === "GET" && url.includes("get-availabilities")) {
+      return await handleAvailability(req, res);
+    }
+    if (method === "POST" && url.includes("/reserve/")) {
+      return await handleReserve(req, res);
+    }
+    if (method === "POST" && url.includes("/book/")) {
+      return await handleBook(req, res);
+    }
+    if (method === "POST" && url.includes("cancel-reservation")) {
+      return await handleCancelReservation(req, res);
+    }
+    if (method === "POST" && url.includes("cancel-booking")) {
+      return await handleCancelBooking(req, res);
+    }
 
-  console.log(`[GYG] Unmatched: ${method} ${url}`);
-  return res.status(200).json({ errorCode: "VALIDATION_FAILURE", errorMessage: `Unknown endpoint: ${method} ${url}` });
+    console.log(`[GYG] Unmatched: ${method} ${url}`);
+    return res.status(200).json({ errorCode: "VALIDATION_FAILURE", errorMessage: `Unknown endpoint: ${method} ${url}` });
+  } catch (err) {
+    console.error(`[GYG] Unhandled error in ${method} ${url}:`, err);
+    return res.status(200).json({ errorCode: "INTERNAL_SYSTEM_FAILURE", errorMessage: err.message });
+  }
 }
 
 /* ─── AVAILABILITY ─────────────────────────────────────────── */
@@ -90,10 +95,9 @@ async function handleAvailability(req, res) {
 
   const tourIds = GYG_OPTION_TO_TOURS[optionId] || [];
   const slots = getSlotsForOption(optionId);
-  const from = new Date(fromDateTime);
-  const to = new Date(toDateTime);
-  const dateFrom = from.toISOString().split("T")[0];
-  const dateTo = to.toISOString().split("T")[0];
+  // Extract local Copenhagen date directly from ISO string (avoid UTC conversion bug)
+  const dateFrom = fromDateTime.split("T")[0];
+  const dateTo = toDateTime.split("T")[0];
 
   try {
     const result = tourIds.length > 0 ? await db`
@@ -108,18 +112,21 @@ async function handleAvailability(req, res) {
 
     const bookedMap = {};
     for (const row of bookings) {
-      const dateKey = row.booking_date.toISOString().split("T")[0];
+      // booking_date may be a Date object from Neon
+      const dateKey = row.booking_date instanceof Date
+        ? row.booking_date.toISOString().split("T")[0]
+        : String(row.booking_date).split("T")[0];
       const timeKey = row.booking_time.slice(0, 5);
       bookedMap[`${dateKey}_${timeKey}`] = parseInt(row.booked);
     }
 
     const availabilities = [];
-    for (let d = new Date(from); d <= to; d.setDate(d.getDate() + 1)) {
-      const dateStr = d.toISOString().split("T")[0];
+    // Iterate over local Copenhagen dates using string comparison
+    for (let dateStr = dateFrom; dateStr <= dateTo; dateStr = incrementDate(dateStr)) {
       for (const time of slots) {
         const booked = bookedMap[`${dateStr}_${time}`] || 0;
         const vacancies = booked > 0 ? 0 : (cfg.maxGroups ?? 1); // 1 group slot per time point
-        const [h, m] = time.split(":");
+        const d = new Date(dateStr + "T12:00:00Z"); // noon UTC for DST check
         const offset = isCopenhagnDST(d) ? "+02:00" : "+01:00";
         const dateTime = `${dateStr}T${time}:00${offset}`;
 
@@ -170,9 +177,9 @@ async function handleReserve(req, res) {
   }
 
   const participants = data.bookingItems.reduce((sum, item) => sum + (item.count || 0), 0);
-  const dateTime = new Date(data.dateTime);
-  const date = dateTime.toISOString().split("T")[0];
-  const time = `${String(dateTime.getHours()).padStart(2, "0")}:${String(dateTime.getMinutes()).padStart(2, "0")}`;
+  // Extract local Copenhagen date/time directly from ISO string to avoid UTC conversion
+  const [date, rawTime] = data.dateTime.split("T");
+  const time = rawTime.slice(0, 5); // "17:00"
 
   const tourIds = GYG_OPTION_TO_TOURS[optionId] || [];
   const reserveResult = await db`
@@ -392,6 +399,12 @@ function isCopenhagnDST(date) {
   const dstEnd = lastSundayOf(year, 9); // month 9 = October
   dstEnd.setHours(3, 0, 0, 0);
   return date >= dstStart && date < dstEnd;
+}
+
+function incrementDate(dateStr) {
+  const d = new Date(dateStr + "T12:00:00Z");
+  d.setUTCDate(d.getUTCDate() + 1);
+  return d.toISOString().split("T")[0];
 }
 
 function lastSundayOf(year, month) {
