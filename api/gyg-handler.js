@@ -17,6 +17,7 @@ import {
   GYG_OPTION_CONFIG,
   GYG_OPTION_TO_TOURS,
   GYG_OPTION_MAP,
+  BLOCKED_DATES,
   getSlotsForOption,
 } from "../lib/gyg-config.js";
 
@@ -125,7 +126,7 @@ async function handleAvailability(req, res) {
     for (let dateStr = dateFrom; dateStr <= dateTo; dateStr = incrementDate(dateStr)) {
       for (const time of slots) {
         const booked = bookedMap[`${dateStr}_${time}`] || 0;
-        const vacancies = booked > 0 ? 0 : (cfg.maxGroups ?? 1); // 1 group slot per time point
+        const vacancies = (BLOCKED_DATES.includes(dateStr) || booked > 0) ? 0 : (cfg.maxGroups ?? 1); // 1 group slot per time point
         const d = new Date(dateStr + "T12:00:00Z"); // noon UTC for DST check
         const offset = isCopenhagnDST(d) ? "+02:00" : "+01:00";
         const dateTime = `${dateStr}T${time}:00${offset}`;
