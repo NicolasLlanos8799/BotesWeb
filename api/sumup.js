@@ -1,20 +1,39 @@
 import db from "../lib/db.js";
 
+const ALLOWED_HOSTNAMES = ["seaduced-experience.com", "vercel.app", "localhost", "127.0.0.1", "seaduced.dk"];
+
+// Exact-match or proper-subdomain match against the allowlist — never substring match.
+function isAllowedHostname(hostname) {
+  if (!hostname) return false;
+  return ALLOWED_HOSTNAMES.some(domain => hostname === domain || hostname.endsWith(`.${domain}`));
+}
+
+function extractHostname(headerValue) {
+  if (!headerValue) return "";
+  try {
+    return new URL(headerValue).hostname;
+  } catch {
+    return "";
+  }
+}
+
 /**
  * Vercel Serverless Function: SumUp API Proxy
  */
 export default async function handler(req, res) {
   const SUMUP_API_BASE = "https://api.sumup.com";
   const ACCESS_TOKEN = process.env.SUMUP_ACCESS_TOKEN;
-  
+
   console.log("SumUp Token Presence:", !!ACCESS_TOKEN);
 
-  const origin = req.headers.origin || "";
-  const referer = req.headers.referer || "";
-  const allowedDomains = ["seaduced-experience.com", "vercel.app", "localhost", "127.0.0.1", "seaduced.dk"];
-  const isAllowedDomain = allowedDomains.some(domain => origin.includes(domain) || referer.includes(domain));
+  const originHost = extractHostname(req.headers.origin);
+  const refererHost = extractHostname(req.headers.referer);
+  const isAllowedDomain = isAllowedHostname(originHost) || isAllowedHostname(refererHost);
 
-  if (!isAllowedDomain && process.env.NODE_ENV === "production") {
+  // Enforced in every environment — Origin/Referer are not a real auth boundary,
+  // but they should never be skipped just because NODE_ENV isn't "production".
+  if (!isAllowedDomain) {
+    console.warn("SumUp Proxy: Blocked request from unauthorized origin:", originHost || refererHost || "None");
     return res.status(403).json({ error: "Forbidden: Unauthorized Origin" });
   }
 

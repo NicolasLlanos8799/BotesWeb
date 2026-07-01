@@ -1,20 +1,36 @@
+const ALLOWED_HOSTNAMES = ["seaduced-experience.com", "vercel.app", "localhost", "127.0.0.1", "seaduced.dk"];
+
+// Exact-match or proper-subdomain match against the allowlist — never substring match.
+function isAllowedHostname(hostname) {
+  if (!hostname) return false;
+  return ALLOWED_HOSTNAMES.some(domain => hostname === domain || hostname.endsWith(`.${domain}`));
+}
+
+function extractHostname(headerValue) {
+  if (!headerValue) return "";
+  try {
+    return new URL(headerValue).hostname;
+  } catch {
+    return "";
+  }
+}
+
 /**
  * Vercel Serverless Function: Google Apps Script Proxy (Hardened & Shielded)
  * Includes a "Security Shield" to prevent spam and authorized access.
  */
 export default async function handler(req, res) {
   const GAS_URL = process.env.GAS_URL;
-  
+
   // --- SECURITY SHIELD ---
-  
+
   // 1. Domain Lockdown (Only allows your site or localhost for testing)
-  const origin = req.headers.origin || "";
-  const referer = req.headers.referer || "";
-  const allowedDomains = ["seaduced-experience.com", "vercel.app", "localhost", "127.0.0.1", "seaduced.dk"];
-  const isAllowedDomain = allowedDomains.some(domain => origin.includes(domain) || referer.includes(domain));
+  const originHost = extractHostname(req.headers.origin);
+  const refererHost = extractHostname(req.headers.referer);
+  const isAllowedDomain = isAllowedHostname(originHost) || isAllowedHostname(refererHost);
 
   if (!isAllowedDomain) {
-    console.warn("Security Shield: Blocked request from unauthorized origin:", origin || referer || "None");
+    console.warn("Security Shield: Blocked request from unauthorized origin:", originHost || refererHost || "None");
     return res.status(403).json({ error: "Forbidden: Unauthorized Origin" });
   }
 
