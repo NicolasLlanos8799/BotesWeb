@@ -182,6 +182,10 @@ async function handleReserve(req, res) {
   const [date, rawTime] = data.dateTime.split("T");
   const time = rawTime.slice(0, 5); // "17:00"
 
+  if (BLOCKED_DATES.includes(date)) {
+    return res.status(200).json({ errorCode: "NO_AVAILABILITY", errorMessage: `No vacancies: slot is fully booked` });
+  }
+
   const tourIds = GYG_OPTION_TO_TOURS[optionId] || [];
   const reserveResult = await db`
     SELECT COALESCE(SUM(passengers), 0) as booked
