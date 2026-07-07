@@ -320,7 +320,7 @@ async function handleBook(req, res) {
       Array.from({ length: item.count || 0 }, (_, i) => ({
         category: item.category,
         ticketCode: `${data.gygBookingReference}-${item.category}-${i + 1}`,
-        ticketCodeType: "OTHER",
+        ticketCodeType: "TEXT",
       }))
     );
 
