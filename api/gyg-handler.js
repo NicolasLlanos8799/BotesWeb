@@ -11,6 +11,7 @@
  * Auth: HTTP Basic Auth (GYG_BASIC_USER / GYG_BASIC_PASS)
  */
 
+import crypto from "crypto";
 import db from "../lib/db.js";
 import {
   validateGYGAuth,
@@ -203,7 +204,10 @@ async function handleReserve(req, res) {
   }
 
   // Save as RESERVED (temporary hold — GYG will confirm with /book/)
+  // Amendment flow: GYG reuses the same gygBookingReference with new date/pax to change
+  // an existing booking — so on conflict we UPDATE the slot instead of ignoring the call.
   const tourId = tourIds[0] || `gyg-option-${optionId}`;
+  const reservationReference = `RES-${crypto.randomUUID()}`;
   try {
     await db`
       INSERT INTO bookings (
@@ -213,7 +217,9 @@ async function handleReserve(req, res) {
         ${tourId}, ${`GYG Option ${optionId}`}, ${participants},
         ${date}, ${time}, 0, 'RESERVED', 'english', 'gyg', ${data.gygBookingReference}
       )
-      ON CONFLICT (gyg_booking_id) DO NOTHING
+      ON CONFLICT (gyg_booking_id) DO UPDATE
+        SET booking_date = ${date}, booking_time = ${time},
+            passengers = ${participants}, payment_status = 'RESERVED'
     `;
   } catch (err) {
     console.error("[GYG reserve] DB error:", err.message);
@@ -233,7 +239,7 @@ async function handleReserve(req, res) {
 
   return res.status(200).json({
     data: {
-      reservationReference: data.gygBookingReference,
+      reservationReference,
       reservationExpiration: new Date(Date.now() + 60 * 60 * 1000).toISOString().replace(/\.\d{3}Z$/, "+00:00"),
     },
   });
