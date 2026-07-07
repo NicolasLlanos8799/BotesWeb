@@ -330,10 +330,11 @@ async function handleBook(req, res) {
       }))
     );
 
-    console.log(`[GYG book] Confirmed: ${data.gygBookingReference} | tickets: ${tickets.length}`);
+    const bookingReference = `BOOK-${crypto.randomUUID()}`;
+    console.log(`[GYG book] Confirmed: ${data.gygBookingReference} | bookingReference: ${bookingReference} | tickets: ${tickets.length}`);
     return res.status(200).json({
       data: {
-        bookingReference: data.gygBookingReference,
+        bookingReference,
         tickets,
       },
     });
