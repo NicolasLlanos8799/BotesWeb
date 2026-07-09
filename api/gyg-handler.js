@@ -178,6 +178,19 @@ async function handleReserve(req, res) {
     });
   }
 
+  // Validate group size — private boat tours are sold as one full group (fixed capacity),
+  // not per-seat. groupSize must match the configured boat capacity exactly.
+  const maxPax = cfg.maxPax ?? 1;
+  const invalidGroupSize = data.bookingItems.find(item => item.groupSize !== maxPax);
+  if (invalidGroupSize) {
+    return res.status(200).json({
+      errorCode: "INVALID_PARTICIPANTS_CONFIGURATION",
+      errorMessage: `This activity is booked as a private group of ${maxPax}; groupSize must equal ${maxPax}.`,
+      participantsConfiguration: { min: maxPax, max: maxPax },
+      groupConfiguration: { max: cfg.maxGroups ?? 1 },
+    });
+  }
+
   const participants = data.bookingItems.reduce((sum, item) => sum + (item.count || 0), 0);
   // Extract local Copenhagen date/time directly from ISO string to avoid UTC conversion
   const [date, rawTime] = data.dateTime.split("T");
@@ -251,6 +264,23 @@ async function handleBook(req, res) {
   const { data } = req.body || {};
   if (!data?.gygBookingReference) {
     return res.status(200).json({ errorCode: "VALIDATION_FAILURE", errorMessage: "Missing gygBookingReference" });
+  }
+
+  // Validate group size — same rule as /reserve/ (private boat sold as one full group)
+  if (data.productId && data.bookingItems) {
+    const { cfg } = getOptionForProduct(data.productId);
+    if (cfg) {
+      const maxPax = cfg.maxPax ?? 1;
+      const invalidGroupSize = data.bookingItems.find(item => item.groupSize !== maxPax);
+      if (invalidGroupSize) {
+        return res.status(200).json({
+          errorCode: "INVALID_PARTICIPANTS_CONFIGURATION",
+          errorMessage: `This activity is booked as a private group of ${maxPax}; groupSize must equal ${maxPax}.`,
+          participantsConfiguration: { min: maxPax, max: maxPax },
+          groupConfiguration: { max: cfg.maxGroups ?? 1 },
+        });
+      }
+    }
   }
 
   try {
