@@ -19,6 +19,7 @@ import {
   GYG_OPTION_TO_TOURS,
   GYG_OPTION_MAP,
   BLOCKED_DATES,
+  TEST_MAX_PARTICIPANTS,
   getSlotsForOption,
 } from "../lib/gyg-config.js";
 
@@ -178,6 +179,17 @@ async function handleReserve(req, res) {
     });
   }
 
+  // Validate participant count against configured max (test-phase limit — see TEST_MAX_PARTICIPANTS)
+  const oversizedItem = data.bookingItems.find(item => (item.groupSize ?? 0) > TEST_MAX_PARTICIPANTS);
+  if (oversizedItem) {
+    return res.status(200).json({
+      errorCode: "INVALID_PARTICIPANTS_CONFIGURATION",
+      errorMessage: `The activity can only be booked for up to ${TEST_MAX_PARTICIPANTS} participants.`,
+      participantsConfiguration: { min: 1, max: TEST_MAX_PARTICIPANTS },
+      groupConfiguration: { max: 1 },
+    });
+  }
+
   const participants = data.bookingItems.reduce((sum, item) => sum + (item.count || 0), 0);
   // Extract local Copenhagen date/time directly from ISO string to avoid UTC conversion
   const [date, rawTime] = data.dateTime.split("T");
@@ -251,6 +263,16 @@ async function handleBook(req, res) {
   const { data } = req.body || {};
   if (!data?.gygBookingReference) {
     return res.status(200).json({ errorCode: "VALIDATION_FAILURE", errorMessage: "Missing gygBookingReference" });
+  }
+
+  const oversizedItem = (data.bookingItems || []).find(item => (item.groupSize ?? 0) > TEST_MAX_PARTICIPANTS);
+  if (oversizedItem) {
+    return res.status(200).json({
+      errorCode: "INVALID_PARTICIPANTS_CONFIGURATION",
+      errorMessage: `The activity can only be booked for up to ${TEST_MAX_PARTICIPANTS} participants.`,
+      participantsConfiguration: { min: 1, max: TEST_MAX_PARTICIPANTS },
+      groupConfiguration: { max: 1 },
+    });
   }
 
   try {
