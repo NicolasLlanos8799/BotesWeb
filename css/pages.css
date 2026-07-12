@@ -5492,6 +5492,11 @@
   margin-bottom: 0.5rem;
 }
 
+.po-message strong {
+  color: var(--clr-navy);
+  font-weight: 700;
+}
+
 .po-hint {
   font-size: 0.85rem;
   color: var(--clr-text-light);

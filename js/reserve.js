@@ -255,9 +255,9 @@ export function initReservePage() {
       else title.textContent = "Complete your payment";
     }
     if (message) {
-      if (isEs) message.textContent = "Se ha abierto una nueva pestaña con la página de pago seguro de SumUp. Por favor, completa tu pago allí.";
-      else if (isDa) message.textContent = "En ny fane er blevet åbnet med SumUps sikre betalingsside. Gennemfør venligst din betaling der.";
-      else message.textContent = "A new tab has been opened with the secure SumUp payment page. Please complete your payment there.";
+      if (isEs) message.innerHTML = "Se ha abierto <strong>una nueva pestaña</strong> con la página de pago seguro de <strong>SumUp</strong>. Por favor, completa tu pago allí.";
+      else if (isDa) message.innerHTML = "En <strong>ny fane</strong> er blevet åbnet med <strong>SumUps</strong> sikre betalingsside. Gennemfør venligst din betaling der.";
+      else message.innerHTML = "A <strong>new tab</strong> has been opened with the secure <strong>SumUp</strong> payment page. Please complete your payment there.";
     }
     if (hint) { 
       hint.style.display = "block"; 
