@@ -225,12 +225,14 @@ export function initReservePage() {
   let pollingInterval = null;
   let pollingTimeout = null;
   let currentCheckoutId = null;
+  let currentCheckoutUrl = null;
 
   function getOverlay() {
     return document.getElementById("payment-overlay");
   }
 
-  function showPaymentWaitingUI() {
+  function showPaymentWaitingUI(checkoutUrl) {
+    if (checkoutUrl) currentCheckoutUrl = checkoutUrl;
     const overlay = getOverlay();
     if (!overlay) return;
     overlay.classList.add("active");
@@ -269,7 +271,16 @@ export function initReservePage() {
       let cancelLabel = "Cancel Payment";
       if (isEs) cancelLabel = "Cancelar Pago";
       else if (isDa) cancelLabel = "Annuller betaling";
-      actions.innerHTML = `<button class="po-btn po-btn--secondary" id="po-cancel-btn">${cancelLabel}</button>`;
+
+      let reopenText = "Didn't open automatically? Click here";
+      if (isEs) reopenText = "¿No se abrió automáticamente? Haz clic aquí";
+      else if (isDa) reopenText = "Åbnede den ikke automatisk? Klik her";
+
+      const reopenLink = currentCheckoutUrl
+        ? `<a href="${currentCheckoutUrl}" target="_blank" rel="noopener" class="po-reopen-link" id="po-reopen-link">${reopenText}</a>`
+        : "";
+
+      actions.innerHTML = `<button class="po-btn po-btn--secondary" id="po-cancel-btn">${cancelLabel}</button>${reopenLink}`;
     }
     if (progress) progress.style.display = "block";
 
@@ -664,7 +675,7 @@ export function initReservePage() {
         window.open(checkout.hosted_checkout_url, "_blank");
 
         // Show waiting overlay + start polling
-        showPaymentWaitingUI();
+        showPaymentWaitingUI(checkout.hosted_checkout_url);
         startPaymentPolling(checkout.id);
       } else {
         console.error("SumUp Proxy Error:", checkout);

@@ -5588,6 +5588,18 @@
   border-color: rgba(15, 30, 53, 0.2);
 }
 
+.po-reopen-link {
+  font-size: 0.85rem;
+  color: var(--clr-navy);
+  text-decoration: underline;
+  text-align: center;
+  font-weight: 600;
+}
+
+.po-reopen-link:hover {
+  opacity: 0.75;
+}
+
 /* ── Mobile Adjustments ── */
 @media (max-width: 640px) {
   .po-card {
