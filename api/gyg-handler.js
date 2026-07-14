@@ -179,13 +179,14 @@ async function handleReserve(req, res) {
     });
   }
 
-  // Validate participant count against configured max (test-phase limit — see TEST_MAX_PARTICIPANTS)
-  const oversizedItem = data.bookingItems.find(item => (item.groupSize ?? 0) > TEST_MAX_PARTICIPANTS);
+  // Validate participant count against the option's real capacity (maxPax)
+  const maxParticipants = cfg.maxPax ?? TEST_MAX_PARTICIPANTS;
+  const oversizedItem = data.bookingItems.find(item => (item.groupSize ?? 0) > maxParticipants);
   if (oversizedItem) {
     return res.status(200).json({
       errorCode: "INVALID_PARTICIPANTS_CONFIGURATION",
-      errorMessage: `The activity can only be booked for up to ${TEST_MAX_PARTICIPANTS} participants.`,
-      participantsConfiguration: { min: 1, max: TEST_MAX_PARTICIPANTS },
+      errorMessage: `The activity can only be booked for up to ${maxParticipants} participants.`,
+      participantsConfiguration: { min: 1, max: maxParticipants },
       groupConfiguration: { max: 1 },
     });
   }
@@ -265,12 +266,14 @@ async function handleBook(req, res) {
     return res.status(200).json({ errorCode: "VALIDATION_FAILURE", errorMessage: "Missing gygBookingReference" });
   }
 
-  const oversizedItem = (data.bookingItems || []).find(item => (item.groupSize ?? 0) > TEST_MAX_PARTICIPANTS);
+  const { cfg: bookCfg } = data.productId ? getOptionForProduct(data.productId) : {};
+  const maxParticipants = bookCfg?.maxPax ?? TEST_MAX_PARTICIPANTS;
+  const oversizedItem = (data.bookingItems || []).find(item => (item.groupSize ?? 0) > maxParticipants);
   if (oversizedItem) {
     return res.status(200).json({
       errorCode: "INVALID_PARTICIPANTS_CONFIGURATION",
-      errorMessage: `The activity can only be booked for up to ${TEST_MAX_PARTICIPANTS} participants.`,
-      participantsConfiguration: { min: 1, max: TEST_MAX_PARTICIPANTS },
+      errorMessage: `The activity can only be booked for up to ${maxParticipants} participants.`,
+      participantsConfiguration: { min: 1, max: maxParticipants },
       groupConfiguration: { max: 1 },
     });
   }
