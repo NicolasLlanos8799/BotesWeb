@@ -720,6 +720,9 @@ function getAdminHtmlTemplate(data, t, endTime) {
     '<table width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;margin:0 auto;">' +
 
     '<tr><td style="background:#ffffff;border-radius:12px 12px 0 0;padding:28px 32px 20px;border-bottom:3px solid #e8834a;">' +
+    (isGYG ?
+      '<p style="margin:0 0 6px;font-size:11px;letter-spacing:2px;color:#e8834a;font-weight:700;">RESERVA RECIBIDA DESDE GETYOURGUIDE</p>'
+      : '') +
     '<p style="margin:0 0 4px;font-size:22px;font-weight:700;color:#0f1e35;">Nueva reserva recibida</p>' +
     '<p style="margin:0;font-size:14px;color:#4a5568;">' + tourName + ' &nbsp;·&nbsp; ' + (data.date || '') + ' &nbsp;·&nbsp; ' + timeDisplay + '</p>' +
     '</td></tr>' +
@@ -747,7 +750,7 @@ function getAdminHtmlTemplate(data, t, endTime) {
     '<p style="font-size:10px;letter-spacing:2px;color:#e8834a;font-weight:700;margin:20px 0 4px;">DATOS DE LA RESERVA</p>' +
     '<table width="100%" cellpadding="0" cellspacing="0">' +
     adminRow('Importe', '<span style="font-size:16px;font-weight:700;color:#0f1e35;">' + (data.amount ? data.amount + ' ' + (data.currency || 'DKK') : '—') + '</span>') +
-    adminRow('Referencia SumUp', '<span style="color:#e8834a;">' + refNumber + '</span>') +
+    adminRow(refLabel, '<span style="color:#e8834a;">' + refNumber + '</span>') +
     adminRow('Experiencia', tourName) +
     adminRow('Fecha', data.date || '—') +
     adminRow('Hora', timeDisplay) +
