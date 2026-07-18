@@ -171,7 +171,8 @@ function getTourDisplayName(tourCode) {
     'book-winter':         '2-Hour Winter Hygge 2026',
     'book-winter-captain': 'Private Boat Tour with Captain',
     'book-winter-hygge':   'Private Hygge Winter Tour',
-    'book-christmas':      'Christmas Tour w. Tapas and Champagne'
+    'book-christmas':      'Christmas Tour w. Tapas and Champagne',
+    'book-danish-breakfast': 'City Highlights with Danish Breakfast'
   };
   return names[tourCode] || tourCode;
 }
@@ -447,7 +448,9 @@ function getTourDurationHours(tour, defaultHours) {
   if (tour.indexOf('2 Hours') !== -1 ||
     tour.indexOf('2-Hours') !== -1 ||
     tour.indexOf('book-1h-2h') !== -1 ||
-    tour.indexOf('book-10p-2h') !== -1) return 2;
+    tour.indexOf('book-10p-2h') !== -1 ||
+    tour.indexOf('book-danish-breakfast') !== -1 ||
+    tour.indexOf('Danish Breakfast') !== -1) return 2;
 
   if (tour.indexOf('1 Hour') !== -1 ||
     tour.indexOf('1-Hour') !== -1 ||

@@ -166,7 +166,7 @@ export function initReservePage() {
 
     // Hide extras section for wine tour (charcuterie already included)
     const extrasSection = document.getElementById("extras-section");
-    const isWineTour = current.tour === "book-wine";
+    const isWineTour = current.tour === "book-wine" || current.tour === "book-danish-breakfast";
     if (extrasSection) extrasSection.style.display = isWineTour ? "none" : "";
 
     // 48h advance check for charcuterie add-on

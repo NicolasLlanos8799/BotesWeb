@@ -186,6 +186,25 @@ export const TOURS = {
     maxParticipants: 10,
     calendar: "boat2",
   },
+  "book-danish-breakfast": {
+    id: "book-danish-breakfast",
+    title: "City Highlights with Danish Breakfast",
+    titleEs: "Lo Mejor de la Ciudad con Desayuno Danés",
+    titleDa: "Byens Højdepunkter med Dansk Morgenmad",
+    price: 4499,
+    duration: "2 Hours",
+    durationEs: "2 Horas",
+    durationDa: "2 Timer",
+    img: "/assets/images/city-highlights-breakfast/breakfast-people.webp",
+    url: "/experiences/city-highlights-danish-breakfast/",
+    maxParticipants: 6,
+    calendar: "boat1",
+    customSlots: [
+      { time: "09:00", available: true },
+      { time: "10:00", available: true },
+      { time: "11:00", available: true },
+    ],
+  },
 };
 
 export const EXTRA_CHARCUTERIE = {

@@ -37,6 +37,17 @@
     <priority>0.8</priority>
   </url>
 
+  <!-- Experience: City Highlights with Danish Breakfast -->
+  <url>
+    <loc>https://www.seaduced-experience.com/experiences/city-highlights-danish-breakfast/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.seaduced-experience.com/experiences/city-highlights-danish-breakfast/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.seaduced-experience.com/da/experiences/city-highlights-danish-breakfast/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.seaduced-experience.com/es/experiences/city-highlights-danish-breakfast/"/>
+    <lastmod>2026-07-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
   <!-- Experience: Sea Fortress 4h -->
   <url>
     <loc>https://www.seaduced-experience.com/experiences/copenhagen-sea-fortress/</loc>

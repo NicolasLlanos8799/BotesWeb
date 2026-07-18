@@ -58,6 +58,12 @@
       "desc": "Disfruta de un tour privado de 2 horas en barco por Copenhague con una cata de vinos guiada, una tabla gourmet y una atmósfera relajada y premium en el agua.",
       "price_note": "por grupo (hasta 6)",
       "cta": "Reserva este tour"
+    },
+    "danish_breakfast": {
+      "title": "Lo Mejor de la Ciudad con Desayuno Danés",
+      "desc": "Descubre Copenhague desde el agua en un tour privado de 2 horas mientras disfrutas de un auténtico desayuno danés servido a bordo.",
+      "price_note": "por grupo hasta 6 personas",
+      "cta": "Reservar"
     }
   },
   "bespoke": {
@@ -780,6 +786,63 @@
         "Comida no incluida",
         "Bebidas no incluidas"
       ]
+    },
+    "danish_breakfast": {
+      "page": {
+        "title": "Lo Mejor de la Ciudad con Desayuno Danés | Seaduced Experience",
+        "desc": "Empieza el día descubriendo Copenhague desde el agua mientras disfrutas de un auténtico desayuno danés a bordo. Tour privado de 2 horas para hasta 6 personas. Desde 4.499 DKK por grupo."
+      },
+      "hero_html": "Lo Mejor de la Ciudad <span class=\"title-accent\">con Desayuno Danés</span>",
+      "intro": "Comienza tu día descubriendo Copenhague desde el agua mientras disfrutas de un auténtico desayuno danés servido a bordo.",
+      "info": {
+        "participants_val": "Grupo privado (máx. 6)",
+        "duration_val": "2 horas",
+        "guide_val": "Inglés, Español"
+      },
+      "flag": "Experiencia matutina",
+      "booking": {
+        "price": "4.499 DKK",
+        "price_note": "por grupo hasta 6 personas",
+        "up_to": "Hasta 6 personas"
+      },
+      "story_paras": [
+        "Comienza tu día descubriendo Copenhague desde el agua mientras disfrutas de un auténtico desayuno danés servido a bordo. Recorre los canales de la ciudad en nuestro tour Lo Mejor de la Ciudad de 2 horas mientras te relajas con un desayuno cuidadosamente seleccionado.",
+        "A bordo del elegante Joda Tender 710, disfruta de una atmósfera privada y relajada mientras tu capitán te guía por los rincones más icónicos de la ciudad — Islands Brygge, la Biblioteca Diamante Negro, Christiansborg, Nyhavn, la Ópera, los canales de Christianshavn y la Iglesia de Nuestro Salvador.",
+        "El desayuno danés se sirve a bordo e incluye bollería recién horneada, café recién hecho, té, zumo, pan de masa madre con mantequilla y queso, y una botella de agua — ofreciendo el equilibrio perfecto entre sabores dulces y salados.",
+        "Una experiencia perfecta para combinar los lugares más emblemáticos de Copenhague, los sabores tradicionales daneses y una relajante mañana navegando por sus canales. Salidas a las 09:00, 10:00 y 11:00."
+      ],
+      "highlights": [
+        "<strong>Desayuno Danés:</strong> Bollería recién horneada, café, té, zumo, pan de masa madre con mantequilla y queso.",
+        "<strong>Lo Mejor de la Ciudad:</strong> Los principales lugares de Copenhague desde el agua en 2 horas.",
+        "<strong>Experiencia Privada:</strong> Solo tu grupo y tu capitán a bordo.",
+        "<strong>Salidas Matutinas:</strong> 09:00, 10:00 y 11:00.",
+        "<strong>Guía Local:</strong> Historias y detalles ocultos de la ciudad de la mano de un capitán local."
+      ],
+      "included": [
+        "Tour privado de 2 horas en barco — ruta Lo Mejor de la Ciudad",
+        "Auténtico desayuno danés servido a bordo",
+        "Bollería danesa recién horneada",
+        "Café recién hecho, té y zumo",
+        "Pan de masa madre con mantequilla y queso",
+        "Botella de agua para toda la travesía",
+        "Comentario en vivo de tu capitán local",
+        "Altavoz Bluetooth para tu música"
+      ],
+      "excl_h3": "Una mañana relajada en el agua",
+      "excl_text": "Combina la ruta icónica de los canales de Copenhague con la calidez de un desayuno danés. Una experiencia privada e íntima diseñada para comenzar el día de la mejor manera.",
+      "prep": {
+        "bring": [
+          "Ropa adecuada para el tiempo",
+          "Gafas de sol y protector solar",
+          "Opcional: Bañador y Toalla"
+        ],
+        "rules": [
+          "Prohibido saltar o fumar a bordo",
+          "Máximo 6 personas por reserva",
+          "Lluvia intensa: reembolso total garantizado",
+          "Alérgenos del desayuno: indícanos al reservar"
+        ]
+      }
     }
   }
 }
