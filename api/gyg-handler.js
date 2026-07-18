@@ -39,11 +39,11 @@ function callGAS(payload) {
 // Price per group/vehicle per GYG option ID (in DKK øre = DKK * 100)
 const OPTION_PRICES = {
   1288168: 249900,  // City Highlights 1h — 2499 DKK
-  1919949: 299900,  // City Highlights 10p — 2999 DKK
+  1919949: 579900,  // City Highlights 10p — 5799 DKK (verified in Supplier Portal — was wrong at 2999)
   1288188: 429900,  // Harbor Extended — 4299 DKK
   1825099: 899900,  // Land Tour — 8999 DKK
   1935449: 999900,  // Copenhagen to Malmö — 9999 DKK
-  1826872: 349900,  // Wine Tour — 4999 DKK
+  1826872: 579900,  // Wine Tour — 5799 DKK (verified in Supplier Portal — was wrong at 3499)
 };
 
 export default async function handler(req, res) {
@@ -266,7 +266,7 @@ async function handleBook(req, res) {
     return res.status(200).json({ errorCode: "VALIDATION_FAILURE", errorMessage: "Missing gygBookingReference" });
   }
 
-  const { cfg: bookCfg } = data.productId ? getOptionForProduct(data.productId) : {};
+  const { optionId: bookOptionId, cfg: bookCfg } = data.productId ? getOptionForProduct(data.productId) : {};
   const maxParticipants = bookCfg?.maxPax ?? TEST_MAX_PARTICIPANTS;
   const oversizedItem = (data.bookingItems || []).find(item => (item.groupSize ?? 0) > maxParticipants);
   if (oversizedItem) {
@@ -332,6 +332,8 @@ async function handleBook(req, res) {
       : booking.booking_date;
     const bookingTime = booking.booking_time?.slice(0, 5);
 
+    const optionPrice = OPTION_PRICES[bookOptionId];
+
     callGAS({
       action: "confirmHoldEvent",
       gyg_booking_id: data.gygBookingReference,
@@ -344,6 +346,9 @@ async function handleBook(req, res) {
       name: customerName,
       email: customerEmail,
       phone: customerPhone,
+      amount: optionPrice != null ? optionPrice / 100 : null,
+      currency: "DKK",
+      source: "GetYourGuide",
     });
 
     // Build tickets array — one ticket per participant per category

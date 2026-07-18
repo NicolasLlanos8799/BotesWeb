@@ -324,6 +324,7 @@ function handleConfirmHoldEvent(data) {
     existing.setTime(range.start, range.end);
     existing.setColor(CalendarApp.EventColor.CYAN);
     Logger.log("GYG hold confirmed (updated): " + data.gyg_booking_id);
+    notifyAdminGYGBooking(data, tour, range, endTime);
     return { success: true, eventId: existing.getId(), action: "updated" };
   }
 
@@ -331,9 +332,37 @@ function handleConfirmHoldEvent(data) {
   var event = calendar.createEvent(title, range.start, range.end, { description: description });
   event.setColor(CalendarApp.EventColor.CYAN);
   Logger.log("GYG confirmed event created (no prior hold): " + data.gyg_booking_id);
+  notifyAdminGYGBooking(data, tour, range, endTime);
   return { success: true, eventId: event.getId(), action: "created" };
   } finally {
     lock.releaseLock();
+  }
+}
+
+/**
+ * Sends the admin notification email for a confirmed GYG booking.
+ * GYG already emails the customer directly — this is admin-only, so we
+ * never fail the confirmation flow if the email itself errors out.
+ */
+function notifyAdminGYGBooking(data, tour, range, endTime) {
+  try {
+    var adminEmail = Session.getEffectiveUser().getEmail();
+    GmailApp.sendEmail(
+      adminEmail,
+      "⚓ GYG Reserva confirmada — " + getTourDisplayName(tour) + " · " + (data.name || "") + " · " + (data.date || ""),
+      "",
+      {
+        name: "Seaduced Bookings",
+        htmlBody: getAdminHtmlTemplate(
+          { ...data, sumup_checkout_id: data.gyg_booking_id },
+          getTranslations(data.lang || 'english'),
+          endTime
+        )
+      }
+    );
+    Logger.log("GYG confirm email sent to admin for: " + data.gyg_booking_id);
+  } catch (e) {
+    Logger.log("GYG confirm email error (non-fatal): " + e.toString());
   }
 }
 
@@ -811,6 +840,8 @@ function getRulesBlock(lang) {
 function getAdminHtmlTemplate(data, t, endTime) {
   var tourName = data.tourTitle || getTourDisplayName(data.tour || "");
   var extras = (data.tapas && data.tapas != "0") ? data.tapas + " Tapas / Charcuterie" : "—";
+  var isGYG = data.source === 'GetYourGuide';
+  var refLabel = isGYG ? 'Referencia GYG' : 'Referencia SumUp';
   var refNumber = data.sumup_checkout_id || "—";
   var langLabel = (data.lang || "english");
   langLabel = langLabel.charAt(0).toUpperCase() + langLabel.slice(1);
@@ -833,6 +864,11 @@ function getAdminHtmlTemplate(data, t, endTime) {
     '<div translate="no" style="font-size:9px;letter-spacing:3px;color:#e8834a;margin-top:4px;">BOOKING SYSTEM</div>' +
     '</td>' +
     '<td style="text-align:right;">' +
+    (isGYG ?
+      '<div style="display:inline-block;background-color:#4a2e0f;border:1px solid #e8834a;border-radius:4px;padding:6px 14px;margin-right:6px;">' +
+      '<span style="font-size:11px;color:#e8834a;font-weight:700;letter-spacing:1px;">GETYOURGUIDE</span>' +
+      '</div>'
+      : '') +
     '<div style="display:inline-block;background-color:#1c3a1a;border:1px solid #2d5a1b;border-radius:4px;padding:6px 14px;">' +
     '<span style="font-size:11px;color:#5aaa3a;font-weight:700;letter-spacing:1px;">PAID</span>' +
     '</div>' +
@@ -845,6 +881,9 @@ function getAdminHtmlTemplate(data, t, endTime) {
     '<table width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;margin:0 auto;">' +
 
     '<tr><td style="background:#ffffff;border-radius:12px 12px 0 0;padding:28px 32px 20px;border-bottom:3px solid #e8834a;">' +
+    (isGYG ?
+      '<p style="margin:0 0 6px;font-size:11px;letter-spacing:2px;color:#e8834a;font-weight:700;">RESERVA RECIBIDA DESDE GETYOURGUIDE</p>'
+      : '') +
     '<p style="margin:0 0 4px;font-size:22px;font-weight:700;color:#0f1e35;">Nueva reserva recibida</p>' +
     '<p style="margin:0;font-size:14px;color:#4a5568;">' + tourName + ' &nbsp;·&nbsp; ' + (data.date || '') + ' &nbsp;·&nbsp; ' + timeDisplay + '</p>' +
     '</td></tr>' +
@@ -872,7 +911,7 @@ function getAdminHtmlTemplate(data, t, endTime) {
     '<p style="font-size:10px;letter-spacing:2px;color:#e8834a;font-weight:700;margin:20px 0 4px;">DATOS DE LA RESERVA</p>' +
     '<table width="100%" cellpadding="0" cellspacing="0">' +
     adminRow('Importe', '<span style="font-size:16px;font-weight:700;color:#0f1e35;">' + (data.amount ? data.amount + ' ' + (data.currency || 'DKK') : '—') + '</span>') +
-    adminRow('Referencia SumUp', '<span style="color:#e8834a;">' + refNumber + '</span>') +
+    adminRow(refLabel, '<span style="color:#e8834a;">' + refNumber + '</span>') +
     adminRow('Experiencia', tourName) +
     adminRow('Fecha', data.date || '—') +
     adminRow('Hora', timeDisplay) +
