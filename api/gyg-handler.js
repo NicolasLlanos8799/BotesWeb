@@ -42,7 +42,7 @@ const OPTION_PRICES = {
   1919949: 299900,  // City Highlights 10p — 2999 DKK
   1288188: 429900,  // Harbor Extended — 4299 DKK
   1825099: 899900,  // Land Tour — 8999 DKK
-  1935449: 1300000, // Copenhagen to Malmö — 13000 DKK
+  1935449: 999900,  // Copenhagen to Malmö — 9999 DKK
   1826872: 349900,  // Wine Tour — 4999 DKK
 };
 
