@@ -679,6 +679,8 @@ function getRulesBlock(lang) {
 function getAdminHtmlTemplate(data, t, endTime) {
   var tourName = data.tourTitle || getTourDisplayName(data.tour || "");
   var extras = (data.tapas && data.tapas != "0") ? data.tapas + " Tapas / Charcuterie" : "—";
+  var isGYG = data.source === 'GetYourGuide';
+  var refLabel = isGYG ? 'Referencia GYG' : 'Referencia SumUp';
   var refNumber = data.sumup_checkout_id || "—";
   var langLabel = (data.lang || "english");
   langLabel = langLabel.charAt(0).toUpperCase() + langLabel.slice(1);
@@ -701,6 +703,11 @@ function getAdminHtmlTemplate(data, t, endTime) {
     '<div translate="no" style="font-size:9px;letter-spacing:3px;color:#e8834a;margin-top:4px;">BOOKING SYSTEM</div>' +
     '</td>' +
     '<td style="text-align:right;">' +
+    (isGYG ?
+      '<div style="display:inline-block;background-color:#4a2e0f;border:1px solid #e8834a;border-radius:4px;padding:6px 14px;margin-right:6px;">' +
+      '<span style="font-size:11px;color:#e8834a;font-weight:700;letter-spacing:1px;">GETYOURGUIDE</span>' +
+      '</div>'
+      : '') +
     '<div style="display:inline-block;background-color:#1c3a1a;border:1px solid #2d5a1b;border-radius:4px;padding:6px 14px;">' +
     '<span style="font-size:11px;color:#5aaa3a;font-weight:700;letter-spacing:1px;">PAID</span>' +
     '</div>' +
