@@ -16,6 +16,8 @@ body.admin-body {
   background-color: var(--admin-bg);
   color: var(--clr-white);
   min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
   display: flex;
 }
 
@@ -91,9 +93,9 @@ body.admin-body {
 /* ── Main Content Area ── */
 .admin-main {
   flex: 1;
+  min-width: 0; /* prevent flex overflow */
   padding: 3rem 4rem;
-  max-width: 1400px;
-  margin: 0 auto;
+  overflow-x: hidden;
 }
 
 .admin-header {
@@ -128,6 +130,8 @@ body.admin-body {
   padding: 2rem;
   backdrop-filter: blur(10px);
   transition: transform var(--transition-smooth), border-color var(--transition-smooth);
+  display: flex;
+  flex-direction: column;
 }
 
 .admin-card:hover {
@@ -159,6 +163,7 @@ body.admin-body {
   font-size: 0.9rem;
   line-height: 1.6;
   margin-bottom: 1.5rem;
+  flex: 1; /* push button to bottom */
 }
 
 /* ── Stats Page Specifics ── */
