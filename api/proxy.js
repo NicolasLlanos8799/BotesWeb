@@ -20,7 +20,8 @@ function extractHostname(headerValue) {
  * Includes a "Security Shield" to prevent spam and authorized access.
  */
 export default async function handler(req, res) {
-  const GAS_URL = process.env.GAS_URL;
+  const isDemo = req.query.demo === '1' || req.body?.demo === '1';
+  const GAS_URL = (isDemo && process.env.GAS_DEMO_URL) ? process.env.GAS_DEMO_URL : process.env.GAS_URL;
 
   // --- SECURITY SHIELD ---
 

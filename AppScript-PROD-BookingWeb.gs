@@ -180,53 +180,67 @@ function getTourDisplayName(tourCode) {
 function handleCreateBooking(data) {
   var calendar = getCalendar(data.calendar || 'boat1');
 
-  if (data.sumup_checkout_id && data.sumup_checkout_id !== 'N/A') {
-    var existing = findEventBySumUpId(data.sumup_checkout_id);
-    if (existing) {
-      Logger.log("Duplicate (SumUp ID: " + data.sumup_checkout_id + "). Skipping.");
-      return { success: true, message: "Duplicate avoided", eventId: existing.getId() };
-    }
+  // Use LockService to prevent race condition: webhook + fallback both arrive simultaneously
+  // Lock covers the check-then-create window so only one execution creates the event
+  var lock = LockService.getScriptLock();
+  try {
+    lock.waitLock(12000); // wait up to 12s
+  } catch (e) {
+    Logger.log("Could not acquire lock for: " + (data.sumup_checkout_id || 'unknown'));
+    return { success: false, message: "Lock timeout" };
   }
 
-  var tour = data.tour || data.tourTitle || "";
-  var range = buildStartEnd(data.date, data.time, getTourDurationHours(tour, 1));
-  var status = data.payment_status || 'PAID';
-  var endTime = ('0' + range.end.getHours()).slice(-2) + ':' + ('0' + range.end.getMinutes()).slice(-2);
-
-  var description =
-    "✨ " + getTourDisplayName(tour) + "\n" +
-    "📅 " + data.date + " | 🕒 " + (data.time || "N/A") + " - " + endTime + "\n" +
-    "👥 Passengers: " + (data.qty || "N/A") + "\n" +
-    "🌍 Language: " + (data.lang || "N/A") + "\n" +
-    "🍷 Extras: " + (data.tapas && data.tapas != "0" ? data.tapas + " Tapas/Charcuterie" : "None") + "\n\n" +
-    "👤 CONTACT\n" +
-    "Name: " + (data.name || "N/A") + "\n" +
-    "Email: " + (data.email || "N/A") + "\n" +
-    "Phone: " + (data.phone || "N/A") + "\n" +
-    "──────────────────────────\n" +
-    "SumUp ID: " + (data.sumup_checkout_id || "N/A") + "\n" +
-    "Amount: " + (data.amount ? data.amount + " " + (data.currency || "") : "N/A") + "\n" +
-    "Status: " + status;
-
-  var event = calendar.createEvent(
-    "Reserva: " + (data.name || 'Cliente'),
-    range.start, range.end,
-    { description: description }
-  );
-  event.setColor(CalendarApp.EventColor.YELLOW);
-
-  if (status === 'PAID' || status === 'paid') {
-    if (data.email) {
-      try { event.addGuest(data.email); } catch (e) { Logger.log("Guest error: " + e); }
+  try {
+    if (data.sumup_checkout_id && data.sumup_checkout_id !== 'N/A') {
+      var existing = findEventBySumUpId(data.sumup_checkout_id);
+      if (existing) {
+        Logger.log("Duplicate (SumUp ID: " + data.sumup_checkout_id + "). Skipping.");
+        return { success: true, message: "Duplicate avoided", eventId: existing.getId() };
+      }
     }
-    try {
-      sendBookingEmails(data, getTranslations(data.lang || 'english'), range.start, range.end);
-    } catch (e) {
-      event.setDescription(description + "\n\n[EMAIL ERROR]: " + e.toString());
+
+    var tour = data.tour || data.tourTitle || "";
+    var range = buildStartEnd(data.date, data.time, getTourDurationHours(tour, 1));
+    var status = data.payment_status || 'PAID';
+    var endTime = ('0' + range.end.getHours()).slice(-2) + ':' + ('0' + range.end.getMinutes()).slice(-2);
+
+    var description =
+      "✨ " + getTourDisplayName(tour) + "\n" +
+      "📅 " + data.date + " | 🕒 " + (data.time || "N/A") + " - " + endTime + "\n" +
+      "👥 Passengers: " + (data.qty || "N/A") + "\n" +
+      "🌍 Language: " + (data.lang || "N/A") + "\n" +
+      "🍷 Extras: " + (data.tapas && data.tapas != "0" ? data.tapas + " Tapas/Charcuterie" : "None") + "\n\n" +
+      "👤 CONTACT\n" +
+      "Name: " + (data.name || "N/A") + "\n" +
+      "Email: " + (data.email || "N/A") + "\n" +
+      "Phone: " + (data.phone || "N/A") + "\n" +
+      "──────────────────────────\n" +
+      "SumUp ID: " + (data.sumup_checkout_id || "N/A") + "\n" +
+      "Amount: " + (data.amount ? data.amount + " " + (data.currency || "") : "N/A") + "\n" +
+      "Status: " + status;
+
+    var event = calendar.createEvent(
+      "Reserva: " + (data.name || 'Cliente'),
+      range.start, range.end,
+      { description: description }
+    );
+    event.setColor(CalendarApp.EventColor.YELLOW);
+
+    if (status === 'PAID' || status === 'paid') {
+      if (data.email) {
+        try { event.addGuest(data.email); } catch (e) { Logger.log("Guest error: " + e); }
+      }
+      try {
+        sendBookingEmails(data, getTranslations(data.lang || 'english'), range.start, range.end);
+      } catch (e) {
+        event.setDescription(description + "\n\n[EMAIL ERROR]: " + e.toString());
+      }
     }
+
+    return { success: true, eventId: event.getId(), status: status };
+  } finally {
+    lock.releaseLock();
   }
-
-  return { success: true, eventId: event.getId(), status: status };
 }
 
 function findEventBySumUpId(sumupId) {

@@ -31,7 +31,7 @@ export function initBookingPage() {
   preFetchAllCalendars();
 }
 
-const GAS_URL = "/api/proxy";
+const GAS_URL = "/api/proxy/";
 
 async function preFetchAllCalendars() {
   const calendars = ["boat1", "boat2"];

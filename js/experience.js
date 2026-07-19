@@ -1,7 +1,9 @@
 import { getBooking, navigateToReserve, saveBooking, clearBookingSelection, TOURS, getPersistentCache, savePersistentCache } from "./utils.js";
 import { seaAlert } from "./modal.js";
 
-const GAS_URL = "/api/proxy";
+const IS_DEMO = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+const GAS_URL = "/api/proxy/";
+const DEMO_PARAM = IS_DEMO ? "&demo=1" : "";
 
 const DEFAULT_SLOTS = [
   { time: "09:00", available: true },
@@ -251,34 +253,24 @@ function initBookingPanel() {
     const dayData = availabilityCache[calId][dateStr];
 
     if (dayData) {
-      // INSTANT: We have verified data
+      // INSTANT: render cached data immediately, then always re-validate in background
       renderTimeSlots(dayData, false);
       enableTimeSelector();
     } else {
-      // WAIT FOR VERIFIED: We don't enable the selector until we have real data
-      // This prevents the "not synchronized" feeling
+      // No cache: disable selector until real data arrives
       timeTrigger.disabled = true;
       timeTrigger.setAttribute('disabled', 'true');
       timeValueLabel.textContent = "Syncing...";
-
-      const syncHandler = () => {
-        const freshCache = getPersistentCache(calId);
-        if (freshCache[dateStr]) {
-          renderTimeSlots(freshCache[dateStr], false);
-          enableTimeSelector();
-          return true;
-        }
-        return false;
-      };
-
-      if (syncPromises[yearMonth]) {
-        syncPromises[yearMonth].then(() => {
-          if (!syncHandler()) fetchAvailability(dateStr).then(syncHandler);
-        });
-      } else {
-        fetchAvailability(dateStr).then(syncHandler);
-      }
     }
+
+    // Always fetch fresh data from server (background if cached, blocking if not)
+    fetchAvailability(dateStr).then(freshBusy => {
+      // fetchAvailability resolves after rendering — nothing more to do here
+    }).catch(() => {
+      if (!dayData) {
+        enableTimeSelector(); // fallback: unblock even if fetch failed
+      }
+    });
 
     syncStoredBooking();
   }
@@ -348,7 +340,7 @@ function initBookingPanel() {
         const tourConfig = TOURS[tourId] || {};
         const cal = tourConfig.calendar || "boat1";
 
-        const response = await fetch(`${GAS_URL}?action=getMonthlyAvailability&date=${dateStr}&calendar=${cal}&t=${Date.now()}`);
+        const response = await fetch(`${GAS_URL}?action=getMonthlyAvailability&date=${dateStr}&calendar=${cal}&t=${Date.now()}${DEMO_PARAM}`);
         if (!response.ok) throw new Error("Network issue");
         const data = await response.json();
 
@@ -380,21 +372,29 @@ function initBookingPanel() {
       const tourConfig = TOURS[tourId] || {};
       const cal = tourConfig.calendar || "boat1";
 
-      const response = await fetch(`${GAS_URL}?action=getAvailability&date=${date}&calendar=${cal}&t=${Date.now()}`);
+      const response = await fetch(`${GAS_URL}?action=getAvailability&date=${date}&calendar=${cal}&t=${Date.now()}${DEMO_PARAM}`);
       if (!response.ok) throw new Error("Sync failed");
       const data = await response.json();
 
       // Safety: Ignore if a newer request has started
       if (requestId !== lastAvailabilityRequestId) return;
 
-      handleApiResponse(data.busy || data, date);
+      const busySlots = data.busy || (Array.isArray(data) ? data : []);
+
+      // Save to the correct 2-level cache so syncDateValue finds it next time
+      if (!availabilityCache[cal]) availabilityCache[cal] = {};
+      availabilityCache[cal][date] = busySlots;
+      savePersistentCache(cal, { [date]: busySlots });
+
+      // Only update UI if the user is still on this date
+      if (dateValueInput.value === date) {
+        renderTimeSlots(busySlots, false);
+        enableTimeSelector();
+      }
     } catch (error) {
       if (requestId !== lastAvailabilityRequestId) return;
       console.warn("Daily availability fetch failed:", error);
-      timeTrigger.disabled = false;
-      if (!timeValueInput.value) {
-        timeValueLabel.textContent = "Choose time";
-      }
+      enableTimeSelector();
       renderTimeSlots(DEFAULT_SLOTS, false);
     }
   }
