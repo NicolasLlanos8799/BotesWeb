@@ -647,7 +647,7 @@ export function initReservePage() {
           name: String(name),
           email: String(email),
           phone: String(phone),
-          tour: String(getLocalizedValue(currentTour, "title", current.lang)),
+          tour: String(currentTour.id || current.tour),
           tourTitle: String(getLocalizedValue(currentTour, "title", current.lang)),
           calendar: String(currentTour.calendar || "boat1"),
           date: String(current.date),
@@ -679,6 +679,25 @@ export function initReservePage() {
         startPaymentPolling(checkout.id);
       } else {
         console.error("SumUp Proxy Error:", checkout);
+
+        // Wine group experience: specific capacity errors
+        if (checkout.error === "SLOT_FULL") {
+          let msg = "This time slot is now fully booked. Please go back and choose a different time.";
+          if (isEs) msg = "Este horario ya está completo. Por favor, vuelve y elige otro horario.";
+          else if (isDa) msg = "Dette tidspunkt er nu fuldt booket. Gå venligst tilbage og vælg et andet tidspunkt.";
+          await seaAlert(msg, { type: "warning", lang: currentLocale });
+          resetButtons();
+          return;
+        }
+        if (checkout.error === "MAX_PAX_EXCEEDED") {
+          let msg = "A single booking cannot exceed 6 people. For larger groups, please contact us directly.";
+          if (isEs) msg = "Una sola reserva no puede superar las 6 personas. Para grupos más grandes, contáctanos directamente.";
+          else if (isDa) msg = "En enkelt booking kan ikke overstige 6 personer. For større grupper, kontakt os direkte.";
+          await seaAlert(msg, { type: "warning", lang: currentLocale });
+          resetButtons();
+          return;
+        }
+
         throw new Error(checkout.error || checkout.message || "Failed to create checkout session");
       }
 

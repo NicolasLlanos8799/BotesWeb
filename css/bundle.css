@@ -4426,6 +4426,7 @@ body.booking-open {
   background: var(--clr-off-white);
   text-decoration: line-through;
 }
+.experience-booking__time-slot.is-group-partial,.experience-booking__time-slot.is-group-available,.experience-booking__time-slot.is-group-full{display:flex;flex-direction:column;gap:0.2rem;padding:0.5rem 0.25rem}.time-slot__time{font-weight:600;font-size:0.9rem}.time-slot__badge{font-size:0.65rem;font-weight:500;color:var(--clr-sunset);line-height:1.2}.time-slot__badge--full{color:var(--clr-text-muted)}.experience-booking__time-slot.is-group-partial{border-color:var(--clr-sunset-lt);background:rgba(248,169,107,0.06)}.experience-booking__time-slot.is-group-partial:hover:not(:disabled){border-color:var(--clr-sunset);background:rgba(248,169,107,0.12)}
 
 .experience-booking__control--button:disabled {
   opacity: 0.6;

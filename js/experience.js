@@ -245,12 +245,17 @@ function initBookingPanel() {
     // ELITE SYNC LOGIC: Prioritize verified persistent data
     const yearMonth = dateStr.substring(0, 7);
 
-    // Check global persistent cache again (in case background sync finished)
-    const pCache = getPersistentCache(calId);
-    if (!availabilityCache[calId]) availabilityCache[calId] = pCache;
-    else Object.assign(availabilityCache[calId], pCache);
+    // Wine group experience uses its own cache key
+    const cacheKey = tourConfig.isGroupExperience ? "wine" : calId;
 
-    const dayData = availabilityCache[calId][dateStr];
+    // Check global persistent cache again (in case background sync finished)
+    if (!tourConfig.isGroupExperience) {
+      const pCache = getPersistentCache(calId);
+      if (!availabilityCache[calId]) availabilityCache[calId] = pCache;
+      else Object.assign(availabilityCache[calId], pCache);
+    }
+
+    const dayData = availabilityCache[cacheKey]?.[dateStr];
 
     if (dayData) {
       // INSTANT: render cached data immediately, then always re-validate in background
@@ -331,6 +336,10 @@ function initBookingPanel() {
   }
 
   async function fetchMonthlyAvailability(dateStr) {
+    // Wine group experience doesn't use GAS monthly sync
+    const tourId = getCurrentTourId();
+    if (TOURS[tourId]?.isGroupExperience) return;
+
     const yearMonth = dateStr.substring(0, 7);
     if (syncPromises[yearMonth]) return syncPromises[yearMonth];
 
@@ -362,14 +371,50 @@ function initBookingPanel() {
   }
 
   async function fetchAvailability(date) {
-    // SILENT SYNC: We don't show the "Syncing" text anymore. 
+    // SILENT SYNC: We don't show the "Syncing" text anymore.
     // If not in cache, we just render current slots quietly.
 
     const requestId = ++lastAvailabilityRequestId;
+    const tourId = getCurrentTourId();
+    const tourConfig = TOURS[tourId] || {};
+
+    // Wine group experience: dedicated endpoint, no GAS
+    if (tourConfig.isGroupExperience) {
+      try {
+        const response = await fetch(`/api/wine-availability/?date=${date}&t=${Date.now()}`);
+        if (!response.ok) throw new Error("Wine availability fetch failed");
+        const data = await response.json();
+
+        if (requestId !== lastAvailabilityRequestId) return;
+
+        // Convert API response to slot array with group status
+        const slots = (tourConfig.customSlots || []).map(s => {
+          const info = data[s.time] || { groups: 0, status: "available" };
+          return {
+            time: s.time,
+            available: info.status !== "full",
+            groupStatus: info.status, // "available" | "partial" | "full"
+            groups: info.groups,
+          };
+        });
+
+        if (!availabilityCache["wine"]) availabilityCache["wine"] = {};
+        availabilityCache["wine"][date] = slots;
+
+        if (dateValueInput.value === date) {
+          renderTimeSlots(slots, false);
+          enableTimeSelector();
+        }
+      } catch (error) {
+        if (requestId !== lastAvailabilityRequestId) return;
+        console.warn("Wine availability fetch failed:", error);
+        enableTimeSelector();
+        renderTimeSlots(tourConfig.customSlots || DEFAULT_SLOTS, false);
+      }
+      return;
+    }
 
     try {
-      const tourId = getCurrentTourId();
-      const tourConfig = TOURS[tourId] || {};
       const cal = tourConfig.calendar || "boat1";
 
       const response = await fetch(`${GAS_URL}?action=getAvailability&date=${date}&calendar=${cal}&t=${Date.now()}${DEMO_PARAM}`);
@@ -454,7 +499,25 @@ function initBookingPanel() {
       if (isLoading) btn.classList.add("is-loading");
       if (timeValueInput.value === slot.time) btn.classList.add("is-selected");
       if (!slotAvailable && !isLoading) btn.disabled = true;
-      btn.textContent = slot.time;
+
+      // Group experience: show status badge
+      if (slot.groupStatus) {
+        btn.classList.add(`is-group-${slot.groupStatus}`);
+        const label = document.createElement("span");
+        label.className = "time-slot__time";
+        label.textContent = slot.time;
+        btn.appendChild(label);
+
+        if (slot.groupStatus === "partial") {
+          const badge = document.createElement("span");
+          badge.className = "time-slot__badge";
+          badge.textContent = "1 group booked";
+          btn.appendChild(badge);
+        }
+      } else {
+        btn.textContent = slot.time;
+      }
+
       btn.dataset.time = slot.time;
 
       btn.addEventListener("click", () => {
@@ -725,7 +788,12 @@ function initBookingPanel() {
 
   timeTrigger?.addEventListener("click", () => {
     if (timeTrigger.disabled) return;
-    togglePanel(timePicker, timePanel, timeTrigger, !timePicker.classList.contains("is-open"));
+    const isOpening = !timePicker.classList.contains("is-open");
+    togglePanel(timePicker, timePanel, timeTrigger, isOpening);
+    // Always re-fetch on open to ensure fresh availability
+    if (isOpening && dateValueInput.value) {
+      fetchAvailability(dateValueInput.value);
+    }
   });
   timeDone?.addEventListener("click", () => togglePanel(timePicker, timePanel, timeTrigger, false));
 

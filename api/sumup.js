@@ -51,6 +51,40 @@ export default async function handler(req, res) {
          return res.status(400).json({ error: "Missing required fields (amount, currency, reference)" });
       }
 
+      // Wine group experience: validate group capacity before creating checkout
+      if (metadata && (metadata.calendar === "book-wine" || metadata.tour === "book-wine")) {
+        const qty = parseInt(metadata.qty) || 1;
+
+        // Max 6 pax per group
+        if (qty > 6) {
+          return res.status(400).json({
+            error: "MAX_PAX_EXCEEDED",
+            message: "A single booking cannot exceed 6 people. Please contact us for larger groups."
+          });
+        }
+
+        // Max 2 groups per slot (race-condition safe: check right before creating checkout)
+        if (metadata.date && metadata.time) {
+          const ACTIVE_STATUSES = ["PAID", "RESERVED", "PENDING"];
+          const countResult = await db`
+            SELECT COUNT(*) as group_count
+            FROM bookings
+            WHERE tour_id = 'book-wine'
+              AND booking_date = ${metadata.date}
+              AND booking_time = ${metadata.time}
+              AND payment_status = ANY(${ACTIVE_STATUSES})
+          `;
+          const countRows = countResult.rows ?? countResult;
+          const groupCount = Number(countRows[0]?.group_count || 0);
+          if (groupCount >= 2) {
+            return res.status(409).json({
+              error: "SLOT_FULL",
+              message: "This time slot is fully booked. Please choose another time."
+            });
+          }
+        }
+      }
+
       const sumupResponse = await fetch(`${SUMUP_API_BASE}/v0.1/checkouts`, {
         method: "POST",
         headers: {
@@ -86,8 +120,8 @@ export default async function handler(req, res) {
               (tour_id, tour_name, customer_name, customer_email, customer_phone,
                passengers, booking_date, booking_time, total_price, payment_status, sumup_id, lang)
             VALUES
-              (${metadata.calendar || null},
-               ${metadata.tourTitle || metadata.tour || null},
+              (${metadata.tour || metadata.calendar || null},
+               ${metadata.tourTitle || null},
                ${metadata.name || null},
                ${metadata.email || null},
                ${metadata.phone || null},

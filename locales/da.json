@@ -601,12 +601,12 @@
     "wine_tasting": {
       "page": {
         "title": "Flydende vinsmagning bådoplevelse | Seaduced Experience",
-        "desc": "Nyd en 2-timers privat bådtur i København med en guidet vinsmagning. Inkluderer 4 vine, en gourmet-platte med ost og pølse, og en afslappet premium-atmosfære på vandet."
+        "desc": "2-timers vinsmagning på båd i København. Guidet smagning af 4 vine, gourmet-platte og sejltur gennem kanalerne. Grupper op til 6 — fra 4.999 DKK pr. gruppe."
       },
       "hero_html": "Flydende <span class=\"title-accent\">vinsmagning</span> oplevelse",
-      "intro": "Nyd en unik 2-timers privat bådoplevelse i København, der kombinerer sightseeing med en guidet vinsmagning. Slap af på vandet med din egen kaptajn og vært, smag fire nøje udvalgte vine, og nyd en gourmet-platte, mens du sejler gennem byens kanaler.",
+      "intro": "Nyd en unik 2-timers bådoplevelse i København, der kombinerer sightseeing med en guidet vinsmagning. Slap af på vandet med din egen kaptajn og vært, smag fire nøje udvalgte vine, og nyd en gourmet-platte, mens du sejler gennem byens kanaler. Hver booking er for en gruppe på op til 6 — båden kan rumme op til 12 gæster fordelt på to grupper.",
       "info": {
-        "participants_val": "Privat gruppe (maks. 6)",
+        "participants_val": "Grupper op til 6",
         "duration_val": "2 timer",
         "guide_val": "Engelsk"
       },
@@ -617,21 +617,21 @@
         "up_to": "Op til 6 gæster"
       },
       "story_paras": [
-        "Nyd København fra vandet på en 2-timers privat kanalrundfart kombineret med en guidet vinsmagning.",
+        "Nyd København fra vandet på en 2-timers kanalrundfart kombineret med en guidet vinsmagning.",
         "Mens din kaptajn navigerer gennem byens smukkeste kanaler og havneområder, vil din vært ombord guide dig gennem en kurateret smagning af fire udvalgte vine og forklare deres oprindelse, noter og karakteristika.",
         "Som supplement til smagningen serveres en gourmet-platte ombord med kvalitetsoste, pølse og frisk brød.",
         "Atmosfæren er afslappet, elegant og intim — ideel til par, venner, små fejringer eller rejsende, der leder efter en premium-oplevelse ud over en traditionel sightseeingtur.",
-        "Dette er en helt privat oplevelse kun for din gruppe, designet til at kombinere fantastisk udsigt, god vin og en rolig, eksklusiv ramme på vandet."
+        "Denne oplevelse foregår på vores båd med plads til 12 personer. Hver booking er for en gruppe på op til 6. Under aktiviteten kan båden deles med en anden gruppe, der har booket den samme tidsperiode."
       ],
       "highlights": [
         "<strong>Guidet vinsmagning:</strong> Smag 4 udvalgte vine",
         "<strong>Gourmet-platte:</strong> Ost, pølse og brød inkluderet",
-        "<strong>Privat oplevelse:</strong> Kun din gruppe ombord",
+        "<strong>Små grupper:</strong> Maks. 6 pr. booking — båden rummer op til 12 gæster",
         "<strong>Premium Atmosfære:</strong> Afslappet, elegant og intim",
         "<strong>Perfekt til fejringer:</strong> Ideel til par og særlige lejligheder"
       ],
       "included": [
-        "Privat båd med professionel kaptajn",
+        "Båd med professionel kaptajn",
         "2-timers kanalrundfart",
         "Guidet vinsmagning (4 vine)",
         "Gourmet-platte (ost, pølse, brød)",
@@ -646,7 +646,7 @@
           "Kamera"
         ],
         "rules": [
-          "Dette er en privat oplevelse kun for din gruppe",
+          "Hver booking er for en gruppe på op til 6 personer. Båden kan deles med en anden gruppe, der booker den samme tidsperiode.",
           "Minimumsalder: 18 år (der serveres alkohol)",
           "Ruten kan variere afhængigt af vejr og havneforhold",
           "Følg altid kaptajnens sikkerhedsinstrukser",

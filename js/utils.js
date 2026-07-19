@@ -142,7 +142,17 @@ export const TOURS = {
     img: "/assets/images/wine-tour/wine-tour-guests.png",
     url: "/experiences/copenhagen-wine-tour/",
     maxParticipants: 6,
-    calendar: "boat1",
+    calendar: "boat2",
+    // Group experience: 2 groups max per slot, fixed 5 slots
+    isGroupExperience: true,
+    maxGroups: 2,
+    customSlots: [
+      { time: "10:00", available: true },
+      { time: "12:00", available: true },
+      { time: "14:00", available: true },
+      { time: "16:00", available: true },
+      { time: "18:00", available: true },
+    ],
   },
   "book-10p": {
     id: "book-10p",

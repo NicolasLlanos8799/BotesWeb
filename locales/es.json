@@ -607,12 +607,12 @@
     "wine_tasting": {
       "page": {
         "title": "Cata de Vinos Flotante | Seaduced Experience",
-        "desc": "Disfruta de un tour privado de 2 horas en barco por Copenhague con una cata de vinos guiada. Incluye 4 vinos, tabla de quesos y embutidos gourmet, y un ambiente premium."
+        "desc": "Cata de vinos de 2 horas en barco por Copenhague. Degustación guiada de 4 vinos, tabla gourmet y crucero por los canales. Grupos de hasta 6 personas — desde 4.999 DKK por grupo."
       },
       "hero_html": "<span class=\"title-accent\">Cata de Vinos</span> Flotante",
-      "intro": "Disfruta de una experiencia privada única de 2 horas en barco por Copenhague combinando turismo con una cata de vinos guiada. Relájate en el agua con tu propio capitán y anfitrión, degusta cuatro vinos seleccionados y disfruta de una tabla gourmet mientras navegas por los canales.",
+      "intro": "Disfruta de una experiencia única de 2 horas en barco por Copenhague combinando turismo con una cata de vinos guiada. Relájate en el agua con tu propio capitán y anfitrión, degusta cuatro vinos seleccionados y disfruta de una tabla gourmet mientras navegas por los canales. Cada reserva es para un grupo de hasta 6 personas — el barco tiene capacidad para 12 personas en total.",
       "info": {
-        "participants_val": "Grupo privado (máx 6)",
+        "participants_val": "Grupos de hasta 6",
         "duration_val": "2 horas",
         "guide_val": "Inglés"
       },
@@ -623,21 +623,21 @@
         "up_to": "Hasta 6 personas"
       },
       "story_paras": [
-        "Disfruta de Copenhague desde el agua en un crucero privado de 2 horas combinado con una cata de vinos guiada.",
+        "Disfruta de Copenhague desde el agua en un crucero de 2 horas combinado con una cata de vinos guiada.",
         "Mientras tu capitán navega por los canales y zonas del puerto más pintorescas, tu anfitrión a bordo te guiará a través de una cata curada de cuatro vinos seleccionados, explicando su origen, notas y características.",
         "Para complementar la cata, se sirve a bordo una tabla gourmet que incluye quesos de calidad, embutidos y pan fresco.",
         "La atmósfera es relajada, elegante e íntima — ideal para parejas, amigos, pequeñas celebraciones o viajeros que buscan una experiencia premium más allá de un tour tradicional.",
-        "Esta es una experiencia totalmente privada solo para tu grupo, diseñada para combinar grandes vistas, buen vino y un entorno exclusivo y tranquilo sobre el agua."
+        "Esta experiencia se realiza en nuestro barco con capacidad para 12 personas. Cada reserva corresponde a un grupo de hasta 6. Durante la actividad, es posible que el barco sea compartido con otro grupo que haya reservado la misma franja horaria."
       ],
       "highlights": [
         "<strong>Cata de vinos guiada:</strong> Degusta 4 vinos seleccionados.",
         "<strong>Tabla Gourmet:</strong> Quesos, embutidos y pan incluidos.",
-        "<strong>Experiencia Privada:</strong> Solo tu grupo a bordo.",
+        "<strong>Grupos pequeños:</strong> Máx. 6 por reserva — el barco tiene capacidad para 12.",
         "<strong>Ambiente Premium:</strong> Relajado, elegante e íntimo.",
         "<strong>Ideal para Celebraciones:</strong> Perfecto para parejas y ocasiones especiales."
       ],
       "included": [
-        "Barco privado con capitán profesional",
+        "Barco con capitán profesional",
         "Crucero por los canales de 2 horas",
         "Cata de vinos guiada (4 vinos)",
         "Tabla gourmet (quesos, embutidos, pan)",
@@ -652,7 +652,7 @@
           "Cámara de fotos"
         ],
         "rules": [
-          "Experiencia privada solo para tu grupo",
+          "Cada reserva es para un grupo de hasta 6 personas. El barco puede compartirse con otro grupo que reserve la misma franja horaria.",
           "Edad mínima: 18 años (se sirve alcohol)",
           "La ruta puede variar según el clima y condiciones del puerto",
           "Sigue las instrucciones de seguridad del capitán en todo momento",

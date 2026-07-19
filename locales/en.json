@@ -598,12 +598,12 @@
     "wine_tasting": {
       "page": {
         "title": "Floating Wine Tasting Boat Experience | Seaduced Experience",
-        "desc": "Enjoy a 2-hour private boat tour in Copenhagen with a guided wine tasting experience. Includes 4 wines, a gourmet cheese and charcuterie board, and a relaxed, premium atmosphere on the water."
+        "desc": "2-hour wine tasting boat experience in Copenhagen. Guided tasting of 4 wines, gourmet board, and scenic canal cruise. Groups of up to 6 — from DKK 4,999 per group."
       },
       "hero_html": "Floating <span class=\"title-accent\">Wine Tasting</span> Experience",
-      "intro": "Enjoy a unique 2-hour private boat experience in Copenhagen combining sightseeing with a guided wine tasting. Relax on the water with your own captain and host, taste four carefully selected wines, and enjoy a gourmet board while cruising through the city’s canals.",
+      "intro": "Enjoy a unique 2-hour boat experience in Copenhagen combining sightseeing with a guided wine tasting. Relax on the water with your own captain and host, taste four carefully selected wines, and enjoy a gourmet board while cruising through the city’s canals. Each booking is for a group of up to 6 — the boat accommodates up to 12 guests across two groups.",
       "info": {
-        "participants_val": "Private group (max 6)",
+        "participants_val": "Groups of up to 6",
         "duration_val": "2 hours",
         "guide_val": "English"
       },
@@ -614,21 +614,21 @@
         "up_to": "Up to 6 guests"
       },
       "story_paras": [
-        "Enjoy Copenhagen from the water on a 2-hour private canal cruise combined with a guided wine tasting experience.",
+        "Enjoy Copenhagen from the water on a 2-hour canal cruise combined with a guided wine tasting experience.",
         "While your captain navigates through the city’s most scenic canals and harbor areas, your onboard host will guide you through a curated tasting of four selected wines, explaining their origin, notes, and characteristics.",
         "To complement the tasting, a gourmet board is served on board, including quality cheeses, cured meats, and fresh bread.",
         "The atmosphere is relaxed, elegant, and intimate — ideal for couples, friends, small celebrations, or travelers looking for a premium experience beyond a traditional sightseeing tour.",
-        "This is a fully private experience for your group only, designed to combine great views, great wine, and a calm, exclusive setting on the water."
+        "This experience takes place on our boat with capacity for 12 people. Each booking is for a group of up to 6. During the activity, the boat may be shared with another group that has booked the same time slot."
       ],
       "highlights": [
         "<strong>Guided Wine Tasting:</strong> Taste 4 selected wines",
         "<strong>Gourmet Board:</strong> Cheese, charcuterie, and bread included",
-        "<strong>Private Experience:</strong> Only your group on board",
+        "<strong>Small Groups:</strong> Max 6 per booking — boat holds up to 12 guests",
         "<strong>Premium Atmosphere:</strong> Relaxed, elegant, and intimate",
         "<strong>Perfect for Celebrations:</strong> Ideal for couples and special occasions"
       ],
       "included": [
-        "Private boat with professional captain",
+        "Boat with professional captain",
         "2-hour canal cruise",
         "Guided wine tasting (4 wines)",
         "Gourmet board (cheese, charcuterie, bread)",
@@ -643,7 +643,7 @@
           "Camera"
         ],
         "rules": [
-          "This is a private experience for your group only",
+          "Each booking is for a group of up to 6 people. The boat may be shared with another group booking the same time slot.",
           "Minimum age: 18 years (alcohol served)",
           "Route may vary depending on weather and harbor conditions",
           "Follow captain’s safety instructions at all times",
