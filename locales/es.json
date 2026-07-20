@@ -236,6 +236,11 @@
         "title": "De Copenhague a Malmö",
         "desc": "Aventura transfronteriza a Suecia. Explora Malmö con tiempo libre suficiente.",
         "price_note": "por grupo (hasta 10)"
+      },
+      "danish_breakfast": {
+        "title": "Lo Mejor de la Ciudad con Desayuno Danés",
+        "desc": "Tour privado de 2 horas por los canales con un auténtico desayuno danés servido a bordo.",
+        "price_note": "por grupo hasta 6 personas"
       }
     },
     "bespoke": {
