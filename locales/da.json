@@ -61,7 +61,7 @@
     "danish_breakfast": {
       "title": "Byens Højdepunkter med Dansk Morgenmad",
       "desc": "Oplev København fra vandet på en 2-timers privat bådtur med en autentisk dansk morgenmad serveret om bord.",
-      "price_note": "per gruppe op til 6",
+      "price_note": "pr. gruppe op til 6",
       "cta": "Book Denne Tur"
     }
   },
@@ -801,7 +801,7 @@
       "flag": "Morgenoplevelse",
       "booking": {
         "price": "4.499 DKK",
-        "price_note": "per gruppe op til 6",
+        "price_note": "pr. gruppe op til 6",
         "up_to": "Op til 6 gæster"
       },
       "story_paras": [

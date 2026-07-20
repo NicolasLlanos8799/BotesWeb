@@ -62,7 +62,7 @@
     "danish_breakfast": {
       "title": "Lo Mejor de la Ciudad con Desayuno Danés",
       "desc": "Descubre Copenhague desde el agua en un tour privado de 2 horas mientras disfrutas de un auténtico desayuno danés servido a bordo.",
-      "price_note": "por grupo hasta 6 personas",
+      "price_note": "por grupo (hasta 6)",
       "cta": "Reservar"
     }
   },
@@ -240,7 +240,7 @@
       "danish_breakfast": {
         "title": "Lo Mejor de la Ciudad con Desayuno Danés",
         "desc": "Tour privado de 2 horas por los canales con un auténtico desayuno danés servido a bordo.",
-        "price_note": "por grupo hasta 6 personas"
+        "price_note": "por grupo (hasta 6)"
       }
     },
     "bespoke": {
@@ -807,7 +807,7 @@
       "flag": "Experiencia matutina",
       "booking": {
         "price": "4.499 DKK",
-        "price_note": "por grupo hasta 6 personas",
+        "price_note": "por grupo (hasta 6)",
         "up_to": "Hasta 6 personas"
       },
       "story_paras": [

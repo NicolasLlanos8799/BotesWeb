@@ -3360,8 +3360,21 @@ body.booking-open {
   width: 100%; /* Prevent Safari iOS from using image intrinsic width on <a> flex items */
   max-width: 100%;
   min-width: 0;
+  box-sizing: border-box;
   font-family: inherit;
   color: inherit;
+}
+
+/* Hard containment: no descendant can expand the card past its grid track. */
+.booking-card,
+.booking-card * {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+.booking-card__desc,
+.booking-card__title {
+  overflow-wrap: anywhere;
 }
 
 .booking-card__title-link:hover {
