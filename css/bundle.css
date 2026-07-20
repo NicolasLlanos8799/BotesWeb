@@ -3357,6 +3357,7 @@ body.booking-open {
 .booking-card__media-link,
 .booking-card__title-link {
   display: block;
+  width: 100%; /* Prevent Safari iOS from using image intrinsic width on <a> flex items */
   font-family: inherit;
   color: inherit;
 }
