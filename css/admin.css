@@ -217,11 +217,13 @@ body.admin-body {
   background: var(--admin-card-bg);
   border: 1px solid var(--admin-card-border);
   border-radius: var(--radius-lg);
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 
 .admin-table {
   width: 100%;
+  min-width: 900px;
   border-collapse: collapse;
   text-align: left;
 }
