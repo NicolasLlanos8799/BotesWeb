@@ -3249,11 +3249,10 @@ body.booking-open {
 
 .booking-grid {
   display: grid;
-  /* Fixed-max (400px) + justify-content:center was fragile on Windows/Chromium
-     due to subpixel rounding + scrollbar offset corrupting auto-fit threshold.
-     Switching max to 1fr: tracks fill grid completely, no unused space, no
-     justify-content needed. Card max-width handles single-card centering. */
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr));
+  /* Mobile-first: explicit 1fr prevents Safari iOS from misresolving
+     min(100%, 350px) to 0 inside minmax(), which caused cards to overflow
+     their grid track and appear wider than siblings. */
+  grid-template-columns: 1fr;
   gap: var(--space-md);
   max-width: 1280px;
   margin-left: auto;
@@ -7994,10 +7993,16 @@ body.booking-open {
    replace the elastic auto-fit with an explicit column count.
    Replaces: repeat(auto-fit, minmax(min(100%, 350px), 400px))
    ─────────────────────────────────────────────────────────────────────────── */
+@media (min-width: 600px) and (max-width: 1024px) {
+  .booking-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 @media (min-width: 1025px) {
   .booking-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    justify-content: initial; /* remove the flex-like centering; grid handles it */
+    justify-content: initial;
   }
 
   /* Single-card grids (e.g. "Exclusive" Malmö section):
