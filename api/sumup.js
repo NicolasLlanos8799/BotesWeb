@@ -1,4 +1,5 @@
 import db from "../lib/db.js";
+import { log, warn, error as logError } from "../lib/logger.js";
 
 const ALLOWED_HOSTNAMES = ["seaduced-experience.com", "vercel.app", "localhost", "127.0.0.1", "seaduced.dk"];
 
@@ -24,7 +25,7 @@ export default async function handler(req, res) {
   const SUMUP_API_BASE = "https://api.sumup.com";
   const ACCESS_TOKEN = process.env.SUMUP_ACCESS_TOKEN;
 
-  console.log("SumUp Token Presence:", !!ACCESS_TOKEN);
+  log("SumUp Token Presence:", !!ACCESS_TOKEN);
 
   const originHost = extractHostname(req.headers.origin);
   const refererHost = extractHostname(req.headers.referer);
@@ -33,7 +34,7 @@ export default async function handler(req, res) {
   // Enforced in every environment — Origin/Referer are not a real auth boundary,
   // but they should never be skipped just because NODE_ENV isn't "production".
   if (!isAllowedDomain) {
-    console.warn("SumUp Proxy: Blocked request from unauthorized origin:", originHost || refererHost || "None");
+    warn("SumUp Proxy: Blocked request from unauthorized origin:", originHost || refererHost || "None");
     return res.status(403).json({ error: "Forbidden: Unauthorized Origin" });
   }
 
@@ -108,7 +109,7 @@ export default async function handler(req, res) {
       const data = await sumupResponse.json();
 
       if (!sumupResponse.ok) {
-        console.error("SumUp API Error Details:", JSON.stringify(data, null, 2));
+        logError("SumUp API Error Details:", JSON.stringify(data, null, 2));
       }
 
       // Save as PENDING immediately — captures abandoned bookings too.
@@ -134,10 +135,10 @@ export default async function handler(req, res) {
                ${metadata.lang || 'english'})
             ON CONFLICT (sumup_id) DO NOTHING
           `;
-          console.log("createCheckout: PENDING booking saved for", data.id);
+          log("createCheckout: PENDING booking saved for", data.id);
         } catch (dbErr) {
           // Non-blocking — don't fail the checkout if DB write fails
-          console.error("createCheckout: DB error (non-blocking):", dbErr.message);
+          logError("createCheckout: DB error (non-blocking):", dbErr.message);
         }
       }
 
@@ -161,14 +162,14 @@ export default async function handler(req, res) {
 
     if (action === "webhook") {
       const event = req.body;
-      console.log("Webhook Received:", JSON.stringify(event));
+      log("Webhook Received:", JSON.stringify(event));
 
       const isPaidEvent = event.event_type === "checkout.paid";
       const isStatusChangedEvent = event.event_type === "CHECKOUT_STATUS_CHANGED";
 
       if (isPaidEvent || isStatusChangedEvent) {
         const checkoutId = event.id;
-        console.log("Processing Webhook for Checkout ID:", checkoutId);
+        log("Processing Webhook for Checkout ID:", checkoutId);
 
         const detailsResponse = await fetch(`${SUMUP_API_BASE}/v0.1/checkouts/${checkoutId}`, {
           method: "GET",
@@ -176,12 +177,12 @@ export default async function handler(req, res) {
         });
         
         if (!detailsResponse.ok) {
-          console.error("Webhook: Failed to fetch checkout details.");
+          logError("Webhook: Failed to fetch checkout details.");
           return res.status(200).json({ received: true, warning: "Verification failed" });
         }
 
         const details = await detailsResponse.json();
-        console.log("Checkout Status Verified:", details.status);
+        log("Checkout Status Verified:", details.status);
 
         if (details.status === "PAID") {
           const GAS_URL = process.env.GAS_URL;
@@ -209,9 +210,9 @@ export default async function handler(req, res) {
                    ${metadata.lang || 'english'})
                 ON CONFLICT (sumup_id) DO UPDATE SET payment_status = 'PAID'
               `;
-              console.log("Webhook (sumup.js): Saved/updated to Postgres:", checkoutId);
+              log("Webhook (sumup.js): Saved/updated to Postgres:", checkoutId);
             } catch (dbErr) {
-              console.error("Webhook (sumup.js): Postgres error:", dbErr.message);
+              logError("Webhook (sumup.js): Postgres error:", dbErr.message);
             }
 
             // Trigger GAS — Google Calendar + email
@@ -222,16 +223,16 @@ export default async function handler(req, res) {
               amount: details.amount,
               currency: details.currency
             };
-            console.log("Webhook: BOOKING DATA:", JSON.stringify(bookingData));
+            log("Webhook: BOOKING DATA:", JSON.stringify(bookingData));
             const gasResponse = await fetch(GAS_URL, {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({ action: "createBooking", ...bookingData })
             });
             const gasResult = await gasResponse.text();
-            console.log("Webhook: GAS response", gasResponse.status, gasResult);
+            log("Webhook: GAS response", gasResponse.status, gasResult);
           } else {
-            console.warn("Webhook: Missing date/time in metadata, skipping GAS");
+            warn("Webhook: Missing date/time in metadata, skipping GAS");
           }
         }
       }
@@ -242,7 +243,7 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: "Invalid action" });
 
   } catch (error) {
-    console.error("SumUp Proxy Error:", error);
+    logError("SumUp Proxy Error:", error);
     return res.status(502).json({ success: false, error: "Failed to communicate with SumUp API." });
   }
 }

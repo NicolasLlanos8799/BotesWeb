@@ -265,7 +265,7 @@ function initBookingPanel() {
       // No cache: disable selector until real data arrives
       timeTrigger.disabled = true;
       timeTrigger.setAttribute('disabled', 'true');
-      timeValueLabel.textContent = "Syncing...";
+      timeValueLabel.textContent = isSpanishUI ? "Sincronizando..." : isDanishUI ? "Synkroniserer..." : "Syncing...";
     }
 
     // Always fetch fresh data from server (background if cached, blocking if not)
@@ -283,7 +283,7 @@ function initBookingPanel() {
   function enableTimeSelector() {
     timeTrigger.disabled = false;
     timeTrigger.removeAttribute('disabled');
-    timeValueLabel.textContent = "Choose time";
+    timeValueLabel.textContent = isSpanishUI ? "Elige un horario" : isDanishUI ? "Vælg tidspunkt" : "Choose time";
   }
 
   function syncTimeValue(timeString) {
@@ -315,7 +315,7 @@ function initBookingPanel() {
         renderTimeSlots(availabilityCache[selectedDate], false);
         timeTrigger.disabled = false;
         if (!timeValueInput.value) {
-          timeValueLabel.textContent = "Choose time";
+          timeValueLabel.textContent = isSpanishUI ? "Elige un horario" : isDanishUI ? "Vælg tidspunkt" : "Choose time";
         }
       }
     }
@@ -327,7 +327,7 @@ function initBookingPanel() {
         renderTimeSlots(data, false);
         timeTrigger.disabled = false;
         if (!timeValueInput.value) {
-          timeValueLabel.textContent = "Choose time";
+          timeValueLabel.textContent = isSpanishUI ? "Elige un horario" : isDanishUI ? "Vælg tidspunkt" : "Choose time";
         }
         // Cache it for future use
         availabilityCache[dateContext] = data;

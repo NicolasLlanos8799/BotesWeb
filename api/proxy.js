@@ -1,3 +1,5 @@
+import { log, warn, error as logError } from "../lib/logger.js";
+
 const ALLOWED_HOSTNAMES = ["seaduced-experience.com", "vercel.app", "localhost", "127.0.0.1", "seaduced.dk"];
 
 // Exact-match or proper-subdomain match against the allowlist — never substring match.
@@ -31,7 +33,7 @@ export default async function handler(req, res) {
   const isAllowedDomain = isAllowedHostname(originHost) || isAllowedHostname(refererHost);
 
   if (!isAllowedDomain) {
-    console.warn("Security Shield: Blocked request from unauthorized origin:", originHost || refererHost || "None");
+    warn("Security Shield: Blocked request from unauthorized origin:", originHost || refererHost || "None");
     return res.status(403).json({ error: "Forbidden: Unauthorized Origin" });
   }
 
@@ -74,8 +76,8 @@ export default async function handler(req, res) {
       ...bodyData
     });
     
-    console.log("Proxy: POST action injected into body:", action);
-    console.log("Proxy: POST body:", fetchOptions.body);
+    log("Proxy: POST action injected into body:", action);
+    log("Proxy: POST body:", fetchOptions.body);
   } else {
     // For GET requests: use query params as before (GAS reads e.parameter fine in GET)
     const query = new URLSearchParams(req.query).toString();
@@ -83,16 +85,16 @@ export default async function handler(req, res) {
   }
 
   try {
-    console.log("Proxy: Forwarding to GAS:", targetUrl, "Method:", req.method);
+    log("Proxy: Forwarding to GAS:", targetUrl, "Method:", req.method);
     const response = await fetch(targetUrl, fetchOptions);
     const body = await response.text();
     
-    console.log("Proxy: GAS Response Status:", response.status);
-    console.log("Proxy: GAS Response Body:", body.substring(0, 500));
+    log("Proxy: GAS Response Status:", response.status);
+    log("Proxy: GAS Response Body:", body.substring(0, 500));
     
     // If GAS returns an error page (HTML) instead of JSON
     if (body.includes("<!DOCTYPE html>") && response.status !== 200) {
-       console.error("Proxy: GAS returned HTML error instead of JSON. Check script permissions.");
+       logError("Proxy: GAS returned HTML error instead of JSON. Check script permissions.");
     }
 
     const contentType = response.headers.get('content-type');
@@ -102,7 +104,7 @@ export default async function handler(req, res) {
     res.status(response.status).send(body);
 
   } catch (error) {
-    console.error("Proxy critical failure:", error);
+    logError("Proxy critical failure:", error);
     res.status(502).json({ 
       success: false, 
       error: "Cloud bridge failed to reach Google Apps Script." 

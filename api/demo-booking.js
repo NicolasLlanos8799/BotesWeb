@@ -1,4 +1,5 @@
 import db from "../lib/db.js";
+import { log, warn, error as logError } from "../lib/logger.js";
 
 /**
  * DEMO Booking Endpoint
@@ -48,9 +49,9 @@ export default async function handler(req, res) {
       )
       ON CONFLICT (sumup_id) DO NOTHING
     `;
-    console.log("[DEMO] Saved to Postgres:", fakeSumupId);
+    log("[DEMO] Saved to Postgres:", fakeSumupId);
   } catch (dbErr) {
-    console.error("[DEMO] Postgres error:", dbErr.message);
+    logError("[DEMO] Postgres error:", dbErr.message);
     // Non-fatal — continue to GAS
   }
 
@@ -64,8 +65,8 @@ export default async function handler(req, res) {
       amount: Number(metadata.total) || 0,
       currency: "DKK"
     };
-    console.log("[DEMO] Calling GAS:", GAS_DEMO_URL);
-    console.log("[DEMO] GAS payload:", JSON.stringify(gasPayload));
+    log("[DEMO] Calling GAS:", GAS_DEMO_URL);
+    log("[DEMO] GAS payload:", JSON.stringify(gasPayload));
     try {
       const gasResponse = await fetch(GAS_DEMO_URL, {
         method: "POST",
@@ -74,13 +75,13 @@ export default async function handler(req, res) {
         body: JSON.stringify(gasPayload)
       });
       const gasResult = await gasResponse.text();
-      console.log("[DEMO] GAS status:", gasResponse.status);
-      console.log("[DEMO] GAS result:", gasResult);
+      log("[DEMO] GAS status:", gasResponse.status);
+      log("[DEMO] GAS result:", gasResult);
     } catch (gasErr) {
-      console.error("[DEMO] GAS error:", gasErr.message);
+      logError("[DEMO] GAS error:", gasErr.message);
     }
   } else {
-    console.warn("[DEMO] GAS_DEMO_URL not set — skipping calendar/email");
+    warn("[DEMO] GAS_DEMO_URL not set — skipping calendar/email");
   }
 
   return res.status(200).json({ success: true, demo: true, sumup_id: fakeSumupId });

@@ -1,5 +1,6 @@
 import db from "../../lib/db.js";
 import { isAdminAuthenticated } from "../../lib/adminAuth.js";
+import { error as logError } from "../../lib/logger.js";
 
 export default async function handler(req, res) {
   if (!(await isAdminAuthenticated(req))) {
@@ -15,7 +16,7 @@ export default async function handler(req, res) {
     const bookings = result.rows ?? result;
     return res.status(200).json({ success: true, bookings });
   } catch (error) {
-    console.error("Admin API Error:", error.message);
+    logError("Admin API Error:", error.message);
     return res.status(500).json({ success: false, error: error.message });
   }
 }

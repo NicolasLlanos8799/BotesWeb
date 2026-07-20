@@ -13,13 +13,13 @@
 
 import crypto from "crypto";
 import db from "../lib/db.js";
+import { log, warn, error as logError } from "../lib/logger.js";
 import {
   validateGYGAuth,
   GYG_OPTION_CONFIG,
   GYG_OPTION_TO_TOURS,
   GYG_OPTION_MAP,
   BLOCKED_DATES,
-  TEST_MAX_PARTICIPANTS,
   getSlotsForOption,
 } from "../lib/gyg-config.js";
 
@@ -34,7 +34,7 @@ function callGAS(payload) {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
-  }).catch(e => console.warn("[GYG→GAS] Error:", e.message));
+  }).catch(e => warn("[GYG→GAS] Error:", e.message));
 }
 
 // Price per group/vehicle per GYG option ID (in DKK øre = DKK * 100)
@@ -55,7 +55,7 @@ export default async function handler(req, res) {
   const url = req.url || "";
   const method = req.method;
 
-  console.log(`[GYG] ${method} ${url}`);
+  log(`[GYG] ${method} ${url}`);
 
   try {
     if (method === "GET" && url.includes("get-availabilities")) {
@@ -74,10 +74,10 @@ export default async function handler(req, res) {
       return await handleCancelBooking(req, res);
     }
 
-    console.log(`[GYG] Unmatched: ${method} ${url}`);
+    log(`[GYG] Unmatched: ${method} ${url}`);
     return res.status(200).json({ errorCode: "VALIDATION_FAILURE", errorMessage: `Unknown endpoint: ${method} ${url}` });
   } catch (err) {
-    console.error(`[GYG] Unhandled error in ${method} ${url}:`, err);
+    logError(`[GYG] Unhandled error in ${method} ${url}:`, err);
     return res.status(200).json({ errorCode: "INTERNAL_SYSTEM_FAILURE", errorMessage: err.message });
   }
 }
@@ -152,7 +152,7 @@ async function handleAvailability(req, res) {
     return res.status(200).json({ data: { availabilities } });
 
   } catch (err) {
-    console.error("[GYG availability] Error:", err.message);
+    logError("[GYG availability] Error:", err.message);
     return res.status(200).json({ errorCode: "INTERNAL_SYSTEM_FAILURE", errorMessage: err.message });
   }
 }
@@ -181,7 +181,7 @@ async function handleReserve(req, res) {
   }
 
   // Validate participant count against the option's real capacity (maxPax)
-  const maxParticipants = cfg.maxPax ?? TEST_MAX_PARTICIPANTS;
+  const maxParticipants = cfg.maxPax;
   const oversizedItem = data.bookingItems.find(item => (item.groupSize ?? 0) > maxParticipants);
   if (oversizedItem) {
     return res.status(200).json({
@@ -237,7 +237,7 @@ async function handleReserve(req, res) {
             passengers = ${participants}, payment_status = 'RESERVED'
     `;
   } catch (err) {
-    console.error("[GYG reserve] DB error:", err.message);
+    logError("[GYG reserve] DB error:", err.message);
     return res.status(200).json({ errorCode: "INTERNAL_SYSTEM_FAILURE", errorMessage: err.message });
   }
 
@@ -269,15 +269,18 @@ async function handleBook(req, res) {
   }
 
   const { optionId: bookOptionId, cfg: bookCfg } = data.productId ? getOptionForProduct(data.productId) : {};
-  const maxParticipants = bookCfg?.maxPax ?? TEST_MAX_PARTICIPANTS;
-  const oversizedItem = (data.bookingItems || []).find(item => (item.groupSize ?? 0) > maxParticipants);
-  if (oversizedItem) {
-    return res.status(200).json({
-      errorCode: "INVALID_PARTICIPANTS_CONFIGURATION",
-      errorMessage: `The activity can only be booked for up to ${maxParticipants} participants.`,
-      participantsConfiguration: { min: 1, max: maxParticipants },
-      groupConfiguration: { max: 1 },
-    });
+  // Only validate pax if we can resolve the product — /book/ doesn't require productId
+  // and participant validation already happened in /reserve/
+  if (bookCfg?.maxPax) {
+    const oversizedItem = (data.bookingItems || []).find(item => (item.groupSize ?? 0) > bookCfg.maxPax);
+    if (oversizedItem) {
+      return res.status(200).json({
+        errorCode: "INVALID_PARTICIPANTS_CONFIGURATION",
+        errorMessage: `The activity can only be booked for up to ${bookCfg.maxPax} participants.`,
+        participantsConfiguration: { min: 1, max: bookCfg.maxPax },
+        groupConfiguration: { max: 1 },
+      });
+    }
   }
 
   try {
@@ -370,7 +373,7 @@ async function handleBook(req, res) {
     );
 
     const bookingReference = `BOOK-${crypto.randomUUID()}`;
-    console.log(`[GYG book] Confirmed: ${data.gygBookingReference} | bookingReference: ${bookingReference} | tickets: ${tickets.length}`);
+    log(`[GYG book] Confirmed: ${data.gygBookingReference} | bookingReference: ${bookingReference} | tickets: ${tickets.length}`);
     return res.status(200).json({
       data: {
         bookingReference,
@@ -379,7 +382,7 @@ async function handleBook(req, res) {
     });
 
   } catch (err) {
-    console.error("[GYG book] Error:", err.message);
+    logError("[GYG book] Error:", err.message);
     return res.status(200).json({ errorCode: "INTERNAL_SYSTEM_FAILURE", errorMessage: err.message });
   }
 }
@@ -420,7 +423,7 @@ async function handleCancelBooking(req, res) {
   // Remove confirmed event from Google Calendar — slot is free again
   await callGAS({ action: "deleteHoldEvent", gyg_booking_id: data.gygBookingReference });
 
-  console.log(`[GYG cancel] Cancelled: ${data.gygBookingReference}`);
+  log(`[GYG cancel] Cancelled: ${data.gygBookingReference}`);
   return res.status(200).json({ data: { status: "cancelled" } });
 }
 

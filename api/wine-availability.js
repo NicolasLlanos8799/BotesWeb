@@ -1,4 +1,5 @@
 import db from "../lib/db.js";
+import { error as logError } from "../lib/logger.js";
 
 const WINE_SLOTS = ["10:00", "12:00", "14:00", "16:00", "18:00"];
 
@@ -61,7 +62,7 @@ export default async function handler(req, res) {
 
     return res.status(200).json(result);
   } catch (err) {
-    console.error("[wine-availability] DB error:", err.message);
+    logError("[wine-availability] DB error:", err.message);
     return res.status(500).json({ error: "Internal server error" });
   }
 }

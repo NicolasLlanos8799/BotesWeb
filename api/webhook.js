@@ -1,4 +1,5 @@
 import db from "../lib/db.js";
+import { log, warn, error as logError } from "../lib/logger.js";
 import { notifyGYGAvailability } from "../lib/gyg-notify.js";
 
 export default async function handler(req, res) {
@@ -49,9 +50,9 @@ export default async function handler(req, res) {
                ${metadata.lang || 'english'})
             ON CONFLICT (sumup_id) DO UPDATE SET payment_status = 'PAID'
           `;
-          console.log("Webhook: Saved to Postgres:", checkoutId);
+          log("Webhook: Saved to Postgres:", checkoutId);
         } catch (dbErr) {
-          console.error("Webhook: Postgres error:", dbErr.message);
+          logError("Webhook: Postgres error:", dbErr.message);
         }
 
         // 3. Trigger GAS — Google Calendar + confirmation email
@@ -62,7 +63,7 @@ export default async function handler(req, res) {
           amount: checkout.amount,
           currency: checkout.currency
         };
-        console.log("Webhook: Sending to GAS...");
+        log("Webhook: Sending to GAS...");
         await fetch(GAS_URL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -71,15 +72,15 @@ export default async function handler(req, res) {
 
         // Notify GYG — fire-and-forget (non-fatal, booking already saved)
         notifyGYGAvailability(metadata.tour, metadata.date, metadata.time)
-          .catch(e => console.warn("[GYG notify] Error:", e.message));
+          .catch(e => warn("[GYG notify] Error:", e.message));
       } else {
-        console.warn("Webhook: Missing metadata, fallback endpoint will handle it.");
+        warn("Webhook: Missing metadata, fallback endpoint will handle it.");
       }
     }
 
     return res.status(200).json({ received: true });
   } catch (error) {
-    console.error("Webhook Error:", error.message);
+    logError("Webhook Error:", error.message);
     return res.status(200).json({ received: true, warning: error.message });
   }
 }

@@ -1,4 +1,5 @@
 import db from "../lib/db.js";
+import { log, warn, error as logError } from "../lib/logger.js";
 import { notifyGYGAvailability } from "../lib/gyg-notify.js";
 
 /**
@@ -21,7 +22,7 @@ export default async function handler(req, res) {
   if (!checkout_id) return res.status(400).json({ error: "Missing checkout_id" });
 
   try {
-    console.log("[FALLBACK] Verifying checkout:", checkout_id);
+    log("[FALLBACK] Verifying checkout:", checkout_id);
 
     // 1. VERIFY payment with SumUp (NEVER trust frontend)
     const sumupRes = await fetch(`${SUMUP_API_BASE}/v0.1/checkouts/${checkout_id}`, {
@@ -33,7 +34,7 @@ export default async function handler(req, res) {
     const checkout = await sumupRes.json();
 
     if (checkout.status !== "PAID") {
-      console.log("[FALLBACK] Not PAID. Status:", checkout.status);
+      log("[FALLBACK] Not PAID. Status:", checkout.status);
       return res.status(200).json({ success: false, message: "Payment not completed" });
     }
 
@@ -41,14 +42,14 @@ export default async function handler(req, res) {
     let metadata = null;
     if (checkout.metadata && Object.keys(checkout.metadata).length > 0) {
       metadata = checkout.metadata;
-      console.log("[FALLBACK] Using metadata from SumUp");
+      log("[FALLBACK] Using metadata from SumUp");
     } else if (frontendMetadata && Object.keys(frontendMetadata).length > 0) {
       metadata = frontendMetadata;
-      console.log("[FALLBACK] Using metadata from Frontend");
+      log("[FALLBACK] Using metadata from Frontend");
     }
 
     if (!metadata || !metadata.date || !metadata.time) {
-      console.error("[FALLBACK] No valid metadata for:", checkout_id);
+      logError("[FALLBACK] No valid metadata for:", checkout_id);
       return res.status(400).json({ error: "Metadata not found" });
     }
 
@@ -75,12 +76,12 @@ export default async function handler(req, res) {
         )
         ON CONFLICT (sumup_id) DO UPDATE SET payment_status = 'PAID'
       `;
-      console.log("[FALLBACK] Saved to Postgres.");
+      log("[FALLBACK] Saved to Postgres.");
     } catch (dbErr) {
       if (dbErr.code === '23505') {
-        console.log("[FALLBACK] Duplicate in Postgres, skipping insert.");
+        log("[FALLBACK] Duplicate in Postgres, skipping insert.");
       } else {
-        console.error("[FALLBACK] Postgres error:", dbErr.message);
+        logError("[FALLBACK] Postgres error:", dbErr.message);
       }
     }
 
@@ -92,7 +93,7 @@ export default async function handler(req, res) {
       amount: checkout.amount,
       currency: checkout.currency
     };
-    console.log("[FALLBACK] Sending to GAS:", JSON.stringify(bookingData));
+    log("[FALLBACK] Sending to GAS:", JSON.stringify(bookingData));
 
     const gasResponse = await fetch(GAS_URL, {
       method: "POST",
@@ -101,16 +102,16 @@ export default async function handler(req, res) {
     });
 
     const gasResult = await gasResponse.text();
-    console.log("[FALLBACK] GAS response:", gasResponse.status, gasResult);
+    log("[FALLBACK] GAS response:", gasResponse.status, gasResult);
 
     // 5. NOTIFY GYG — fire-and-forget (non-fatal, booking already saved)
     notifyGYGAvailability(metadata.tour, metadata.date, metadata.time)
-      .catch(e => console.warn("[GYG notify] Error:", e.message));
+      .catch(e => warn("[GYG notify] Error:", e.message));
 
     return res.status(200).json({ success: true, booking_created: true });
 
   } catch (error) {
-    console.error("[FALLBACK] Error:", error.message);
+    logError("[FALLBACK] Error:", error.message);
     return res.status(500).json({ success: false, error: error.message });
   }
 }
