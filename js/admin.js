@@ -219,15 +219,7 @@ async function initBookingsPage() {
               <span class="badge-status status-${b.status.toLowerCase()}">${b.status}</span>
             </td>
             <td>
-              <div style="position:relative;display:inline-block;">
-                <button class="action-menu-btn" data-id="${b.id}" style="font-size:1rem;padding:4px 12px;letter-spacing:2px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.2);border-radius:6px;color:#fff;cursor:pointer;">⋯</button>
-                <div class="action-dropdown" data-id="${b.id}" style="display:none;position:absolute;right:0;top:100%;margin-top:6px;background:#0d1b2e;border:1px solid var(--admin-card-border);border-radius:10px;z-index:100;min-width:170px;overflow:hidden;box-shadow:0 12px 32px rgba(0,0,0,0.6);">
-                  <button class="action-edit dropdown-item" data-booking='${JSON.stringify(b).replace(/'/g, "&#39;")}' style="display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:11px 16px;background:none;border:none;border-bottom:1px solid var(--admin-card-border);color:rgba(255,255,255,0.85);font-size:0.85rem;cursor:pointer;font-family:inherit;">✏️ <span>Edit</span></button>
-                  <button class="action-resend dropdown-item" data-booking='${JSON.stringify(b).replace(/'/g, "&#39;")}' style="display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:11px 16px;background:none;border:none;border-bottom:1px solid var(--admin-card-border);color:#60a5fa;font-size:0.85rem;cursor:pointer;font-family:inherit;">✉ <span>Resend Email</span></button>
-                  ${b.status !== 'CANCELLED' ? `<button class="action-cancel dropdown-item" data-id="${b.id}" style="display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:11px 16px;background:none;border:none;border-bottom:1px solid var(--admin-card-border);color:#fbbf24;font-size:0.85rem;cursor:pointer;font-family:inherit;">⊘ <span>Cancel</span></button>` : ''}
-                  <button class="action-delete dropdown-item" data-id="${b.id}" style="display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:11px 16px;background:none;border:none;color:#f87171;font-size:0.85rem;cursor:pointer;font-family:inherit;">🗑 <span>Delete</span></button>
-                </div>
-              </div>
+              <button class="action-menu-btn" data-id="${b.id}" data-booking='${JSON.stringify(b).replace(/'/g, "&#39;")}' data-cancelled="${b.status === 'CANCELLED'}" style="font-size:1rem;padding:4px 12px;letter-spacing:2px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.2);border-radius:6px;color:#fff;cursor:pointer;">⋯</button>
             </td>
           </tr>
         `;
@@ -238,18 +230,100 @@ async function initBookingsPage() {
 
     const renderTarget = isMobile ? cardsEl : tbody;
 
-    // Dropdown toggle (desktop only)
+    // Dropdown toggle — uses a single fixed panel appended to body to escape overflow clipping
+    let globalDropdown = document.getElementById("global-action-dropdown");
+    if (!globalDropdown) {
+      globalDropdown = document.createElement("div");
+      globalDropdown.id = "global-action-dropdown";
+      globalDropdown.style.cssText = "display:none;position:fixed;background:#0d1b2e;border:1px solid rgba(255,255,255,0.12);border-radius:10px;z-index:9999;min-width:170px;overflow:hidden;box-shadow:0 12px 32px rgba(0,0,0,0.6);";
+      document.body.appendChild(globalDropdown);
+      document.addEventListener("click", () => { globalDropdown.style.display = "none"; });
+    }
+
     renderTarget.querySelectorAll(".action-menu-btn").forEach(btn => {
       btn.addEventListener("click", (e) => {
         e.stopPropagation();
+        const bookingData = btn.dataset.booking;
+        const isCancelled = btn.dataset.cancelled === "true";
         const id = btn.dataset.id;
-        document.querySelectorAll(".action-dropdown").forEach(d => {
-          d.style.display = d.dataset.id === id && d.style.display === "none" ? "block" : "none";
+        const itemStyle = "display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:11px 16px;background:none;border:none;border-bottom:1px solid rgba(255,255,255,0.08);font-size:0.85rem;cursor:pointer;font-family:inherit;";
+        globalDropdown.innerHTML = `
+          <button class="action-edit dropdown-item" data-booking='${bookingData}' style="${itemStyle}color:rgba(255,255,255,0.85);">✏️ <span>Edit</span></button>
+          <button class="action-resend dropdown-item" data-booking='${bookingData}' style="${itemStyle}color:#60a5fa;">✉ <span>Resend Email</span></button>
+          ${!isCancelled ? `<button class="action-cancel dropdown-item" data-id="${id}" style="${itemStyle}color:#fbbf24;">⊘ <span>Cancel</span></button>` : ''}
+          <button class="action-delete dropdown-item" data-id="${id}" style="display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:11px 16px;background:none;border:none;font-size:0.85rem;cursor:pointer;font-family:inherit;color:#f87171;">🗑 <span>Delete</span></button>
+        `;
+
+        // Position below the button, aligned to its right edge
+        const rect = btn.getBoundingClientRect();
+        globalDropdown.style.display = "block";
+        const ddW = globalDropdown.offsetWidth;
+        let left = rect.right - ddW;
+        if (left < 8) left = 8;
+        globalDropdown.style.top = (rect.bottom + 6) + "px";
+        globalDropdown.style.left = left + "px";
+
+        // Wire up actions — mirror the same logic as the mobile card buttons
+        const editBtn = globalDropdown.querySelector(".action-edit");
+        if (editBtn) editBtn.addEventListener("click", () => {
+          globalDropdown.style.display = "none";
+          const b = JSON.parse(editBtn.dataset.booking);
+          openEditModal(b, async (updated) => {
+            const res = await fetch(`/api/admin/booking-action?id=${b.id}`, {
+              method: "PUT", headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ ...updated, id: b.id })
+            });
+            if (res.ok) {
+              Object.assign(b, {
+                customerName: updated.name || b.customerName,
+                customerEmail: updated.email || b.customerEmail,
+                customerPhone: updated.phone || b.customerPhone,
+                date: updated.date || b.date,
+                time: updated.time || b.time,
+                passengers: updated.qty ? parseInt(updated.qty) : b.passengers,
+                extras: updated.extras !== undefined ? parseInt(updated.extras) : b.extras,
+                lang: updated.lang || b.lang
+              });
+              const idx = allBookings.findIndex(x => String(x.id) === String(b.id));
+              if (idx !== -1) allBookings[idx] = b;
+              const fidx = filteredBookings.findIndex(x => String(x.id) === String(b.id));
+              if (fidx !== -1) filteredBookings[fidx] = b;
+              render(filteredBookings);
+            } else { await adminAlert("Failed to update booking.", "error"); }
+          });
+        });
+        const resendBtn = globalDropdown.querySelector(".action-resend");
+        if (resendBtn) resendBtn.addEventListener("click", () => {
+          globalDropdown.style.display = "none";
+          openResendModal(JSON.parse(resendBtn.dataset.booking));
+        });
+        const cancelBtn = globalDropdown.querySelector(".action-cancel");
+        if (cancelBtn) cancelBtn.addEventListener("click", async () => {
+          globalDropdown.style.display = "none";
+          if (!(await adminConfirm("Cancel this booking?", "Cancel Booking", true))) return;
+          const cid = cancelBtn.dataset.id;
+          const res = await fetch(`/api/admin/booking-action?id=${cid}`, { method: "PATCH" });
+          if (res.ok) {
+            const bk = allBookings.find(x => String(x.id) === String(cid));
+            if (bk) bk.status = "CANCELLED";
+            const fk = filteredBookings.find(x => String(x.id) === String(cid));
+            if (fk) fk.status = "CANCELLED";
+            render(filteredBookings);
+          } else { await adminAlert("Failed to cancel booking.", "error"); }
+        });
+        const deleteBtn = globalDropdown.querySelector(".action-delete");
+        if (deleteBtn) deleteBtn.addEventListener("click", async () => {
+          globalDropdown.style.display = "none";
+          if (!(await adminConfirm("Permanently delete this booking? This cannot be undone.", "Delete", true))) return;
+          const did = deleteBtn.dataset.id;
+          const res = await fetch(`/api/admin/booking-action?id=${did}`, { method: "DELETE" });
+          if (res.ok) {
+            allBookings = allBookings.filter(x => String(x.id) !== String(did));
+            filteredBookings = filteredBookings.filter(x => String(x.id) !== String(did));
+            render(filteredBookings);
+          } else { await adminAlert("Failed to delete booking.", "error"); }
         });
       });
-    });
-    document.addEventListener("click", () => {
-      document.querySelectorAll(".action-dropdown").forEach(d => d.style.display = "none");
     });
 
     renderTarget.querySelectorAll(".action-delete").forEach(btn => {

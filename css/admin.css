@@ -218,7 +218,7 @@ body.admin-body {
   border: 1px solid var(--admin-card-border);
   border-radius: var(--radius-lg);
   overflow-x: auto;
-  overflow-y: hidden;
+  overflow-y: visible;
 }
 
 .admin-table {
