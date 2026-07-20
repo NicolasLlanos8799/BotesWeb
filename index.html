@@ -560,7 +560,7 @@
             alt="Copenhagen canals boat tour" title="Private boat tour through Copenhagen's scenic canals"
             class="hero__bg-img" data-i18n-attr="alt:hero.img_alt" />
         </picture>
-        <div class="hero__overlay"></div>
+        <a href="#tours" class="hero__overlay" aria-label="Scroll to tours" tabindex="-1"></a>
       </div>
 
       <div class="container hero__content">
@@ -1179,6 +1179,14 @@
     </div>
   </footer>
 
+  <!-- Mobile Sticky CTA — homepage only, mirrors experience pages pattern -->
+  <div class="mobile-sticky-cta" id="home-mobile-sticky-cta" style="display:none;">
+    <div class="mobile-sticky-cta__price">
+      <strong data-i18n="hero.cta.book">Book Your Tour</strong>
+      <span data-i18n="tours.label">Our Experiences</span>
+    </div>
+    <a href="/book" class="btn" data-i18n="hero.cta.book" data-i18n-href="/book">Book Now</a>
+  </div>
 
   <!-- JSON-LD Structured Data for SEO -->
   <script type="application/ld+json">
@@ -1388,6 +1396,22 @@
   <script type="module" src="/js/i18n.js"></script>
   <script type="module" src="/js/main.js?v=1.2"></script>
   <script type="module" src="/js/analytics.js"></script>
+  <script>
+    // Home mobile sticky CTA — show after hero scrolls out of view
+    (function () {
+      const bar = document.getElementById('home-mobile-sticky-cta');
+      if (!bar || window.innerWidth > 768) return;
+      bar.style.display = 'flex';
+      bar.style.opacity = '0';
+      bar.style.transition = 'opacity 0.3s ease';
+      const hero = document.getElementById('hero');
+      const obs = new IntersectionObserver(function (entries) {
+        bar.style.opacity = entries[0].isIntersecting ? '0' : '1';
+        bar.style.pointerEvents = entries[0].isIntersecting ? 'none' : 'auto';
+      }, { threshold: 0.05 });
+      obs.observe(hero);
+    })();
+  </script>
 </body>
 
 </html>

@@ -53,6 +53,9 @@
       rgba(0, 0, 0, 0.35) 40%,
       rgba(0, 0, 0, 0.35) 60%,
       rgba(0, 0, 0, 0.60) 100%);
+  cursor: pointer;
+  display: block;
+  text-decoration: none;
 }
 
 .hero__content {
@@ -5195,7 +5198,7 @@
 @media (max-width: 768px) {
   .hero {
     height: auto;
-    min-height: calc(var(--vh, 1vh) * 100);
+    min-height: calc(var(--vh, 1vh) * 85);
     padding: 2rem 0;
   }
 
@@ -5239,8 +5242,7 @@
     line-height: var(--lh-base) !important;
     margin-left: auto !important;
     margin-right: auto !important;
-    margin-bottom: 7rem !important;
-    /* Extremely increased to push buttons very low */
+    margin-bottom: 2rem !important;
     color: rgba(255, 255, 255, 0.9) !important;
     text-align: center !important;
     max-width: 100% !important;
