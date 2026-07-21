@@ -192,7 +192,8 @@ async function handleReserve(req, res) {
     });
   }
 
-  const participants = data.bookingItems.reduce((sum, item) => sum + (item.count || 0), 0);
+  // GROUP tickets carry real pax in groupSize; count is the number of groups (1)
+  const participants = data.bookingItems.reduce((sum, item) => sum + (item.groupSize || item.count || 0), 0);
   // Extract local Copenhagen date/time directly from ISO string to avoid UTC conversion
   const [date, rawTime] = data.dateTime.split("T");
   const time = rawTime.slice(0, 5); // "17:00"
@@ -305,7 +306,7 @@ async function handleBook(req, res) {
       const dateTime = new Date(data.dateTime || Date.now());
       const date = dateTime.toISOString().split("T")[0];
       const time = `${String(dateTime.getHours()).padStart(2, "0")}:${String(dateTime.getMinutes()).padStart(2, "0")}`;
-      const participants = (data.bookingItems || []).reduce((s, i) => s + (i.count || 0), 0);
+      const participants = (data.bookingItems || []).reduce((s, i) => s + (i.groupSize || i.count || 0), 0);
       const inserted = await db`
         INSERT INTO bookings (
           tour_id, tour_name, passengers, booking_date, booking_time,
