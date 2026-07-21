@@ -24,12 +24,13 @@ import {
 } from "../lib/gyg-config.js";
 
 // ── GAS helper ────────────────────────────────────────────────────────────────
-// Fire-and-forget call to Google Apps Script to sync Google Calendar.
-// Non-fatal: if GAS is unavailable the booking is already safe in the DB.
+// Awaited call to Google Apps Script to sync Google Calendar. MUST be awaited:
+// on Vercel the lambda freezes once the response is sent and a pending fetch dies.
+// Non-fatal: errors are swallowed, the booking is already safe in the DB.
 function callGAS(payload) {
   const GAS_URL = process.env.GAS_URL;
-  if (!GAS_URL) return;
-  fetch(GAS_URL, {
+  if (!GAS_URL) return Promise.resolve();
+  return fetch(GAS_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
@@ -240,7 +241,7 @@ async function handleReserve(req, res) {
   }
 
   // Block slot in Google Calendar immediately (grey HOLD event)
-  callGAS({
+  await callGAS({
     action: "createHoldEvent",
     gyg_booking_id: data.gygBookingReference,
     tour: tourId,
@@ -332,9 +333,16 @@ async function handleBook(req, res) {
       : booking.booking_date;
     const bookingTime = booking.booking_time?.slice(0, 5);
 
-    const optionPrice = OPTION_PRICES[bookOptionId];
+    // GYG does not send productId on /book/ — fall back to the stored tour_id
+    const effectiveOptionId = bookOptionId ?? getOptionForProduct(booking.tour_id).optionId;
+    const optionPrice = OPTION_PRICES[effectiveOptionId];
 
-    callGAS({
+    if (optionPrice != null && !(booking.total_price > 0)) {
+      await db`UPDATE bookings SET total_price = ${optionPrice / 100} WHERE gyg_booking_id = ${data.gygBookingReference}`;
+      booking.total_price = optionPrice / 100;
+    }
+
+    await callGAS({
       action: "confirmHoldEvent",
       gyg_booking_id: data.gygBookingReference,
       tour: booking.tour_id,
@@ -390,7 +398,7 @@ async function handleCancelReservation(req, res) {
   `;
 
   // Remove HOLD event from Google Calendar — slot is free again
-  callGAS({ action: "deleteHoldEvent", gyg_booking_id: data.gygBookingReference });
+  await callGAS({ action: "deleteHoldEvent", gyg_booking_id: data.gygBookingReference });
 
   return res.status(200).json({ data: { status: "cancelled" } });
 }
@@ -409,7 +417,7 @@ async function handleCancelBooking(req, res) {
   `;
 
   // Remove confirmed event from Google Calendar — slot is free again
-  callGAS({ action: "deleteHoldEvent", gyg_booking_id: data.gygBookingReference });
+  await callGAS({ action: "deleteHoldEvent", gyg_booking_id: data.gygBookingReference });
 
   console.log(`[GYG cancel] Cancelled: ${data.gygBookingReference}`);
   return res.status(200).json({ data: { status: "cancelled" } });

@@ -266,10 +266,12 @@ function handleCreateHoldEvent(data) {
   var lock = LockService.getScriptLock();
   lock.tryLock(10000);
   try {
-    // Avoid duplicates — also catches case where confirmHoldEvent ran first
+    // Also catches the case where confirmHoldEvent ran first
     var existing = findEventByDescriptionFragment("GYG Ref: " + data.gyg_booking_id);
-    if (existing) {
-      return { success: true, message: "Event already exists (hold or confirmed)", eventId: existing.getId() };
+
+    // Already confirmed (CYAN) — an amendment must not downgrade it back to HOLD
+    if (existing && existing.getColor() === CalendarApp.EventColor.CYAN) {
+      return { success: true, message: "Event already confirmed", eventId: existing.getId() };
     }
 
     var calendar = getCalendar(data.calendar || 'boat1');
@@ -284,11 +286,19 @@ function handleCreateHoldEvent(data) {
       "GYG Ref: " + data.gyg_booking_id + "\n" +
       "Source: GetYourGuide (hold)";
 
-    var event = calendar.createEvent(
-      "⏳ GYG HOLD: " + (data.qty || '') + "p",
-      range.start, range.end,
-      { description: description }
-    );
+    var title = "⏳ GYG HOLD: " + (data.qty || '') + "p";
+
+    // Amendment: GYG reuses the same reference with new date/pax — update in place
+    if (existing) {
+      existing.setTitle(title);
+      existing.setDescription(description);
+      existing.setTime(range.start, range.end);
+      existing.setColor(CalendarApp.EventColor.GRAY);
+      Logger.log("GYG hold event updated: " + data.gyg_booking_id + " | " + existing.getId());
+      return { success: true, eventId: existing.getId(), action: "updated" };
+    }
+
+    var event = calendar.createEvent(title, range.start, range.end, { description: description });
     event.setColor(CalendarApp.EventColor.GRAY);
 
     Logger.log("GYG hold event created: " + data.gyg_booking_id + " | " + event.getId());
