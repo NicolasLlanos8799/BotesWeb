@@ -40,7 +40,9 @@ function adminConfirm(message, confirmLabel = "Confirm", danger = false) {
 document.addEventListener("DOMContentLoaded", () => {
   const path = window.location.pathname;
 
-  if (path.includes("/admin/gyg-bookings")) {
+  if (path.includes("/admin/new-reservations")) {
+    initNewReservationsPage();
+  } else if (path.includes("/admin/gyg-bookings")) {
     initBookingsPage({
       tbodyId: "gyg-bookings-tbody",
       paginationId: "gyg-bookings-pagination",
@@ -579,50 +581,86 @@ async function initDashboard() {
     }
   }
 
-  // 4. New Reservations (last 48h) — notification panel
-  const panel = document.getElementById("new-bookings-panel");
+  // 4. Sidebar notification badges (New Reservations / GetYourGuide)
+  updateNavBadges(bookings);
+}
+
+/**
+ * Shared helpers: "new reservations" (created in the last 48h) panel + badges.
+ * Used by both the Dashboard sidebar badges and the dedicated
+ * /admin/new-reservations.html page.
+ */
+function getNewBookings(bookings) {
+  const cutoff = Date.now() - 48 * 60 * 60 * 1000;
+  return bookings
+    .filter(b => b.createdAt && b.createdAt.getTime() >= cutoff)
+    .sort((a, b) => b.createdAt - a.createdAt);
+}
+
+function updateNavBadges(bookings) {
+  const newBookings = getNewBookings(bookings);
+  const newGyg = newBookings.filter(b => b.isGyg);
+
+  const allBadge = document.getElementById("new-reservations-nav-badge");
+  if (allBadge && newBookings.length > 0) {
+    allBadge.textContent = newBookings.length;
+    allBadge.style.display = "inline-block";
+  }
+
+  const gygBadge = document.getElementById("gyg-nav-badge");
+  if (gygBadge && newGyg.length > 0) {
+    gygBadge.textContent = newGyg.length;
+    gygBadge.style.display = "inline-block";
+  }
+}
+
+function renderNewBookingsPanel(bookings) {
   const listEl = document.getElementById("new-bookings-list");
   const countEl = document.getElementById("new-bookings-count");
-  if (panel && listEl && countEl) {
-    const cutoff = now.getTime() - 48 * 60 * 60 * 1000;
-    const newBookings = bookings
-      .filter(b => b.createdAt && b.createdAt.getTime() >= cutoff)
-      .sort((a, b) => b.createdAt - a.createdAt);
+  if (!listEl || !countEl) return;
 
-    countEl.textContent = newBookings.length;
-    panel.style.display = "block";
+  const now = Date.now();
+  const newBookings = getNewBookings(bookings);
+  countEl.textContent = newBookings.length;
 
-    if (newBookings.length === 0) {
-      listEl.innerHTML = `<div style="padding:0.75rem 0;color:rgba(255,255,255,0.5);font-size:0.85rem;">No new reservations in the last 48h.</div>`;
-    } else {
-      listEl.innerHTML = newBookings.map(b => {
-        const hoursAgo = Math.round((now.getTime() - b.createdAt.getTime()) / (60 * 60 * 1000));
-        const timeAgo = hoursAgo < 1 ? "just now" : `${hoursAgo}h ago`;
-        const d = new Date(b.start);
-        const dateStr = d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short' });
-        return `
-          <div class="new-booking-item">
-            <div class="new-booking-item__main">
-              <span class="new-booking-item__name">${b.customerName}${b.isGyg ? ' <span style="opacity:0.5;">(GYG)</span>' : ''}</span>
-              <span class="new-booking-item__meta">${b.tourName} · ${dateStr} @ ${b.time.substring(0, 5)} · ${b.passengers} pax</span>
-            </div>
-            <span class="new-booking-item__time">${timeAgo}</span>
-          </div>
-        `;
-      }).join("");
-    }
+  if (newBookings.length === 0) {
+    listEl.innerHTML = `<div style="padding:0.75rem 0;color:rgba(255,255,255,0.5);font-size:0.85rem;">No new reservations in the last 48h.</div>`;
+    return;
   }
 
-  // 5. GetYourGuide sidebar badge (new GYG bookings in last 48h)
-  const gygBadge = document.getElementById("gyg-nav-badge");
-  if (gygBadge) {
-    const cutoff = now.getTime() - 48 * 60 * 60 * 1000;
-    const newGyg = bookings.filter(b => b.isGyg && b.createdAt && b.createdAt.getTime() >= cutoff);
-    if (newGyg.length > 0) {
-      gygBadge.textContent = newGyg.length;
-      gygBadge.style.display = "inline-block";
-    }
-  }
+  listEl.innerHTML = newBookings.map(b => {
+    const hoursAgo = Math.round((now - b.createdAt.getTime()) / (60 * 60 * 1000));
+    const timeAgo = hoursAgo < 1 ? "just now" : `${hoursAgo}h ago`;
+    const d = new Date(b.start);
+    const dateStr = d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short' });
+    return `
+      <div class="new-booking-item">
+        <div class="new-booking-item__main">
+          <span class="new-booking-item__name">${b.customerName}${b.isGyg ? ' <span style="opacity:0.5;">(GYG)</span>' : ''}</span>
+          <span class="new-booking-item__meta">${b.tourName} · ${dateStr} @ ${b.time.substring(0, 5)} · ${b.passengers} pax</span>
+        </div>
+        <span class="new-booking-item__time">${timeAgo}</span>
+      </div>
+    `;
+  }).join("");
+}
+
+/**
+ * NEW RESERVATIONS PAGE (last 48h, own + GetYourGuide)
+ */
+async function initNewReservationsPage() {
+  const refreshBtn = document.getElementById("refresh-new-reservations");
+
+  const load = async () => {
+    const listEl = document.getElementById("new-bookings-list");
+    if (listEl) listEl.innerHTML = `<div class="po-spinner" style="margin: 2rem auto;"></div>`;
+    const bookings = await fetchAllBookings();
+    renderNewBookingsPanel(bookings);
+    updateNavBadges(bookings);
+  };
+
+  refreshBtn?.addEventListener("click", load);
+  load();
 }
 
 /**
