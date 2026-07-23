@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
       refreshId: "refresh-bookings",
       cardsId: "bookings-cards",
       emptyMessage: "No bookings found for this period.",
-      filterFn: () => true
+      filterFn: b => !b.isGyg
     });
   } else if (path.includes("/admin/stats")) {
     initStatsPage();
