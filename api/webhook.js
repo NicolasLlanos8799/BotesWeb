@@ -55,13 +55,36 @@ export default async function handler(req, res) {
           logError("Webhook: Postgres error:", dbErr.message);
         }
 
-        // 3. Trigger GAS — Google Calendar + confirmation email
+        // 3. Calculate group number for wine tour
+        let groupNumber = null;
+        if (metadata.tour === "book-wine") {
+          try {
+            const ACTIVE_STATUSES = ["PAID", "RESERVED", "PENDING"];
+            const countResult = await db`
+              SELECT COUNT(*) as group_count
+              FROM bookings
+              WHERE tour_id = 'book-wine'
+                AND booking_date = ${metadata.date}
+                AND booking_time = ${metadata.time}
+                AND payment_status = ANY(${ACTIVE_STATUSES})
+                AND sumup_id != ${checkoutId}
+            `;
+            const countRows = countResult.rows ?? countResult;
+            // Groups already confirmed before this one → this is group N+1
+            groupNumber = Number(countRows[0]?.group_count || 0) + 1;
+          } catch (e) {
+            warn("[wine group] Could not calculate group number:", e.message);
+          }
+        }
+
+        // 4. Trigger GAS — Google Calendar + confirmation email
         const bookingData = {
           ...metadata,
           payment_status: "PAID",
           sumup_checkout_id: checkoutId,
           amount: checkout.amount,
-          currency: checkout.currency
+          currency: checkout.currency,
+          ...(groupNumber ? { groupNumber } : {})
         };
         log("Webhook: Sending to GAS...");
         await fetch(GAS_URL, {

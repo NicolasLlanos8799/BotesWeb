@@ -55,6 +55,28 @@ export default async function handler(req, res) {
     // Non-fatal — continue to GAS
   }
 
+  // Calculate group number for wine tour
+  let groupNumber = null;
+  if (metadata.tour === "book-wine") {
+    try {
+      const ACTIVE_STATUSES = ["PAID", "RESERVED", "PENDING"];
+      const countResult = await db`
+        SELECT COUNT(*) as group_count
+        FROM bookings
+        WHERE tour_id = 'book-wine'
+          AND booking_date = ${metadata.date}
+          AND booking_time = ${metadata.time}
+          AND payment_status = ANY(${ACTIVE_STATUSES})
+          AND sumup_id != ${fakeSumupId}
+      `;
+      const countRows = countResult.rows ?? countResult;
+      groupNumber = Number(countRows[0]?.group_count || 0) + 1;
+      log("[DEMO] Wine group number:", groupNumber);
+    } catch (e) {
+      warn("[DEMO] Could not calculate group number:", e.message);
+    }
+  }
+
   // Trigger GAS (demo AppScript) → calendar event + email
   if (GAS_DEMO_URL) {
     const gasPayload = {
@@ -63,7 +85,8 @@ export default async function handler(req, res) {
       payment_status: "PAID",
       sumup_checkout_id: fakeSumupId,
       amount: Number(metadata.total) || 0,
-      currency: "DKK"
+      currency: "DKK",
+      ...(groupNumber ? { groupNumber } : {})
     };
     log("[DEMO] Calling GAS:", GAS_DEMO_URL);
     log("[DEMO] GAS payload:", JSON.stringify(gasPayload));

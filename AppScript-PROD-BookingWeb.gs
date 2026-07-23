@@ -482,7 +482,7 @@ function getTourDurationHours(tour, defaultHours) {
     tour.indexOf('book-1h') !== -1 ||
     tour.indexOf('book-10p') !== -1) return 1;
 
-  if (tour.indexOf('Floating Wine') !== -1) return 2;
+  if (tour.indexOf('Floating Wine') !== -1 || tour === 'book-wine') return 2;
 
   if (tour.indexOf('3 Hour') !== -1 ||
     tour.indexOf('3-Hour') !== -1) return 3;
@@ -655,9 +655,10 @@ function sendBookingEmails(data, t, start, end) {
 
   var adminEmail = Session.getEffectiveUser().getEmail();
   try {
+    var groupSuffix = data.groupNumber ? " — GRUPO " + data.groupNumber : "";
     GmailApp.sendEmail(
       adminEmail,
-      "⚓ Nueva Reserva — " + tourDisplayName + " · " + (data.name || "") + " · " + (data.date || ""),
+      "⚓ Nueva Reserva — " + tourDisplayName + " · " + (data.name || "") + " · " + (data.date || "") + groupSuffix,
       "",
       { name: "Seaduced Bookings", htmlBody: getAdminHtmlTemplate(data, t, endTime) }
     );
@@ -873,6 +874,8 @@ function getAdminHtmlTemplate(data, t, endTime) {
   var langLabel = (data.lang || "english");
   langLabel = langLabel.charAt(0).toUpperCase() + langLabel.slice(1);
   var timeDisplay = (data.time || '—') + (endTime ? ' - ' + endTime : '');
+  var isWine = data.tour === 'book-wine' && data.groupNumber;
+  var groupLabel = isWine ? 'GRUPO ' + data.groupNumber + ' de 2' : null;
 
   return '<!DOCTYPE html>' +
     '<html lang="en">' +
@@ -913,6 +916,9 @@ function getAdminHtmlTemplate(data, t, endTime) {
       : '') +
     '<p style="margin:0 0 4px;font-size:22px;font-weight:700;color:#0f1e35;">Nueva reserva recibida</p>' +
     '<p style="margin:0;font-size:14px;color:#4a5568;">' + tourName + ' &nbsp;·&nbsp; ' + (data.date || '') + ' &nbsp;·&nbsp; ' + timeDisplay + '</p>' +
+    (groupLabel ?
+      '<p style="margin:10px 0 0;"><span style="display:inline-block;background:#0f1e35;color:#e8834a;font-size:12px;font-weight:700;letter-spacing:2px;padding:5px 14px;border-radius:4px;border:1px solid #e8834a;">' + groupLabel + '</span></p>'
+      : '') +
     '</td></tr>' +
 
     '<tr><td style="background:#f5f6f8;padding:16px 32px;border-left:1px solid #e8ecf2;border-right:1px solid #e8ecf2;">' +

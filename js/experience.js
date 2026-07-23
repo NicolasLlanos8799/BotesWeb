@@ -283,7 +283,9 @@ function initBookingPanel() {
   function enableTimeSelector() {
     timeTrigger.disabled = false;
     timeTrigger.removeAttribute('disabled');
-    timeValueLabel.textContent = isSpanishUI ? "Elige un horario" : isDanishUI ? "Vælg tidspunkt" : "Choose time";
+    if (!timeValueInput.value) {
+      timeValueLabel.textContent = isSpanishUI ? "Elige un horario" : isDanishUI ? "Vælg tidspunkt" : "Choose time";
+    }
   }
 
   function syncTimeValue(timeString) {
@@ -503,15 +505,12 @@ function initBookingPanel() {
       // Group experience: show status badge
       if (slot.groupStatus) {
         btn.classList.add(`is-group-${slot.groupStatus}`);
-        const label = document.createElement("span");
-        label.className = "time-slot__time";
-        label.textContent = slot.time;
-        btn.appendChild(label);
+        btn.textContent = slot.time;
 
         if (slot.groupStatus === "partial") {
           const badge = document.createElement("span");
           badge.className = "time-slot__badge";
-          badge.textContent = "1 group booked";
+          badge.textContent = isSpanishUI ? "1 grupo reservado" : isDanishUI ? "1 gruppe booket" : "1 group booked";
           btn.appendChild(badge);
         }
       } else {
