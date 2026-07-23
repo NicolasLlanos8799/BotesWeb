@@ -371,7 +371,7 @@ function handleConfirmHoldEvent(data) {
  */
 function notifyAdminGYGBooking(data, tour, range, endTime) {
   try {
-    var adminEmail = Session.getEffectiveUser().getEmail();
+    var adminEmail = "seaducedexperience@gmail.com";
     GmailApp.sendEmail(
       adminEmail,
       "⚓ GYG Reserva confirmada — " + getTourDisplayName(tour) + " · " + (data.name || "") + " · " + (data.date || ""),
