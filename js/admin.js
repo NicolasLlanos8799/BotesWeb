@@ -40,8 +40,32 @@ function adminConfirm(message, confirmLabel = "Confirm", danger = false) {
 document.addEventListener("DOMContentLoaded", () => {
   const path = window.location.pathname;
 
-  if (path.includes("/admin/bookings")) {
-    initBookingsPage();
+  if (path.includes("/admin/gyg-bookings")) {
+    initBookingsPage({
+      tbodyId: "gyg-bookings-tbody",
+      paginationId: "gyg-bookings-pagination",
+      searchId: "gyg-booking-search",
+      tabsId: "gyg-status-tabs",
+      dateFromId: "gyg-filter-date-from",
+      dateToId: "gyg-filter-date-to",
+      refreshId: "refresh-gyg-bookings",
+      cardsId: "gyg-bookings-cards",
+      emptyMessage: "No GetYourGuide bookings found for this period.",
+      filterFn: b => b.isGyg
+    });
+  } else if (path.includes("/admin/bookings")) {
+    initBookingsPage({
+      tbodyId: "bookings-tbody",
+      paginationId: "bookings-pagination",
+      searchId: "booking-search",
+      tabsId: "booking-status-tabs",
+      dateFromId: "filter-date-from",
+      dateToId: "filter-date-to",
+      refreshId: "refresh-bookings",
+      cardsId: "bookings-cards",
+      emptyMessage: "No bookings found for this period.",
+      filterFn: () => true
+    });
   } else if (path.includes("/admin/stats")) {
     initStatsPage();
   } else if (path.includes("/admin/manifest")) {
@@ -73,6 +97,7 @@ async function fetchAllBookings() {
       }
 
       const timePart = b.booking_time || '00:00:00';
+      const email = b.customer_email || '';
 
       return {
         id: b.id,
@@ -81,14 +106,16 @@ async function fetchAllBookings() {
         time: timePart,
         tourName: b.tour_name,
         customerName: b.customer_name,
-        customerEmail: b.customer_email,
+        customerEmail: email,
         customerPhone: b.customer_phone,
         passengers: parseInt(b.passengers) || 0,
         status: b.payment_status,
         price: parseFloat(b.total_price) || 0,
         calendar: b.tour_id || 'N/A',
         lang: b.lang || 'english',
-        extras: parseInt(b.extras) || 0
+        extras: parseInt(b.extras) || 0,
+        createdAt: b.created_at ? new Date(b.created_at) : null,
+        isGyg: email.toLowerCase().endsWith('@reply.getyourguide.com')
       };
     });
   } catch (err) {
@@ -100,18 +127,26 @@ async function fetchAllBookings() {
 /**
  * BOOKINGS LIST PAGE
  */
-async function initBookingsPage() {
-  const tbody = document.getElementById("bookings-tbody");
-  const paginationContainer = document.getElementById("bookings-pagination");
-  const searchInput = document.getElementById("booking-search");
-  const filterStatus = document.getElementById("booking-filter-status");
-  const filterDateFrom = document.getElementById("filter-date-from");
-  const filterDateTo = document.getElementById("filter-date-to");
-  const refreshBtn = document.getElementById("refresh-bookings");
+async function initBookingsPage(config) {
+  const {
+    tbodyId, paginationId, searchId, tabsId, dateFromId, dateToId, refreshId, cardsId,
+    emptyMessage = "No bookings found for this period.",
+    filterFn = () => true
+  } = config;
+
+  const tbody = document.getElementById(tbodyId);
+  const paginationContainer = document.getElementById(paginationId);
+  const searchInput = document.getElementById(searchId);
+  const tabsContainer = document.getElementById(tabsId);
+  const filterDateFrom = document.getElementById(dateFromId);
+  const filterDateTo = document.getElementById(dateToId);
+  const refreshBtn = document.getElementById(refreshId);
+  const cardsElId = cardsId;
 
   let allBookings = [];
   let filteredBookings = [];
   let currentPage = 1;
+  let currentTab = "all";
   const pageSize = 5;
 
   const renderPagination = (totalItems) => {
@@ -154,14 +189,14 @@ async function initBookingsPage() {
     const pagedData = data.slice(start, end);
 
     if (data.length === 0) {
-      tbody.innerHTML = `<tr><td colspan="8" style="text-align: center; padding: 3rem; color: rgba(255,255,255,0.4);">No bookings found for this period.</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="8" style="text-align: center; padding: 3rem; color: rgba(255,255,255,0.4);">${emptyMessage}</td></tr>`;
       renderPagination(0);
       return;
     }
 
     const isMobile = window.innerWidth < 768;
-    const tableWrap = document.querySelector(".admin-table-wrap");
-    const cardsEl = document.getElementById("bookings-cards");
+    const tableWrap = tbody.closest(".admin-table-wrap");
+    const cardsEl = document.getElementById(cardsElId);
 
     if (isMobile) {
       tableWrap.style.display = "none";
@@ -210,11 +245,11 @@ async function initBookingsPage() {
               <div style="font-weight: 600;">${b.customerName}</div>
               <div style="font-size: 0.8rem; opacity: 0.5;">${b.customerEmail}</div>
             </td>
-            <td style="font-size: 0.85rem;">${b.customerPhone || '—'}</td>
+            <td class="col-hide-md" style="font-size: 0.85rem;">${b.customerPhone || '—'}</td>
             <td>${b.tourName}</td>
-            <td>${b.passengers} pax</td>
-            <td>${b.extras > 0 ? `<span style="color:#e8834a;font-weight:600;">${b.extras}</span>` : '<span style="opacity:0.3;">—</span>'}</td>
-            <td><span style="text-transform: capitalize;">${b.calendar}</span></td>
+            <td class="col-hide-sm">${b.passengers} pax</td>
+            <td class="col-hide-md">${b.extras > 0 ? `<span style="color:#e8834a;font-weight:600;">${b.extras}</span>` : '<span style="opacity:0.3;">—</span>'}</td>
+            <td class="col-hide-sm"><span style="text-transform: capitalize;">${b.calendar}</span></td>
             <td>
               <span class="badge-status status-${b.status.toLowerCase()}">${b.status}</span>
             </td>
@@ -288,6 +323,7 @@ async function initBookingsPage() {
               if (idx !== -1) allBookings[idx] = b;
               const fidx = filteredBookings.findIndex(x => String(x.id) === String(b.id));
               if (fidx !== -1) filteredBookings[fidx] = b;
+              updateTabCounts();
               render(filteredBookings);
             } else { await adminAlert("Failed to update booking.", "error"); }
           });
@@ -308,6 +344,7 @@ async function initBookingsPage() {
             if (bk) bk.status = "CANCELLED";
             const fk = filteredBookings.find(x => String(x.id) === String(cid));
             if (fk) fk.status = "CANCELLED";
+            updateTabCounts();
             render(filteredBookings);
           } else { await adminAlert("Failed to cancel booking.", "error"); }
         });
@@ -320,6 +357,7 @@ async function initBookingsPage() {
           if (res.ok) {
             allBookings = allBookings.filter(x => String(x.id) !== String(did));
             filteredBookings = filteredBookings.filter(x => String(x.id) !== String(did));
+            updateTabCounts();
             render(filteredBookings);
           } else { await adminAlert("Failed to delete booking.", "error"); }
         });
@@ -334,6 +372,7 @@ async function initBookingsPage() {
         if (res.ok) {
           allBookings = allBookings.filter(b => String(b.id) !== String(id));
           filteredBookings = filteredBookings.filter(b => String(b.id) !== String(id));
+          updateTabCounts();
           render(filteredBookings);
         } else {
           await adminAlert("Failed to delete booking.", "error");
@@ -351,6 +390,7 @@ async function initBookingsPage() {
           if (booking) booking.status = "CANCELLED";
           const fb = filteredBookings.find(b => String(b.id) === String(id));
           if (fb) fb.status = "CANCELLED";
+          updateTabCounts();
           render(filteredBookings);
         } else {
           await adminAlert("Failed to cancel booking.", "error");
@@ -389,6 +429,7 @@ async function initBookingsPage() {
             if (idx !== -1) allBookings[idx] = b;
             const fidx = filteredBookings.findIndex(x => String(x.id) === String(b.id));
             if (fidx !== -1) filteredBookings[fidx] = b;
+            updateTabCounts();
             render(filteredBookings);
           } else {
             await adminAlert("Failed to update booking.", "error");
@@ -398,19 +439,33 @@ async function initBookingsPage() {
     });
   };
 
+  const updateTabCounts = () => {
+    if (!tabsContainer) return;
+    const scoped = allBookings.filter(filterFn);
+    tabsContainer.querySelectorAll(".admin-tab").forEach(tab => {
+      const status = tab.dataset.status;
+      const count = status === "all"
+        ? scoped.length
+        : scoped.filter(b => b.status.toLowerCase() === status).length;
+      const countEl = tab.querySelector(".admin-tab__count");
+      if (countEl) countEl.textContent = count;
+    });
+  };
+
   const handleFilters = () => {
     const query = searchInput.value.toLowerCase();
-    const status = filterStatus.value.toLowerCase();
     const from = filterDateFrom?.value;
     const to = filterDateTo?.value;
 
-    filteredBookings = allBookings.filter(b => {
+    updateTabCounts();
+
+    filteredBookings = allBookings.filter(filterFn).filter(b => {
       const matchesSearch =
         b.customerName.toLowerCase().includes(query) ||
         b.customerEmail.toLowerCase().includes(query) ||
         b.tourName.toLowerCase().includes(query);
 
-      const matchesStatus = status === "all" || b.status.toLowerCase() === status;
+      const matchesStatus = currentTab === "all" || b.status.toLowerCase() === currentTab;
       const matchesDate = (!from || b.date >= from) && (!to || b.date <= to);
 
       return matchesSearch && matchesStatus && matchesDate;
@@ -424,15 +479,22 @@ async function initBookingsPage() {
     tbody.innerHTML = `<tr><td colspan="8" style="text-align: center; padding: 4rem;"><div class="po-spinner" style="margin: 0 auto 1rem;"></div>Loading bookings...</td></tr>`;
     allBookings = await fetchAllBookings();
     allBookings.sort((a, b) => new Date(b.start) - new Date(a.start));
-    filteredBookings = [...allBookings];
-    render(filteredBookings);
+    handleFilters();
   };
 
   searchInput?.addEventListener("input", handleFilters);
-  filterStatus?.addEventListener("change", handleFilters);
   filterDateFrom?.addEventListener("change", handleFilters);
   filterDateTo?.addEventListener("change", handleFilters);
   refreshBtn?.addEventListener("click", loadData);
+
+  tabsContainer?.querySelectorAll(".admin-tab").forEach(tab => {
+    tab.addEventListener("click", () => {
+      tabsContainer.querySelectorAll(".admin-tab").forEach(t => t.classList.remove("active"));
+      tab.classList.add("active");
+      currentTab = tab.dataset.status;
+      handleFilters();
+    });
+  });
 
   loadData();
 }
@@ -516,6 +578,51 @@ async function initDashboard() {
       }).join("");
     }
   }
+
+  // 4. New Reservations (last 48h) — notification panel
+  const panel = document.getElementById("new-bookings-panel");
+  const listEl = document.getElementById("new-bookings-list");
+  const countEl = document.getElementById("new-bookings-count");
+  if (panel && listEl && countEl) {
+    const cutoff = now.getTime() - 48 * 60 * 60 * 1000;
+    const newBookings = bookings
+      .filter(b => b.createdAt && b.createdAt.getTime() >= cutoff)
+      .sort((a, b) => b.createdAt - a.createdAt);
+
+    countEl.textContent = newBookings.length;
+    panel.style.display = "block";
+
+    if (newBookings.length === 0) {
+      listEl.innerHTML = `<div style="padding:0.75rem 0;color:rgba(255,255,255,0.5);font-size:0.85rem;">No new reservations in the last 48h.</div>`;
+    } else {
+      listEl.innerHTML = newBookings.map(b => {
+        const hoursAgo = Math.round((now.getTime() - b.createdAt.getTime()) / (60 * 60 * 1000));
+        const timeAgo = hoursAgo < 1 ? "just now" : `${hoursAgo}h ago`;
+        const d = new Date(b.start);
+        const dateStr = d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short' });
+        return `
+          <div class="new-booking-item">
+            <div class="new-booking-item__main">
+              <span class="new-booking-item__name">${b.customerName}${b.isGyg ? ' <span style="opacity:0.5;">(GYG)</span>' : ''}</span>
+              <span class="new-booking-item__meta">${b.tourName} · ${dateStr} @ ${b.time.substring(0, 5)} · ${b.passengers} pax</span>
+            </div>
+            <span class="new-booking-item__time">${timeAgo}</span>
+          </div>
+        `;
+      }).join("");
+    }
+  }
+
+  // 5. GetYourGuide sidebar badge (new GYG bookings in last 48h)
+  const gygBadge = document.getElementById("gyg-nav-badge");
+  if (gygBadge) {
+    const cutoff = now.getTime() - 48 * 60 * 60 * 1000;
+    const newGyg = bookings.filter(b => b.isGyg && b.createdAt && b.createdAt.getTime() >= cutoff);
+    if (newGyg.length > 0) {
+      gygBadge.textContent = newGyg.length;
+      gygBadge.style.display = "inline-block";
+    }
+  }
 }
 
 /**
@@ -523,12 +630,19 @@ async function initDashboard() {
  */
 let charts = {}; // To store chart instances for destruction
 
+const GYG_COMMISSION = 0.3; // GetYourGuide keeps 30% of the booking price
+function effectivePrice(b) {
+  return b.isGyg ? b.price * (1 - GYG_COMMISSION) : b.price;
+}
+
 async function initStatsPage() {
   const btn = document.getElementById("apply-filters");
   const fromInput = document.getElementById("filter-date-from");
   const toInput = document.getElementById("filter-date-to");
+  const scopeTabs = document.getElementById("stats-scope-tabs");
 
   let allBookings = await fetchAllBookings();
+  let currentScope = "own";
 
   const updateStats = () => {
     const from = fromInput?.value;
@@ -536,13 +650,14 @@ async function initStatsPage() {
 
     const filtered = allBookings.filter(b => {
       const matchesDate = (!from || b.date >= from) && (!to || b.date <= to);
-      return matchesDate;
+      const matchesScope = currentScope === "combined" ? true : currentScope === "gyg" ? b.isGyg : !b.isGyg;
+      return matchesDate && matchesScope;
     });
 
     const paid = filtered.filter(b => b.status === "PAID");
 
-    // Basic Stats
-    const totalRev = paid.reduce((sum, b) => sum + b.price, 0);
+    // Basic Stats (GYG bookings are netted -30% via effectivePrice)
+    const totalRev = paid.reduce((sum, b) => sum + effectivePrice(b), 0);
     const totalPax = paid.reduce((sum, b) => sum + b.passengers, 0);
     const avgVal = paid.length > 0 ? totalRev / paid.length : 0;
 
@@ -564,7 +679,7 @@ async function initStatsPage() {
     const dayRev = Array(7).fill(0);
     paid.forEach(b => {
       const day = new Date(b.start).getDay();
-      dayRev[day] += b.price;
+      dayRev[day] += effectivePrice(b);
     });
     renderBarChart('chart-weekdays', dayNames, dayRev, 'Revenue by Day (€)', '#4ade80');
 
@@ -598,6 +713,16 @@ async function initStatsPage() {
   };
 
   btn?.addEventListener("click", updateStats);
+
+  scopeTabs?.querySelectorAll(".admin-tab").forEach(tab => {
+    tab.addEventListener("click", () => {
+      scopeTabs.querySelectorAll(".admin-tab").forEach(t => t.classList.remove("active"));
+      tab.classList.add("active");
+      currentScope = tab.dataset.scope;
+      updateStats();
+    });
+  });
+
   updateStats();
 }
 

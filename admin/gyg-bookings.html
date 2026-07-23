@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Manage Bookings | Seaduced Admin</title>
+  <title>GetYourGuide Bookings | Seaduced Admin</title>
   <link rel="stylesheet" href="/css/base.css">
   <link rel="stylesheet" href="/css/admin.css">
   <link rel="icon" href="/assets/icons/favicon.svg" type="image/svg+xml">
@@ -45,7 +45,7 @@
         </svg>
         <span>Today's Agenda</span>
       </a>
-      <a href="/admin/bookings.html" class="admin-nav__link active">
+      <a href="/admin/bookings.html" class="admin-nav__link">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
           stroke-linejoin="round">
           <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
@@ -56,7 +56,7 @@
         </svg>
         <span>Bookings</span>
       </a>
-      <a href="/admin/gyg-bookings.html" class="admin-nav__link">
+      <a href="/admin/gyg-bookings.html" class="admin-nav__link active">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
         <span>GetYourGuide</span>
       </a>
@@ -94,11 +94,11 @@
   <main class="admin-main">
     <header class="admin-header">
       <div class="admin-header__title">
-        <h1>Bookings</h1>
-        <p>Manage and track all customer reservations across all boats.</p>
+        <h1>GetYourGuide Bookings</h1>
+        <p>Reservations received through the GetYourGuide channel, identified by their reply.getyourguide.com email.</p>
       </div>
       <div class="admin-header__actions">
-        <button id="refresh-bookings" class="btn btn--outline btn--sm">
+        <button id="refresh-gyg-bookings" class="btn btn--outline btn--sm">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
           </svg>
@@ -107,7 +107,7 @@
       </div>
     </header>
 
-    <div class="admin-tabs" id="booking-status-tabs">
+    <div class="admin-tabs" id="gyg-status-tabs">
       <button class="admin-tab active" data-status="all">All <span class="admin-tab__count">0</span></button>
       <button class="admin-tab" data-status="pending">Pending <span class="admin-tab__count">0</span></button>
       <button class="admin-tab" data-status="paid">Paid <span class="admin-tab__count">0</span></button>
@@ -115,20 +115,20 @@
     </div>
 
     <div class="admin-controls">
-      <input type="text" id="booking-search" class="admin-search" placeholder="Search by name, email, or tour...">
+      <input type="text" id="gyg-booking-search" class="admin-search" placeholder="Search by name, email, or tour...">
 
       <div style="display: flex; gap: 0.5rem; align-items: center;">
         <span style="font-size: 0.8rem; opacity: 0.6;">From:</span>
-        <input type="date" id="filter-date-from" class="admin-search" style="min-width: 150px;">
+        <input type="date" id="gyg-filter-date-from" class="admin-search" style="min-width: 150px;">
         <span style="font-size: 0.8rem; opacity: 0.6;">To:</span>
-        <input type="date" id="filter-date-to" class="admin-search" style="min-width: 150px;">
+        <input type="date" id="gyg-filter-date-to" class="admin-search" style="min-width: 150px;">
       </div>
     </div>
 
-    <div id="bookings-cards" style="display:none;padding:0 0 1rem;"></div>
+    <div id="gyg-bookings-cards" style="display:none;padding:0 0 1rem;"></div>
 
     <div class="admin-table-wrap">
-      <table class="admin-table" id="bookings-table">
+      <table class="admin-table" id="gyg-bookings-table">
         <thead>
           <tr>
             <th>Date & Time</th>
@@ -142,13 +142,13 @@
             <th>Actions</th>
           </tr>
         </thead>
-        <tbody id="bookings-tbody">
+        <tbody id="gyg-bookings-tbody">
           <!-- Data will be injected here -->
         </tbody>
       </table>
     </div>
 
-    <div class="admin-pagination" id="bookings-pagination"
+    <div class="admin-pagination" id="gyg-bookings-pagination"
       style="display: flex; justify-content: center; gap: 1rem; align-items: center; margin-top: 2rem; padding-bottom: 4rem;">
       <!-- Pagination buttons will be injected here -->
     </div>
@@ -176,7 +176,7 @@
       </svg>
       <span>Agenda</span>
     </a>
-    <a href="/admin/bookings.html" class="admin-mobile-nav__link active">
+    <a href="/admin/bookings.html" class="admin-mobile-nav__link">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
         stroke-linejoin="round">
         <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
@@ -186,7 +186,7 @@
       </svg>
       <span>Bookings</span>
     </a>
-    <a href="/admin/gyg-bookings.html" class="admin-mobile-nav__link">
+    <a href="/admin/gyg-bookings.html" class="admin-mobile-nav__link active">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
       <span>GYG</span>
     </a>
