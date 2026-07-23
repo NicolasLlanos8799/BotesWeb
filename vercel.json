@@ -95,7 +95,12 @@
     { "source": "/api/gyg/1/reserve/", "destination": "/api/gyg-handler" },
     { "source": "/api/gyg/1/book/", "destination": "/api/gyg-handler" },
     { "source": "/api/gyg/1/cancel-reservation/", "destination": "/api/gyg-handler" },
-    { "source": "/api/gyg/1/cancel-booking/", "destination": "/api/gyg-handler" }
+    { "source": "/api/gyg/1/cancel-booking/", "destination": "/api/gyg-handler" },
+    { "source": "/api/admin/login", "destination": "/api/admin?route=login" },
+    { "source": "/api/admin/logout", "destination": "/api/admin?route=logout" },
+    { "source": "/api/admin/get-bookings", "destination": "/api/admin?route=get-bookings" },
+    { "source": "/api/admin/booking-action", "destination": "/api/admin?route=booking-action" },
+    { "source": "/api/admin/ops", "destination": "/api/admin?route=ops" }
   ],
   "headers": [
     {
