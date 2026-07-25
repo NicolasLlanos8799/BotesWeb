@@ -31,19 +31,20 @@ const EXCLUDE = new Set([
   'lib',          // imported by api/ — stay at root
   'scripts',      // CLI/admin Node scripts
   'db',           // SQL schema only
-  'scratch',      // dev scratch pad
+  'docs',         // internal documentation
+  '.claude',
   'build.js',
   'middleware.js',
-  'migrate-data.js',
-  'AppScript-PROD.js',
-  'AppScript-DEMO.js',
-  'convert_to_webp.py',
+  'AppScript-PROD-BookingWeb.js',
+  'AppScript-DEMO-BookingWeb.js',
+  'AppScript-PROD-GYG.js',
+  'AppScript-DEMO-GYG.js',
   'package.json',
   'package-lock.json',
   'vercel.json',
   'CLAUDE.md',
   'README.md',
-  'ENVIRONMENTS.md',
+  '.DS_Store',
 ]);
 
 // ─── 1. Clean & prepare dist ────────────────────────────────────────────────
@@ -110,30 +111,32 @@ copyDir(ROOT, DIST);
 
 // ─── 4. Rewrite <script src="/js/NAME.js"> in all HTML files ────────────────
 
-function updateHtml(filePath) {
-  let html = fs.readFileSync(filePath, 'utf8');
-  let changed = false;
-
-  for (const [name, hashed] of Object.entries(manifest)) {
-    // Matches /js/name.js and /js/name.js?v=anything
-    const pattern = new RegExp(`/js/${name}\\.js(?:\\?[^"'\\s>]*)?`, 'g');
-    const next = html.replace(pattern, `/js/${hashed}`);
-    if (next !== html) { html = next; changed = true; }
-  }
-
-  if (changed) fs.writeFileSync(filePath, html, 'utf8');
-}
-
-function walkHtml(dir) {
+// Walks dist/ and applies `transform(html)` to every .html file.
+function walkHtml(dir, transform) {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
     const p = path.join(dir, entry.name);
-    if (entry.isDirectory()) walkHtml(p);
-    else if (entry.name.endsWith('.html')) updateHtml(p);
+    if (entry.isDirectory()) walkHtml(p, transform);
+    else if (entry.name.endsWith('.html')) {
+      const html = fs.readFileSync(p, 'utf8');
+      const next = transform(html);
+      if (next !== html) fs.writeFileSync(p, next, 'utf8');
+    }
   }
+}
+
+// Replaces /asset/name.ext (and ?v=... variants) with the hashed filename.
+function rewriteAsset(html, dirName, name, ext, hashed) {
+  const pattern = new RegExp(`/${dirName}/${name}\\.${ext}(?:\\?[^"'\\s>]*)?`, 'g');
+  return html.replace(pattern, `/${dirName}/${hashed}`);
 }
 
 console.log('Updating HTML references...');
-walkHtml(DIST);
+walkHtml(DIST, (html) => {
+  for (const [name, hashed] of Object.entries(manifest)) {
+    html = rewriteAsset(html, 'js', name, 'js', hashed);
+  }
+  return html;
+});
 
 // ─── 5. Hash CSS bundle and rewrite HTML <link href> ────────────────────────
 
@@ -153,22 +156,7 @@ for (const cssFile of CSS_FILES) {
   fs.renameSync(srcCss, path.join(DIST, 'css', hashedName));
 
   // Rewrite all HTML files: /css/bundle.css → /css/bundle-[hash].css
-  function rewriteCssInHtml(dir) {
-    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-      const p = path.join(dir, entry.name);
-      if (entry.isDirectory()) rewriteCssInHtml(p);
-      else if (entry.name.endsWith('.html')) {
-        const html = fs.readFileSync(p, 'utf8');
-        const updated = html.replace(
-          new RegExp(`/css/${cssFile}(?:\\?[^"'\\s>]*)?`, 'g'),
-          `/css/${hashedName}`
-        );
-        if (updated !== html) fs.writeFileSync(p, updated, 'utf8');
-      }
-    }
-  }
-
-  rewriteCssInHtml(DIST);
+  walkHtml(DIST, (html) => rewriteAsset(html, 'css', baseName, 'css', hashedName));
   console.log(`  ${cssFile} → ${hashedName}`);
 }
 

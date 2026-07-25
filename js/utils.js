@@ -248,7 +248,7 @@ function toPositiveInt(value, fallback) {
   return Number.isFinite(parsed) && parsed > 0 ? parsed : fallback;
 }
 
-export function normalizeBooking(input = {}) {
+function normalizeBooking(input = {}) {
   const defaults = getDefaultBooking();
   const contact = {
     ...defaults.contact,
@@ -304,7 +304,7 @@ export function saveBooking(partial = {}) {
   return merged;
 }
 
-export const saveBookingPersistent = (booking) => {
+const saveBookingPersistent = (booking) => {
   localStorage.setItem(BOOKING_STORAGE_KEY, JSON.stringify(booking));
 };
 
@@ -360,7 +360,7 @@ export function readBookingFromUrl(search = window.location.search) {
   return normalizeBooking(partial);
 }
 
-export function buildReserveUrl(booking = getBooking()) {
+function buildReserveUrl(booking = getBooking()) {
   const params = new URLSearchParams();
   const path = window.location.pathname;
   const isSpanish = path.startsWith('/es/') || path === '/es';

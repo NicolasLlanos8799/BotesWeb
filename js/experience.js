@@ -465,13 +465,27 @@ function initBookingPanel() {
       // The slots will simply update in the background.
     }
 
+    // A slot is blocked if ANY busy hour returned by the calendar falls inside
+    // the full duration window the tour would occupy (start -> start+durationHours),
+    // not just an exact-time match. Prevents overlapping a long tour (e.g. Malmö, 7h)
+    // over a booking that starts mid-tour on the other boat.
+    const isRangeBusy = (startTime) => {
+      const [sh] = startTime.split(':').map(Number);
+      return slots.some(sl => {
+        if (sl.available !== false) return false;
+        const [bh] = sl.time.split(':').map(Number);
+        return bh >= sh && bh < sh + durationHours;
+      });
+    };
+
     // Build the slot list based on tour config
     const allSlots = [];
     if (tourConfig.customSlots) {
       // Fixed explicit list (e.g. Malmö: only 10:00)
       tourConfig.customSlots.forEach(s => {
         const live = slots.find(sl => sl.time === s.time);
-        allSlots.push(live || s);
+        const base = live || s;
+        allSlots.push({ ...base, available: base.available === false ? false : !isRangeBusy(s.time) });
       });
     } else {
       // Variable list: every `slotInterval` hours (default 1) from 09:00 up to maxHour
@@ -479,7 +493,8 @@ function initBookingPanel() {
       for (let h = 9; h <= maxHour; h += interval) {
         const timeStr = `${String(h).padStart(2, '0')}:00`;
         const existingSlot = slots.find(s => s.time === timeStr);
-        allSlots.push(existingSlot || { time: timeStr, available: true });
+        const available = existingSlot?.available === false ? false : !isRangeBusy(timeStr);
+        allSlots.push({ time: timeStr, ...(existingSlot || {}), available });
       }
     }
 

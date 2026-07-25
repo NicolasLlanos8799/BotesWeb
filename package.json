@@ -10,14 +10,15 @@
     "seed": "node scripts/seed-bookings.js",
     "seed:clean": "node scripts/cleanup-and-seed.js",
     "test:db": "node scripts/test-db-save.js",
-    "import:gas": "node scripts/import-from-gas.js"
+    "import:gas": "node scripts/import-from-gas.js",
+    "migrate": "node scripts/migrate-data.js",
+    "test:gyg": "node scripts/test-gyg.js"
   },
   "dependencies": {
-    "@vercel/postgres": "^0.10.0",
-    "pg": "^8.21.0"
+    "@vercel/postgres": "^0.10.0"
   },
   "devDependencies": {
     "esbuild": "^0.28.1",
-    "vercel": "^48.12.1"
+    "vercel": "^57.0.0"
   }
 }
