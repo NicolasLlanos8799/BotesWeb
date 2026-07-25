@@ -1,5 +1,6 @@
 import db from "../lib/db.js";
 import { log, warn, error as logError } from "../lib/logger.js";
+import { isRateLimited, getIp } from "../lib/rateLimit.js";
 
 /**
  * DEMO Booking Endpoint
@@ -16,6 +17,10 @@ export default async function handler(req, res) {
 
   if ((process.env.APP_ENV || "demo") !== "demo") {
     return res.status(403).json({ error: "Demo endpoint not available in production" });
+  }
+
+  if (isRateLimited(`demo-booking:${getIp(req)}`, { max: 20, windowMs: 15 * 60 * 1000 })) {
+    return res.status(429).json({ error: "Too many requests. Try again later." });
   }
 
   const GAS_DEMO_URL = process.env.GAS_DEMO_URL || process.env.GAS_URL;

@@ -1,4 +1,5 @@
 import { log, warn, error as logError } from "../lib/logger.js";
+import { isRateLimited, getIp } from "../lib/rateLimit.js";
 
 const ALLOWED_HOSTNAMES = ["seaduced-experience.com", "vercel.app", "localhost", "127.0.0.1", "seaduced.dk"];
 
@@ -46,6 +47,9 @@ export default async function handler(req, res) {
 
   // 3. Payload Check (Pre-validates booking data)
   if (action === "createBooking" && req.method === "POST") {
+    if (isRateLimited(`gas-createBooking:${getIp(req)}`, { max: 20, windowMs: 15 * 60 * 1000 })) {
+      return res.status(429).json({ error: "Too many requests. Try again later." });
+    }
     const data = req.body;
     if (!data || (typeof data === "object" && (!data.email || !data.date))) {
       return res.status(400).json({ error: "Bad Request: Incomplete booking data" });

@@ -1,23 +1,9 @@
 import db from "../lib/db.js";
 import { generateSessionToken, timingSafeEqual, isAdminAuthenticated } from "../lib/adminAuth.js";
 import { error as logError } from "../lib/logger.js";
+import { isRateLimited, getIp } from "../lib/rateLimit.js";
 
 const SUMUP_API_BASE = "https://api.sumup.com";
-
-const MAX_ATTEMPTS = 5;
-const WINDOW_MS = 15 * 60 * 1000;
-const attemptsByIp = new Map();
-
-function isRateLimited(ip) {
-  const now = Date.now();
-  const entry = attemptsByIp.get(ip);
-  if (!entry || now - entry.first > WINDOW_MS) {
-    attemptsByIp.set(ip, { count: 1, first: now });
-    return false;
-  }
-  entry.count += 1;
-  return entry.count > MAX_ATTEMPTS;
-}
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -26,8 +12,8 @@ function sleep(ms) {
 async function handleLogin(req, res) {
   if (req.method !== "POST") return res.status(405).end();
 
-  const ip = (req.headers["x-forwarded-for"] || "").split(",")[0].trim() || req.socket?.remoteAddress || "unknown";
-  if (isRateLimited(ip)) {
+  const ip = getIp(req);
+  if (isRateLimited(`admin-login:${ip}`, { max: 5, windowMs: 15 * 60 * 1000 })) {
     return res.status(429).json({ error: "Too many attempts. Try again later." });
   }
 

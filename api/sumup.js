@@ -1,5 +1,6 @@
 import db from "../lib/db.js";
 import { log, warn, error as logError } from "../lib/logger.js";
+import { isRateLimited, getIp } from "../lib/rateLimit.js";
 
 const ALLOWED_HOSTNAMES = ["seaduced-experience.com", "vercel.app", "localhost", "127.0.0.1", "seaduced.dk"];
 
@@ -46,6 +47,10 @@ export default async function handler(req, res) {
 
   try {
     if (action === "createCheckout") {
+      if (isRateLimited(`sumup-checkout:${getIp(req)}`, { max: 15, windowMs: 15 * 60 * 1000 })) {
+        return res.status(429).json({ error: "Too many requests. Try again later." });
+      }
+
       const { amount, currency, checkout_reference, return_url, description, metadata } = req.body;
 
       if (!amount || !currency || !checkout_reference) {

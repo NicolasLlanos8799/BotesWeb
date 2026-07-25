@@ -1,6 +1,7 @@
 import db from "../lib/db.js";
 import { log, warn, error as logError } from "../lib/logger.js";
 import { notifyGYGAvailability } from "../lib/gyg-notify.js";
+import { isRateLimited, getIp } from "../lib/rateLimit.js";
 
 /**
  * Production-Safe Booking Fallback Endpoint
@@ -16,6 +17,10 @@ export default async function handler(req, res) {
 
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
+  }
+
+  if (isRateLimited(`booking-fallback:${getIp(req)}`, { max: 20, windowMs: 15 * 60 * 1000 })) {
+    return res.status(429).json({ error: "Too many requests. Try again later." });
   }
 
   const { checkout_id, metadata: frontendMetadata } = req.body || {};
