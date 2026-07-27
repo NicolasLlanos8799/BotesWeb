@@ -64,6 +64,7 @@ const result = await esbuild.build({
   entryPoints: [
     'js/main.js',
     'js/admin.js',
+    'js/admin-calendar.js',
     'js/i18n.js',
     'js/analytics.js',
     'js/success.js',

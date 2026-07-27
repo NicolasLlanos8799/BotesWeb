@@ -15,7 +15,8 @@
     "test:gyg": "node scripts/test-gyg.js"
   },
   "dependencies": {
-    "@vercel/postgres": "^0.10.0"
+    "@vercel/postgres": "^0.10.0",
+    "chart.js": "^4.4.0"
   },
   "devDependencies": {
     "esbuild": "^0.28.1",
