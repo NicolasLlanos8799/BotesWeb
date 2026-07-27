@@ -57,7 +57,7 @@
     },
     "danish_breakfast": {
       "title": "City Highlights with Danish Breakfast",
-      "desc": "Discover Copenhagen from the water on a 2-hour private boat tour while enjoying an authentic Danish breakfast served on board.",
+      "desc": "Discover Copenhagen from the water on a 1-hour private boat tour while enjoying an authentic Danish breakfast served on board.",
       "price_note": "per group up to 6",
       "cta": "Book This Tour"
     }
@@ -787,13 +787,13 @@
     "danish_breakfast": {
       "page": {
         "title": "City Highlights with Danish Breakfast | Seaduced Experience",
-        "desc": "Start your day discovering Copenhagen from the water with an authentic Danish breakfast on board. 2-hour private boat tour for up to 6 people. From DKK 4,499 per group."
+        "desc": "Start your day discovering Copenhagen from the water with an authentic Danish breakfast on board. 1-hour private boat tour for up to 6 people. From DKK 4,499 per group."
       },
       "hero_html": "City Highlights <span class=\"title-accent\">with Danish Breakfast</span>",
       "intro": "Start your day discovering Copenhagen from the water while enjoying an authentic Danish breakfast served on board.",
       "info": {
         "participants_val": "Private group (max 6)",
-        "duration_val": "2 hours",
+        "duration_val": "1 hour",
         "guide_val": "English, Spanish"
       },
       "flag": "Morning experience",
@@ -803,20 +803,20 @@
         "up_to": "Up to 6 guests"
       },
       "story_paras": [
-        "Start your day discovering Copenhagen from the water while enjoying an authentic Danish breakfast served on board. Cruise through the city’s canals on our 2-hour City Highlights tour while relaxing with a carefully selected breakfast.",
+        "Start your day discovering Copenhagen from the water while enjoying an authentic Danish breakfast served on board. Cruise through the city’s canals on our 1-hour City Highlights tour while relaxing with a carefully selected breakfast.",
         "Aboard the elegant Joda Tender 710, enjoy a private and relaxed atmosphere with your group as your captain guides you through the city’s most iconic sights — Islands Brygge, the Black Diamond library, Christiansborg, Nyhavn, the Opera, Christianshavn canals, and the Church of Our Saviour.",
         "The Danish breakfast is served on board and includes freshly baked pastries, freshly brewed coffee, tea, juice, sourdough bread with butter and cheese, and a bottle of water — offering the perfect balance between sweet and savoury flavours.",
         "A perfect experience to combine Copenhagen’s most iconic landmarks, traditional Danish flavours, and a relaxing morning sailing through its canals. Departures at 09:00, 10:00, and 11:00."
       ],
       "highlights": [
         "<strong>Danish Breakfast:</strong> Freshly baked pastries, coffee, tea, juice, sourdough bread with butter and cheese.",
-        "<strong>City Highlights:</strong> Copenhagen’s main landmarks from the water in 2 hours.",
+        "<strong>City Highlights:</strong> Copenhagen’s main landmarks from the water in 1 hour.",
         "<strong>Private Experience:</strong> Only your group and your captain on board.",
         "<strong>Morning Departures:</strong> 09:00, 10:00, and 11:00.",
         "<strong>Local Guide:</strong> Stories and hidden details of the city from a local captain."
       ],
       "included": [
-        "2-hour private boat tour — City Highlights route",
+        "1-hour private boat tour — City Highlights route",
         "Authentic Danish breakfast served on board",
         "Freshly baked Danish pastries",
         "Freshly brewed coffee, tea and juice",

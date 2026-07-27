@@ -60,7 +60,7 @@
     },
     "danish_breakfast": {
       "title": "Byens Højdepunkter med Dansk Morgenmad",
-      "desc": "Oplev København fra vandet på en 2-timers privat bådtur med en autentisk dansk morgenmad serveret om bord.",
+      "desc": "Oplev København fra vandet på en 1-times privat bådtur med en autentisk dansk morgenmad serveret om bord.",
       "price_note": "pr. gruppe op til 6",
       "cta": "Book Denne Tur"
     }
@@ -790,13 +790,13 @@
     "danish_breakfast": {
       "page": {
         "title": "Byens Højdepunkter med Dansk Morgenmad | Seaduced Experience",
-        "desc": "Start dagen med at opdage København fra vandet med en autentisk dansk morgenmad om bord. 2-timers privat bådtur til op til 6 personer. Fra 4.499 DKK per gruppe."
+        "desc": "Start dagen med at opdage København fra vandet med en autentisk dansk morgenmad om bord. 1-times privat bådtur til op til 6 personer. Fra 4.499 DKK per gruppe."
       },
       "hero_html": "Byens Højdepunkter <span class=\"title-accent\">med Dansk Morgenmad</span>",
       "intro": "Start dagen med at opdage København fra vandet, mens du nyder en autentisk dansk morgenmad serveret om bord.",
       "info": {
         "participants_val": "Privat gruppe (maks. 6)",
-        "duration_val": "2 timer",
+        "duration_val": "1 time",
         "guide_val": "Engelsk, Spansk"
       },
       "flag": "Morgenoplevelse",
@@ -806,20 +806,20 @@
         "up_to": "Op til 6 gæster"
       },
       "story_paras": [
-        "Start dagen med at opdage København fra vandet, mens du nyder en autentisk dansk morgenmad serveret om bord. Sejl gennem byens kanaler på vores 2-timers City Highlights-tur, mens du slapper af med en omhyggeligt udvalgt morgenmad.",
+        "Start dagen med at opdage København fra vandet, mens du nyder en autentisk dansk morgenmad serveret om bord. Sejl gennem byens kanaler på vores 1-times City Highlights-tur, mens du slapper af med en omhyggeligt udvalgt morgenmad.",
         "Om bord på den elegante Joda Tender 710 nyder du en privat og afslappet atmosfære, mens din kaptajn guider dig forbi byens mest ikoniske steder — Islands Brygge, Den Sorte Diamant, Christiansborg, Nyhavn, Operaen, Christianshavns kanaler og Vor Frelsers Kirke.",
         "Den danske morgenmad serveres om bord og inkluderer friskbagt wienerbrød, friskbrygget kaffe, te, juice, surdejsbrød med smør og ost og en flaske vand — den perfekte balance mellem søde og salte smage.",
         "En perfekt oplevelse til at kombinere Københavns mest ikoniske steder, traditionelle danske smage og en afslappet morgen på kanalerne. Afgange kl. 09:00, 10:00 og 11:00."
       ],
       "highlights": [
         "<strong>Dansk Morgenmad:</strong> Friskbagt wienerbrød, kaffe, te, juice, surdejsbrød med smør og ost.",
-        "<strong>Byens Højdepunkter:</strong> Københavns vigtigste seværdigheder fra vandet på 2 timer.",
+        "<strong>Byens Højdepunkter:</strong> Københavns vigtigste seværdigheder fra vandet på 1 time.",
         "<strong>Privat Oplevelse:</strong> Kun din gruppe og din kaptajn om bord.",
         "<strong>Morgenafgange:</strong> 09:00, 10:00 og 11:00.",
         "<strong>Lokal Guide:</strong> Historier og skjulte detaljer om byen fra en lokal kaptajn."
       ],
       "included": [
-        "2-timers privat bådtur — City Highlights-ruten",
+        "1-times privat bådtur — City Highlights-ruten",
         "Autentisk dansk morgenmad serveret om bord",
         "Friskbagt dansk wienerbrød",
         "Friskbrygget kaffe, te og juice",
