@@ -391,13 +391,18 @@ export function initReservePage() {
         message.textContent = errorMessage || "Your payment could not be processed. Please try again.";
       }
     }
-    if (hint) hint.style.display = "none";
+    if (hint) {
+      hint.style.display = "block";
+      if (isEs) hint.innerHTML = `¿Tienes problemas para pagar? Contáctanos: <a href="mailto:seaducedexperience@gmail.com">seaducedexperience@gmail.com</a>`;
+      else if (isDa) hint.innerHTML = `Har du problemer med at betale? Kontakt os: <a href="mailto:seaducedexperience@gmail.com">seaducedexperience@gmail.com</a>`;
+      else hint.innerHTML = `Having trouble paying? Contact us: <a href="mailto:seaducedexperience@gmail.com">seaducedexperience@gmail.com</a>`;
+    }
     if (actions) {
       let retryLabel = "Try Again";
       let homeLabel = "Return to Homepage";
       if (isEs) { retryLabel = "Intentar de nuevo"; homeLabel = "Volver al Inicio"; }
       else if (isDa) { retryLabel = "Prøv igen"; homeLabel = "Tilbage til forsiden"; }
-      
+
       actions.innerHTML = `
         <button class="po-btn po-btn--primary" id="po-retry-btn">${retryLabel}</button>
         <a href="/" class="po-btn po-btn--secondary">${homeLabel}</a>`;
