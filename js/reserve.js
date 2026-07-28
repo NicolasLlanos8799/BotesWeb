@@ -393,9 +393,23 @@ export function initReservePage() {
     }
     if (hint) {
       hint.style.display = "block";
-      if (isEs) hint.innerHTML = `¿Tienes problemas para pagar? Contáctanos: <a href="mailto:seaducedexperience@gmail.com">seaducedexperience@gmail.com</a>`;
-      else if (isDa) hint.innerHTML = `Har du problemer med at betale? Kontakt os: <a href="mailto:seaducedexperience@gmail.com">seaducedexperience@gmail.com</a>`;
-      else hint.innerHTML = `Having trouble paying? Contact us: <a href="mailto:seaducedexperience@gmail.com">seaducedexperience@gmail.com</a>`;
+      const guestName = elements.name ? elements.name.value.trim() : "";
+      const guestTourTitle = getLocalizedValue(getTour(current.tour) || tour, "title", currentLocale);
+
+      const mailSubjectEs = "Problema con mi pago - Seaduced Experience";
+      const mailBodyEs = `Hola,\n\nTuve un problema al intentar pagar mi reserva.\n\nNombre: ${guestName}\nTour: ${guestTourTitle}\n\nPor favor, ayúdenme a completar mi reserva.\n\nGracias.`;
+      const mailSubjectDa = "Problem med min betaling - Seaduced Experience";
+      const mailBodyDa = `Hej,\n\nJeg havde et problem med at gennemføre betalingen for min booking.\n\nNavn: ${guestName}\nTur: ${guestTourTitle}\n\nHjælp mig venligst med at fuldføre min booking.\n\nTak.`;
+      const mailSubjectEn = "Issue with my payment - Seaduced Experience";
+      const mailBodyEn = `Hi,\n\nI had a problem completing the payment for my booking.\n\nName: ${guestName}\nTour: ${guestTourTitle}\n\nPlease help me complete my booking.\n\nThank you.`;
+
+      const mailtoEs = `mailto:seaducedexperience@gmail.com?subject=${encodeURIComponent(mailSubjectEs)}&body=${encodeURIComponent(mailBodyEs)}`;
+      const mailtoDa = `mailto:seaducedexperience@gmail.com?subject=${encodeURIComponent(mailSubjectDa)}&body=${encodeURIComponent(mailBodyDa)}`;
+      const mailtoEn = `mailto:seaducedexperience@gmail.com?subject=${encodeURIComponent(mailSubjectEn)}&body=${encodeURIComponent(mailBodyEn)}`;
+
+      if (isEs) hint.innerHTML = `¿Tienes problemas para pagar? <a href="${mailtoEs}">Contáctanos: seaducedexperience@gmail.com</a>`;
+      else if (isDa) hint.innerHTML = `Har du problemer med at betale? <a href="${mailtoDa}">Kontakt os: seaducedexperience@gmail.com</a>`;
+      else hint.innerHTML = `Having trouble paying? <a href="${mailtoEn}">Contact us: seaducedexperience@gmail.com</a>`;
     }
     if (actions) {
       let retryLabel = "Try Again";
@@ -556,6 +570,16 @@ export function initReservePage() {
         if (data.status === "FAILED" || data.status === "EXPIRED") {
           stopPolling();
           showErrorUI(`Payment ${data.status.toLowerCase()}. Please try again.`);
+
+          // Fire-and-forget: notify the customer by email so they don't have to
+          // reach out themselves. Server re-verifies status before sending.
+          const savedMetadataRaw = localStorage.getItem("pending_booking_data");
+          const savedMetadata = savedMetadataRaw ? JSON.parse(savedMetadataRaw) : null;
+          fetch("/api/payment-failed", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ checkout_id: checkoutId, metadata: savedMetadata })
+          }).catch(e => console.error("Payment-failed notify error:", e));
         }
       } catch (err) {
         console.error("Polling error:", err);

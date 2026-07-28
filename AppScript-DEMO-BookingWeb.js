@@ -63,7 +63,9 @@ function doPost(e) {
         ? handleCreateCalendarOnly(data)
         : action === 'resendEmail'
           ? handleResendEmail(data)
-          : { success: false, error: "Action not recognized" };
+          : action === 'paymentFailed'
+            ? handlePaymentFailed(data)
+            : { success: false, error: "Action not recognized" };
 
     return ContentService.createTextOutput(JSON.stringify(result))
       .setMimeType(ContentService.MimeType.JSON);
@@ -391,7 +393,12 @@ function getTranslations(lang) {
       helpTitle: "Need help?",
       helpBody: "Contact us via WhatsApp or reply to this email — we're always happy to help.",
       tagline: "See you on the water.",
-      footer: "© Seaduced Experience · Copenhagen, Denmark"
+      footer: "© Seaduced Experience · Copenhagen, Denmark",
+      pfSubject: "We couldn't complete your payment",
+      pfGreeting: "Hi {name},",
+      pfBody: "We noticed your payment for {tour} on {date}, {time} didn't go through. Don't worry — you haven't been charged, and no booking was made.",
+      pfRetryButton: "Try the payment again",
+      pfHelp: "Having trouble? Contact us:"
     },
     spanish: {
       subject: "¡Tu reserva está confirmada!",
@@ -413,7 +420,12 @@ function getTranslations(lang) {
       helpTitle: "¿Necesitas ayuda?",
       helpBody: "Contáctanos por WhatsApp o respondiendo este email — estamos aquí para ayudarte.",
       tagline: "Nos vemos en el agua.",
-      footer: "© Seaduced Experience · Copenhague, Dinamarca"
+      footer: "© Seaduced Experience · Copenhague, Dinamarca",
+      pfSubject: "No pudimos completar tu pago",
+      pfGreeting: "Hola {name},",
+      pfBody: "Notamos que tu pago para {tour} el {date}, {time} no se completó. Tranquilo/a, no se te cobró nada y no se creó ninguna reserva.",
+      pfRetryButton: "Reintentar el pago",
+      pfHelp: "¿Problemas? Contáctanos:"
     },
     danish: {
       subject: "Din booking er bekræftet!",
@@ -435,7 +447,12 @@ function getTranslations(lang) {
       helpTitle: "Brug for hjælp?",
       helpBody: "Kontakt os via WhatsApp eller svar på denne e-mail — vi hjælper altid gerne.",
       tagline: "Vi ses på vandet.",
-      footer: "© Seaduced Experience · København, Danmark"
+      footer: "© Seaduced Experience · København, Danmark",
+      pfSubject: "Vi kunne ikke gennemføre din betaling",
+      pfGreeting: "Hej {name},",
+      pfBody: "Vi kunne se, at din betaling for {tour} den {date}, {time} ikke gik igennem. Bare rolig — du er ikke blevet opkrævet, og der er ikke oprettet nogen booking.",
+      pfRetryButton: "Prøv betalingen igen",
+      pfHelp: "Har du problemer? Kontakt os:"
     }
   };
   return map[lang] || map.english;
@@ -459,6 +476,94 @@ function handleResendEmail(data) {
     Logger.log("Resend email error: " + e.toString());
     return { success: false, error: e.toString() };
   }
+}
+
+function buildRetryUrl(data) {
+  var lang = data.lang || 'english';
+  var prefix = lang === 'spanish' ? '/es' : (lang === 'danish' ? '/da' : '');
+  var params = [];
+  if (data.tour) params.push('tour=' + encodeURIComponent(data.tour));
+  params.push('qty=' + encodeURIComponent(data.qty || 1));
+  params.push('tapas=' + encodeURIComponent(data.tapas || 0));
+  if (data.date) params.push('date=' + encodeURIComponent(data.date));
+  if (data.time) params.push('time=' + encodeURIComponent(data.time));
+  params.push('lang=' + encodeURIComponent(lang));
+  return 'https://seaduced-experience.com' + prefix + '/reserve?' + params.join('&');
+}
+
+function handlePaymentFailed(data) {
+  if (!data.email) {
+    return { success: false, error: "Missing email" };
+  }
+  var isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email);
+  if (!isValidEmail) {
+    Logger.log("Payment-failed: invalid email, skipping: " + data.email);
+    return { success: false, error: "Invalid email" };
+  }
+  try {
+    var t = getTranslations(data.lang || 'english');
+    GmailApp.sendEmail(data.email, "Seaduced Experience — " + t.pfSubject, "", {
+      name: "Seaduced Experience",
+      htmlBody: getPaymentFailedHtmlTemplate(data, t)
+    });
+    Logger.log("Payment-failed email sent to: " + data.email);
+    return { success: true };
+  } catch (e) {
+    Logger.log("Payment-failed email error: " + e.toString());
+    return { success: false, error: e.toString() };
+  }
+}
+
+function getPaymentFailedHtmlTemplate(data, t) {
+  var greeting = t.pfGreeting.replace("{name}", data.name || "there");
+  var tourName = data.tourTitle || getTourDisplayName(data.tour || "");
+  var body = t.pfBody
+    .replace("{tour}", "<strong>" + tourName + "</strong>")
+    .replace("{date}", "<strong>" + (data.date || "—") + "</strong>")
+    .replace("{time}", "<strong>" + (data.time || "—") + "</strong>");
+  var retryUrl = buildRetryUrl(data);
+
+  return '<!DOCTYPE html>' +
+    '<html lang="en">' +
+    '<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>' +
+    '<body style="margin:0;padding:0;background-color:#f5f6f8;font-family:Arial,sans-serif;">' +
+
+    '<table width="100%" cellpadding="0" cellspacing="0"><tr>' +
+    '<td style="background-color:#e8834a;height:4px;font-size:0;">&nbsp;</td>' +
+    '</tr></table>' +
+
+    '<table width="100%" cellpadding="0" cellspacing="0"><tr>' +
+    '<td style="background-color:#0f1e35;padding:32px 20px;text-align:center;">' +
+    '<div translate="no" style="font-size:13px;letter-spacing:5px;color:#ffffff;font-weight:700;">SEADUCED EXPERIENCE</div>' +
+    '<div translate="no" style="font-size:9px;letter-spacing:4px;color:#e8834a;margin-top:6px;">COPENHAGEN</div>' +
+    '</td>' +
+    '</tr></table>' +
+
+    '<table width="100%" cellpadding="0" cellspacing="0"><tr><td style="padding:28px 16px 48px;">' +
+    '<table width="100%" cellpadding="0" cellspacing="0" style="max-width:580px;margin:0 auto;">' +
+
+    '<tr><td style="background:#ffffff;border-radius:12px;padding:32px;border-top:3px solid #e8834a;">' +
+    '<p style="margin:0 0 8px;font-size:24px;font-weight:700;color:#0f1e35;line-height:1.3;">' + greeting + '</p>' +
+    '<p style="margin:0 0 20px;font-size:14px;color:#4a5568;line-height:1.7;">' + body + '</p>' +
+    '<div style="text-align:center;margin:24px 0 20px;">' +
+    '<a href="' + retryUrl + '" style="display:inline-block;background-color:#e8834a;color:#ffffff;padding:14px 36px;text-decoration:none;border-radius:6px;font-size:13px;font-weight:700;letter-spacing:1px;">' +
+    t.pfRetryButton.toUpperCase() +
+    '</a>' +
+    '</div>' +
+    '<p style="margin:0;font-size:13px;color:#4a5568;text-align:center;">' + t.pfHelp + ' ' +
+    '<a href="mailto:seaducedexperience@gmail.com" style="color:#e8834a;font-weight:700;text-decoration:none;">seaducedexperience@gmail.com</a>' +
+    '</p>' +
+    '</td></tr>' +
+
+    '<tr><td style="height:16px;"></td></tr>' +
+
+    '<tr><td style="text-align:center;padding:0 16px;">' +
+    '<p style="margin:0 0 4px;font-size:13px;color:#718096;">' + t.tagline + '</p>' +
+    '<p style="margin:0;font-size:11px;color:#a0aec0;">' + t.footer + '</p>' +
+    '</td></tr>' +
+
+    '</table></td></tr></table>' +
+    '</body></html>';
 }
 
 function sendBookingEmails(data, t, start, end) {
@@ -542,8 +647,8 @@ function getGuestHtmlTemplate(data, t, endTime) {
 
     '<table width="100%" cellpadding="0" cellspacing="0"><tr>' +
     '<td style="background-color:#0f1e35;padding:32px 20px;text-align:center;">' +
-    '<div translate="no" style="font-size:13px;letter-spacing:5px;color:#ffffff;font-weight:700;">SEADUCED</div>' +
-    '<div translate="no" style="font-size:9px;letter-spacing:4px;color:#e8834a;margin-top:6px;">EXPERIENCE &nbsp;·&nbsp; COPENHAGEN</div>' +
+    '<div translate="no" style="font-size:13px;letter-spacing:5px;color:#ffffff;font-weight:700;">SEADUCED EXPERIENCE</div>' +
+    '<div translate="no" style="font-size:9px;letter-spacing:4px;color:#e8834a;margin-top:6px;">COPENHAGEN</div>' +
     '</td>' +
     '</tr></table>' +
 
