@@ -569,7 +569,7 @@ function getTranslations(lang) {
       pfGreeting: "Hi {name},",
       pfBody: "We noticed your payment for {tour} on {date}, {time} didn't go through. Don't worry — you haven't been charged, and no booking was made.",
       pfRetryButton: "Try the payment again",
-      pfHelp: "Having trouble? Contact us:"
+      pfHelp: "Having trouble? Simply reply to this email and we'll help you out."
     },
     spanish: {
       subject: "¡Tu reserva está confirmada!",
@@ -596,7 +596,7 @@ function getTranslations(lang) {
       pfGreeting: "Hola {name},",
       pfBody: "Notamos que tu pago para {tour} el {date}, {time} no se completó. Tranquilo/a, no se te cobró nada y no se creó ninguna reserva.",
       pfRetryButton: "Reintentar el pago",
-      pfHelp: "¿Problemas? Contáctanos:"
+      pfHelp: "¿Problemas? Simplemente responde este email y te ayudaremos."
     },
     danish: {
       subject: "Din booking er bekræftet!",
@@ -623,7 +623,7 @@ function getTranslations(lang) {
       pfGreeting: "Hej {name},",
       pfBody: "Vi kunne se, at din betaling for {tour} den {date}, {time} ikke gik igennem. Bare rolig — du er ikke blevet opkrævet, og der er ikke oprettet nogen booking.",
       pfRetryButton: "Prøv betalingen igen",
-      pfHelp: "Har du problemer? Kontakt os:"
+      pfHelp: "Har du problemer? Svar blot på denne e-mail, så hjælper vi dig."
     }
   };
   return map[lang] || map.english;
@@ -721,9 +721,7 @@ function getPaymentFailedHtmlTemplate(data, t) {
     t.pfRetryButton.toUpperCase() +
     '</a>' +
     '</div>' +
-    '<p style="margin:0;font-size:13px;color:#4a5568;text-align:center;">' + t.pfHelp + ' ' +
-    '<a href="mailto:seaducedexperience@gmail.com" style="color:#e8834a;font-weight:700;text-decoration:none;">seaducedexperience@gmail.com</a>' +
-    '</p>' +
+    '<p style="margin:0;font-size:13px;color:#4a5568;text-align:center;">' + t.pfHelp + '</p>' +
     '</td></tr>' +
 
     '<tr><td style="height:16px;"></td></tr>' +
