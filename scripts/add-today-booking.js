@@ -12,7 +12,7 @@ async function addBooking() {
         (tour_id, tour_name, customer_name, customer_email, customer_phone,
          passengers, booking_date, booking_time, total_price, payment_status, sumup_id, lang)
       VALUES
-        ('book-reffen', 'Private 3-Hour Extended (Reffen)', 'Nicolas Llanos',
+        ('city-highlights-3h', 'Private 3-Hour Extended (Reffen)', 'Nicolas Llanos',
          'nicolas@example.com', '+34 600000000',
          6, ${today}, '19:00', 4299, 'PAID', ${mockId}, 'spanish')
       ON CONFLICT (sumup_id) DO NOTHING

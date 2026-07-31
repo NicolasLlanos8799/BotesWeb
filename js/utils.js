@@ -29,8 +29,8 @@ export const TOURS = {
     maxParticipants: 6,
     calendar: "boat1",
   },
-  "book-reffen": {
-    id: "book-reffen",
+  "city-highlights-3h": {
+    id: "city-highlights-3h",
     title: "Private 3-Hour Extended (Reffen)",
     titleEs: "Puerto Extendido (Parada en Reffen)",
     titleDa: "Privat 3-timers Udvidelse (Reffen)",

@@ -169,7 +169,7 @@ function getTourDisplayName(tourCode) {
     'book-10p-2h':         'City Highlights (10 Guests) (2 Hours)',
     'book-wine':           'Floating Wine Tasting Experience',
     'book-premium':        'Sea Fortress and Coastal Journey (4-Hour)',
-    'book-reffen':         'Private 3-Hour Extended (Reffen)',
+    'city-highlights-3h':  'Private 3-Hour Extended (Reffen)',
     'book-malmo':          'Copenhagen to Malmö Experience',
     'book-land':           'Copenhagen Private Boat y Land Experience',
     'book-winter':         '2-Hour Winter Hygge 2026',
