@@ -21,7 +21,8 @@ document.addEventListener("DOMContentLoaded", () => {
       refreshId: "refresh-gyg-bookings",
       cardsId: "gyg-bookings-cards",
       emptyMessage: "No GetYourGuide bookings found for this period.",
-      filterFn: b => b.isGyg
+      filterFn: b => b.isGyg,
+      source: "gyg"
     });
   } else if (path.includes("/admin/bookings")) {
     initBookingsPage({
@@ -36,7 +37,8 @@ document.addEventListener("DOMContentLoaded", () => {
       refreshId: "refresh-bookings",
       cardsId: "bookings-cards",
       emptyMessage: "No bookings found for this period.",
-      filterFn: b => !b.isGyg
+      filterFn: b => !b.isGyg,
+      source: "web"
     });
   } else if (path.includes("/admin/stats")) {
     initStatsPage();
@@ -48,11 +50,19 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /**
- * Common: Fetch all bookings from MySQL API
+ * Common: Fetch bookings from the API.
+ * opts: { limit, offset, source: 'gyg' | 'web' } — all optional. Omitting
+ * them fetches the full history (used by Dashboard/Stats/Manifest, which
+ * need the complete dataset to compute totals).
  */
-async function fetchAllBookings() {
+async function fetchBookings(opts = {}) {
   try {
-    const res = await fetch("/api/admin/get-bookings");
+    const params = new URLSearchParams();
+    if (opts.limit) params.set("limit", opts.limit);
+    if (opts.offset) params.set("offset", opts.offset);
+    if (opts.source) params.set("source", opts.source);
+    const qs = params.toString();
+    const res = await fetch(`/api/admin/get-bookings${qs ? `?${qs}` : ""}`);
     if (!res.ok) throw new Error("Failed to fetch bookings");
     const data = await res.json();
 
@@ -116,6 +126,11 @@ async function fetchAllBookings() {
   }
 }
 
+// Full-history fetch — Dashboard/Stats/Manifest need the complete dataset.
+async function fetchAllBookings() {
+  return fetchBookings();
+}
+
 /**
  * BOOKINGS LIST PAGE
  */
@@ -123,7 +138,8 @@ async function initBookingsPage(config) {
   const {
     tbodyId, paginationId, searchId, tabsId, dateFromId, dateToId, dateToggleId, dateRangeId, refreshId, cardsId,
     emptyMessage = "No bookings found for this period.",
-    filterFn = () => true
+    filterFn = () => true,
+    source
   } = config;
 
   const tbody = document.getElementById(tbodyId);
@@ -148,11 +164,32 @@ async function initBookingsPage(config) {
   let currentTab = "all";
   const pageSize = 10;
 
+  // Page 1 loads fast (only `pageSize` rows from the server, scoped to this
+  // view's source). The rest of the history is fetched lazily — the first
+  // time the admin needs it (next page, search, a filter, a tab).
+  let fullyLoaded = false;
+  let loadFullPromise = null;
+  const ensureFullyLoaded = () => {
+    if (fullyLoaded) return Promise.resolve();
+    if (!loadFullPromise) {
+      loadFullPromise = fetchBookings({ source }).then(data => {
+        allBookings = data;
+        allBookings.sort((a, b) => new Date(a.start) - new Date(b.start));
+        fullyLoaded = true;
+      });
+    }
+    return loadFullPromise;
+  };
+
   const renderPagination = (totalItems) => {
     if (!paginationContainer) return;
-    const totalPages = Math.ceil(totalItems / pageSize);
+    const totalPages = Math.max(1, Math.ceil(totalItems / pageSize));
 
-    if (totalPages <= 1) {
+    // While the rest of the history hasn't loaded yet, keep Next enabled —
+    // we don't know the real total until then.
+    const hasNext = !fullyLoaded || currentPage < totalPages;
+
+    if (totalPages <= 1 && !hasNext) {
       paginationContainer.innerHTML = "";
       return;
     }
@@ -162,8 +199,8 @@ async function initBookingsPage(config) {
         <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
         Prev
       </button>
-      <span style="font-size: 0.9rem; font-weight: 600; opacity: 0.8;">Page ${currentPage} of ${totalPages}</span>
-      <button class="btn btn--outline btn--sm" ${currentPage === totalPages ? 'disabled' : ''} id="next-page">
+      <span style="font-size: 0.9rem; font-weight: 600; opacity: 0.8;">Page ${currentPage}${fullyLoaded ? ` of ${totalPages}` : ''}</span>
+      <button class="btn btn--outline btn--sm" ${hasNext ? '' : 'disabled'} id="next-page">
         Next
         <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
       </button>
@@ -173,7 +210,11 @@ async function initBookingsPage(config) {
       currentPage--;
       render(filteredBookings);
     });
-    document.getElementById("next-page")?.addEventListener("click", () => {
+    document.getElementById("next-page")?.addEventListener("click", async () => {
+      const btn = document.getElementById("next-page");
+      if (btn) { btn.disabled = true; btn.textContent = "Loading…"; }
+      await ensureFullyLoaded();
+      applyFilters();
       currentPage++;
       render(filteredBookings);
     });
@@ -241,7 +282,7 @@ async function initBookingsPage(config) {
     renderPagination(data.length);
 
     // Whole row is clickable — opens the booking detail modal with
-    // Edit / Resend / Cancel (and Delete inside Edit) baked in.
+    // Edit / Resend / Cancel / Delete baked in.
     listEl.querySelectorAll(".admin-table-row").forEach(row => {
       row.addEventListener("click", () => {
         const id = row.dataset.bookingId;
@@ -282,7 +323,7 @@ async function initBookingsPage(config) {
     });
   };
 
-  const handleFilters = () => {
+  const applyFilters = () => {
     const query = searchInput.value.toLowerCase();
     const from = filterDateFrom?.value;
     const to = filterDateTo?.value;
@@ -300,7 +341,14 @@ async function initBookingsPage(config) {
 
       return matchesSearch && matchesStatus && matchesDate;
     });
+  };
 
+  // Search/date/tab controls imply the admin wants to query beyond page 1 —
+  // make sure the full history is in before filtering, so results aren't
+  // silently missing rows that just hadn't loaded yet.
+  const handleFilters = async () => {
+    await ensureFullyLoaded();
+    applyFilters();
     currentPage = 1; // Reset to page 1 on filter
     render(filteredBookings);
   };
@@ -315,9 +363,13 @@ async function initBookingsPage(config) {
         </div>
       `).join("");
     }
-    allBookings = await fetchAllBookings();
+    fullyLoaded = false;
+    loadFullPromise = null;
+    currentPage = 1;
+    allBookings = await fetchBookings({ limit: pageSize, offset: 0, source });
     allBookings.sort((a, b) => new Date(a.start) - new Date(b.start));
-    handleFilters();
+    applyFilters();
+    render(filteredBookings);
   };
 
   searchInput?.addEventListener("input", handleFilters);

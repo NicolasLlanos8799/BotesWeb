@@ -51,10 +51,38 @@ async function handleGetBookings(req, res) {
   if (!(await isAdminAuthenticated(req))) return res.status(401).json({ error: "Unauthorized" });
 
   try {
-    const result = await db`
-      SELECT * FROM bookings
-      ORDER BY booking_date DESC, booking_time DESC
-    `;
+    const limit = req.query.limit ? parseInt(req.query.limit) : null;
+    const offset = req.query.offset ? parseInt(req.query.offset) : 0;
+    const source = req.query.source; // 'gyg' | 'web' | undefined (all)
+
+    let result;
+    if (limit && source === 'gyg') {
+      result = await db`
+        SELECT * FROM bookings
+        WHERE source = 'gyg' OR customer_email ILIKE '%@reply.getyourguide.com'
+        ORDER BY booking_date DESC, booking_time DESC
+        LIMIT ${limit} OFFSET ${offset}
+      `;
+    } else if (limit && source === 'web') {
+      result = await db`
+        SELECT * FROM bookings
+        WHERE NOT (source = 'gyg' OR customer_email ILIKE '%@reply.getyourguide.com')
+        ORDER BY booking_date DESC, booking_time DESC
+        LIMIT ${limit} OFFSET ${offset}
+      `;
+    } else if (limit) {
+      result = await db`
+        SELECT * FROM bookings
+        ORDER BY booking_date DESC, booking_time DESC
+        LIMIT ${limit} OFFSET ${offset}
+      `;
+    } else {
+      result = await db`
+        SELECT * FROM bookings
+        ORDER BY booking_date DESC, booking_time DESC
+      `;
+    }
+
     const bookings = result.rows ?? result;
     return res.status(200).json({ success: true, bookings });
   } catch (error) {
