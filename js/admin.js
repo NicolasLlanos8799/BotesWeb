@@ -56,7 +56,13 @@ async function fetchAllBookings() {
     if (!res.ok) throw new Error("Failed to fetch bookings");
     const data = await res.json();
 
-    return data.bookings.map(b => {
+    return data.bookings.filter(b => {
+      // Drop GYG holds that never got confirmed (abandoned /reserve/, later
+      // auto-cancelled by GYG via /cancel-reservation/). No real customer,
+      // no charge — just noise, not a booking.
+      const neverConfirmed = b.payment_status === 'CANCELLED' && !b.customer_email && !(parseFloat(b.total_price) > 0);
+      return !neverConfirmed;
+    }).map(b => {
       // Improved date parsing: split string if it comes as ISO or use as is if it's a date string
       let datePart = '2026-01-01';
       if (b.booking_date) {
@@ -87,7 +93,7 @@ async function fetchAllBookings() {
         lang: b.lang || 'english',
         extras: parseInt(b.extras) || 0,
         createdAt: b.created_at ? new Date(b.created_at) : null,
-        isGyg: email.toLowerCase().endsWith('@reply.getyourguide.com')
+        isGyg: b.source === 'gyg' || email.toLowerCase().endsWith('@reply.getyourguide.com')
       };
     });
   } catch (err) {
