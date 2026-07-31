@@ -77,11 +77,25 @@ async function fetchAllBookings() {
       const timePart = b.booking_time || '00:00:00';
       const email = b.customer_email || '';
 
+      // End time: use the stored override if present, otherwise derive it
+      // from the tour's standard duration.
+      let endTime = b.booking_end_time ? b.booking_end_time.substring(0, 5) : null;
+      if (!endTime) {
+        const durHours = parseInt(TOURS[b.tour_id]?.duration) || 0;
+        const startStr = timePart.substring(0, 5);
+        if (startStr && durHours) {
+          const [h, m] = startStr.split(':').map(Number);
+          const total = h * 60 + m + durHours * 60;
+          endTime = `${String(Math.floor((total / 60) % 24)).padStart(2, '0')}:${String(total % 60).padStart(2, '0')}`;
+        }
+      }
+
       return {
         id: b.id,
         start: `${datePart}T${timePart}`,
         date: datePart,
         time: timePart,
+        endTime,
         tourName: b.tour_name || 'Unknown Tour',
         customerName: b.customer_name || 'Unknown Customer',
         customerEmail: email,
@@ -172,16 +186,7 @@ async function initBookingsPage(config) {
     return 'pending';
   };
 
-  const endTimeFor = (b) => {
-    const durHours = parseInt(TOURS[b.calendar]?.duration) || 0;
-    const startStr = (b.time || '').substring(0, 5);
-    if (!startStr || !durHours) return null;
-    const [h, m] = startStr.split(':').map(Number);
-    const total = h * 60 + m + durHours * 60;
-    const eh = Math.floor((total / 60) % 24);
-    const em = total % 60;
-    return `${String(eh).padStart(2, '0')}:${String(em).padStart(2, '0')}`;
-  };
+  const endTimeFor = (b) => b.endTime || null;
 
   const bookingRowHtml = (b) => {
     const dateObj = new Date(`${b.date}T00:00:00`);
@@ -643,33 +648,12 @@ async function renderManifestFor(date) {
       item.addEventListener("click", () => {
         const b = manifestBookingsCache.find(x => String(x.id) === item.dataset.bookingId);
         if (!b) return;
-        openEditModal(b, async (updated) => {
-          const res = await fetch(`/api/admin/booking-action?id=${b.id}`, {
-            method: "PUT", headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ ...updated, id: b.id })
-          });
-          if (res.ok) {
-            Object.assign(b, {
-              customerName: updated.name || b.customerName,
-              customerEmail: updated.email || b.customerEmail,
-              customerPhone: updated.phone || b.customerPhone,
-              date: updated.date || b.date,
-              time: updated.time || b.time,
-              passengers: updated.qty ? parseInt(updated.qty) : b.passengers,
-              extras: updated.extras !== undefined ? parseInt(updated.extras) : b.extras,
-              lang: updated.lang || b.lang
-            });
+        openBookingDetailModal(b, {
+          onUpdated: () => renderManifestFor(manifestDate),
+          onCancelled: () => renderManifestFor(manifestDate),
+          onDeleted: (deleted) => {
+            manifestBookingsCache = manifestBookingsCache.filter(x => String(x.id) !== String(deleted.id));
             renderManifestFor(manifestDate);
-          } else {
-            await adminAlert("Failed to update booking.", "error");
-          }
-        }, async () => {
-          const res = await fetch(`/api/admin/booking-action?id=${b.id}`, { method: "DELETE" });
-          if (res.ok) {
-            manifestBookingsCache = manifestBookingsCache.filter(x => String(x.id) !== String(b.id));
-            renderManifestFor(manifestDate);
-          } else {
-            await adminAlert("Failed to delete booking.", "error");
           }
         });
       });

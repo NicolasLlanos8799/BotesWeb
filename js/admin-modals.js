@@ -5,6 +5,19 @@
  */
 import { formatCurrency } from "./utils.js";
 
+/* ── Button loading state (spinner + disabled) for async actions ────────── */
+function withButtonLoading(btn, loadingLabel, task) {
+  const original = btn.innerHTML;
+  btn.disabled = true;
+  btn.style.cursor = "wait";
+  btn.innerHTML = `<span class="btn-spinner"></span> ${loadingLabel}`;
+  return Promise.resolve(task()).finally(() => {
+    btn.disabled = false;
+    btn.style.cursor = "";
+    btn.innerHTML = original;
+  });
+}
+
 /* ── Custom Alert / Confirm (unified modal shell) ───────────────────────── */
 export function adminAlert(message, type = "info") {
   return new Promise(resolve => {
@@ -44,11 +57,11 @@ export function adminConfirm(message, confirmLabel = "Confirm", danger = false) 
 
 /**
  * EDIT BOOKING MODAL
- * onSave(updated) -> Promise         called when "Save Changes" is clicked
- * onDelete() -> Promise (optional)   if provided, shows a Delete button with
- *                                    an inline confirm swapped into the same modal
+ * onSave(updated) -> Promise   called when "Save Changes" is clicked
+ * Deletion lives exclusively in the booking detail modal — keeping it out
+ * of here so Edit stays a pure "modify" flow, not a modify+destroy one.
  */
-export function openEditModal(booking, onSave, onDelete) {
+export function openEditModal(booking, onSave) {
   const existing = document.getElementById("edit-modal");
   if (existing) existing.remove();
 
@@ -58,19 +71,9 @@ export function openEditModal(booking, onSave, onDelete) {
 
   modal.innerHTML = `
     <div class="modal-sheet modal-sheet--wide">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.5rem;">
-        <div>
-          <div class="modal-sheet__eyebrow">Booking</div>
-          <h2 class="modal-sheet__title">Edit Details</h2>
-        </div>
-        ${onDelete ? `<button id="ed-delete-trigger" class="btn--close" style="color:var(--admin-danger);border-color:rgba(248,113,113,0.35);">🗑 Delete</button>` : ""}
-      </div>
-      <div id="ed-delete-confirm" class="modal-confirm-inline" style="display:none;">
-        <p>Permanently delete this booking? This cannot be undone.</p>
-        <div style="display:flex;gap:0.75rem;justify-content:flex-end;">
-          <button id="ed-delete-cancel" class="btn--close">Cancel</button>
-          <button id="ed-delete-confirm-btn" class="btn--danger">Delete</button>
-        </div>
+      <div style="margin-bottom:1.5rem;">
+        <div class="modal-sheet__eyebrow">Booking</div>
+        <h2 class="modal-sheet__title">Edit Details</h2>
       </div>
       <div id="ed-form-wrap">
       <div class="field-stack">
@@ -83,20 +86,28 @@ export function openEditModal(booking, onSave, onDelete) {
         <label class="field-label">Phone
           <input id="ed-phone" value="${booking.customerPhone || ''}" class="field-input">
         </label>
-        <div class="field-grid-2">
+        <div class="field-grid-3">
           <label class="field-label">Date
             <input id="ed-date" value="${booking.date || ''}" class="field-input">
           </label>
-          <label class="field-label">Time
+          <label class="field-label">Start
             <input id="ed-time" value="${(booking.time || '').substring(0, 5)}" class="field-input">
           </label>
+          <label class="field-label">End
+            <input id="ed-endtime" value="${booking.endTime || ''}" placeholder="HH:MM" class="field-input">
+          </label>
         </div>
-        <div class="field-grid-3">
+        <div class="field-grid-2">
           <label class="field-label">Passengers
             <input id="ed-qty" value="${booking.passengers || ''}" type="number" min="1" class="field-input">
           </label>
           <label class="field-label">Charcuterie
             <input id="ed-extras" value="${booking.extras || 0}" type="number" min="0" class="field-input">
+          </label>
+        </div>
+        <div class="field-grid-2">
+          <label class="field-label">Amount
+            <input id="ed-amount" value="${booking.price ?? ''}" type="number" min="0" step="0.01" class="field-input">
           </label>
           <label class="field-label">Language
             <div class="select-custom">
@@ -119,28 +130,6 @@ export function openEditModal(booking, onSave, onDelete) {
 
   document.body.appendChild(modal);
 
-  const formWrap = document.getElementById("ed-form-wrap");
-  const deleteConfirm = document.getElementById("ed-delete-confirm");
-  const deleteTrigger = document.getElementById("ed-delete-trigger");
-
-  if (deleteTrigger) {
-    deleteTrigger.addEventListener("click", () => {
-      formWrap.style.display = "none";
-      deleteConfirm.style.display = "block";
-    });
-    document.getElementById("ed-delete-cancel").addEventListener("click", () => {
-      deleteConfirm.style.display = "none";
-      formWrap.style.display = "block";
-    });
-    document.getElementById("ed-delete-confirm-btn").addEventListener("click", async () => {
-      const btn = document.getElementById("ed-delete-confirm-btn");
-      btn.textContent = "Deleting...";
-      btn.disabled = true;
-      await onDelete();
-      modal.remove();
-    });
-  }
-
   document.getElementById("ed-cancel").addEventListener("click", () => modal.remove());
   modal.addEventListener("click", e => { if (e.target === modal) modal.remove(); });
 
@@ -155,8 +144,10 @@ export function openEditModal(booking, onSave, onDelete) {
       phone: document.getElementById("ed-phone").value.trim(),
       date: document.getElementById("ed-date").value.trim(),
       time: document.getElementById("ed-time").value.trim(),
+      endTime: document.getElementById("ed-endtime").value.trim(),
       qty: document.getElementById("ed-qty").value.trim(),
       extras: document.getElementById("ed-extras").value.trim(),
+      amount: document.getElementById("ed-amount").value.trim(),
       lang: document.getElementById("ed-lang").value
     });
 
@@ -296,28 +287,36 @@ export function openBookingDetailModal(booking, { onUpdated, onDeleted, onCancel
     : booking.status === "CANCELLED" ? "cancelled" : "pending";
 
   modal.innerHTML = `
-    <div class="modal-sheet" style="max-width:460px;border-top-color:${sourceColor};">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.25rem;">
-        <div>
-          <div class="modal-sheet__eyebrow" style="color:${sourceColor};">${sourceLabel}</div>
-          <h2 class="modal-sheet__title">${booking.customerName}</h2>
-        </div>
-        <span class="pill pill--${statusVariant}">${booking.status}</span>
+    <div class="modal-sheet" style="max-width:460px;border-top-color:${sourceColor};position:relative;">
+      <button id="bd-modal-close" class="modal-close-x" type="button" aria-label="Close dialog">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+      <div style="padding-right:3rem;margin-bottom:1.25rem;">
+        <div class="modal-sheet__eyebrow" style="color:${sourceColor};">${sourceLabel}</div>
+        <h2 class="modal-sheet__title" style="margin-top:2px;">${booking.customerName}</h2>
+        <span class="pill pill--${statusVariant}" style="margin-top:12px;">${booking.status}</span>
       </div>
       <table class="kv-table">
         <tr><td>Tour</td><td>${booking.tourName}</td></tr>
-        <tr><td>Date</td><td>${booking.date} · ${(booking.time || "").substring(0,5)}</td></tr>
+        <tr><td>Date</td><td>${booking.date} · ${(booking.time || "").substring(0,5)}${booking.endTime ? ` – ${booking.endTime}` : ""}</td></tr>
         <tr><td>Passengers</td><td>${booking.passengers}${booking.extras ? ` (+${booking.extras} charcuterie)` : ""}</td></tr>
         <tr><td>Language</td><td>${booking.lang}</td></tr>
         <tr><td>Price</td><td>${formatCurrency(booking.price)}</td></tr>
-        <tr><td>Email</td><td>${booking.customerEmail || "—"}</td></tr>
+        <tr>
+          <td>Email</td>
+          <td>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:0.75rem;">
+              <span>${booking.customerEmail || "—"}</span>
+              <button id="bd-action-resend" type="button" style="flex-shrink:0;background:none;border:none;padding:0;color:var(--admin-info);font-size:0.78rem;font-family:inherit;cursor:pointer;white-space:nowrap;text-decoration:underline;text-underline-offset:2px;text-decoration-color:rgba(96,165,250,0.4);">✉ Resend</button>
+            </div>
+          </td>
+        </tr>
         <tr><td>Phone</td><td>${booking.customerPhone || "—"}</td></tr>
       </table>
-      <div class="modal-sheet__actions" style="flex-wrap:wrap;">
-        <button id="bd-action-edit" class="btn--close">✏️ Edit</button>
-        <button id="bd-action-resend" class="btn--close" style="color:var(--admin-info);border-color:rgba(96,165,250,0.35);">✉ Resend</button>
-        ${booking.status !== "CANCELLED" ? `<button id="bd-action-cancel" class="btn--close" style="color:#fbbf24;border-color:rgba(251,191,36,0.35);">⊘ Cancel</button>` : ""}
-        <button id="bd-modal-close" class="btn--close" style="margin-left:auto;">Close</button>
+      <div class="modal-sheet__actions" style="gap:0.6rem;">
+        <button id="bd-action-delete" class="btn--close" style="flex:1;padding:0.65rem 0.5rem;text-align:center;color:var(--admin-danger);border-color:rgba(248,113,113,0.3);background:transparent;">🗑 Delete</button>
+        <button id="bd-action-edit" class="btn--save" style="flex:1;padding:0.65rem 0.5rem;text-align:center;font-weight:600;background:rgba(var(--admin-accent-rgb),0.85);">✏️ Edit</button>
+        ${booking.status !== "CANCELLED" ? `<button id="bd-action-cancel" class="btn--close" style="flex:1;padding:0.65rem 0.5rem;text-align:center;color:#fbbf24;border-color:rgba(251,191,36,0.35);">⊘ Cancel</button>` : ""}
       </div>
     </div>
   `;
@@ -339,22 +338,16 @@ export function openBookingDetailModal(booking, { onUpdated, onDeleted, onCancel
           customerPhone: updated.phone || booking.customerPhone,
           date: updated.date || booking.date,
           time: updated.time || booking.time,
+          endTime: updated.endTime || booking.endTime,
           passengers: updated.qty ? parseInt(updated.qty) : booking.passengers,
           extras: updated.extras !== undefined ? parseInt(updated.extras) : booking.extras,
+          price: updated.amount !== undefined && updated.amount !== '' ? parseFloat(updated.amount) : booking.price,
           lang: updated.lang || booking.lang
         });
         onUpdated?.(booking);
         modal.remove();
       } else {
         await adminAlert("Failed to update booking.", "error");
-      }
-    }, async () => {
-      const res = await fetch(`/api/admin/booking-action?id=${booking.id}`, { method: "DELETE" });
-      if (res.ok) {
-        onDeleted?.(booking);
-        modal.remove();
-      } else {
-        await adminAlert("Failed to delete booking.", "error");
       }
     });
   });
@@ -363,15 +356,52 @@ export function openBookingDetailModal(booking, { onUpdated, onDeleted, onCancel
     openResendModal(booking);
   });
 
+  document.getElementById("bd-action-delete").addEventListener("click", async () => {
+    if (!(await adminConfirm("Permanently delete this booking? This cannot be undone.", "Delete", true))) return;
+    const btn = document.getElementById("bd-action-delete");
+    await withButtonLoading(btn, "Deleting…", async () => {
+      try {
+        const res = await fetch(`/api/admin/booking-action?id=${booking.id}`, {
+          method: "DELETE", headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id: booking.id })
+        });
+        if (res.ok) {
+          onDeleted?.(booking);
+          modal.remove();
+          return;
+        }
+        const body = await res.json().catch(() => ({}));
+        console.error("Delete booking failed:", res.status, body);
+        await adminAlert(body.error ? `Failed to delete booking: ${body.error}` : `Failed to delete booking (HTTP ${res.status}).`, "error");
+      } catch (err) {
+        console.error("Delete booking network error:", err);
+        await adminAlert(`Network error deleting booking: ${err.message}`, "error");
+      }
+    });
+  });
+
   document.getElementById("bd-action-cancel")?.addEventListener("click", async () => {
     if (!(await adminConfirm("Cancel this booking?", "Cancel Booking", true))) return;
-    const res = await fetch(`/api/admin/booking-action?id=${booking.id}`, { method: "PATCH" });
-    if (res.ok) {
-      booking.status = "CANCELLED";
-      onCancelled?.(booking);
-      modal.remove();
-    } else {
-      await adminAlert("Failed to cancel booking.", "error");
-    }
+    const btn = document.getElementById("bd-action-cancel");
+    await withButtonLoading(btn, "Cancelling…", async () => {
+      try {
+        const res = await fetch(`/api/admin/booking-action?id=${booking.id}`, {
+          method: "PATCH", headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id: booking.id })
+        });
+        if (res.ok) {
+          booking.status = "CANCELLED";
+          onCancelled?.(booking);
+          modal.remove();
+          return;
+        }
+        const body = await res.json().catch(() => ({}));
+        console.error("Cancel booking failed:", res.status, body);
+        await adminAlert(body.error ? `Failed to cancel booking: ${body.error}` : `Failed to cancel booking (HTTP ${res.status}).`, "error");
+      } catch (err) {
+        console.error("Cancel booking network error:", err);
+        await adminAlert(`Network error cancelling booking: ${err.message}`, "error");
+      }
+    });
   });
 }

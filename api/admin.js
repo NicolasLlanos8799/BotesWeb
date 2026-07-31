@@ -87,23 +87,32 @@ async function handleBookingAction(req, res) {
     }
   }
 
-  const id = req.query.id;
+  // The Vercel rewrite (?route=booking-action) doesn't always forward the
+  // original query string alongside it, so fall back to the JSON body.
+  const id = req.query.id || (req.body && req.body.id);
 
   try {
     if (req.method === "PUT") {
-      const { name, email, phone, date, time, qty, extras, lang, id: bodyId } = req.body || {};
-      const putId = id || bodyId;
+      const { name, email, phone, date, time, qty, extras, lang, amount, endTime } = req.body || {};
+      const putId = id;
       if (!putId) return res.status(400).json({ error: "Missing booking id" });
+
+      // Self-healing — adds the column on first use so older DBs don't
+      // need a manual migration before this field can be saved.
+      await db`ALTER TABLE bookings ADD COLUMN IF NOT EXISTS booking_end_time TIME`;
+
       const result = await db`
         UPDATE bookings SET
-          customer_name  = COALESCE(${name   || null}, customer_name),
-          customer_email = COALESCE(${email  || null}, customer_email),
-          customer_phone = COALESCE(${phone  || null}, customer_phone),
-          booking_date   = COALESCE(${date   || null}, booking_date),
-          booking_time   = COALESCE(${time   || null}, booking_time),
-          passengers     = COALESCE(${qty    ? parseInt(qty)    : null}, passengers),
-          extras         = COALESCE(${extras !== undefined && extras !== '' ? parseInt(extras) : null}, extras),
-          lang           = COALESCE(${lang   || null}, lang)
+          customer_name    = COALESCE(${name   || null}, customer_name),
+          customer_email   = COALESCE(${email  || null}, customer_email),
+          customer_phone   = COALESCE(${phone  || null}, customer_phone),
+          booking_date     = COALESCE(${date   || null}, booking_date),
+          booking_time     = COALESCE(${time   || null}, booking_time),
+          booking_end_time = COALESCE(${endTime || null}, booking_end_time),
+          passengers       = COALESCE(${qty    ? parseInt(qty)    : null}, passengers),
+          extras           = COALESCE(${extras !== undefined && extras !== '' ? parseInt(extras) : null}, extras),
+          total_price      = COALESCE(${amount !== undefined && amount !== '' ? parseFloat(amount) : null}, total_price),
+          lang             = COALESCE(${lang   || null}, lang)
         WHERE id = ${putId}
         RETURNING id
       `;
@@ -122,10 +131,46 @@ async function handleBookingAction(req, res) {
     if (req.method === "PATCH") {
       const result = await db`
         UPDATE bookings SET payment_status = 'CANCELLED' WHERE id = ${id}
-        RETURNING id
+        RETURNING id, tour_id, tour_name, customer_name, customer_email, customer_phone,
+                  booking_date, booking_time, lang
       `;
       const rows = result.rows ?? result;
       if (!rows.length) return res.status(404).json({ error: "Booking not found" });
+
+      // Best-effort — cancellation must succeed even if the notification fails.
+      const b = rows[0];
+      if (b.customer_email && process.env.GAS_URL) {
+        try {
+          // booking_date comes back as a Date at UTC midnight — read it with
+          // UTC getters so the calendar day doesn't shift with local TZ.
+          const d = b.booking_date ? new Date(b.booking_date) : null;
+          const dateStr = d
+            ? `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, '0')}-${String(d.getUTCDate()).padStart(2, '0')}`
+            : null;
+          const timeStr = b.booking_time ? String(b.booking_time).substring(0, 5) : null;
+
+          const gasRes = await fetch(process.env.GAS_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              action: "sendCancellationEmail",
+              name: b.customer_name,
+              email: b.customer_email,
+              phone: b.customer_phone,
+              tour: b.tour_id,
+              tourTitle: b.tour_name,
+              date: dateStr,
+              time: timeStr,
+              lang: b.lang
+            })
+          });
+          const gasResult = await gasRes.json();
+          if (!gasResult.success) logError("Cancellation email error:", gasResult.error || "GAS error");
+        } catch (err) {
+          logError("Cancellation email error:", err.message);
+        }
+      }
+
       return res.status(200).json({ success: true, action: "cancelled" });
     }
 
