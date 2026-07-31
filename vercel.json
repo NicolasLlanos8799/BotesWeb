@@ -5,6 +5,21 @@
   "trailingSlash": true,
   "redirects": [
     {
+      "source": "/admin",
+      "destination": "/admin/new-reservations/",
+      "permanent": true
+    },
+    {
+      "source": "/admin/",
+      "destination": "/admin/new-reservations/",
+      "permanent": true
+    },
+    {
+      "source": "/admin/index.html",
+      "destination": "/admin/new-reservations/",
+      "permanent": true
+    },
+    {
       "source": "/book-here",
       "destination": "/book/",
       "permanent": true

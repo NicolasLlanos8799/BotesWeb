@@ -430,7 +430,7 @@ async function handleCancelBooking(req, res) {
 /* ─── HELPERS ──────────────────────────────────────────────── */
 
 function getOptionForProduct(productId) {
-  // productId is our internal tour ID (e.g. "book-1h")
+  // productId is our internal tour ID (e.g. "city-highlights-1h")
   // Find which GYG option it belongs to
   for (const [optionId, tourIds] of Object.entries(GYG_OPTION_TO_TOURS)) {
     if (tourIds.includes(productId)) {

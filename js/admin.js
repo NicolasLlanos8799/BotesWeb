@@ -44,8 +44,6 @@ document.addEventListener("DOMContentLoaded", () => {
     initStatsPage();
   } else if (path.includes("/admin/manifest")) {
     initManifestPage();
-  } else if (path === "/admin" || path === "/admin/" || path.includes("/admin/index.html")) {
-    initDashboard();
   }
 });
 
@@ -387,90 +385,6 @@ async function initBookingsPage(config) {
   });
 
   loadData();
-}
-
-/**
- * DASHBOARD HOME PAGE
- */
-async function initDashboard() {
-  const elements = {
-    revenueMonth: document.getElementById("stat-revenue-month"),
-    growth: document.getElementById("stat-growth-container"),
-    pax: document.getElementById("stat-passengers"),
-    upcoming: document.getElementById("upcoming-tbody")
-  };
-
-  const bookings = await fetchAllBookings();
-  const paid = bookings.filter(b => b.status === "PAID");
-
-  // 1. Monthly Revenue & Growth
-  const now = new Date();
-  const currentMonth = now.getMonth();
-  const currentYear = now.getFullYear();
-
-  const thisMonthBookings = paid.filter(b => {
-    const d = new Date(b.start);
-    return d.getMonth() === currentMonth && d.getFullYear() === currentYear;
-  });
-
-  const lastMonthBookings = paid.filter(b => {
-    const d = new Date(b.start);
-    const lastMonth = currentMonth === 0 ? 11 : currentMonth - 1;
-    const lastYear = currentMonth === 0 ? currentYear - 1 : currentYear;
-    return d.getMonth() === lastMonth && d.getFullYear() === lastYear;
-  });
-
-  const thisMonthRev = thisMonthBookings.reduce((sum, b) => sum + b.price, 0);
-  const lastMonthRev = lastMonthBookings.reduce((sum, b) => sum + b.price, 0);
-
-  if (elements.revenueMonth) elements.revenueMonth.textContent = formatCurrency(thisMonthRev);
-
-  if (elements.growth) {
-    let growth = 0;
-    if (lastMonthRev > 0) {
-      growth = ((thisMonthRev - lastMonthRev) / lastMonthRev) * 100;
-    } else if (thisMonthRev > 0) {
-      growth = 100;
-    }
-
-    const isUp = growth >= 0;
-    elements.growth.className = `stat-card__trend ${isUp ? 'trend-up' : 'trend-down'}`;
-    elements.growth.innerHTML = `
-      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="${isUp ? '23 6 13.5 15.5 8.5 10.5 1 18' : '23 18 13.5 8.5 8.5 13.5 1 6'}"></polyline><polyline points="${isUp ? '17 6 23 6 23 12' : '17 18 23 18 23 12'}"></polyline></svg>
-      <span>${Math.abs(Math.round(growth))}% vs last month</span>
-    `;
-  }
-
-  // 2. Total Passengers
-  const totalPax = paid.reduce((sum, b) => sum + b.passengers, 0);
-  if (elements.pax) elements.pax.textContent = totalPax;
-
-  // 3. Upcoming Bookings (Next 5)
-  if (elements.upcoming) {
-    const upcoming = bookings
-      .filter(b => new Date(b.start) >= now)
-      .sort((a, b) => new Date(a.start) - new Date(b.start))
-      .slice(0, 5);
-
-    if (upcoming.length === 0) {
-      elements.upcoming.innerHTML = `<tr><td colspan="4" style="text-align: center; padding: 2rem; opacity: 0.5;">No upcoming bookings found.</td></tr>`;
-    } else {
-      elements.upcoming.innerHTML = upcoming.map(b => {
-        const d = new Date(b.start);
-        return `
-          <tr>
-            <td>${d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short' })} @ ${b.time.substring(0, 5)}</td>
-            <td>${b.customerName}</td>
-            <td>${b.tourName}</td>
-            <td>${b.calendar}</td>
-          </tr>
-        `;
-      }).join("");
-    }
-  }
-
-  // 4. Sidebar notification badges (New Reservations / GetYourGuide)
-  updateNavBadges(bookings);
 }
 
 /**

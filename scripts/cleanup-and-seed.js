@@ -9,7 +9,7 @@ async function cleanupAndSeed() {
 
     console.log('🌱 Seeding 15 fresh mock bookings...');
     const tours = [
-      { id: 'book-1h', name: 'City Highlights', price: 2499 },
+      { id: 'city-highlights-1h', name: 'City Highlights', price: 2499 },
       { id: 'book-winter', name: '2-Hour Winter Hygge 2026', price: 4999 },
       { id: 'book-reffen', name: 'Private 3-Hour Extended (Reffen)', price: 4299 },
       { id: 'book-premium', name: 'Sea Fortress & Coastal Journey (4-Hour)', price: 5999 },

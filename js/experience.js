@@ -98,12 +98,12 @@ function initBookingPanel() {
   clearBookingSelection();
 
   function getCurrentTourId() {
-    let tourId = document.body.dataset.experienceId || "book-1h";
+    let tourId = document.body.dataset.experienceId || "city-highlights-1h";
     const durationInput = document.getElementById("experience-duration");
     if (durationInput) {
       const duration = durationInput.value;
       if (duration === "2") {
-        if (tourId === "book-1h") tourId = "book-1h-2h";
+        if (tourId === "city-highlights-1h") tourId = "book-1h-2h";
         else if (tourId === "book-10p") tourId = "book-10p-2h";
       }
     }

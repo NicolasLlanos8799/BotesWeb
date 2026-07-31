@@ -163,7 +163,7 @@ function handleListAllBookings(startStr, endStr) {
 
 function getTourDisplayName(tourCode) {
   var names = {
-    'book-1h':             'City Highlights',
+    'city-highlights-1h':  'City Highlights',
     'book-1h-2h':          'City Highlights (2 Hours)',
     'book-10p':            'City Highlights (10 Guests)',
     'book-10p-2h':         'City Highlights (10 Guests) (2 Hours)',
@@ -481,7 +481,7 @@ function getTourDurationHours(tour, defaultHours) {
   if (tour.indexOf('1 Hour') !== -1 ||
     tour.indexOf('1-Hour') !== -1 ||
     tour.indexOf('Highlights') !== -1 ||
-    tour.indexOf('book-1h') !== -1 ||
+    tour.indexOf('city-highlights-1h') !== -1 ||
     tour.indexOf('book-10p') !== -1 ||
     tour.indexOf('book-danish-breakfast') !== -1 ||
     tour.indexOf('Danish Breakfast') !== -1) return 1;

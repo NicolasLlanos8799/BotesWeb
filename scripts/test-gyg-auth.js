@@ -10,7 +10,7 @@
  */
 
 const BASE_URL = getArg("--url") || "https://seaduced-experience.com";
-const PATH = `/api/gyg/1/get-availabilities/?productId=book-1h&fromDateTime=2025-01-01T00:00:00%2B02:00&toDateTime=2025-01-01T23:59:59%2B02:00`;
+const PATH = `/api/gyg/1/get-availabilities/?productId=city-highlights-1h&fromDateTime=2025-01-01T00:00:00%2B02:00&toDateTime=2025-01-01T23:59:59%2B02:00`;
 
 function getArg(flag) {
   const i = process.argv.indexOf(flag);

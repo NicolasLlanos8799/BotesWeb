@@ -113,7 +113,7 @@ function parseDescription(desc, event) {
 
   // Map calendar ID to tour_id
   const calendarToTourId = {
-    boat1: 'book-1h',
+    boat1: 'city-highlights-1h',
     boat2: 'book-malmo',
   };
 

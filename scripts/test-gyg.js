@@ -18,7 +18,7 @@ const GYG_USER  = getArg("--user") || process.env.GYG_BASIC_USER;
 const GYG_PASS  = getArg("--pass") || process.env.GYG_BASIC_PASS;
 
 // Test with a real product ID from your gyg-config.js
-const PRODUCT_ID = "book-1h";
+const PRODUCT_ID = "city-highlights-1h";
 
 // Tomorrow at 10:00 (safe — won't clash with real bookings at exact test time)
 const tomorrow = new Date();

@@ -1,8 +1,8 @@
 const BOOKING_STORAGE_KEY = "seaduced_booking";
 
 export const TOURS = {
-  "book-1h": {
-    id: "book-1h",
+  "city-highlights-1h": {
+    id: "city-highlights-1h",
     title: "City Highlights",
     titleEs: "Lo Mejor de la Ciudad",
     titleDa: "Byens Højdepunkter",
