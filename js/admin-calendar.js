@@ -1,4 +1,5 @@
 import { openBookingDetailModal } from "./admin-modals.js";
+import { TOURS } from "./utils.js";
 
 /* ── Fetch (same shape as admin.js fetchAllBookings) ─────────────────────── */
 async function fetchAllBookings() {
@@ -26,6 +27,7 @@ async function fetchAllBookings() {
         status: b.payment_status || "PENDING",
         price: parseFloat(b.total_price) || 0,
         calendar: b.tour_id || "N/A",
+        boat: TOURS[b.tour_id]?.calendar || "boat1",
         lang: b.lang || "english",
         extras: parseInt(b.extras) || 0,
         isGyg: (b.source === "gyg") || email.toLowerCase().endsWith("@reply.getyourguide.com")
@@ -67,10 +69,11 @@ function bookingsByDate() {
 }
 
 function bookingChip(b) {
-  const cls = b.isGyg ? "cal-chip cal-chip--gyg" : "cal-chip cal-chip--direct";
+  const cls = `cal-chip ${b.isGyg ? "cal-chip--gyg" : "cal-chip--direct"} cal-chip--${b.boat}`;
   const time = (b.time || "").substring(0, 5);
-  return `<button class="${cls}" data-id="${b.id}" title="${b.tourName}">
-    <span class="cal-chip__time">${time}</span>
+  const boatLabel = b.boat === "boat2" ? "B2" : "B1";
+  return `<button class="${cls}" data-id="${b.id}" title="${b.tourName} — ${boatLabel}">
+    <span class="cal-chip__time">${time} <span class="cal-chip__boat">${boatLabel}</span></span>
     <span class="cal-chip__name">${b.customerName}</span>
   </button>`;
 }

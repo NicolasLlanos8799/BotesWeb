@@ -1081,6 +1081,16 @@ select.admin-search {
 }
 .cal-chip--gyg .cal-chip__time { color: #7c8bff; }
 
+.cal-chip--boat1 { border-left: 3px solid #f0b429; }
+.cal-chip--boat2 { border-left: 3px solid #2dd4bf; }
+
+.cal-chip__boat {
+  font-size: 0.6rem;
+  font-weight: 700;
+  opacity: 0.65;
+  letter-spacing: 0.03em;
+}
+
 .cal-chip:hover {
   filter: brightness(1.2);
 }

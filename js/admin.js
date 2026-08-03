@@ -115,7 +115,8 @@ async function fetchBookings(opts = {}) {
         lang: b.lang || 'english',
         extras: parseInt(b.extras) || 0,
         createdAt: b.created_at ? new Date(b.created_at) : null,
-        isGyg: b.source === 'gyg' || email.toLowerCase().endsWith('@reply.getyourguide.com')
+        isGyg: b.source === 'gyg' || email.toLowerCase().endsWith('@reply.getyourguide.com'),
+        gygReference: b.gyg_booking_id || null
       };
     });
   } catch (err) {
@@ -238,6 +239,7 @@ async function initBookingsPage(config) {
         <td>${dateStr}</td>
         <td>${b.customerName}</td>
         <td>${b.tourName}</td>
+        ${source === 'gyg' ? `<td>${b.gygReference || '—'}</td>` : ''}
         <td>${startStr}${endStr ? ` – ${endStr}` : ''}</td>
         <td style="white-space:nowrap;">${formatCurrency(b.price)} <span class="pill pill--${variant}" style="margin-left:6px;">${b.status}</span></td>
       </tr>`;
@@ -266,6 +268,7 @@ async function initBookingsPage(config) {
               <th>Date</th>
               <th>Customer</th>
               <th>Experience</th>
+              ${source === 'gyg' ? '<th>Reference</th>' : ''}
               <th>Start – End</th>
               <th>Amount</th>
             </tr>
@@ -396,6 +399,9 @@ function getNewBookings(bookings) {
   const cutoff = Date.now() - 48 * 60 * 60 * 1000;
   return bookings
     .filter(b => b.createdAt && b.createdAt.getTime() >= cutoff)
+    // Drop unconfirmed GYG holds (checkout in progress / abandoned) — no
+    // customer yet, nothing to act on until GYG calls /book/ or /cancel-reservation/.
+    .filter(b => !(b.status === 'RESERVED' && !b.customerEmail))
     .sort((a, b) => b.createdAt - a.createdAt);
 }
 
