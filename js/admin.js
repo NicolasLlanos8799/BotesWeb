@@ -1,5 +1,5 @@
 import { formatCurrency, TOURS } from "./utils.js";
-import { adminAlert, adminConfirm, openEditModal, openResendModal, openBookingDetailModal } from "./admin-modals.js";
+import { adminAlert, adminConfirm, openEditModal, openResendModal, openBookingDetailModal, openCreateBookingModal } from "./admin-modals.js";
 import { Chart, registerables } from "chart.js";
 Chart.register(...registerables);
 
@@ -377,6 +377,26 @@ async function initBookingsPage(config) {
   filterDateFrom?.addEventListener("change", handleFilters);
   filterDateTo?.addEventListener("change", handleFilters);
   refreshBtn?.addEventListener("click", loadData);
+
+  document.getElementById("new-booking-btn")?.addEventListener("click", () => {
+    openCreateBookingModal(async (payload) => {
+      const res = await fetch("/api/admin/create-booking", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+      const result = await res.json().catch(() => ({}));
+      if (!res.ok || !result.success) {
+        throw new Error(result.error || `HTTP ${res.status}`);
+      }
+      if (result.warning) {
+        await adminAlert(`Booking created, but: ${result.warning}`, "error");
+      } else {
+        await adminAlert("Booking created successfully!", "success");
+      }
+      await loadData();
+    });
+  });
 
   tabsContainer?.querySelectorAll(".admin-tab").forEach(tab => {
     tab.addEventListener("click", () => {

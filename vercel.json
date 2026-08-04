@@ -119,6 +119,8 @@
     { "source": "/api/admin/get-bookings/", "destination": "/api/admin?route=get-bookings" },
     { "source": "/api/admin/booking-action", "destination": "/api/admin?route=booking-action" },
     { "source": "/api/admin/booking-action/", "destination": "/api/admin?route=booking-action" },
+    { "source": "/api/admin/create-booking", "destination": "/api/admin?route=create-booking" },
+    { "source": "/api/admin/create-booking/", "destination": "/api/admin?route=create-booking" },
     { "source": "/api/admin/ops", "destination": "/api/admin?route=ops" },
     { "source": "/api/admin/ops/", "destination": "/api/admin?route=ops" }
   ],

@@ -1,7 +1,8 @@
 import db from "../lib/db.js";
 import { generateSessionToken, timingSafeEqual, isAdminAuthenticated } from "../lib/adminAuth.js";
-import { error as logError } from "../lib/logger.js";
+import { error as logError, warn as logWarn } from "../lib/logger.js";
 import { isRateLimited, getIp } from "../lib/rateLimit.js";
+import { notifyGYGAvailability } from "../lib/gyg-notify.js";
 
 const SUMUP_API_BASE = "https://api.sumup.com";
 
@@ -89,6 +90,105 @@ async function handleGetBookings(req, res) {
     logError("Admin API Error:", error.message);
     return res.status(500).json({ success: false, error: error.message });
   }
+}
+
+async function handleCreateBooking(req, res) {
+  if (!(await isAdminAuthenticated(req))) return res.status(401).json({ error: "Unauthorized" });
+  if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
+
+  const {
+    tourId, tourName, name, email, phone, date, time, endTime,
+    qty, extras, amount, lang, status
+  } = req.body || {};
+
+  if (!name || !email || !date || !time) {
+    return res.status(400).json({ error: "Missing name, email, date or time" });
+  }
+
+  const passengers = qty ? parseInt(qty) : 1;
+  const extrasNum = extras !== undefined && extras !== '' ? parseInt(extras) : 0;
+  const amountNum = amount !== undefined && amount !== '' ? parseFloat(amount) : 0;
+  const paymentStatus = status || 'PAID';
+  const bookingLang = lang || 'english';
+
+  let bookingId;
+  try {
+    await db`ALTER TABLE bookings ADD COLUMN IF NOT EXISTS booking_end_time TIME`;
+
+    const result = await db`
+      INSERT INTO bookings (
+        tour_id, tour_name, customer_name, customer_email, customer_phone,
+        passengers, booking_date, booking_time, booking_end_time, extras,
+        total_price, payment_status, lang, source
+      ) VALUES (
+        ${tourId || null}, ${tourName || null}, ${name}, ${email}, ${phone || null},
+        ${passengers}, ${date}, ${time}, ${endTime || null},
+        ${extrasNum}, ${amountNum}, ${paymentStatus}, ${bookingLang}, 'web'
+      )
+      RETURNING id
+    `;
+    const rows = result.rows ?? result;
+    bookingId = rows[0]?.id;
+  } catch (err) {
+    logError("create-booking error:", err.message);
+    return res.status(500).json({ error: err.message });
+  }
+
+  // Booking is saved — everything below is best-effort. A GAS/calendar
+  // hiccup shouldn't roll back a booking that's already in the DB; the
+  // admin sees a warning instead so they can manually check the calendar.
+  //
+  // NOTE: customer emails from manual admin bookings are disabled for now
+  // (per request). The GAS `createBooking` handler only emails the guest
+  // when payment_status === 'PAID', so we send 'PENDING' to GAS regardless
+  // of the real DB status — this still creates/blocks the calendar event,
+  // it just skips the guest invite + confirmation email. The actual
+  // payment_status stored in Postgres (paymentStatus) is unaffected.
+  // TODO: flip this back to `paymentStatus` once emails should resume.
+  const SEND_CUSTOMER_EMAIL = false;
+  let calendarWarning = null;
+  if (process.env.GAS_URL) {
+    try {
+      const gasRes = await fetch(process.env.GAS_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: "createBooking",
+          tour: tourId,
+          tourTitle: tourName,
+          name,
+          email,
+          phone: phone || "",
+          qty: passengers,
+          date,
+          time,
+          lang: bookingLang,
+          tapas: extrasNum,
+          payment_status: SEND_CUSTOMER_EMAIL ? paymentStatus : "PENDING",
+          sumup_checkout_id: `admin-manual-${bookingId}`,
+          amount: amountNum,
+          currency: "DKK"
+        })
+      });
+      if (!gasRes.ok) {
+        calendarWarning = `Calendar/email sync returned HTTP ${gasRes.status}. Verify the calendar manually.`;
+        logWarn("create-booking GAS sync warning:", gasRes.status);
+      }
+    } catch (err) {
+      calendarWarning = "Could not reach the calendar/email service. Verify the calendar manually.";
+      logWarn("create-booking GAS sync error:", err.message);
+    }
+  } else {
+    calendarWarning = "GAS_URL not configured — calendar was not blocked and no email was sent.";
+  }
+
+  // Keep GetYourGuide's availability in sync too — same as the normal
+  // payment flow (fire-and-forget, non-fatal).
+  notifyGYGAvailability(tourId, date, time).catch(e =>
+    logWarn("create-booking GYG notify error:", e.message)
+  );
+
+  return res.status(200).json({ success: true, id: bookingId, warning: calendarWarning });
 }
 
 async function handleBookingAction(req, res) {
@@ -385,6 +485,7 @@ export default async function handler(req, res) {
     case "logout": return handleLogout(req, res);
     case "get-bookings": return handleGetBookings(req, res);
     case "booking-action": return handleBookingAction(req, res);
+    case "create-booking": return handleCreateBooking(req, res);
     case "ops": return handleOps(req, res);
     default: return res.status(404).json({ error: "Unknown admin route" });
   }

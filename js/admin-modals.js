@@ -3,7 +3,7 @@
  * and js/admin-calendar.js (calendar detail view), so booking actions
  * (edit, resend, cancel, delete) behave identically everywhere.
  */
-import { formatCurrency } from "./utils.js";
+import { formatCurrency, TOURS } from "./utils.js";
 
 /* ── Button loading state (spinner + disabled) for async actions ────────── */
 function withButtonLoading(btn, loadingLabel, task) {
@@ -152,6 +152,317 @@ export function openEditModal(booking, onSave) {
     });
 
     modal.remove();
+  });
+}
+
+/**
+ * Compute end time (HH:MM) from a start time + the tour's duration.
+ */
+function computeEndTime(startTime, durationHours) {
+  if (!startTime || !durationHours) return "";
+  const [h, m] = startTime.split(":").map(Number);
+  const total = h * 60 + m + durationHours * 60;
+  return `${String(Math.floor((total / 60) % 24)).padStart(2, "0")}:${String(total % 60).padStart(2, "0")}`;
+}
+
+/**
+ * Fetch real-time slot availability for a tour+date, mirroring the public
+ * booking widget's logic (js/experience.js) so admin-created bookings can't
+ * accidentally double-book a boat or overfill the wine tour.
+ * Returns [{ time: "HH:MM", available: bool, groupStatus? }]
+ */
+async function fetchAvailableSlots(tourId, date) {
+  const tourConfig = TOURS[tourId] || {};
+  const durationHours = parseInt(tourConfig.duration) || 1;
+
+  // Wine group experience: dedicated per-slot group-count endpoint.
+  if (tourConfig.isGroupExperience) {
+    try {
+      const res = await fetch(`/api/wine-availability/?date=${date}&t=${Date.now()}`);
+      if (!res.ok) throw new Error("fetch failed");
+      const data = await res.json();
+      return (tourConfig.customSlots || []).map(s => {
+        const info = data[s.time] || { groups: 0, status: "available" };
+        return { time: s.time, available: info.status !== "full", groupStatus: info.status };
+      });
+    } catch {
+      return (tourConfig.customSlots || []).map(s => ({ time: s.time, available: true }));
+    }
+  }
+
+  // Boat tours: shared calendar per boat, fetched via the same GAS proxy the
+  // public site uses.
+  const cal = tourConfig.calendar || "boat1";
+  let busySlots = [];
+  try {
+    const res = await fetch(`/api/proxy/?action=getAvailability&date=${date}&calendar=${cal}&t=${Date.now()}`);
+    if (!res.ok) throw new Error("fetch failed");
+    const data = await res.json();
+    busySlots = data.busy || (Array.isArray(data) ? data : []);
+  } catch {
+    busySlots = []; // fail open — better to let the admin see all slots than block the modal
+  }
+
+  const maxHour = tourConfig.fixedLastSlot === false ? (19 - durationHours) : 18;
+
+  // A slot is blocked if any busy hour falls inside the full duration window
+  // the tour would occupy, not just an exact-time match — same rule the
+  // public booking widget uses to avoid overlapping long tours.
+  const isRangeBusy = (startTime) => {
+    const [sh] = startTime.split(":").map(Number);
+    return busySlots.some(sl => {
+      if (sl.available !== false) return false;
+      const [bh] = sl.time.split(":").map(Number);
+      return bh >= sh && bh < sh + durationHours;
+    });
+  };
+
+  const slots = [];
+  if (tourConfig.customSlots) {
+    tourConfig.customSlots.forEach(s => slots.push({ time: s.time, available: !isRangeBusy(s.time) }));
+  } else {
+    const interval = tourConfig.slotInterval || 1;
+    for (let h = 9; h <= maxHour; h += interval) {
+      const timeStr = `${String(h).padStart(2, "0")}:00`;
+      slots.push({ time: timeStr, available: !isRangeBusy(timeStr) });
+    }
+  }
+  return slots;
+}
+
+/**
+ * CREATE BOOKING MODAL — manual admin entry, always source='web' (Direct).
+ * onCreate(payload) -> Promise   called when "Create Booking" is clicked
+ */
+export function openCreateBookingModal(onCreate) {
+  const existing = document.getElementById("create-booking-modal");
+  if (existing) existing.remove();
+
+  const modal = document.createElement("div");
+  modal.id = "create-booking-modal";
+  modal.className = "modal-overlay";
+
+  const tourOptions = Object.values(TOURS)
+    .map(t => `<option value="${t.id}" data-price="${t.price}">${t.title}</option>`)
+    .join("");
+
+  modal.innerHTML = `
+    <div class="modal-sheet modal-sheet--wide">
+      <div style="margin-bottom:1.5rem;">
+        <div class="modal-sheet__eyebrow">Direct Booking</div>
+        <h2 class="modal-sheet__title">New Booking</h2>
+      </div>
+      <div class="field-stack">
+        <label class="field-label">Experience
+          <div class="select-custom">
+            <select id="cb-tour" class="field-input">${tourOptions}</select>
+          </div>
+        </label>
+        <div class="field-grid-2">
+          <label class="field-label">First Name
+            <input id="cb-firstname" class="field-input">
+          </label>
+          <label class="field-label">Last Name
+            <input id="cb-lastname" class="field-input">
+          </label>
+        </div>
+        <label class="field-label">Email
+          <input id="cb-email" class="field-input">
+        </label>
+        <label class="field-label">Phone
+          <input id="cb-phone" class="field-input">
+        </label>
+        <label class="field-label">Date
+          <input id="cb-date" type="date" class="field-input">
+        </label>
+        <label class="field-label">Time
+          <div class="select-custom">
+            <select id="cb-time" class="field-input" disabled>
+              <option value="">Select a date first</option>
+            </select>
+          </div>
+        </label>
+        <div id="cb-time-hint" style="font-size:0.78rem;opacity:0.6;margin-top:-0.5rem;"></div>
+        <div class="field-grid-2">
+          <label class="field-label">Passengers
+            <input id="cb-qty" value="1" type="number" min="1" class="field-input">
+          </label>
+          <label class="field-label">Charcuterie Extras
+            <input id="cb-extras" value="0" type="number" min="0" class="field-input">
+          </label>
+        </div>
+        <div class="field-grid-2">
+          <label class="field-label">Amount
+            <input id="cb-amount" type="number" min="0" step="0.01" class="field-input">
+          </label>
+          <label class="field-label">Language
+            <div class="select-custom">
+              <select id="cb-lang" class="field-input">
+                <option value="english" selected>English</option>
+                <option value="spanish">Spanish</option>
+                <option value="danish">Danish</option>
+              </select>
+            </div>
+          </label>
+        </div>
+        <label class="field-label">Payment Status
+          <div class="select-custom">
+            <select id="cb-status" class="field-input">
+              <option value="PAID" selected>Paid</option>
+              <option value="PENDING">Pending</option>
+            </select>
+          </div>
+        </label>
+      </div>
+      <div id="cb-error" style="margin-top:0.75rem;color:var(--admin-danger);font-size:0.8rem;display:none;"></div>
+      <div class="modal-sheet__actions">
+        <button id="cb-cancel" class="btn--close">Cancel</button>
+        <button id="cb-save" class="btn--save">Create Booking</button>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+
+  const tourSelect = document.getElementById("cb-tour");
+  const dateInput = document.getElementById("cb-date");
+  const timeSelect = document.getElementById("cb-time");
+  const timeHint = document.getElementById("cb-time-hint");
+  const qtyInput = document.getElementById("cb-qty");
+  const amountInput = document.getElementById("cb-amount");
+  const saveBtn = document.getElementById("cb-save");
+  const errEl = document.getElementById("cb-error");
+
+  // Auto-fill amount from tour price × passengers, but only while the admin
+  // hasn't manually touched the amount field.
+  let amountTouched = false;
+  amountInput.addEventListener("input", () => { amountTouched = true; });
+
+  const recalcAmount = () => {
+    if (amountTouched) return;
+    const price = parseFloat(tourSelect.selectedOptions[0]?.dataset.price || 0) / 100;
+    const qty = parseInt(qtyInput.value) || 1;
+    amountInput.value = (price * qty).toFixed(2);
+  };
+  tourSelect.addEventListener("change", recalcAmount);
+  qtyInput.addEventListener("input", recalcAmount);
+  recalcAmount();
+
+  // Live availability: reload the time dropdown whenever the tour or date
+  // changes, so the admin can only pick a slot that's actually free.
+  let loadRequestId = 0;
+  const reloadSlots = async () => {
+    const tourId = tourSelect.value;
+    const date = dateInput.value;
+    timeHint.textContent = "";
+
+    if (!date) {
+      timeSelect.innerHTML = `<option value="">Select a date first</option>`;
+      timeSelect.disabled = true;
+      return;
+    }
+
+    const requestId = ++loadRequestId;
+    timeSelect.disabled = true;
+    timeSelect.innerHTML = `<option value="">Checking availability…</option>`;
+
+    const slots = await fetchAvailableSlots(tourId, date);
+    if (requestId !== loadRequestId) return; // a newer request superseded this one
+
+    const available = slots.filter(s => s.available);
+    if (slots.length === 0) {
+      timeSelect.innerHTML = `<option value="">No slots configured</option>`;
+      timeSelect.disabled = true;
+      return;
+    }
+
+    timeSelect.innerHTML = `<option value="">Select a time</option>` + slots.map(s =>
+      `<option value="${s.time}" ${!s.available ? "disabled" : ""}>${s.time}${!s.available ? " — full" : ""}</option>`
+    ).join("");
+    timeSelect.disabled = false;
+
+    if (available.length === 0) {
+      timeHint.textContent = "No available time slots for this date.";
+      timeHint.style.color = "var(--admin-danger)";
+    } else {
+      timeHint.textContent = `${available.length} slot${available.length === 1 ? "" : "s"} available.`;
+      timeHint.style.color = "";
+    }
+  };
+
+  tourSelect.addEventListener("change", reloadSlots);
+  dateInput.addEventListener("change", reloadSlots);
+
+  document.getElementById("cb-cancel").addEventListener("click", () => modal.remove());
+  modal.addEventListener("click", e => { if (e.target === modal) modal.remove(); });
+
+  saveBtn.addEventListener("click", async () => {
+    // Disable immediately — everything below this line is async (network
+    // calls), and without this guard a fast double-click fires two submits
+    // before the first one has a chance to disable the button itself.
+    if (saveBtn.disabled) return;
+    saveBtn.disabled = true;
+    saveBtn.textContent = "Checking availability...";
+
+    errEl.style.display = "none";
+
+    const firstName = document.getElementById("cb-firstname").value.trim();
+    const lastName = document.getElementById("cb-lastname").value.trim();
+    const email = document.getElementById("cb-email").value.trim();
+    const date = dateInput.value.trim();
+    const time = timeSelect.value.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!firstName || !lastName || !emailRegex.test(email) || !date || !time) {
+      errEl.textContent = "Please fill in first name, last name, a valid email, date and time.";
+      errEl.style.display = "block";
+      saveBtn.textContent = "Create Booking";
+      saveBtn.disabled = false;
+      return;
+    }
+
+    // Defensive re-check right before submit — the slot list could have
+    // gone stale if the admin left the modal open for a while.
+    const freshSlots = await fetchAvailableSlots(tourSelect.value, date);
+    const chosen = freshSlots.find(s => s.time === time);
+    if (chosen && !chosen.available) {
+      errEl.textContent = "That time slot was just booked. Please choose another.";
+      errEl.style.display = "block";
+      saveBtn.textContent = "Create Booking";
+      saveBtn.disabled = false;
+      reloadSlots();
+      return;
+    }
+
+    const tourConfig = TOURS[tourSelect.value] || {};
+    const durationHours = parseInt(tourConfig.duration) || 1;
+
+    saveBtn.textContent = "Creating...";
+    saveBtn.disabled = true;
+
+    try {
+      await onCreate({
+        tourId: tourSelect.value,
+        tourName: tourSelect.selectedOptions[0]?.textContent || tourSelect.value,
+        name: `${firstName} ${lastName}`,
+        email,
+        phone: document.getElementById("cb-phone").value.trim(),
+        date,
+        time,
+        endTime: computeEndTime(time, durationHours),
+        qty: qtyInput.value.trim(),
+        extras: document.getElementById("cb-extras").value.trim(),
+        amount: amountInput.value.trim(),
+        lang: document.getElementById("cb-lang").value,
+        status: document.getElementById("cb-status").value
+      });
+      modal.remove();
+    } catch (e) {
+      errEl.textContent = "Error: " + (e.message || "Could not create booking.");
+      errEl.style.display = "block";
+      saveBtn.textContent = "Create Booking";
+      saveBtn.disabled = false;
+    }
   });
 }
 
