@@ -126,7 +126,7 @@ export default async function handler(req, res) {
               (tour_id, tour_name, customer_name, customer_email, customer_phone,
                passengers, booking_date, booking_time, total_price, payment_status, sumup_id, lang)
             VALUES
-              (${metadata.tour || metadata.calendar || null},
+              (${metadata.tour || null},
                ${metadata.tourTitle || null},
                ${metadata.name || null},
                ${metadata.email || null},
