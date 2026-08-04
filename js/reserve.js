@@ -226,6 +226,7 @@ export function initReservePage() {
   let pollingTimeout = null;
   let currentCheckoutId = null;
   let currentCheckoutUrl = null;
+  const notifiedFailedIds = new Set();
 
   function getOverlay() {
     return document.getElementById("payment-overlay");
@@ -568,18 +569,25 @@ export function initReservePage() {
         }
 
         if (data.status === "FAILED" || data.status === "EXPIRED") {
-          stopPolling();
-          showErrorUI(`Payment ${data.status.toLowerCase()}. Please try again.`);
+          // Don't stop polling: SumUp keeps the same checkout_id open and lets
+          // the user retry with another card without reloading. If we stop
+          // here, a successful retry in the still-open SumUp tab never gets
+          // picked up client-side. Keep listening until PAID or the 5min
+          // timeout — just show the error UI so the user knows to retry.
+          if (!notifiedFailedIds.has(checkoutId)) {
+            notifiedFailedIds.add(checkoutId);
+            showErrorUI(`Payment ${data.status.toLowerCase()}. Please try again.`);
 
-          // Fire-and-forget: notify the customer by email so they don't have to
-          // reach out themselves. Server re-verifies status before sending.
-          const savedMetadataRaw = localStorage.getItem("pending_booking_data");
-          const savedMetadata = savedMetadataRaw ? JSON.parse(savedMetadataRaw) : null;
-          fetch("/api/payment-failed", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ checkout_id: checkoutId, metadata: savedMetadata })
-          }).catch(e => console.error("Payment-failed notify error:", e));
+            // Fire-and-forget: notify the customer by email so they don't have to
+            // reach out themselves. Server re-verifies status before sending.
+            const savedMetadataRaw = localStorage.getItem("pending_booking_data");
+            const savedMetadata = savedMetadataRaw ? JSON.parse(savedMetadataRaw) : null;
+            fetch("/api/payment-failed", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ checkout_id: checkoutId, metadata: savedMetadata })
+            }).catch(e => console.error("Payment-failed notify error:", e));
+          }
         }
       } catch (err) {
         console.error("Polling error:", err);
