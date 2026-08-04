@@ -111,16 +111,37 @@ async function handleAvailability(req, res) {
   // double-booked for the same slot.
   const boatTourIds = boat ? getBoatTourIds(representativeTourId) : ownTourIds;
   const slots = getSlotsForOption(optionId);
+  // Reject unknown product with no price mapping — never silently fall back to a guessed price
+  if (OPTION_PRICES[optionId] == null) {
+    return res.status(200).json({ errorCode: "INVALID_PRODUCT", errorMessage: `No price configured for optionId ${optionId}` });
+  }
   // Extract local Copenhagen date directly from ISO string (avoid UTC conversion bug)
   const dateFrom = fromDateTime.split("T")[0];
   const dateTo = toDateTime.split("T")[0];
+  const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
+  if (!DATE_RE.test(dateFrom) || !DATE_RE.test(dateTo)) {
+    return res.status(200).json({ errorCode: "VALIDATION_FAILURE", errorMessage: "Malformed fromDateTime or toDateTime" });
+  }
+  if (dateFrom > dateTo) {
+    return res.status(200).json({ errorCode: "VALIDATION_FAILURE", errorMessage: "fromDateTime must not be after toDateTime" });
+  }
+  const MAX_RANGE_DAYS = 400;
+  const rangeDays = (new Date(dateTo + "T00:00:00Z") - new Date(dateFrom + "T00:00:00Z")) / 86400000;
+  if (rangeDays > MAX_RANGE_DAYS) {
+    return res.status(200).json({ errorCode: "VALIDATION_FAILURE", errorMessage: `Date range too large (max ${MAX_RANGE_DAYS} days)` });
+  }
+  const todayStr = new Date().toISOString().split("T")[0];
+  const effectiveDateFrom = dateFrom < todayStr ? todayStr : dateFrom;
+  if (effectiveDateFrom > dateTo) {
+    return res.status(200).json({ data: { availabilities: [] } });
+  }
 
   try {
     const result = boatTourIds.length > 0 ? await db`
       SELECT tour_id, booking_date, booking_time
       FROM bookings
       WHERE tour_id = ANY(${boatTourIds})
-        AND booking_date BETWEEN ${dateFrom} AND ${dateTo}
+        AND booking_date BETWEEN ${effectiveDateFrom} AND ${dateTo}
         AND payment_status NOT IN ('CANCELLED', 'REFUNDED')
     ` : { rows: [] };
     const bookings = result.rows ?? result;
@@ -133,14 +154,14 @@ async function handleAvailability(req, res) {
       const dateKey = row.booking_date instanceof Date
         ? row.booking_date.toISOString().split("T")[0]
         : String(row.booking_date).split("T")[0];
-      const timeKey = row.booking_time.slice(0, 5);
+      const timeKey = String(row.booking_time ?? "").slice(0, 5);
       const key = `${dateKey}_${timeKey}`;
       (bookedTourIdsMap[key] ||= []).push(row.tour_id);
     }
 
     const availabilities = [];
     // Iterate over local Copenhagen dates using string comparison
-    for (let dateStr = dateFrom; dateStr <= dateTo; dateStr = incrementDate(dateStr)) {
+    for (let dateStr = effectiveDateFrom; dateStr <= dateTo; dateStr = incrementDate(dateStr)) {
       for (const time of slots) {
         const existingTourIds = bookedTourIdsMap[`${dateStr}_${time}`] || [];
         const remaining = remainingBoatCapacity(existingTourIds, representativeTourId);
@@ -157,7 +178,7 @@ async function handleAvailability(req, res) {
           currency: "DKK",
           pricesByCategory: {
             retailPrices: [
-              { category: "GROUP", price: OPTION_PRICES[optionId] || 249900 },
+              { category: "GROUP", price: OPTION_PRICES[optionId] },
             ],
           },
         });
