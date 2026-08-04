@@ -43,8 +43,8 @@ export const TOURS = {
     maxParticipants: 6,
     calendar: "boat1",
   },
-  "book-premium": {
-    id: "book-premium",
+  "city-highlights-4h": {
+    id: "city-highlights-4h",
     title: "Sea Fortress and Coastal Journey (4-Hour)",
     titleEs: "Fortaleza Marina y Viaje Costero",
     titleDa: "Søfæstning og Kystrejse",

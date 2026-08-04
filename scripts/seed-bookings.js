@@ -7,7 +7,7 @@ async function seed() {
     { id: 'city-highlights-1h', name: 'City Highlights', price: 2499 },
     { id: 'book-winter', name: '2-Hour Winter Hygge 2026', price: 4999 },
     { id: 'city-highlights-3h', name: 'Private 3-Hour Extended (Reffen)', price: 4299 },
-    { id: 'book-premium', name: 'Sea Fortress & Coastal Journey (4-Hour)', price: 5999 },
+    { id: 'city-highlights-4h', name: 'Sea Fortress & Coastal Journey (4-Hour)', price: 5999 },
     { id: 'book-malmo', name: 'Copenhagen to Malmö Experience', price: 13000 },
     { id: 'book-wine', name: 'Floating Wine Tasting Experience', price: 4999 }
   ];
