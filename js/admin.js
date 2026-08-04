@@ -163,30 +163,10 @@ async function initBookingsPage(config) {
   let currentTab = "all";
   const pageSize = 10;
 
-  // Page 1 loads fast (only `pageSize` rows from the server, scoped to this
-  // view's source). The rest of the history is fetched lazily — the first
-  // time the admin needs it (next page, search, a filter, a tab).
-  let fullyLoaded = false;
-  let loadFullPromise = null;
-  const ensureFullyLoaded = () => {
-    if (fullyLoaded) return Promise.resolve();
-    if (!loadFullPromise) {
-      loadFullPromise = fetchBookings({ source }).then(data => {
-        allBookings = data;
-        allBookings.sort((a, b) => new Date(a.start) - new Date(b.start));
-        fullyLoaded = true;
-      });
-    }
-    return loadFullPromise;
-  };
-
   const renderPagination = (totalItems) => {
     if (!paginationContainer) return;
     const totalPages = Math.max(1, Math.ceil(totalItems / pageSize));
-
-    // While the rest of the history hasn't loaded yet, keep Next enabled —
-    // we don't know the real total until then.
-    const hasNext = !fullyLoaded || currentPage < totalPages;
+    const hasNext = currentPage < totalPages;
 
     if (totalPages <= 1 && !hasNext) {
       paginationContainer.innerHTML = "";
@@ -198,7 +178,7 @@ async function initBookingsPage(config) {
         <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
         Prev
       </button>
-      <span style="font-size: 0.9rem; font-weight: 600; opacity: 0.8;">Page ${currentPage}${fullyLoaded ? ` of ${totalPages}` : ''}</span>
+      <span style="font-size: 0.9rem; font-weight: 600; opacity: 0.8;">Page ${currentPage} of ${totalPages}</span>
       <button class="btn btn--outline btn--sm" ${hasNext ? '' : 'disabled'} id="next-page">
         Next
         <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
@@ -209,11 +189,7 @@ async function initBookingsPage(config) {
       currentPage--;
       render(filteredBookings);
     });
-    document.getElementById("next-page")?.addEventListener("click", async () => {
-      const btn = document.getElementById("next-page");
-      if (btn) { btn.disabled = true; btn.textContent = "Loading…"; }
-      await ensureFullyLoaded();
-      applyFilters();
+    document.getElementById("next-page")?.addEventListener("click", () => {
       currentPage++;
       render(filteredBookings);
     });
@@ -344,11 +320,7 @@ async function initBookingsPage(config) {
     });
   };
 
-  // Search/date/tab controls imply the admin wants to query beyond page 1 —
-  // make sure the full history is in before filtering, so results aren't
-  // silently missing rows that just hadn't loaded yet.
-  const handleFilters = async () => {
-    await ensureFullyLoaded();
+  const handleFilters = () => {
     applyFilters();
     currentPage = 1; // Reset to page 1 on filter
     render(filteredBookings);
@@ -364,10 +336,8 @@ async function initBookingsPage(config) {
         </div>
       `).join("");
     }
-    fullyLoaded = false;
-    loadFullPromise = null;
     currentPage = 1;
-    allBookings = await fetchBookings({ limit: pageSize, offset: 0, source });
+    allBookings = await fetchBookings({ source });
     allBookings.sort((a, b) => new Date(a.start) - new Date(b.start));
     applyFilters();
     render(filteredBookings);

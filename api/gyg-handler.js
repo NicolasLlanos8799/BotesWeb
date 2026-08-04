@@ -24,6 +24,10 @@ import {
   getBoatTourIds,
   getBoatForTour,
   remainingBoatCapacity,
+  getTourDurationHours,
+  timeToMinutes,
+  getBookingRangeMinutes,
+  rangesOverlap,
 } from "../lib/gyg-config.js";
 
 // ── GAS helper ────────────────────────────────────────────────────────────────
@@ -138,7 +142,7 @@ async function handleAvailability(req, res) {
 
   try {
     const result = boatTourIds.length > 0 ? await db`
-      SELECT tour_id, booking_date, booking_time
+      SELECT tour_id, booking_date, booking_time, booking_end_time
       FROM bookings
       WHERE tour_id = ANY(${boatTourIds})
         AND booking_date BETWEEN ${effectiveDateFrom} AND ${dateTo}
@@ -146,24 +150,31 @@ async function handleAvailability(req, res) {
     ` : { rows: [] };
     const bookings = result.rows ?? result;
 
-    // tour_ids already booked per slot — used to check whether this product's tour
-    // can still share the boat with what's already there (see remainingBoatCapacity).
-    const bookedTourIdsMap = {};
+    // Existing bookings per date, each with the full [startMin, endMin) range it
+    // occupies on its boat — NOT just its exact start time. A 3h booking at 12:00
+    // must also block 13:00 and 14:00, not just the 12:00 slot.
+    const bookingsByDate = {};
     for (const row of bookings) {
       // booking_date may be a Date object from Neon
       const dateKey = row.booking_date instanceof Date
         ? row.booking_date.toISOString().split("T")[0]
         : String(row.booking_date).split("T")[0];
-      const timeKey = String(row.booking_time ?? "").slice(0, 5);
-      const key = `${dateKey}_${timeKey}`;
-      (bookedTourIdsMap[key] ||= []).push(row.tour_id);
+      const [startMin, endMin] = getBookingRangeMinutes(row);
+      (bookingsByDate[dateKey] ||= []).push({ tourId: row.tour_id, startMin, endMin });
     }
+
+    const durationMin = getTourDurationHours(representativeTourId) * 60;
 
     const availabilities = [];
     // Iterate over local Copenhagen dates using string comparison
     for (let dateStr = effectiveDateFrom; dateStr <= dateTo; dateStr = incrementDate(dateStr)) {
+      const dayBookings = bookingsByDate[dateStr] || [];
       for (const time of slots) {
-        const existingTourIds = bookedTourIdsMap[`${dateStr}_${time}`] || [];
+        const slotStart = timeToMinutes(time);
+        const slotEnd = slotStart + durationMin;
+        const existingTourIds = dayBookings
+          .filter(b => rangesOverlap(slotStart, slotEnd, b.startMin, b.endMin))
+          .map(b => b.tourId);
         const remaining = remainingBoatCapacity(existingTourIds, representativeTourId);
         const vacancies = BLOCKED_DATES.includes(dateStr) ? 0 : remaining;
         const d = new Date(dateStr + "T12:00:00Z"); // noon UTC for DST check
@@ -246,17 +257,27 @@ async function handleReserve(req, res) {
   // could both get reserved for the same slot.
   const boatTourIds = boat ? getBoatTourIds(tourId) : ownTourIds;
 
+  // This booking's own [start, end) — used to catch overlaps with existing
+  // bookings, not just an exact booking_time match (a 3h booking at 12:00 must
+  // also conflict with something starting at 13:00 or 14:00 that same day).
+  const slotStartMin = timeToMinutes(time);
+  const slotEndMin = slotStartMin + getTourDurationHours(tourId) * 60;
+
   const reserveResult = await db`
-    SELECT tour_id
+    SELECT tour_id, booking_time, booking_end_time
     FROM bookings
     WHERE tour_id = ANY(${boatTourIds})
       AND booking_date = ${date}
-      AND booking_time = ${time}
       AND payment_status NOT IN ('CANCELLED', 'REFUNDED')
       AND gyg_booking_id IS DISTINCT FROM ${data.gygBookingReference}
   `;
   const reservedRows = reserveResult.rows ?? reserveResult;
-  const existingTourIds = reservedRows.map(r => r.tour_id);
+  const existingTourIds = reservedRows
+    .filter(r => {
+      const [s, e] = getBookingRangeMinutes(r);
+      return rangesOverlap(slotStartMin, slotEndMin, s, e);
+    })
+    .map(r => r.tour_id);
 
   if (remainingBoatCapacity(existingTourIds, tourId) < 1) {
     return res.status(200).json({ errorCode: "NO_AVAILABILITY", errorMessage: `No vacancies: slot is fully booked` });
@@ -266,17 +287,18 @@ async function handleReserve(req, res) {
   // Amendment flow: GYG reuses the same gygBookingReference with new date/pax to change
   // an existing booking — so on conflict we UPDATE the slot instead of ignoring the call.
   const reservationReference = `RES-${crypto.randomUUID()}`;
+  const endTime = minutesToTimeStr(slotEndMin % (24 * 60));
   try {
     await db`
       INSERT INTO bookings (
-        tour_id, tour_name, passengers, booking_date, booking_time,
+        tour_id, tour_name, passengers, booking_date, booking_time, booking_end_time,
         total_price, payment_status, lang, source, gyg_booking_id
       ) VALUES (
         ${tourId}, ${`GYG Option ${optionId}`}, ${participants},
-        ${date}, ${time}, 0, 'RESERVED', 'english', 'gyg', ${data.gygBookingReference}
+        ${date}, ${time}, ${endTime}, 0, 'RESERVED', 'english', 'gyg', ${data.gygBookingReference}
       )
       ON CONFLICT (gyg_booking_id) DO UPDATE
-        SET booking_date = ${date}, booking_time = ${time},
+        SET booking_date = ${date}, booking_time = ${time}, booking_end_time = ${endTime},
             passengers = ${participants}, payment_status = 'RESERVED'
     `;
   } catch (err) {
@@ -471,6 +493,13 @@ async function handleCancelBooking(req, res) {
 }
 
 /* ─── HELPERS ──────────────────────────────────────────────── */
+
+/** Minutes since midnight → "HH:MM:00". Wraps past midnight isn't handled — no tour crosses it. */
+function minutesToTimeStr(mins) {
+  const h = Math.floor(mins / 60);
+  const m = mins % 60;
+  return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}:00`;
+}
 
 function getOptionForProduct(productId) {
   // productId is our internal tour ID (e.g. "city-highlights-1h")
