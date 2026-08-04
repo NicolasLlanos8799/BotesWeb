@@ -22,8 +22,8 @@ import {
   BLOCKED_DATES,
   getSlotsForOption,
   getBoatTourIds,
-  getBoatCapacity,
-  getBoatCost,
+  getBoatForTour,
+  remainingBoatCapacity,
 } from "../lib/gyg-config.js";
 
 // ── GAS helper ────────────────────────────────────────────────────────────────
@@ -104,7 +104,7 @@ async function handleAvailability(req, res) {
   // This product's own tour IDs — used only to know which physical boat it runs on.
   const ownTourIds = GYG_OPTION_TO_TOURS[optionId] || [];
   const representativeTourId = ownTourIds[0];
-  const { boat, capacity } = getBoatCapacity(representativeTourId);
+  const boat = getBoatForTour(representativeTourId);
   // IMPORTANT: conflicts are checked across ALL tours sharing the same physical boat —
   // not just the tours of this GYG option — otherwise two different products on the
   // same boat (e.g. city-highlights-1h and city-highlights-3h, both boat1) could be
@@ -125,9 +125,9 @@ async function handleAvailability(req, res) {
     ` : { rows: [] };
     const bookings = result.rows ?? result;
 
-    // Consumed boat capacity per slot — most tours cost 1 "boat slot", full-boat
-    // charters (e.g. Malmö) cost the whole boat capacity (see getBoatCost).
-    const consumedMap = {};
+    // tour_ids already booked per slot — used to check whether this product's tour
+    // can still share the boat with what's already there (see remainingBoatCapacity).
+    const bookedTourIdsMap = {};
     for (const row of bookings) {
       // booking_date may be a Date object from Neon
       const dateKey = row.booking_date instanceof Date
@@ -135,15 +135,15 @@ async function handleAvailability(req, res) {
         : String(row.booking_date).split("T")[0];
       const timeKey = row.booking_time.slice(0, 5);
       const key = `${dateKey}_${timeKey}`;
-      consumedMap[key] = (consumedMap[key] || 0) + getBoatCost(row.tour_id);
+      (bookedTourIdsMap[key] ||= []).push(row.tour_id);
     }
 
     const availabilities = [];
     // Iterate over local Copenhagen dates using string comparison
     for (let dateStr = dateFrom; dateStr <= dateTo; dateStr = incrementDate(dateStr)) {
       for (const time of slots) {
-        const consumed = consumedMap[`${dateStr}_${time}`] || 0;
-        const remaining = Math.max(0, capacity - consumed);
+        const existingTourIds = bookedTourIdsMap[`${dateStr}_${time}`] || [];
+        const remaining = remainingBoatCapacity(existingTourIds, representativeTourId);
         const vacancies = BLOCKED_DATES.includes(dateStr) ? 0 : remaining;
         const d = new Date(dateStr + "T12:00:00Z"); // noon UTC for DST check
         const offset = isCopenhagnDST(d) ? "+02:00" : "+01:00";
@@ -219,12 +219,11 @@ async function handleReserve(req, res) {
 
   const ownTourIds = GYG_OPTION_TO_TOURS[optionId] || [];
   const tourId = ownTourIds[0] || `gyg-option-${optionId}`;
-  const { boat, capacity } = getBoatCapacity(tourId);
+  const boat = getBoatForTour(tourId);
   // Check conflicts across ALL tours sharing the same physical boat, not just
   // this GYG option's tours — otherwise two different products on the same boat
   // could both get reserved for the same slot.
   const boatTourIds = boat ? getBoatTourIds(tourId) : ownTourIds;
-  const newCost = getBoatCost(tourId);
 
   const reserveResult = await db`
     SELECT tour_id
@@ -236,9 +235,9 @@ async function handleReserve(req, res) {
       AND gyg_booking_id IS DISTINCT FROM ${data.gygBookingReference}
   `;
   const reservedRows = reserveResult.rows ?? reserveResult;
-  const consumed = reservedRows.reduce((sum, r) => sum + getBoatCost(r.tour_id), 0);
+  const existingTourIds = reservedRows.map(r => r.tour_id);
 
-  if (consumed + newCost > capacity) {
+  if (remainingBoatCapacity(existingTourIds, tourId) < 1) {
     return res.status(200).json({ errorCode: "NO_AVAILABILITY", errorMessage: `No vacancies: slot is fully booked` });
   }
 
@@ -373,7 +372,7 @@ async function handleBook(req, res) {
       action: "confirmHoldEvent",
       gyg_booking_id: data.gygBookingReference,
       tour: booking.tour_id,
-      calendar: getBoatCapacity(booking.tour_id).boat || "boat1",
+      calendar: getBoatForTour(booking.tour_id) || "boat1",
       date: bookingDate,
       time: bookingTime,
       qty: booking.passengers,
