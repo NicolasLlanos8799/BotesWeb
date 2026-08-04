@@ -21,6 +21,9 @@ import {
   GYG_OPTION_MAP,
   BLOCKED_DATES,
   getSlotsForOption,
+  getBoatTourIds,
+  getBoatCapacity,
+  getBoatCost,
 } from "../lib/gyg-config.js";
 
 // ── GAS helper ────────────────────────────────────────────────────────────────
