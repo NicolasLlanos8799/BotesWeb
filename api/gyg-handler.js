@@ -101,39 +101,50 @@ async function handleAvailability(req, res) {
     return res.status(200).json({ errorCode: "INVALID_PRODUCT", errorMessage: `Unknown productId: ${productId}` });
   }
 
-  const tourIds = GYG_OPTION_TO_TOURS[optionId] || [];
+  // This product's own tour IDs — used only to know which physical boat it runs on.
+  const ownTourIds = GYG_OPTION_TO_TOURS[optionId] || [];
+  const representativeTourId = ownTourIds[0];
+  const { boat, capacity } = getBoatCapacity(representativeTourId);
+  // IMPORTANT: conflicts are checked across ALL tours sharing the same physical boat —
+  // not just the tours of this GYG option — otherwise two different products on the
+  // same boat (e.g. city-highlights-1h and city-highlights-3h, both boat1) could be
+  // double-booked for the same slot.
+  const boatTourIds = boat ? getBoatTourIds(representativeTourId) : ownTourIds;
   const slots = getSlotsForOption(optionId);
   // Extract local Copenhagen date directly from ISO string (avoid UTC conversion bug)
   const dateFrom = fromDateTime.split("T")[0];
   const dateTo = toDateTime.split("T")[0];
 
   try {
-    const result = tourIds.length > 0 ? await db`
-      SELECT booking_date, booking_time, SUM(passengers) as booked
+    const result = boatTourIds.length > 0 ? await db`
+      SELECT tour_id, booking_date, booking_time
       FROM bookings
-      WHERE tour_id = ANY(${tourIds})
+      WHERE tour_id = ANY(${boatTourIds})
         AND booking_date BETWEEN ${dateFrom} AND ${dateTo}
         AND payment_status NOT IN ('CANCELLED', 'REFUNDED')
-      GROUP BY booking_date, booking_time
     ` : { rows: [] };
     const bookings = result.rows ?? result;
 
-    const bookedMap = {};
+    // Consumed boat capacity per slot — most tours cost 1 "boat slot", full-boat
+    // charters (e.g. Malmö) cost the whole boat capacity (see getBoatCost).
+    const consumedMap = {};
     for (const row of bookings) {
       // booking_date may be a Date object from Neon
       const dateKey = row.booking_date instanceof Date
         ? row.booking_date.toISOString().split("T")[0]
         : String(row.booking_date).split("T")[0];
       const timeKey = row.booking_time.slice(0, 5);
-      bookedMap[`${dateKey}_${timeKey}`] = parseInt(row.booked);
+      const key = `${dateKey}_${timeKey}`;
+      consumedMap[key] = (consumedMap[key] || 0) + getBoatCost(row.tour_id);
     }
 
     const availabilities = [];
     // Iterate over local Copenhagen dates using string comparison
     for (let dateStr = dateFrom; dateStr <= dateTo; dateStr = incrementDate(dateStr)) {
       for (const time of slots) {
-        const booked = bookedMap[`${dateStr}_${time}`] || 0;
-        const vacancies = (BLOCKED_DATES.includes(dateStr) || booked > 0) ? 0 : (cfg.maxGroups ?? 1); // 1 group slot per time point
+        const consumed = consumedMap[`${dateStr}_${time}`] || 0;
+        const remaining = Math.max(0, capacity - consumed);
+        const vacancies = BLOCKED_DATES.includes(dateStr) ? 0 : remaining;
         const d = new Date(dateStr + "T12:00:00Z"); // noon UTC for DST check
         const offset = isCopenhagnDST(d) ? "+02:00" : "+01:00";
         const dateTime = `${dateStr}T${time}:00${offset}`;
@@ -206,26 +217,34 @@ async function handleReserve(req, res) {
     return res.status(200).json({ errorCode: "NO_AVAILABILITY", errorMessage: `No vacancies: slot is fully booked` });
   }
 
-  const tourIds = GYG_OPTION_TO_TOURS[optionId] || [];
+  const ownTourIds = GYG_OPTION_TO_TOURS[optionId] || [];
+  const tourId = ownTourIds[0] || `gyg-option-${optionId}`;
+  const { boat, capacity } = getBoatCapacity(tourId);
+  // Check conflicts across ALL tours sharing the same physical boat, not just
+  // this GYG option's tours — otherwise two different products on the same boat
+  // could both get reserved for the same slot.
+  const boatTourIds = boat ? getBoatTourIds(tourId) : ownTourIds;
+  const newCost = getBoatCost(tourId);
+
   const reserveResult = await db`
-    SELECT COALESCE(SUM(passengers), 0) as booked
+    SELECT tour_id
     FROM bookings
-    WHERE tour_id = ANY(${tourIds})
+    WHERE tour_id = ANY(${boatTourIds})
       AND booking_date = ${date}
       AND booking_time = ${time}
       AND payment_status NOT IN ('CANCELLED', 'REFUNDED')
+      AND gyg_booking_id IS DISTINCT FROM ${data.gygBookingReference}
   `;
-  const [{ booked }] = reserveResult.rows ?? reserveResult;
+  const reservedRows = reserveResult.rows ?? reserveResult;
+  const consumed = reservedRows.reduce((sum, r) => sum + getBoatCost(r.tour_id), 0);
 
-  const maxGroups = cfg.maxGroups ?? 1;
-  if (parseInt(booked) >= maxGroups) {
+  if (consumed + newCost > capacity) {
     return res.status(200).json({ errorCode: "NO_AVAILABILITY", errorMessage: `No vacancies: slot is fully booked` });
   }
 
   // Save as RESERVED (temporary hold — GYG will confirm with /book/)
   // Amendment flow: GYG reuses the same gygBookingReference with new date/pax to change
   // an existing booking — so on conflict we UPDATE the slot instead of ignoring the call.
-  const tourId = tourIds[0] || `gyg-option-${optionId}`;
   const reservationReference = `RES-${crypto.randomUUID()}`;
   try {
     await db`
@@ -250,7 +269,7 @@ async function handleReserve(req, res) {
     action: "createHoldEvent",
     gyg_booking_id: data.gygBookingReference,
     tour: tourId,
-    calendar: "boat1",
+    calendar: boat || "boat1",
     date,
     time,
     qty: participants,
@@ -354,7 +373,7 @@ async function handleBook(req, res) {
       action: "confirmHoldEvent",
       gyg_booking_id: data.gygBookingReference,
       tour: booking.tour_id,
-      calendar: "boat1",
+      calendar: getBoatCapacity(booking.tour_id).boat || "boat1",
       date: bookingDate,
       time: bookingTime,
       qty: booking.passengers,
