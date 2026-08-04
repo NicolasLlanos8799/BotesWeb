@@ -44,7 +44,7 @@ const OPTION_PRICES = {
   1288188: 429900,  // Harbor Extended — 4299 DKK
   1825099: 899900,  // Land Tour — 8999 DKK
   1935449: 999900,  // Copenhagen to Malmö — 9999 DKK
-  1826872: 579900,  // Wine Tour — 5799 DKK (verified in Supplier Portal — was wrong at 3499)
+  1826872: 549900,  // Wine Tour — 5499 DKK (corrected 2026-08-04, was wrong at 5799)
 };
 
 export default async function handler(req, res) {
