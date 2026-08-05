@@ -53,6 +53,7 @@ const OPTION_PRICES = {
   1935449: 999900,  // Copenhagen to Malmö — 9999 DKK
   1826872: 549900,  // Wine Tour — 5499 DKK (corrected 2026-08-04, was wrong at 5799)
   1288216: 599900,  // Sea Fortress and Coastal Journey (4h) — 5999 DKK
+  1747660: 499900,  // Copenhagen winter hygge — 4999 DKK
 };
 
 export default async function handler(req, res) {
