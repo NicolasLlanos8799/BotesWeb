@@ -56,6 +56,12 @@ const OPTION_PRICES = {
   1747660: 499900,  // Copenhagen winter hygge — 4999 DKK
 };
 
+// Cutoff (seconds before start) per GYG option ID. Default 7200 (2h) if not listed here.
+const OPTION_CUTOFF_SECONDS = {
+  1825099: 36000,  // Land Tour — 10h, matches Supplier Portal setting
+};
+const DEFAULT_CUTOFF_SECONDS = 7200;
+
 export default async function handler(req, res) {
   if (!validateGYGAuth(req)) {
     return res.status(200).json({ errorCode: "AUTHORIZATION_FAILURE", errorMessage: "Unauthorized" });
@@ -186,7 +192,7 @@ async function handleAvailability(req, res) {
           productId,
           dateTime,
           vacancies,
-          cutoffSeconds: 7200, // 2h cutoff
+          cutoffSeconds: OPTION_CUTOFF_SECONDS[optionId] ?? DEFAULT_CUTOFF_SECONDS,
           currency: "DKK",
           pricesByCategory: {
             retailPrices: [
