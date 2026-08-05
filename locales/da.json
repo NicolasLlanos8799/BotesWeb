@@ -790,7 +790,7 @@
     "danish_breakfast": {
       "page": {
         "title": "Byens Højdepunkter med Dansk Morgenmad | Seaduced Experience",
-        "desc": "Start dagen med at opdage København fra vandet med en autentisk dansk morgenmad om bord. 1-times privat bådtur til op til 6 personer. Fra 4.499 DKK per gruppe."
+        "desc": "Start dagen med at opdage København fra vandet med en autentisk dansk morgenmad om bord. 1-times privat bådtur til op til 6 personer. Fra 4.999 DKK per gruppe."
       },
       "hero_html": "Byens Højdepunkter <span class=\"title-accent\">med Dansk Morgenmad</span>",
       "intro": "Start dagen med at opdage København fra vandet, mens du nyder en autentisk dansk morgenmad serveret om bord.",
@@ -801,7 +801,7 @@
       },
       "flag": "Morgenoplevelse",
       "booking": {
-        "price": "4.499 DKK",
+        "price": "4.999 DKK",
         "price_note": "pr. gruppe op til 6",
         "up_to": "Op til 6 gæster"
       },

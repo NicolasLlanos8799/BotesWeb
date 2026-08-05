@@ -787,7 +787,7 @@
     "danish_breakfast": {
       "page": {
         "title": "City Highlights with Danish Breakfast | Seaduced Experience",
-        "desc": "Start your day discovering Copenhagen from the water with an authentic Danish breakfast on board. 1-hour private boat tour for up to 6 people. From DKK 4,499 per group."
+        "desc": "Start your day discovering Copenhagen from the water with an authentic Danish breakfast on board. 1-hour private boat tour for up to 6 people. From DKK 4,999 per group."
       },
       "hero_html": "City Highlights <span class=\"title-accent\">with Danish Breakfast</span>",
       "intro": "Start your day discovering Copenhagen from the water while enjoying an authentic Danish breakfast served on board.",
@@ -798,7 +798,7 @@
       },
       "flag": "Morning experience",
       "booking": {
-        "price": "4,499 DKK",
+        "price": "4,999 DKK",
         "price_note": "per group up to 6",
         "up_to": "Up to 6 guests"
       },

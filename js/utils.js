@@ -201,7 +201,7 @@ export const TOURS = {
     title: "City Highlights with Danish Breakfast",
     titleEs: "Lo Mejor de la Ciudad con Desayuno Danés",
     titleDa: "Byens Højdepunkter med Dansk Morgenmad",
-    price: 4499,
+    price: 4999,
     duration: "1 Hour",
     durationEs: "1 Hora",
     durationDa: "1 Time",

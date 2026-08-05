@@ -172,10 +172,6 @@ function getTourDisplayName(tourCode) {
     'city-highlights-3h':  'Private 3-Hour Extended (Reffen)',
     'book-malmo':          'Copenhagen to Malmö Experience',
     'book-land':           'Copenhagen Private Boat y Land Experience',
-    'book-winter':         '2-Hour Winter Hygge 2026',
-    'book-winter-captain': 'Private Boat Tour with Captain',
-    'book-winter-hygge':   'Private Hygge Winter Tour',
-    'book-christmas':      'Christmas Tour w. Tapas and Champagne',
     'book-danish-breakfast': 'City Highlights with Danish Breakfast'
   };
   return names[tourCode] || tourCode;
@@ -489,7 +485,8 @@ function getTourDurationHours(tour, defaultHours) {
   if (tour.indexOf('Floating Wine') !== -1 || tour === 'book-wine') return 2;
 
   if (tour.indexOf('3 Hour') !== -1 ||
-    tour.indexOf('3-Hour') !== -1) return 3;
+    tour.indexOf('3-Hour') !== -1 ||
+    tour.indexOf('city-highlights-3h') !== -1) return 3;
 
   if (tour.indexOf('4 Hour') !== -1 ||
     tour.indexOf('4-Hour') !== -1 ||
