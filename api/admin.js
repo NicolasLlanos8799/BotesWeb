@@ -57,10 +57,12 @@ async function handleGetBookings(req, res) {
     const source = req.query.source; // 'gyg' | 'web' | undefined (all)
 
     let result;
+    // Los holds temporales de GYG (RESERVED) no se muestran en el panel
     if (limit && source === 'gyg') {
       result = await db`
         SELECT * FROM bookings
-        WHERE source = 'gyg' OR customer_email ILIKE '%@reply.getyourguide.com'
+        WHERE (source = 'gyg' OR customer_email ILIKE '%@reply.getyourguide.com')
+          AND payment_status <> 'RESERVED'
         ORDER BY booking_date DESC, booking_time DESC
         LIMIT ${limit} OFFSET ${offset}
       `;
@@ -68,18 +70,21 @@ async function handleGetBookings(req, res) {
       result = await db`
         SELECT * FROM bookings
         WHERE NOT (source = 'gyg' OR customer_email ILIKE '%@reply.getyourguide.com')
+          AND payment_status <> 'RESERVED'
         ORDER BY booking_date DESC, booking_time DESC
         LIMIT ${limit} OFFSET ${offset}
       `;
     } else if (limit) {
       result = await db`
         SELECT * FROM bookings
+        WHERE payment_status <> 'RESERVED'
         ORDER BY booking_date DESC, booking_time DESC
         LIMIT ${limit} OFFSET ${offset}
       `;
     } else {
       result = await db`
         SELECT * FROM bookings
+        WHERE payment_status <> 'RESERVED'
         ORDER BY booking_date DESC, booking_time DESC
       `;
     }

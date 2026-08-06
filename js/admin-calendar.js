@@ -7,7 +7,8 @@ async function fetchAllBookings() {
     const res = await fetch("/api/admin/get-bookings");
     if (!res.ok) throw new Error("Failed to fetch bookings");
     const data = await res.json();
-    return data.bookings.map(b => {
+    // Solo mostrar reservas pagadas en el calendario
+    return data.bookings.filter(b => b.payment_status === "PAID").map(b => {
       let datePart = "2026-01-01";
       if (b.booking_date) {
         const d = new Date(b.booking_date);

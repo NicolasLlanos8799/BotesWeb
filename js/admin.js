@@ -586,7 +586,7 @@ async function renderManifestFor(date) {
 
   if (!manifestBookingsCache) manifestBookingsCache = await fetchAllBookings();
   const dayBookings = manifestBookingsCache
-    .filter(b => b.date === dateStr)
+    .filter(b => b.date === dateStr && b.status === "PAID")
     .sort((a, b) => a.time.localeCompare(b.time));
 
   if (dayBookings.length === 0) {
