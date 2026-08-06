@@ -25,6 +25,7 @@ import {
   getBoatForTour,
   remainingBoatCapacity,
   getTourDurationHours,
+  getTourTitle,
   timeToMinutes,
   getBookingRangeMinutes,
   rangesOverlap,
@@ -302,7 +303,7 @@ async function handleReserve(req, res) {
         tour_id, tour_name, passengers, booking_date, booking_time, booking_end_time,
         total_price, payment_status, lang, source, gyg_booking_id
       ) VALUES (
-        ${tourId}, ${`GYG Option ${optionId}`}, ${participants},
+        ${tourId}, ${getTourTitle(tourId, `GYG Option ${optionId}`)}, ${participants},
         ${date}, ${time}, ${endTime}, 0, 'RESERVED', 'english', 'gyg', ${data.gygBookingReference}
       )
       ON CONFLICT (gyg_booking_id) DO UPDATE
@@ -389,7 +390,7 @@ async function handleBook(req, res) {
           total_price, payment_status, lang, source, gyg_booking_id,
           customer_name, customer_email, customer_phone
         ) VALUES (
-          ${data.productId || "gyg"}, ${"GYG Direct Book"}, ${participants},
+          ${data.productId || "gyg"}, ${getTourTitle(data.productId, "GYG Direct Book")}, ${participants},
           ${date}, ${time}, 0, 'PAID', ${customerLang}, 'gyg', ${data.gygBookingReference},
           ${customerName}, ${customerEmail}, ${customerPhone}
         )

@@ -104,7 +104,10 @@ async function fetchBookings(opts = {}) {
         date: datePart,
         time: timePart,
         endTime,
-        tourName: b.tour_name || 'Unknown Tour',
+        // Las reservas GYG se guardan como "GYG Option 1288168" — mostramos el nombre real del tour
+        tourName: (!b.tour_name || /^GYG (Option|Direct Book)/i.test(b.tour_name))
+          ? (TOURS[b.tour_id]?.title || b.tour_name || 'Unknown Tour')
+          : b.tour_name,
         customerName: b.customer_name || 'Unknown Customer',
         customerEmail: email,
         customerPhone: b.customer_phone,
@@ -112,6 +115,7 @@ async function fetchBookings(opts = {}) {
         status: b.payment_status || 'PENDING',
         price: parseFloat(b.total_price) || 0,
         calendar: b.tour_id || 'N/A',
+        boat: b.boat || null,
         lang: b.lang || 'english',
         extras: parseInt(b.extras) || 0,
         createdAt: b.created_at ? new Date(b.created_at) : null,

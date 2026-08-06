@@ -3,7 +3,7 @@ const BOOKING_STORAGE_KEY = "seaduced_booking";
 export const TOURS = {
   "city-highlights-1h": {
     id: "city-highlights-1h",
-    title: "City Highlights",
+    title: "City Highlights 1h",
     titleEs: "Lo Mejor de la Ciudad",
     titleDa: "Byens Højdepunkter",
     price: 2499,
@@ -17,6 +17,7 @@ export const TOURS = {
   },
   "book-winter": {
     id: "book-winter",
+    hidden: true, // Retirada del catálogo — se conserva para reservas históricas
     title: "2-Hour Winter Hygge 2026",
     titleEs: "2 Horas de Hygge Invernal 2026",
     titleDa: "2-timers Vinter Hygge 2026",
@@ -59,6 +60,7 @@ export const TOURS = {
   },
   "book-winter-captain": {
     id: "book-winter-captain",
+    hidden: true, // Retirada del catálogo — se conserva para reservas históricas
     title: "Private Boat Tour with Captain",
     titleEs: "Tour Privado en Barco con Capitán",
     titleDa: "Privat bådtur med kaptajn",
@@ -87,6 +89,7 @@ export const TOURS = {
   },
   "book-christmas": {
     id: "book-christmas",
+    hidden: true, // Retirada del catálogo — se conserva para reservas históricas
     title: "Christmas Tour w. Tapas and Champagne",
     titleEs: "Tour Navideño con Tapas y Champagne",
     titleDa: "Juletur m. Tapas og Champagne",
@@ -156,7 +159,7 @@ export const TOURS = {
   },
   "book-10p": {
     id: "book-10p",
-    title: "City Highlights (10 Guests)",
+    title: "City Highlights (10 Guests) 1h",
     titleEs: "Lo Mejor de la Ciudad (10 Personas)",
     titleDa: "Byens Højdepunkter (10 Gæster)",
     price: 2999,

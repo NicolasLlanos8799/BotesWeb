@@ -226,13 +226,16 @@ async function handleBookingAction(req, res) {
 
   try {
     if (req.method === "PUT") {
-      const { name, email, phone, date, time, qty, extras, lang, amount, endTime } = req.body || {};
+      const { name, email, phone, date, time, qty, extras, lang, amount, endTime, boat } = req.body || {};
       const putId = id;
       if (!putId) return res.status(400).json({ error: "Missing booking id" });
 
       // Self-healing — adds the column on first use so older DBs don't
       // need a manual migration before this field can be saved.
       await db`ALTER TABLE bookings ADD COLUMN IF NOT EXISTS booking_end_time TIME`;
+      await db`ALTER TABLE bookings ADD COLUMN IF NOT EXISTS boat TEXT`;
+
+      const newBoat = boat === "boat1" || boat === "boat2" ? boat : null;
 
       const result = await db`
         UPDATE bookings SET
@@ -245,12 +248,32 @@ async function handleBookingAction(req, res) {
           passengers       = COALESCE(${qty    ? parseInt(qty)    : null}, passengers),
           extras           = COALESCE(${extras !== undefined && extras !== '' ? parseInt(extras) : null}, extras),
           total_price      = COALESCE(${amount !== undefined && amount !== '' ? parseFloat(amount) : null}, total_price),
-          lang             = COALESCE(${lang   || null}, lang)
+          lang             = COALESCE(${lang   || null}, lang),
+          boat             = COALESCE(${newBoat}, boat)
         WHERE id = ${putId}
-        RETURNING id
+        RETURNING id, tour_id, boat, gyg_booking_id, sumup_id
       `;
       const rows = result.rows ?? result;
       if (!rows.length) return res.status(404).json({ error: "Booking not found" });
+
+      // Mover el evento al calendario del otro bote (fire-and-forget, no fatal)
+      if (newBoat && process.env.GAS_URL) {
+        try {
+          await fetch(process.env.GAS_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              action: "moveEventToBoat",
+              boat: newBoat,
+              gyg_booking_id: rows[0].gyg_booking_id || null,
+              sumup_id: rows[0].sumup_id || null,
+            }),
+          });
+        } catch (err) {
+          logWarn("booking-action moveEventToBoat error:", err.message);
+        }
+      }
+
       return res.status(200).json({ success: true, action: "updated" });
     }
 

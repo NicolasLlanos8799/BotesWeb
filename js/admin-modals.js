@@ -4,6 +4,7 @@
  * (edit, resend, cancel, delete) behave identically everywhere.
  */
 import { formatCurrency, TOURS } from "./utils.js";
+import { mountDatePicker, mountSlotPicker } from "./admin-pickers.js";
 
 /* ── Button loading state (spinner + disabled) for async actions ────────── */
 function withButtonLoading(btn, loadingLabel, task) {
@@ -86,17 +87,15 @@ export function openEditModal(booking, onSave) {
         <label class="field-label">Phone
           <input id="ed-phone" value="${booking.customerPhone || ''}" class="field-input">
         </label>
-        <div class="field-grid-3">
-          <label class="field-label">Date
-            <input id="ed-date" value="${booking.date || ''}" class="field-input">
-          </label>
-          <label class="field-label">Start
-            <input id="ed-time" value="${(booking.time || '').substring(0, 5)}" class="field-input">
-          </label>
-          <label class="field-label">End
-            <input id="ed-endtime" value="${booking.endTime || ''}" placeholder="HH:MM" class="field-input">
-          </label>
+        <div class="field-label">Date
+          <div id="ed-date-host"></div>
         </div>
+        <div class="field-label">Start
+          <div id="ed-time-host"></div>
+        </div>
+        <label class="field-label">End
+          <input id="ed-endtime" value="${booking.endTime || ''}" placeholder="HH:MM" class="field-input">
+        </label>
         <div class="field-grid-2">
           <label class="field-label">Passengers
             <input id="ed-qty" value="${booking.passengers || ''}" type="number" min="1" class="field-input">
@@ -119,6 +118,14 @@ export function openEditModal(booking, onSave) {
             </div>
           </label>
         </div>
+        <label class="field-label">Boat
+          <div class="select-custom">
+            <select id="ed-boat" class="field-input">
+              <option value="boat1" ${(booking.boat || TOURS[booking.calendar]?.calendar || 'boat1') === 'boat1' ? 'selected' : ''}>Boat 1</option>
+              <option value="boat2" ${(booking.boat || TOURS[booking.calendar]?.calendar) === 'boat2' ? 'selected' : ''}>Boat 2</option>
+            </select>
+          </div>
+        </label>
       </div>
       <div class="modal-sheet__actions">
         <button id="ed-cancel" class="btn--close">Cancel</button>
@@ -129,6 +136,26 @@ export function openEditModal(booking, onSave) {
   `;
 
   document.body.appendChild(modal);
+
+  mountDatePicker("ed-date-host", { inputId: "ed-date", value: booking.date || "", allowPast: true });
+  const edSlots = mountSlotPicker("ed-time-host", { inputId: "ed-time", value: booking.time || "" });
+
+  // Slots reales del tour de la reserva, refrescados al cambiar la fecha
+  const edDateInput = document.getElementById("ed-date");
+  let edReqId = 0;
+  const edReloadSlots = async () => {
+    const date = edDateInput.value;
+    if (!date) return edSlots.setMessage("Select a date first");
+    const reqId = ++edReqId;
+    edSlots.setMessage("Checking availability…");
+    const slots = await fetchAvailableSlots(booking.calendar, date);
+    if (reqId !== edReqId) return;
+    // El slot actual de la reserva sigue siendo elegible aunque figure ocupado
+    edSlots.setSlots(slots.map(s =>
+      s.time === (booking.time || "").substring(0, 5) ? { ...s, available: true } : s));
+  };
+  edDateInput.addEventListener("change", edReloadSlots);
+  edReloadSlots();
 
   document.getElementById("ed-cancel").addEventListener("click", () => modal.remove());
   modal.addEventListener("click", e => { if (e.target === modal) modal.remove(); });
@@ -148,7 +175,8 @@ export function openEditModal(booking, onSave) {
       qty: document.getElementById("ed-qty").value.trim(),
       extras: document.getElementById("ed-extras").value.trim(),
       amount: document.getElementById("ed-amount").value.trim(),
-      lang: document.getElementById("ed-lang").value
+      lang: document.getElementById("ed-lang").value,
+      boat: document.getElementById("ed-boat").value
     });
 
     modal.remove();
@@ -243,6 +271,7 @@ export function openCreateBookingModal(onCreate) {
   modal.className = "modal-overlay";
 
   const tourOptions = Object.values(TOURS)
+    .filter(t => !t.hidden)
     .map(t => `<option value="${t.id}" data-price="${t.price}">${t.title}</option>`)
     .join("");
 
@@ -272,16 +301,12 @@ export function openCreateBookingModal(onCreate) {
         <label class="field-label">Phone
           <input id="cb-phone" class="field-input">
         </label>
-        <label class="field-label">Date
-          <input id="cb-date" type="date" class="field-input">
-        </label>
-        <label class="field-label">Time
-          <div class="select-custom">
-            <select id="cb-time" class="field-input" disabled>
-              <option value="">Select a date first</option>
-            </select>
-          </div>
-        </label>
+        <div class="field-label">Date
+          <div id="cb-date-host"></div>
+        </div>
+        <div class="field-label">Time
+          <div id="cb-time-host"></div>
+        </div>
         <div id="cb-time-hint" style="font-size:0.78rem;opacity:0.6;margin-top:-0.5rem;"></div>
         <div class="field-grid-2">
           <label class="field-label">Passengers
@@ -325,6 +350,8 @@ export function openCreateBookingModal(onCreate) {
   document.body.appendChild(modal);
 
   const tourSelect = document.getElementById("cb-tour");
+  mountDatePicker("cb-date-host", { inputId: "cb-date" });
+  const slotPicker = mountSlotPicker("cb-time-host", { inputId: "cb-time" });
   const dateInput = document.getElementById("cb-date");
   const timeSelect = document.getElementById("cb-time");
   const timeHint = document.getElementById("cb-time-hint");
@@ -357,29 +384,19 @@ export function openCreateBookingModal(onCreate) {
     timeHint.textContent = "";
 
     if (!date) {
-      timeSelect.innerHTML = `<option value="">Select a date first</option>`;
-      timeSelect.disabled = true;
+      slotPicker.setMessage("Select a date first");
       return;
     }
 
     const requestId = ++loadRequestId;
-    timeSelect.disabled = true;
-    timeSelect.innerHTML = `<option value="">Checking availability…</option>`;
+    slotPicker.setMessage("Checking availability…");
 
     const slots = await fetchAvailableSlots(tourId, date);
     if (requestId !== loadRequestId) return; // a newer request superseded this one
 
     const available = slots.filter(s => s.available);
-    if (slots.length === 0) {
-      timeSelect.innerHTML = `<option value="">No slots configured</option>`;
-      timeSelect.disabled = true;
-      return;
-    }
-
-    timeSelect.innerHTML = `<option value="">Select a time</option>` + slots.map(s =>
-      `<option value="${s.time}" ${!s.available ? "disabled" : ""}>${s.time}${!s.available ? " — full" : ""}</option>`
-    ).join("");
-    timeSelect.disabled = false;
+    slotPicker.setSlots(slots);
+    if (slots.length === 0) return;
 
     if (available.length === 0) {
       timeHint.textContent = "No available time slots for this date.";
@@ -612,12 +629,13 @@ export function openBookingDetailModal(booking, { onUpdated, onDeleted, onCancel
         <tr><td>Date</td><td>${booking.date} · ${(booking.time || "").substring(0,5)}${booking.endTime ? ` – ${booking.endTime}` : ""}</td></tr>
         <tr><td>Passengers</td><td>${booking.passengers}${booking.extras ? ` (+${booking.extras} charcuterie)` : ""}</td></tr>
         <tr><td>Language</td><td>${booking.lang}</td></tr>
+        <tr><td>Boat</td><td>${(booking.boat || TOURS[booking.calendar]?.calendar || 'boat1') === 'boat2' ? 'Boat 2' : 'Boat 1'}</td></tr>
         <tr><td>Price</td><td>${formatCurrency(booking.price)}</td></tr>
         <tr>
           <td>Email</td>
           <td>
-            <div style="display:flex;align-items:center;justify-content:space-between;gap:0.75rem;">
-              <span>${booking.customerEmail || "—"}</span>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:0.75rem;min-width:0;">
+              <span style="min-width:0;overflow-wrap:anywhere;word-break:break-all;">${booking.customerEmail || "—"}</span>
               <button id="bd-action-resend" type="button" style="flex-shrink:0;background:none;border:none;padding:0;color:var(--admin-info);font-size:0.78rem;font-family:inherit;cursor:pointer;white-space:nowrap;text-decoration:underline;text-underline-offset:2px;text-decoration-color:rgba(96,165,250,0.4);">✉ Resend</button>
             </div>
           </td>
@@ -653,7 +671,8 @@ export function openBookingDetailModal(booking, { onUpdated, onDeleted, onCancel
           passengers: updated.qty ? parseInt(updated.qty) : booking.passengers,
           extras: updated.extras !== undefined ? parseInt(updated.extras) : booking.extras,
           price: updated.amount !== undefined && updated.amount !== '' ? parseFloat(updated.amount) : booking.price,
-          lang: updated.lang || booking.lang
+          lang: updated.lang || booking.lang,
+          boat: updated.boat || booking.boat
         });
         onUpdated?.(booking);
         modal.remove();

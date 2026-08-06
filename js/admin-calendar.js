@@ -20,7 +20,9 @@ async function fetchAllBookings() {
         id: b.id,
         date: datePart,
         time: timePart,
-        tourName: b.tour_name || "Unknown Tour",
+        tourName: (!b.tour_name || /^GYG (Option|Direct Book)/i.test(b.tour_name))
+          ? (TOURS[b.tour_id]?.title || b.tour_name || "Unknown Tour")
+          : b.tour_name,
         customerName: b.customer_name || "Unknown Customer",
         customerEmail: email,
         customerPhone: b.customer_phone,
@@ -28,7 +30,7 @@ async function fetchAllBookings() {
         status: b.payment_status || "PENDING",
         price: parseFloat(b.total_price) || 0,
         calendar: b.tour_id || "N/A",
-        boat: TOURS[b.tour_id]?.calendar || "boat1",
+        boat: b.boat || TOURS[b.tour_id]?.calendar || "boat1",
         lang: b.lang || "english",
         extras: parseInt(b.extras) || 0,
         isGyg: (b.source === "gyg") || email.toLowerCase().endsWith("@reply.getyourguide.com")

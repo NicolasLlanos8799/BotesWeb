@@ -73,6 +73,8 @@ function doPost(e) {
       ? handlePaymentFailed(data)
       : action === 'sendCancellationEmail'
       ? handleSendCancellationEmail(data)
+      : action === 'moveEventToBoat'
+      ? handleMoveEventToBoat(data)
       : { success: false, error: "Action not recognized" };
 
     return ContentService.createTextOutput(JSON.stringify(result))
@@ -513,6 +515,46 @@ function buildStartEnd(dateStr, timeStr, durationH) {
 
   var end = new Date(start.getTime() + durationH * 3600000);
   return { start: start, end: end };
+}
+
+/**
+ * Mueve el evento de una reserva al calendario del otro bote.
+ * CalendarApp no permite mover entre calendarios: se recrea y se borra el original.
+ * data: { boat: 'boat1'|'boat2', gyg_booking_id?, sumup_id? }
+ */
+function handleMoveEventToBoat(data) {
+  var target = data.boat === 'boat2' ? 'boat2' : 'boat1';
+  var fragment = data.gyg_booking_id
+    ? "GYG Ref: " + data.gyg_booking_id
+    : (data.sumup_id ? "SumUp ID: " + data.sumup_id : null);
+  if (!fragment) return { success: false, error: "Missing gyg_booking_id or sumup_id" };
+
+  var lock = LockService.getScriptLock();
+  lock.tryLock(10000);
+  try {
+    var ev = findEventByDescriptionFragment(fragment);
+    if (!ev) return { success: true, message: "No event found to move" };
+
+    var targetCal = getCalendar(target);
+    if (!targetCal) return { success: false, error: "Unknown calendar: " + target };
+    if (ev.getOriginalCalendarId && ev.getOriginalCalendarId() === targetCal.getId()) {
+      return { success: true, message: "Already on " + target };
+    }
+
+    var moved = targetCal.createEvent(ev.getTitle(), ev.getStartTime(), ev.getEndTime(), {
+      description: ev.getDescription(),
+      location: ev.getLocation()
+    });
+    try { if (ev.getColor()) moved.setColor(ev.getColor()); } catch (e) {}
+
+    ev.deleteEvent();
+    Logger.log("Event moved to " + target + " (" + fragment + ")");
+    return { success: true, message: "Event moved to " + target };
+  } catch (err) {
+    return { success: false, error: err.toString() };
+  } finally {
+    lock.releaseLock();
+  }
 }
 
 function findEventByDescriptionFragment(fragment) {

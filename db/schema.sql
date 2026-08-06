@@ -20,7 +20,8 @@ CREATE TABLE IF NOT EXISTS bookings (
     source          VARCHAR(20) DEFAULT 'web',       -- 'web' | 'gyg'
     gyg_booking_id  VARCHAR(100) UNIQUE,             -- GYG booking ref, nullable
     extras          INTEGER DEFAULT 0,               -- Charcuterie/tapas qty
-    booking_end_time TIME                            -- Manual override; falls back to tour duration if null
+    booking_end_time TIME,                           -- Manual override; falls back to tour duration if null
+    boat            VARCHAR(10)                      -- Manual override 'boat1'|'boat2'; null = boat del tour
 );
 
 -- Índices para búsquedas frecuentes del admin
@@ -35,3 +36,4 @@ CREATE INDEX IF NOT EXISTS idx_bookings_source   ON bookings (source);
 -- ALTER TABLE bookings ADD COLUMN IF NOT EXISTS gyg_booking_id VARCHAR(100) UNIQUE;
 -- ALTER TABLE bookings ADD COLUMN IF NOT EXISTS extras INTEGER DEFAULT 0;
 -- ALTER TABLE bookings ADD COLUMN IF NOT EXISTS booking_end_time TIME;
+-- ALTER TABLE bookings ADD COLUMN IF NOT EXISTS boat VARCHAR(10);
