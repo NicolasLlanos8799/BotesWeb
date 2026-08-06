@@ -1159,6 +1159,20 @@ select.admin-search {
   cursor: not-allowed;
 }
 
+/* Botones con icono: el SVG debe alinearse con el texto, no sentarse en la baseline */
+.btn,
+.btn--save,
+.btn--close,
+.btn--danger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  line-height: 1;
+}
+.btn svg { flex-shrink: 0; display: block; }
+.btn--sm { padding: 0.5rem 0.9rem; font-size: 0.82rem; }
+
 .btn--close {
   padding: 0.65rem 1.25rem;
   background: transparent;
@@ -1661,9 +1675,20 @@ select.admin-search {
   .admin-mobile-nav__link svg { width: 18px; height: 18px; }
   .admin-body { padding-bottom: calc(78px + env(safe-area-inset-bottom)); }
 
-  /* Modales: menos padding y campos a una columna */
-  .modal-overlay { padding: 0.75rem; align-items: flex-start; padding-top: 2rem; }
-  .modal-sheet { padding: 1.25rem; max-height: 88vh; }
+  /* Modales: el scroll vive en el overlay para que las acciones del pie
+     siempre sean alcanzables, incluso con la barra de URL del navegador. */
+  .modal-overlay {
+    align-items: flex-start;
+    padding: 1rem 0.75rem calc(2rem + env(safe-area-inset-bottom));
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .modal-sheet {
+    padding: 1.25rem;
+    max-height: none;
+    overflow-y: visible;
+    margin: auto 0;
+  }
   .field-grid-2,
   .field-grid-3 { grid-template-columns: 1fr; gap: 0.85rem; }
 
