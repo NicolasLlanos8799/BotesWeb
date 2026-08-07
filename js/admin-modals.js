@@ -73,9 +73,18 @@ export function openEditModal(booking, onSave) {
   modal.innerHTML = `
     <div class="modal-sheet modal-sheet--wide">
       <div style="margin-bottom:1.5rem;">
-        <div class="modal-sheet__eyebrow">Booking</div>
+        <div class="modal-sheet__eyebrow">${booking.isGyg ? "GetYourGuide" : "Booking"}</div>
         <h2 class="modal-sheet__title">Edit Details</h2>
       </div>
+      ${booking.isGyg ? `
+        <div style="background:rgba(124,139,255,0.1);border:1px solid rgba(124,139,255,0.3);border-radius:8px;padding:0.65rem 0.85rem;margin-bottom:1.1rem;font-size:0.8rem;line-height:1.5;color:rgba(255,255,255,0.85);">
+          <strong style="color:#7c8bff;">⚠ Reserva de GetYourGuide.</strong>
+          Esto solo cambia el registro interno — GetYourGuide no se entera del cambio.
+          Cambiar <strong>fecha, hora o barco</strong> puede provocar una doble reserva, porque su
+          sistema seguirá mostrando el horario viejo como ocupado. El <strong>importe</strong> sí es
+          seguro de corregir: es el dato que usan las Analíticas para calcular vuestro ingreso neto.
+        </div>
+      ` : ""}
       <div id="ed-form-wrap">
       <div class="field-stack">
         <label class="field-label">Name

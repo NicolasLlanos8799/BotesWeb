@@ -10,6 +10,10 @@
     "seed": "node scripts/seed-bookings.js",
     "seed:clean": "node scripts/cleanup-and-seed.js",
     "test:db": "node scripts/test-db-save.js",
+    "migrate:gcal": "node scripts/migrate-gcal.js",
+    "migrate:gcal:execute": "node scripts/migrate-gcal.js --execute",
+    "migrate:gcal:rollback": "node scripts/migrate-gcal.js --rollback --execute",
+    "compare:availability": "node scripts/compare-availability.js",
     "import:gas": "node scripts/import-from-gas.js",
     "migrate": "node scripts/migrate-data.js",
     "test:gyg": "node scripts/test-gyg.js"
