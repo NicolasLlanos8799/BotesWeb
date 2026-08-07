@@ -295,10 +295,14 @@ export function openCreateBookingModal(onCreate) {
             <input id="cb-lastname" class="field-input">
           </label>
         </div>
-        <label class="field-label">Email
+        <label class="field-label">Email <span style="opacity:0.5;font-weight:400;">(optional)</span>
           <input id="cb-email" class="field-input">
         </label>
-        <label class="field-label">Phone
+        <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;font-size:0.85rem;margin-top:-0.5rem;">
+          <input id="cb-send-email" type="checkbox" style="width:auto;margin:0;cursor:pointer;">
+          <span>Enviar emails</span>
+        </label>
+        <label class="field-label">Phone <span style="opacity:0.5;font-weight:400;">(optional)</span>
           <input id="cb-phone" class="field-input">
         </label>
         <div class="field-label">Date
@@ -430,8 +434,8 @@ export function openCreateBookingModal(onCreate) {
     const time = timeSelect.value.trim();
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (!firstName || !lastName || !emailRegex.test(email) || !date || !time) {
-      errEl.textContent = "Please fill in first name, last name, a valid email, date and time.";
+    if (!firstName || !lastName || !date || !time || (email && !emailRegex.test(email))) {
+      errEl.textContent = "Please fill in first name, last name, date and time (email must be valid if provided).";
       errEl.style.display = "block";
       saveBtn.textContent = "Create Booking";
       saveBtn.disabled = false;
@@ -471,7 +475,8 @@ export function openCreateBookingModal(onCreate) {
         extras: document.getElementById("cb-extras").value.trim(),
         amount: amountInput.value.trim(),
         lang: document.getElementById("cb-lang").value,
-        status: document.getElementById("cb-status").value
+        status: document.getElementById("cb-status").value,
+        sendEmail: document.getElementById("cb-send-email").checked
       });
       modal.remove();
     } catch (e) {

@@ -19,7 +19,6 @@ import {
   GYG_OPTION_CONFIG,
   GYG_OPTION_TO_TOURS,
   GYG_OPTION_MAP,
-  BLOCKED_DATES,
   getSlotsForOption,
   getBoatTourIds,
   getBoatForTour,
@@ -30,6 +29,7 @@ import {
   getBookingRangeMinutes,
   rangesOverlap,
 } from "../lib/gyg-config.js";
+import { getBlocksByDate, isSlotBlocked } from "../lib/blocked-slots.js";
 
 // ── GAS helper ────────────────────────────────────────────────────────────────
 // Awaited call to Google Apps Script to sync Google Calendar. MUST be awaited:
@@ -159,6 +159,9 @@ async function handleAvailability(req, res) {
     ` : { rows: [] };
     const bookings = result.rows ?? result;
 
+    // Bloqueos manuales del bote (mantenimiento, clima…) — tumban el slot entero
+    const blocksByDate = await getBlocksByDate(boat, effectiveDateFrom, dateTo);
+
     // Existing bookings per date, each with the full [startMin, endMin) range it
     // occupies on its boat — NOT just its exact start time. A 3h booking at 12:00
     // must also block 13:00 and 14:00, not just the 12:00 slot.
@@ -185,7 +188,7 @@ async function handleAvailability(req, res) {
           .filter(b => rangesOverlap(slotStart, slotEnd, b.startMin, b.endMin))
           .map(b => b.tourId);
         const remaining = remainingBoatCapacity(existingTourIds, representativeTourId);
-        const vacancies = BLOCKED_DATES.includes(dateStr) ? 0 : remaining;
+        const vacancies = isSlotBlocked(blocksByDate, dateStr, slotStart, slotEnd) ? 0 : remaining;
         const d = new Date(dateStr + "T12:00:00Z"); // noon UTC for DST check
         const offset = isCopenhagnDST(d) ? "+02:00" : "+01:00";
         const dateTime = `${dateStr}T${time}:00${offset}`;
@@ -254,10 +257,6 @@ async function handleReserve(req, res) {
   const [date, rawTime] = data.dateTime.split("T");
   const time = rawTime.slice(0, 5); // "17:00"
 
-  if (BLOCKED_DATES.includes(date)) {
-    return res.status(200).json({ errorCode: "NO_AVAILABILITY", errorMessage: `No vacancies: slot is fully booked` });
-  }
-
   const ownTourIds = GYG_OPTION_TO_TOURS[optionId] || [];
   const tourId = ownTourIds[0] || `gyg-option-${optionId}`;
   const boat = getBoatForTour(tourId);
@@ -271,6 +270,12 @@ async function handleReserve(req, res) {
   // also conflict with something starting at 13:00 or 14:00 that same day).
   const slotStartMin = timeToMinutes(time);
   const slotEndMin = slotStartMin + getTourDurationHours(tourId) * 60;
+
+  // Bloqueo manual del bote → no se puede reservar aunque no haya reservas
+  const blocksByDate = await getBlocksByDate(boat, date, date);
+  if (isSlotBlocked(blocksByDate, date, slotStartMin, slotEndMin)) {
+    return res.status(200).json({ errorCode: "NO_AVAILABILITY", errorMessage: `No vacancies: slot is fully booked` });
+  }
 
   const reserveResult = await db`
     SELECT tour_id, booking_time, booking_end_time

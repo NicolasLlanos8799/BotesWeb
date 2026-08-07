@@ -75,6 +75,10 @@ function doPost(e) {
       ? handleSendCancellationEmail(data)
       : action === 'moveEventToBoat'
       ? handleMoveEventToBoat(data)
+      : action === 'createBlockEvent'
+      ? handleCreateBlockEvent(data)
+      : action === 'deleteBlockEvent'
+      ? handleDeleteBlockEvent(data)
       : { success: false, error: "Action not recognized" };
 
     return ContentService.createTextOutput(JSON.stringify(result))
@@ -464,6 +468,84 @@ function handleCreateCalendarOnly(data) {
 
   Logger.log("GYG calendar event created: " + event.getId());
   return { success: true, eventId: event.getId() };
+}
+
+/* ═══════════════════════════════════════════════════════════
+   BLOQUEOS MANUALES DE HORARIO
+   El evento en el calendario del bote es lo que hace que la web
+   pública deje de ofrecer esas horas (handleGetMonthlyAvailability
+   marca como ocupada cualquier hora cubierta por un evento).
+═══════════════════════════════════════════════════════════ */
+
+/**
+ * data: { calendar: 'boat1'|'boat2', date, startTime 'HH:MM', endTime 'HH:MM', reason, group_id }
+ */
+function handleCreateBlockEvent(data) {
+  if (!data.date || !data.startTime || !data.endTime || !data.group_id) {
+    return { success: false, error: "Missing date, startTime, endTime or group_id" };
+  }
+
+  var calendar = getCalendar(data.calendar || 'boat1');
+  var dp = data.date.split('-');
+  var sp = data.startTime.split(':');
+  var ep = data.endTime.split(':');
+  var start = new Date(+dp[0], +dp[1] - 1, +dp[2], +sp[0], +sp[1]);
+  var end = new Date(+dp[0], +dp[1] - 1, +dp[2], +ep[0], +ep[1]);
+  if (!(end > start)) return { success: false, error: "endTime must be after startTime" };
+
+  var description =
+    "⛔ HORARIO BLOQUEADO\n" +
+    "📅 " + data.date + " | 🕒 " + data.startTime + " - " + data.endTime + "\n" +
+    "⛵ " + (data.calendar || 'boat1') + "\n" +
+    (data.reason ? "📝 " + data.reason + "\n" : "") +
+    "──────────────────────────\n" +
+    "BLOCK_GROUP: " + data.group_id + "\n" +
+    "Source: Admin Panel";
+
+  var event = calendar.createEvent(
+    "⛔ BLOQUEADO" + (data.reason ? " — " + data.reason : ""),
+    start, end,
+    { description: description }
+  );
+  event.setColor(CalendarApp.EventColor.GRAY);
+
+  Logger.log("Block event created: " + event.getId() + " group=" + data.group_id);
+  return { success: true, eventId: event.getId() };
+}
+
+/**
+ * Borra TODOS los eventos de un bloqueo (ambos botes, todas las fechas).
+ * data: { group_id }
+ */
+function handleDeleteBlockEvent(data) {
+  if (!data.group_id) return { success: false, error: "Missing group_id" };
+
+  var fragment = "BLOCK_GROUP: " + data.group_id;
+  var now = new Date();
+  var past = new Date(now.getFullYear() - 1, now.getMonth(), 1);
+  var future = new Date(now.getFullYear() + 2, now.getMonth(), now.getDate());
+
+  var calendars = [getCalendar('boat1'), getCalendar('boat2')]
+    .filter(function (c) { return c !== null; });
+
+  var deleted = 0;
+  for (var i = 0; i < calendars.length; i++) {
+    try {
+      var events = calendars[i].getEvents(past, future);
+      for (var j = 0; j < events.length; j++) {
+        var desc = events[j].getDescription();
+        if (desc && desc.indexOf(fragment) !== -1) {
+          events[j].deleteEvent();
+          deleted++;
+        }
+      }
+    } catch (e) {
+      Logger.log("deleteBlockEvent error on calendar " + i + ": " + e.toString());
+    }
+  }
+
+  Logger.log("Block events deleted: " + deleted + " group=" + data.group_id);
+  return { success: true, deleted: deleted };
 }
 
 /* ═══════════════════════════════════════════════════════════

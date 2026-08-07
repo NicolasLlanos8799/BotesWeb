@@ -31,6 +31,29 @@ CREATE INDEX IF NOT EXISTS idx_bookings_email    ON bookings (customer_email);
 CREATE INDEX IF NOT EXISTS idx_bookings_sumup_id ON bookings (sumup_id);
 CREATE INDEX IF NOT EXISTS idx_bookings_source   ON bookings (source);
 
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Bloqueos manuales de horario (mantenimiento, clima, vacaciones…)
+-- Una fila = un día × un bote. Un bloqueo de la UI genera N filas con el mismo
+-- group_id (rango de fechas × botes seleccionados) para poder deshacerlo entero.
+-- Fuente de verdad para: GYG get-availabilities/reserve + evento en Google Calendar
+-- (que es lo que bloquea la web pública).
+CREATE TABLE IF NOT EXISTS blocked_slots (
+    id            SERIAL PRIMARY KEY,
+    created_at    TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    group_id      UUID NOT NULL,
+    block_date    DATE NOT NULL,
+    start_time    TIME NOT NULL,
+    end_time      TIME NOT NULL,
+    boat          VARCHAR(10) NOT NULL,          -- 'boat1' | 'boat2'
+    reason        VARCHAR(255),
+    gcal_event_id VARCHAR(255),                  -- id del evento creado en Google Calendar
+    CONSTRAINT blocked_slots_range_ck CHECK (end_time > start_time)
+);
+
+CREATE INDEX IF NOT EXISTS idx_blocked_slots_date  ON blocked_slots (block_date);
+CREATE INDEX IF NOT EXISTS idx_blocked_slots_boat  ON blocked_slots (boat, block_date);
+CREATE INDEX IF NOT EXISTS idx_blocked_slots_group ON blocked_slots (group_id);
+
 -- Run this on existing DBs to add new columns without recreating the table:
 -- ALTER TABLE bookings ADD COLUMN IF NOT EXISTS source VARCHAR(20) DEFAULT 'web';
 -- ALTER TABLE bookings ADD COLUMN IF NOT EXISTS gyg_booking_id VARCHAR(100) UNIQUE;

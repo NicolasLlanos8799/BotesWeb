@@ -1095,6 +1095,32 @@ select.admin-search {
   filter: brightness(1.2);
 }
 
+/* Bloqueo manual de horario */
+.cal-chip--block {
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(138, 143, 152, 0.14),
+    rgba(138, 143, 152, 0.14) 6px,
+    rgba(138, 143, 152, 0.05) 6px,
+    rgba(138, 143, 152, 0.05) 12px
+  );
+  border: 1px dashed rgba(138, 143, 152, 0.5);
+}
+.cal-chip--block .cal-chip__time { color: #b8bcc4; }
+
+.cal-toolbar__block {
+  background: rgba(138, 143, 152, 0.12);
+  border: 1px solid rgba(138, 143, 152, 0.35);
+  color: rgba(255,255,255,0.8);
+  border-radius: var(--r-xs);
+  padding: 0.45rem 0.8rem;
+  font-family: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+  margin-right: 0.5rem;
+}
+.cal-toolbar__block:hover { filter: brightness(1.25); }
+
 .cal-more {
   font-size: 0.72rem;
   color: rgba(255,255,255,0.5);

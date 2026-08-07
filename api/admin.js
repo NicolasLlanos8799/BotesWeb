@@ -2,7 +2,9 @@ import db from "../lib/db.js";
 import { generateSessionToken, timingSafeEqual, isAdminAuthenticated } from "../lib/adminAuth.js";
 import { error as logError, warn as logWarn } from "../lib/logger.js";
 import { isRateLimited, getIp } from "../lib/rateLimit.js";
-import { notifyGYGAvailability } from "../lib/gyg-notify.js";
+import { notifyGYGAvailability, notifyGYGBoatRange } from "../lib/gyg-notify.js";
+import { ensureBlockedSlotsTable } from "../lib/blocked-slots.js";
+import crypto from "crypto";
 
 const SUMUP_API_BASE = "https://api.sumup.com";
 
@@ -103,11 +105,11 @@ async function handleCreateBooking(req, res) {
 
   const {
     tourId, tourName, name, email, phone, date, time, endTime,
-    qty, extras, amount, lang, status
+    qty, extras, amount, lang, status, sendEmail
   } = req.body || {};
 
-  if (!name || !email || !date || !time) {
-    return res.status(400).json({ error: "Missing name, email, date or time" });
+  if (!name || !date || !time) {
+    return res.status(400).json({ error: "Missing name, date or time" });
   }
 
   const passengers = qty ? parseInt(qty) : 1;
@@ -126,7 +128,7 @@ async function handleCreateBooking(req, res) {
         passengers, booking_date, booking_time, booking_end_time, extras,
         total_price, payment_status, lang, source
       ) VALUES (
-        ${tourId || null}, ${tourName || null}, ${name}, ${email}, ${phone || null},
+        ${tourId || null}, ${tourName || null}, ${name}, ${email || null}, ${phone || null},
         ${passengers}, ${date}, ${time}, ${endTime || null},
         ${extrasNum}, ${amountNum}, ${paymentStatus}, ${bookingLang}, 'web'
       )
@@ -143,14 +145,13 @@ async function handleCreateBooking(req, res) {
   // hiccup shouldn't roll back a booking that's already in the DB; the
   // admin sees a warning instead so they can manually check the calendar.
   //
-  // NOTE: customer emails from manual admin bookings are disabled for now
-  // (per request). The GAS `createBooking` handler only emails the guest
-  // when payment_status === 'PAID', so we send 'PENDING' to GAS regardless
-  // of the real DB status — this still creates/blocks the calendar event,
-  // it just skips the guest invite + confirmation email. The actual
+  // NOTE: the GAS `createBooking` handler only emails the guest when
+  // payment_status === 'PAID'. When the admin leaves "Enviar emails"
+  // unchecked (or there's no email), we send 'PENDING' to GAS regardless of
+  // the real DB status — this still creates/blocks the calendar event, it
+  // just skips the guest invite + confirmation email. The actual
   // payment_status stored in Postgres (paymentStatus) is unaffected.
-  // TODO: flip this back to `paymentStatus` once emails should resume.
-  const SEND_CUSTOMER_EMAIL = false;
+  const SEND_CUSTOMER_EMAIL = Boolean(sendEmail && email);
   let calendarWarning = null;
   if (process.env.GAS_URL) {
     try {
@@ -162,7 +163,7 @@ async function handleCreateBooking(req, res) {
           tour: tourId,
           tourTitle: tourName,
           name,
-          email,
+          email: email || "",
           phone: phone || "",
           qty: passengers,
           date,
@@ -505,6 +506,201 @@ async function handleOps(req, res) {
   });
 }
 
+/* ═══════════════════════════════════════════════════════════
+   BLOQUEOS DE HORARIO (tabla blocked_slots + Google Calendar)
+
+   Doble escritura obligatoria:
+     - blocked_slots  → lo lee GYG en get-availabilities / reserve
+     - Google Calendar → lo lee la web pública (getMonthlyAvailability)
+   Si falla el calendario, el bloqueo NO se guarda: prefiero fallar entero
+   antes que dejar el bote bloqueado en GYG pero libre en la web.
+═══════════════════════════════════════════════════════════ */
+
+const VALID_BOATS = ["boat1", "boat2"];
+const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
+const TIME_RE = /^([01]\d|2[0-3]):(00|30)$/;
+const MAX_BLOCK_DAYS = 180;
+
+function eachDate(from, to) {
+  const dates = [];
+  const d = new Date(`${from}T00:00:00Z`);
+  const end = new Date(`${to}T00:00:00Z`);
+  while (d <= end) {
+    dates.push(d.toISOString().split("T")[0]);
+    d.setUTCDate(d.getUTCDate() + 1);
+  }
+  return dates;
+}
+
+async function callGASBlock(payload) {
+  if (!process.env.GAS_URL) throw new Error("GAS_URL not configured");
+  const gasRes = await fetch(process.env.GAS_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+  if (!gasRes.ok) throw new Error(`GAS HTTP ${gasRes.status}`);
+  const result = await gasRes.json();
+  if (result && result.success === false) throw new Error(result.error || "GAS error");
+  return result;
+}
+
+async function handleGetBlocks(req, res) {
+  if (!(await isAdminAuthenticated(req))) return res.status(401).json({ error: "Unauthorized" });
+
+  const from = DATE_RE.test(req.query.from || "") ? req.query.from : null;
+  const to = DATE_RE.test(req.query.to || "") ? req.query.to : null;
+
+  try {
+    await ensureBlockedSlotsTable();
+    const result = from && to
+      ? await db`SELECT * FROM blocked_slots WHERE block_date BETWEEN ${from} AND ${to} ORDER BY block_date, start_time`
+      : await db`SELECT * FROM blocked_slots WHERE block_date >= CURRENT_DATE - INTERVAL '1 year' ORDER BY block_date, start_time`;
+    return res.status(200).json({ blocks: result.rows ?? result });
+  } catch (err) {
+    logError("get-blocks error:", err.message);
+    return res.status(500).json({ error: err.message });
+  }
+}
+
+async function handleCreateBlock(req, res) {
+  if (!(await isAdminAuthenticated(req))) return res.status(401).json({ error: "Unauthorized" });
+  if (req.method !== "POST") return res.status(405).end();
+
+  const { dateFrom, dateTo, startTime, endTime, boats, reason } = req.body || {};
+  const from = dateFrom;
+  const to = dateTo || dateFrom;
+
+  if (!DATE_RE.test(from || "") || !DATE_RE.test(to || "")) {
+    return res.status(400).json({ error: "Fechas inválidas (YYYY-MM-DD)" });
+  }
+  if (from > to) return res.status(400).json({ error: "dateFrom no puede ser posterior a dateTo" });
+  if (!TIME_RE.test(startTime || "") || !TIME_RE.test(endTime || "")) {
+    return res.status(400).json({ error: "Horas inválidas (HH:MM, en :00 o :30)" });
+  }
+  if (startTime >= endTime) return res.status(400).json({ error: "La hora de fin debe ser posterior a la de inicio" });
+
+  const boatList = (Array.isArray(boats) ? boats : []).filter(b => VALID_BOATS.includes(b));
+  if (boatList.length === 0) return res.status(400).json({ error: "Selecciona al menos un bote" });
+
+  const dates = eachDate(from, to);
+  if (dates.length > MAX_BLOCK_DAYS) {
+    return res.status(400).json({ error: `Rango demasiado largo (máx ${MAX_BLOCK_DAYS} días)` });
+  }
+
+  const groupId = crypto.randomUUID();
+  const label = (reason || "").toString().slice(0, 255) || null;
+
+  // 1) Google Calendar primero — es el que bloquea la web. Si falla, abortamos.
+  const createdEvents = [];
+  try {
+    for (const boat of boatList) {
+      for (const date of dates) {
+        const result = await callGASBlock({
+          action: "createBlockEvent",
+          calendar: boat,
+          date,
+          startTime,
+          endTime,
+          reason: label || "",
+          group_id: groupId,
+        });
+        createdEvents.push({ boat, date, eventId: result?.eventId || null });
+      }
+    }
+  } catch (err) {
+    logError("create-block GAS error:", err.message);
+    // Rollback de lo ya creado en el calendario
+    await callGASBlock({ action: "deleteBlockEvent", group_id: groupId }).catch(() => {});
+    return res.status(502).json({ error: `No se pudo bloquear el calendario: ${err.message}. Nada fue guardado.` });
+  }
+
+  // 2) Postgres — lo que lee GYG
+  try {
+    await ensureBlockedSlotsTable();
+    for (const { boat, date, eventId } of createdEvents) {
+      await db`
+        INSERT INTO blocked_slots (group_id, block_date, start_time, end_time, boat, reason, gcal_event_id)
+        VALUES (${groupId}, ${date}, ${startTime}, ${endTime}, ${boat}, ${label}, ${eventId})
+      `;
+    }
+  } catch (err) {
+    logError("create-block DB error:", err.message);
+    await callGASBlock({ action: "deleteBlockEvent", group_id: groupId }).catch(() => {});
+    return res.status(500).json({ error: `${err.message}. Se revirtió el calendario.` });
+  }
+
+  // 3) Push a GYG (best-effort, awaited: en Vercel la lambda se congela al responder)
+  let notifyWarning = null;
+  try {
+    for (const boat of boatList) {
+      await notifyGYGBoatRange(boat, from, to, startTime, endTime);
+    }
+  } catch (err) {
+    notifyWarning = "Bloqueo guardado, pero GetYourGuide no confirmó la actualización. Se sincronizará en su próximo pull.";
+    logWarn("create-block GYG notify error:", err.message);
+  }
+
+  return res.status(200).json({
+    success: true,
+    groupId,
+    slots: createdEvents.length,
+    warning: notifyWarning,
+  });
+}
+
+async function handleDeleteBlock(req, res) {
+  if (!(await isAdminAuthenticated(req))) return res.status(401).json({ error: "Unauthorized" });
+  if (req.method !== "DELETE" && req.method !== "POST") return res.status(405).end();
+
+  const groupId = req.query.groupId || req.body?.groupId;
+  if (!groupId) return res.status(400).json({ error: "Missing groupId" });
+
+  let rows;
+  try {
+    await ensureBlockedSlotsTable();
+    const result = await db`SELECT * FROM blocked_slots WHERE group_id = ${groupId}`;
+    rows = result.rows ?? result;
+  } catch (err) {
+    logError("delete-block read error:", err.message);
+    return res.status(500).json({ error: err.message });
+  }
+  if (rows.length === 0) return res.status(404).json({ error: "Bloqueo no encontrado" });
+
+  let calendarWarning = null;
+  try {
+    await callGASBlock({ action: "deleteBlockEvent", group_id: groupId });
+  } catch (err) {
+    calendarWarning = "El bloqueo se eliminó de la base de datos, pero revisa el evento en Google Calendar.";
+    logWarn("delete-block GAS error:", err.message);
+  }
+
+  try {
+    await db`DELETE FROM blocked_slots WHERE group_id = ${groupId}`;
+  } catch (err) {
+    logError("delete-block DB error:", err.message);
+    return res.status(500).json({ error: err.message });
+  }
+
+  // Reabrir disponibilidad en GYG
+  const dates = rows.map(r => (r.block_date instanceof Date
+    ? r.block_date.toISOString().split("T")[0]
+    : String(r.block_date).split("T")[0])).sort();
+  const boatsAffected = [...new Set(rows.map(r => r.boat))];
+  const startTime = String(rows[0].start_time).slice(0, 5);
+  const endTime = String(rows[0].end_time).slice(0, 5);
+
+  try {
+    for (const boat of boatsAffected) {
+      await notifyGYGBoatRange(boat, dates[0], dates[dates.length - 1], startTime, endTime);
+    }
+  } catch (err) {
+    logWarn("delete-block GYG notify error:", err.message);
+  }
+
+  return res.status(200).json({ success: true, removed: rows.length, warning: calendarWarning });
+}
+
 export default async function handler(req, res) {
   const route = req.query.route;
 
@@ -515,6 +711,9 @@ export default async function handler(req, res) {
     case "booking-action": return handleBookingAction(req, res);
     case "create-booking": return handleCreateBooking(req, res);
     case "ops": return handleOps(req, res);
+    case "get-blocks": return handleGetBlocks(req, res);
+    case "create-block": return handleCreateBlock(req, res);
+    case "delete-block": return handleDeleteBlock(req, res);
     default: return res.status(404).json({ error: "Unknown admin route" });
   }
 }

@@ -42,8 +42,34 @@ async function fetchAllBookings() {
   }
 }
 
+/* ── Bloqueos manuales de horario ─────────────────────────────────────────── */
+async function fetchAllBlocks() {
+  try {
+    const res = await fetch("/api/admin/get-blocks");
+    if (!res.ok) throw new Error("Failed to fetch blocks");
+    const data = await res.json();
+    return (data.blocks || []).map(b => {
+      const d = new Date(b.block_date);
+      return {
+        isBlock: true,
+        id: `block-${b.id}`,
+        groupId: b.group_id,
+        date: `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`,
+        time: String(b.start_time).slice(0, 5),
+        endTime: String(b.end_time).slice(0, 5),
+        boat: b.boat,
+        reason: b.reason || "",
+      };
+    });
+  } catch (err) {
+    console.error("Error fetching blocks:", err);
+    return [];
+  }
+}
+
 /* ── State ────────────────────────────────────────────────────────────────── */
 let allBookings = [];
+let allBlocks = [];
 let view = "week"; // "week" | "month"
 let anchorDate = new Date(); // any date within the visible week/month
 
@@ -64,14 +90,24 @@ function startOfWeek(d) {
 
 function bookingsByDate() {
   const map = {};
-  for (const b of allBookings) {
+  for (const b of [...allBookings, ...allBlocks]) {
     (map[b.date] = map[b.date] || []).push(b);
   }
   for (const k in map) map[k].sort((a, b) => a.time.localeCompare(b.time));
   return map;
 }
 
+function blockChip(b) {
+  const label = b.reason || "Bloqueado";
+  const boatLabel = b.boat === "boat2" ? "B2" : "B1";
+  return `<button class="cal-chip cal-chip--block cal-chip--${b.boat}" data-block-group="${b.groupId}" title="Bloqueado ${b.time}–${b.endTime} · ${boatLabel}${b.reason ? " · " + b.reason : ""}">
+    <span class="cal-chip__time">${b.time}–${b.endTime} <span class="cal-chip__boat">${boatLabel}</span></span>
+    <span class="cal-chip__name">⛔ ${label}</span>
+  </button>`;
+}
+
 function bookingChip(b) {
+  if (b.isBlock) return blockChip(b);
   const cls = `cal-chip ${b.isGyg ? "cal-chip--gyg" : "cal-chip--direct"} cal-chip--${b.boat}`;
   const time = (b.time || "").substring(0, 5);
   const boatLabel = b.boat === "boat2" ? "B2" : "B1";
@@ -167,7 +203,9 @@ function openDayListModal(dayKey) {
   const existing = document.getElementById("cal-day-modal");
   if (existing) existing.remove();
 
-  const items = allBookings.filter(b => b.date === dayKey).sort((a, b) => a.time.localeCompare(b.time));
+  const items = [...allBookings, ...allBlocks]
+    .filter(b => b.date === dayKey)
+    .sort((a, b) => a.time.localeCompare(b.time));
   const dateObj = new Date(`${dayKey}T00:00:00`);
   const label = dateObj.toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" });
 
@@ -198,6 +236,197 @@ function openDayListModal(dayKey) {
       if (booking) openBookingModal(booking);
     });
   });
+  modal.querySelectorAll("[data-block-group]").forEach(chip => {
+    chip.addEventListener("click", () => {
+      modal.remove();
+      openBlockDetailModal(chip.dataset.blockGroup);
+    });
+  });
+}
+
+/* ── Bloquear horario: crear ─────────────────────────────────────────────── */
+const BLOCK_HOURS = Array.from({ length: 15 }, (_, i) => `${String(i + 7).padStart(2, "0")}:00`); // 07:00 – 21:00
+
+function openCreateBlockModal() {
+  document.getElementById("cal-block-modal")?.remove();
+  const today = toKey(new Date());
+
+  const modal = document.createElement("div");
+  modal.id = "cal-block-modal";
+  modal.className = "modal-overlay";
+  modal.innerHTML = `
+    <div class="modal-sheet modal-sheet--wide">
+      <div style="margin-bottom:1.25rem;">
+        <div class="modal-sheet__eyebrow">Disponibilidad</div>
+        <h2 class="modal-sheet__title">Bloquear horario</h2>
+      </div>
+      <div class="field-stack">
+        <div class="field-grid-2">
+          <div>
+            <label class="field-label" for="blk-from">Desde (fecha)</label>
+            <input class="field-input" type="date" id="blk-from" value="${today}" min="${today}">
+          </div>
+          <div>
+            <label class="field-label" for="blk-to">Hasta (fecha)</label>
+            <input class="field-input" type="date" id="blk-to" value="${today}" min="${today}">
+          </div>
+        </div>
+        <div class="field-grid-2">
+          <div>
+            <label class="field-label" for="blk-start">Desde (hora)</label>
+            <select class="field-input" id="blk-start">
+              ${BLOCK_HOURS.map(h => `<option value="${h}" ${h === "09:00" ? "selected" : ""}>${h}</option>`).join("")}
+            </select>
+          </div>
+          <div>
+            <label class="field-label" for="blk-end">Hasta (hora)</label>
+            <select class="field-input" id="blk-end">
+              ${BLOCK_HOURS.concat("22:00").map(h => `<option value="${h}" ${h === "21:00" ? "selected" : ""}>${h}</option>`).join("")}
+            </select>
+          </div>
+        </div>
+        <div>
+          <label class="field-label">Botes</label>
+          <div style="display:flex;gap:1.25rem;padding:0.35rem 0;">
+            <label style="display:flex;align-items:center;gap:0.45rem;cursor:pointer;">
+              <input type="checkbox" id="blk-boat1" checked> Bote 1
+            </label>
+            <label style="display:flex;align-items:center;gap:0.45rem;cursor:pointer;">
+              <input type="checkbox" id="blk-boat2" checked> Bote 2
+            </label>
+          </div>
+          <p style="font-size:0.72rem;color:rgba(255,255,255,0.45);margin:0.35rem 0 0;">
+            Bloquear un bote afecta a todas sus experiencias, en la web y en GetYourGuide.
+          </p>
+        </div>
+        <div>
+          <label class="field-label" for="blk-reason">Motivo (opcional)</label>
+          <input class="field-input" type="text" id="blk-reason" placeholder="Mantenimiento, clima, vacaciones…" maxlength="120">
+        </div>
+      </div>
+      <p id="blk-error" style="display:none;color:var(--admin-danger);font-size:0.8rem;margin:1rem 0 0;"></p>
+      <div class="modal-sheet__actions">
+        <button id="blk-cancel" class="btn--close">Cancelar</button>
+        <button id="blk-save" class="btn--danger">Bloquear</button>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+  const close = () => modal.remove();
+  modal.addEventListener("click", e => { if (e.target === modal) close(); });
+  document.getElementById("blk-cancel").addEventListener("click", close);
+
+  document.getElementById("blk-save").addEventListener("click", async () => {
+    const errEl = document.getElementById("blk-error");
+    const saveBtn = document.getElementById("blk-save");
+    const boats = [];
+    if (document.getElementById("blk-boat1").checked) boats.push("boat1");
+    if (document.getElementById("blk-boat2").checked) boats.push("boat2");
+
+    const payload = {
+      dateFrom: document.getElementById("blk-from").value,
+      dateTo: document.getElementById("blk-to").value,
+      startTime: document.getElementById("blk-start").value,
+      endTime: document.getElementById("blk-end").value,
+      boats,
+      reason: document.getElementById("blk-reason").value.trim(),
+    };
+
+    const fail = msg => { errEl.textContent = msg; errEl.style.display = "block"; };
+    if (!payload.dateFrom || !payload.dateTo) return fail("Selecciona las fechas.");
+    if (payload.dateFrom > payload.dateTo) return fail("La fecha final no puede ser anterior a la inicial.");
+    if (payload.startTime >= payload.endTime) return fail("La hora de fin debe ser posterior a la de inicio.");
+    if (boats.length === 0) return fail("Selecciona al menos un bote.");
+
+    errEl.style.display = "none";
+    saveBtn.disabled = true;
+    saveBtn.textContent = "Bloqueando…";
+    try {
+      const res = await fetch("/api/admin/create-block", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const result = await res.json();
+      if (!res.ok) throw new Error(result.error || "Error desconocido");
+      close();
+      if (result.warning) alert(result.warning);
+      await reloadBlocks();
+    } catch (err) {
+      saveBtn.disabled = false;
+      saveBtn.textContent = "Bloquear";
+      fail(err.message);
+    }
+  });
+}
+
+/* ── Bloquear horario: detalle / eliminar ────────────────────────────────── */
+function openBlockDetailModal(groupId) {
+  document.getElementById("cal-block-detail")?.remove();
+  const items = allBlocks.filter(b => b.groupId === groupId).sort((a, b) => a.date.localeCompare(b.date));
+  if (items.length === 0) return;
+
+  const first = items[0];
+  const dates = [...new Set(items.map(b => b.date))].sort();
+  const boats = [...new Set(items.map(b => b.boat))].map(b => b === "boat2" ? "Bote 2" : "Bote 1").join(" + ");
+  const rangeLabel = dates.length > 1 ? `${dates[0]} → ${dates[dates.length - 1]}` : dates[0];
+
+  const modal = document.createElement("div");
+  modal.id = "cal-block-detail";
+  modal.className = "modal-overlay";
+  modal.innerHTML = `
+    <div class="modal-sheet modal-sheet--danger">
+      <div style="margin-bottom:1.25rem;">
+        <div class="modal-sheet__eyebrow">Horario bloqueado</div>
+        <h2 class="modal-sheet__title">${first.reason || "Sin motivo"}</h2>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:0.5rem;font-size:0.88rem;color:rgba(255,255,255,0.8);">
+        <div><strong>Fechas:</strong> ${rangeLabel} (${dates.length} día${dates.length > 1 ? "s" : ""})</div>
+        <div><strong>Horario:</strong> ${first.time} – ${first.endTime}</div>
+        <div><strong>Botes:</strong> ${boats}</div>
+      </div>
+      <p id="blkd-error" style="display:none;color:var(--admin-danger);font-size:0.8rem;margin:1rem 0 0;"></p>
+      <div class="modal-sheet__actions">
+        <button id="blkd-close" class="btn--close">Cerrar</button>
+        <button id="blkd-delete" class="btn--danger">Desbloquear</button>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+  const close = () => modal.remove();
+  modal.addEventListener("click", e => { if (e.target === modal) close(); });
+  document.getElementById("blkd-close").addEventListener("click", close);
+
+  document.getElementById("blkd-delete").addEventListener("click", async () => {
+    const btn = document.getElementById("blkd-delete");
+    btn.disabled = true;
+    btn.textContent = "Desbloqueando…";
+    try {
+      const res = await fetch(`/api/admin/delete-block?groupId=${encodeURIComponent(groupId)}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ groupId }),
+      });
+      const result = await res.json();
+      if (!res.ok) throw new Error(result.error || "Error desconocido");
+      close();
+      if (result.warning) alert(result.warning);
+      await reloadBlocks();
+    } catch (err) {
+      btn.disabled = false;
+      btn.textContent = "Desbloquear";
+      const errEl = document.getElementById("blkd-error");
+      errEl.textContent = err.message;
+      errEl.style.display = "block";
+    }
+  });
+}
+
+async function reloadBlocks() {
+  allBlocks = await fetchAllBlocks();
+  render();
 }
 
 /* ── Detail modal (shared component with Edit/Resend/Cancel wired in) ───── */
@@ -228,6 +457,11 @@ document.getElementById("cal-body").addEventListener("click", e => {
   const moreBtn = e.target.closest(".cal-more[data-day-key]");
   if (moreBtn) {
     openDayListModal(moreBtn.dataset.dayKey);
+    return;
+  }
+  const blockChipEl = e.target.closest("[data-block-group]");
+  if (blockChipEl) {
+    openBlockDetailModal(blockChipEl.dataset.blockGroup);
     return;
   }
   const chip = e.target.closest("[data-id]");
@@ -270,8 +504,10 @@ function renderSkeleton() {
   `;
 }
 
+document.getElementById("cal-block-btn")?.addEventListener("click", openCreateBlockModal);
+
 (async function init() {
   renderSkeleton();
-  allBookings = await fetchAllBookings();
+  [allBookings, allBlocks] = await Promise.all([fetchAllBookings(), fetchAllBlocks()]);
   render();
 })();
