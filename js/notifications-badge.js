@@ -11,16 +11,11 @@ const CACHE_KEY = "sd_admin_notif_badge_v1";
 // GYG webhook cancelling/creating a booking while this tab is open).
 const STALE_MS = 5 * 60 * 1000;
 
-function paint({ count, gygCount }) {
+function paint({ count }) {
   const allBadge = document.getElementById("notifications-nav-badge");
   if (allBadge) {
     allBadge.textContent = count;
     allBadge.style.display = count > 0 ? "inline-block" : "none";
-  }
-  const gygBadge = document.getElementById("gyg-nav-badge");
-  if (gygBadge) {
-    gygBadge.textContent = gygCount;
-    gygBadge.style.display = gygCount > 0 ? "inline-block" : "none";
   }
 }
 
