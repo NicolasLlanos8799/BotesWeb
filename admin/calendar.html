@@ -52,7 +52,7 @@
     <div style="margin-top: auto;">
       <a href="/api/admin/logout" class="admin-nav__link" style="opacity:0.6;">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
-        <span>Cerrar sesión</span>
+        <span>Log out</span>
       </a>
     </div>
   </aside>
@@ -68,12 +68,14 @@
       <div class="cal-legend">
         <span><span class="cal-legend__dot" style="background:var(--admin-accent);"></span>Direct</span>
         <span><span class="cal-legend__dot" style="background:#7c8bff;"></span>GetYourGuide</span>
-        <span><span class="cal-legend__dot" style="background:#8a8f98;"></span>Bloqueado</span>
+        <span><span class="cal-legend__dot" style="background:#8a8f98;"></span>Blocked</span>
       </div>
-      <div class="cal-toolbar__views">
-        <button id="cal-block-btn" class="cal-toolbar__block">⛔ Bloquear horario</button>
-        <button id="cal-view-week" class="active">Week</button>
-        <button id="cal-view-month">Month</button>
+      <div class="cal-toolbar__actions">
+        <button id="cal-block-btn" class="cal-toolbar__block">⛔ Block time slot</button>
+        <div class="cal-toolbar__views">
+          <button id="cal-view-week" class="active">Week</button>
+          <button id="cal-view-month">Month</button>
+        </div>
       </div>
     </div>
 

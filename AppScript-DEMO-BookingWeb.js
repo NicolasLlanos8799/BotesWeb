@@ -61,6 +61,8 @@ function doPost(e) {
       ? handleCreateBooking(data)
       : action === 'createCalendarOnly'
         ? handleCreateCalendarOnly(data)
+        : action === 'sendOtp'
+          ? handleSendOtp(data)
         : action === 'resendEmail'
           ? handleResendEmail(data)
           : action === 'paymentFailed'
@@ -653,6 +655,66 @@ function getTranslations(lang) {
 /* ═══════════════════════════════════════════════════════════
    EMAIL
 ═══════════════════════════════════════════════════════════ */
+
+function handleSendOtp(data) {
+  if (!data.code) return { success: false, error: "Missing code" };
+  try {
+    var adminEmail = Session.getEffectiveUser().getEmail();
+    GmailApp.sendEmail(
+      adminEmail,
+      "Seaduced Experience — Admin login code",
+      "Your login code is: " + data.code + "\nExpires in 5 minutes.",
+      {
+        name: "Seaduced Admin",
+        htmlBody: getOtpHtmlTemplate(data.code)
+      }
+    );
+    return { success: true };
+  } catch (e) {
+    Logger.log("Send OTP error: " + e.toString());
+    return { success: false, error: e.toString() };
+  }
+}
+
+function getOtpHtmlTemplate(code) {
+  return '<!DOCTYPE html>' +
+    '<html lang="en">' +
+    '<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>' +
+    '<body style="margin:0;padding:0;background-color:#f5f6f8;font-family:Arial,sans-serif;">' +
+
+    '<table width="100%" cellpadding="0" cellspacing="0"><tr>' +
+    '<td style="background-color:#e8834a;height:4px;font-size:0;">&nbsp;</td>' +
+    '</tr></table>' +
+
+    '<table width="100%" cellpadding="0" cellspacing="0"><tr>' +
+    '<td style="background-color:#0f1e35;padding:32px 20px;text-align:center;">' +
+    '<div translate="no" style="font-size:13px;letter-spacing:5px;color:#ffffff;font-weight:700;">SEADUCED EXPERIENCE</div>' +
+    '<div translate="no" style="font-size:9px;letter-spacing:4px;color:#e8834a;margin-top:6px;">COPENHAGEN</div>' +
+    '</td>' +
+    '</tr></table>' +
+
+    '<table width="100%" cellpadding="0" cellspacing="0"><tr><td style="padding:28px 16px 48px;">' +
+    '<table width="100%" cellpadding="0" cellspacing="0" style="max-width:580px;margin:0 auto;">' +
+
+    '<tr><td style="background:#ffffff;border-radius:12px;padding:32px;border-top:3px solid #e8834a;">' +
+    '<p style="margin:0 0 8px;font-size:24px;font-weight:700;color:#0f1e35;line-height:1.3;">Admin login code</p>' +
+    '<p style="margin:0 0 24px;font-size:14px;color:#4a5568;line-height:1.7;">Use this code to finish signing in to the admin panel.</p>' +
+    '<div style="text-align:center;margin:0 0 24px;">' +
+    '<span style="display:inline-block;background-color:#f5f6f8;border-radius:8px;padding:16px 28px;font-size:32px;font-weight:700;letter-spacing:8px;color:#0f1e35;">' + code + '</span>' +
+    '</div>' +
+    '<p style="margin:0;font-size:13px;color:#4a5568;text-align:center;">Expires in 5 minutes. If you didn\'t request this, you can ignore this email.</p>' +
+    '</td></tr>' +
+
+    '<tr><td style="height:16px;"></td></tr>' +
+
+    '<tr><td style="text-align:center;padding:0 16px;">' +
+    '<p style="margin:0 0 4px;font-size:13px;color:#718096;">Seaduced Experience — Private boat tours in Copenhagen</p>' +
+    '<p style="margin:0;font-size:11px;color:#a0aec0;">This is an automated security email.</p>' +
+    '</td></tr>' +
+
+    '</table></td></tr></table>' +
+    '</body></html>';
+}
 
 function handleResendEmail(data) {
   if (!data.email || !data.date || !data.time) {

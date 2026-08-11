@@ -113,6 +113,8 @@
     { "source": "/api/gyg/1/cancel-booking/", "destination": "/api/gyg-handler" },
     { "source": "/api/admin/login", "destination": "/api/admin?route=login" },
     { "source": "/api/admin/login/", "destination": "/api/admin?route=login" },
+    { "source": "/api/admin/verify-otp", "destination": "/api/admin?route=verify-otp" },
+    { "source": "/api/admin/verify-otp/", "destination": "/api/admin?route=verify-otp" },
     { "source": "/api/admin/logout", "destination": "/api/admin?route=logout" },
     { "source": "/api/admin/logout/", "destination": "/api/admin?route=logout" },
     { "source": "/api/admin/refresh", "destination": "/api/admin?route=refresh" },

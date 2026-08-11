@@ -1,5 +1,6 @@
 import db from "../lib/db.js";
 import { generateSessionToken, timingSafeEqual, isAdminAuthenticated } from "../lib/adminAuth.js";
+import { createOtp, verifyOtp } from "../lib/adminOtp.js";
 import { error as logError, warn as logWarn } from "../lib/logger.js";
 import { isRateLimited, getIp } from "../lib/rateLimit.js";
 import { notifyGYGAvailability, notifyGYGBoatRange } from "../lib/gyg-notify.js";
@@ -29,6 +30,45 @@ async function handleLogin(req, res) {
 
   const secret = process.env.ADMIN_SECRET;
   if (!secret) return res.status(500).json({ error: "Server authentication misconfigured" });
+
+  const code = await createOtp(secret);
+
+  if (process.env.GAS_URL) {
+    try {
+      const gasRes = await fetch(process.env.GAS_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "sendOtp", code })
+      });
+      if (!gasRes.ok) {
+        logWarn("login OTP GAS sync warning:", gasRes.status);
+        return res.status(500).json({ error: "Could not send verification code" });
+      }
+    } catch (err) {
+      logWarn("login OTP GAS sync error:", err.message);
+      return res.status(500).json({ error: "Could not send verification code" });
+    }
+  } else {
+    return res.status(500).json({ error: "GAS_URL not configured — cannot send verification code" });
+  }
+
+  return res.status(200).json({ success: true, needsOtp: true });
+}
+
+async function handleVerifyOtp(req, res) {
+  if (req.method !== "POST") return res.status(405).end();
+
+  const ip = getIp(req);
+  if (isRateLimited(`admin-otp:${ip}`, { max: 10, windowMs: 15 * 60 * 1000 })) {
+    return res.status(429).json({ error: "Too many attempts. Try again later." });
+  }
+
+  const { code } = req.body || {};
+  const secret = process.env.ADMIN_SECRET;
+  if (!secret) return res.status(500).json({ error: "Server authentication misconfigured" });
+
+  const valid = await verifyOtp(code, secret);
+  if (!valid) return res.status(401).json({ error: "Invalid or expired code" });
 
   const token = await generateSessionToken(secret);
   const isProd = process.env.NODE_ENV === "production";
@@ -759,6 +799,7 @@ export default async function handler(req, res) {
 
   switch (route) {
     case "login": return handleLogin(req, res);
+    case "verify-otp": return handleVerifyOtp(req, res);
     case "logout": return handleLogout(req, res);
     case "refresh": return handleRefresh(req, res);
     case "get-bookings": return handleGetBookings(req, res);

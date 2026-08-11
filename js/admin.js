@@ -1,6 +1,7 @@
 import { formatCurrency, TOURS } from "./utils.js";
 import { adminAlert, adminConfirm, openEditModal, openResendModal, openBookingDetailModal, openCreateBookingModal } from "./admin-modals.js";
 import { Chart, registerables } from "chart.js";
+import { setBadgesFromBookings, ensureBadges, invalidateBadgeCache } from "./notifications-badge.js";
 Chart.register(...registerables);
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -10,9 +11,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (path.includes("/admin/notifications")) {
     initNotificationsPage();
-  } else {
-    // Any other admin page: still populate the sidebar notification badges.
-    fetchAllBookings().then(updateNavBadges);
+  } else if (!path.includes("/admin/stats") && !path.includes("/admin/manifest")) {
+    // Stats/Manifest fetch the full, unfiltered booking list themselves
+    // (see initStatsPage / loadManifestDay) and reuse it for the badge —
+    // no extra network call needed there. Everyone else gets the badge
+    // from cache, or one lightweight fetch if the cache is stale.
+    ensureBadges();
   }
 
   if (path.includes("/admin/gyg-bookings")) {
@@ -375,6 +379,8 @@ async function initBookingsPage(config) {
       } else {
         await adminAlert("Booking created successfully!", "success");
       }
+      invalidateBadgeCache();
+      ensureBadges();
       await loadData();
     });
   });
@@ -409,23 +415,6 @@ function getNotifications(bookings) {
     .filter(b => !(b.status === 'RESERVED' && !b.customerEmail))
     .map(b => ({ ...b, notifType: b.status === 'CANCELLED' ? 'cancelled' : 'new' }))
     .sort((a, b) => b.createdAt - a.createdAt);
-}
-
-function updateNavBadges(bookings) {
-  const notifications = getNotifications(bookings);
-  const newGyg = notifications.filter(b => b.isGyg && b.notifType === 'new');
-
-  const allBadge = document.getElementById("notifications-nav-badge");
-  if (allBadge && notifications.length > 0) {
-    allBadge.textContent = notifications.length;
-    allBadge.style.display = "inline-block";
-  }
-
-  const gygBadge = document.getElementById("gyg-nav-badge");
-  if (gygBadge && newGyg.length > 0) {
-    gygBadge.textContent = newGyg.length;
-    gygBadge.style.display = "inline-block";
-  }
 }
 
 function renderNewBookingsPanel(bookings) {
@@ -476,7 +465,7 @@ async function initNotificationsPage() {
     if (listEl) listEl.innerHTML = `<div class="po-spinner" style="margin: 2rem auto;"></div>`;
     const bookings = await fetchAllBookings();
     renderNewBookingsPanel(bookings);
-    updateNavBadges(bookings);
+    setBadgesFromBookings(bookings);
   };
 
   refreshBtn?.addEventListener("click", load);
@@ -500,6 +489,7 @@ async function initStatsPage() {
   const scopeTabs = document.getElementById("stats-scope-tabs");
 
   let allBookings = await fetchAllBookings();
+  setBadgesFromBookings(allBookings);
   let currentScope = "own";
 
   const updateStats = () => {
@@ -606,7 +596,10 @@ async function renderManifestFor(date) {
   const dateStr = manifestDateKey(date);
   if (dateHeader) dateHeader.textContent = date.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' });
 
-  if (!manifestBookingsCache) manifestBookingsCache = await fetchAllBookings();
+  if (!manifestBookingsCache) {
+    manifestBookingsCache = await fetchAllBookings();
+    setBadgesFromBookings(manifestBookingsCache);
+  }
   const dayBookings = manifestBookingsCache
     .filter(b => b.date === dateStr && b.status === "PAID")
     .sort((a, b) => a.time.localeCompare(b.time));

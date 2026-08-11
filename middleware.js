@@ -13,6 +13,8 @@ export default async function middleware(request) {
     pathname === '/admin/login/' ||
     pathname === '/api/admin/login' ||
     pathname === '/api/admin/login/' ||
+    pathname === '/api/admin/verify-otp' ||
+    pathname === '/api/admin/verify-otp/' ||
     pathname === '/api/admin/logout' ||
     pathname === '/api/admin/logout/'
   ) {

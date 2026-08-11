@@ -5,6 +5,7 @@
  */
 import { formatCurrency, TOURS } from "./utils.js";
 import { mountDatePicker, mountSlotPicker } from "./admin-pickers.js";
+import { invalidateBadgeCache, ensureBadges } from "./notifications-badge.js";
 
 /* ── Button loading state (spinner + disabled) for async actions ────────── */
 function withButtonLoading(btn, loadingLabel, task) {
@@ -688,6 +689,8 @@ export function openBookingDetailModal(booking, { onUpdated, onDeleted, onCancel
           lang: updated.lang || booking.lang,
           boat: updated.boat || booking.boat
         });
+        invalidateBadgeCache();
+        ensureBadges();
         onUpdated?.(booking);
         modal.remove();
       } else {
@@ -710,6 +713,8 @@ export function openBookingDetailModal(booking, { onUpdated, onDeleted, onCancel
           body: JSON.stringify({ id: booking.id })
         });
         if (res.ok) {
+          invalidateBadgeCache();
+          ensureBadges();
           onDeleted?.(booking);
           modal.remove();
           return;
@@ -735,6 +740,8 @@ export function openBookingDetailModal(booking, { onUpdated, onDeleted, onCancel
         });
         if (res.ok) {
           booking.status = "CANCELLED";
+          invalidateBadgeCache();
+          ensureBadges();
           onCancelled?.(booking);
           modal.remove();
           return;
