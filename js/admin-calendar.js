@@ -511,3 +511,37 @@ document.getElementById("cal-block-btn")?.addEventListener("click", openCreateBl
   [allBookings, allBlocks] = await Promise.all([fetchAllBookings(), fetchAllBlocks()]);
   render();
 })();
+
+/* ── Sidebar notifications badge (mirrors js/admin.js getNotifications) ──── */
+(async function initNotificationsBadge() {
+  try {
+    const res = await fetch("/api/admin/get-bookings");
+    if (!res.ok) return;
+    const data = await res.json();
+    const cutoff = Date.now() - 48 * 60 * 60 * 1000;
+    const notifications = (data.bookings || [])
+      .map(b => ({
+        createdAt: b.created_at ? new Date(b.created_at) : null,
+        status: b.payment_status || "PENDING",
+        customerEmail: b.customer_email || "",
+        isGyg: (b.source === "gyg") || (b.customer_email || "").toLowerCase().endsWith("@reply.getyourguide.com"),
+      }))
+      .filter(b => b.createdAt && b.createdAt.getTime() >= cutoff)
+      .filter(b => !(b.status === "RESERVED" && !b.customerEmail));
+
+    const allBadge = document.getElementById("notifications-nav-badge");
+    if (allBadge && notifications.length > 0) {
+      allBadge.textContent = notifications.length;
+      allBadge.style.display = "inline-block";
+    }
+
+    const gygCount = notifications.filter(b => b.isGyg && b.status !== "CANCELLED").length;
+    const gygBadge = document.getElementById("gyg-nav-badge");
+    if (gygBadge && gygCount > 0) {
+      gygBadge.textContent = gygCount;
+      gygBadge.style.display = "inline-block";
+    }
+  } catch (err) {
+    console.error("Error updating notification badges:", err);
+  }
+})();

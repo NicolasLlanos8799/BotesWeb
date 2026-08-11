@@ -35,7 +35,22 @@ async function handleLogin(req, res) {
 
   res.setHeader(
     "Set-Cookie",
-    `admin_auth=${token}; HttpOnly; ${isProd ? "Secure; " : ""}SameSite=Strict; Path=/; Max-Age=86400`
+    `admin_auth=${token}; HttpOnly; ${isProd ? "Secure; " : ""}SameSite=Strict; Path=/; Max-Age=172800`
+  );
+
+  return res.status(200).json({ success: true });
+}
+
+async function handleRefresh(req, res) {
+  if (!(await isAdminAuthenticated(req))) return res.status(401).json({ error: "Unauthorized" });
+
+  const secret = process.env.ADMIN_SECRET;
+  const token = await generateSessionToken(secret);
+  const isProd = process.env.NODE_ENV === "production";
+
+  res.setHeader(
+    "Set-Cookie",
+    `admin_auth=${token}; HttpOnly; ${isProd ? "Secure; " : ""}SameSite=Strict; Path=/; Max-Age=172800`
   );
 
   return res.status(200).json({ success: true });
@@ -745,6 +760,7 @@ export default async function handler(req, res) {
   switch (route) {
     case "login": return handleLogin(req, res);
     case "logout": return handleLogout(req, res);
+    case "refresh": return handleRefresh(req, res);
     case "get-bookings": return handleGetBookings(req, res);
     case "booking-action": return handleBookingAction(req, res);
     case "create-booking": return handleCreateBooking(req, res);

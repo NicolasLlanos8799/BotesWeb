@@ -115,6 +115,8 @@
     { "source": "/api/admin/login/", "destination": "/api/admin?route=login" },
     { "source": "/api/admin/logout", "destination": "/api/admin?route=logout" },
     { "source": "/api/admin/logout/", "destination": "/api/admin?route=logout" },
+    { "source": "/api/admin/refresh", "destination": "/api/admin?route=refresh" },
+    { "source": "/api/admin/refresh/", "destination": "/api/admin?route=refresh" },
     { "source": "/api/admin/get-bookings", "destination": "/api/admin?route=get-bookings" },
     { "source": "/api/admin/get-bookings/", "destination": "/api/admin?route=get-bookings" },
     { "source": "/api/admin/booking-action", "destination": "/api/admin?route=booking-action" },

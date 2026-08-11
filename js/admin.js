@@ -4,6 +4,8 @@ import { Chart, registerables } from "chart.js";
 Chart.register(...registerables);
 
 document.addEventListener("DOMContentLoaded", () => {
+  fetch("/api/admin/refresh", { method: "POST" }).catch(() => {});
+
   const path = window.location.pathname;
 
   if (path.includes("/admin/notifications")) {
