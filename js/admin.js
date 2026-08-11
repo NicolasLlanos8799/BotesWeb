@@ -6,9 +6,14 @@ Chart.register(...registerables);
 document.addEventListener("DOMContentLoaded", () => {
   const path = window.location.pathname;
 
-  if (path.includes("/admin/new-reservations")) {
-    initNewReservationsPage();
-  } else if (path.includes("/admin/gyg-bookings")) {
+  if (path.includes("/admin/notifications")) {
+    initNotificationsPage();
+  } else {
+    // Any other admin page: still populate the sidebar notification badges.
+    fetchAllBookings().then(updateNavBadges);
+  }
+
+  if (path.includes("/admin/gyg-bookings")) {
     initBookingsPage({
       tbodyId: "gyg-bookings-tbody",
       paginationId: "gyg-bookings-pagination",
@@ -385,27 +390,32 @@ async function initBookingsPage(config) {
 }
 
 /**
- * Shared helpers: "new reservations" (created in the last 48h) panel + badges.
- * Used by both the Dashboard sidebar badges and the dedicated
- * /admin/new-reservations.html page.
+ * Shared helpers: "notifications" (bookings created/cancelled in the last 48h)
+ * panel + badges. Used by both the Dashboard sidebar badges and the
+ * dedicated /admin/notifications.html page.
+ *
+ * Each entry gets a `notifType`: 'new' (reservation/booking created) or
+ * 'cancelled' (booking cancelled) — GYG cancellations land here with the
+ * same createdAt-based recency filter as new ones, just tagged differently.
  */
-function getNewBookings(bookings) {
+function getNotifications(bookings) {
   const cutoff = Date.now() - 48 * 60 * 60 * 1000;
   return bookings
     .filter(b => b.createdAt && b.createdAt.getTime() >= cutoff)
     // Drop unconfirmed GYG holds (checkout in progress / abandoned) — no
     // customer yet, nothing to act on until GYG calls /book/ or /cancel-reservation/.
     .filter(b => !(b.status === 'RESERVED' && !b.customerEmail))
+    .map(b => ({ ...b, notifType: b.status === 'CANCELLED' ? 'cancelled' : 'new' }))
     .sort((a, b) => b.createdAt - a.createdAt);
 }
 
 function updateNavBadges(bookings) {
-  const newBookings = getNewBookings(bookings);
-  const newGyg = newBookings.filter(b => b.isGyg);
+  const notifications = getNotifications(bookings);
+  const newGyg = notifications.filter(b => b.isGyg && b.notifType === 'new');
 
-  const allBadge = document.getElementById("new-reservations-nav-badge");
-  if (allBadge && newBookings.length > 0) {
-    allBadge.textContent = newBookings.length;
+  const allBadge = document.getElementById("notifications-nav-badge");
+  if (allBadge && notifications.length > 0) {
+    allBadge.textContent = notifications.length;
     allBadge.style.display = "inline-block";
   }
 
@@ -422,23 +432,29 @@ function renderNewBookingsPanel(bookings) {
   if (!listEl || !countEl) return;
 
   const now = Date.now();
-  const newBookings = getNewBookings(bookings);
-  countEl.textContent = newBookings.length;
+  const notifications = getNotifications(bookings);
+  countEl.textContent = notifications.length;
 
-  if (newBookings.length === 0) {
-    listEl.innerHTML = `<div style="padding:0.75rem 0;color:rgba(255,255,255,0.5);font-size:0.85rem;">No new reservations in the last 48h.</div>`;
+  if (notifications.length === 0) {
+    listEl.innerHTML = `<div style="padding:0.75rem 0;color:rgba(255,255,255,0.5);font-size:0.85rem;">No activity in the last 48h.</div>`;
     return;
   }
 
-  listEl.innerHTML = newBookings.map(b => {
+  listEl.innerHTML = notifications.map(b => {
     const hoursAgo = Math.round((now - b.createdAt.getTime()) / (60 * 60 * 1000));
     const timeAgo = hoursAgo < 1 ? "just now" : `${hoursAgo}h ago`;
     const d = new Date(b.start);
     const dateStr = d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short' });
+    const isCancelled = b.notifType === 'cancelled';
+    const tagColor = isCancelled ? '#e35d5d' : '#4caf7d';
+    const tagLabel = isCancelled ? 'Cancelled' : 'New';
     return `
       <div class="new-booking-item">
         <div class="new-booking-item__main">
-          <span class="new-booking-item__name">${b.customerName}${b.isGyg ? ' <span style="opacity:0.5;">(GYG)</span>' : ''}</span>
+          <span class="new-booking-item__name">
+            <span style="display:inline-block;font-size:0.7rem;font-weight:600;color:${tagColor};border:1px solid ${tagColor};border-radius:4px;padding:0 5px;margin-right:6px;vertical-align:middle;">${tagLabel}</span>
+            ${b.customerName}${b.isGyg ? ' <span style="opacity:0.5;">(GYG)</span>' : ''}
+          </span>
           <span class="new-booking-item__meta">${b.tourName} · ${dateStr} @ ${b.time.substring(0, 5)} · ${b.passengers} pax</span>
         </div>
         <span class="new-booking-item__time">${timeAgo}</span>
@@ -448,10 +464,10 @@ function renderNewBookingsPanel(bookings) {
 }
 
 /**
- * NEW RESERVATIONS PAGE (last 48h, own + GetYourGuide)
+ * NOTIFICATIONS PAGE (last 48h: new reservations + cancellations, own + GetYourGuide)
  */
-async function initNewReservationsPage() {
-  const refreshBtn = document.getElementById("refresh-new-reservations");
+async function initNotificationsPage() {
+  const refreshBtn = document.getElementById("refresh-notifications");
 
   const load = async () => {
     const listEl = document.getElementById("new-bookings-list");

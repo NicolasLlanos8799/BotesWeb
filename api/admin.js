@@ -252,26 +252,49 @@ async function handleBookingAction(req, res) {
           lang             = COALESCE(${lang   || null}, lang),
           boat             = COALESCE(${newBoat}, boat)
         WHERE id = ${putId}
-        RETURNING id, tour_id, boat, gyg_booking_id, sumup_id
+        RETURNING id, tour_id, boat, gyg_booking_id, sumup_id, customer_name, customer_email,
+                  customer_phone, booking_date, booking_time, booking_end_time, passengers,
+                  extras, total_price, lang
       `;
       const rows = result.rows ?? result;
       if (!rows.length) return res.status(404).json({ error: "Booking not found" });
 
-      // Mover el evento al calendario del otro bote (fire-and-forget, no fatal)
-      if (newBoat && process.env.GAS_URL) {
+      // Propagar el cambio al evento de Google Calendar (fire-and-forget, no fatal)
+      if (process.env.GAS_URL) {
         try {
+          const b = rows[0];
+          // booking_date vuelve como Date a medianoche UTC — leerla con getters UTC
+          // para que el día no se corra con la TZ local.
+          const d = b.booking_date ? new Date(b.booking_date) : null;
+          const dateStr = d
+            ? `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, '0')}-${String(d.getUTCDate()).padStart(2, '0')}`
+            : null;
+          const timeStr = b.booking_time ? String(b.booking_time).substring(0, 5) : null;
+          const endTimeStr = b.booking_end_time ? String(b.booking_end_time).substring(0, 5) : null;
+
           await fetch(process.env.GAS_URL, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-              action: "moveEventToBoat",
-              boat: newBoat,
-              gyg_booking_id: rows[0].gyg_booking_id || null,
-              sumup_id: rows[0].sumup_id || null,
+              action: "updateEvent",
+              gyg_booking_id: b.gyg_booking_id || null,
+              sumup_id: b.sumup_id || null,
+              boat: b.boat || null,
+              tour: b.tour_id,
+              date: dateStr,
+              time: timeStr,
+              endTime: endTimeStr,
+              qty: b.passengers,
+              extras: b.extras,
+              lang: b.lang,
+              amount: b.total_price,
+              name: b.customer_name,
+              email: b.customer_email,
+              phone: b.customer_phone,
             }),
           });
         } catch (err) {
-          logWarn("booking-action moveEventToBoat error:", err.message);
+          logWarn("booking-action updateEvent error:", err.message);
         }
       }
 
@@ -289,13 +312,28 @@ async function handleBookingAction(req, res) {
       const result = await db`
         UPDATE bookings SET payment_status = 'CANCELLED' WHERE id = ${id}
         RETURNING id, tour_id, tour_name, customer_name, customer_email, customer_phone,
-                  booking_date, booking_time, lang
+                  booking_date, booking_time, lang, gyg_booking_id, sumup_id
       `;
       const rows = result.rows ?? result;
       if (!rows.length) return res.status(404).json({ error: "Booking not found" });
 
-      // Best-effort — cancellation must succeed even if the notification fails.
+      // Best-effort — cancellation must succeed even if the calendar/notification fails.
       const b = rows[0];
+      if (process.env.GAS_URL) {
+        try {
+          await fetch(process.env.GAS_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              action: "deleteEvent",
+              gyg_booking_id: b.gyg_booking_id || null,
+              sumup_id: b.sumup_id || null,
+            }),
+          });
+        } catch (err) {
+          logWarn("booking-action deleteEvent error:", err.message);
+        }
+      }
       if (b.customer_email && process.env.GAS_URL) {
         try {
           // booking_date comes back as a Date at UTC midnight — read it with

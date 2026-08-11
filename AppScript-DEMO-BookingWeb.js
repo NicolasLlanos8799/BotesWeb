@@ -67,11 +67,15 @@ function doPost(e) {
             ? handlePaymentFailed(data)
             : action === 'sendCancellationEmail'
               ? handleSendCancellationEmail(data)
-              : action === 'createBlockEvent'
-                ? handleCreateBlockEvent(data)
-                : action === 'deleteBlockEvent'
-                  ? handleDeleteBlockEvent(data)
-                  : { success: false, error: "Action not recognized" };
+              : action === 'updateEvent'
+                ? handleUpdateEvent(data)
+                : action === 'deleteEvent'
+                  ? handleDeleteEvent(data)
+                  : action === 'createBlockEvent'
+                    ? handleCreateBlockEvent(data)
+                    : action === 'deleteBlockEvent'
+                      ? handleDeleteBlockEvent(data)
+                      : { success: false, error: "Action not recognized" };
 
     return ContentService.createTextOutput(JSON.stringify(result))
       .setMimeType(ContentService.MimeType.JSON);
@@ -427,6 +431,98 @@ function buildStartEnd(dateStr, timeStr, durationH) {
 
   var end = new Date(start.getTime() + durationH * 3600000);
   return { start: start, end: end };
+}
+
+/**
+ * Full edit from the admin panel: rebuilds title/description and moves the
+ * event to the right boat calendar if it changed. Called from api/admin.js
+ * PUT so any field the admin changes is reflected on the Google Calendar event.
+ * data: { gyg_booking_id?, sumup_id?, boat?, tour?, date, time, endTime, qty,
+ *         extras, lang, amount, currency, name, email, phone }
+ */
+function handleUpdateEvent(data) {
+  var fragment = data.gyg_booking_id
+    ? "GYG Ref: " + data.gyg_booking_id
+    : (data.sumup_id ? "SumUp ID: " + data.sumup_id : null);
+  if (!fragment) return { success: false, error: "Missing gyg_booking_id or sumup_id" };
+
+  var lock = LockService.getScriptLock();
+  lock.tryLock(10000);
+  try {
+    var ev = findEventByDescriptionFragment(fragment);
+    if (!ev) return { success: true, message: "No event found to update" };
+
+    var tour = data.tour || data.tourTitle || "";
+    var range = buildStartEnd(data.date, data.time, getTourDurationHours(tour, 1));
+    var endTime = data.endTime ||
+      (('0' + range.end.getHours()).slice(-2) + ':' + ('0' + range.end.getMinutes()).slice(-2));
+
+    var description =
+      "✨ " + (tour ? getTourDisplayName(tour) : "Reserva") + "\n" +
+      "📅 " + data.date + " | 🕒 " + (data.time || "N/A") + " - " + endTime + "\n" +
+      "👥 Passengers: " + (data.qty || "N/A") + "\n" +
+      "🌍 Language: " + (data.lang || "N/A") + "\n" +
+      "🍷 Extras: " + (data.extras && data.extras != "0" ? data.extras + " Tapas/Charcuterie" : "None") + "\n\n" +
+      "👤 CONTACT\n" +
+      "Name: " + (data.name || "N/A") + "\n" +
+      "Email: " + (data.email || "N/A") + "\n" +
+      "Phone: " + (data.phone || "N/A") + "\n" +
+      "──────────────────────────\n" +
+      (data.gyg_booking_id
+        ? "GYG Ref: " + data.gyg_booking_id + "\nSource: GetYourGuide"
+        : "SumUp ID: " + (data.sumup_id || "N/A") + "\nAmount: " + (data.amount ? data.amount + " " + (data.currency || "") : "N/A"));
+
+    var title = data.gyg_booking_id
+      ? "GYG: " + (data.name || 'Guest') + " " + (data.qty || '') + "p"
+      : "Reserva: " + (data.name || 'Cliente');
+
+    var targetBoat = data.boat === 'boat2' ? 'boat2' : (data.boat === 'boat1' ? 'boat1' : null);
+
+    if (targetBoat) {
+      var targetCal = getCalendar(targetBoat);
+      var onTarget = ev.getOriginalCalendarId && ev.getOriginalCalendarId() === targetCal.getId();
+      if (!onTarget) {
+        // CalendarApp can't move events between calendars — recreate + delete original.
+        var moved = targetCal.createEvent(title, range.start, range.end, {
+          description: description,
+          location: ev.getLocation()
+        });
+        try { if (ev.getColor()) moved.setColor(ev.getColor()); } catch (e) {}
+        ev.deleteEvent();
+        Logger.log("Event updated + moved to " + targetBoat + " (" + fragment + ")");
+        return { success: true, eventId: moved.getId(), message: "Updated and moved to " + targetBoat };
+      }
+    }
+
+    ev.setTitle(title);
+    ev.setDescription(description);
+    ev.setTime(range.start, range.end);
+    Logger.log("Event updated: " + fragment);
+    return { success: true, eventId: ev.getId(), message: "Updated" };
+  } catch (err) {
+    return { success: false, error: err.toString() };
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+/**
+ * Deletes the calendar event tied to a booking. Called from api/admin.js
+ * PATCH (cancellation) so cancelling in the admin panel removes the event.
+ * data: { gyg_booking_id?, sumup_id? }
+ */
+function handleDeleteEvent(data) {
+  var fragment = data.gyg_booking_id
+    ? "GYG Ref: " + data.gyg_booking_id
+    : (data.sumup_id ? "SumUp ID: " + data.sumup_id : null);
+  if (!fragment) return { success: false, error: "Missing gyg_booking_id or sumup_id" };
+
+  var ev = findEventByDescriptionFragment(fragment);
+  if (!ev) return { success: true, message: "No event found to delete" };
+
+  ev.deleteEvent();
+  Logger.log("Event deleted (updateEvent flow): " + fragment);
+  return { success: true, message: "Event deleted" };
 }
 
 function findEventByDescriptionFragment(fragment) {

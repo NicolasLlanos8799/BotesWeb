@@ -6,17 +6,17 @@
   "redirects": [
     {
       "source": "/admin",
-      "destination": "/admin/new-reservations/",
+      "destination": "/admin/notifications/",
       "permanent": true
     },
     {
       "source": "/admin/",
-      "destination": "/admin/new-reservations/",
+      "destination": "/admin/notifications/",
       "permanent": true
     },
     {
       "source": "/admin/index.html",
-      "destination": "/admin/new-reservations/",
+      "destination": "/admin/notifications/",
       "permanent": true
     },
     {
