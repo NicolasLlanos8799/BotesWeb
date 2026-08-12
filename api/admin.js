@@ -359,7 +359,30 @@ async function handleBookingAction(req, res) {
     if (!id) return res.status(400).json({ error: "Missing booking id" });
 
     if (req.method === "DELETE") {
-      await db`DELETE FROM bookings WHERE id = ${id}`;
+      const result = await db`
+        DELETE FROM bookings WHERE id = ${id}
+        RETURNING gyg_booking_id, sumup_id
+      `;
+      const rows = result.rows ?? result;
+      const b = rows[0];
+
+      // Best-effort — deletion must succeed even if the calendar sync fails.
+      if (b && process.env.GAS_URL) {
+        try {
+          await fetch(process.env.GAS_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              action: "deleteEvent",
+              gyg_booking_id: b.gyg_booking_id || null,
+              sumup_id: b.sumup_id || null,
+            }),
+          });
+        } catch (err) {
+          logWarn("booking-action deleteEvent error:", err.message);
+        }
+      }
+
       return res.status(200).json({ success: true, action: "deleted" });
     }
 
