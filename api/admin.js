@@ -6,6 +6,7 @@ import { isRateLimited, getIp } from "../lib/rateLimit.js";
 import { notifyGYGAvailability, notifyGYGBoatRange } from "../lib/gyg-notify.js";
 import { ensureBlockedSlotsTable } from "../lib/blocked-slots.js";
 import { withRetry } from "../lib/withRetry.js";
+import { waitUntil } from "@vercel/functions";
 import crypto from "crypto";
 
 const SUMUP_API_BASE = "https://api.sumup.com";
@@ -204,9 +205,12 @@ async function handleCreateBooking(req, res) {
     return res.status(500).json({ error: err.message });
   }
 
-  // Booking is saved — everything below is best-effort. A GAS/calendar
-  // hiccup shouldn't roll back a booking that's already in the DB; the
-  // admin sees a warning instead so they can manually check the calendar.
+  // Booking is saved — respond right away so the admin UI can refresh
+  // immediately. Everything below (GAS calendar/email sync, GYG notify) is
+  // best-effort and runs in the background via waitUntil — a slow GAS
+  // round-trip (Apps Script cold starts can take 20-40s) used to block this
+  // whole response, which is why the booking looked "stuck" in the admin
+  // list even though it was already committed to Postgres.
   //
   // NOTE: the GAS `createBooking` handler only emails the guest when
   // payment_status === 'PAID'. When the admin leaves "Enviar emails"
@@ -215,49 +219,51 @@ async function handleCreateBooking(req, res) {
   // just skips the guest invite + confirmation email. The actual
   // payment_status stored in Postgres (paymentStatus) is unaffected.
   const SEND_CUSTOMER_EMAIL = Boolean(sendEmail && email);
-  let calendarWarning = null;
-  if (process.env.GAS_URL) {
-    try {
-      const gasRes = await fetch(process.env.GAS_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          action: "createBooking",
-          tour: tourId,
-          tourTitle: tourName,
-          name,
-          email: email || "",
-          phone: phone || "",
-          qty: passengers,
-          date,
-          time,
-          lang: bookingLang,
-          tapas: extrasNum,
-          payment_status: SEND_CUSTOMER_EMAIL ? paymentStatus : "PENDING",
-          sumup_checkout_id: `admin-manual-${bookingId}`,
-          amount: amountNum,
-          currency: "DKK"
-        })
-      });
-      if (!gasRes.ok) {
-        calendarWarning = `Calendar/email sync returned HTTP ${gasRes.status}. Verify the calendar manually.`;
-        logWarn("create-booking GAS sync warning:", gasRes.status);
+
+  const syncWork = async () => {
+    if (process.env.GAS_URL) {
+      try {
+        const gasRes = await fetch(process.env.GAS_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            action: "createBooking",
+            tour: tourId,
+            tourTitle: tourName,
+            name,
+            email: email || "",
+            phone: phone || "",
+            qty: passengers,
+            date,
+            time,
+            lang: bookingLang,
+            tapas: extrasNum,
+            payment_status: SEND_CUSTOMER_EMAIL ? paymentStatus : "PENDING",
+            sumup_checkout_id: `admin-manual-${bookingId}`,
+            amount: amountNum,
+            currency: "DKK"
+          })
+        });
+        if (!gasRes.ok) {
+          logWarn("create-booking GAS sync warning:", gasRes.status);
+        }
+      } catch (err) {
+        logWarn("create-booking GAS sync error:", err.message);
       }
-    } catch (err) {
-      calendarWarning = "Could not reach the calendar/email service. Verify the calendar manually.";
-      logWarn("create-booking GAS sync error:", err.message);
+    } else {
+      logWarn("create-booking: GAS_URL not configured — calendar was not blocked and no email was sent.");
     }
-  } else {
-    calendarWarning = "GAS_URL not configured — calendar was not blocked and no email was sent.";
-  }
 
-  // Keep GetYourGuide's availability in sync too — same as the normal
-  // payment flow (fire-and-forget, non-fatal).
-  notifyGYGAvailability(tourId, date, time).catch(e =>
-    logWarn("create-booking GYG notify error:", e.message)
-  );
+    // Keep GetYourGuide's availability in sync too — same as the normal
+    // payment flow (non-fatal).
+    await notifyGYGAvailability(tourId, date, time).catch(e =>
+      logWarn("create-booking GYG notify error:", e.message)
+    );
+  };
 
-  return res.status(200).json({ success: true, id: bookingId, warning: calendarWarning });
+  waitUntil(syncWork());
+
+  return res.status(200).json({ success: true, id: bookingId });
 }
 
 async function handleBookingAction(req, res) {
