@@ -12,10 +12,11 @@ document.addEventListener("DOMContentLoaded", () => {
   if (path.includes("/admin/notifications")) {
     initNotificationsPage();
   } else if (!path.includes("/admin/stats") && !path.includes("/admin/manifest")) {
-    // Stats/Manifest fetch the full, unfiltered booking list themselves
-    // (see initStatsPage / loadManifestDay) and reuse it for the badge —
-    // no extra network call needed there. Everyone else gets the badge
-    // from cache, or one lightweight fetch if the cache is stale.
+    // Stats reuses its own (now date-scoped) fetch for the badge, and
+    // Manifest calls ensureBadges() itself once its day-scoped fetch
+    // resolves (see renderManifestFor) — no need to call it twice here.
+    // Everyone else gets the badge from cache, or one lightweight fetch
+    // if the cache is stale.
     ensureBadges();
   }
 
@@ -60,9 +61,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 /**
  * Common: Fetch bookings from the API.
- * opts: { limit, offset, source: 'gyg' | 'web' } — all optional. Omitting
- * them fetches the full history (used by Dashboard/Stats/Manifest, which
- * need the complete dataset to compute totals).
+ * opts: { limit, offset, source: 'gyg' | 'web', date_from, date_to } —
+ * all optional. Omitting limit/date range fetches the full history (used
+ * by the Dashboard badge and Stats' default all-time view).
  */
 async function fetchBookings(opts = {}) {
   try {
@@ -70,6 +71,8 @@ async function fetchBookings(opts = {}) {
     if (opts.limit) params.set("limit", opts.limit);
     if (opts.offset) params.set("offset", opts.offset);
     if (opts.source) params.set("source", opts.source);
+    if (opts.date_from) params.set("date_from", opts.date_from);
+    if (opts.date_to) params.set("date_to", opts.date_to);
     const qs = params.toString();
     const res = await fetch(`/api/admin/get-bookings${qs ? `?${qs}` : ""}`);
     if (!res.ok) throw new Error("Failed to fetch bookings");
@@ -488,18 +491,19 @@ async function initStatsPage() {
   const toInput = document.getElementById("filter-date-to");
   const scopeTabs = document.getElementById("stats-scope-tabs");
 
+  // Default view = full-history totals. Applying a date range re-fetches
+  // just that slice from the server (see applyDateFilter) instead of
+  // pulling the whole table and filtering it in the browser every time.
   let allBookings = await fetchAllBookings();
   setBadgesFromBookings(allBookings);
   let currentScope = "own";
 
   const updateStats = () => {
-    const from = fromInput?.value;
-    const to = toInput?.value;
-
+    // Date range is already applied server-side (see applyDateFilter) —
+    // allBookings only ever holds the currently-selected range.
     const filtered = allBookings.filter(b => {
-      const matchesDate = (!from || b.date >= from) && (!to || b.date <= to);
       const matchesScope = currentScope === "combined" ? true : currentScope === "gyg" ? b.isGyg : !b.isGyg;
-      return matchesDate && matchesScope;
+      return matchesScope;
     });
 
     const paid = filtered.filter(b => b.status === "PAID");
@@ -564,7 +568,16 @@ async function initStatsPage() {
     }
   };
 
-  btn?.addEventListener("click", updateStats);
+  const applyDateFilter = async () => {
+    const from = fromInput?.value || undefined;
+    const to = toInput?.value || undefined;
+    allBookings = (from || to)
+      ? await fetchBookings({ date_from: from, date_to: to })
+      : await fetchAllBookings();
+    updateStats();
+  };
+
+  btn?.addEventListener("click", applyDateFilter);
 
   scopeTabs?.querySelectorAll(".admin-tab").forEach(tab => {
     tab.addEventListener("click", () => {
@@ -597,11 +610,14 @@ async function renderManifestFor(date) {
   if (dateHeader) dateHeader.textContent = date.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' });
 
   if (!manifestBookingsCache) {
-    manifestBookingsCache = await fetchAllBookings();
-    setBadgesFromBookings(manifestBookingsCache);
+    // Only the day being shown — Manifest doesn't need the full history.
+    // The sidebar badge (last-48h count) is unrelated to this day's data,
+    // so it's fetched separately via ensureBadges() (cached, scoped fetch).
+    manifestBookingsCache = await fetchBookings({ date_from: dateStr, date_to: dateStr });
+    ensureBadges();
   }
   const dayBookings = manifestBookingsCache
-    .filter(b => b.date === dateStr && b.status === "PAID")
+    .filter(b => b.status === "PAID")
     .sort((a, b) => a.time.localeCompare(b.time));
 
   if (dayBookings.length === 0) {

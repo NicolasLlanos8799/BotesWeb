@@ -66,7 +66,11 @@ export async function ensureBadges() {
   }
 
   try {
-    const res = await fetch("/api/admin/get-bookings");
+    // The badge only ever counts bookings created within STALE_MS's cutoff
+    // window (see compute()) — ask the API to scope the rows server-side
+    // instead of pulling the entire bookings table just to filter it here.
+    const cutoffIso = new Date(Date.now() - 48 * 60 * 60 * 1000).toISOString();
+    const res = await fetch(`/api/admin/get-bookings?created_after=${encodeURIComponent(cutoffIso)}`);
     if (!res.ok) return;
     const data = await res.json();
     const mapped = (data.bookings || []).map(b => ({

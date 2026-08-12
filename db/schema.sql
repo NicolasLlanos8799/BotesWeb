@@ -30,6 +30,11 @@ CREATE INDEX IF NOT EXISTS idx_bookings_status   ON bookings (payment_status);
 CREATE INDEX IF NOT EXISTS idx_bookings_email    ON bookings (customer_email);
 CREATE INDEX IF NOT EXISTS idx_bookings_sumup_id ON bookings (sumup_id);
 CREATE INDEX IF NOT EXISTS idx_bookings_source   ON bookings (source);
+-- Matches the ORDER BY used by every admin listing (get-bookings) — avoids
+-- an in-memory sort once the table has more than a handful of rows.
+CREATE INDEX IF NOT EXISTS idx_bookings_date_time ON bookings (booking_date DESC, booking_time DESC);
+-- Speeds up created_at >= ... range scans (badge fetch, "last 48h").
+CREATE INDEX IF NOT EXISTS idx_bookings_created_at ON bookings (created_at);
 
 -- ─────────────────────────────────────────────────────────────────────────────
 -- Bloqueos manuales de horario (mantenimiento, clima, vacaciones…)
