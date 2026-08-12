@@ -192,6 +192,13 @@ async function handleCreateBooking(req, res) {
     `);
     const rows = result.rows ?? result;
     bookingId = rows[0]?.id;
+
+    // Persist the same identifier we're about to send to GAS as
+    // sumup_checkout_id below. Without this, the row's sumup_id stays NULL
+    // and a later delete/cancel/update from the admin has nothing to match
+    // the calendar event against — the DB row gets deleted but the Google
+    // Calendar event is orphaned.
+    await db`UPDATE bookings SET sumup_id = ${`admin-manual-${bookingId}`} WHERE id = ${bookingId}`;
   } catch (err) {
     logError("create-booking error:", err.message);
     return res.status(500).json({ error: err.message });
