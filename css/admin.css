@@ -1740,4 +1740,73 @@ select.admin-search {
   /* Los pickers propios se quedan dentro del modal */
   .adp__panel { left: 0; right: 0; }
   .aslot__grid { grid-template-columns: repeat(auto-fill, minmax(64px, 1fr)); }
+
+  /* Logout: el sidebar (donde vive el link) se oculta en mobile y no está
+     en la bottom nav — este botón flotante lo deja siempre accesible. */
+  .admin-mobile-logout {
+    display: flex !important;
+  }
+
+  /* Topbars con inputs/botones (fechas, filtros) deben poder envolver y
+     nunca desbordar el ancho del viewport. */
+  .admin-topbar__actions,
+  .admin-listbar,
+  .admin-listbar__filters,
+  .admin-date-range {
+    width: 100%;
+    max-width: 100%;
+    flex-wrap: wrap;
+  }
+  .admin-topbar__actions > *,
+  .admin-listbar > * {
+    max-width: 100%;
+  }
+  .admin-date-range input[type="date"] {
+    min-width: 0;
+    flex: 1 1 40%;
+  }
+  #booking-search.admin-search {
+    max-width: 100% !important;
+  }
+
+  /* Tarjetas: menos padding para no forzar overflow horizontal en pantallas
+     angostas (320–375px). */
+  .admin-card { padding: 1.25rem; }
+  .dashboard-grid { grid-template-columns: 1fr; gap: 1.25rem; }
+  .dashboard-grid .admin-card[style*="span 2"] { grid-column: span 1 !important; }
+  .chart-container { height: 240px; }
+
+  /* Objetivo mínimo de 44px de alto en elementos táctiles. */
+  .btn,
+  .admin-tab,
+  .admin-date-toggle,
+  .admin-nav__link,
+  .admin-mobile-nav__link {
+    min-height: 44px;
+  }
+}
+
+/* Botón de logout flotante, solo visible en mobile (el sidebar con el
+   link de logout se oculta por debajo de 768px). */
+.admin-mobile-logout {
+  display: none;
+  position: fixed;
+  top: 0.85rem;
+  right: 0.85rem;
+  z-index: 1001;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  background: rgba(15, 30, 53, 0.9);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--admin-card-border);
+  border-radius: var(--radius-full);
+  color: rgba(255, 255, 255, 0.75);
+  text-decoration: none;
+}
+
+.admin-mobile-logout svg {
+  width: 18px;
+  height: 18px;
 }
