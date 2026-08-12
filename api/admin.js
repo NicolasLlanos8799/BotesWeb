@@ -5,6 +5,7 @@ import { error as logError, warn as logWarn } from "../lib/logger.js";
 import { isRateLimited, getIp } from "../lib/rateLimit.js";
 import { notifyGYGAvailability, notifyGYGBoatRange } from "../lib/gyg-notify.js";
 import { ensureBlockedSlotsTable } from "../lib/blocked-slots.js";
+import { withRetry } from "../lib/withRetry.js";
 import crypto from "crypto";
 
 const SUMUP_API_BASE = "https://api.sumup.com";
@@ -112,45 +113,40 @@ async function handleGetBookings(req, res) {
     const limit = req.query.limit ? parseInt(req.query.limit) : null;
     const offset = req.query.offset ? parseInt(req.query.offset) : 0;
     const source = req.query.source; // 'gyg' | 'web' | undefined (all)
-    // Optional server-side scoping so callers that only need a slice
-    // (Manifest = one day, badge = last 48h) don't pull the whole table.
-    const dateFrom = req.query.date_from || null;       // booking_date >= (YYYY-MM-DD)
-    const dateTo = req.query.date_to || null;           // booking_date <= (YYYY-MM-DD)
-    const createdAfter = req.query.created_after || null; // created_at >= (ISO timestamp)
 
+    let result;
     // Los holds temporales de GYG (RESERVED) no se muestran en el panel
-    const conditions = ["payment_status <> 'RESERVED'"];
-    const params = [];
-
-    if (source === 'gyg') {
-      conditions.push(`(source = 'gyg' OR customer_email ILIKE '%@reply.getyourguide.com')`);
-    } else if (source === 'web') {
-      conditions.push(`NOT (source = 'gyg' OR customer_email ILIKE '%@reply.getyourguide.com')`);
+    if (limit && source === 'gyg') {
+      result = await db`
+        SELECT * FROM bookings
+        WHERE (source = 'gyg' OR customer_email ILIKE '%@reply.getyourguide.com')
+          AND payment_status <> 'RESERVED'
+        ORDER BY booking_date DESC, booking_time DESC
+        LIMIT ${limit} OFFSET ${offset}
+      `;
+    } else if (limit && source === 'web') {
+      result = await db`
+        SELECT * FROM bookings
+        WHERE NOT (source = 'gyg' OR customer_email ILIKE '%@reply.getyourguide.com')
+          AND payment_status <> 'RESERVED'
+        ORDER BY booking_date DESC, booking_time DESC
+        LIMIT ${limit} OFFSET ${offset}
+      `;
+    } else if (limit) {
+      result = await db`
+        SELECT * FROM bookings
+        WHERE payment_status <> 'RESERVED'
+        ORDER BY booking_date DESC, booking_time DESC
+        LIMIT ${limit} OFFSET ${offset}
+      `;
+    } else {
+      result = await db`
+        SELECT * FROM bookings
+        WHERE payment_status <> 'RESERVED'
+        ORDER BY booking_date DESC, booking_time DESC
+      `;
     }
 
-    if (dateFrom) {
-      params.push(dateFrom);
-      conditions.push(`booking_date >= $${params.length}`);
-    }
-    if (dateTo) {
-      params.push(dateTo);
-      conditions.push(`booking_date <= $${params.length}`);
-    }
-    if (createdAfter) {
-      params.push(createdAfter);
-      conditions.push(`created_at >= $${params.length}`);
-    }
-
-    let query = `SELECT * FROM bookings WHERE ${conditions.join(' AND ')} ORDER BY booking_date DESC, booking_time DESC`;
-
-    if (limit) {
-      params.push(limit);
-      query += ` LIMIT $${params.length}`;
-      params.push(offset);
-      query += ` OFFSET $${params.length}`;
-    }
-
-    const result = await db.query(query, params);
     const bookings = result.rows ?? result;
     return res.status(200).json({ success: true, bookings });
   } catch (error) {
@@ -182,7 +178,7 @@ async function handleCreateBooking(req, res) {
   try {
     await db`ALTER TABLE bookings ADD COLUMN IF NOT EXISTS booking_end_time TIME`;
 
-    const result = await db`
+    const result = await withRetry(() => db`
       INSERT INTO bookings (
         tour_id, tour_name, customer_name, customer_email, customer_phone,
         passengers, booking_date, booking_time, booking_end_time, extras,
@@ -193,7 +189,7 @@ async function handleCreateBooking(req, res) {
         ${extrasNum}, ${amountNum}, ${paymentStatus}, ${bookingLang}, 'web'
       )
       RETURNING id
-    `;
+    `);
     const rows = result.rows ?? result;
     bookingId = rows[0]?.id;
   } catch (err) {
@@ -364,7 +360,30 @@ async function handleBookingAction(req, res) {
     if (!id) return res.status(400).json({ error: "Missing booking id" });
 
     if (req.method === "DELETE") {
-      await db`DELETE FROM bookings WHERE id = ${id}`;
+      const result = await db`
+        DELETE FROM bookings WHERE id = ${id}
+        RETURNING gyg_booking_id, sumup_id
+      `;
+      const rows = result.rows ?? result;
+      const b = rows[0];
+
+      // Best-effort — deletion must succeed even if the calendar sync fails.
+      if (b && process.env.GAS_URL) {
+        try {
+          await fetch(process.env.GAS_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              action: "deleteEvent",
+              gyg_booking_id: b.gyg_booking_id || null,
+              sumup_id: b.sumup_id || null,
+            }),
+          });
+        } catch (err) {
+          logWarn("booking-action deleteEvent error:", err.message);
+        }
+      }
+
       return res.status(200).json({ success: true, action: "deleted" });
     }
 

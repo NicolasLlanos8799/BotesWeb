@@ -2,6 +2,7 @@ import db from "../lib/db.js";
 import { log, warn, error as logError } from "../lib/logger.js";
 import { notifyGYGAvailability } from "../lib/gyg-notify.js";
 import { isRateLimited, getIp } from "../lib/rateLimit.js";
+import { withRetry } from "../lib/withRetry.js";
 
 /**
  * Production-Safe Booking Fallback Endpoint
@@ -58,9 +59,15 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: "Metadata not found" });
     }
 
-    // 3. SAVE to Postgres (idempotent — ON CONFLICT DO NOTHING)
+    // 3. SAVE to Postgres (idempotent — ON CONFLICT DO NOTHING).
+    // Retried: a transient connection blip here must not turn into a
+    // booking that only exists in Google Calendar. If it still fails
+    // after retries, we stop BEFORE calling GAS — the payment stays
+    // verified, so the fallback/webhook retry (SumUp still shows PAID)
+    // or a manual admin re-run can pick it up without an orphaned event.
+    const extrasNum = Number.isFinite(parseInt(metadata.tapas)) ? parseInt(metadata.tapas) : 0;
     try {
-      await db`
+      await withRetry(() => db`
         INSERT INTO bookings (
           tour_id, tour_name, customer_name, customer_email, customer_phone,
           passengers, booking_date, booking_time, total_price, payment_status, sumup_id, lang, extras
@@ -77,16 +84,20 @@ export default async function handler(req, res) {
           'PAID',
           ${checkout_id},
           ${metadata.lang || 'english'},
-          ${parseInt(metadata.tapas) || 0}
+          ${extrasNum}
         )
         ON CONFLICT (sumup_id) DO UPDATE SET payment_status = 'PAID'
-      `;
+      `);
       log("[FALLBACK] Saved to Postgres.");
     } catch (dbErr) {
       if (dbErr.code === '23505') {
         log("[FALLBACK] Duplicate in Postgres, skipping insert.");
       } else {
-        logError("[FALLBACK] Postgres error:", dbErr.message);
+        logError("[FALLBACK] Postgres error after retries — NOT calling GAS, booking would be calendar-only:", dbErr.message, checkout_id);
+        return res.status(500).json({
+          success: false,
+          error: "Could not save booking after retries. Payment is verified (checkout_id: " + checkout_id + ") — retry this endpoint or add the booking manually.",
+        });
       }
     }
 

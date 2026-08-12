@@ -1,6 +1,7 @@
 import db from "../lib/db.js";
 import { log, warn, error as logError } from "../lib/logger.js";
 import { notifyGYGAvailability } from "../lib/gyg-notify.js";
+import { withRetry } from "../lib/withRetry.js";
 
 export default async function handler(req, res) {
   const SUMUP_API_BASE = "https://api.sumup.com";
@@ -29,9 +30,15 @@ export default async function handler(req, res) {
       const metadata = checkout.metadata;
 
       if (metadata && metadata.date && metadata.time) {
-        // 2. Save to Postgres (idempotent)
+        // 2. Save to Postgres (idempotent).
+        // Retried: a transient connection blip must not turn into a
+        // booking that only exists in Google Calendar. If it still fails
+        // after retries, bail out before step 4 (GAS) — the fallback
+        // endpoint (api/create-booking-from-payment.js) still runs on the
+        // frontend and will retry the insert itself.
+        let dbSaved = true;
         try {
-          await db`
+          await withRetry(() => db`
             INSERT INTO bookings
               (tour_id, tour_name, customer_name, customer_email, customer_phone,
                passengers, booking_date, booking_time, total_price, payment_status, sumup_id, lang)
@@ -49,10 +56,19 @@ export default async function handler(req, res) {
                ${checkoutId},
                ${metadata.lang || 'english'})
             ON CONFLICT (sumup_id) DO UPDATE SET payment_status = 'PAID'
-          `;
+          `);
           log("Webhook: Saved to Postgres:", checkoutId);
         } catch (dbErr) {
-          logError("Webhook: Postgres error:", dbErr.message);
+          if (dbErr.code === '23505') {
+            log("Webhook: Duplicate in Postgres, skipping insert.");
+          } else {
+            dbSaved = false;
+            logError("Webhook: Postgres error after retries — NOT calling GAS, letting fallback endpoint retry:", dbErr.message, checkoutId);
+          }
+        }
+
+        if (!dbSaved) {
+          return res.status(200).json({ received: true, warning: "DB save failed after retries; fallback endpoint will retry." });
         }
 
         // 3. Calculate group number for wine tour
