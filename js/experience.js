@@ -1,9 +1,11 @@
 import { getBooking, navigateToReserve, saveBooking, clearBookingSelection, TOURS, getPersistentCache, savePersistentCache } from "./utils.js";
 import { seaAlert } from "./modal.js";
 
-const IS_DEMO = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-const GAS_URL = "/api/proxy/";
-const DEMO_PARAM = IS_DEMO ? "&demo=1" : "";
+// Availability reads come straight from Postgres now, not Google Calendar/GAS
+// (Calendar is still used to give the booking a visible agenda entry after
+// it's created — see api/create-booking-from-payment.js — just not to
+// check availability anymore).
+const AVAILABILITY_URL = "/api/availability";
 
 const DEFAULT_SLOTS = [
   { time: "09:00", available: true },
@@ -351,7 +353,7 @@ function initBookingPanel() {
         const tourConfig = TOURS[tourId] || {};
         const cal = tourConfig.calendar || "boat1";
 
-        const response = await fetch(`${GAS_URL}?action=getMonthlyAvailability&date=${dateStr}&calendar=${cal}&t=${Date.now()}${DEMO_PARAM}`);
+        const response = await fetch(`${AVAILABILITY_URL}?action=getMonthlyAvailability&date=${dateStr}&calendar=${cal}&t=${Date.now()}`);
         if (!response.ok) throw new Error("Network issue");
         const data = await response.json();
 
@@ -419,7 +421,7 @@ function initBookingPanel() {
     try {
       const cal = tourConfig.calendar || "boat1";
 
-      const response = await fetch(`${GAS_URL}?action=getAvailability&date=${date}&calendar=${cal}&t=${Date.now()}${DEMO_PARAM}`);
+      const response = await fetch(`${AVAILABILITY_URL}?action=getAvailability&date=${date}&calendar=${cal}&t=${Date.now()}`);
       if (!response.ok) throw new Error("Sync failed");
       const data = await response.json();
 

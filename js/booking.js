@@ -31,21 +31,23 @@ export function initBookingPage() {
   preFetchAllCalendars();
 }
 
-const GAS_URL = "/api/proxy/";
+// Reads Postgres directly now, not Google Calendar/GAS — see
+// docs/gcal-migration-status.md (Fase 2) and api/availability.js.
+const AVAILABILITY_URL = "/api/availability";
 
 async function preFetchAllCalendars() {
   const calendars = ["boat1", "boat2"];
   const now = new Date();
-  
+
   // SYNC 4 MONTHS FOR ALL BOATS
   const monthsToPreload = [0, 1, 2, 3];
-  
+
   for (const cal of calendars) {
     for (const offset of monthsToPreload) {
       const d = new Date(now.getFullYear(), now.getMonth() + offset, 1);
       const dateStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-01`;
-      
-      fetch(`${GAS_URL}?action=getMonthlyAvailability&date=${dateStr}&calendar=${cal}&t=${Date.now()}`)
+
+      fetch(`${AVAILABILITY_URL}?action=getMonthlyAvailability&date=${dateStr}&calendar=${cal}&t=${Date.now()}`)
         .then(res => res.json())
         .then(data => {
           if (data && typeof data === 'object') {

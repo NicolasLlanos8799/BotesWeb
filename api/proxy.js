@@ -39,8 +39,11 @@ export default async function handler(req, res) {
   }
 
   // 2. Action Whitelist (Only allows sanctioned booking operations)
+  // getAvailability/getMonthlyAvailability removed 2026-08-12 — availability
+  // reads now go straight to Postgres via /api/availability, not GAS/Calendar.
+  // See docs/gcal-migration-status.md (Fase 2).
   const { action } = req.query;
-  const allowedActions = ["getAvailability", "getMonthlyAvailability", "createBooking", "confirmBooking", "listAllBookings"];
+  const allowedActions = ["createBooking", "confirmBooking", "listAllBookings"];
   if (!action || !allowedActions.includes(action)) {
     return res.status(400).json({ error: "Bad Request: Invalid or missing action" });
   }

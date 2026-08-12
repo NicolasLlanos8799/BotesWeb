@@ -228,12 +228,12 @@ async function fetchAvailableSlots(tourId, date) {
     }
   }
 
-  // Boat tours: shared calendar per boat, fetched via the same GAS proxy the
-  // public site uses.
+  // Boat tours: shared calendar per boat, read straight from Postgres — see
+  // docs/gcal-migration-status.md (Fase 2) and api/availability.js.
   const cal = tourConfig.calendar || "boat1";
   let busySlots = [];
   try {
-    const res = await fetch(`/api/proxy/?action=getAvailability&date=${date}&calendar=${cal}&t=${Date.now()}`);
+    const res = await fetch(`/api/availability?action=getAvailability&date=${date}&calendar=${cal}&t=${Date.now()}`);
     if (!res.ok) throw new Error("fetch failed");
     const data = await res.json();
     busySlots = data.busy || (Array.isArray(data) ? data : []);
