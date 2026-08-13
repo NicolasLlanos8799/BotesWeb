@@ -114,6 +114,8 @@ async function handleGetBookings(req, res) {
     const limit = req.query.limit ? parseInt(req.query.limit) : null;
     const offset = req.query.offset ? parseInt(req.query.offset) : 0;
     const source = req.query.source; // 'gyg' | 'web' | undefined (all)
+    const dateFrom = req.query.date_from || null;
+    const dateTo = req.query.date_to || null;
 
     let result;
     // Los holds temporales de GYG (RESERVED) no se muestran en el panel
@@ -122,6 +124,8 @@ async function handleGetBookings(req, res) {
         SELECT * FROM bookings
         WHERE (source = 'gyg' OR customer_email ILIKE '%@reply.getyourguide.com')
           AND payment_status <> 'RESERVED'
+          AND (${dateFrom}::date IS NULL OR booking_date >= ${dateFrom}::date)
+          AND (${dateTo}::date IS NULL OR booking_date <= ${dateTo}::date)
         ORDER BY booking_date DESC, booking_time DESC
         LIMIT ${limit} OFFSET ${offset}
       `;
@@ -130,6 +134,8 @@ async function handleGetBookings(req, res) {
         SELECT * FROM bookings
         WHERE NOT (source = 'gyg' OR customer_email ILIKE '%@reply.getyourguide.com')
           AND payment_status <> 'RESERVED'
+          AND (${dateFrom}::date IS NULL OR booking_date >= ${dateFrom}::date)
+          AND (${dateTo}::date IS NULL OR booking_date <= ${dateTo}::date)
         ORDER BY booking_date DESC, booking_time DESC
         LIMIT ${limit} OFFSET ${offset}
       `;
@@ -137,6 +143,8 @@ async function handleGetBookings(req, res) {
       result = await db`
         SELECT * FROM bookings
         WHERE payment_status <> 'RESERVED'
+          AND (${dateFrom}::date IS NULL OR booking_date >= ${dateFrom}::date)
+          AND (${dateTo}::date IS NULL OR booking_date <= ${dateTo}::date)
         ORDER BY booking_date DESC, booking_time DESC
         LIMIT ${limit} OFFSET ${offset}
       `;
@@ -144,6 +152,8 @@ async function handleGetBookings(req, res) {
       result = await db`
         SELECT * FROM bookings
         WHERE payment_status <> 'RESERVED'
+          AND (${dateFrom}::date IS NULL OR booking_date >= ${dateFrom}::date)
+          AND (${dateTo}::date IS NULL OR booking_date <= ${dateTo}::date)
         ORDER BY booking_date DESC, booking_time DESC
       `;
     }

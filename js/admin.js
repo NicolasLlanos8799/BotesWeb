@@ -356,7 +356,7 @@ async function initBookingsPage(config) {
     }
     currentPage = 1;
     allBookings = await fetchBookings({ source });
-    allBookings.sort((a, b) => new Date(a.start) - new Date(b.start));
+    allBookings.sort((a, b) => new Date(b.start) - new Date(a.start));
     applyFilters();
     render(filteredBookings);
   };
