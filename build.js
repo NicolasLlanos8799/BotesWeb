@@ -93,14 +93,17 @@ console.log('JS manifest:', manifest);
 
 // ─── 3. Copy static files to dist/ ──────────────────────────────────────────
 
-function copyDir(src, dest) {
+function copyDir(src, dest, isRoot = false) {
   fs.mkdirSync(dest, { recursive: true });
   for (const entry of fs.readdirSync(src, { withFileTypes: true })) {
-    if (EXCLUDE.has(entry.name)) continue;
+    // EXCLUDE only applies at the project root — otherwise a name like
+    // "docs" also matches subfolders (e.g. assets/docs/) and silently
+    // drops them from dist/.
+    if (isRoot && EXCLUDE.has(entry.name)) continue;
     const srcPath = path.join(src, entry.name);
     const destPath = path.join(dest, entry.name);
     if (entry.isDirectory()) {
-      copyDir(srcPath, destPath);
+      copyDir(srcPath, destPath, false);
     } else {
       fs.copyFileSync(srcPath, destPath);
     }
@@ -108,7 +111,7 @@ function copyDir(src, dest) {
 }
 
 console.log('Copying static files...');
-copyDir(ROOT, DIST);
+copyDir(ROOT, DIST, true);
 
 // ─── 4. Rewrite <script src="/js/NAME.js"> in all HTML files ────────────────
 
