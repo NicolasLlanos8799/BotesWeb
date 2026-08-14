@@ -145,7 +145,7 @@ export function mountSlotPicker(hostId, { inputId, value = "" } = {}) {
       grid.innerHTML = slots.map(s => `
         <button type="button" class="aslot__btn${s.time === selected ? " is-selected" : ""}"
           data-time="${s.time}" ${s.available ? "" : "disabled"}>
-          ${s.time}${s.available ? "" : "<small>full</small>"}
+          ${s.time}
         </button>`).join("");
     },
     get value() { return input.value; },
