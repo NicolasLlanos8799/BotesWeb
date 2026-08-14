@@ -1,7 +1,7 @@
 {
   "page": {
-    "title": "Seaduced Experience | Private bådture i København",
-    "description": "Oplev København fra vandet med en privat og intim bådoplevelse. Sejl gennem de smukke kanaler, opdag byens skjulte hjørner og nyd en afslappet tur guidet af lokale, der kender København bedst."
+    "title": "Private bådture i København | Seaduced Experience",
+    "description": "Private bådture i Københavns kanaler. Sejl forbi Nyhavn, Christiansborg og Christianshavn med din egen kaptajn. Fra 2.499 DKK pr. gruppe."
   },
   "nav": {
     "home": "Hjem",
@@ -166,12 +166,13 @@
     },
     "note": "Ture efter aftale; afhængigt af vejret.",
     "copy": "© 2025 – 2026 Seaduced Experience. Alle rettigheder forbeholdes.",
-    "dev": "Udviklet af"
+    "dev": "Udviklet af",
+    "guides": "Guides til København"
   },
   "book": {
     "page": {
-      "title": "Book din tur | Seaduced Experience – Private bådture i København",
-      "description": "Vælg og book din private bådtur i København. Oplevelser til rådighed forår, sommer og vinter. Sikker booking, gratis afbestilling 48t før."
+      "title": "Book en privat bådtur i København | Seaduced",
+      "description": "Vælg og book din private bådtur i København. Oplevelser forår, sommer og vinter. Sikker booking, gratis afbestilling indtil 48 timer før."
     },
     "hero": {
       "label": "Vælg din oplevelse",
@@ -245,7 +246,8 @@
     },
     "footer": {
       "back": "Tilbage til forsiden",
-      "dev": "Udviklet af"
+      "dev": "Udviklet af",
+      "guides": "Guides til København"
     }
   },
   "reserve": {
@@ -366,7 +368,8 @@
       ],
       "footer": {
         "back": "Tilbage til forsiden",
-        "dev": "Udviklet af"
+        "dev": "Udviklet af",
+        "guides": "Guides til København"
       },
       "mobile_cta": {
         "book": "Book nu"
@@ -374,8 +377,8 @@
     },
     "city_highlights": {
       "page": {
-        "title": "København Byens højdepunkter | Seaduced Experience",
-        "desc": "Oplev Københavns højdepunkter på en 1-times privat bådtur med din egen kaptajn. Nyd musik, drikkevarer og panoramaudsigt over byen fra vandet."
+        "title": "Privat bådtur København 1-2 timer | Seaduced",
+        "desc": "Privat bådtur på 1 eller 2 timer gennem Københavns kanaler: Nyhavn, Christiansborg og Christianshavn. Fra 2.499 DKK pr. gruppe på op til 6."
       },
       "hero_html": "Copenhagen <span class=\"title-accent\">Byens</span> højdepunkter",
       "intro": "Oplev København fra vandet på en privat tur med lokal kaptajn. Sejl gennem byens kanaler, nyd musik og drikkevarer ombord, og betrag nogle af de mest ikoniske seværdigheder fra et unikt og afslappet perspektiv.",
@@ -429,8 +432,8 @@
     },
     "city_highlights_10p": {
       "page": {
-        "title": "København Byens højdepunkter (10 gæster) | Seaduced Experience",
-        "desc": "Oplev Københavns højdepunkter på en 1-times privat bådtur med din egen kaptajn. Nyd musik, drikkevarer og panoramaudsigt over byen fra vandet."
+        "title": "Bådtur i København for grupper på 10 | Seaduced",
+        "desc": "Privat kanalrundfart på 1 eller 2 timer for grupper op til 10. Københavns vartegn fra vandet. Fra 2.999 DKK pr. gruppe."
       },
       "hero_html": "Copenhagen <span class=\"title-accent\">Byens</span> højdepunkter",
       "intro": "Oplev Københavns vigtigste højdepunkter på en 1-times privat bådtur med din egen lokale kaptajn. Sejl gennem kanalerne, nyd musik og drikkevarer ombord, og se byens mest ikoniske vartegn fra vandet — alt sammen i et afslappet og behageligt tempo.",
@@ -483,8 +486,8 @@
     },
     "reffen_3h": {
       "page": {
-        "title": "Udvidet havnerundfart og Reffen-stop | Seaduced Experience",
-        "desc": "Oplev København på en udvidet 3-timers havnerundfart. Inkluderer byens højdepunkter plus et stop ved Reffen street food marked, musik og drikkevarer ombord."
+        "title": "3-timers havnerundfart København og Reffen",
+        "desc": "Privat 3-timers bådtur gennem Københavns havn med en times stop ved Reffen street food marked. Fra 4.299 DKK pr. gruppe på op til 6."
       },
       "hero_html": "<span class=\"title-accent\">Udvidet havnerundfart</span> og Reffen-stop",
       "intro": "Udforsk København ud over højdepunkterne på en 3-timers privat bådoplevelse med din egen kaptajn. Sejl gennem kanalerne, stop ved Reffen street food marked, nyd musik og drikkevarer ombord, og oplev byen i dit eget tempo — afslappet, fleksibelt og helt privat.",
@@ -540,8 +543,8 @@
     },
     "sea_fortress_4h": {
       "page": {
-        "title": "Søfort og kystrejse | Seaduced Experience",
-        "desc": "Oplev den ultimative kystrejse i København. Inkluderer byens højdepunkter, Reffen street food marked, Den Lille Havfrue og en privat sejlads til det historiske Trekroner Fort."
+        "title": "4-timers bådtur København | Trekroner Søfort",
+        "desc": "Privat 4-timers bådtur fra København til Trekroner Søfort og Reffen. Åbent vand og badestop. Fra 5.999 DKK pr. gruppe på op til 6."
       },
       "hero_html": "<span class=\"title-accent\">Søfort</span> og kystrejse",
       "intro": "Oplev den ultimative bådtur i København på en 4-timers privat rejse med din egen kaptajn. Sejl gennem kanalerne, stop ved Reffen street food marked, besøg Den Lille Havfrue og sejl ud i åbent vand for at udforske det historiske Trekroner Fort — alt i dit eget tempo, helt privat.",
@@ -601,8 +604,8 @@
     },
     "wine_tasting": {
       "page": {
-        "title": "Flydende vinsmagning bådoplevelse | Seaduced Experience",
-        "desc": "2-timers vinsmagning på båd i København. Guidet smagning af 4 vine, gourmet-platte og sejltur gennem kanalerne. Grupper op til 6 — fra 4.999 DKK pr. gruppe."
+        "title": "Vinsmagning på båd i København | Seaduced",
+        "desc": "2-timers vinsmagning på privat båd i Københavns kanaler. Fire udvalgte vine og gourmet-platte. Fra 5.499 DKK pr. gruppe på op til 6."
       },
       "hero_html": "Flydende <span class=\"title-accent\">vinsmagning</span> oplevelse",
       "intro": "Nyd en unik 2-timers bådoplevelse i København, der kombinerer sightseeing med en guidet vinsmagning. Slap af på vandet med din egen kaptajn og vært, smag fire nøje udvalgte vine, og nyd en gourmet-platte, mens du sejler gennem byens kanaler. Hver booking er for en gruppe på op til 6 — båden kan rumme op til 12 gæster fordelt på to grupper.",
@@ -663,8 +666,8 @@
     },
     "land_tour": {
       "page": {
-        "title": "Privat båd- og landtur i København, Dragør og Kronborg | Seaduced Experience",
-        "desc": "Oplev København til vands og til lands på en 5-timers privat tur. Nyd en kanalrundfart, besøg landsbyen Dragør og udforsk Helsingør med udsigt til Kronborg Slot — med mulighed for tapas og vin."
+        "title": "Båd- og landtur København | Dragør og Kronborg",
+        "desc": "Privat 5-timers tur: kanalrundfart plus landsbyen Dragør og Kronborg Slot. Fra 8.999 DKK pr. gruppe på op til 6."
       },
       "hero_html": "Københavns private <span class=\"title-accent\">Båd- og Land</span> oplevelse",
       "intro": "Oplev København fra to unikke perspektiver — vand og land. Start med en privat kanalrundfart, og fortsæt derefter i køretøj for at udforske Dragør og Helsingør, inklusiv udsigt til det ikoniske Kronborg Slot. En komplet premium-oplevelse, der kombinerer komfort, kultur og udforskning.",
@@ -726,8 +729,8 @@
     },
     "malmo": {
       "page": {
-        "title": "Privat bådtur fra København til Malmø | Seaduced Experience",
-        "desc": "Sejl fra København til Malmø på en privat bådtur. Udforsk byens vartegn, kryds Øresund og nyd fritid i Sverige — alt sammen i én unik heldagsoplevelse."
+        "title": "Privat bådtur fra København til Malmø | Seaduced",
+        "desc": "Privat 7-timers sejlads fra København over Øresund til Malmø i Sverige. Fritid i land. Fra 9.999 DKK pr. gruppe på op til 10."
       },
       "hero_html": "Fra København til Malmø <span class=\"title-accent\">Privat bådoplevelse</span>",
       "intro": "Oplev to lande på én uforglemmelig dag. Sejl fra København til Malmø på en privat båd, udforsk ikoniske vartegn fra vandet, kryds Øresund og nyd fritid i Sverige — alt sammen i dit eget tempo med din egen kaptajn.",
@@ -789,8 +792,8 @@
     },
     "danish_breakfast": {
       "page": {
-        "title": "Byens Højdepunkter med Dansk Morgenmad | Seaduced Experience",
-        "desc": "Start dagen med at opdage København fra vandet med en autentisk dansk morgenmad om bord. 1-times privat bådtur til op til 6 personer. Fra 4.999 DKK per gruppe."
+        "title": "Bådtur i København med dansk morgenmad (1t)",
+        "desc": "Oplev København fra vandet med autentisk dansk morgenmad om bord. Privat 1-times bådtur for op til 6. Fra 4.999 DKK pr. gruppe."
       },
       "hero_html": "Byens Højdepunkter <span class=\"title-accent\">med Dansk Morgenmad</span>",
       "intro": "Start dagen med at opdage København fra vandet, mens du nyder en autentisk dansk morgenmad serveret om bord.",

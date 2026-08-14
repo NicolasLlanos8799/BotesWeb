@@ -64,6 +64,16 @@ const I18n = {
     return key.split('.').reduce((obj, k) => (obj != null && k in obj ? obj[k] : undefined), this.data);
   },
 
+  setMeta(attr, value, content) {
+    let el = document.head.querySelector(`meta[${attr}="${value}"]`);
+    if (!el) {
+      el = document.createElement('meta');
+      el.setAttribute(attr, value);
+      document.head.appendChild(el);
+    }
+    el.setAttribute('content', content);
+  },
+
   apply() {
     const prefix = this.langPrefix();
 
@@ -112,8 +122,25 @@ const I18n = {
 
     // Page title — body[data-i18n-title] overrides default 'page.title' key
     const titleKey = document.body.dataset.i18nTitle || 'page.title';
+    const base = titleKey.replace(/\.title$/, '');
     const title = this.t(titleKey);
-    if (title) document.title = title;
+    if (title) {
+      document.title = title;
+      this.setMeta('property', 'og:title', title);
+      this.setMeta('name', 'twitter:title', title);
+    }
+
+    // Meta description — locales use either `.description` or `.desc`
+    const desc = this.t(`${base}.description`) ?? this.t(`${base}.desc`);
+    if (desc) {
+      this.setMeta('name', 'description', desc);
+      this.setMeta('property', 'og:description', desc);
+      this.setMeta('name', 'twitter:description', desc);
+    }
+
+    // og:locale
+    const ogLocale = { en: 'en_US', es: 'es_ES', da: 'da_DK' }[this.locale];
+    if (ogLocale) this.setMeta('property', 'og:locale', ogLocale);
   },
 };
 

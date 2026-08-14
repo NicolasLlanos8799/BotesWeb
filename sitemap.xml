@@ -32,6 +32,7 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://www.seaduced-experience.com/experiences/copenhagen-city-highlights/"/>
     <xhtml:link rel="alternate" hreflang="da" href="https://www.seaduced-experience.com/da/experiences/copenhagen-city-highlights/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.seaduced-experience.com/es/experiences/copenhagen-city-highlights/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.seaduced-experience.com/experiences/copenhagen-city-highlights/"/>
     <lastmod>2026-06-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -43,6 +44,7 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://www.seaduced-experience.com/experiences/city-highlights-danish-breakfast/"/>
     <xhtml:link rel="alternate" hreflang="da" href="https://www.seaduced-experience.com/da/experiences/city-highlights-danish-breakfast/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.seaduced-experience.com/es/experiences/city-highlights-danish-breakfast/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.seaduced-experience.com/experiences/city-highlights-danish-breakfast/"/>
     <lastmod>2026-07-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -54,6 +56,7 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://www.seaduced-experience.com/experiences/copenhagen-sea-fortress/"/>
     <xhtml:link rel="alternate" hreflang="da" href="https://www.seaduced-experience.com/da/experiences/copenhagen-sea-fortress/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.seaduced-experience.com/es/experiences/copenhagen-sea-fortress/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.seaduced-experience.com/experiences/copenhagen-sea-fortress/"/>
     <lastmod>2026-06-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -65,6 +68,7 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://www.seaduced-experience.com/experiences/copenhagen-harbor-extended/"/>
     <xhtml:link rel="alternate" hreflang="da" href="https://www.seaduced-experience.com/da/experiences/copenhagen-harbor-extended/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.seaduced-experience.com/es/experiences/copenhagen-harbor-extended/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.seaduced-experience.com/experiences/copenhagen-harbor-extended/"/>
     <lastmod>2026-06-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -76,6 +80,7 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://www.seaduced-experience.com/experiences/copenhagen-land-tour/"/>
     <xhtml:link rel="alternate" hreflang="da" href="https://www.seaduced-experience.com/da/experiences/copenhagen-land-tour/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.seaduced-experience.com/es/experiences/copenhagen-land-tour/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.seaduced-experience.com/experiences/copenhagen-land-tour/"/>
     <lastmod>2026-06-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -87,6 +92,7 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://www.seaduced-experience.com/experiences/copenhagen-city-highlights-10/"/>
     <xhtml:link rel="alternate" hreflang="da" href="https://www.seaduced-experience.com/da/experiences/copenhagen-city-highlights-10/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.seaduced-experience.com/es/experiences/copenhagen-city-highlights-10/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.seaduced-experience.com/experiences/copenhagen-city-highlights-10/"/>
     <lastmod>2026-06-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -98,6 +104,7 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://www.seaduced-experience.com/experiences/copenhagen-wine-tour/"/>
     <xhtml:link rel="alternate" hreflang="da" href="https://www.seaduced-experience.com/da/experiences/copenhagen-wine-tour/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.seaduced-experience.com/es/experiences/copenhagen-wine-tour/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.seaduced-experience.com/experiences/copenhagen-wine-tour/"/>
     <lastmod>2026-06-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -109,9 +116,18 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://www.seaduced-experience.com/experiences/copenhagen-to-malmo/"/>
     <xhtml:link rel="alternate" hreflang="da" href="https://www.seaduced-experience.com/da/experiences/copenhagen-to-malmo/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.seaduced-experience.com/es/experiences/copenhagen-to-malmo/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.seaduced-experience.com/experiences/copenhagen-to-malmo/"/>
     <lastmod>2026-06-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+  </url>
+
+  <!-- Guides index -->
+  <url>
+    <loc>https://www.seaduced-experience.com/guides/</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
 
   <!-- Guide: Canal Tour Copenhagen -->

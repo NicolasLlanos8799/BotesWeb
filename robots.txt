@@ -4,5 +4,10 @@ Allow: /
 # Disallow transactional / private pages
 Disallow: /reserve/
 Disallow: /admin/
+Disallow: /internal/
+Disallow: /booking/
+Disallow: /api/
+Disallow: /*?utm_
+Disallow: /*?gclid
 
 Sitemap: https://www.seaduced-experience.com/sitemap.xml

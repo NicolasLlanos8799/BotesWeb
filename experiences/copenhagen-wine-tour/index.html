@@ -4,9 +4,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Wine Tasting Boat Tour Copenhagen | Seaduced Experience</title>
+  <title>Wine Tasting Boat Tour Copenhagen | Seaduced</title>
   <meta name="description"
-    content="2-hour wine tasting experience aboard a boat cruising Copenhagen's canals. Four curated wines and a gourmet board included. Groups of up to 6 — from DKK 5,499 per group." />
+    content="2-hour wine tasting aboard a private boat in Copenhagen's canals. Four curated wines and a gourmet board. From DKK 5,499 per group of up to 6." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preload"
@@ -423,6 +423,7 @@
   <meta name="robots" content="index, follow" />
   <meta name="author" content="Seaduced Experience" />
   <meta name="publisher" content="Seaduced Experience" />
+  <link rel="preload" as="image" href="/assets/images/wine-tour/wine-tour-guests.webp" fetchpriority="high" />
   <link rel="canonical" href="https://www.seaduced-experience.com/experiences/copenhagen-wine-tour/" />
   <link rel="alternate" hreflang="en" href="https://www.seaduced-experience.com/experiences/copenhagen-wine-tour/" />
   <link rel="alternate" hreflang="da" href="https://www.seaduced-experience.com/da/experiences/copenhagen-wine-tour/" />
@@ -469,7 +470,7 @@
         "provider": {"@id": "https://www.seaduced-experience.com/#business"},
         "duration": "PT2H",
         "maximumAttendeeCapacity": 6,
-        "availableLanguage": ["English", "Spanish"],
+        "availableLanguage": ["English", "Danish", "Spanish"],
         "touristType": ["Couple", "Family", "SmallGroup", "Tourist"],
         "offers": {
           "@type": "Offer",
@@ -561,15 +562,15 @@
 
       <nav class="navbar__nav" id="navMenu" role="navigation" aria-label="Main navigation">
         <a href="/" class="nav-link" data-i18n="nav.home" data-i18n-href="/">Home</a>
-        <a href="/book" class="nav-link" id="nav-tours" data-i18n="nav.tours" data-i18n-href="/book">Tours</a>
+        <a href="/book/" class="nav-link" id="nav-tours" data-i18n="nav.tours" data-i18n-href="/book/">Tours</a>
         <a href="/#faq" class="nav-link" data-i18n="nav.faq" data-i18n-href="/#faq">FAQ</a>
         <a href="/#contact" class="nav-link" data-i18n="nav.contact" data-i18n-href="/#contact">Contact</a>
       </nav>
 
       <div class="navbar__actions">
-        <a href="/book" class="btn btn--primary btn--sm" data-i18n="nav.cta" data-i18n-href="/book">Book Now</a>
+        <a href="/book/" class="btn btn--primary btn--sm" data-i18n="nav.cta" data-i18n-href="/book/">Book Now</a>
         <div class="lang-switcher">
-          <a href="/" class="lang-link is-active" title="English"><img width="32" height="24"
+          <a href="/experiences/copenhagen-wine-tour/" class="lang-link is-active" title="English"><img width="32" height="24"
               src="/assets/icons/flag-en.svg" alt="EN"></a>
           <a href="/da/experiences/copenhagen-wine-tour/" class="lang-link" title="Dansk"><img width="32" height="24"
               src="/assets/icons/flag-da.svg" alt="DA"></a>
@@ -584,18 +585,18 @@
 
     <div class="navbar__mobile" id="mobileMenu">
       <a href="/" class="nav-link" data-i18n="nav.home" data-i18n-href="/">Home</a>
-      <a href="/book" class="nav-link" id="mob-tours" data-i18n="nav.tours" data-i18n-href="/book">Tours</a>
+      <a href="/book/" class="nav-link" id="mob-tours" data-i18n="nav.tours" data-i18n-href="/book/">Tours</a>
       <a href="/#faq" class="nav-link" data-i18n="nav.faq" data-i18n-href="/#faq">FAQ</a>
       <a href="/#contact" class="nav-link" data-i18n="nav.contact" data-i18n-href="/#contact">Contact</a>
       <div class="lang-switcher">
-        <a href="/" class="lang-link is-active" title="English"><img width="32" height="24"
+        <a href="/experiences/copenhagen-wine-tour/" class="lang-link is-active" title="English"><img width="32" height="24"
             src="/assets/icons/flag-en.svg" alt="EN"></a>
         <a href="/da/experiences/copenhagen-wine-tour/" class="lang-link" title="Dansk"><img width="32" height="24"
             src="/assets/icons/flag-da.svg" alt="DA"></a>
         <a href="/es/experiences/copenhagen-wine-tour/" class="lang-link" title="Español"><img width="32" height="24"
             src="/assets/icons/flag-es.svg" alt="ES"></a>
       </div>
-      <a href="/book" class="btn btn--primary mt-1" data-i18n="nav.cta" data-i18n-href="/book">Book Now</a>
+      <a href="/book/" class="btn btn--primary mt-1" data-i18n="nav.cta" data-i18n-href="/book/">Book Now</a>
     </div>
   </header>
 
@@ -616,15 +617,15 @@
           </div>
           <div class="experience-gallery__track">
             <div class="experience-gallery__slide">
-              <img src="/assets/images/wine-tour/wine-tour-guests.png"
-                alt="Private boat tour through the canals of Copenhagen" width="1000" height="450" loading="lazy" />
+              <img fetchpriority="high" decoding="async" src="/assets/images/wine-tour/wine-tour-guests.webp"
+                alt="Private boat tour through the canals of Copenhagen" width="1000" height="450" />
             </div>
             <div class="experience-gallery__slide">
-              <img src="/assets/images/wine-tour/charcuterie.png" alt="Charcuterie" width="1000" height="450"
+              <img src="/assets/images/wine-tour/charcuterie.webp" alt="Charcuterie" width="1000" height="450"
                 loading="lazy" />
             </div>
             <div class="experience-gallery__slide">
-              <img src="/assets/images/wine-tour/charcuterie-and-wines.png" alt="Charcuterie and wines" width="1000"
+              <img src="/assets/images/wine-tour/charcuterie-and-wines.webp" alt="Charcuterie and wines" width="1000"
                 height="450" loading="lazy" />
             </div>
           </div>
@@ -646,15 +647,15 @@
           <div class="mobile-gallery__track">
 
             <div class="mobile-gallery__slide">
-              <img loading="lazy" src="/assets/images/wine-tour/wine-tour-guests.png" alt="Wine Tasting Boat Tour">
+              <img loading="lazy" src="/assets/images/wine-tour/wine-tour-guests.webp" alt="Wine Tasting Boat Tour">
             </div>
 
             <div class="mobile-gallery__slide">
-              <img loading="lazy" src="/assets/images/wine-tour/charcuterie.png" alt="Charcuterie">
+              <img loading="lazy" src="/assets/images/wine-tour/charcuterie.webp" alt="Charcuterie">
             </div>
 
             <div class="mobile-gallery__slide">
-              <img loading="lazy" src="/assets/images/wine-tour/charcuterie-and-wines.png" alt="Charcuterie and wines">
+              <img loading="lazy" src="/assets/images/wine-tour/charcuterie-and-wines.webp" alt="Charcuterie and wines">
             </div>
 
           </div>
@@ -1234,7 +1235,8 @@
       </svg>© 2025 – 2026 Seaduced Experience &nbsp;·&nbsp; <span data-i18n="experiences.ui.footer.dev">Developed
         by</span> <a href="https://www.weareleba.com" target="_blank" rel="noopener"
         style="color:inherit;text-decoration:underline;">We are Leba</a> &nbsp;·&nbsp; <a href="/"
-        style="color: inherit;" data-i18n="experiences.ui.footer.back" data-i18n-href="/">Back to Home</a></p>
+        style="color: inherit;" data-i18n="experiences.ui.footer.back" data-i18n-href="/">Back to Home</a> &nbsp;·&nbsp;
+      <a href="/guides/" style="color: inherit;" data-i18n="experiences.ui.footer.guides" data-i18n-href="/guides/">Copenhagen Guides</a></p>
   </footer>
 
   <script type="module" src="/js/i18n.js"></script>

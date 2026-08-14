@@ -73,7 +73,7 @@ function initNavbar() {
       const path = window.location.pathname;
       const isSpanish = path.startsWith('/es/');
       const isDanish = path.startsWith('/da/');
-      const target = isSpanish ? '/es/book' : (isDanish ? '/da/book' : '/book');
+      const target = isSpanish ? '/es/book/' : (isDanish ? '/da/book/' : '/book/');
       window.location.href = target;
     });
   });

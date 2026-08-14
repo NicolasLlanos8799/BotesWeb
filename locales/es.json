@@ -1,7 +1,7 @@
 {
   "page": {
-    "title": "Seaduced Experience | Tours Privados en Barco Copenhague",
-    "description": "Descubre Copenhague desde el agua con una experiencia en barco privada e íntima. Navega por canales escénicos, descubre rincones ocultos y disfruta de un tour relajado guiado por expertos locales."
+    "title": "Tours Privados en Barco Copenhague | Seaduced",
+    "description": "Tours privados en barco por los canales de Copenhague. Nyhavn, Christiansborg y Christianshavn con tu capitán. Desde 2.499 DKK por grupo."
   },
   "nav": {
     "home": "Inicio",
@@ -167,12 +167,13 @@
     },
     "note": "Tours con reserva previa · Sujeto a las condiciones climáticas.",
     "copy": "© 2025 – 2026 Seaduced Experience. Reservados todos los derechos.",
-    "dev": "Desarrollado por"
+    "dev": "Desarrollado por",
+    "guides": "Guías de Copenhague"
   },
   "book": {
     "page": {
-      "title": "Reserva Tu Tour | Seaduced Experience – Tours Privados en Barco Copenhague",
-      "description": "Elige y reserva tu tour privado en barco por Copenhague. Experiencias de primavera, verano e invierno. Reserva segura, cancelación gratuita 48h."
+      "title": "Reserva tu Tour Privado en Barco | Copenhague",
+      "description": "Elige y reserva tu tour privado en barco por Copenhague. Experiencias de primavera, verano e invierno. Cancelación gratuita hasta 48h antes."
     },
     "hero": {
       "label": "Elige tu Experiencia",
@@ -251,7 +252,8 @@
     },
     "footer": {
       "back": "Volver al Inicio",
-      "dev": "Desarrollado por"
+      "dev": "Desarrollado por",
+      "guides": "Guías de Copenhague"
     }
   },
   "reserve": {
@@ -372,7 +374,8 @@
       ],
       "footer": {
         "back": "Volver al Inicio",
-        "dev": "Desarrollado por"
+        "dev": "Desarrollado por",
+        "guides": "Guías de Copenhague"
       },
       "mobile_cta": {
         "book": "Reservar ahora"
@@ -380,8 +383,8 @@
     },
     "city_highlights": {
       "page": {
-        "title": "Copenhague Lo Mejor de la Ciudad | Seaduced Experience",
-        "desc": "Descubre lo mejor de Copenhague en un tour privado en barco de 1 hora con tu propio capitán. Disfruta de música, bebidas y vistas panorámicas de la ciudad desde el agua."
+        "title": "Tour Privado en Barco Copenhague 1-2h | Seaduced",
+        "desc": "Tour privado en barco de 1 o 2 horas por los canales de Copenhague: Nyhavn, Christiansborg y Christianshavn. Desde 2.499 DKK por grupo de 6."
       },
       "hero_html": "Copenhague Lo Mejor de la <span class=\"title-accent\">Ciudad</span>",
       "intro": "Descubre Copenhague desde el agua en un tour privado con capitán local. Navega por los canales de la ciudad, disfruta de música y bebidas a bordo, y contempla algunos de los lugares más emblemáticos desde una perspectiva única y relajada.",
@@ -435,8 +438,8 @@
     },
     "city_highlights_10p": {
       "page": {
-        "title": "Copenhague Lo Mejor de la Ciudad (10 personas) | Seaduced Experience",
-        "desc": "Descubre lo mejor de Copenhague en un tour privado en barco con tu propio capitán. Disfruta de música, bebidas y vistas panorámicas de la ciudad desde el agua."
+        "title": "Tour en Barco Copenhague para 10 Personas",
+        "desc": "Tour privado por los canales de 1 o 2 horas para grupos de hasta 10. Los monumentos de Copenhague desde el agua. Desde 2.999 DKK por grupo."
       },
       "hero_html": "Copenhague Lo Mejor de la <span class=\"title-accent\">Ciudad</span> <span style=\"font-size:0.75em\">(10)</span>",
       "intro": "Descubre los principales puntos de interés de Copenhague en un tour privado en barco con tu propio capitán local. Navega por los canales, disfruta de música y bebidas a bordo, y contempla los monumentos más icónicos de la ciudad desde el agua — todo a un ritmo relajado y cómodo.",
@@ -489,8 +492,8 @@
     },
     "reffen_3h": {
       "page": {
-        "title": "Puerto Extendido y Reffen | Seaduced Experience",
-        "desc": "Vive Copenhague en un tour extendido de 3 horas por el puerto. Incluye lo mejor de la ciudad más una parada en el mercado de comida callejera Reffen, música y bebidas a bordo."
+        "title": "Tour en Barco 3h Copenhague y Parada en Reffen",
+        "desc": "Tour privado de 3 horas por el puerto de Copenhague con parada de 1 hora en el mercado Reffen. Desde 4.299 DKK por grupo de hasta 6."
       },
       "hero_html": "<span class=\"title-accent\">Puerto Extendido</span> y Reffen",
       "intro": "Explora Copenhague más allá de los puntos turísticos en una experiencia privada de 3 horas con tu propio capitán. Navega por los canales, para en el mercado de Reffen, disfruta de música y bebidas a bordo y vive la ciudad a tu propio ritmo: relajado, flexible y totalmente privado.",
@@ -546,8 +549,8 @@
     },
     "sea_fortress_4h": {
       "page": {
-        "title": "Fortaleza Marina y Viaje Costero | Seaduced Experience",
-        "desc": "Vive el viaje costero definitivo por Copenhague. Incluye monumentos, mercado de Reffen, la Sirenita y navegación privada a la fortaleza de Trekroner."
+        "title": "Tour en Barco 4h Copenhague | Fortaleza Trekroner",
+        "desc": "Tour privado de 4 horas de Copenhague a la fortaleza de Trekroner y Reffen. Mar abierto y parada de baño. Desde 5.999 DKK por grupo de 6."
       },
       "hero_html": "<span class=\"title-accent\">Fortaleza Marina</span> y Viaje Costero",
       "intro": "Vive el tour en barco definitivo por Copenhague en un viaje privado de 4 horas con tu propio capitán. Navega por los canales, para en el mercado de Reffen, visita a la Sirenita y navega a mar abierto para explorar la histórica fortaleza de Trekroner — todo a tu ritmo, totalmente privado.",
@@ -607,8 +610,8 @@
     },
     "wine_tasting": {
       "page": {
-        "title": "Cata de Vinos Flotante | Seaduced Experience",
-        "desc": "Cata de vinos de 2 horas en barco por Copenhague. Degustación guiada de 4 vinos, tabla gourmet y crucero por los canales. Grupos de hasta 6 personas — desde 4.999 DKK por grupo."
+        "title": "Cata de Vinos en Barco Copenhague | Seaduced",
+        "desc": "Cata de vinos de 2 horas en barco privado por los canales de Copenhague. Cuatro vinos y tabla gourmet. Desde 5.499 DKK por grupo de hasta 6."
       },
       "hero_html": "<span class=\"title-accent\">Cata de Vinos</span> Flotante",
       "intro": "Disfruta de una experiencia única de 2 horas en barco por Copenhague combinando turismo con una cata de vinos guiada. Relájate en el agua con tu propio capitán y anfitrión, degusta cuatro vinos seleccionados y disfruta de una tabla gourmet mientras navegas por los canales. Cada reserva es para un grupo de hasta 6 personas — el barco tiene capacidad para 12 personas en total.",
@@ -669,8 +672,8 @@
     },
     "land_tour": {
       "page": {
-        "title": "Experiencia Privada en Barco y Tierra | Copenhague, Dragør y Kronborg",
-        "desc": "Vive Copenhague por agua y tierra en un tour privado de 5 horas. Incluye crucero por los canales, visita al pueblo de Dragør y exploración de Helsingør con vistas al Castillo de Kronborg."
+        "title": "Tour en Barco y Tierra | Dragør y Kronborg",
+        "desc": "Tour privado de 5 horas: crucero por los canales más el pueblo de Dragør y el castillo de Kronborg. Desde 8.999 DKK por grupo de hasta 6."
       },
       "hero_html": "Experiencia Privada en <span class=\"title-accent\">Barco y Tierra</span>",
       "intro": "Descubre Copenhague desde dos perspectivas únicas: agua y tierra. Comienza con un crucero privado por los canales y luego continúa en vehículo para explorar Dragør y Helsingør, incluyendo vistas del icónico Castillo de Kronborg. Una experiencia completa y premium que combina confort, cultura y exploración.",
@@ -732,8 +735,8 @@
     },
     "malmo": {
       "page": {
-        "title": "Tour Privado en Barco de Copenhague a Malmö | Seaduced Experience",
-        "desc": "Navega de Copenhague a Malmö en un tour privado en barco. Explora monumentos, cruza el estrecho de Øresund y disfruta de tiempo libre en Suecia — todo en una experiencia única de día completo."
+        "title": "Tour en Barco de Copenhague a Malmö | Seaduced",
+        "desc": "Travesía privada de 7 horas de Copenhague a Malmö cruzando el Øresund. Tiempo libre en Suecia. Desde 9.999 DKK por grupo de hasta 10."
       },
       "hero_html": "De Copenhague a Malmö en <span class=\"title-accent\">Barco Privado</span>",
       "intro": "Descubre dos países en un día inolvidable. Navega de Copenhague a Malmö en un barco privado, explora monumentos icónicos desde el agua, cruza el estrecho de Øresund y disfruta de tiempo libre en Suecia — todo a tu propio ritmo con tu propio capitán.",
@@ -795,8 +798,8 @@
     },
     "danish_breakfast": {
       "page": {
-        "title": "Lo Mejor de la Ciudad con Desayuno Danés | Seaduced Experience",
-        "desc": "Empieza el día descubriendo Copenhague desde el agua mientras disfrutas de un auténtico desayuno danés a bordo. Tour privado de 1 hora para hasta 6 personas. Desde 4.999 DKK por grupo."
+        "title": "Tour en Barco Copenhague con Desayuno Danés",
+        "desc": "Descubre Copenhague desde el agua con un auténtico desayuno danés a bordo. Tour privado de 1 hora para 6. Desde 4.999 DKK por grupo."
       },
       "hero_html": "Lo Mejor de la Ciudad <span class=\"title-accent\">con Desayuno Danés</span>",
       "intro": "Comienza tu día descubriendo Copenhague desde el agua mientras disfrutas de un auténtico desayuno danés servido a bordo.",

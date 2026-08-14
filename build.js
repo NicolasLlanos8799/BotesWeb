@@ -152,6 +152,17 @@ for (const cssFile of CSS_FILES) {
   const srcCss = path.join(DIST, 'css', cssFile);
   if (!fs.existsSync(srcCss)) continue;
 
+  // Minify before hashing — bundle.css ships ~188 KB raw and is render-blocking.
+  const rawCss = fs.readFileSync(srcCss, 'utf8');
+  const minified = (await esbuild.transform(rawCss, {
+    loader: 'css',
+    minify: true,
+  })).code;
+  fs.writeFileSync(srcCss, minified, 'utf8');
+  console.log(
+    `  minified ${cssFile}: ${(rawCss.length / 1024).toFixed(0)} KB → ${(minified.length / 1024).toFixed(0)} KB`
+  );
+
   const content = fs.readFileSync(srcCss);
   const hash = crypto.createHash('sha256').update(content).digest('hex').slice(0, 8);
   const baseName = path.basename(cssFile, '.css');
@@ -190,6 +201,120 @@ function copyHtmlTree(src, langDest) {
 for (const lang of LANGS) {
   copyHtmlTree(DIST, path.join(DIST, lang));
   console.log(`  ✓ dist/${lang}/`);
+}
+
+// ─── 7. Localize SEO head tags in dist/es/ and dist/da/ ────────────────────
+// The language dirs are byte-identical copies of the EN HTML, so without this
+// step every /es/ and /da/ page ships an English <title>/<meta description>
+// and a canonical pointing at the EN URL → Google never indexes them.
+
+console.log('Localizing SEO head tags...');
+
+const SITE = 'https://www.seaduced-experience.com';
+const OG_LOCALE = { en: 'en_US', es: 'es_ES', da: 'da_DK' };
+
+const locales = {};
+for (const lang of LANGS) {
+  locales[lang] = JSON.parse(fs.readFileSync(`${DIST}/locales/${lang}.json`, 'utf8'));
+}
+
+// Resolves "a.b.c" against a locale object.
+function tkey(obj, key) {
+  return key.split('.').reduce((o, k) => (o != null && k in o ? o[k] : undefined), obj);
+}
+
+// Maps a dist-relative HTML path to its i18n title/description keys.
+// Falls back to the page's body[data-i18n-title] prefix when present.
+function seoKeys(html, urlPath) {
+  const m = html.match(/data-i18n-title="([^"]+)"/);
+  if (m) {
+    const base = m[1].replace(/\.title$/, '');
+    return { title: `${base}.title`, desc: [`${base}.description`, `${base}.desc`] };
+  }
+  // Only the home page may use the root page.* keys — otherwise untranslated
+  // pages (e.g. /guides/) would inherit the home title and description.
+  if (urlPath === '/') return { title: 'page.title', desc: ['page.description', 'page.desc'] };
+  return { title: null, desc: [] };
+}
+
+function esc(s) {
+  return String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+}
+
+// Replaces the content="..." of a meta tag matched by `attr="value"`.
+function setMeta(html, attr, value, content) {
+  const re = new RegExp(`(<meta\\s+${attr}="${value}"[^>]*?content=")[^"]*(")`, 'i');
+  if (re.test(html)) return html.replace(re, `$1${esc(content)}$2`);
+  // handle attribute order where content comes first
+  const re2 = new RegExp(`(<meta\\s+content=")[^"]*("[^>]*?${attr}="${value}")`, 'i');
+  return html.replace(re2, `$1${esc(content)}$2`);
+}
+
+function localizeHtml(html, lang, urlPath) {
+  const L = locales[lang];
+  const keys = seoKeys(html, urlPath);
+  const title = keys.title ? tkey(L, keys.title) : undefined;
+  let desc;
+  for (const dk of keys.desc) { desc = desc ?? tkey(L, dk); }
+
+  // No translated copy for this page (e.g. /guides/): keep the EN canonical and
+  // noindex the language copy so it can't compete as duplicate content.
+  if (!title && !desc) {
+    if (/<meta name="robots"/i.test(html)) {
+      html = html.replace(/(<meta name="robots"[^>]*content=")[^"]*(")/i, '$1noindex, follow$2');
+    } else {
+      html = html.replace(/<\/head>/i, '  <meta name="robots" content="noindex, follow" />\n</head>');
+    }
+    return html;
+  }
+
+  // <html lang>
+  html = html.replace(/<html\s+lang="[^"]*"/i, `<html lang="${lang}"`);
+
+  // <title> + meta description
+  if (title) html = html.replace(/<title>[\s\S]*?<\/title>/i, `<title>${esc(title)}</title>`);
+  if (desc) html = setMeta(html, 'name', 'description', desc);
+
+  // canonical → self (localized URL), otherwise /es/ and /da/ are deindexed
+  html = html.replace(
+    /(<link rel="canonical"\s+href=")[^"]*(")/i,
+    `$1${SITE}/${lang}${urlPath}$2`
+  );
+
+  // Open Graph / Twitter
+  html = html.replace(/(<meta property="og:url"[^>]*content=")[^"]*(")/i, `$1${SITE}/${lang}${urlPath}$2`);
+  if (/<meta property="og:locale"/i.test(html)) {
+    html = html.replace(/(<meta property="og:locale"[^>]*content=")[^"]*(")/i, `$1${OG_LOCALE[lang]}$2`);
+  } else {
+    html = html.replace(/(<meta property="og:url"[^>]*>)/i, `$1\n  <meta property="og:locale" content="${OG_LOCALE[lang]}" />`);
+  }
+  if (title) {
+    html = setMeta(html, 'property', 'og:title', title);
+    html = setMeta(html, 'name', 'twitter:title', title);
+  }
+  if (desc) {
+    html = setMeta(html, 'property', 'og:description', desc);
+    html = setMeta(html, 'name', 'twitter:description', desc);
+  }
+  return html;
+}
+
+// Walks dist/<lang>/ and rewrites each HTML file with its localized head.
+function localizeTree(lang, dir, base) {
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const p = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      localizeTree(lang, p, `${base}${entry.name}/`);
+    } else if (entry.name === 'index.html') {
+      const html = fs.readFileSync(p, 'utf8');
+      fs.writeFileSync(p, localizeHtml(html, lang, base), 'utf8');
+    }
+  }
+}
+
+for (const lang of LANGS) {
+  localizeTree(lang, path.join(DIST, lang), '/');
+  console.log(`  ✓ localized dist/${lang}/`);
 }
 
 console.log(`\n✓ Build complete → ${DIST}/`);

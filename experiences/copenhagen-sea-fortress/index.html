@@ -4,8 +4,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Private 4-Hour Boat Tour Copenhagen – Sea Fortress | Seaduced Experience</title>
-  <meta name="description" content="Private 4-hour boat tour from Copenhagen to Trekroner Sea Fortress and Reffen. Open water, swimming stop, and iconic coastal views. From DKK 5,999 per group of up to 6." />
+  <title>4-Hour Copenhagen Boat Tour | Trekroner Sea Fortress</title>
+  <meta name="description" content="Private 4-hour boat tour from Copenhagen to Trekroner Sea Fortress and Reffen. Open water and swimming stop. From DKK 5,999 per group of 6." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -409,6 +409,7 @@ button {
   <meta name="robots" content="index, follow" />
   <meta name="author" content="Seaduced Experience" />
   <meta name="publisher" content="Seaduced Experience" />
+  <link rel="preload" as="image" href="/assets/images/sea-fortress-4h/fortress.webp" fetchpriority="high" />
   <link rel="canonical" href="https://www.seaduced-experience.com/experiences/copenhagen-sea-fortress/" />
   <link rel="alternate" hreflang="en" href="https://www.seaduced-experience.com/experiences/copenhagen-sea-fortress/" />
   <link rel="alternate" hreflang="da" href="https://www.seaduced-experience.com/da/experiences/copenhagen-sea-fortress/" />
@@ -450,7 +451,7 @@ button {
         "provider": {"@id": "https://www.seaduced-experience.com/#business"},
         "duration": "PT4H",
         "maximumAttendeeCapacity": 6,
-        "availableLanguage": ["English", "Spanish"],
+        "availableLanguage": ["English", "Danish", "Spanish"],
         "touristType": ["Couple", "Family", "SmallGroup", "Tourist"],
         "offers": {
           "@type": "Offer",
@@ -543,15 +544,15 @@ button {
 
       <nav class="navbar__nav" id="navMenu" role="navigation" aria-label="Main navigation">
         <a href="/" class="nav-link" data-i18n="nav.home" data-i18n-href="/">Home</a>
-        <a href="/book" class="nav-link" id="nav-tours" data-i18n="nav.tours" data-i18n-href="/book">Tours</a>
+        <a href="/book/" class="nav-link" id="nav-tours" data-i18n="nav.tours" data-i18n-href="/book/">Tours</a>
         <a href="/#faq" class="nav-link" data-i18n="nav.faq" data-i18n-href="/#faq">FAQ</a>
         <a href="/#contact" class="nav-link" data-i18n="nav.contact" data-i18n-href="/#contact">Contact</a>
       </nav>
 
       <div class="navbar__actions">
-        <a href="/book" class="btn btn--primary btn--sm" data-i18n="nav.cta" data-i18n-href="/book">Book Now</a>
+        <a href="/book/" class="btn btn--primary btn--sm" data-i18n="nav.cta" data-i18n-href="/book/">Book Now</a>
         <div class="lang-switcher">
-          <a href="/" class="lang-link is-active" title="English"><img width="32" height="24" src="/assets/icons/flag-en.svg" alt="EN"></a>
+          <a href="/experiences/copenhagen-sea-fortress/" class="lang-link is-active" title="English"><img width="32" height="24" src="/assets/icons/flag-en.svg" alt="EN"></a>
           <a href="/da/experiences/copenhagen-sea-fortress/" class="lang-link" title="Dansk"><img width="32" height="24" src="/assets/icons/flag-da.svg" alt="DA"></a>
           <a href="/es/experiences/copenhagen-sea-fortress/" class="lang-link" title="Español"><img width="32" height="24" src="/assets/icons/flag-es.svg" alt="ES"></a>
         </div>
@@ -563,15 +564,15 @@ button {
 
     <div class="navbar__mobile" id="mobileMenu">
       <a href="/" class="nav-link" data-i18n="nav.home" data-i18n-href="/">Home</a>
-      <a href="/book" class="nav-link" id="mob-tours" data-i18n="nav.tours" data-i18n-href="/book">Tours</a>
+      <a href="/book/" class="nav-link" id="mob-tours" data-i18n="nav.tours" data-i18n-href="/book/">Tours</a>
       <a href="/#faq" class="nav-link" data-i18n="nav.faq" data-i18n-href="/#faq">FAQ</a>
       <a href="/#contact" class="nav-link" data-i18n="nav.contact" data-i18n-href="/#contact">Contact</a>
       <div class="lang-switcher">
-        <a href="/" class="lang-link is-active" title="English"><img width="32" height="24" src="/assets/icons/flag-en.svg" alt="EN"></a>
+        <a href="/experiences/copenhagen-sea-fortress/" class="lang-link is-active" title="English"><img width="32" height="24" src="/assets/icons/flag-en.svg" alt="EN"></a>
         <a href="/da/experiences/copenhagen-sea-fortress/" class="lang-link" title="Dansk"><img width="32" height="24" src="/assets/icons/flag-da.svg" alt="DA"></a>
         <a href="/es/experiences/copenhagen-sea-fortress/" class="lang-link" title="Español"><img width="32" height="24" src="/assets/icons/flag-es.svg" alt="ES"></a>
       </div>
-      <a href="/book" class="btn btn--primary mt-1" data-i18n="nav.cta" data-i18n-href="/book">Book Now</a>
+      <a href="/book/" class="btn btn--primary mt-1" data-i18n="nav.cta" data-i18n-href="/book/">Book Now</a>
     </div>
   </header>
 
@@ -591,15 +592,15 @@ button {
           </div>
           <div class="experience-gallery__track">
             <div class="experience-gallery__slide">
-              <img src="/assets/images/sea-fortress-4h/fortress.png" alt="Guests relaxing during the tour" width="1000"
-                height="450" loading="lazy" />
+              <img fetchpriority="high" decoding="async" src="/assets/images/sea-fortress-4h/fortress.webp" alt="Guests relaxing during the tour" width="1000"
+                height="450" />
             </div>
             <div class="experience-gallery__slide">
-              <img src="/assets/images/sea-fortress-4h/black-diamond-guests.png"
+              <img src="/assets/images/sea-fortress-4h/black-diamond-guests.webp"
                 alt="Private boat tour through the canals of Copenhagen" width="1000" height="450" loading="lazy" />
             </div>
             <div class="experience-gallery__slide">
-              <img src="/assets/images/sea-fortress-4h/mermai.png" alt="Guests enjoying the boat at sunset"
+              <img src="/assets/images/sea-fortress-4h/mermai.webp" alt="Guests enjoying the boat at sunset"
                 width="1000" height="450" loading="lazy" />
             </div>
 
@@ -621,15 +622,15 @@ button {
         <div class="mobile-gallery">
           <div class="mobile-gallery__track">
             <div class="mobile-gallery__slide">
-              <img loading="lazy" src="/assets/images/sea-fortress-4h/fortress.png" alt="Guests relaxing during the tour">
+              <img loading="lazy" src="/assets/images/sea-fortress-4h/fortress.webp" alt="Guests relaxing during the tour">
             </div>
 
             <div class="mobile-gallery__slide">
-              <img loading="lazy" src="/assets/images/sea-fortress-4h/black-diamond-guests.png" alt="">
+              <img loading="lazy" src="/assets/images/sea-fortress-4h/black-diamond-guests.webp" alt="Private boat tour through the canals of Copenhagen">
             </div>
 
             <div class="mobile-gallery__slide">
-              <img loading="lazy" src="/assets/images/sea-fortress-4h/mermai.png" alt="">
+              <img loading="lazy" src="/assets/images/sea-fortress-4h/mermai.webp" alt="Guests enjoying the boat at sunset">
             </div>
 
           </div>
@@ -1216,7 +1217,8 @@ button {
         <path d="M5 14l7 7 7-7" />
         <path d="M5 10h14" />
       </svg>© 2025 – 2026 Seaduced Experience &nbsp;·&nbsp; <span data-i18n="experiences.ui.footer.dev">Developed by</span> <a href="https://www.weareleba.com" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;">We are Leba</a> &nbsp;·&nbsp; <a href="/" style="color: inherit;"
-        data-i18n="experiences.ui.footer.back" data-i18n-href="/">Back to Home</a></p>
+        data-i18n="experiences.ui.footer.back" data-i18n-href="/">Back to Home</a> &nbsp;·&nbsp;
+      <a href="/guides/" style="color: inherit;" data-i18n="experiences.ui.footer.guides" data-i18n-href="/guides/">Copenhagen Guides</a></p>
   </footer>
 
   <script type="module" src="/js/i18n.js"></script>

@@ -103,6 +103,16 @@
       "source": "/experiences/city-highlights-10-people",
       "destination": "/experiences/copenhagen-city-highlights-10/",
       "permanent": true
+    },
+    {
+      "source": "/experiences",
+      "destination": "/book/",
+      "permanent": true
+    },
+    {
+      "source": "/experiences/",
+      "destination": "/book/",
+      "permanent": true
     }
   ],
   "rewrites": [
