@@ -336,7 +336,7 @@ export const getPersistentCache = (calendarId) => {
 export const savePersistentCache = (calendarId, data) => {
   try {
     const fullCache = JSON.parse(localStorage.getItem(AVAIL_CACHE_KEY)) || {};
-    fullCache[calendarId] = { ...fullCache[calendarId], ...data, _ts: Date.now() };
+    fullCache[calendarId] = { ...data, _ts: Date.now() };
     localStorage.setItem(AVAIL_CACHE_KEY, JSON.stringify(fullCache));
   } catch (e) { /* ignore */ }
 };
