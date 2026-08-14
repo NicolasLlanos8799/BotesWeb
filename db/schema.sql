@@ -1,6 +1,6 @@
 -- Seaduced Experience — PostgreSQL Schema
 -- Compatible con Neon / Vercel Postgres
--- Ejecutar una vez en cada base de datoss (demo y producción)
+-- Ejecutar una vez en cada base de datos (demo y producción)
 
 CREATE TABLE IF NOT EXISTS bookings (
     id              SERIAL PRIMARY KEY,
