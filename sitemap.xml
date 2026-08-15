@@ -146,4 +146,20 @@
     <priority>0.7</priority>
   </url>
 
+  <!-- Pricing -->
+  <url>
+    <loc>https://www.seaduced-experience.com/pricing/</loc>
+    <lastmod>2026-08-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Guide: Private vs Shared Boat Tours -->
+  <url>
+    <loc>https://www.seaduced-experience.com/guides/private-vs-shared-boat-tours/</loc>
+    <lastmod>2026-08-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
 </urlset>
