@@ -39,6 +39,7 @@ export default async function handler(req, res) {
       WHERE tour_id = 'book-wine'
         AND booking_date = ${date}
         AND payment_status = ANY(${ACTIVE_STATUSES})
+        AND NOT (payment_status = 'PENDING' AND created_at < NOW() - INTERVAL '1 hour')
       GROUP BY booking_time
     `;
     const rows = dbResult.rows ?? dbResult;

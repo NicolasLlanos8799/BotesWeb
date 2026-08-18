@@ -79,6 +79,7 @@ export default async function handler(req, res) {
               AND booking_date = ${metadata.date}
               AND booking_time = ${metadata.time}
               AND payment_status = ANY(${ACTIVE_STATUSES})
+              AND NOT (payment_status = 'PENDING' AND created_at < NOW() - INTERVAL '1 hour')
           `;
           const countRows = countResult.rows ?? countResult;
           const groupCount = Number(countRows[0]?.group_count || 0);
