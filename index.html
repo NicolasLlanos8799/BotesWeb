@@ -1194,202 +1194,197 @@
 
   <!-- JSON-LD Structured Data for SEO -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebSite",
-        "@id": "https://www.seaduced-experience.com/#website",
-        "url": "https://www.seaduced-experience.com/",
-        "name": "Seaduced Experience",
-        "description": "Private boat tours in Copenhagen's scenic canals",
-        "potentialAction": {
-          "@type": "SearchAction",
-          "target": { "@type": "EntryPoint", "urlTemplate": "https://www.seaduced-experience.com/book/?q={search_term_string}" },
-          "query-input": "required name=search_term_string"
-        }
-      },
-      {
-        "@type": "LocalBusiness",
-        "@id": "https://www.seaduced-experience.com/#business",
-        "name": "Seaduced Experience",
-        "description": "Copenhagen's most intimate private boat tour. Discover the canals, Nyhavn, Christianshavn and beyond aboard a private vessel with your own local captain. Fully private — just your group.",
-        "url": "https://www.seaduced-experience.com/",
-        "image": "https://www.seaduced-experience.com/assets/images/general/hero_canal_copenhagen3.png",
-        "logo": "https://www.seaduced-experience.com/assets/icons/favicon.svg",
-        "telephone": "+4522561882",
-        "email": "info@seaduced-experience.com",
-        "address": {
-          "@type": "PostalAddress",
-          "streetAddress": "Christians Brygge 28",
-          "addressLocality": "København",
-          "postalCode": "1219",
-          "addressCountry": "DK"
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://www.seaduced-experience.com/#website",
+      "url": "https://www.seaduced-experience.com/",
+      "name": "Seaduced Experience",
+      "description": "Private boat tours in Copenhagen's scenic canals",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://www.seaduced-experience.com/book/?q={search_term_string}"
         },
-        "geo": {
-          "@type": "GeoCoordinates",
-          "latitude": 55.6776,
-          "longitude": 12.5902
-        },
-        "openingHoursSpecification": [
-          {
-            "@type": "OpeningHoursSpecification",
-            "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
-            "opens": "09:00",
-            "closes": "20:00",
-            "validFrom": "2026-04-01",
-            "validThrough": "2026-09-30"
-          },
-          {
-            "@type": "OpeningHoursSpecification",
-            "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
-            "opens": "10:00",
-            "closes": "17:00",
-            "validFrom": "2026-10-01",
-            "validThrough": "2027-03-31"
-          }
-        ],
-        "priceRange": "DKK 2499 - DKK 13000",
-        "currenciesAccepted": "DKK",
-        "paymentAccepted": "Credit Card, MobilePay, Apple Pay",
-        "hasOfferCatalog": {
-          "@type": "OfferCatalog",
-          "name": "Private Boat Tours Copenhagen",
-          "itemListElement": [
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "TouristTrip",
-                "name": "City Highlights – Private Boat Tour Copenhagen (1-2h)",
-                "url": "https://www.seaduced-experience.com/experiences/copenhagen-city-highlights/",
-                "duration": "PT1H"
-              },
-              "price": "2499",
-              "priceCurrency": "DKK"
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "TouristTrip",
-                "name": "Floating Wine Tasting – Private Boat Tour Copenhagen (2h)",
-                "url": "https://www.seaduced-experience.com/experiences/copenhagen-wine-tour/",
-                "duration": "PT2H"
-              },
-              "price": "4999",
-              "priceCurrency": "DKK"
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "TouristTrip",
-                "name": "Private 3-Hour Boat Tour Copenhagen – Harbor & Reffen",
-                "url": "https://www.seaduced-experience.com/experiences/copenhagen-harbor-extended/",
-                "duration": "PT3H"
-              },
-              "price": "4299",
-              "priceCurrency": "DKK"
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "TouristTrip",
-                "name": "Private 4-Hour Boat Tour Copenhagen – Sea Fortress",
-                "url": "https://www.seaduced-experience.com/experiences/copenhagen-sea-fortress/",
-                "duration": "PT4H"
-              },
-              "price": "5999",
-              "priceCurrency": "DKK"
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "TouristTrip",
-                "name": "Private Boat Tour from Copenhagen to Malmö (7h)",
-                "url": "https://www.seaduced-experience.com/experiences/copenhagen-to-malmo/",
-                "duration": "PT7H"
-              },
-              "price": "13000",
-              "priceCurrency": "DKK"
-            }
-          ]
-        },
-        "sameAs": [
-          "https://www.instagram.com/seaduced_experience/",
-          "https://www.facebook.com/SeaducedExperience/",
-          "https://www.tiktok.com/@seaducedexperience"
-        ]
-      },
-      {
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "Are the Seaduced Experience boat tours private and available year-round in Copenhagen?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Yes — all Seaduced Experience tours are 100% private. Your boat is exclusively reserved for your group with no strangers on board. Tours run year-round in Copenhagen, daily from 09:00-20:00 in summer (April–September) and 10:00-17:00 in winter (October–March), weather permitting."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "What is the route and how long are the boat tours?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "We offer tours from 1 hour to 7 hours. The classic City Highlights tour (1-2h) sails through Christianshavn canals, past Nyhavn, Christiansborg Palace, the Black Diamond library, and Islands Brygge. Longer tours extend to Reffen street food market, Trekroner Sea Fortress, or even Malmö, Sweden."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "What is included in a Seaduced Experience boat tour?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "All tours include a private boat exclusively for your group, a local captain who acts as your guide, and a Bluetooth speaker to play your own music. Drinks are available for purchase on board. The wine tasting tour includes four curated wines and a gourmet board."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "What are the payment methods and cancellation policy?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "We accept all major credit and debit cards. Cancellation is free up to 24 hours before your tour start time, and you will receive a full refund. In case of heavy rain or unsafe weather conditions, a full refund is also guaranteed."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Where does the Seaduced Experience boat tour depart from in Copenhagen?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Tours depart from Christians Brygge 28, c/o Housing Group A, S, sal sttv, 1219 København — right beside The Raft. The location is easily accessible by public transport and on foot from the city centre."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "How much does a private boat tour in Copenhagen cost?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Prices start at DKK 2,499 per group (up to 6 people) for the 1-hour City Highlights tour — that works out to approximately DKK 312 per person in a full group. Tours range from DKK 2,499 to DKK 13,000 depending on duration and experience type."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "What is the best private boat tour in Copenhagen for couples?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "For couples, the Floating Wine Tasting tour (2 hours, DKK 5,499) is the most popular choice — it includes four curated wines and a gourmet board in an intimate private setting on the water. The City Highlights tour (1-2h, DKK 2,499) is also excellent for a relaxed scenic cruise."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Can you take a private boat from Copenhagen to Malmö?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Yes — Seaduced Experience offers a unique 7-hour private boat trip from Copenhagen across the Øresund strait to Malmö, Sweden. This cross-border adventure includes free time to explore Malmö before sailing back. Price is DKK 13,000 for groups of up to 10."
-            }
-          }
-        ]
+        "query-input": "required name=search_term_string"
       }
-    ]
-  }
+    },
+    {
+      "@type": "LocalBusiness",
+      "@id": "https://www.seaduced-experience.com/#business",
+      "name": "Seaduced Experience",
+      "description": "Copenhagen's most intimate private boat tour. Discover the canals, Nyhavn, Christianshavn and beyond aboard a private vessel with your own local captain. Fully private — just your group.",
+      "url": "https://www.seaduced-experience.com/",
+      "image": "https://www.seaduced-experience.com/assets/images/general/hero_canal_copenhagen3.png",
+      "logo": "https://www.seaduced-experience.com/assets/icons/favicon.svg",
+      "telephone": "+4522561882",
+      "email": "info@seaduced-experience.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Christians Brygge 28",
+        "addressLocality": "København",
+        "postalCode": "1219",
+        "addressCountry": "DK"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 55.6776,
+        "longitude": 12.5902
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+            "Sunday"
+          ],
+          "opens": "09:00",
+          "closes": "20:00",
+          "validFrom": "2026-04-01",
+          "validThrough": "2026-09-30"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+            "Sunday"
+          ],
+          "opens": "10:00",
+          "closes": "17:00",
+          "validFrom": "2026-10-01",
+          "validThrough": "2027-03-31"
+        }
+      ],
+      "priceRange": "DKK 2499 - DKK 13000",
+      "currenciesAccepted": "DKK",
+      "paymentAccepted": "Credit Card, MobilePay, Apple Pay",
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Private Boat Tours Copenhagen",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "TouristTrip",
+              "name": "City Highlights – Private Boat Tour Copenhagen (1-2h)",
+              "url": "https://www.seaduced-experience.com/experiences/copenhagen-city-highlights/",
+              "duration": "PT1H"
+            },
+            "price": "2499",
+            "priceCurrency": "DKK"
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "TouristTrip",
+              "name": "Floating Wine Tasting – Private Boat Tour Copenhagen (2h)",
+              "url": "https://www.seaduced-experience.com/experiences/copenhagen-wine-tour/",
+              "duration": "PT2H"
+            },
+            "price": "4999",
+            "priceCurrency": "DKK"
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "TouristTrip",
+              "name": "Private 3-Hour Boat Tour Copenhagen – Harbor & Reffen",
+              "url": "https://www.seaduced-experience.com/experiences/copenhagen-harbor-extended/",
+              "duration": "PT3H"
+            },
+            "price": "4299",
+            "priceCurrency": "DKK"
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "TouristTrip",
+              "name": "Private 4-Hour Boat Tour Copenhagen – Sea Fortress",
+              "url": "https://www.seaduced-experience.com/experiences/copenhagen-sea-fortress/",
+              "duration": "PT4H"
+            },
+            "price": "5999",
+            "priceCurrency": "DKK"
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "TouristTrip",
+              "name": "Private Boat Tour from Copenhagen to Malmö (7h)",
+              "url": "https://www.seaduced-experience.com/experiences/copenhagen-to-malmo/",
+              "duration": "PT7H"
+            },
+            "price": "13000",
+            "priceCurrency": "DKK"
+          }
+        ]
+      },
+      "sameAs": [
+        "https://www.instagram.com/seaduced_experience/",
+        "https://www.facebook.com/SeaducedExperience/",
+        "https://www.tiktok.com/@seaducedexperience"
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Are the tours private and available year-round?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Every Seaduced Experience tour is 100% private, reserved only for your group. We operate year-round, and our tours are designed to offer a warm and cozy hygge experience even in the colder months."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the route and how long are the tours?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Our tours typically last 1 to 2 hours, with options up to 4 hours. We explore central canals (Nyhavn, Christianshavn, Islands Brygge) and can include stops at Reffen or Trekroner Fort on longer trips. As everything is private, your captain can customize the route to your interests."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is included and what should we bring?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "We provide blankets and hot drinks in winter, and cold water in summer. Some packages include snacks or champagne. We sell drinks on board — outside food and beverages are not permitted. We recommend comfortable clothing and layers for the weather."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Payment Methods and Cancellation Policy",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Payments: We accept Credit/Debit cards (Visa, MC, AMEX), MobilePay, Apple Pay, SumUp, and Revolut. Cancellations: 7+ days before: Full refund. 7 days to 48h before: 50% refund. Within 48h: Non-refundable. In case of bad weather/unsafe conditions, we reschedule or offer a full refund. Refunds take 5–10 business days."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Where does the tour start?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "We meet at Christians Brygge 28, c/o Housing Group A, S, sal sttv, 1219 København — right beside The Raft."
+          }
+        }
+      ]
+    }
+  ]
+}
   </script>
   <script type="module" src="/js/i18n.js"></script>
   <script type="module" src="/js/main.js?v=1.2"></script>
