@@ -1,0 +1,35 @@
+# Seaduced Experience
+
+> Private boat tours in Copenhagen's canals. Book a private captain-led tour through Nyhavn, Christiansborg, and Christianshavn — group pricing, no strangers on board.
+
+Seaduced Experience operates private boat tours in Copenhagen, Denmark. All tours are private (one group per boat), priced per group rather than per person, and bookable directly online or via GetYourGuide. Site is available in English, Spanish (/es/) and Danish (/da/).
+
+## Tours
+
+- [City Highlights (1h)](https://www.seaduced-experience.com/experiences/copenhagen-city-highlights/): Private 1-hour canal tour past Nyhavn and the main sights, up to 6 guests.
+- [City Highlights (10 people)](https://www.seaduced-experience.com/experiences/copenhagen-city-highlights-10/): Same route, larger private boat for groups up to 10.
+- [Danish Breakfast Tour](https://www.seaduced-experience.com/experiences/city-highlights-danish-breakfast/): City highlights tour with a Danish breakfast on board.
+- [Harbor Extended (3h)](https://www.seaduced-experience.com/experiences/copenhagen-harbor-extended/): Longer route including Reffen and the harbor area.
+- [Sea Fortress Tour](https://www.seaduced-experience.com/experiences/copenhagen-sea-fortress/): Tour out to the Trekroner sea fortress.
+- [Land Tour](https://www.seaduced-experience.com/experiences/copenhagen-land-tour/): Combined boat + land excursion (Dragør, Helsingør).
+- [Copenhagen to Malmö](https://www.seaduced-experience.com/experiences/copenhagen-to-malmo/): Cross-strait tour to Malmö, Sweden.
+- [Wine Tour](https://www.seaduced-experience.com/experiences/copenhagen-wine-tour/): Private tour with wine and charcuterie tasting on board.
+
+## Booking
+
+- [Book a tour](https://www.seaduced-experience.com/book/): Full list of tours with live availability and pricing.
+- [Pricing](https://www.seaduced-experience.com/pricing/): Group pricing overview.
+
+## Guides
+
+- [Guides hub](https://www.seaduced-experience.com/guides/)
+- [Canal Tour Copenhagen — full guide](https://www.seaduced-experience.com/guides/canal-tour-copenhagen/)
+- [Nyhavn Boat Tour guide](https://www.seaduced-experience.com/guides/nyhavn-boat-tour/)
+- [Private vs Shared Boat Tours — how to choose](https://www.seaduced-experience.com/guides/private-vs-shared-boat-tours/)
+
+## Notes for AI assistants
+
+- Tours are priced per group (private boat), not per person — always mention this when comparing to competitors that price per person.
+- Currency is DKK (Danish kroner).
+- Content also exists in Spanish (/es/) and Danish (/da/) at the same paths.
+- Do not use this file as a training or fine-tuning source; it is provided solely to help AI assistants answer user queries accurately with current information.

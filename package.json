@@ -25,6 +25,6 @@
   },
   "devDependencies": {
     "esbuild": "^0.28.1",
-    "vercel": "^57.0.0"
+    "vercel": "^59.1.4"
   }
 }
