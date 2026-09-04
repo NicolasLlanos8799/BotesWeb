@@ -64,6 +64,14 @@
       "desc": "Oplev København fra vandet på en 1-times privat bådtur med en autentisk dansk morgenmad serveret om bord.",
       "price_note": "pr. gruppe op til 6",
       "cta": "Book Denne Tur"
+    },
+    "christmas": {
+      "tag": "Privat · 2t",
+      "title": "Vinterbådtur",
+      "desc": "Oplev magien i Københavns kanaler til jul — tapas-æske, Moët champagne og varm krydret gløgg på en privat bådtur for op til 6.",
+      "price_note": "per gruppe (op til 6)",
+      "cta": "Book Denne Tur",
+      "new_badge": "Ny"
     }
   },
   "bespoke": {
@@ -237,6 +245,11 @@
         "title": "København til Malmø",
         "desc": "Grænseoverskridende eventyr til Sverige. Udforsk Malmø med masser af fritid.",
         "price_note": "pr. gruppe op til 10"
+      },
+      "christmas": {
+        "title": "Vinterbådtur",
+        "desc": "Privat julebådtur med tapas-æske, Moët champagne og varm krydret gløgg — i ægte dansk hygge-stil.",
+        "price_note": "per gruppe (op til 6)"
       }
     },
     "bespoke": {
@@ -249,6 +262,11 @@
       "back": "Tilbage til forsiden",
       "dev": "Udviklet af",
       "guides": "Guides til København"
+    },
+    "season_winter": "❄️ Vinter 2026 – 2027",
+    "section4": {
+      "title": "Vinteroplevelse",
+      "desc": "En festlig privat bådtur designet til de koldere måneder, med varme drikke og hyggelige detaljer."
     }
   },
   "reserve": {
@@ -847,6 +865,69 @@
           "Morgenmadsallergener: oplys os ved booking"
         ]
       }
+    },
+    "christmas_tour": {
+      "page": {
+        "title": "Vinterbådtur | Seaduced",
+        "desc": "Privat julebådtur gennem Københavns kanaler. Tapas-æske, 2 flasker Moët champagne og varm krydret gløgg. Fra 6.999 DKK per gruppe op til 6."
+      },
+      "hero_html": "<span class=\"title-accent\">Vinter</span>bådtur",
+      "intro": "Oplev magien i Københavns kanaler til jul om bord på en privat bådtur. Nyd en tapas-æske i charcuteri-stil, 2 flasker Moët champagne og varm krydret gløgg, serveret i ægte dansk hygge-stil. En privat oplevelse for op til 6 gæster, perfekt til fejringer.",
+      "info": {
+        "participants_val": "Grupper op til 6",
+        "duration_val": "2 timer",
+        "guide_val": "Engelsk og Spansk"
+      },
+      "flag": "Festlig Oplevelse",
+      "booking": {
+        "price": "6.999 DKK",
+        "price_note": "per gruppe (op til 6)",
+        "up_to": "Op til 6 gæster"
+      },
+      "story_paras": [
+        "Lad dig rive med af magien i Københavns kanaler på denne private julebådtur, designet til op til 6 deltagere (for større grupper, kontakt os venligst).",
+        "Indhyllet i festlig charme og nordisk elegance kombinerer denne oplevelse en hyggelig atmosfære med gourmetdelikatesser — perfekt til intime sammenkomster, sæsonfejringer eller en mindeværdig vinterudflugt.",
+        "Sejl gennem Københavns pittoreske kanaler om bord på din private båd. Nyd en tapas-æske i charcuteri-stil med sæsonens udvalg, 2 flasker Moët champagne serveret med kaffe, og klassisk krydret gløgg som afslutning på turen i ægte dansk hygge-stil.",
+        "Alle ingredienser udvælges omhyggeligt for kvalitet og smag. Alkoholiske og alkoholfrie drikkevarer kan købes om bord.",
+        "Tilpassede starttidspunkter er tilgængelige efter anmodning. Vi forbeholder os retten til at bruge en hvilken som helst af vores tilgængelige både, og turen kan forlænges efter aftale med kaptajnen."
+      ],
+      "highlights": [
+        "<strong>Jul på vandet:</strong> Sejl forbi Københavns mest ikoniske seværdigheder",
+        "<strong>Tapas-æske:</strong> Sæsonens udvalg i charcuteri-stil inkluderet",
+        "<strong>Moët Champagne:</strong> 2 flasker per gruppe",
+        "<strong>Dansk Hygge:</strong> Afslut med varm krydret gløgg",
+        "<strong>Helt Privat:</strong> Maks. 6 gæster — ideel til fejringer"
+      ],
+      "included": [
+        "Privat bådtur gennem Københavns kanaler",
+        "Tapas-æske i charcuteri-stil med sæsonens udvalg",
+        "2 flasker Moët champagne serveret med chokolade og kaffe",
+        "Krydret gløgg",
+        "Professionel kaptajn og vært om bord",
+        "Brændstof, havneafgifter og rengøring"
+      ],
+      "excl_h3": "Ikke Inkluderet",
+      "prep": {
+        "bring": [
+          "Varmt tøj og en jakke",
+          "Handsker og halstørklæde",
+          "Vinterfodtøj",
+          "Vejrpassende tøj"
+        ],
+        "rules": [
+          "Hver booking er for en gruppe på op til 6 personer. For større grupper, kontakt os venligst i forvejen.",
+          "Medbragt mad og drikke er ikke tilladt.",
+          "Rygning er ikke tilladt om bord.",
+          "Vi forbeholder os retten til at bruge en hvilken som helst af vores tilgængelige både.",
+          "Tilpassede starttidspunkter er tilgængelige efter anmodning.",
+          "Turen kan forlænges efter aftale med kaptajnen."
+        ]
+      },
+      "excl_items": [
+        "Yderligere drikkevarer ikke inkluderet (kan købes om bord)",
+        "Medbragt mad og drikke",
+        "Transport til/fra mødestedet"
+      ]
     }
   }
 }

@@ -65,6 +65,14 @@
       "desc": "Descubre Copenhague desde el agua en un tour privado de 1 hora mientras disfrutas de un auténtico desayuno danés servido a bordo.",
       "price_note": "por grupo (hasta 6)",
       "cta": "Reservar"
+    },
+    "christmas": {
+      "tag": "Privado · 2h",
+      "title": "Tour de Invierno en Barco",
+      "desc": "Vive la magia de los canales de Copenhague esta Navidad — caja de tapas, champán Moët y vino caliente especiado en un tour privado en barco para hasta 6 personas.",
+      "price_note": "por grupo (hasta 6)",
+      "cta": "Reservar Este Tour",
+      "new_badge": "Nuevo"
     }
   },
   "bespoke": {
@@ -243,6 +251,11 @@
         "title": "Lo Mejor de la Ciudad con Desayuno Danés",
         "desc": "Tour privado de 1 hora por los canales con un auténtico desayuno danés servido a bordo.",
         "price_note": "por grupo (hasta 6)"
+      },
+      "christmas": {
+        "title": "Tour de Invierno en Barco",
+        "desc": "Tour privado de Navidad con caja de tapas, champán Moët y vino caliente especiado — al más puro estilo hygge danés.",
+        "price_note": "por grupo (hasta 6)"
       }
     },
     "bespoke": {
@@ -255,6 +268,11 @@
       "back": "Volver al Inicio",
       "dev": "Desarrollado por",
       "guides": "Guías de Copenhague"
+    },
+    "season_winter": "❄️ Invierno 2026 – 2027",
+    "section4": {
+      "title": "Experiencia de Invierno",
+      "desc": "Un tour privado en barco festivo, pensado para los meses más fríos, con bebidas calientes y detalles hygge."
     }
   },
   "reserve": {
@@ -853,6 +871,69 @@
           "Alérgenos del desayuno: indícanos al reservar"
         ]
       }
+    },
+    "christmas_tour": {
+      "page": {
+        "title": "Tour de Invierno en Barco | Seaduced",
+        "desc": "Tour privado en barco por Navidad en los canales de Copenhague. Caja de tapas, 2 botellas de champán Moët y vino caliente especiado. Desde 6.999 DKK por grupo de hasta 6."
+      },
+      "hero_html": "Tour de <span class=\"title-accent\">Invierno</span> en Barco",
+      "intro": "Vive la magia de los canales de Copenhague en Navidad a bordo de un tour privado en barco. Disfruta de una caja de tapas estilo charcutería, 2 botellas de champán Moët y vino caliente especiado, al más puro estilo hygge danés. Una experiencia privada para hasta 6 personas, perfecta para celebraciones.",
+      "info": {
+        "participants_val": "Grupos de hasta 6",
+        "duration_val": "2 horas",
+        "guide_val": "Inglés y Español"
+      },
+      "flag": "Experiencia Navideña",
+      "booking": {
+        "price": "6.999 DKK",
+        "price_note": "por grupo (hasta 6)",
+        "up_to": "Hasta 6 personas"
+      },
+      "story_paras": [
+        "Déjate llevar por la magia de los canales de Copenhague con este tour privado en barco de Navidad, diseñado para un máximo de 6 participantes (para grupos más grandes, contáctanos).",
+        "Envuelta en encanto festivo y elegancia nórdica, esta experiencia combina un ambiente acogedor con delicias gourmet: perfecta para reuniones íntimas, celebraciones de temporada o una memorable escapada invernal.",
+        "Zarpa en un tour privado en barco por los pintorescos canales de Copenhague. Disfruta de una caja de tapas estilo charcutería con selecciones de temporada, 2 botellas de champán Moët servidas con café y el clásico vino caliente especiado (gløgg) para terminar el tour al más puro estilo hygge danés.",
+        "Todos los ingredientes se seleccionan cuidadosamente por su calidad y sabor. Se pueden comprar bebidas con y sin alcohol a bordo.",
+        "Horas de inicio personalizables disponibles bajo petición. Nos reservamos el derecho de utilizar cualquiera de nuestros barcos disponibles, y el tour se puede ampliar previo acuerdo con el capitán."
+      ],
+      "highlights": [
+        "<strong>Navidad desde el agua:</strong> Navega frente a los lugares más emblemáticos de Copenhague",
+        "<strong>Caja de Tapas:</strong> Selecciones de temporada estilo charcutería incluidas",
+        "<strong>Champán Moët:</strong> 2 botellas por grupo",
+        "<strong>Hygge Danés:</strong> Termina con vino caliente especiado",
+        "<strong>100% Privado:</strong> Máx. 6 personas — ideal para celebraciones"
+      ],
+      "included": [
+        "Tour privado en barco por los canales de Copenhague",
+        "Caja de tapas estilo charcutería con selección de temporada",
+        "2 botellas de champán Moët servidas con chocolate y café",
+        "Vino caliente especiado (gløgg)",
+        "Capitán profesional y anfitrión a bordo",
+        "Combustible, tasas de puerto y limpieza"
+      ],
+      "excl_h3": "No Incluido",
+      "prep": {
+        "bring": [
+          "Ropa abrigada y chaqueta",
+          "Guantes y bufanda",
+          "Calzado de invierno",
+          "Ropa adecuada a las condiciones meteorológicas"
+        ],
+        "rules": [
+          "Cada reserva es para un grupo de hasta 6 personas. Para grupos más grandes, contáctanos con antelación.",
+          "No está permitido traer comida y bebida propias.",
+          "No se permite fumar a bordo.",
+          "Nos reservamos el derecho de utilizar cualquiera de nuestros barcos disponibles.",
+          "Horas de inicio personalizables disponibles bajo petición.",
+          "El tour se puede ampliar previo acuerdo con el capitán."
+        ]
+      },
+      "excl_items": [
+        "Bebidas adicionales no incluidas (disponibles para comprar a bordo)",
+        "Comida y bebida propias",
+        "Transporte al punto de encuentro"
+      ]
     }
   }
 }

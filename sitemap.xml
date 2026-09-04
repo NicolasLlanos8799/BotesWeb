@@ -110,6 +110,18 @@
     <priority>0.8</priority>
   </url>
 
+  <!-- Experience: Christmas Boat Tour -->
+  <url>
+    <loc>https://www.seaduced-experience.com/experiences/copenhagen-christmas-boat-tour/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.seaduced-experience.com/experiences/copenhagen-christmas-boat-tour/"/>
+    <xhtml:link rel="alternate" hreflang="da" href="https://www.seaduced-experience.com/da/experiences/copenhagen-christmas-boat-tour/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.seaduced-experience.com/es/experiences/copenhagen-christmas-boat-tour/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.seaduced-experience.com/experiences/copenhagen-christmas-boat-tour/"/>
+    <lastmod>2026-09-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
   <!-- Experience: Copenhagen to Malmö -->
   <url>
     <loc>https://www.seaduced-experience.com/experiences/copenhagen-to-malmo/</loc>

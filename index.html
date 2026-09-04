@@ -416,6 +416,34 @@
         align-items: center;
         overflow: clip;
       }
+    .tour-card--highlight {
+      animation: tourCardGlow 2.4s ease-in-out infinite;
+    }
+
+    @keyframes tourCardGlow {
+      0%, 100% { box-shadow: var(--shadow-card), 0 0 0 0 rgba(232, 131, 74, 0.45); }
+      50% { box-shadow: var(--shadow-card), 0 0 0 7px rgba(232, 131, 74, 0); }
+    }
+
+    .tour-card__ribbon {
+      position: absolute;
+      top: var(--space-sm);
+      right: var(--space-sm);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35em;
+      background: linear-gradient(135deg, var(--clr-sunset), var(--clr-sunset-lt));
+      color: #fff;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 0.45em 0.9em;
+      border-radius: var(--radius-full);
+      box-shadow: 0 4px 10px rgba(15, 30, 53, 0.3);
+      z-index: 3;
+      pointer-events: none;
+    }
   </style>
   <link rel="stylesheet" href="/css/bundle.css">
   <link rel="icon" href="/assets/icons/favicon.svg" type="image/svg+xml" />
@@ -686,37 +714,36 @@
             </div>
           </article>
 
-          <article class="tour-card tour-card--clickable reveal" id="tour-premium"
-            data-card-link="/experiences/copenhagen-sea-fortress/"
-            data-i18n-card-link="/experiences/copenhagen-sea-fortress/" tabindex="0" role="link"
-            aria-label="Open Private Boat and Sea Fortress Highlights experience page">
-            <a class="tour-card__media-link" href="/experiences/copenhagen-sea-fortress/"
-              title="Sea Fortress – 4-Hour Private Boat Tour Copenhagen"
-              data-i18n-href="/experiences/copenhagen-sea-fortress/"
-              aria-label="View Private Boat and Sea Fortress Highlights details">
+          <article class="tour-card tour-card--clickable tour-card--highlight reveal" id="tour-christmas"
+            data-card-link="/experiences/copenhagen-christmas-boat-tour/" data-i18n-card-link="/experiences/copenhagen-christmas-boat-tour/"
+            tabindex="0" role="link" aria-label="Open Christmas Boat Tour experience page">
+            <a class="tour-card__media-link" href="/experiences/copenhagen-christmas-boat-tour/"
+              title="Christmas Boat Tour – Private Boat Tour Copenhagen"
+              data-i18n-href="/experiences/copenhagen-christmas-boat-tour/"
+              aria-label="View Christmas Boat Tour experience details">
               <div class="tour-card__img-wrap">
-                <img src="/assets/images/sea-fortress-4h/fortress.webp" alt="Private 4-Hour Premium Experience"
-                  title="Private 4-hour boat tour to Trekroner Sea Fortress, Copenhagen" loading="lazy" width="960"
-                  height="600" data-i18n-attr="alt:tour.premium.img_alt" />
-                <span class="tour-card__tag"><span data-i18n="experiences.ui.info.duration">Duration</span> 4h</span>
+                <span class="tour-card__ribbon" data-i18n="tour.christmas.new_badge">✨ New Experience</span>
+                <img src="/assets/images/winter-seasonal/winter-canal-snow-christianshavn.webp"
+                  alt="Christmas boat tour in Copenhagen"
+                  title="Private Christmas boat tour in Copenhagen" loading="lazy" width="960"
+                  height="600" />
+                <span class="tour-card__tag"><span data-i18n="experiences.ui.info.duration">Duration</span> 2h</span>
               </div>
             </a>
             <div class="tour-card__body">
-              <h3 class="tour-card__title"><a class="tour-card__title-link" href="/experiences/copenhagen-sea-fortress/"
-                  data-i18n="tour.premium.title" data-i18n-href="/experiences/copenhagen-sea-fortress/">Sea Fortress and
-                  Coastal Journey</a></h3>
-              <p class="tour-card__desc" data-i18n="tour.premium.desc">4 hours of private sailing, including 1 hour at
-                Reffen and 1 hour at Trekroner
-                Fort. Swimming stop possibility and open water views.</p>
+              <h3 class="tour-card__title"><a class="tour-card__title-link" href="/experiences/copenhagen-christmas-boat-tour/"
+                  data-i18n="tour.christmas.title" data-i18n-href="/experiences/copenhagen-christmas-boat-tour/">Winter Boat Tour</a></h3>
+              <p class="tour-card__desc" data-i18n="tour.christmas.desc">Live the magic of Copenhagen's canals this
+                Christmas — charcuterie box, Moët champagne and warm spiced glogg on a private boat tour for up to 6.</p>
               <div class="tour-card__price">
-                <span class="tour-card__amount">5,999 DKK</span>
-                <span class="tour-card__price-note" data-i18n="tour.premium.price_note">per group up to 6</span>
+                <span class="tour-card__amount">6,999 DKK</span>
+                <span class="tour-card__price-note" data-i18n="tour.christmas.price_note">per group (up to 6)</span>
               </div>
-              <button data-book-tour="city-highlights-4h" class="btn btn--outline btn--sm" id="tour-card-events-cta"
-                data-i18n="tour.premium.cta">Book This
-                Tour</button>
+              <button data-book-tour="book-christmas-tour" class="btn btn--outline btn--sm" id="tour-card-christmas-cta"
+                data-i18n="tour.christmas.cta">Book This Tour</button>
             </div>
           </article>
+
 
 
         </div>
@@ -1328,6 +1355,17 @@
               "duration": "PT7H"
             },
             "price": "13000",
+            "priceCurrency": "DKK"
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "TouristTrip",
+              "name": "Winter Boat Tour (2h)",
+              "url": "https://www.seaduced-experience.com/experiences/copenhagen-christmas-boat-tour/",
+              "duration": "PT2H"
+            },
+            "price": "6999",
             "priceCurrency": "DKK"
           }
         ]

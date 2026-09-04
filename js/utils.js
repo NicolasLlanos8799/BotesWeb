@@ -25,7 +25,7 @@ export const TOURS = {
     duration: "2 Hours",
     durationEs: "2 Horas",
     durationDa: "2 Timer",
-    img: "/assets/images/winter-seasonal/tour_winter_hygge.webp",
+    img: "/assets/images/winter-seasonal/winter-boat-tour-guests-night.webp",
     url: "/experiences/copenhagen-harbor-extended/", // Placeholder until real path confirmed
     maxParticipants: 6,
     calendar: "boat1",
@@ -82,7 +82,7 @@ export const TOURS = {
     duration: "2 Hours",
     durationEs: "2 Horas",
     durationDa: "2 Timer",
-    img: "/assets/images/winter-seasonal/tour_winter_hygge_book.webp",
+    img: "/assets/images/winter-seasonal/winter-canal-snow-christianshavn.webp",
     url: "/experiences/copenhagen-harbor-extended/",
     maxParticipants: 6,
     calendar: "boat1",
@@ -97,7 +97,7 @@ export const TOURS = {
     duration: "2 Hours",
     durationEs: "2 Horas",
     durationDa: "2 Timer",
-    img: "/assets/images/winter-seasonal/tour_christmas_champagne.webp",
+    img: "/assets/images/winter-seasonal/winter-boat-champagne-charcuterie.webp",
     url: "/experiences/copenhagen-harbor-extended/",
     maxParticipants: 6,
     calendar: "boat1",
@@ -218,13 +218,34 @@ export const TOURS = {
       { time: "11:00", available: true },
     ],
   },
+  "book-christmas-tour": {
+    id: "book-christmas-tour",
+    title: "Winter Boat Tour",
+    titleEs: "Tour de Invierno en Barco",
+    titleDa: "Vinterbådtur",
+    price: 6999,
+    duration: "2 Hours",
+    durationEs: "2 Horas",
+    durationDa: "2 Timer",
+    img: "/assets/images/winter-seasonal/winter-canal-snow-christianshavn.webp",
+    url: "/experiences/copenhagen-christmas-boat-tour/",
+    maxParticipants: 6,
+    calendar: "boat1",
+    customSlots: [
+      { time: "10:00", available: true },
+      { time: "12:00", available: true },
+      { time: "14:00", available: true },
+      { time: "16:00", available: true },
+      { time: "18:00", available: true },
+    ],
+  },
 };
 
 export const EXTRA_CHARCUTERIE = {
   title: "Charcuterie",
   titleEs: "Tabla de Charcutería Gourmet",
   price: 225,
-  img: "/assets/images/winter-seasonal/tour_christmas_champagne.webp",
+  img: "/assets/images/winter-seasonal/winter-boat-champagne-charcuterie.webp",
 };
 
 function getDefaultBooking() {

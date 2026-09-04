@@ -61,6 +61,14 @@
       "desc": "Discover Copenhagen from the water on a 1-hour private boat tour while enjoying an authentic Danish breakfast served on board.",
       "price_note": "per group up to 6",
       "cta": "Book This Tour"
+    },
+    "christmas": {
+      "tag": "Private · 2h",
+      "title": "Winter Boat Tour",
+      "desc": "Live the magic of Copenhagen's canals this Christmas — charcuterie box, Moët champagne and warm spiced glogg on a private boat tour for up to 6.",
+      "price_note": "per group (up to 6)",
+      "cta": "Book This Tour",
+      "new_badge": "New"
     }
   },
   "bespoke": {
@@ -234,6 +242,11 @@
         "title": "Copenhagen to Malmö",
         "desc": "Cross-border adventure to Sweden. Explore Malmö with plenty of free time.",
         "price_note": "per group up to 10"
+      },
+      "christmas": {
+        "title": "Winter Boat Tour",
+        "desc": "Private Christmas boat tour with a charcuterie box, Moët champagne and warm spiced glogg — Danish hygge style.",
+        "price_note": "per group (up to 6)"
       }
     },
     "bespoke": {
@@ -246,6 +259,11 @@
       "back": "Back to Home",
       "dev": "Developed by",
       "guides": "Copenhagen Guides"
+    },
+    "season_winter": "❄️ Winter 2026 – 2027",
+    "section4": {
+      "title": "Winter Experience",
+      "desc": "A festive private boat tour designed for the colder months, with warm drinks and cozy hygge touches."
     }
   },
   "reserve": {
@@ -844,6 +862,69 @@
           "Breakfast allergens: please inform us on booking"
         ]
       }
+    },
+    "christmas_tour": {
+      "page": {
+        "title": "Winter Boat Tour | Seaduced",
+        "desc": "Private Christmas boat tour through Copenhagen's canals. Charcuterie box, 2 bottles of Moët champagne and warm spiced glogg. From DKK 6,999 per group of up to 6."
+      },
+      "hero_html": "<span class=\"title-accent\">Winter</span> Boat Tour",
+      "intro": "Live the magic of Copenhagen's Christmas canals aboard a private boat tour. Enjoy a charcuterie-style tapas box, 2 bottles of Moët champagne and warm spiced glogg, served in true Danish hygge style. A private experience for up to 6 guests, perfect for celebrations.",
+      "info": {
+        "participants_val": "Groups of up to 6",
+        "duration_val": "2 hours",
+        "guide_val": "English & Spanish"
+      },
+      "flag": "Festive Experience",
+      "booking": {
+        "price": "6,999 DKK",
+        "price_note": "per group (up to 6)",
+        "up_to": "Up to 6 guests"
+      },
+      "story_paras": [
+        "Let yourself be carried away by the magic of Copenhagen's canals on this private Christmas boat tour, designed for up to 6 participants (for larger groups, please contact us).",
+        "Wrapped in festive charm and Nordic elegance, this experience combines a cozy atmosphere with gourmet delights — perfect for intimate gatherings, seasonal celebrations, or a memorable winter getaway.",
+        "Set sail through Copenhagen's picturesque canals aboard your private boat. Enjoy a charcuterie-style tapas box with seasonal selections, two bottles of Moët champagne served with coffee, and classic spiced mulled wine (glogg) to close the tour in true Danish hygge style.",
+        "All ingredients are carefully selected for quality and flavor. Alcoholic and non-alcoholic drinks can be purchased on board.",
+        "Custom start times are available on request. We reserve the right to use any of our available boats, and the tour can be extended by prior arrangement with the captain."
+      ],
+      "highlights": [
+        "<strong>Christmas on the water:</strong> Cruise past Copenhagen's most iconic landmarks",
+        "<strong>Charcuterie Box:</strong> Seasonal tapas-style selections included",
+        "<strong>Moët Champagne:</strong> 2 bottles served per group",
+        "<strong>Danish Hygge:</strong> Finish with warm spiced glogg",
+        "<strong>Fully Private:</strong> Max 6 guests — ideal for celebrations"
+      ],
+      "included": [
+        "Private boat tour through Copenhagen's canals",
+        "Charcuterie-style tapas box with seasonal selection",
+        "2 bottles of Moët champagne served with chocolate and coffee",
+        "Spiced mulled wine (glogg)",
+        "Professional captain and onboard host",
+        "Fuel, port fees, and cleaning"
+      ],
+      "excl_h3": "Not Included",
+      "prep": {
+        "bring": [
+          "Warm clothing and a jacket",
+          "Gloves and a scarf",
+          "Winter footwear",
+          "Weather-appropriate clothing"
+        ],
+        "rules": [
+          "Each booking is for a group of up to 6 people. For larger groups, please contact us in advance.",
+          "Outside food and drinks are not allowed.",
+          "Smoking is not permitted on board.",
+          "We reserve the right to use any of our available boats.",
+          "Custom start times are available on request.",
+          "The tour can be extended by prior arrangement with the captain."
+        ]
+      },
+      "excl_items": [
+        "Additional drinks not included (available for purchase on board)",
+        "Outside food and beverages",
+        "Transport to/from meeting point"
+      ]
     }
   }
 }
