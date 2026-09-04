@@ -2,6 +2,12 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "cleanUrls": true,
+  "crons": [
+    {
+      "path": "/api/gyg-expire-holds",
+      "schedule": "*/15 * * * *"
+    }
+  ],
   "trailingSlash": true,
   "redirects": [
     {
