@@ -55,12 +55,14 @@ const OPTION_PRICES = {
   1826872: 549900,  // Wine Tour — 5499 DKK (corrected 2026-08-04, was wrong at 5799)
   1288216: 599900,  // Sea Fortress and Coastal Journey (4h) — 5999 DKK
   1747660: 499900,  // Copenhagen winter hygge — 4999 DKK
+  1747630: 699900,  // Copenhagen: Private winter boat Tour — 6999 DKK
 };
 
 // Cutoff (seconds before start) per GYG option ID. Default 7200 (2h) if not listed here.
 const OPTION_CUTOFF_SECONDS = {
   1825099: 36000,  // Land Tour — 10h, matches Supplier Portal setting
   1935449: 36000,  // Copenhagen to Malmö — 10h, matches Supplier Portal setting
+  1747630: 36000,  // Copenhagen: Private winter boat Tour — 10h, matches Supplier Portal setting
 };
 const DEFAULT_CUTOFF_SECONDS = 7200;
 
