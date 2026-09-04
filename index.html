@@ -416,34 +416,6 @@
         align-items: center;
         overflow: clip;
       }
-    .tour-card--highlight {
-      animation: tourCardGlow 2.4s ease-in-out infinite;
-    }
-
-    @keyframes tourCardGlow {
-      0%, 100% { box-shadow: var(--shadow-card), 0 0 0 0 rgba(232, 131, 74, 0.45); }
-      50% { box-shadow: var(--shadow-card), 0 0 0 7px rgba(232, 131, 74, 0); }
-    }
-
-    .tour-card__ribbon {
-      position: absolute;
-      top: var(--space-sm);
-      right: var(--space-sm);
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35em;
-      background: linear-gradient(135deg, var(--clr-sunset), var(--clr-sunset-lt));
-      color: #fff;
-      font-size: 0.78rem;
-      font-weight: 800;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      padding: 0.45em 0.9em;
-      border-radius: var(--radius-full);
-      box-shadow: 0 4px 10px rgba(15, 30, 53, 0.3);
-      z-index: 3;
-      pointer-events: none;
-    }
   </style>
   <link rel="stylesheet" href="/css/bundle.css">
   <link rel="icon" href="/assets/icons/favicon.svg" type="image/svg+xml" />
@@ -714,7 +686,7 @@
             </div>
           </article>
 
-          <article class="tour-card tour-card--clickable tour-card--highlight reveal" id="tour-christmas"
+          <article class="tour-card tour-card--clickable reveal" id="tour-christmas"
             data-card-link="/experiences/copenhagen-christmas-boat-tour/" data-i18n-card-link="/experiences/copenhagen-christmas-boat-tour/"
             tabindex="0" role="link" aria-label="Open Christmas Boat Tour experience page">
             <a class="tour-card__media-link" href="/experiences/copenhagen-christmas-boat-tour/"
@@ -722,7 +694,6 @@
               data-i18n-href="/experiences/copenhagen-christmas-boat-tour/"
               aria-label="View Christmas Boat Tour experience details">
               <div class="tour-card__img-wrap">
-                <span class="tour-card__ribbon" data-i18n="tour.christmas.new_badge">✨ New Experience</span>
                 <img src="/assets/images/winter-seasonal/winter-canal-snow-christianshavn.webp"
                   alt="Christmas boat tour in Copenhagen"
                   title="Private Christmas boat tour in Copenhagen" loading="lazy" width="960"
