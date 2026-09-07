@@ -740,11 +740,15 @@ export function openBookingDetailModal(booking, { onUpdated, onDeleted, onCancel
           body: JSON.stringify({ id: booking.id })
         });
         if (res.ok) {
+          const body = await res.json().catch(() => ({}));
           booking.status = "PAID";
           invalidateBadgeCache();
           ensureBadges();
           onUpdated?.(booking);
           modal.remove();
+          if (body.syncWarning) {
+            await adminAlert(`Booking marked as PAID, but the confirmation email / calendar event may NOT have gone out: ${body.syncWarning}. Double-check with the customer.`, "error");
+          }
           return;
         }
         const body = await res.json().catch(() => ({}));

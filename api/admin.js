@@ -193,6 +193,7 @@ async function handleMarkPaid(req, res) {
     }
     const b = rows[0];
 
+    let syncWarning = null;
     if (process.env.GAS_URL) {
       const d = b.booking_date ? new Date(b.booking_date) : null;
       const dateStr = d
@@ -200,8 +201,11 @@ async function handleMarkPaid(req, res) {
         : null;
       const timeStr = b.booking_time ? String(b.booking_time).substring(0, 5) : null;
 
-      waitUntil(
-        fetch(process.env.GAS_URL, {
+      // Awaited (not fire-and-forget) — the admin needs to know right away
+      // if the confirmation email / calendar event didn't actually go out,
+      // even though the booking is already flipped to PAID at this point.
+      try {
+        const gasRes = await fetch(process.env.GAS_URL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -219,11 +223,21 @@ async function handleMarkPaid(req, res) {
             lang: b.lang,
             sumup_checkout_id: b.sumup_id,
           }),
-        }).catch(err => logWarn("mark-paid createBooking sync error:", err.message))
-      );
+        });
+        const gasResult = await gasRes.json().catch(() => null);
+        if (!gasRes.ok || !gasResult || gasResult.success === false) {
+          syncWarning = (gasResult && gasResult.message) || `GAS responded ${gasRes.status}`;
+          logWarn("mark-paid createBooking sync failed:", syncWarning, "booking", b.id);
+        }
+      } catch (err) {
+        syncWarning = err.message;
+        logWarn("mark-paid createBooking sync error:", err.message, "booking", b.id);
+      }
+    } else {
+      syncWarning = "GAS_URL not configured";
     }
 
-    return res.status(200).json({ success: true, id: b.id });
+    return res.status(200).json({ success: true, id: b.id, syncWarning });
   } catch (err) {
     logError("mark-paid error:", err.message);
     return res.status(500).json({ error: err.message });
