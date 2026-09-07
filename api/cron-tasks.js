@@ -69,13 +69,20 @@ async function runPaymentReminder(req, res) {
 
   let sent = 0;
   for (const b of rows) {
+    // booking_date comes back as a JS Date (midnight UTC) — send just the
+    // YYYY-MM-DD part, not the full ISO timestamp, to match what the email
+    // template and buildRetryUrl expect.
+    const dateStr = b.booking_date instanceof Date
+      ? b.booking_date.toISOString().slice(0, 10)
+      : b.booking_date;
+
     const gasResult = await callGAS({
       action: "paymentReminder",
       name: b.customer_name,
       email: b.customer_email,
       tour: b.tour_id,
       tourTitle: b.tour_name,
-      date: b.booking_date,
+      date: dateStr,
       time: b.booking_time,
       qty: b.passengers,
       tapas: b.extras,
