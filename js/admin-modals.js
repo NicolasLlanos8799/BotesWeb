@@ -661,6 +661,7 @@ export function openBookingDetailModal(booking, { onUpdated, onDeleted, onCancel
         <button id="bd-action-delete" class="btn--close" style="flex:1;padding:0.65rem 0.5rem;text-align:center;color:var(--admin-danger);border-color:rgba(248,113,113,0.3);background:transparent;">🗑 Delete</button>
         <button id="bd-action-edit" class="btn--save" style="flex:1;padding:0.65rem 0.5rem;text-align:center;font-weight:600;background:rgba(var(--admin-accent-rgb),0.85);">✏️ Edit</button>
         ${booking.status !== "CANCELLED" ? `<button id="bd-action-cancel" class="btn--close" style="flex:1;padding:0.65rem 0.5rem;text-align:center;color:#fbbf24;border-color:rgba(251,191,36,0.35);">⊘ Cancel</button>` : ""}
+        ${booking.status === "PENDING" ? `<button id="bd-action-mark-paid" class="btn--save" style="flex:1;padding:0.65rem 0.5rem;text-align:center;font-weight:600;color:#22c55e;border-color:rgba(34,197,94,0.35);background:transparent;">✓ Mark as Paid</button>` : ""}
       </div>
     </div>
   `;
@@ -725,6 +726,33 @@ export function openBookingDetailModal(booking, { onUpdated, onDeleted, onCancel
       } catch (err) {
         console.error("Delete booking network error:", err);
         await adminAlert(`Network error deleting booking: ${err.message}`, "error");
+      }
+    });
+  });
+
+  document.getElementById("bd-action-mark-paid")?.addEventListener("click", async () => {
+    if (!(await adminConfirm("Confirm the payment was verified in SumUp for this booking, then mark it as paid? This sends the confirmation email and blocks the calendar slot.", "Mark as Paid", true))) return;
+    const btn = document.getElementById("bd-action-mark-paid");
+    await withButtonLoading(btn, "Marking…", async () => {
+      try {
+        const res = await fetch(`/api/admin/mark-paid?id=${booking.id}`, {
+          method: "POST", headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id: booking.id })
+        });
+        if (res.ok) {
+          booking.status = "PAID";
+          invalidateBadgeCache();
+          ensureBadges();
+          onUpdated?.(booking);
+          modal.remove();
+          return;
+        }
+        const body = await res.json().catch(() => ({}));
+        console.error("Mark-paid failed:", res.status, body);
+        await adminAlert(body.error ? `Failed to mark as paid: ${body.error}` : `Failed to mark as paid (HTTP ${res.status}).`, "error");
+      } catch (err) {
+        console.error("Mark-paid network error:", err);
+        await adminAlert(`Network error marking as paid: ${err.message}`, "error");
       }
     });
   });

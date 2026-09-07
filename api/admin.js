@@ -166,6 +166,70 @@ async function handleGetBookings(req, res) {
   }
 }
 
+/**
+ * Recuperación manual: el pago se acreditó en SumUp (confirmado a mano por
+ * el admin) pero por lo que sea (webhook no configurado con esa
+ * metadata, cliente cerró la pestaña antes de que corriera el fallback)
+ * el booking quedó trabado en PENDING. Pasa a PAID y dispara el mismo
+ * sync que el webhook (evento de calendario + email de confirmación) —
+ * sin esto el cliente queda "pagado" en la base pero sin su reserva real.
+ */
+async function handleMarkPaid(req, res) {
+  if (!(await isAdminAuthenticated(req))) return res.status(401).json({ error: "Unauthorized" });
+  if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
+
+  const id = req.query.id || (req.body && req.body.id);
+  if (!id) return res.status(400).json({ error: "Missing booking id" });
+
+  try {
+    const result = await db`
+      UPDATE bookings SET payment_status = 'PAID'
+      WHERE id = ${id} AND payment_status <> 'PAID'
+      RETURNING *
+    `;
+    const rows = result.rows ?? result;
+    if (!rows.length) {
+      return res.status(409).json({ error: "Booking not found, or already PAID" });
+    }
+    const b = rows[0];
+
+    if (process.env.GAS_URL) {
+      const d = b.booking_date ? new Date(b.booking_date) : null;
+      const dateStr = d
+        ? `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, '0')}-${String(d.getUTCDate()).padStart(2, '0')}`
+        : null;
+      const timeStr = b.booking_time ? String(b.booking_time).substring(0, 5) : null;
+
+      waitUntil(
+        fetch(process.env.GAS_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            action: "createBooking",
+            tour: b.tour_id,
+            tourTitle: b.tour_name,
+            name: b.customer_name,
+            email: b.customer_email,
+            phone: b.customer_phone,
+            qty: b.passengers,
+            tapas: b.extras,
+            date: dateStr,
+            time: timeStr,
+            amount: b.total_price,
+            lang: b.lang,
+            sumup_checkout_id: b.sumup_id,
+          }),
+        }).catch(err => logWarn("mark-paid createBooking sync error:", err.message))
+      );
+    }
+
+    return res.status(200).json({ success: true, id: b.id });
+  } catch (err) {
+    logError("mark-paid error:", err.message);
+    return res.status(500).json({ error: err.message });
+  }
+}
+
 async function handleCreateBooking(req, res) {
   if (!(await isAdminAuthenticated(req))) return res.status(401).json({ error: "Unauthorized" });
   if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
@@ -851,6 +915,7 @@ export default async function handler(req, res) {
     case "refresh": return handleRefresh(req, res);
     case "get-bookings": return handleGetBookings(req, res);
     case "booking-action": return handleBookingAction(req, res);
+    case "mark-paid": return handleMarkPaid(req, res);
     case "create-booking": return handleCreateBooking(req, res);
     case "ops": return handleOps(req, res);
     case "get-blocks": return handleGetBlocks(req, res);

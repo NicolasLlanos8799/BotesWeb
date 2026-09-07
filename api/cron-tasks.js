@@ -49,10 +49,67 @@ async function runGygExpireHolds(req, res) {
 }
 
 /**
+ * Re-verifica el estado real en SumUp antes de recordarle a alguien que
+ * pague. Cubre el caso en que el pago SÍ se acreditó pero el booking se
+ * quedó en PENDING — el webhook de SumUp no siempre llega (no está
+ * garantizado que esté suscrito/alcanzable) y el fallback del navegador
+ * (polling en reserve.js) depende de que el cliente no haya cerrado la
+ * pestaña original tras pagar en la pestaña de SumUp. Sin este chequeo,
+ * a un cliente que ya pagó le llegaría un email pidiéndole que pague de
+ * nuevo. Devuelve el status de SumUp, o null si no se pudo verificar.
+ */
+async function getSumUpStatus(sumupId) {
+  const SUMUP_ACCESS_TOKEN = process.env.SUMUP_ACCESS_TOKEN;
+  if (!SUMUP_ACCESS_TOKEN || !sumupId) return null;
+  try {
+    const r = await fetch(`https://api.sumup.com/v0.1/checkouts/${sumupId}`, {
+      headers: { Authorization: `Bearer ${SUMUP_ACCESS_TOKEN}` },
+    });
+    if (!r.ok) return null;
+    const checkout = await r.json();
+    return checkout.status || null;
+  } catch (e) {
+    warn(`[cron-tasks/payment-reminder] SumUp verify failed for ${sumupId}:`, e.message);
+    return null;
+  }
+}
+
+function toDateStr(bookingDate) {
+  return bookingDate instanceof Date ? bookingDate.toISOString().slice(0, 10) : bookingDate;
+}
+
+/** Same recovery as the admin "Mark as Paid" button — flips the row to
+ * PAID and fires the same sync GAS does on a normal successful payment
+ * (calendar event + confirmation email), so a self-healed booking looks
+ * exactly like one that went through the happy path. */
+async function markPaidAndSync(b) {
+  await db`UPDATE bookings SET payment_status = 'PAID' WHERE id = ${b.id}`;
+  await callGAS({
+    action: "createBooking",
+    tour: b.tour_id,
+    tourTitle: b.tour_name,
+    name: b.customer_name,
+    email: b.customer_email,
+    phone: b.customer_phone,
+    qty: b.passengers,
+    tapas: b.extras,
+    date: toDateStr(b.booking_date),
+    time: b.booking_time ? String(b.booking_time).substring(0, 5) : b.booking_time,
+    amount: b.total_price,
+    lang: b.lang,
+    sumup_checkout_id: b.sumup_id,
+  });
+}
+
+/**
  * Bookings 'web' que quedaron PENDING (el cliente abrió el checkout de
- * SumUp pero no completó el pago) hace más de 10 minutos reciben un email
- * de recordatorio. Se envía una sola vez por booking (reminder_sent_at) y
- * se ignoran las PENDING de más de 24h (ya perdidas / abandonadas).
+ * SumUp pero no completó el pago) hace más de 10 minutos. Antes de
+ * mandar el recordatorio, re-verifica con SumUp: si el pago sí se
+ * acreditó, se auto-corrige a PAID (createBooking + email de
+ * confirmación) en vez de pedirle que pague de nuevo. Si sigue sin
+ * pagar, se le manda el recordatorio — una sola vez por booking
+ * (reminder_sent_at) — ignorando las PENDING de más de 24h (ya
+ * abandonadas de verdad).
  */
 async function runPaymentReminder(req, res) {
   await db`ALTER TABLE bookings ADD COLUMN IF NOT EXISTS reminder_sent_at TIMESTAMP WITH TIME ZONE`;
@@ -68,13 +125,20 @@ async function runPaymentReminder(req, res) {
   const rows = result.rows ?? result;
 
   let sent = 0;
+  let recovered = 0;
   for (const b of rows) {
-    // booking_date comes back as a JS Date (midnight UTC) — send just the
-    // YYYY-MM-DD part, not the full ISO timestamp, to match what the email
-    // template and buildRetryUrl expect.
-    const dateStr = b.booking_date instanceof Date
-      ? b.booking_date.toISOString().slice(0, 10)
-      : b.booking_date;
+    const sumupStatus = await getSumUpStatus(b.sumup_id);
+
+    if (sumupStatus === "PAID") {
+      try {
+        await markPaidAndSync(b);
+        recovered++;
+        log(`[cron-tasks/payment-reminder] Recovered booking ${b.id} — SumUp shows PAID, DB was stuck PENDING`);
+      } catch (e) {
+        logError(`[cron-tasks/payment-reminder] Recovery failed for booking ${b.id}:`, e.message);
+      }
+      continue; // no reminder for someone who already paid
+    }
 
     const gasResult = await callGAS({
       action: "paymentReminder",
@@ -82,7 +146,7 @@ async function runPaymentReminder(req, res) {
       email: b.customer_email,
       tour: b.tour_id,
       tourTitle: b.tour_name,
-      date: dateStr,
+      date: toDateStr(b.booking_date),
       time: b.booking_time,
       qty: b.passengers,
       tapas: b.extras,
@@ -97,8 +161,8 @@ async function runPaymentReminder(req, res) {
     }
   }
 
-  log(`[cron-tasks/payment-reminder] Sent ${sent}/${rows.length} reminder(s)`);
-  return res.status(200).json({ checked: rows.length, sent });
+  log(`[cron-tasks/payment-reminder] Checked ${rows.length}, recovered ${recovered}, sent ${sent} reminder(s)`);
+  return res.status(200).json({ checked: rows.length, recovered, sent });
 }
 
 export default async function handler(req, res) {
