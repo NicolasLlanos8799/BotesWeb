@@ -883,7 +883,7 @@ function checkGygExpireHolds() {
   }
 
   try {
-    var response = UrlFetchApp.fetch(siteUrl + '/api/gyg-expire-holds', {
+    var response = UrlFetchApp.fetch(siteUrl + '/api/cron-tasks?task=gyg-expire-holds', {
       method: 'post',
       headers: { Authorization: 'Bearer ' + cronSecret },
       muteHttpExceptions: true
@@ -920,7 +920,7 @@ function checkPendingPaymentReminders() {
   }
 
   try {
-    var response = UrlFetchApp.fetch(siteUrl + '/api/payment-reminder', {
+    var response = UrlFetchApp.fetch(siteUrl + '/api/cron-tasks?task=payment-reminder', {
       method: 'post',
       headers: { Authorization: 'Bearer ' + cronSecret },
       muteHttpExceptions: true
