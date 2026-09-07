@@ -413,9 +413,9 @@ function getNotifications(bookings) {
   const cutoff = Date.now() - 48 * 60 * 60 * 1000;
   return bookings
     .filter(b => b.createdAt && b.createdAt.getTime() >= cutoff)
-    // Drop unconfirmed GYG holds (checkout in progress / abandoned) — no
-    // customer yet, nothing to act on until GYG calls /book/ or /cancel-reservation/.
-    .filter(b => !(b.status === 'RESERVED' && !b.customerEmail))
+    // Only confirmed bookings and cancellations belong here — PENDING and
+    // unconfirmed GYG holds (RESERVED) are not actionable yet.
+    .filter(b => b.status === 'PAID' || b.status === 'CANCELLED')
     .map(b => ({ ...b, notifType: b.status === 'CANCELLED' ? 'cancelled' : 'new' }))
     .sort((a, b) => b.createdAt - a.createdAt);
 }

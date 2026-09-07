@@ -30,20 +30,6 @@ var CALENDAR_IDS = {
 function doGet(e) {
   var action = e.parameter.action;
 
-  if (action === 'getAvailability')
-    return handleGetAvailability(e.parameter.calendar, e.parameter.date);
-
-  if (action === 'getMonthlyAvailability') {
-    var month = e.parameter.month;
-    var year = e.parameter.year;
-    if (!month && e.parameter.date) {
-      var parts = e.parameter.date.split('-');
-      year = parts[0];
-      month = parts[1];
-    }
-    return handleGetMonthlyAvailability(e.parameter.calendar, month, year);
-  }
-
   if (action === 'listAllBookings')
     return handleListAllBookings(e.parameter.start, e.parameter.end);
 
@@ -59,14 +45,14 @@ function doPost(e) {
 
     var result = action === 'createBooking'
       ? handleCreateBooking(data)
-      : action === 'createCalendarOnly'
-        ? handleCreateCalendarOnly(data)
         : action === 'sendOtp'
           ? handleSendOtp(data)
         : action === 'resendEmail'
           ? handleResendEmail(data)
           : action === 'paymentFailed'
             ? handlePaymentFailed(data)
+            : action === 'paymentReminder'
+              ? handlePaymentReminder(data)
             : action === 'sendCancellationEmail'
               ? handleSendCancellationEmail(data)
               : action === 'updateEvent'
@@ -93,47 +79,6 @@ function doPost(e) {
 
 function getCalendar(name) {
   return CalendarApp.getCalendarById(CALENDAR_IDS[name] || CALENDAR_IDS.boat1);
-}
-
-function handleGetAvailability(calendarName, dateStr) {
-  var calendar = getCalendar(calendarName);
-  var day = new Date(dateStr);
-  var startOfDay = new Date(day.getFullYear(), day.getMonth(), day.getDate(), 8, 0, 0);
-  var endOfDay = new Date(day.getFullYear(), day.getMonth(), day.getDate(), 21, 0, 0);
-
-  var busySlots = [];
-  calendar.getEvents(startOfDay, endOfDay).forEach(function (e) {
-    var startH = e.getStartTime().getHours();
-    var endH = e.getEndTime().getHours();
-    for (var h = startH; h < endH; h++)
-      busySlots.push({ time: ('0' + h).slice(-2) + ':00', available: false });
-  });
-
-  return ContentService.createTextOutput(JSON.stringify({ busy: busySlots }))
-    .setMimeType(ContentService.MimeType.JSON);
-}
-
-function handleGetMonthlyAvailability(calendarName, month, year) {
-  var calendar = getCalendar(calendarName);
-  var startOfMonth = new Date(year, month - 1, 1);
-  var endOfMonth = new Date(year, month, 0, 23, 59, 59);
-  var daysData = {};
-
-  calendar.getEvents(startOfMonth, endOfMonth).forEach(function (e) {
-    var start = e.getStartTime();
-    var dStr = start.getFullYear() + '-'
-      + ('0' + (start.getMonth() + 1)).slice(-2) + '-'
-      + ('0' + start.getDate()).slice(-2);
-    if (!daysData[dStr]) daysData[dStr] = [];
-
-    var startH = start.getHours();
-    var endH = e.getEndTime().getHours();
-    for (var h = startH; h < endH; h++)
-      daysData[dStr].push({ time: ('0' + h).slice(-2) + ':00', available: false });
-  });
-
-  return ContentService.createTextOutput(JSON.stringify(daysData))
-    .setMimeType(ContentService.MimeType.JSON);
 }
 
 function handleListAllBookings(startStr, endStr) {
@@ -255,63 +200,12 @@ function findEventBySumUpId(sumupId) {
   return findEventByDescriptionFragment("SumUp ID: " + sumupId);
 }
 
-/**
- * GYG bookings — create calendar event only, no email.
- * GYG already sends their own confirmation to the customer.
- */
-function handleCreateCalendarOnly(data) {
-  var calendar = getCalendar(data.calendar || 'boat1');
-
-  if (data.gyg_booking_id) {
-    var existing = findEventByDescriptionFragment("GYG Ref: " + data.gyg_booking_id);
-    if (existing) {
-      Logger.log("Duplicate GYG booking: " + data.gyg_booking_id + ". Skipping.");
-      return { success: true, message: "Duplicate avoided", eventId: existing.getId() };
-    }
-  }
-
-  var tour = data.tour || data.tourTitle || "";
-  var range = buildStartEnd(data.date, data.time, getTourDurationHours(tour, 1));
-  var endTime = ('0' + range.end.getHours()).slice(-2) + ':' + ('0' + range.end.getMinutes()).slice(-2);
-
-  var description =
-    "✨ " + getTourDisplayName(tour) + "\n" +
-    "📅 " + data.date + " | 🕒 " + (data.time || "N/A") + " - " + endTime + "\n" +
-    "👥 Passengers: " + (data.qty || "N/A") + "\n" +
-    "🌍 Language: " + (data.lang || "N/A") + "\n\n" +
-    "👤 CONTACT\n" +
-    "Name: " + (data.name || "N/A") + "\n" +
-    "Email: " + (data.email || "N/A") + "\n" +
-    "Phone: " + (data.phone || "N/A") + "\n" +
-    "──────────────────────────\n" +
-    "GYG Ref: " + (data.gyg_booking_id || "N/A") + "\n" +
-    "Amount: " + (data.amount ? data.amount + " " + (data.currency || "") : "N/A") + "\n" +
-    "Source: GetYourGuide";
-
-  var event = calendar.createEvent(
-    "GYG: " + (data.name || 'Cliente') + " " + (data.qty || '') + "p",
-    range.start, range.end,
-    { description: description }
-  );
-  event.setColor(CalendarApp.EventColor.CYAN);
-
-  var adminEmail = Session.getEffectiveUser().getEmail();
-  GmailApp.sendEmail(
-    adminEmail,
-    "⚓ GYG Reserva — " + getTourDisplayName(tour) + " · " + (data.name || "") + " · " + (data.date || ""),
-    "",
-    { name: "Seaduced Bookings", htmlBody: getAdminHtmlTemplate({ ...data, sumup_checkout_id: data.gyg_booking_id }, getTranslations('english'), endTime) }
-  );
-
-  Logger.log("GYG calendar event created: " + event.getId());
-  return { success: true, eventId: event.getId() };
-}
-
 /* ═══════════════════════════════════════════════════════════
    BLOQUEOS MANUALES DE HORARIO
    El evento en el calendario del bote es lo que hace que la web
-   pública deje de ofrecer esas horas (handleGetMonthlyAvailability
-   marca como ocupada cualquier hora cubierta por un evento).
+   pública deje de ofrecer esas horas (la disponibilidad ahora se
+   lee de Postgres, ver api/availability.js, pero se sincroniza
+   con este calendario igual).
 ═══════════════════════════════════════════════════════════ */
 
 /**
@@ -581,6 +475,11 @@ function getTranslations(lang) {
       pfBody: "We noticed your payment for {tour} on {date}, {time} didn't go through. Don't worry — you haven't been charged, and no booking was made.",
       pfRetryButton: "Try the payment again",
       pfHelp: "Having trouble? Simply reply to this email and we'll help you out.",
+      rmSubject: "Still want to book your Seaduced experience?",
+      rmGreeting: "Hi {name},",
+      rmBody: "Looks like you started booking {tour} for {date}, {time} but didn't finish the payment. Your spot isn't held yet — complete your booking before it's gone.",
+      rmRetryButton: "Complete your booking",
+      rmHelp: "Need help? Just reply to this email and we'll sort it out.",
       cancelSubject: "Your booking has been cancelled",
       cancelGreeting: "Hi {name},",
       cancelBody: "Your booking for {tour} on {date}, {time} has been cancelled. If you didn't request this or have any questions, just reply to this email.",
@@ -612,6 +511,11 @@ function getTranslations(lang) {
       pfBody: "Notamos que tu pago para {tour} el {date}, {time} no se completó. Tranquilo/a, no se te cobró nada y no se creó ninguna reserva.",
       pfRetryButton: "Reintentar el pago",
       pfHelp: "¿Problemas? Simplemente responde este email y te ayudaremos.",
+      rmSubject: "¿Todavía querés reservar tu experiencia Seaduced?",
+      rmGreeting: "Hola {name},",
+      rmBody: "Vimos que empezaste a reservar {tour} para el {date}, {time} pero no completaste el pago. Tu lugar todavía no está reservado — completá el pago antes de que se ocupe el horario.",
+      rmRetryButton: "Completar mi reserva",
+      rmHelp: "¿Necesitás ayuda? Respondé este email y te ayudamos.",
       cancelSubject: "Tu reserva ha sido cancelada",
       cancelGreeting: "Hola {name},",
       cancelBody: "Tu reserva para {tour} el {date}, {time} ha sido cancelada. Si no solicitaste esto o tienes alguna duda, simplemente responde a este email.",
@@ -643,6 +547,11 @@ function getTranslations(lang) {
       pfBody: "Vi kunne se, at din betaling for {tour} den {date}, {time} ikke gik igennem. Bare rolig — du er ikke blevet opkrævet, og der er ikke oprettet nogen booking.",
       pfRetryButton: "Prøv betalingen igen",
       pfHelp: "Har du problemer? Svar blot på denne e-mail, så hjælper vi dig.",
+      rmSubject: "Vil du stadig booke din Seaduced-oplevelse?",
+      rmGreeting: "Hej {name},",
+      rmBody: "Det ser ud til, at du startede en booking af {tour} den {date}, {time}, men ikke gennemførte betalingen. Din plads er endnu ikke reserveret — gennemfør din booking, før tiden er væk.",
+      rmRetryButton: "Gennemfør din booking",
+      rmHelp: "Brug for hjælp? Svar blot på denne e-mail, så hjælper vi dig.",
       cancelSubject: "Din booking er blevet annulleret",
       cancelGreeting: "Hej {name},",
       cancelBody: "Din booking for {tour} den {date}, {time} er blevet annulleret. Hvis du ikke har anmodet om dette, eller har spørgsmål, så svar blot på denne e-mail.",
@@ -768,6 +677,29 @@ function handlePaymentFailed(data) {
   }
 }
 
+function handlePaymentReminder(data) {
+  if (!data.email) {
+    return { success: false, error: "Missing email" };
+  }
+  var isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email);
+  if (!isValidEmail) {
+    Logger.log("Payment-reminder: invalid email, skipping: " + data.email);
+    return { success: false, error: "Invalid email" };
+  }
+  try {
+    var t = getTranslations(data.lang || 'english');
+    GmailApp.sendEmail(data.email, "Seaduced Experience \u2014 " + t.rmSubject, "", {
+      name: "Seaduced Experience",
+      htmlBody: getPaymentReminderHtmlTemplate(data, t)
+    });
+    Logger.log("Payment-reminder email sent to: " + data.email);
+    return { success: true };
+  } catch (e) {
+    Logger.log("Payment-reminder email error: " + e.toString());
+    return { success: false, error: e.toString() };
+  }
+}
+
 function handleSendCancellationEmail(data) {
   if (!data.email) {
     return { success: false, error: "Missing email" };
@@ -872,6 +804,56 @@ function getPaymentFailedHtmlTemplate(data, t) {
     '</a>' +
     '</div>' +
     '<p style="margin:0;font-size:13px;color:#4a5568;text-align:center;">' + t.pfHelp + '</p>' +
+    '</td></tr>' +
+
+    '<tr><td style="height:16px;"></td></tr>' +
+
+    '<tr><td style="text-align:center;padding:0 16px;">' +
+    '<p style="margin:0 0 4px;font-size:13px;color:#718096;">' + t.tagline + '</p>' +
+    '<p style="margin:0;font-size:11px;color:#a0aec0;">' + t.footer + '</p>' +
+    '</td></tr>' +
+
+    '</table></td></tr></table>' +
+    '</body></html>';
+}
+
+function getPaymentReminderHtmlTemplate(data, t) {
+  var greeting = t.rmGreeting.replace("{name}", data.name || "there");
+  var tourName = data.tourTitle || getTourDisplayName(data.tour || "");
+  var body = t.rmBody
+    .replace("{tour}", "<strong>" + tourName + "</strong>")
+    .replace("{date}", "<strong>" + (data.date || "\u2014") + "</strong>")
+    .replace("{time}", "<strong>" + (data.time || "\u2014") + "</strong>");
+  var retryUrl = buildRetryUrl(data);
+
+  return '<!DOCTYPE html>' +
+    '<html lang="en">' +
+    '<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>' +
+    '<body style="margin:0;padding:0;background-color:#f5f6f8;font-family:Arial,sans-serif;">' +
+
+    '<table width="100%" cellpadding="0" cellspacing="0"><tr>' +
+    '<td style="background-color:#e8834a;height:4px;font-size:0;">&nbsp;</td>' +
+    '</tr></table>' +
+
+    '<table width="100%" cellpadding="0" cellspacing="0"><tr>' +
+    '<td style="background-color:#0f1e35;padding:32px 20px;text-align:center;">' +
+    '<div translate="no" style="font-size:13px;letter-spacing:5px;color:#ffffff;font-weight:700;">SEADUCED EXPERIENCE</div>' +
+    '<div translate="no" style="font-size:9px;letter-spacing:4px;color:#e8834a;margin-top:6px;">COPENHAGEN</div>' +
+    '</td>' +
+    '</tr></table>' +
+
+    '<table width="100%" cellpadding="0" cellspacing="0"><tr><td style="padding:28px 16px 48px;">' +
+    '<table width="100%" cellpadding="0" cellspacing="0" style="max-width:580px;margin:0 auto;">' +
+
+    '<tr><td style="background:#ffffff;border-radius:12px;padding:32px;border-top:3px solid #e8834a;">' +
+    '<p style="margin:0 0 8px;font-size:24px;font-weight:700;color:#0f1e35;line-height:1.3;">' + greeting + '</p>' +
+    '<p style="margin:0 0 20px;font-size:14px;color:#4a5568;line-height:1.7;">' + body + '</p>' +
+    '<div style="text-align:center;margin:24px 0 20px;">' +
+    '<a href="' + retryUrl + '" style="display:inline-block;background-color:#e8834a;color:#ffffff;padding:14px 36px;text-decoration:none;border-radius:6px;font-size:13px;font-weight:700;letter-spacing:1px;">' +
+    t.rmRetryButton.toUpperCase() +
+    '</a>' +
+    '</div>' +
+    '<p style="margin:0;font-size:13px;color:#4a5568;text-align:center;">' + t.rmHelp + '</p>' +
     '</td></tr>' +
 
     '<tr><td style="height:16px;"></td></tr>' +

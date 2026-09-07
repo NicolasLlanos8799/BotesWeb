@@ -23,8 +23,9 @@ function compute(bookings) {
   const cutoff = Date.now() - 48 * 60 * 60 * 1000;
   const notifications = bookings
     .filter(b => b.createdAt && b.createdAt.getTime() >= cutoff)
-    // Drop unconfirmed GYG holds — no customer yet, nothing to act on.
-    .filter(b => !(b.status === "RESERVED" && !b.customerEmail));
+    // Only confirmed bookings and cancellations count — PENDING and
+    // unconfirmed GYG holds (RESERVED) are not actionable yet.
+    .filter(b => b.status === "PAID" || b.status === "CANCELLED");
   const gygCount = notifications.filter(b => b.isGyg && b.status !== "CANCELLED").length;
   return { count: notifications.length, gygCount };
 }

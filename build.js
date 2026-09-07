@@ -37,8 +37,6 @@ const EXCLUDE = new Set([
   'middleware.js',
   'AppScript-PROD-BookingWeb.js',
   'AppScript-DEMO-BookingWeb.js',
-  'AppScript-PROD-GYG.js',
-  'AppScript-DEMO-GYG.js',
   'package.json',
   'package-lock.json',
   'vercel.json',
