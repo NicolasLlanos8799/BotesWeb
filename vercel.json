@@ -6,10 +6,6 @@
     {
       "path": "/api/gyg-expire-holds",
       "schedule": "*/15 * * * *"
-    },
-    {
-      "path": "/api/payment-reminder",
-      "schedule": "*/5 * * * *"
     }
   ],
   "trailingSlash": true,

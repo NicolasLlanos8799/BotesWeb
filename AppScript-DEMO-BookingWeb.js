@@ -677,6 +677,51 @@ function handlePaymentFailed(data) {
   }
 }
 
+/* ═══════════════════════════════════════════════════════════
+   PAYMENT REMINDER — time-based trigger (reemplaza cron externo)
+   Corre cada 10 min llamando a /api/payment-reminder en Vercel, que
+   busca las PENDING abandonadas y devuelve la data para el email.
+   Requiere Script Properties: SITE_URL y CRON_SECRET (mismo valor
+   que la env var CRON_SECRET en Vercel).
+═══════════════════════════════════════════════════════════ */
+
+function setupPaymentReminderTrigger() {
+  // Ejecutar ESTA función UNA sola vez a mano desde el editor de Apps
+  // Script para instalar el trigger. No hace falta volver a correrla.
+  ScriptApp.getProjectTriggers()
+    .filter(function (t) { return t.getHandlerFunction() === 'checkPendingPaymentReminders'; })
+    .forEach(function (t) { ScriptApp.deleteTrigger(t); });
+
+  ScriptApp.newTrigger('checkPendingPaymentReminders')
+    .timeBased()
+    .everyMinutes(10)
+    .create();
+
+  Logger.log('Payment-reminder trigger instalado: corre cada 10 min.');
+}
+
+function checkPendingPaymentReminders() {
+  var props = PropertiesService.getScriptProperties();
+  var siteUrl = props.getProperty('SITE_URL');
+  var cronSecret = props.getProperty('CRON_SECRET');
+
+  if (!siteUrl || !cronSecret) {
+    Logger.log('checkPendingPaymentReminders: falta SITE_URL o CRON_SECRET en Script Properties.');
+    return;
+  }
+
+  try {
+    var response = UrlFetchApp.fetch(siteUrl + '/api/payment-reminder', {
+      method: 'post',
+      headers: { Authorization: 'Bearer ' + cronSecret },
+      muteHttpExceptions: true
+    });
+    Logger.log('checkPendingPaymentReminders: ' + response.getResponseCode() + ' — ' + response.getContentText());
+  } catch (e) {
+    Logger.log('checkPendingPaymentReminders error: ' + e.toString());
+  }
+}
+
 function handlePaymentReminder(data) {
   if (!data.email) {
     return { success: false, error: "Missing email" };
