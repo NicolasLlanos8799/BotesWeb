@@ -6804,6 +6804,17 @@ body.booking-open {
   gap: 2.2rem;
 }
 
+.experience-prep-notice {
+  margin-top: 1.6rem;
+  padding: 1rem 1.2rem;
+  background: #f6f7f9;
+  border: 1px solid rgba(15, 30, 53, 0.08);
+  border-radius: 14px;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: #5a6675;
+}
+
 .experience-important strong {
   display: block;
   font-size: 0.75rem;
