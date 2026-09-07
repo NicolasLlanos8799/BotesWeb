@@ -857,6 +857,43 @@ function handlePaymentFailed(data) {
    que la env var CRON_SECRET en Vercel).
 ═══════════════════════════════════════════════════════════ */
 
+function setupGygExpireHoldsTrigger() {
+  // Ejecutar ESTA función UNA sola vez a mano desde el editor de Apps
+  // Script para instalar el trigger. No hace falta volver a correrla.
+  ScriptApp.getProjectTriggers()
+    .filter(function (t) { return t.getHandlerFunction() === 'checkGygExpireHolds'; })
+    .forEach(function (t) { ScriptApp.deleteTrigger(t); });
+
+  ScriptApp.newTrigger('checkGygExpireHolds')
+    .timeBased()
+    .everyMinutes(15)
+    .create();
+
+  Logger.log('GYG-expire-holds trigger instalado: corre cada 15 min.');
+}
+
+function checkGygExpireHolds() {
+  var props = PropertiesService.getScriptProperties();
+  var siteUrl = props.getProperty('SITE_URL');
+  var cronSecret = props.getProperty('CRON_SECRET');
+
+  if (!siteUrl || !cronSecret) {
+    Logger.log('checkGygExpireHolds: falta SITE_URL o CRON_SECRET en Script Properties.');
+    return;
+  }
+
+  try {
+    var response = UrlFetchApp.fetch(siteUrl + '/api/gyg-expire-holds', {
+      method: 'post',
+      headers: { Authorization: 'Bearer ' + cronSecret },
+      muteHttpExceptions: true
+    });
+    Logger.log('checkGygExpireHolds: ' + response.getResponseCode() + ' — ' + response.getContentText());
+  } catch (e) {
+    Logger.log('checkGygExpireHolds error: ' + e.toString());
+  }
+}
+
 function setupPaymentReminderTrigger() {
   // Ejecutar ESTA función UNA sola vez a mano desde el editor de Apps
   // Script para instalar el trigger. No hace falta volver a correrla.
