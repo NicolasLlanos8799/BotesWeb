@@ -949,7 +949,8 @@
       "info": {
         "participants_val": "Private group (max 8)",
         "duration_val": "2 hours",
-        "guide_val": "English, Spanish, Danish"
+        "guide_val": "English, Spanish, Danish",
+        "cancellation_val": "Free up to 24h before"
       },
       "flag": "Premium Experience",
       "booking": {
