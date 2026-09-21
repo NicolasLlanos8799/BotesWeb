@@ -239,6 +239,20 @@ export const TOURS = {
       { time: "18:00", available: true },
     ],
   },
+  "book-cocktails-tapas": {
+    id: "book-cocktails-tapas",
+    title: "Private Boat Tour with Cocktails & Tapas",
+    titleEs: "Paseo Privado en Barco con Cócteles y Tapas",
+    titleDa: "Privat bådtur med cocktails og tapas",
+    price: 10950,
+    duration: "2 Hours",
+    durationEs: "2 Horas",
+    durationDa: "2 Timer",
+    img: "/assets/images/cocktails-tapas/private-yacht-copenhagen-aerial-guest-relaxing.webp",
+    url: "/experiences/private-boat-cocktails-tapas/",
+    maxParticipants: 8,
+    calendar: "boat2",
+  },
 };
 
 export const EXTRA_CHARCUTERIE = {

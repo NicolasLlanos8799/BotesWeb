@@ -255,6 +255,11 @@
         "title": "Tour de Invierno en Barco",
         "desc": "Tour privado de Navidad con caja de tapas, champán Moët y vino caliente especiado — al más puro estilo hygge danés.",
         "price_note": "por grupo (hasta 6)"
+      },
+      "cocktail_tapas": {
+        "title": "Paseo Privado en Barco con Cócteles y Tapas",
+        "desc": "Paseo privado de 2 horas en yate con cócteles a voluntad, tapas y salón interior con calefacción.",
+        "price_note": "por grupo de hasta 8"
       }
     },
     "bespoke": {
@@ -942,6 +947,85 @@
         "Comida y bebida propias",
         "Transporte al punto de encuentro"
       ]
+    },
+    "cocktail_tapas": {
+      "page": {
+        "title": "Paseo en Barco Privado en Copenhague con Cócteles y Tapas | Seaduced",
+        "desc": "Paseo privado de 2 horas en yate por Copenhague con cócteles a voluntad, tapas y salón interior con calefacción. Desde 10.950 DKK por grupo de hasta 8."
+      },
+      "hero_html": "Paseo en Barco Privado con <span class=\"title-accent\">Cócteles</span> y Tapas",
+      "intro": "Disfruta de un paseo en barco privado en un yate con cócteles y tapas a voluntad. Relájate en un acogedor salón interior con una pequeña cocina y baño, y disfruta de un interior con calefacción para los días más fríos.",
+      "info": {
+        "participants_val": "Grupo privado (máx. 8)",
+        "duration_val": "2 horas",
+        "guide_val": "Inglés, Español, Danés"
+      },
+      "flag": "Experiencia Premium",
+      "booking": {
+        "price_note": "por grupo de hasta 8",
+        "up_to": "Hasta 8 personas"
+      },
+      "story_paras": [
+        "Sube a bordo de un yate de lujo compacto y disfruta de un paseo en barco privado de 2 horas por la bonita costa. Tanto si estás celebrando una ocasión especial, disfrutando de tiempo de calidad con amigos o simplemente buscando una experiencia prémium única, este paseo en barco ofrece el entorno perfecto.",
+        "Relájate con barra libre de cócteles y tapas mientras la tripulación profesional se ocupa de todos los detalles y tú disfrutas de unas impresionantes vistas al mar y de un ambiente sofisticado a bordo. Disfruta de una selección de vino, cerveza y refrescos, así como de una deliciosa bandeja de tapas.",
+        "Aprovecha el cómodo salón interior del yate, la pequeña cocina y el baño privado. Mantente caliente con la calefacción para los días y las noches más fríos."
+      ],
+      "highlights": [
+        "<strong>Yate privado:</strong> Relájate con una copa de champán frío en la mano.",
+        "<strong>Tapas y bebidas:</strong> Una deliciosa bandeja de tapas y una selección de vino, cerveza y refrescos.",
+        "<strong>Confort a bordo:</strong> Acogedor salón interior, pequeña cocina y baño privado.",
+        "<strong>Ocasiones especiales:</strong> Celebra o disfruta de tiempo de calidad con tu familia y amigos.",
+        "<strong>Capitán profesional:</strong> Interior con calefacción para los días más frescos."
+      ],
+      "included": [
+        "Alquiler privado de yate de 2 horas",
+        "Champán de bienvenida",
+        "Selección de vino, cerveza y refrescos",
+        "Deliciosa bandeja de tapas",
+        "Capitán profesional",
+        "Cómodo salón interior",
+        "Pequeña cocina a bordo",
+        "Baño privado",
+        "Calefacción para los días y las tardes más frescos",
+        "Capacidad para hasta 8 personas"
+      ],
+      "excl_h3": "No apto para",
+      "excl_items": [
+        "Personas con problemas de movilidad",
+        "Personas en silla de ruedas",
+        "Personas con vértigo",
+        "Personas susceptibles a sufrir mal de mar o mareos",
+        "Personas que sufren de mareos por movimiento",
+        "Personas con alergia a cualquier tipo de frutos secos"
+      ],
+      "prep": {
+        "bring": [
+          "Calzado cómodo",
+          "Ropa abrigada",
+          "Gafas de sol",
+          "Bañador",
+          "Toalla",
+          "Protector solar",
+          "Ropa cómoda",
+          "Ropa adecuada a las condiciones meteorológicas",
+          "Calzado de invierno"
+        ],
+        "rules": [
+          "La capacidad está limitada a 8 participantes",
+          "Hay calefacción disponible para los días y las noches más fríos",
+          "Vístete de acuerdo al clima",
+          "El yate se puede cerrar completamente en invierno",
+          "No se permiten mascotas (excepto perros de asistencia)",
+          "No se permiten armas ni objetos punzantes",
+          "No fumar",
+          "No se permite pescar, objetos de cristal ni tirar basura",
+          "No se permiten fuegos artificiales, materiales explosivos ni hacer fuego",
+          "No se permite equipaje de gran tamaño, sillitas de paseo, tablas de skate ni patinetes",
+          "No se permiten menores no acompañados",
+          "No se permite embarcar en estado de embriaguez"
+        ],
+        "notice": "Para garantizar la seguridad de nuestros clientes y tripulación, nuestros viajes en barco se graban de forma continua con fines de supervisión del capitán y seguridad. Ocasionalmente utilizamos clips cortos de estas grabaciones en nuestras redes sociales oficiales para compartir la belleza de nuestras experiencias. Si prefieres no aparecer en ningún material publicado, háznoslo saber con antelación o a tu llegada — nos aseguraremos de respetar tu privacidad."
+      }
     }
   }
 }

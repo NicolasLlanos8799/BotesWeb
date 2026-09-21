@@ -127,7 +127,8 @@ function getTourDisplayName(tourCode) {
     'city-highlights-3h':  'Private 3-Hour Extended (Reffen)',
     'book-malmo':          'Copenhagen to Malmö Experience',
     'book-land':           'Copenhagen Private Boat y Land Experience',
-    'book-danish-breakfast': 'City Highlights with Danish Breakfast'
+    'book-danish-breakfast': 'City Highlights with Danish Breakfast',
+    'book-cocktails-tapas': 'Private Boat Tour with Cocktails & Tapas'
   };
   return names[tourCode] || tourCode;
 }
@@ -453,7 +454,8 @@ function getTourDurationHours(tour, defaultHours) {
   if (tour.indexOf('2 Hours') !== -1 ||
     tour.indexOf('2-Hours') !== -1 ||
     tour.indexOf('book-1h-2h') !== -1 ||
-    tour.indexOf('book-10p-2h') !== -1) return 2;
+    tour.indexOf('book-10p-2h') !== -1 ||
+    tour.indexOf('book-cocktails-tapas') !== -1) return 2;
 
   if (tour.indexOf('1 Hour') !== -1 ||
     tour.indexOf('1-Hour') !== -1 ||

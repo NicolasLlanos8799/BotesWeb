@@ -246,6 +246,11 @@
         "title": "Winter Boat Tour",
         "desc": "Private Christmas boat tour with a charcuterie box, Moët champagne and warm spiced glogg — Danish hygge style.",
         "price_note": "per group (up to 6)"
+      },
+      "cocktail_tapas": {
+        "title": "Private Boat Tour with Cocktails & Tapas",
+        "desc": "2-hour private yacht cruise with open cocktails, tapas and a heated indoor lounge.",
+        "price_note": "per group up to 8"
       }
     },
     "bespoke": {
@@ -933,6 +938,85 @@
         "Outside food and beverages",
         "Transport to/from meeting point"
       ]
+    },
+    "cocktail_tapas": {
+      "page": {
+        "title": "Private Boat Tour Copenhagen with Cocktails & Tapas | Seaduced",
+        "desc": "Private 2-hour yacht cruise in Copenhagen with open cocktails, tapas and a heated indoor lounge. From DKK 10,950 per group of up to 8."
+      },
+      "hero_html": "Private Boat Tour with <span class=\"title-accent\">Cocktails</span> &amp; Tapas",
+      "intro": "Enjoy a private yacht cruise with open cocktails and tapas. Relax in a cozy indoor lounge with a small kitchen and bathroom, with a heated interior for cooler days.",
+      "info": {
+        "participants_val": "Private group (max 8)",
+        "duration_val": "2 hours",
+        "guide_val": "English, Spanish, Danish"
+      },
+      "flag": "Premium Experience",
+      "booking": {
+        "price_note": "per group up to 8",
+        "up_to": "Up to 8 guests"
+      },
+      "story_paras": [
+        "Step aboard a compact luxury yacht for a private 2-hour cruise along the beautiful coast. Whether you are celebrating a special occasion, enjoying quality time with friends, or simply looking for a unique premium experience, this cruise is the perfect setting.",
+        "Relax with an open cocktail bar and tapas while a professional crew takes care of every detail and you take in stunning sea views and a sophisticated atmosphere on board. Enjoy a selection of wine, beer and soft drinks, along with a delicious tapas platter.",
+        "Make the most of the comfortable indoor lounge, the small kitchen and the private bathroom. Stay warm with the heating on cooler days and evenings."
+      ],
+      "highlights": [
+        "<strong>Private Yacht:</strong> Relax with a glass of cold champagne in hand.",
+        "<strong>Tapas &amp; Drinks:</strong> A delicious tapas platter plus wine, beer and soft drinks.",
+        "<strong>Onboard Comfort:</strong> Cozy indoor lounge, small kitchen and private bathroom.",
+        "<strong>Special Occasions:</strong> Celebrate or enjoy quality time with family and friends.",
+        "<strong>Professional Captain:</strong> Heated interior for cooler days."
+      ],
+      "included": [
+        "Private 2-hour yacht charter",
+        "Welcome champagne",
+        "Selection of wine, beer and soft drinks",
+        "Delicious tapas platter",
+        "Professional captain",
+        "Comfortable indoor lounge",
+        "Small kitchen on board",
+        "Private bathroom",
+        "Heating for cooler days and evenings",
+        "Capacity for up to 8 people"
+      ],
+      "excl_h3": "Not suitable for",
+      "excl_items": [
+        "People with mobility problems",
+        "Wheelchair users",
+        "People with vertigo",
+        "People prone to seasickness",
+        "People who suffer from motion sickness",
+        "People with nut allergies"
+      ],
+      "prep": {
+        "bring": [
+          "Comfortable footwear",
+          "Warm clothing",
+          "Sunglasses",
+          "Swimwear",
+          "Towel",
+          "Sunscreen",
+          "Comfortable clothing",
+          "Weather-appropriate clothing",
+          "Winter footwear"
+        ],
+        "rules": [
+          "Capacity is limited to 8 participants",
+          "Heating is available for cooler days and nights",
+          "Dress according to the weather",
+          "The yacht can be fully enclosed in winter",
+          "No pets (except assistance dogs)",
+          "No weapons or sharp objects",
+          "No smoking",
+          "No fishing, glass objects or littering",
+          "No fireworks, explosives or open fire",
+          "No large luggage, strollers, skateboards or scooters",
+          "No unaccompanied minors",
+          "No boarding while intoxicated"
+        ],
+        "notice": "To ensure the safety of our guests and crew, our boat trips are continuously filmed for captain monitoring and security purposes. We occasionally use short clips from these recordings on our official social media platforms to share the beauty of our experiences. If you prefer not to be included in any published footage, simply let us know in advance or upon arrival — we will make sure your privacy is respected."
+      }
     }
   }
 }

@@ -249,6 +249,11 @@
         "title": "Vinterbådtur",
         "desc": "Privat julebådtur med tapas-æske, Moët champagne og varm krydret gløgg — i ægte dansk hygge-stil.",
         "price_note": "per gruppe (op til 6)"
+      },
+      "cocktail_tapas": {
+        "title": "Privat bådtur med cocktails og tapas",
+        "desc": "2-timers privat yachttur med åben cocktailbar, tapas og opvarmet indendørs lounge.",
+        "price_note": "pr. gruppe på op til 8"
       }
     },
     "bespoke": {
@@ -936,6 +941,85 @@
         "Medbragt mad og drikke",
         "Transport til/fra mødestedet"
       ]
+    },
+    "cocktail_tapas": {
+      "page": {
+        "title": "Privat bådtur i København med cocktails og tapas | Seaduced",
+        "desc": "Privat 2-timers yachttur i København med åben bar med cocktails, tapas og opvarmet indendørs lounge. Fra 10.950 DKK pr. gruppe på op til 8."
+      },
+      "hero_html": "Privat bådtur med <span class=\"title-accent\">cocktails</span> og tapas",
+      "intro": "Nyd en privat yachttur med fri cocktailbar og tapas. Slap af i en hyggelig indendørs lounge med lille køkken og toilet, og med opvarmet interiør på de kolde dage.",
+      "info": {
+        "participants_val": "Privat gruppe (maks. 8)",
+        "duration_val": "2 timer",
+        "guide_val": "Engelsk, spansk, dansk"
+      },
+      "flag": "Premium oplevelse",
+      "booking": {
+        "price_note": "pr. gruppe på op til 8",
+        "up_to": "Op til 8 gæster"
+      },
+      "story_paras": [
+        "Gå om bord på en kompakt luksusyacht og nyd en privat 2-timers sejlads langs den smukke kyst. Uanset om du fejrer en særlig anledning, nyder kvalitetstid med venner eller blot søger en unik premiumoplevelse, er denne sejlads de perfekte rammer.",
+        "Slap af med åben cocktailbar og tapas, mens en professionel besætning tager sig af alle detaljer, og du nyder den fantastiske udsigt over havet og en sofistikeret stemning om bord. Nyd et udvalg af vin, øl og sodavand samt en lækker tapasplatte.",
+        "Gør brug af yachtens komfortable indendørs lounge, lille køkken og private toilet. Hold dig varm med varmen på de kolde dage og aftener."
+      ],
+      "highlights": [
+        "<strong>Privat yacht:</strong> Slap af med et glas kold champagne i hånden.",
+        "<strong>Tapas og drikkevarer:</strong> En lækker tapasplatte samt et udvalg af vin, øl og sodavand.",
+        "<strong>Komfort om bord:</strong> Hyggelig indendørs lounge, lille køkken og privat toilet.",
+        "<strong>Særlige anledninger:</strong> Fej en begivenhed eller nyd kvalitetstid med familie og venner.",
+        "<strong>Professionel kaptajn:</strong> Opvarmet interiør på de kolde dage."
+      ],
+      "included": [
+        "Privat yachtcharter i 2 timer",
+        "Velkomstchampagne",
+        "Udvalg af vin, øl og sodavand",
+        "Lækker tapasplatte",
+        "Professionel kaptajn",
+        "Komfortabel indendørs lounge",
+        "Lille køkken om bord",
+        "Privat toilet",
+        "Varme på kolde dage og aftener",
+        "Plads til op til 8 personer"
+      ],
+      "excl_h3": "Ikke egnet til",
+      "excl_items": [
+        "Personer med nedsat mobilitet",
+        "Kørestolsbrugere",
+        "Personer med højdeskræk",
+        "Personer der er tilbøjelige til søsyge",
+        "Personer der lider af transportsyge",
+        "Personer med nøddeallergi"
+      ],
+      "prep": {
+        "bring": [
+          "Behagelige sko",
+          "Varmt tøj",
+          "Solbriller",
+          "Badetøj",
+          "Håndklæde",
+          "Solcreme",
+          "Behageligt tøj",
+          "Tøj tilpasset vejret",
+          "Vinterfodtøj"
+        ],
+        "rules": [
+          "Kapaciteten er begrænset til 8 deltagere",
+          "Der er varme til de kolde dage og nætter",
+          "Klæd dig efter vejret",
+          "Yachten kan lukkes helt til om vinteren",
+          "Ingen kæledyr (undtagen servicehunde)",
+          "Ingen våben eller skarpe genstande",
+          "Rygning forbudt",
+          "Ingen fiskeri, glasgenstande eller henkastning af affald",
+          "Ingen fyrværkeri, sprængstoffer eller åben ild",
+          "Ingen store bagager, klapvogne, skateboards eller løbehjul",
+          "Ingen ledsagede mindreårige uden voksne",
+          "Ingen adgang om bord i beruset tilstand"
+        ],
+        "notice": "For at sikre vores gæsters og besætnings sikkerhed filmes vores bådture løbende til kaptajnens overvågning og sikkerhed. Vi bruger lejlighedsvis korte klip fra optagelserne på vores officielle sociale medier for at dele skønheden i vores oplevelser. Hvis du foretrækker ikke at optræde i offentliggjort materiale, så giv os besked på forhånd eller ved ankomst — vi sørger for, at dit privatliv respekteres."
+      }
     }
   }
 }
