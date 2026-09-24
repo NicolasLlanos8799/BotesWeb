@@ -250,7 +250,7 @@
       "cocktail_tapas": {
         "title": "Private Boat Tour with Cocktails & Tapas",
         "desc": "2-hour private yacht cruise with open cocktails, tapas and a heated indoor lounge.",
-        "price_note": "per group up to 8"
+        "price_note": "per group up to 6"
       }
     },
     "bespoke": {
@@ -942,20 +942,20 @@
     "cocktail_tapas": {
       "page": {
         "title": "Private Boat Tour Copenhagen with Cocktails & Tapas | Seaduced",
-        "desc": "Private 2-hour yacht cruise in Copenhagen with open cocktails, tapas and a heated indoor lounge. From DKK 10,950 per group of up to 8."
+        "desc": "Private 2-hour yacht cruise in Copenhagen with open cocktails, tapas and a heated indoor lounge. From DKK 10,950 per group of up to 6."
       },
       "hero_html": "Private Boat Tour with <span class=\"title-accent\">Cocktails</span> &amp; Tapas",
       "intro": "Enjoy a private yacht cruise with open cocktails and tapas. Relax in a cozy indoor lounge with a small kitchen and bathroom, with a heated interior for cooler days.",
       "info": {
-        "participants_val": "Private group (max 8)",
+        "participants_val": "Private group (max 6)",
         "duration_val": "2 hours",
         "guide_val": "English, Spanish, Danish",
         "cancellation_val": "Free up to 24h before"
       },
       "flag": "Premium Experience",
       "booking": {
-        "price_note": "per group up to 8",
-        "up_to": "Up to 8 guests"
+        "price_note": "per group up to 6",
+        "up_to": "Up to 6 guests"
       },
       "story_paras": [
         "Step aboard a compact luxury yacht for a private 2-hour cruise along the beautiful coast. Whether you are celebrating a special occasion, enjoying quality time with friends, or simply looking for a unique premium experience, this cruise is the perfect setting.",
@@ -971,7 +971,7 @@
       ],
       "included": [
         "Private 2-hour yacht charter",
-        "Welcome champagne",
+        "Open cocktails",
         "Selection of wine, beer and soft drinks",
         "Delicious tapas platter",
         "Professional captain",
@@ -979,7 +979,9 @@
         "Small kitchen on board",
         "Private bathroom",
         "Heating for cooler days and evenings",
-        "Capacity for up to 8 people"
+        "Capacity for 6 people",
+        "Towels",
+        "Champagne"
       ],
       "excl_h3": "Not suitable for",
       "excl_items": [
@@ -1003,8 +1005,8 @@
           "Winter footwear"
         ],
         "rules": [
-          "Capacity is limited to 8 participants",
-          "Heating is available for cooler days and nights",
+          "Capacity is limited to 6 participants",
+          "Heating is available for cooler days and evenings",
           "Dress according to the weather",
           "The yacht can be fully enclosed in winter",
           "No pets (except assistance dogs)",

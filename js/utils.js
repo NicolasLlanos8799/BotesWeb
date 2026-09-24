@@ -250,7 +250,7 @@ export const TOURS = {
     durationDa: "2 Timer",
     img: "/assets/images/cocktails-tapas/private-yacht-copenhagen-aerial-guest-relaxing.webp",
     url: "/experiences/private-boat-cocktails-tapas/",
-    maxParticipants: 8,
+    maxParticipants: 6,
     calendar: "boat2",
   },
 };

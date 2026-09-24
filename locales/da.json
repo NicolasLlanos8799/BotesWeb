@@ -253,7 +253,7 @@
       "cocktail_tapas": {
         "title": "Privat bådtur med cocktails og tapas",
         "desc": "2-timers privat yachttur med åben cocktailbar, tapas og opvarmet indendørs lounge.",
-        "price_note": "pr. gruppe på op til 8"
+        "price_note": "pr. gruppe på op til 6"
       }
     },
     "bespoke": {
@@ -945,20 +945,20 @@
     "cocktail_tapas": {
       "page": {
         "title": "Privat bådtur i København med cocktails og tapas | Seaduced",
-        "desc": "Privat 2-timers yachttur i København med åben bar med cocktails, tapas og opvarmet indendørs lounge. Fra 10.950 DKK pr. gruppe på op til 8."
+        "desc": "Privat 2-timers yachttur i København med åben bar med cocktails, tapas og opvarmet indendørs lounge. Fra 10.950 DKK pr. gruppe på op til 6."
       },
       "hero_html": "Privat bådtur med <span class=\"title-accent\">cocktails</span> og tapas",
       "intro": "Nyd en privat yachttur med fri cocktailbar og tapas. Slap af i en hyggelig indendørs lounge med lille køkken og toilet, og med opvarmet interiør på de kolde dage.",
       "info": {
-        "participants_val": "Privat gruppe (maks. 8)",
+        "participants_val": "Privat gruppe (maks. 6)",
         "duration_val": "2 timer",
         "guide_val": "Engelsk, spansk, dansk",
         "cancellation_val": "Gratis op til 24t før"
       },
       "flag": "Premium oplevelse",
       "booking": {
-        "price_note": "pr. gruppe på op til 8",
-        "up_to": "Op til 8 gæster"
+        "price_note": "pr. gruppe på op til 6",
+        "up_to": "Op til 6 gæster"
       },
       "story_paras": [
         "Gå om bord på en kompakt luksusyacht og nyd en privat 2-timers sejlads langs den smukke kyst. Uanset om du fejrer en særlig anledning, nyder kvalitetstid med venner eller blot søger en unik premiumoplevelse, er denne sejlads de perfekte rammer.",
@@ -974,7 +974,7 @@
       ],
       "included": [
         "Privat yachtcharter i 2 timer",
-        "Velkomstchampagne",
+        "Fri cocktailbar",
         "Udvalg af vin, øl og sodavand",
         "Lækker tapasplatte",
         "Professionel kaptajn",
@@ -982,7 +982,9 @@
         "Lille køkken om bord",
         "Privat toilet",
         "Varme på kolde dage og aftener",
-        "Plads til op til 8 personer"
+        "Plads til 6 personer",
+        "Håndklæder",
+        "Champagne"
       ],
       "excl_h3": "Ikke egnet til",
       "excl_items": [
@@ -1006,8 +1008,8 @@
           "Vinterfodtøj"
         ],
         "rules": [
-          "Kapaciteten er begrænset til 8 deltagere",
-          "Der er varme til de kolde dage og nætter",
+          "Kapaciteten er begrænset til 6 deltagere",
+          "Der er varme til de kolde dage og aftener",
           "Klæd dig efter vejret",
           "Yachten kan lukkes helt til om vinteren",
           "Ingen kæledyr (undtagen servicehunde)",
