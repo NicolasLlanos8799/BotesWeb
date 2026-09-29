@@ -1,5 +1,6 @@
 import { getDayBusy, getMonthBusy } from "../lib/availability.js";
 import { error as logError } from "../lib/logger.js";
+import { isRateLimited, getIp } from "../lib/rateLimit.js";
 
 /**
  * Public-site availability (Postgres, not Google Calendar).
@@ -21,6 +22,11 @@ import { error as logError } from "../lib/logger.js";
  *   GET ?action=getMonthlyAvailability&date=&calendar= -> { "YYYY-MM-DD": [...] }
  */
 export default async function handler(req, res) {
+  const ip = getIp(req);
+  if (isRateLimited(`availability:${ip}`, { max: 60, windowMs: 60 * 1000 })) {
+    return res.status(429).json({ error: "Too many requests" });
+  }
+
   const { action, date, calendar } = req.query;
   const boat = calendar === "boat2" ? "boat2" : "boat1"; // whitelist — never trust the raw param
 
@@ -31,14 +37,14 @@ export default async function handler(req, res) {
     if (action === "getAvailability") {
       if (!DAY_RE.test(date || "")) return res.status(400).json({ error: "Missing or malformed date" });
       const busy = await getDayBusy(boat, date);
-      res.setHeader('Cache-Control', 'no-store, max-age=0');
+      res.setHeader('Cache-Control', 'private, max-age=20');
       return res.status(200).json({ busy });
     }
 
     if (action === "getMonthlyAvailability") {
       if (!MONTH_RE.test(date || "")) return res.status(400).json({ error: "Missing or malformed date" });
       const byDate = await getMonthBusy(boat, date);
-      res.setHeader('Cache-Control', 'no-store, max-age=0');
+      res.setHeader('Cache-Control', 'private, max-age=20');
       return res.status(200).json(byDate);
     }
 

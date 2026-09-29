@@ -111,8 +111,15 @@ async function markPaidAndSync(b) {
  * (reminder_sent_at) — ignorando las PENDING de más de 24h (ya
  * abandonadas de verdad).
  */
-async function runPaymentReminder(req, res) {
+let reminderColumnEnsured = false;
+async function ensureReminderColumn() {
+  if (reminderColumnEnsured) return;
   await db`ALTER TABLE bookings ADD COLUMN IF NOT EXISTS reminder_sent_at TIMESTAMP WITH TIME ZONE`;
+  reminderColumnEnsured = true;
+}
+
+async function runPaymentReminder(req, res) {
+  await ensureReminderColumn();
 
   const result = await db`
     SELECT * FROM bookings

@@ -30,6 +30,11 @@ import {
   rangesOverlap,
 } from "../lib/gyg-config.js";
 import { getBlocksByDate, isSlotBlocked } from "../lib/blocked-slots.js";
+import { cached } from "../lib/cache.js";
+
+/** GYG pollea disponibilidad muy seguido; un desfase de hasta esto es
+ *  aceptable y evita golpear la DB en cada poll (ver lib/cache.js). */
+const AVAILABILITY_CACHE_TTL_MS = 30_000;
 
 // ── GAS helper ────────────────────────────────────────────────────────────────
 // Awaited call to Google Apps Script to sync Google Calendar. MUST be awaited:
@@ -154,17 +159,21 @@ async function handleAvailability(req, res) {
   }
 
   try {
-    const result = boatTourIds.length > 0 ? await db`
-      SELECT tour_id, booking_date, booking_time, booking_end_time
-      FROM bookings
-      WHERE tour_id = ANY(${boatTourIds})
-        AND booking_date BETWEEN ${effectiveDateFrom} AND ${dateTo}
-        AND payment_status NOT IN ('CANCELLED', 'REFUNDED')
-    ` : { rows: [] };
-    const bookings = result.rows ?? result;
+    const cacheKey = `avail:${boat}:${boatTourIds.slice().sort().join(",")}:${effectiveDateFrom}:${dateTo}`;
+    const { bookings, blocksByDate } = await cached(cacheKey, AVAILABILITY_CACHE_TTL_MS, async () => {
+      const result = boatTourIds.length > 0 ? await db`
+        SELECT tour_id, booking_date, booking_time, booking_end_time
+        FROM bookings
+        WHERE tour_id = ANY(${boatTourIds})
+          AND booking_date BETWEEN ${effectiveDateFrom} AND ${dateTo}
+          AND payment_status NOT IN ('CANCELLED', 'REFUNDED')
+      ` : { rows: [] };
 
-    // Bloqueos manuales del bote (mantenimiento, clima…) — tumban el slot entero
-    const blocksByDate = await getBlocksByDate(boat, effectiveDateFrom, dateTo);
+      // Bloqueos manuales del bote (mantenimiento, clima…) — tumban el slot entero
+      const blocksByDate = await getBlocksByDate(boat, effectiveDateFrom, dateTo);
+
+      return { bookings: result.rows ?? result, blocksByDate };
+    });
 
     // Existing bookings per date, each with the full [startMin, endMin) range it
     // occupies on its boat — NOT just its exact start time. A 3h booking at 12:00

@@ -1,7 +1,10 @@
 import db from "../lib/db.js";
 import { error as logError } from "../lib/logger.js";
+import { isRateLimited, getIp } from "../lib/rateLimit.js";
+import { cached } from "../lib/cache.js";
 
 const WINE_SLOTS = ["10:00", "12:00", "14:00", "16:00", "18:00"];
+const AVAILABILITY_CACHE_TTL_MS = 30_000;
 
 // Statuses that occupy a group slot
 const ACTIVE_STATUSES = ["PAID", "RESERVED", "PENDING"];
@@ -27,22 +30,29 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
+  const ip = getIp(req);
+  if (isRateLimited(`wine-availability:${ip}`, { max: 30, windowMs: 60 * 1000 })) {
+    return res.status(429).json({ error: "Too many requests" });
+  }
+
   const { date } = req.query;
   if (!date || !/^\d{4}-\d{2}-\d{2}$/.test(date)) {
     return res.status(400).json({ error: "Missing or invalid date (YYYY-MM-DD)" });
   }
 
   try {
-    const dbResult = await db`
-      SELECT booking_time, COUNT(*) as group_count
-      FROM bookings
-      WHERE tour_id = 'book-wine'
-        AND booking_date = ${date}
-        AND payment_status = ANY(${ACTIVE_STATUSES})
-        AND NOT (payment_status = 'PENDING' AND created_at < NOW() - INTERVAL '1 hour')
-      GROUP BY booking_time
-    `;
-    const rows = dbResult.rows ?? dbResult;
+    const rows = await cached(`wine:${date}`, AVAILABILITY_CACHE_TTL_MS, async () => {
+      const dbResult = await db`
+        SELECT booking_time, COUNT(*) as group_count
+        FROM bookings
+        WHERE tour_id = 'book-wine'
+          AND booking_date = ${date}
+          AND payment_status = ANY(${ACTIVE_STATUSES})
+          AND NOT (payment_status = 'PENDING' AND created_at < NOW() - INTERVAL '1 hour')
+        GROUP BY booking_time
+      `;
+      return dbResult.rows ?? dbResult;
+    });
 
     // Build a map: "HH:MM" -> group count
     const countMap = {};

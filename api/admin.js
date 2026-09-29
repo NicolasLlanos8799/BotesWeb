@@ -244,6 +244,16 @@ async function handleMarkPaid(req, res) {
   }
 }
 
+// Self-healing columns for older DBs — guardado con flag en memoria para no
+// repetir el ALTER en cada request dentro de la misma instancia tibia.
+let bookingSchemaEnsured = false;
+async function ensureBookingSchema() {
+  if (bookingSchemaEnsured) return;
+  await db`ALTER TABLE bookings ADD COLUMN IF NOT EXISTS booking_end_time TIME`;
+  await db`ALTER TABLE bookings ADD COLUMN IF NOT EXISTS boat TEXT`;
+  bookingSchemaEnsured = true;
+}
+
 async function handleCreateBooking(req, res) {
   if (!(await isAdminAuthenticated(req))) return res.status(401).json({ error: "Unauthorized" });
   if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
@@ -265,7 +275,7 @@ async function handleCreateBooking(req, res) {
 
   let bookingId;
   try {
-    await db`ALTER TABLE bookings ADD COLUMN IF NOT EXISTS booking_end_time TIME`;
+    await ensureBookingSchema();
 
     const result = await withRetry(() => db`
       INSERT INTO bookings (
@@ -388,10 +398,7 @@ async function handleBookingAction(req, res) {
       const putId = id;
       if (!putId) return res.status(400).json({ error: "Missing booking id" });
 
-      // Self-healing — adds the column on first use so older DBs don't
-      // need a manual migration before this field can be saved.
-      await db`ALTER TABLE bookings ADD COLUMN IF NOT EXISTS booking_end_time TIME`;
-      await db`ALTER TABLE bookings ADD COLUMN IF NOT EXISTS boat TEXT`;
+      await ensureBookingSchema();
 
       const newBoat = boat === "boat1" || boat === "boat2" ? boat : null;
 
