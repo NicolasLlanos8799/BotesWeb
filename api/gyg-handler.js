@@ -62,6 +62,7 @@ const OPTION_PRICES = {
   1747660: 499900,  // Copenhagen winter hygge — 4999 DKK
   1747630: 699900,  // Copenhagen: Private winter boat Tour — 6999 DKK
   2257808: 1095000, // Private Yacht Cruise with Cocktails & Tapas — 10950 DKK
+  1253510: 579900,  // Cocktail Lifestyle Cruise (Pontoon_2_hour_tour) — 5799 DKK
 };
 
 // Cutoff (seconds before start) per GYG option ID. Default 7200 (2h) if not listed here.
