@@ -251,6 +251,11 @@
         "title": "Private Boat Tour with Cocktails & Tapas",
         "desc": "2-hour private yacht cruise with open cocktails, tapas and a heated indoor lounge.",
         "price_note": "per group up to 6"
+      },
+      "cocktail_lifestyle": {
+        "title": "Cocktail Lifestyle Cruise",
+        "desc": "2-hour private cocktail cruise around Copenhagen's harbor, discovering the city's modern waterfront lifestyle.",
+        "price_note": "per group up to 6"
       }
     },
     "bespoke": {
@@ -1016,6 +1021,72 @@
           "No fireworks, explosives or open fire",
           "No large luggage, strollers, skateboards or scooters",
           "No unaccompanied minors",
+          "No boarding while intoxicated"
+        ],
+        "notice": "To ensure the safety of our guests and crew, our boat trips are continuously filmed for captain monitoring and security purposes. We occasionally use short clips from these recordings on our official social media platforms to share the beauty of our experiences. If you prefer not to be included in any published footage, simply let us know in advance or upon arrival — we will make sure your privacy is respected."
+      }
+    },
+    "cocktail_lifestyle": {
+      "page": {
+        "title": "Private Boat Tour Copenhagen with Cocktails | City Lifestyle Cruise | Seaduced",
+        "desc": "Private 2-hour cocktail cruise in Copenhagen. Discover the city's modern waterfront lifestyle with music and drinks on board. From DKK 5,799 per group of up to 6."
+      },
+      "hero_html": "Cocktail Cruise for the Local <span class=\"title-accent\">Lifestyle</span>",
+      "intro": "Discover Copenhagen like a local on a private 2-hour boat cruise. Relax with music and cocktails while taking in panoramic harbor views and the city's modern waterfront lifestyle.",
+      "info": {
+        "participants_val": "Private group (max 6)",
+        "duration_val": "2 hours",
+        "guide_val": "English, Spanish",
+        "cancellation_val": "Free up to 24h before"
+      },
+      "flag": "Lifestyle Experience",
+      "booking": {
+        "price_note": "per group up to 6",
+        "up_to": "Up to 6 guests"
+      },
+      "story_paras": [
+        "Step aboard a private boat for a 2-hour experience in Copenhagen from the perspective locals love most: the water. This relaxed lifestyle boat cruise focuses on the social, contemporary side of the city rather than a traditional sightseeing tour.",
+        "As you glide through Copenhagen's harbor, take in panoramic views of the city's modern skyline, its lively waterfront swimming spots, and its innovative Danish architecture. The harbor has become one of Copenhagen's most vibrant social spaces, where locals gather to swim, sail, and relax during the warmer months.",
+        "This experience is designed as a private, hygge-style escape on the water. Music plays softly on board while you enjoy a comfortable, social atmosphere with your group. Drinks are available for purchase during the cruise, making it perfect for couples, friends, birthdays, or small celebrations.",
+        "Your local captain sails through some of the harbor's most interesting areas, sharing insights about the city and its connection to the sea. Along the way, you'll see how Copenhagen has transformed its historic harbor into one of the cleanest and most livable waterfronts in the world.",
+        "Whether you're looking for a relaxing boat ride, a social boat experience, or a unique way to explore the city, this private harbor cruise offers a memorable and authentic way to enjoy Copenhagen."
+      ],
+      "highlights": [
+        "<strong>Harbor Cruise:</strong> Discover Copenhagen from the water on a private harbor cruise.",
+        "<strong>Relaxed Atmosphere:</strong> Enjoy music and drinks on board in a laid-back setting.",
+        "<strong>City Views:</strong> Take in the contemporary skyline and lively waterfront areas.",
+        "<strong>Danish Architecture:</strong> Admire striking examples of modern Danish design.",
+        "<strong>Local Lifestyle:</strong> Experience the Danish way of life from a unique perspective on the water."
+      ],
+      "included": [
+        "Private, relaxed cruise around Copenhagen harbor",
+        "Free cocktails for 2 hours",
+        "Views of Copenhagen's contemporary skyline",
+        "Lively waterfront areas",
+        "Popular harbor swimming spots",
+        "Modern Danish architecture along the waterfront",
+        "Soft background music",
+        "Option to enjoy drinks during the cruise"
+      ],
+      "food_h3": "Food",
+      "food_text": "Additional drinks or other beverages not included in the package.",
+      "excl_h3": "Not suitable for",
+      "excl_items": [
+        "Wheelchair users",
+        "People with visual impairments"
+      ],
+      "prep": {
+        "bring": [
+          "Biodegradable sunscreen",
+          "Beachwear",
+          "Cash"
+        ],
+        "rules": [
+          "Capacity is limited to 6 participants",
+          "No smoking",
+          "No outside food or drinks on board",
+          "No fireworks or open fire on board",
+          "No alcohol or drugs brought on board",
           "No boarding while intoxicated"
         ],
         "notice": "To ensure the safety of our guests and crew, our boat trips are continuously filmed for captain monitoring and security purposes. We occasionally use short clips from these recordings on our official social media platforms to share the beauty of our experiences. If you prefer not to be included in any published footage, simply let us know in advance or upon arrival — we will make sure your privacy is respected."

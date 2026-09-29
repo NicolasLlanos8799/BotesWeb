@@ -253,6 +253,20 @@ export const TOURS = {
     maxParticipants: 6,
     calendar: "boat2",
   },
+  "cocktail-lifestyle-2h": {
+    id: "cocktail-lifestyle-2h",
+    title: "Cocktail Lifestyle Cruise",
+    titleEs: "Paseo con Cócteles y Estilo de Vida",
+    titleDa: "Cocktailsejlads med Livsstil",
+    price: 5799,
+    duration: "2 Hours",
+    durationEs: "2 Horas",
+    durationDa: "2 Timer",
+    img: "/assets/images/cocktail-lifestyle/private-boat-cocktail-lifestyle-cheers-bridge-copenhagen.webp",
+    url: "/experiences/private-boat-cocktail-lifestyle/",
+    maxParticipants: 6,
+    calendar: "boat1",
+  },
 };
 
 export const EXTRA_CHARCUTERIE = {

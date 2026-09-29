@@ -260,6 +260,11 @@
         "title": "Paseo Privado en Barco con Cócteles y Tapas",
         "desc": "Paseo privado de 2 horas en yate con cócteles a voluntad, tapas y salón interior con calefacción.",
         "price_note": "por grupo de hasta 6"
+      },
+      "cocktail_lifestyle": {
+        "title": "Paseo con Cócteles y Estilo de Vida",
+        "desc": "Paseo privado de 2 horas en barco con cócteles por el puerto de Copenhague, descubriendo el estilo de vida moderno junto al agua.",
+        "price_note": "por grupo de hasta 6"
       }
     },
     "bespoke": {
@@ -1025,6 +1030,72 @@
           "No se permiten fuegos artificiales, materiales explosivos ni hacer fuego",
           "No se permite equipaje de gran tamaño, sillitas de paseo, tablas de skate ni patinetes",
           "No se permiten menores no acompañados",
+          "No se permite embarcar en estado de embriaguez"
+        ],
+        "notice": "Para garantizar la seguridad de nuestros clientes y tripulación, nuestros viajes en barco se graban de forma continua con fines de supervisión del capitán y seguridad. Ocasionalmente utilizamos clips cortos de estas grabaciones en nuestras redes sociales oficiales para compartir la belleza de nuestras experiencias. Si prefieres no aparecer en ningún material publicado, háznoslo saber con antelación o a tu llegada — nos aseguraremos de respetar tu privacidad."
+      }
+    },
+    "cocktail_lifestyle": {
+      "page": {
+        "title": "Paseo en Barco Privado en Copenhague con Cócteles | Estilo de Vida | Seaduced",
+        "desc": "Paseo privado de 2 horas en barco con cócteles por Copenhague. Descubre el estilo de vida moderno junto al agua con música y bebidas a bordo. Desde 5.799 DKK por grupo de hasta 6."
+      },
+      "hero_html": "Paseo en Barco con Cócteles para Conocer el <span class=\"title-accent\">Estilo de Vida</span>",
+      "intro": "Descubre Copenhague como un lugareño en un paseo en barco privado de 2 horas. Relájate con música y cócteles con vistas panorámicas del puerto mientras descubres el moderno estilo de vida de la ciudad junto al agua.",
+      "info": {
+        "participants_val": "Grupo privado (máx. 6)",
+        "duration_val": "2 horas",
+        "guide_val": "Inglés, Español",
+        "cancellation_val": "Gratis hasta 24h antes"
+      },
+      "flag": "Experiencia de Estilo de Vida",
+      "booking": {
+        "price_note": "por grupo de hasta 6",
+        "up_to": "Hasta 6 personas"
+      },
+      "story_paras": [
+        "Sube a bordo de un barco privado y disfruta de una experiencia de 2 horas en Copenhague desde la perspectiva que más adoran los lugareños: el agua. Este relajado paseo en barco de estilo de vida se centra en el lado social y contemporáneo de la ciudad en lugar de ser un tour tradicional.",
+        "Mientras te deslizas por el puerto de Copenhague, disfruta de las vistas panorámicas del moderno paisaje urbano de la ciudad, de las zonas de baño frente al mar y de la innovadora arquitectura danesa. El puerto se ha convertido en uno de los espacios sociales más vibrantes de Copenhague, donde los lugareños se reúnen para nadar, navegar en vela y relajarse durante los meses más cálidos.",
+        "Esta experiencia está diseñada como una escapada privada al estilo «hygge» en el agua. La música suena suavemente a bordo mientras disfrutas de un ambiente cómodo y social con tu grupo. Hay bebidas a la venta durante el paseo en barco, por lo que es perfecto para parejas, amigos, cumpleaños o pequeñas celebraciones.",
+        "Tu capitán local navega por algunas de las zonas más interesantes del puerto y comparte información sobre la ciudad y su conexión con el mar. Por el camino verás cómo Copenhague ha transformado su puerto histórico en uno de los paseos marítimos más limpios y habitables del mundo.",
+        "Tanto si buscas un relajante paseo en barco como una experiencia social en barco o una forma única de explorar la ciudad, este recorrido privado por el puerto te ofrece una manera memorable y auténtica de disfrutar de Copenhague."
+      ],
+      "highlights": [
+        "<strong>Crucero por el puerto:</strong> Descubre Copenhague desde el agua en un crucero privado.",
+        "<strong>Ambiente relajado:</strong> Disfruta de música y bebidas a bordo.",
+        "<strong>Vistas de la ciudad:</strong> Contempla el paisaje urbano contemporáneo y las animadas zonas costeras.",
+        "<strong>Arquitectura danesa:</strong> Admira llamativos ejemplos de la arquitectura moderna.",
+        "<strong>Estilo de vida local:</strong> Vive el estilo de vida danés desde una perspectiva única sobre el agua."
+      ],
+      "included": [
+        "Experiencia privada y relajada en el puerto de Copenhague",
+        "Cócteles gratis durante 2 horas",
+        "Vistas del paisaje urbano contemporáneo de Copenhague",
+        "Áreas animadas frente al mar",
+        "Zonas populares para nadar en el puerto",
+        "Arquitectura danesa moderna a lo largo del paseo marítimo",
+        "Música suave de fondo",
+        "Opción de disfrutar de bebidas durante el paseo en barco"
+      ],
+      "food_h3": "Comida",
+      "food_text": "Bebidas adicionales u otros tipos de bebidas distintas de las incluidas en el paquete.",
+      "excl_h3": "No apto para",
+      "excl_items": [
+        "Personas en silla de ruedas",
+        "Personas con discapacidad visual"
+      ],
+      "prep": {
+        "bring": [
+          "Protector solar biodegradable",
+          "Ropa de playa",
+          "Dinero en efectivo"
+        ],
+        "rules": [
+          "Aforo limitado a 6 personas",
+          "No fumar",
+          "No se permite comida o bebida propia a bordo",
+          "No se permiten fuegos artificiales ni hacer fuego a bordo",
+          "No se permite alcohol o drogas propios",
           "No se permite embarcar en estado de embriaguez"
         ],
         "notice": "Para garantizar la seguridad de nuestros clientes y tripulación, nuestros viajes en barco se graban de forma continua con fines de supervisión del capitán y seguridad. Ocasionalmente utilizamos clips cortos de estas grabaciones en nuestras redes sociales oficiales para compartir la belleza de nuestras experiencias. Si prefieres no aparecer en ningún material publicado, háznoslo saber con antelación o a tu llegada — nos aseguraremos de respetar tu privacidad."

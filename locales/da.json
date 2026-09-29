@@ -254,6 +254,11 @@
         "title": "Privat bådtur med cocktails og tapas",
         "desc": "2-timers privat yachttur med åben cocktailbar, tapas og opvarmet indendørs lounge.",
         "price_note": "pr. gruppe på op til 6"
+      },
+      "cocktail_lifestyle": {
+        "title": "Cocktailsejlads med Livsstil",
+        "desc": "Privat 2-timers cocktailsejlads i Københavns havn, hvor du oplever byens moderne livsstil ved vandet.",
+        "price_note": "pr. gruppe på op til 6"
       }
     },
     "bespoke": {
@@ -1019,6 +1024,72 @@
           "Ingen fyrværkeri, sprængstoffer eller åben ild",
           "Ingen store bagager, klapvogne, skateboards eller løbehjul",
           "Ingen ledsagede mindreårige uden voksne",
+          "Ingen adgang om bord i beruset tilstand"
+        ],
+        "notice": "For at sikre vores gæsters og besætnings sikkerhed filmes vores bådture løbende til kaptajnens overvågning og sikkerhed. Vi bruger lejlighedsvis korte klip fra optagelserne på vores officielle sociale medier for at dele skønheden i vores oplevelser. Hvis du foretrækker ikke at optræde i offentliggjort materiale, så giv os besked på forhånd eller ved ankomst — vi sørger for, at dit privatliv respekteres."
+      }
+    },
+    "cocktail_lifestyle": {
+      "page": {
+        "title": "Privat bådtur i København med cocktails | Bylivsstil | Seaduced",
+        "desc": "Privat 2-timers cocktailsejlads i København. Oplev byens moderne livsstil ved vandet med musik og drikkevarer om bord. Fra 5.799 DKK pr. gruppe på op til 6."
+      },
+      "hero_html": "Cocktailsejlads med Lokal <span class=\"title-accent\">Livsstil</span>",
+      "intro": "Oplev København som en lokal på en privat 2-timers bådtur. Slap af med musik og cocktails, mens du nyder panoramaudsigt over havnen og byens moderne livsstil ved vandet.",
+      "info": {
+        "participants_val": "Privat gruppe (maks. 6)",
+        "duration_val": "2 timer",
+        "guide_val": "Engelsk, spansk",
+        "cancellation_val": "Gratis op til 24t før"
+      },
+      "flag": "Livsstilsoplevelse",
+      "booking": {
+        "price_note": "pr. gruppe på op til 6",
+        "up_to": "Op til 6 gæster"
+      },
+      "story_paras": [
+        "Gå om bord på en privat båd og nyd en 2-timers oplevelse i København set fra det perspektiv, lokale elsker mest: vandet. Denne afslappede livsstilssejlads fokuserer på byens sociale og moderne side frem for at være en traditionel sightseeingtur.",
+        "Mens du glider gennem Københavns havn, nyder du panoramaudsigt over byens moderne skyline, de livlige badeområder ved vandet og den nyskabende danske arkitektur. Havnen er blevet et af Københavns mest levende sociale mødesteder, hvor lokale samles for at svømme, sejle og slappe af i de varmere måneder.",
+        "Denne oplevelse er designet som en privat hygge-flugt på vandet. Musikken spiller blidt om bord, mens du nyder en behagelig og social stemning med din gruppe. Der kan købes drikkevarer under sejladsen, hvilket gør den perfekt til par, venner, fødselsdage eller mindre fejringer.",
+        "Din lokale kaptajn sejler gennem nogle af havnens mest interessante områder og fortæller om byen og dens forbindelse til havet. Undervejs ser du, hvordan København har forvandlet sin historiske havn til en af verdens reneste og mest levedygtige havnefronter.",
+        "Uanset om du søger en afslappende bådtur, en social bådoplevelse eller en unik måde at udforske byen på, giver denne private havnesejlads en mindeværdig og autentisk måde at nyde København på."
+      ],
+      "highlights": [
+        "<strong>Havnesejlads:</strong> Oplev København fra vandet på en privat havnesejlads.",
+        "<strong>Afslappet stemning:</strong> Nyd musik og drikkevarer om bord.",
+        "<strong>Udsigt over byen:</strong> Se den moderne skyline og de livlige områder ved vandet.",
+        "<strong>Dansk arkitektur:</strong> Beundr slående eksempler på moderne dansk design.",
+        "<strong>Lokal livsstil:</strong> Oplev den danske livsstil fra et unikt perspektiv på vandet."
+      ],
+      "included": [
+        "Privat og afslappet oplevelse i Københavns havn",
+        "Gratis cocktails i 2 timer",
+        "Udsigt over Københavns moderne skyline",
+        "Livlige områder ved vandet",
+        "Populære badeområder i havnen",
+        "Moderne dansk arkitektur langs havnefronten",
+        "Blid baggrundsmusik",
+        "Mulighed for at nyde drikkevarer under sejladsen"
+      ],
+      "food_h3": "Mad",
+      "food_text": "Yderligere drikkevarer eller andre typer drikke ud over dem, der er inkluderet i pakken.",
+      "excl_h3": "Ikke egnet til",
+      "excl_items": [
+        "Kørestolsbrugere",
+        "Personer med synshandicap"
+      ],
+      "prep": {
+        "bring": [
+          "Biologisk nedbrydelig solcreme",
+          "Strandtøj",
+          "Kontanter"
+        ],
+        "rules": [
+          "Kapaciteten er begrænset til 6 personer",
+          "Rygning forbudt",
+          "Ingen medbragt mad eller drikke om bord",
+          "Intet fyrværkeri eller åben ild om bord",
+          "Ingen medbragt alkohol eller stoffer",
           "Ingen adgang om bord i beruset tilstand"
         ],
         "notice": "For at sikre vores gæsters og besætnings sikkerhed filmes vores bådture løbende til kaptajnens overvågning og sikkerhed. Vi bruger lejlighedsvis korte klip fra optagelserne på vores officielle sociale medier for at dele skønheden i vores oplevelser. Hvis du foretrækker ikke at optræde i offentliggjort materiale, så giv os besked på forhånd eller ved ankomst — vi sørger for, at dit privatliv respekteres."
