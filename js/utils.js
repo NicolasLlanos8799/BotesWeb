@@ -266,6 +266,13 @@ export const TOURS = {
     url: "/experiences/private-boat-cocktail-lifestyle/",
     maxParticipants: 6,
     calendar: "boat1",
+    customSlots: [
+      { time: "10:00", available: true },
+      { time: "12:00", available: true },
+      { time: "14:00", available: true },
+      { time: "16:00", available: true },
+      { time: "18:00", available: true },
+    ],
   },
 };
 
