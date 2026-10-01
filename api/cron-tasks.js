@@ -3,11 +3,12 @@
  * eran archivos (y funciones serverless) separados. Vercel Hobby limita a
  * 12 Serverless Functions por deployment; unificarlas acá deja lugar para
  * el resto de la API. Disparado por triggers de Apps Script (no por cron
- * de Vercel) vía ?task=gyg-expire-holds | payment-reminder.
+ * de Vercel) vía ?task=gyg-expire-holds | payment-reminder | post-tour-email.
  */
 
 import db from "../lib/db.js";
 import { log, warn, error as logError } from "../lib/logger.js";
+import { getBookingRangeMinutes } from "../lib/gyg-config.js";
 
 function callGAS(payload) {
   const GAS_URL = process.env.GAS_URL;
@@ -172,6 +173,97 @@ async function runPaymentReminder(req, res) {
   return res.status(200).json({ checked: rows.length, recovered, sent });
 }
 
+/**
+ * Email de reseña de Google 1h después de que termina el tour. Solo
+ * bookings PAID; GYG excluido salvo REVIEW_EMAIL_INCLUDE_GYG=true (los
+ * términos de GYG pueden prohibir pedir reseñas fuera de su plataforma).
+ * Fin = booking_end_time, o duración del tour si es null (reservas web).
+ * Ventana de envío: fin+1h … fin+25h, para no mandar emails viejos si el
+ * trigger estuvo caído. Reclama la fila (review_email_sent_at) antes de
+ * enviar → sin duplicados; si GAS falla la libera para reintentar.
+ */
+let reviewColumnEnsured = false;
+async function ensureReviewColumn() {
+  if (reviewColumnEnsured) return;
+  await db`ALTER TABLE bookings ADD COLUMN IF NOT EXISTS review_email_sent_at TIMESTAMP WITH TIME ZONE`;
+  reviewColumnEnsured = true;
+}
+
+/** Hora de pared en Copenhague como "minutos UTC-falsos" (comparables con Date.UTC(fecha)+min). */
+function copenhagenNowWallMs() {
+  const p = Object.fromEntries(
+    new Intl.DateTimeFormat("en-CA", {
+      timeZone: "Europe/Copenhagen", hourCycle: "h23",
+      year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit",
+    }).formatToParts(new Date()).map(x => [x.type, x.value])
+  );
+  return Date.UTC(+p.year, +p.month - 1, +p.day, +p.hour, +p.minute);
+}
+
+async function runPostTourEmail(req, res) {
+  const reviewUrl = process.env.GOOGLE_REVIEW_URL;
+  if (!reviewUrl) {
+    warn("[cron-tasks/post-tour-email] GOOGLE_REVIEW_URL not set — skipping");
+    return res.status(200).json({ skipped: "GOOGLE_REVIEW_URL not set" });
+  }
+  await ensureReviewColumn();
+  const includeGyg = process.env.REVIEW_EMAIL_INCLUDE_GYG === "true";
+
+  const result = await db`
+    SELECT id, tour_id, tour_name, customer_name, customer_email, lang, source,
+           booking_date::text AS booking_date,
+           booking_time::text AS booking_time,
+           booking_end_time::text AS booking_end_time
+    FROM bookings
+    WHERE payment_status = 'PAID'
+      AND review_email_sent_at IS NULL
+      AND customer_email IS NOT NULL
+      AND booking_time IS NOT NULL
+      AND booking_date >= (NOW() AT TIME ZONE 'Europe/Copenhagen')::date - 2
+      AND booking_date <= (NOW() AT TIME ZONE 'Europe/Copenhagen')::date
+      AND (${includeGyg} OR source IS DISTINCT FROM 'gyg')
+  `;
+  const rows = result.rows ?? result;
+
+  const nowMs = copenhagenNowWallMs();
+  const HOUR = 3600000;
+  let sent = 0;
+  for (const b of rows) {
+    const [, endMin] = getBookingRangeMinutes(b);
+    const [y, m, d] = b.booking_date.split("-").map(Number);
+    const sendAt = Date.UTC(y, m - 1, d) + endMin * 60000 + HOUR;
+    if (nowMs < sendAt || nowMs >= sendAt + 24 * HOUR) continue;
+
+    const claim = await db`
+      UPDATE bookings SET review_email_sent_at = NOW()
+      WHERE id = ${b.id} AND review_email_sent_at IS NULL
+      RETURNING id
+    `;
+    if ((claim.rows ?? claim).length === 0) continue;
+
+    const gasResult = await callGAS({
+      action: "sendReviewEmail",
+      name: b.customer_name,
+      email: b.customer_email,
+      tour: b.tour_id,
+      tourTitle: b.tour_name,
+      lang: b.lang,
+      reviewUrl,
+    });
+
+    if (gasResult && gasResult.success) {
+      sent++;
+    } else {
+      const permanent = gasResult && /email/i.test(gasResult.error || "");
+      if (!permanent) await db`UPDATE bookings SET review_email_sent_at = NULL WHERE id = ${b.id}`;
+      warn(`[cron-tasks/post-tour-email] GAS failed for booking ${b.id}:`, gasResult && gasResult.error);
+    }
+  }
+
+  log(`[cron-tasks/post-tour-email] Checked ${rows.length}, sent ${sent}`);
+  return res.status(200).json({ checked: rows.length, sent });
+}
+
 export default async function handler(req, res) {
   const auth = req.headers.authorization || "";
   if (auth !== `Bearer ${process.env.CRON_SECRET}`) {
@@ -183,6 +275,7 @@ export default async function handler(req, res) {
   try {
     if (task === "gyg-expire-holds") return await runGygExpireHolds(req, res);
     if (task === "payment-reminder") return await runPaymentReminder(req, res);
+    if (task === "post-tour-email") return await runPostTourEmail(req, res);
     return res.status(400).json({ error: "Unknown or missing ?task=" });
   } catch (err) {
     logError(`[cron-tasks/${task}] Error:`, err.message);

@@ -22,7 +22,8 @@ CREATE TABLE IF NOT EXISTS bookings (
     extras          INTEGER DEFAULT 0,               -- Charcuterie/tapas qty
     booking_end_time TIME,                           -- Manual override; falls back to tour duration if null
     boat            VARCHAR(10),                     -- Manual override 'boat1'|'boat2'; null = boat del tour
-    reminder_sent_at TIMESTAMP WITH TIME ZONE          -- Set once the 10-min abandoned-payment reminder email goes out
+    reminder_sent_at TIMESTAMP WITH TIME ZONE,         -- Set once the 10-min abandoned-payment reminder email goes out
+    review_email_sent_at TIMESTAMP WITH TIME ZONE      -- Set once the post-tour Google review email goes out
 );
 
 -- Índices para búsquedas frecuentes del admin
@@ -67,3 +68,5 @@ CREATE INDEX IF NOT EXISTS idx_blocked_slots_group ON blocked_slots (group_id);
 -- ALTER TABLE bookings ADD COLUMN IF NOT EXISTS booking_end_time TIME;
 -- ALTER TABLE bookings ADD COLUMN IF NOT EXISTS boat VARCHAR(10);
 -- ALTER TABLE bookings ADD COLUMN IF NOT EXISTS reminder_sent_at TIMESTAMP WITH TIME ZONE;
+
+-- ALTER TABLE bookings ADD COLUMN IF NOT EXISTS review_email_sent_at TIMESTAMP WITH TIME ZONE;

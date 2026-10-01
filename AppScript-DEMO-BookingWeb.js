@@ -53,7 +53,9 @@ function doPost(e) {
             ? handlePaymentFailed(data)
             : action === 'paymentReminder'
               ? handlePaymentReminder(data)
-            : action === 'sendCancellationEmail'
+            : action === 'sendReviewEmail'
+      ? handleSendReviewEmail(data)
+      : action === 'sendCancellationEmail'
               ? handleSendCancellationEmail(data)
               : action === 'updateEvent'
                 ? handleUpdateEvent(data)
@@ -483,7 +485,12 @@ function getTranslations(lang) {
       cancelSubject: "Your booking has been cancelled",
       cancelGreeting: "Hi {name},",
       cancelBody: "Your booking for {tour} on {date}, {time} has been cancelled. If you didn't request this or have any questions, just reply to this email.",
-      cancelHelp: "Hope to see you on the water another time."
+      cancelHelp: "Hope to see you on the water another time.",
+      rvSubject: "How was your time on the water?",
+      rvGreeting: "Hi {name},",
+      rvBody: "Thank you for sailing with us on {tour}. We hope you had a wonderful time! If you enjoyed it, a short Google review would mean the world to us and helps other travellers find us.",
+      rvButton: "Leave a review",
+      rvHelp: "It takes less than a minute. Something not right? Just reply to this email and we'll make it right."
     },
     spanish: {
       subject: "¡Tu reserva está confirmada!",
@@ -519,7 +526,12 @@ function getTranslations(lang) {
       cancelSubject: "Tu reserva ha sido cancelada",
       cancelGreeting: "Hola {name},",
       cancelBody: "Tu reserva para {tour} el {date}, {time} ha sido cancelada. Si no solicitaste esto o tienes alguna duda, simplemente responde a este email.",
-      cancelHelp: "Esperamos verte en el agua en otra ocasión."
+      cancelHelp: "Esperamos verte en el agua en otra ocasión.",
+      rvSubject: "¿Qué tal tu experiencia en el agua?",
+      rvGreeting: "Hola {name},",
+      rvBody: "Gracias por navegar con nosotros en {tour}. ¡Esperamos que lo hayas pasado genial! Si te gustó, una breve reseña en Google significaría muchísimo para nosotros y ayuda a otros viajeros a encontrarnos.",
+      rvButton: "Dejar una reseña",
+      rvHelp: "Solo toma un minuto. ¿Algo no salió bien? Responde a este email y lo solucionamos."
     },
     danish: {
       subject: "Din booking er bekræftet!",
@@ -555,7 +567,12 @@ function getTranslations(lang) {
       cancelSubject: "Din booking er blevet annulleret",
       cancelGreeting: "Hej {name},",
       cancelBody: "Din booking for {tour} den {date}, {time} er blevet annulleret. Hvis du ikke har anmodet om dette, eller har spørgsmål, så svar blot på denne e-mail.",
-      cancelHelp: "Vi håber at se dig på vandet en anden gang."
+      cancelHelp: "Vi håber at se dig på vandet en anden gang.",
+      rvSubject: "Hvordan var din tur på vandet?",
+      rvGreeting: "Hej {name},",
+      rvBody: "Tak fordi du sejlede med os på {tour}. Vi håber, du havde en fantastisk oplevelse! Hvis du nød den, vil en kort Google-anmeldelse betyde alverden for os og hjælper andre rejsende med at finde os.",
+      rvButton: "Skriv en anmeldelse",
+      rvHelp: "Det tager under et minut. Var der noget, der ikke var i orden? Svar blot på denne e-mail, så retter vi op på det."
     }
   };
   return map[lang] || map.english;
@@ -779,6 +796,114 @@ function handlePaymentReminder(data) {
   } catch (e) {
     Logger.log("Payment-reminder email error: " + e.toString());
     return { success: false, error: e.toString() };
+  }
+}
+
+function handleSendReviewEmail(data) {
+  if (!data.email) {
+    return { success: false, error: "Missing email" };
+  }
+  var isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email);
+  if (!isValidEmail) {
+    Logger.log("Review email: invalid email, skipping: " + data.email);
+    return { success: false, error: "Invalid email" };
+  }
+  if (!data.reviewUrl) {
+    return { success: false, error: "Missing reviewUrl" };
+  }
+  try {
+    var t = getTranslations(data.lang || 'english');
+    GmailApp.sendEmail(data.email, "Seaduced Experience — " + t.rvSubject, "", {
+      name: "Seaduced Experience",
+      htmlBody: getReviewHtmlTemplate(data, t)
+    });
+    Logger.log("Review email sent to: " + data.email);
+    return { success: true };
+  } catch (e) {
+    Logger.log("Review email error: " + e.toString());
+    return { success: false, error: e.toString() };
+  }
+}
+
+function getReviewHtmlTemplate(data, t) {
+  var greeting = t.rvGreeting.replace("{name}", data.name || "there");
+  var tourName = data.tourTitle || getTourDisplayName(data.tour || "");
+  var body = t.rvBody.replace("{tour}", "<strong>" + tourName + "</strong>");
+
+  return '<!DOCTYPE html>' +
+    '<html lang="en">' +
+    '<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>' +
+    '<body style="margin:0;padding:0;background-color:#f5f6f8;font-family:Arial,sans-serif;">' +
+
+    '<table width="100%" cellpadding="0" cellspacing="0"><tr>' +
+    '<td style="background-color:#e8834a;height:4px;font-size:0;">&nbsp;</td>' +
+    '</tr></table>' +
+
+    '<table width="100%" cellpadding="0" cellspacing="0"><tr>' +
+    '<td style="background-color:#0f1e35;padding:32px 20px;text-align:center;">' +
+    '<div translate="no" style="font-size:13px;letter-spacing:5px;color:#ffffff;font-weight:700;">SEADUCED EXPERIENCE</div>' +
+    '<div translate="no" style="font-size:9px;letter-spacing:4px;color:#e8834a;margin-top:6px;">COPENHAGEN</div>' +
+    '</td>' +
+    '</tr></table>' +
+
+    '<table width="100%" cellpadding="0" cellspacing="0"><tr><td style="padding:28px 16px 48px;">' +
+    '<table width="100%" cellpadding="0" cellspacing="0" style="max-width:580px;margin:0 auto;">' +
+
+    '<tr><td style="background:#ffffff;border-radius:12px;padding:32px;border-top:3px solid #e8834a;">' +
+    '<p style="margin:0 0 8px;font-size:24px;font-weight:700;color:#0f1e35;line-height:1.3;">' + greeting + '</p>' +
+    '<p style="margin:0 0 20px;font-size:14px;color:#4a5568;line-height:1.7;">' + body + '</p>' +
+    '<div style="text-align:center;margin:24px 0 20px;">' +
+    '<a href="' + data.reviewUrl + '" style="display:inline-block;background-color:#e8834a;color:#ffffff;padding:14px 36px;text-decoration:none;border-radius:6px;font-size:13px;font-weight:700;letter-spacing:1px;">' +
+    t.rvButton.toUpperCase() +
+    '</a>' +
+    '</div>' +
+    '<p style="margin:0;font-size:13px;color:#4a5568;text-align:center;">' + t.rvHelp + '</p>' +
+    '</td></tr>' +
+
+    '<tr><td style="height:16px;"></td></tr>' +
+
+    '<tr><td style="text-align:center;padding:0 16px;">' +
+    '<p style="margin:0;font-size:11px;color:#a0aec0;">' + t.footer + '</p>' +
+    '</td></tr>' +
+
+    '</table></td></tr></table>' +
+    '</body></html>';
+}
+
+function setupPostTourEmailTrigger() {
+  // Ejecutar ESTA función UNA sola vez a mano desde el editor de Apps
+  // Script para instalar el trigger. No hace falta volver a correrla.
+  ScriptApp.getProjectTriggers()
+    .filter(function (t) { return t.getHandlerFunction() === 'checkPostTourEmails'; })
+    .forEach(function (t) { ScriptApp.deleteTrigger(t); });
+
+  ScriptApp.newTrigger('checkPostTourEmails')
+    .timeBased()
+    .everyMinutes(15)
+    .create();
+
+  Logger.log('Post-tour-email trigger instalado: corre cada 15 min.');
+}
+
+function checkPostTourEmails() {
+  var props = PropertiesService.getScriptProperties();
+  var siteUrl = props.getProperty('SITE_URL');
+  var cronSecret = props.getProperty('CRON_SECRET');
+
+  if (!siteUrl || !cronSecret) {
+    Logger.log('checkPostTourEmails: falta SITE_URL o CRON_SECRET en Script Properties.');
+    return;
+  }
+
+  try {
+    var response = UrlFetchApp.fetch(siteUrl + '/api/cron-tasks?task=post-tour-email', {
+      method: 'post',
+      headers: { Authorization: 'Bearer ' + cronSecret },
+      muteHttpExceptions: true
+    });
+    Logger.log('checkPostTourEmails: ' + response.getResponseCode() + ' — ' + response.getContentText());
+  } catch (e) {
+    Logger.log('checkPostTourEmails error: ' + e.toString());
   }
 }
 
