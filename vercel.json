@@ -20,6 +20,16 @@
       "permanent": true
     },
     {
+      "source": "/r",
+      "destination": "https://g.page/r/CXDwvpnk3eo3EBM/review",
+      "permanent": false
+    },
+    {
+      "source": "/r/",
+      "destination": "https://g.page/r/CXDwvpnk3eo3EBM/review",
+      "permanent": false
+    },
+    {
       "source": "/book-here",
       "destination": "/book/",
       "permanent": true
