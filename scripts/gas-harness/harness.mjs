@@ -243,7 +243,7 @@ const defaultCfg = () => ({
 });
 
 // Pure helpers
-add('pure/getTranslations', (s) => Object.fromEntries(LANGS.concat(['german']).map((l) => [l, stripLate(s.call('getTranslations', l))])));
+add('pure/getTranslations', (s) => Object.fromEntries(LANGS.concat(['german']).map((l) => [l, s.call('getTranslations', l)])));
 add('pure/getTourDisplayName', (s) => Object.fromEntries(TOUR_CODES.map((c) => [c, s.call('getTourDisplayName', c)])));
 add('pure/getTourDurationHours', (s) => ({
   default1: Object.fromEntries(DURATION_INPUTS.map((c) => [c, s.call('getTourDurationHours', c, 1)])),
@@ -258,11 +258,6 @@ add('pure/buildStartEnd', (s) => ({
   valid: s.call('buildStartEnd', '2026-10-15', '14:30', 2),
   invalidFallsBackToNow: s.call('buildStartEnd', '', undefined, 1)
 }));
-
-// The one-off "late" review variant is not part of the baseline (removed in the next step).
-function stripLate(t) {
-  return Object.fromEntries(Object.entries(t).filter(([k]) => !/^rvLate/.test(k)));
-}
 
 // doGet
 add('doGet/listAllBookings', (s) => {
