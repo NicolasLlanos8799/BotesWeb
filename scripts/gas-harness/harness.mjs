@@ -18,6 +18,7 @@ import path from 'node:path';
 import vm from 'node:vm';
 import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
+import { splitConfig } from './config-block.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(HERE, '..', '..');
@@ -481,6 +482,17 @@ function bodyDiffs(dir, files, exp, act) {
 
 const update = process.argv.includes('--update');
 let failed = false;
+
+// PROD and DEMO may only differ inside their CONFIGURATION block.
+{
+  const [prod, demo] = Object.values(ENVS).map((f) => splitConfig(fs.readFileSync(path.join(ROOT, f), 'utf8')));
+  if (prod.before !== demo.before || prod.after !== demo.after) {
+    failed = true;
+    console.log('SYNC: PROD and DEMO differ outside CONFIGURATION — run: node scripts/gas-harness/sync-demo.mjs');
+  } else {
+    console.log('SYNC: OK (PROD and DEMO identical outside CONFIGURATION)');
+  }
+}
 
 for (const [envName, file] of Object.entries(ENVS)) {
   const files = buildSnapshot(file);

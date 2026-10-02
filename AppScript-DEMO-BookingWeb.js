@@ -1,9 +1,9 @@
 /**
- * Google Apps Script — Seaduced Experience [DEMO]
+ * Google Apps Script — Seaduced Experience
  * Booking creation, calendar management & premium email confirmations
  *
  * ARCHITECTURE
- *   Configuration        → calendar IDs constant
+ *   Configuration        → per-environment constants (only PROD/DEMO difference)
  *   HTTP Handlers        → doGet / doPost entry points
  *   Calendar Helpers     → availability queries & event listing
  *   Booking Creation     → direct (SumUp) booking flow
@@ -16,12 +16,22 @@
 
 /* ═══════════════════════════════════════════════════════════
    CONFIGURATION — DEMO CREDENTIALS
+   The ONLY block that differs between PROD and DEMO. Everything
+   outside it must stay identical in both files — edit PROD, then
+   run scripts/gas-harness/sync-demo.mjs (the harness checks it).
 ═══════════════════════════════════════════════════════════ */
 
 var CALENDAR_IDS = {
   boat1: 'ad4644278f9ee9075ebb8a8bb0c8eca457cdc3fe908bd4b1eb7cd3b5f751ca71@group.calendar.google.com',
   boat2: '2772126ed76f0380789fb1af0e56d9e55313cc013cfc55f6e4f3b12b7cc35e72@group.calendar.google.com'
 };
+
+// GYG hold actions (createHoldEvent / confirmHoldEvent / deleteHoldEvent).
+// When false, doPost answers "Action not recognized" for them.
+var HOLD_ACTIONS_ENABLED = false;
+
+// Guest recipient used by testEmail()
+var TEST_EMAIL = "nicolasllanossw@gmail.com";
 
 /* ═══════════════════════════════════════════════════════════
    HTTP HANDLERS
@@ -39,6 +49,9 @@ function doGet(e) {
 // action (POST body) → handler. Contract consumed by api/*.js — do not rename keys.
 var ACTIONS = {
   createBooking: handleCreateBooking,
+  createHoldEvent: handleCreateHoldEvent,
+  confirmHoldEvent: handleConfirmHoldEvent,
+  deleteHoldEvent: handleDeleteHoldEvent,
   sendOtp: handleSendOtp,
   resendEmail: handleResendEmail,
   paymentFailed: handlePaymentFailed,
@@ -51,6 +64,14 @@ var ACTIONS = {
   deleteBlockEvent: handleDeleteBlockEvent
 };
 
+var HOLD_ACTIONS = ['createHoldEvent', 'confirmHoldEvent', 'deleteHoldEvent'];
+
+function getActionHandler(action) {
+  if (!Object.prototype.hasOwnProperty.call(ACTIONS, action)) return null;
+  if (!HOLD_ACTIONS_ENABLED && HOLD_ACTIONS.indexOf(action) !== -1) return null;
+  return ACTIONS[action];
+}
+
 function doPost(e) {
   try {
     var data = JSON.parse(e.postData.contents);
@@ -58,7 +79,7 @@ function doPost(e) {
     Logger.log("ACTION: " + action);
     Logger.log("DATA: " + JSON.stringify(data));
 
-    var handler = Object.prototype.hasOwnProperty.call(ACTIONS, action) ? ACTIONS[action] : null;
+    var handler = getActionHandler(action);
     var result = handler ? handler(data) : { success: false, error: "Action not recognized" };
 
     return ContentService.createTextOutput(JSON.stringify(result))
@@ -108,19 +129,19 @@ function handleListAllBookings(startStr, endStr) {
 
 function getTourDisplayName(tourCode) {
   var names = {
-    'city-highlights-1h': 'City Highlights',
-    'book-1h-2h': 'City Highlights (2 Hours)',
-    'book-10p': 'City Highlights (10 Guests)',
-    'book-10p-2h': 'City Highlights (10 Guests) (2 Hours)',
-    'book-wine': 'Floating Wine Tasting Experience',
-    'city-highlights-4h': 'Sea Fortress and Coastal Journey (4-Hour)',
-    'city-highlights-3h': 'Private 3-Hour Extended (Reffen)',
-    'book-malmo': 'Copenhagen to Malmö Experience',
-    'book-land': 'Copenhagen Private Boat y Land Experience',
-    'book-winter': '2-Hour Winter Hygge 2026',
+    'city-highlights-1h':  'City Highlights',
+    'book-1h-2h':          'City Highlights (2 Hours)',
+    'book-10p':            'City Highlights (10 Guests)',
+    'book-10p-2h':         'City Highlights (10 Guests) (2 Hours)',
+    'book-wine':           'Floating Wine Tasting Experience',
+    'city-highlights-4h':  'Sea Fortress and Coastal Journey (4-Hour)',
+    'city-highlights-3h':  'Private 3-Hour Extended (Reffen)',
+    'book-malmo':          'Copenhagen to Malmö Experience',
+    'book-land':           'Copenhagen Private Boat y Land Experience',
+    'book-winter':         '2-Hour Winter Hygge 2026',
     'book-winter-captain': 'Private Boat Tour with Captain',
-    'book-winter-hygge': 'Private Hygge Winter Tour',
-    'book-christmas': 'Christmas Tour w. Tapas and Champagne',
+    'book-winter-hygge':   'Private Hygge Winter Tour',
+    'book-christmas':      'Christmas Tour w. Tapas and Champagne',
     'book-danish-breakfast': 'City Highlights with Danish Breakfast',
     'book-cocktails-tapas': 'Private Boat Tour with Cocktails & Tapas'
   };
@@ -195,6 +216,170 @@ function handleCreateBooking(data) {
 
 function findEventBySumUpId(sumupId) {
   return findEventByDescriptionFragment("SumUp ID: " + sumupId);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   GYG API — HOLD / CONFIRM / DELETE CALENDAR EVENTS
+   Called from gyg-handler.js (Vercel) on /reserve/, /book/,
+   /cancel-reservation/ and /cancel-booking/
+═══════════════════════════════════════════════════════════ */
+
+/**
+ * /reserve/ → create a grey "HOLD" event so the slot is blocked on the web immediately.
+ * data: { gyg_booking_id, tour, calendar, date, time, qty }
+ */
+function handleCreateHoldEvent(data) {
+  if (!data.gyg_booking_id || !data.date || !data.time) {
+    return { success: false, error: "Missing gyg_booking_id, date or time" };
+  }
+
+  // Serialize with lock to avoid race condition with confirmHoldEvent
+  var lock = LockService.getScriptLock();
+  lock.tryLock(10000);
+  try {
+    // Also catches the case where confirmHoldEvent ran first
+    var existing = findEventByDescriptionFragment("GYG Ref: " + data.gyg_booking_id);
+
+    // Already confirmed (CYAN) — an amendment must not downgrade it back to HOLD
+    if (existing && existing.getColor() === CalendarApp.EventColor.CYAN) {
+      return { success: true, message: "Event already confirmed", eventId: existing.getId() };
+    }
+
+    var calendar = getCalendar(data.calendar || 'boat1');
+    var tour = data.tour || '';
+    var range = buildStartEnd(data.date, data.time, getTourDurationHours(tour, 1));
+
+    var description =
+      "⏳ GYG HOLD — pending confirmation\n" +
+      "📅 " + data.date + " | 🕒 " + data.time + "\n" +
+      "👥 Passengers: " + (data.qty || "N/A") + "\n" +
+      "──────────────────────────\n" +
+      "GYG Ref: " + data.gyg_booking_id + "\n" +
+      "Source: GetYourGuide (hold)";
+
+    var title = "⏳ GYG HOLD: " + (data.qty || '') + "p";
+
+    // Amendment: GYG reuses the same reference with new date/pax — update in place
+    if (existing) {
+      existing.setTitle(title);
+      existing.setDescription(description);
+      existing.setTime(range.start, range.end);
+      existing.setColor(CalendarApp.EventColor.GRAY);
+      Logger.log("GYG hold event updated: " + data.gyg_booking_id + " | " + existing.getId());
+      return { success: true, eventId: existing.getId(), action: "updated" };
+    }
+
+    var event = calendar.createEvent(title, range.start, range.end, { description: description });
+    event.setColor(CalendarApp.EventColor.GRAY);
+
+    Logger.log("GYG hold event created: " + data.gyg_booking_id + " | " + event.getId());
+    return { success: true, eventId: event.getId() };
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+/**
+ * /book/ → upgrade the grey HOLD to a confirmed CYAN event with full customer details.
+ * data: { gyg_booking_id, tour, calendar, date, time, qty, name, email, phone, lang }
+ */
+function handleConfirmHoldEvent(data) {
+  if (!data.gyg_booking_id) {
+    return { success: false, error: "Missing gyg_booking_id" };
+  }
+
+  var lock = LockService.getScriptLock();
+  lock.tryLock(10000);
+  try {
+  var existing = findEventByDescriptionFragment("GYG Ref: " + data.gyg_booking_id);
+
+  var calendar = getCalendar(data.calendar || 'boat1');
+  var tour = data.tour || '';
+  var range = buildStartEnd(data.date, data.time, getTourDurationHours(tour, 1));
+  var endTime = ('0' + range.end.getHours()).slice(-2) + ':' + ('0' + range.end.getMinutes()).slice(-2);
+
+  var description =
+    "✨ " + getTourDisplayName(tour) + "\n" +
+    "📅 " + data.date + " | 🕒 " + data.time + " - " + endTime + "\n" +
+    "👥 Passengers: " + (data.qty || "N/A") + "\n" +
+    "🌍 Language: " + (data.lang || "N/A") + "\n\n" +
+    "👤 CONTACT\n" +
+    "Name: " + (data.name || "N/A") + "\n" +
+    "Email: " + (data.email || "N/A") + "\n" +
+    "Phone: " + (data.phone || "N/A") + "\n" +
+    "──────────────────────────\n" +
+    "GYG Ref: " + data.gyg_booking_id + "\n" +
+    "Source: GetYourGuide";
+
+  var title = "GYG: " + (data.name || 'Guest') + " " + (data.qty || '') + "p";
+
+  if (existing) {
+    // Update in place
+    existing.setTitle(title);
+    existing.setDescription(description);
+    existing.setTime(range.start, range.end);
+    existing.setColor(CalendarApp.EventColor.CYAN);
+    Logger.log("GYG hold confirmed (updated): " + data.gyg_booking_id);
+    notifyAdminGYGBooking(data, tour, range, endTime);
+    return { success: true, eventId: existing.getId(), action: "updated" };
+  }
+
+  // Hold event not found — create confirmed event directly
+  var event = calendar.createEvent(title, range.start, range.end, { description: description });
+  event.setColor(CalendarApp.EventColor.CYAN);
+  Logger.log("GYG confirmed event created (no prior hold): " + data.gyg_booking_id);
+  notifyAdminGYGBooking(data, tour, range, endTime);
+  return { success: true, eventId: event.getId(), action: "created" };
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+/**
+ * Sends the admin notification email for a confirmed GYG booking.
+ * GYG already emails the customer directly — this is admin-only, so we
+ * never fail the confirmation flow if the email itself errors out.
+ */
+function notifyAdminGYGBooking(data, tour, range, endTime) {
+  try {
+    var adminEmail = "seaducedexperience@gmail.com";
+    GmailApp.sendEmail(
+      adminEmail,
+      "⚓ GYG Reserva confirmada — " + getTourDisplayName(tour) + " · " + (data.name || "") + " · " + (data.date || ""),
+      "",
+      {
+        name: "Seaduced Bookings",
+        htmlBody: getAdminHtmlTemplate(
+          { ...data, sumup_checkout_id: data.gyg_booking_id },
+          getTranslations(data.lang || 'english'),
+          endTime
+        )
+      }
+    );
+    Logger.log("GYG confirm email sent to admin for: " + data.gyg_booking_id);
+  } catch (e) {
+    Logger.log("GYG confirm email error (non-fatal): " + e.toString());
+  }
+}
+
+/**
+ * /cancel-reservation/ and /cancel-booking/ → delete the calendar event.
+ * data: { gyg_booking_id }
+ */
+function handleDeleteHoldEvent(data) {
+  if (!data.gyg_booking_id) {
+    return { success: false, error: "Missing gyg_booking_id" };
+  }
+
+  var existing = findEventByDescriptionFragment("GYG Ref: " + data.gyg_booking_id);
+  if (!existing) {
+    Logger.log("GYG deleteHoldEvent: no event found for " + data.gyg_booking_id);
+    return { success: true, message: "No event found to delete" };
+  }
+
+  existing.deleteEvent();
+  Logger.log("GYG event deleted: " + data.gyg_booking_id);
+  return { success: true, message: "Event deleted" };
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -1236,9 +1421,9 @@ function getGuestHtmlTemplate(data, t, endTime) {
 function getRulesBlock(lang) {
   var content = {
     english: {
-      welcome: "Welcome aboard Seaduced Experience",
+      welcome:      "Welcome aboard Seaduced Experience",
       rulesHeading: "BEFORE WE DEPART",
-      rulesIntro: "It's important to know that:",
+      rulesIntro:   "It's important to know that:",
       rules: [
         "Bringing your own food or drinks isn't allowed.",
         "If your package includes food and drinks, they'll be served on board.",
@@ -1247,9 +1432,9 @@ function getRulesBlock(lang) {
       ]
     },
     spanish: {
-      welcome: "Bienvenido a bordo de Seaduced Experience",
+      welcome:      "Bienvenido a bordo de Seaduced Experience",
       rulesHeading: "ANTES DE PARTIR",
-      rulesIntro: "Es importante que sepas que:",
+      rulesIntro:   "Es importante que sepas que:",
       rules: [
         "No está permitido traer comida ni bebida propia.",
         "Si tu paquete incluye comida y bebida, serán servidos a bordo.",
@@ -1258,9 +1443,9 @@ function getRulesBlock(lang) {
       ]
     },
     danish: {
-      welcome: "Velkommen om bord hos Seaduced Experience",
+      welcome:      "Velkommen om bord hos Seaduced Experience",
       rulesHeading: "INDEN VI AFSEJLER",
-      rulesIntro: "Det er vigtigt at vide:",
+      rulesIntro:   "Det er vigtigt at vide:",
       rules: [
         "Det er ikke tilladt at medbringe egen mad eller drikkevarer.",
         "Hvis din pakke inkluderer mad og drikkevarer, serveres de om bord.",
@@ -1272,7 +1457,7 @@ function getRulesBlock(lang) {
 
   var c = content[lang] || content.english;
 
-  var rulesHtml = c.rules.map(function (item, i) {
+  var rulesHtml = c.rules.map(function(item, i) {
     var isLast = i === c.rules.length - 1;
     return '<tr><td style="padding:10px 0;' + (isLast ? '' : 'border-bottom:1px solid #f0f2f5;') + '">' +
       '<table width="100%" cellpadding="0" cellspacing="0"><tr>' +
@@ -1422,7 +1607,7 @@ function testCalendar() {
 function testEmail() {
   var data = {
     name: "Nick",
-    email: "nicolasllanossw@gmail.com",
+    email: TEST_EMAIL,
     phone: "+45 123 312",
     tour: "Copenhagen City Highlights",
     date: "2026-05-26",

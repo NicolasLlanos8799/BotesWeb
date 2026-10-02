@@ -3,7 +3,7 @@
  * Booking creation, calendar management & premium email confirmations
  *
  * ARCHITECTURE
- *   Configuration        → calendar IDs constant
+ *   Configuration        → per-environment constants (only PROD/DEMO difference)
  *   HTTP Handlers        → doGet / doPost entry points
  *   Calendar Helpers     → availability queries & event listing
  *   Booking Creation     → direct (SumUp) booking flow
@@ -15,13 +15,23 @@
  */
 
 /* ═══════════════════════════════════════════════════════════
-   CONFIGURATION
+   CONFIGURATION — PROD
+   The ONLY block that differs between PROD and DEMO. Everything
+   outside it must stay identical in both files — edit PROD, then
+   run scripts/gas-harness/sync-demo.mjs (the harness checks it).
 ═══════════════════════════════════════════════════════════ */
 
 var CALENDAR_IDS = {
   boat1: '478b8158512db83e1d3083ee1eafb31255589a8636a34944aeff9f38d10787f2@group.calendar.google.com',
   boat2: '3bcf707af9af431820c23c5f7684b5f6929ab45fbdd2d2a858783cce5ce9e820@group.calendar.google.com'
 };
+
+// GYG hold actions (createHoldEvent / confirmHoldEvent / deleteHoldEvent).
+// When false, doPost answers "Action not recognized" for them.
+var HOLD_ACTIONS_ENABLED = true;
+
+// Guest recipient used by testEmail()
+var TEST_EMAIL = "nicollanos8799@gmail.com";
 
 /* ═══════════════════════════════════════════════════════════
    HTTP HANDLERS
@@ -54,6 +64,14 @@ var ACTIONS = {
   deleteBlockEvent: handleDeleteBlockEvent
 };
 
+var HOLD_ACTIONS = ['createHoldEvent', 'confirmHoldEvent', 'deleteHoldEvent'];
+
+function getActionHandler(action) {
+  if (!Object.prototype.hasOwnProperty.call(ACTIONS, action)) return null;
+  if (!HOLD_ACTIONS_ENABLED && HOLD_ACTIONS.indexOf(action) !== -1) return null;
+  return ACTIONS[action];
+}
+
 function doPost(e) {
   try {
     var data = JSON.parse(e.postData.contents);
@@ -61,7 +79,7 @@ function doPost(e) {
     Logger.log("ACTION: " + action);
     Logger.log("DATA: " + JSON.stringify(data));
 
-    var handler = Object.prototype.hasOwnProperty.call(ACTIONS, action) ? ACTIONS[action] : null;
+    var handler = getActionHandler(action);
     var result = handler ? handler(data) : { success: false, error: "Action not recognized" };
 
     return ContentService.createTextOutput(JSON.stringify(result))
@@ -495,11 +513,6 @@ function buildStartEnd(dateStr, timeStr, durationH) {
   return { start: start, end: end };
 }
 
-/**
- * Mueve el evento de una reserva al calendario del otro bote.
- * CalendarApp no permite mover entre calendarios: se recrea y se borra el original.
- * data: { boat: 'boat1'|'boat2', gyg_booking_id?, sumup_id? }
- */
 /**
  * Full edit from the admin panel: rebuilds title/description and moves the
  * event to the right boat calendar if it changed. Called from api/admin.js
@@ -1594,7 +1607,7 @@ function testCalendar() {
 function testEmail() {
   var data = {
     name: "Nick",
-    email: "nicollanos8799@gmail.com",
+    email: TEST_EMAIL,
     phone: "+45 123 312",
     tour: "Copenhagen City Highlights",
     date: "2026-05-26",

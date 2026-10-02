@@ -18,7 +18,8 @@
     "migrate": "node scripts/migrate-data.js",
     "test:gyg": "node scripts/test-gyg.js",
     "test:gas": "node scripts/gas-harness/harness.mjs",
-    "test:gas:update": "node scripts/gas-harness/harness.mjs --update"
+    "test:gas:update": "node scripts/gas-harness/harness.mjs --update",
+    "sync:gas-demo": "node scripts/gas-harness/sync-demo.mjs"
   },
   "dependencies": {
     "@vercel/functions": "^1.5.0",
