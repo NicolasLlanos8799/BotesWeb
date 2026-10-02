@@ -313,7 +313,10 @@
       "lang_value": "Dansk",
       "edit": "Skift dato eller antal deltagere",
       "total": "Total",
-      "confirm_btn": "Bekræft og fortsæt til betaling"
+      "confirm_btn": "Bekræft og fortsæt til betaling",
+      "discount_placeholder": "Rabatkode",
+      "discount_apply": "Anvend",
+      "discount_label": "Rabat"
     },
     "mobile": {
       "complete_btn": "Gennemfør booking"

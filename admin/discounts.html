@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Calendar | Seaduced Admin</title>
+  <title>Discounts | Seaduced Admin</title>
   <link rel="stylesheet" href="/css/base.css">
   <link rel="stylesheet" href="/css/admin.css">
   <link rel="icon" href="/assets/icons/favicon.svg" type="image/svg+xml">
@@ -46,7 +46,7 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
         <span>Today's Agenda</span>
       </a>
-      <a href="/admin/calendar.html" class="admin-nav__link active">
+      <a href="/admin/calendar.html" class="admin-nav__link">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
         <span>Calendar</span>
       </a>
@@ -62,7 +62,7 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
         <span>Analytics</span>
       </a>
-      <a href="/admin/discounts.html" class="admin-nav__link">
+      <a href="/admin/discounts.html" class="admin-nav__link active">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
         <span>Discounts</span>
       </a>    </nav>
@@ -78,30 +78,65 @@
     </div>
   </aside>
 
-  <main class="admin-main admin-main--calendar">
-    <div class="cal-toolbar">
-      <div class="cal-toolbar__nav">
-        <button id="cal-prev">←</button>
-        <button id="cal-today" class="cal-toolbar__today">Today</button>
-        <button id="cal-next">→</button>
-        <span id="cal-range-label"></span>
-      </div>
-      <div class="cal-legend">
-        <span><span class="cal-legend__dot" style="background:var(--admin-accent);"></span>Direct</span>
-        <span><span class="cal-legend__dot" style="background:#7c8bff;"></span>GetYourGuide</span>
-        <span><span class="cal-legend__dot" style="background:#8a8f98;"></span>Blocked</span>
-      </div>
-      <div class="cal-toolbar__actions">
-        <button id="cal-block-btn" class="cal-toolbar__block">⛔ Block time slot</button>
-        <div class="cal-toolbar__views">
-          <button id="cal-view-week" class="active">Week</button>
-          <button id="cal-view-month">Month</button>
-        </div>
+  <main class="admin-main">
+    <div class="admin-topbar">
+      <div class="admin-topbar__title">
+        <h1>Discount Codes</h1>
+        <p>Codes customers can enter on the reservation page. Discount applies to the whole total.</p>
       </div>
     </div>
 
-    <div id="cal-body"></div>
+    <style>
+      .dc-form { display:grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap:1rem; align-items:end;
+        background:var(--admin-card-bg); border:1px solid var(--admin-card-border); border-radius:var(--radius-lg);
+        padding:1.25rem; margin-bottom:1.5rem; }
+      .dc-field label { display:block; font-size:.72rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+        color:rgba(255,255,255,.6); margin-bottom:.4rem; }
+      .dc-field input { width:100%; box-sizing:border-box; padding:.65rem .8rem; border-radius:8px; font:inherit;
+        background:rgba(255,255,255,.06); border:1px solid var(--admin-card-border); color:#fff; color-scheme:dark; }
+      .dc-field input:focus { outline:none; border-color:#e8834a; }
+      .dc-pct { position:relative; }
+      .dc-pct input { padding-right:2.2rem; }
+      .dc-pct span { position:absolute; right:.8rem; bottom:.65rem; color:rgba(255,255,255,.6); font-weight:700; pointer-events:none; }
+      .dc-error { color:#ff8a8a; font-size:.85rem; margin:-.75rem 0 1rem; min-height:1.1em; }
+      .dc-pill { padding:.2rem .6rem; border-radius:999px; font-size:.72rem; font-weight:700; }
+      .dc-pill--ok { background:rgba(72,187,120,.18); color:#68d391; }
+      .dc-pill--off { background:rgba(255,255,255,.1); color:rgba(255,255,255,.55); }
+      .dc-code { font-family:ui-monospace,monospace; font-weight:700; letter-spacing:.05em; color:#fff; }
+    </style>
+
+    <form id="discount-form" class="dc-form" autocomplete="off">
+      <div class="dc-field">
+        <label for="dc-code">Code</label>
+        <input id="dc-code" type="text" maxlength="40" placeholder="SUMMER30" required style="text-transform:uppercase;">
+      </div>
+      <div class="dc-field dc-pct">
+        <label for="dc-percent">Discount</label>
+        <input id="dc-percent" type="number" min="1" max="100" step="1" placeholder="30" required>
+        <span>%</span>
+      </div>
+      <div class="dc-field">
+        <label for="dc-uses">Number of uses</label>
+        <input id="dc-uses" type="number" min="1" step="1" placeholder="50" required>
+      </div>
+      <div class="dc-field">
+        <label for="dc-expires">Expires on</label>
+        <input id="dc-expires" type="date">
+      </div>
+      <button type="submit" class="btn--save" id="dc-submit">Create code</button>
+    </form>
+    <div class="dc-error" id="dc-error" role="alert"></div>
+
+    <div class="admin-table-wrap">
+      <table class="admin-table">
+        <thead>
+          <tr><th>Code</th><th>Discount</th><th>Uses</th><th>Expires</th><th>Status</th><th></th></tr>
+        </thead>
+        <tbody id="discounts-tbody"></tbody>
+      </table>
+    </div>
   </main>
+
 
   <nav class="admin-mobile-nav">    <a href="/admin/notifications.html" class="admin-mobile-nav__link">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
@@ -111,7 +146,7 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
       <span>Agenda</span>
     </a>
-    <a href="/admin/calendar.html" class="admin-mobile-nav__link active">
+    <a href="/admin/calendar.html" class="admin-mobile-nav__link">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
       <span>Cal</span>
     </a>
@@ -127,11 +162,12 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
       <span>Stats</span>
     </a>
-      <a href="/admin/discounts.html" class="admin-mobile-nav__link">
+      <a href="/admin/discounts.html" class="admin-mobile-nav__link active">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
         <span>Discounts</span>
-      </a>  </nav>
+      </a>
+  </nav>
 
-  <script type="module" src="/js/admin-calendar.js"></script>
+  <script type="module" src="/js/admin.js"></script>
 </body>
 </html>

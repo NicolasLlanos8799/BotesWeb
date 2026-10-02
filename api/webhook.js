@@ -2,6 +2,7 @@ import db from "../lib/db.js";
 import { log, warn, error as logError } from "../lib/logger.js";
 import { notifyGYGAvailability } from "../lib/gyg-notify.js";
 import { withRetry } from "../lib/withRetry.js";
+import { ensureDiscountSchema, redeemDiscountForBooking } from "../lib/discounts.js";
 
 export default async function handler(req, res) {
   const SUMUP_API_BASE = "https://api.sumup.com";
@@ -38,10 +39,12 @@ export default async function handler(req, res) {
         // frontend and will retry the insert itself.
         let dbSaved = true;
         try {
+          await withRetry(() => ensureDiscountSchema());
           await withRetry(() => db`
             INSERT INTO bookings
               (tour_id, tour_name, customer_name, customer_email, customer_phone,
-               passengers, booking_date, booking_time, total_price, payment_status, sumup_id, lang)
+               passengers, booking_date, booking_time, total_price, payment_status, sumup_id, lang,
+               discount_code, discount_percent)
             VALUES
               (${metadata.tour || null},
                ${metadata.tourTitle || null},
@@ -54,9 +57,12 @@ export default async function handler(req, res) {
                ${metadata.total || checkout.amount || 0},
                'PAID',
                ${checkoutId},
-               ${metadata.lang || 'english'})
+               ${metadata.lang || 'english'},
+               ${metadata.discount_code || null},
+               ${metadata.discount_percent ? parseInt(metadata.discount_percent) : null})
             ON CONFLICT (sumup_id) DO UPDATE SET payment_status = 'PAID'
           `);
+          await withRetry(() => redeemDiscountForBooking(checkoutId)).catch(e => logError("Webhook: discount redeem failed:", e.message, checkoutId));
           log("Webhook: Saved to Postgres:", checkoutId);
         } catch (dbErr) {
           if (dbErr.code === '23505') {

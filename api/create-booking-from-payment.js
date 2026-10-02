@@ -3,6 +3,7 @@ import { log, warn, error as logError } from "../lib/logger.js";
 import { notifyGYGAvailability } from "../lib/gyg-notify.js";
 import { isRateLimited, getIp } from "../lib/rateLimit.js";
 import { withRetry } from "../lib/withRetry.js";
+import { ensureDiscountSchema, redeemDiscountForBooking } from "../lib/discounts.js";
 
 /**
  * Production-Safe Booking Fallback Endpoint
@@ -67,10 +68,12 @@ export default async function handler(req, res) {
     // or a manual admin re-run can pick it up without an orphaned event.
     const extrasNum = Number.isFinite(parseInt(metadata.tapas)) ? parseInt(metadata.tapas) : 0;
     try {
+      await withRetry(() => ensureDiscountSchema());
       await withRetry(() => db`
         INSERT INTO bookings (
           tour_id, tour_name, customer_name, customer_email, customer_phone,
-          passengers, booking_date, booking_time, total_price, payment_status, sumup_id, lang, extras
+          passengers, booking_date, booking_time, total_price, payment_status, sumup_id, lang, extras,
+          discount_code, discount_percent
         ) VALUES (
           ${metadata.tour || null},
           ${metadata.tourTitle || null},
@@ -84,10 +87,13 @@ export default async function handler(req, res) {
           'PAID',
           ${checkout_id},
           ${metadata.lang || 'english'},
-          ${extrasNum}
+          ${extrasNum},
+          ${checkout.metadata?.discount_code || null},
+          ${checkout.metadata?.discount_percent ? parseInt(checkout.metadata.discount_percent) : null}
         )
         ON CONFLICT (sumup_id) DO UPDATE SET payment_status = 'PAID'
       `);
+      await withRetry(() => redeemDiscountForBooking(checkout_id)).catch(e => logError("[FALLBACK] discount redeem failed:", e.message, checkout_id));
       log("[FALLBACK] Saved to Postgres.");
     } catch (dbErr) {
       if (dbErr.code === '23505') {

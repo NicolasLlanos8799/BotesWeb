@@ -56,6 +56,8 @@ document.addEventListener("DOMContentLoaded", () => {
     initStatsPage();
   } else if (path.includes("/admin/manifest")) {
     initManifestPage();
+  } else if (path.includes("/admin/discounts")) {
+    initDiscountsPage();
   }
 });
 
@@ -455,6 +457,89 @@ function renderNewBookingsPanel(bookings) {
       </div>
     `;
   }).join("");
+}
+
+/**
+ * DISCOUNTS PAGE (create / list / delete discount codes)
+ */
+async function initDiscountsPage() {
+  const form = document.getElementById("discount-form");
+  const tbody = document.getElementById("discounts-tbody");
+  const errorEl = document.getElementById("dc-error");
+  const submitBtn = document.getElementById("dc-submit");
+  const esc = v => String(v).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+  async function load() {
+    try {
+      const res = await fetch("/api/admin/get-discounts");
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Error");
+      render(data.discounts);
+    } catch (err) {
+      tbody.innerHTML = `<tr><td colspan="6">Could not load codes: ${esc(err.message)}</td></tr>`;
+    }
+  }
+
+  function render(list) {
+    if (!list.length) {
+      tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;opacity:.6;">No discount codes yet.</td></tr>`;
+      return;
+    }
+    tbody.innerHTML = list.map(d => {
+      const exhausted = d.used_count >= d.max_uses;
+      const active = !d.expired && !exhausted;
+      const label = d.expired ? "Expired" : exhausted ? "Used up" : "Active";
+      const expires = d.expires_at ? new Date(d.expires_at + "T00:00:00").toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" }) : "No expiry";
+      return `<tr>
+        <td class="dc-code">${esc(d.code)}</td>
+        <td>${esc(d.percent)}%</td>
+        <td>${esc(d.used_count)} / ${esc(d.max_uses)}</td>
+        <td>${esc(expires)}</td>
+        <td><span class="dc-pill ${active ? "dc-pill--ok" : "dc-pill--off"}">${label}</span></td>
+        <td style="text-align:right;"><button class="btn--danger" data-delete="${esc(d.id)}" data-code="${esc(d.code)}">Delete</button></td>
+      </tr>`;
+    }).join("");
+  }
+
+  form.addEventListener("submit", async e => {
+    e.preventDefault();
+    errorEl.textContent = "";
+    submitBtn.disabled = true;
+    try {
+      const res = await fetch("/api/admin/create-discount", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          code: document.getElementById("dc-code").value,
+          percent: document.getElementById("dc-percent").value,
+          maxUses: document.getElementById("dc-uses").value,
+          expiresAt: document.getElementById("dc-expires").value || null,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Error");
+      form.reset();
+      await load();
+    } catch (err) {
+      errorEl.textContent = err.message;
+    } finally {
+      submitBtn.disabled = false;
+    }
+  });
+
+  tbody.addEventListener("click", async e => {
+    const btn = e.target.closest("[data-delete]");
+    if (!btn) return;
+    if (!(await adminConfirm(`Delete code ${btn.dataset.code}?`, "Delete", true))) return;
+    const res = await fetch(`/api/admin/delete-discount?id=${encodeURIComponent(btn.dataset.delete)}`, { method: "DELETE" });
+    if (!res.ok) {
+      await adminAlert("Could not delete the code.", "error");
+      return;
+    }
+    load();
+  });
+
+  load();
 }
 
 /**

@@ -654,6 +654,7 @@ var TRANSLATIONS = {
       passengers: "Passengers",
       language: "Language",
       extras: "Extras",
+      discount: "Discount",
       amount: "Amount paid",
       location: "Meeting point",
       locationVal: "Christians Brygge 28, c/o Housing Group A, S, sal sttv, 1219 København",
@@ -676,6 +677,7 @@ var TRANSLATIONS = {
       passengers: "Pasajeros",
       language: "Idioma",
       extras: "Extras",
+      discount: "Descuento",
       amount: "Importe pagado",
       location: "Punto de encuentro",
       locationVal: "Christians Brygge 28, c/o Housing Group A, S, sal sttv, 1219 København",
@@ -698,6 +700,7 @@ var TRANSLATIONS = {
       passengers: "Passagerer",
       language: "Sprog",
       extras: "Extras",
+      discount: "Rabat",
       amount: "Betalt beløb",
       location: "Mødested",
       locationVal: "Christians Brygge 28, c/o Housing Group A, S, sal sttv, 1219 København",
@@ -1267,6 +1270,7 @@ function getGuestHtmlTemplate(data, t, endTime) {
     detailRow(t.passengers, (data.qty || '—') + ' person(s)') +
     detailRow(t.language, langLabel) +
     detailRow(t.extras, extras) +
+    (data.discount_code ? detailRow(t.discount, data.discount_code + ' (-' + data.discount_percent + '%)') : '') +
     detailRow(t.amount, '<span style="font-size:16px;font-weight:700;color:#0f1e35;">' + (data.amount ? data.amount + ' ' + (data.currency || 'DKK') : '—') + '</span>') +
     detailRow(t.refNumber, '<span style="color:#e8834a;">' + refNumber + '</span>', true) +
     '</table>' +
@@ -1445,6 +1449,7 @@ function getAdminHtmlTemplate(data, t, endTime) {
     '<tr><td style="background:#ffffff;padding:8px 32px;border-left:1px solid #e8ecf2;border-right:1px solid #e8ecf2;">' +
     '<p style="font-size:10px;letter-spacing:2px;color:#e8834a;font-weight:700;margin:20px 0 4px;">DATOS DE LA RESERVA</p>' +
     '<table width="100%" cellpadding="0" cellspacing="0">' +
+    (data.discount_code ? adminRow('Descuento', data.discount_code + ' (-' + data.discount_percent + '%)') : '') +
     adminRow('Importe', '<span style="font-size:16px;font-weight:700;color:#0f1e35;">' + (data.amount ? data.amount + ' ' + (data.currency || 'DKK') : '—') + '</span>') +
     adminRow(refLabel, '<span style="color:#e8834a;">' + refNumber + '</span>') +
     adminRow('Experiencia', tourName) +

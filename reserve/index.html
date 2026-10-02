@@ -617,6 +617,20 @@ button {
                     <span>Charcuterier Tapas (x0)</span>
                     <span>0 DKK</span>
                 </div>
+                <div class="summary-item" id="summary-discount-row" style="display: none;">
+                    <span id="summary-discount-label">Discount</span>
+                    <span id="summary-discount-amount">0 DKK</span>
+                </div>
+                <div class="discount-box">
+                    <div class="discount-box__row">
+                        <input type="text" id="discount-input" class="input-minimal" maxlength="40" autocomplete="off"
+                            autocapitalize="characters" spellcheck="false" placeholder="Discount code"
+                            data-i18n-attr="placeholder:reserve.summary.discount_placeholder" />
+                        <button type="button" id="discount-apply-btn" class="btn btn--outline discount-box__btn"
+                            data-i18n="reserve.summary.discount_apply">Apply</button>
+                    </div>
+                    <p id="discount-msg" class="discount-box__msg" role="status" aria-live="polite"></p>
+                </div>
                 <div class="summary-item--total">
                     <span data-i18n="reserve.summary.total">Total</span>
                     <span id="summary-total">0 DKK</span>

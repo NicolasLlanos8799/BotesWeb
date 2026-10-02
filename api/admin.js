@@ -6,6 +6,7 @@ import { isRateLimited, getIp } from "../lib/rateLimit.js";
 import { notifyGYGAvailability, notifyGYGBoatRange } from "../lib/gyg-notify.js";
 import { ensureBlockedSlotsTable } from "../lib/blocked-slots.js";
 import { withRetry } from "../lib/withRetry.js";
+import { ensureDiscountSchema, normalizeCode } from "../lib/discounts.js";
 import { waitUntil } from "@vercel/functions";
 import crypto from "crypto";
 
@@ -926,6 +927,68 @@ async function handleDeleteBlock(req, res) {
   return res.status(200).json({ success: true, removed: rows.length, warning: calendarWarning });
 }
 
+const CODE_RE = /^[A-Z0-9_-]{3,40}$/;
+
+async function handleGetDiscounts(req, res) {
+  if (!(await isAdminAuthenticated(req))) return res.status(401).json({ error: "Unauthorized" });
+  try {
+    await ensureDiscountSchema();
+    const result = await db`
+      SELECT id, code, percent, max_uses, used_count, expires_at::text AS expires_at,
+             (expires_at IS NOT NULL AND expires_at < (NOW() AT TIME ZONE 'Europe/Copenhagen')::date) AS expired
+      FROM discount_codes ORDER BY created_at DESC
+    `;
+    return res.status(200).json({ discounts: result.rows ?? result });
+  } catch (err) {
+    logError("get-discounts error:", err.message);
+    return res.status(500).json({ error: err.message });
+  }
+}
+
+async function handleCreateDiscount(req, res) {
+  if (!(await isAdminAuthenticated(req))) return res.status(401).json({ error: "Unauthorized" });
+  if (req.method !== "POST") return res.status(405).end();
+
+  const { code, percent, maxUses, expiresAt } = req.body || {};
+  const normalized = normalizeCode(code);
+  const pct = Number(percent);
+  const uses = Number(maxUses);
+
+  if (!CODE_RE.test(normalized)) return res.status(400).json({ error: "Código inválido (3-40 caracteres: letras, números, - o _)" });
+  if (!Number.isInteger(pct) || pct < 1 || pct > 100) return res.status(400).json({ error: "El porcentaje debe ser un entero entre 1 y 100" });
+  if (!Number.isInteger(uses) || uses < 1) return res.status(400).json({ error: "La cantidad de usos debe ser un entero mayor a 0" });
+  if (expiresAt && !DATE_RE.test(expiresAt)) return res.status(400).json({ error: "Fecha de vencimiento inválida" });
+
+  try {
+    await ensureDiscountSchema();
+    await db`
+      INSERT INTO discount_codes (code, percent, max_uses, expires_at)
+      VALUES (${normalized}, ${pct}, ${uses}, ${expiresAt || null})
+    `;
+    return res.status(200).json({ success: true });
+  } catch (err) {
+    if (err.code === "23505") return res.status(409).json({ error: "Ya existe un código con ese nombre" });
+    logError("create-discount error:", err.message);
+    return res.status(500).json({ error: err.message });
+  }
+}
+
+async function handleDeleteDiscount(req, res) {
+  if (!(await isAdminAuthenticated(req))) return res.status(401).json({ error: "Unauthorized" });
+  if (req.method !== "DELETE" && req.method !== "POST") return res.status(405).end();
+
+  const id = parseInt(req.query.id || req.body?.id);
+  if (!id) return res.status(400).json({ error: "Missing id" });
+  try {
+    await ensureDiscountSchema();
+    await db`DELETE FROM discount_codes WHERE id = ${id}`;
+    return res.status(200).json({ success: true });
+  } catch (err) {
+    logError("delete-discount error:", err.message);
+    return res.status(500).json({ error: err.message });
+  }
+}
+
 export default async function handler(req, res) {
   const route = req.query.route;
 
@@ -942,6 +1005,9 @@ export default async function handler(req, res) {
     case "get-blocks": return handleGetBlocks(req, res);
     case "create-block": return handleCreateBlock(req, res);
     case "delete-block": return handleDeleteBlock(req, res);
+    case "get-discounts": return handleGetDiscounts(req, res);
+    case "create-discount": return handleCreateDiscount(req, res);
+    case "delete-discount": return handleDeleteDiscount(req, res);
     default: return res.status(404).json({ error: "Unknown admin route" });
   }
 }

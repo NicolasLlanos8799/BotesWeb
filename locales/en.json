@@ -310,7 +310,10 @@
       "lang_value": "English",
       "edit": "Change date or number of participants",
       "total": "Total",
-      "confirm_btn": "Confirm and Proceed to Payment"
+      "confirm_btn": "Confirm and Proceed to Payment",
+      "discount_placeholder": "Discount code",
+      "discount_apply": "Apply",
+      "discount_label": "Discount"
     },
     "mobile": {
       "complete_btn": "Complete Booking"

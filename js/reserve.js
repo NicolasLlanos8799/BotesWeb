@@ -51,6 +51,12 @@ export function initReservePage() {
     stickyBar: document.getElementById("mobile-sticky-bar"),
     stickyTotal: document.getElementById("sticky-total"),
     stickyBtn: document.getElementById("sticky-complete-btn"),
+    discountInput: document.getElementById("discount-input"),
+    discountBtn: document.getElementById("discount-apply-btn"),
+    discountMsg: document.getElementById("discount-msg"),
+    discountRow: document.getElementById("summary-discount-row"),
+    discountLabel: document.getElementById("summary-discount-label"),
+    discountAmount: document.getElementById("summary-discount-amount"),
   };
 
   const path = window.location.pathname;
@@ -69,13 +75,37 @@ export function initReservePage() {
     lang: booking.lang || currentLocale,
   });
 
+  // Validated server-side on apply and again when the checkout is created.
+  let appliedDiscount = null; // { code, percent }
+
+  function computeTotals(currentTour) {
+    const subtotal = currentTour.price + current.tapas * EXTRA_CHARCUTERIE.price;
+    const percent = appliedDiscount ? appliedDiscount.percent : 0;
+    const total = Math.round(subtotal * (100 - percent)) / 100;
+    return { subtotal, percent, total, discountAmount: Math.round((subtotal - total) * 100) / 100 };
+  }
+
+  function setDiscountMsg(text, kind) {
+    if (!elements.discountMsg) return;
+    elements.discountMsg.textContent = text;
+    elements.discountMsg.className = "discount-box__msg" + (kind ? ` discount-box__msg--${kind}` : "");
+  }
+
   if (elements.name) elements.name.value = current.contact?.name || "";
   if (elements.email) elements.email.value = current.contact?.email || "";
 
   function render() {
     const currentTour = getTour(current.tour) || tour;
-    const tapasTotal = current.tapas * EXTRA_CHARCUTERIE.price;
-    const total = currentTour.price + tapasTotal;
+    const { total, percent, discountAmount } = computeTotals(currentTour);
+
+    if (elements.discountRow) {
+      elements.discountRow.style.display = percent ? "" : "none";
+      if (percent) {
+        const label = currentLocale === "spanish" ? "Descuento" : (currentLocale === "danish" ? "Rabat" : "Discount");
+        elements.discountLabel.textContent = `${label} (${appliedDiscount.code} · -${percent}%)`;
+        elements.discountAmount.textContent = "-" + formatCurrency(discountAmount);
+      }
+    }
 
     if (elements.tourImg) {
       elements.tourImg.src = currentTour.img;
@@ -158,7 +188,7 @@ export function initReservePage() {
     if (current.tapas > 0) {
       elements.summaryExtra.style.display = "flex";
       const extraTitle = getLocalizedValue(EXTRA_CHARCUTERIE, "title", currentLocale);
-      elements.summaryExtra.innerHTML = `<span>${extraTitle} (x${current.tapas})</span><span>${formatCurrency(tapasTotal)}</span>`;
+      elements.summaryExtra.innerHTML = `<span>${extraTitle} (x${current.tapas})</span><span>${formatCurrency(current.tapas * EXTRA_CHARCUTERIE.price)}</span>`;
     } else {
       elements.summaryExtra.style.display = "none";
       elements.summaryExtra.innerHTML = "";
@@ -629,8 +659,7 @@ export function initReservePage() {
     });
 
     const currentTour = getTour(current.tour) || tour;
-    const tapasTotal = current.tapas * EXTRA_CHARCUTERIE.price;
-    const total = currentTour.price + tapasTotal;
+    const { total } = computeTotals(currentTour);
 
     // ── DEMO MODE: skip SumUp, create booking directly ────────────────────
     const demoMetadata = {
@@ -645,7 +674,8 @@ export function initReservePage() {
       qty: String(current.qty),
       lang: String(current.lang),
       tapas: String(current.tapas || "0"),
-      total: String(total)
+      total: String(total),
+      ...(appliedDiscount ? { discount_code: appliedDiscount.code } : {})
     };
     try {
       const demoRes = await fetch("/api/demo-booking", {
@@ -680,6 +710,7 @@ export function initReservePage() {
         checkout_reference: `RESERVE-${Date.now()}-${name.substring(0, 3).toUpperCase()}`,
         return_url: "https://seaduced-experience.com/reserve/success.html",
         description: `Seaduced Experience: ${getLocalizedValue(currentTour, "title", current.lang)}`,
+        ...(appliedDiscount ? { discount_code: appliedDiscount.code } : {}),
         metadata: {
           name: String(name),
           email: String(email),
@@ -717,6 +748,15 @@ export function initReservePage() {
       } else {
         console.error("SumUp Proxy Error:", checkout);
 
+        if (checkout.error === "DISCOUNT_INVALID") {
+          appliedDiscount = null;
+          render();
+          setDiscountMsg(isEs ? "El código de descuento ya no es válido." : (isDa ? "Rabatkoden er ikke længere gyldig." : "This discount code is no longer valid."), "err");
+          await seaAlert(isEs ? "El código de descuento ya no es válido. Se ha quitado de tu reserva." : (isDa ? "Rabatkoden er ikke længere gyldig og er fjernet fra din booking." : "This discount code is no longer valid and was removed from your booking."), { type: "warning", lang: currentLocale });
+          resetButtons();
+          return;
+        }
+
         // Wine group experience: specific capacity errors
         if (checkout.error === "SLOT_FULL") {
           let msg = "This time slot is now fully booked. Please go back and choose a different time.";
@@ -747,6 +787,50 @@ export function initReservePage() {
       resetButtons();
     }
   }
+
+  async function handleApplyDiscount() {
+    const isEs = currentLocale === "spanish";
+    const isDa = currentLocale === "danish";
+    const code = (elements.discountInput?.value || "").trim();
+    if (!code) return;
+    elements.discountBtn.disabled = true;
+    try {
+      const res = await fetch("/api/discount", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ code })
+      });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data.valid) {
+        appliedDiscount = { code: data.code, percent: data.percent };
+        elements.discountInput.value = data.code;
+        setDiscountMsg(isEs ? `Código aplicado: -${data.percent}%` : (isDa ? `Kode anvendt: -${data.percent}%` : `Code applied: -${data.percent}%`), "ok");
+      } else {
+        appliedDiscount = null;
+        const msg = res.status === 429
+          ? (isEs ? "Demasiados intentos. Inténtalo más tarde." : (isDa ? "For mange forsøg. Prøv igen senere." : "Too many attempts. Try again later."))
+          : (isEs ? "Código inválido, vencido o agotado." : (isDa ? "Ugyldig, udløbet eller opbrugt kode." : "Invalid, expired or fully used code."));
+        setDiscountMsg(msg, "err");
+      }
+    } catch {
+      setDiscountMsg(isEs ? "No se pudo validar el código." : (isDa ? "Koden kunne ikke valideres." : "Could not validate the code."), "err");
+    } finally {
+      elements.discountBtn.disabled = false;
+      render();
+    }
+  }
+
+  elements.discountBtn?.addEventListener("click", handleApplyDiscount);
+  elements.discountInput?.addEventListener("keydown", e => {
+    if (e.key === "Enter") { e.preventDefault(); handleApplyDiscount(); }
+  });
+  elements.discountInput?.addEventListener("input", () => {
+    if (appliedDiscount && elements.discountInput.value.trim().toUpperCase() !== appliedDiscount.code) {
+      appliedDiscount = null;
+      setDiscountMsg("", "");
+      render();
+    }
+  });
 
   elements.complete?.addEventListener("click", handleCompleteBooking);
   elements.stickyBtn?.addEventListener("click", handleCompleteBooking);

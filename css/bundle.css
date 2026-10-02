@@ -5959,6 +5959,14 @@ body.booking-open {
   letter-spacing: -0.02em;
 }
 
+.discount-box { padding: var(--space-xs) 0; }
+.discount-box__row { display: flex; gap: 0.5rem; }
+.discount-box__row .input-minimal { text-transform: uppercase; flex: 1; min-width: 0; }
+.discount-box__btn { white-space: nowrap; padding: 0.7rem 1.1rem; }
+.discount-box__msg { margin: 0.4rem 0 0; font-size: 0.85rem; min-height: 1.1em; color: var(--clr-navy); }
+.discount-box__msg--ok { color: #2f855a; }
+.discount-box__msg--err { color: #c53030; }
+
 .reserve-btn {
   width: 100%;
   margin-top: var(--space-lg);

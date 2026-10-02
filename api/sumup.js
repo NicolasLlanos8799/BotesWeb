@@ -1,6 +1,7 @@
 import db from "../lib/db.js";
 import { log, warn, error as logError } from "../lib/logger.js";
 import { isRateLimited, getIp } from "../lib/rateLimit.js";
+import { ensureDiscountSchema, findValidDiscount, computeSubtotal, applyPercent, redeemDiscountForBooking } from "../lib/discounts.js";
 
 const ALLOWED_HOSTNAMES = ["seaduced-experience.com", "vercel.app", "localhost", "127.0.0.1", "seaduced.dk"];
 
@@ -51,10 +52,30 @@ export default async function handler(req, res) {
         return res.status(429).json({ error: "Too many requests. Try again later." });
       }
 
-      const { amount, currency, checkout_reference, return_url, description, metadata } = req.body;
+      let { amount, currency, checkout_reference, return_url, description, metadata } = req.body;
 
       if (!amount || !currency || !checkout_reference) {
          return res.status(400).json({ error: "Missing required fields (amount, currency, reference)" });
+      }
+
+      // Discount code: never trust the client amount — recompute from server-side prices.
+      if (metadata) {
+        delete metadata.discount_code;
+        delete metadata.discount_percent;
+        delete metadata.discount_amount;
+      }
+      const requestedCode = req.body.discount_code;
+      if (requestedCode && metadata) {
+        const discount = await findValidDiscount(requestedCode);
+        const subtotal = computeSubtotal(metadata.tour, metadata.tapas);
+        if (!discount || subtotal === null) {
+          return res.status(400).json({ error: "DISCOUNT_INVALID", message: "Discount code is invalid, expired or fully used." });
+        }
+        amount = applyPercent(subtotal, discount.percent);
+        metadata.discount_code = discount.code;
+        metadata.discount_percent = String(discount.percent);
+        metadata.discount_amount = String(Math.round((subtotal - amount) * 100) / 100);
+        metadata.total = String(amount);
       }
 
       // Wine group experience: validate group capacity before creating checkout
@@ -122,10 +143,12 @@ export default async function handler(req, res) {
       // If the user pays, the webhook/fallback will UPDATE status to PAID.
       if (sumupResponse.ok && data.id && metadata) {
         try {
+          await ensureDiscountSchema();
           await db`
             INSERT INTO bookings
               (tour_id, tour_name, customer_name, customer_email, customer_phone,
-               passengers, booking_date, booking_time, total_price, payment_status, sumup_id, lang)
+               passengers, booking_date, booking_time, total_price, payment_status, sumup_id, lang,
+               discount_code, discount_percent)
             VALUES
               (${metadata.tour || null},
                ${metadata.tourTitle || null},
@@ -138,7 +161,9 @@ export default async function handler(req, res) {
                ${parseFloat(metadata.total) || amount},
                'PENDING',
                ${data.id},
-               ${metadata.lang || 'english'})
+               ${metadata.lang || 'english'},
+               ${metadata.discount_code || null},
+               ${metadata.discount_percent ? parseInt(metadata.discount_percent) : null})
             ON CONFLICT (sumup_id) DO NOTHING
           `;
           log("createCheckout: PENDING booking saved for", data.id);
@@ -197,10 +222,12 @@ export default async function handler(req, res) {
           if (metadata.date && metadata.time) {
             // Save to Postgres (idempotent)
             try {
+              await ensureDiscountSchema();
               await db`
                 INSERT INTO bookings
                   (tour_id, tour_name, customer_name, customer_email, customer_phone,
-                   passengers, booking_date, booking_time, total_price, payment_status, sumup_id, lang)
+                   passengers, booking_date, booking_time, total_price, payment_status, sumup_id, lang,
+                   discount_code, discount_percent)
                 VALUES
                   (${metadata.tour || null},
                    ${metadata.tourTitle || null},
@@ -213,9 +240,12 @@ export default async function handler(req, res) {
                    ${metadata.total || details.amount || 0},
                    'PAID',
                    ${checkoutId},
-                   ${metadata.lang || 'english'})
+                   ${metadata.lang || 'english'},
+                   ${metadata.discount_code || null},
+                   ${metadata.discount_percent ? parseInt(metadata.discount_percent) : null})
                 ON CONFLICT (sumup_id) DO UPDATE SET payment_status = 'PAID'
               `;
+              await redeemDiscountForBooking(checkoutId);
               log("Webhook (sumup.js): Saved/updated to Postgres:", checkoutId);
             } catch (dbErr) {
               logError("Webhook (sumup.js): Postgres error:", dbErr.message);

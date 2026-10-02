@@ -319,7 +319,10 @@
       "lang_value": "Español",
       "edit": "Cambiar fecha o número de participantes",
       "total": "Total",
-      "confirm_btn": "Confirmar y Proceder al Pago"
+      "confirm_btn": "Confirmar y Proceder al Pago",
+      "discount_placeholder": "Código de descuento",
+      "discount_apply": "Aplicar",
+      "discount_label": "Descuento"
     },
     "mobile": {
       "complete_btn": "Completar Reserva"

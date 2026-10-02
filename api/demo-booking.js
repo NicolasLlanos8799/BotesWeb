@@ -1,6 +1,7 @@
 import db from "../lib/db.js";
 import { log, warn, error as logError } from "../lib/logger.js";
 import { isRateLimited, getIp } from "../lib/rateLimit.js";
+import { ensureDiscountSchema, findValidDiscount, computeSubtotal, applyPercent, redeemDiscountForBooking } from "../lib/discounts.js";
 
 /**
  * DEMO Booking Endpoint
@@ -32,12 +33,31 @@ export default async function handler(req, res) {
 
   const fakeSumupId = `DEMO-${Date.now()}`;
 
+  const requestedCode = metadata.discount_code;
+  delete metadata.discount_code;
+  delete metadata.discount_percent;
+  delete metadata.discount_amount;
+  if (requestedCode) {
+    const discount = await findValidDiscount(requestedCode);
+    const subtotal = computeSubtotal(metadata.tour, metadata.tapas);
+    if (!discount || subtotal === null) {
+      return res.status(400).json({ success: false, error: "Discount code is invalid, expired or fully used." });
+    }
+    const discounted = applyPercent(subtotal, discount.percent);
+    metadata.discount_code = discount.code;
+    metadata.discount_percent = String(discount.percent);
+    metadata.discount_amount = String(Math.round((subtotal - discounted) * 100) / 100);
+    metadata.total = String(discounted);
+  }
+
   // Save to Postgres
   try {
+    await ensureDiscountSchema();
     await db`
       INSERT INTO bookings (
         tour_id, tour_name, customer_name, customer_email, customer_phone,
-        passengers, booking_date, booking_time, total_price, payment_status, sumup_id, lang
+        passengers, booking_date, booking_time, total_price, payment_status, sumup_id, lang,
+        discount_code, discount_percent
       ) VALUES (
         ${metadata.tour || null},
         ${metadata.tourTitle || null},
@@ -50,10 +70,13 @@ export default async function handler(req, res) {
         ${metadata.total || 0},
         'PAID',
         ${fakeSumupId},
-        ${metadata.lang || 'english'}
+        ${metadata.lang || 'english'},
+        ${metadata.discount_code || null},
+        ${metadata.discount_percent ? parseInt(metadata.discount_percent) : null}
       )
       ON CONFLICT (sumup_id) DO NOTHING
     `;
+    await redeemDiscountForBooking(fakeSumupId);
     log("[DEMO] Saved to Postgres:", fakeSumupId);
   } catch (dbErr) {
     logError("[DEMO] Postgres error:", dbErr.message);
