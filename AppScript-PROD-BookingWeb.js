@@ -764,6 +764,42 @@ function getTranslations(lang) {
    EMAIL
 ═══════════════════════════════════════════════════════════ */
 
+function isValidEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+/**
+ * Shared flow of the customer notice emails:
+ * validate recipient → translate → send → log → { success }.
+ * spec: { label, invalidLabel?, subjectKey, template(data, t), validate?(data) → error|null }
+ * label / invalidLabel only feed the log lines.
+ */
+function sendTemplatedEmail(data, spec) {
+  if (!data.email) {
+    return { success: false, error: "Missing email" };
+  }
+  if (!isValidEmail(data.email)) {
+    Logger.log((spec.invalidLabel || spec.label) + ": invalid email, skipping: " + data.email);
+    return { success: false, error: "Invalid email" };
+  }
+  var invalid = spec.validate ? spec.validate(data) : null;
+  if (invalid) {
+    return { success: false, error: invalid };
+  }
+  try {
+    var t = getTranslations(data.lang || 'english');
+    GmailApp.sendEmail(data.email, "Seaduced Experience — " + t[spec.subjectKey], "", {
+      name: "Seaduced Experience",
+      htmlBody: spec.template(data, t)
+    });
+    Logger.log(spec.label + " email sent to: " + data.email);
+    return { success: true };
+  } catch (e) {
+    Logger.log(spec.label + " email error: " + e.toString());
+    return { success: false, error: e.toString() };
+  }
+}
+
 function handleSendOtp(data) {
   if (!data.code) return { success: false, error: "Missing code" };
   try {
@@ -830,26 +866,11 @@ function buildRetryUrl(data) {
 }
 
 function handlePaymentFailed(data) {
-  if (!data.email) {
-    return { success: false, error: "Missing email" };
-  }
-  var isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email);
-  if (!isValidEmail) {
-    Logger.log("Payment-failed: invalid email, skipping: " + data.email);
-    return { success: false, error: "Invalid email" };
-  }
-  try {
-    var t = getTranslations(data.lang || 'english');
-    GmailApp.sendEmail(data.email, "Seaduced Experience — " + t.pfSubject, "", {
-      name: "Seaduced Experience",
-      htmlBody: getPaymentFailedHtmlTemplate(data, t)
-    });
-    Logger.log("Payment-failed email sent to: " + data.email);
-    return { success: true };
-  } catch (e) {
-    Logger.log("Payment-failed email error: " + e.toString());
-    return { success: false, error: e.toString() };
-  }
+  return sendTemplatedEmail(data, {
+    label: "Payment-failed",
+    subjectKey: "pfSubject",
+    template: getPaymentFailedHtmlTemplate
+  });
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -915,52 +936,21 @@ function setupPostTourEmailTrigger() { installTrigger('checkPostTourEmails', 15,
 function checkPostTourEmails() { callCronTask('post-tour-email', 'checkPostTourEmails'); }
 
 function handlePaymentReminder(data) {
-  if (!data.email) {
-    return { success: false, error: "Missing email" };
-  }
-  var isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email);
-  if (!isValidEmail) {
-    Logger.log("Payment-reminder: invalid email, skipping: " + data.email);
-    return { success: false, error: "Invalid email" };
-  }
-  try {
-    var t = getTranslations(data.lang || 'english');
-    GmailApp.sendEmail(data.email, "Seaduced Experience \u2014 " + t.rmSubject, "", {
-      name: "Seaduced Experience",
-      htmlBody: getPaymentReminderHtmlTemplate(data, t)
-    });
-    Logger.log("Payment-reminder email sent to: " + data.email);
-    return { success: true };
-  } catch (e) {
-    Logger.log("Payment-reminder email error: " + e.toString());
-    return { success: false, error: e.toString() };
-  }
+  return sendTemplatedEmail(data, {
+    label: "Payment-reminder",
+    subjectKey: "rmSubject",
+    template: getPaymentReminderHtmlTemplate
+  });
 }
 
 function handleSendReviewEmail(data) {
-  if (!data.email) {
-    return { success: false, error: "Missing email" };
-  }
-  var isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email);
-  if (!isValidEmail) {
-    Logger.log("Review email: invalid email, skipping: " + data.email);
-    return { success: false, error: "Invalid email" };
-  }
-  if (!data.reviewUrl) {
-    return { success: false, error: "Missing reviewUrl" };
-  }
-  try {
-    var t = getTranslations(data.lang || 'english');
-    GmailApp.sendEmail(data.email, "Seaduced Experience — " + t.rvSubject, "", {
-      name: "Seaduced Experience",
-      htmlBody: getReviewHtmlTemplate(data, t)
-    });
-    Logger.log("Review email sent to: " + data.email);
-    return { success: true };
-  } catch (e) {
-    Logger.log("Review email error: " + e.toString());
-    return { success: false, error: e.toString() };
-  }
+  return sendTemplatedEmail(data, {
+    label: "Review",
+    invalidLabel: "Review email",
+    subjectKey: "rvSubject",
+    template: getReviewHtmlTemplate,
+    validate: function (d) { return d.reviewUrl ? null : "Missing reviewUrl"; }
+  });
 }
 
 function getReviewHtmlTemplate(data, t) {
@@ -975,26 +965,12 @@ function getReviewHtmlTemplate(data, t) {
 }
 
 function handleSendCancellationEmail(data) {
-  if (!data.email) {
-    return { success: false, error: "Missing email" };
-  }
-  var isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email);
-  if (!isValidEmail) {
-    Logger.log("Cancellation email: invalid email, skipping: " + data.email);
-    return { success: false, error: "Invalid email" };
-  }
-  try {
-    var t = getTranslations(data.lang || 'english');
-    GmailApp.sendEmail(data.email, "Seaduced Experience — " + t.cancelSubject, "", {
-      name: "Seaduced Experience",
-      htmlBody: getCancellationHtmlTemplate(data, t)
-    });
-    Logger.log("Cancellation email sent to: " + data.email);
-    return { success: true };
-  } catch (e) {
-    Logger.log("Cancellation email error: " + e.toString());
-    return { success: false, error: e.toString() };
-  }
+  return sendTemplatedEmail(data, {
+    label: "Cancellation",
+    invalidLabel: "Cancellation email",
+    subjectKey: "cancelSubject",
+    template: getCancellationHtmlTemplate
+  });
 }
 
 function getCancellationHtmlTemplate(data, t) {
@@ -1038,8 +1014,7 @@ function sendBookingEmails(data, t, start, end) {
   var endTime = ('0' + end.getHours()).slice(-2) + ':' + ('0' + end.getMinutes()).slice(-2);
   var icsBlob = createIcsBlob("Seaduced Experience: " + tourDisplayName, start, end, t.locationVal);
 
-  var isValidEmail = data.email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email);
-  if (isValidEmail) {
+  if (data.email && isValidEmail(data.email)) {
     try {
       GmailApp.sendEmail(data.email, "Seaduced Experience — " + t.subject, "", {
         name: "Seaduced Experience",
