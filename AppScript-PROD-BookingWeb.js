@@ -129,6 +129,10 @@ function getTourDisplayName(tourCode) {
     'city-highlights-3h':  'Private 3-Hour Extended (Reffen)',
     'book-malmo':          'Copenhagen to Malmö Experience',
     'book-land':           'Copenhagen Private Boat y Land Experience',
+    'book-winter':         '2-Hour Winter Hygge 2026',
+    'book-winter-captain': 'Private Boat Tour with Captain',
+    'book-winter-hygge':   'Private Hygge Winter Tour',
+    'book-christmas':      'Christmas Tour w. Tapas and Champagne',
     'book-danish-breakfast': 'City Highlights with Danish Breakfast',
     'book-cocktails-tapas': 'Private Boat Tour with Cocktails & Tapas'
   };

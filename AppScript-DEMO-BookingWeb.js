@@ -127,7 +127,8 @@ function getTourDisplayName(tourCode) {
     'book-winter-captain': 'Private Boat Tour with Captain',
     'book-winter-hygge': 'Private Hygge Winter Tour',
     'book-christmas': 'Christmas Tour w. Tapas and Champagne',
-    'book-danish-breakfast': 'City Highlights with Danish Breakfast'
+    'book-danish-breakfast': 'City Highlights with Danish Breakfast',
+    'book-cocktails-tapas': 'Private Boat Tour with Cocktails & Tapas'
   };
   return names[tourCode] || tourCode;
 }
@@ -289,7 +290,8 @@ function getTourDurationHours(tour, defaultHours) {
   if (tour.indexOf('2 Hours') !== -1 ||
     tour.indexOf('2-Hours') !== -1 ||
     tour.indexOf('book-1h-2h') !== -1 ||
-    tour.indexOf('book-10p-2h') !== -1) return 2;
+    tour.indexOf('book-10p-2h') !== -1 ||
+    tour.indexOf('book-cocktails-tapas') !== -1) return 2;
 
   if (tour.indexOf('1 Hour') !== -1 ||
     tour.indexOf('1-Hour') !== -1 ||
@@ -302,7 +304,8 @@ function getTourDurationHours(tour, defaultHours) {
   if (tour.indexOf('Floating Wine') !== -1 || tour === 'book-wine') return 2;
 
   if (tour.indexOf('3 Hour') !== -1 ||
-    tour.indexOf('3-Hour') !== -1) return 3;
+    tour.indexOf('3-Hour') !== -1 ||
+    tour.indexOf('city-highlights-3h') !== -1) return 3;
 
   if (tour.indexOf('4 Hour') !== -1 ||
     tour.indexOf('4-Hour') !== -1 ||
