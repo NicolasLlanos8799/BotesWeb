@@ -631,8 +631,14 @@ function findEventByDescriptionFragment(fragment) {
    TRANSLATIONS
 ═══════════════════════════════════════════════════════════ */
 
-function getTranslations(lang) {
-  var map = {
+/**
+ * Strings grouped by email, then by language. getTranslations(lang) flattens
+ * the groups back into the single { key: text } object the templates read
+ * (t.subject, t.pfBody, t.rvButton…), falling back to english.
+ */
+var TRANSLATIONS = {
+  // Booking confirmation (guest + admin emails) and strings shared by every email
+  confirmation: {
     english: {
       subject: "Your booking is confirmed!",
       greeting: "Hi {name},",
@@ -653,26 +659,7 @@ function getTranslations(lang) {
       helpTitle: "Need help?",
       helpBody: "Contact us via WhatsApp or reply to this email — we're always happy to help.",
       tagline: "See you on the water.",
-      footer: "© Seaduced Experience · Copenhagen, Denmark",
-      pfSubject: "We couldn't complete your payment",
-      pfGreeting: "Hi {name},",
-      pfBody: "We noticed your payment for {tour} on {date}, {time} didn't go through. Don't worry — you haven't been charged, and no booking was made.",
-      pfRetryButton: "Try the payment again",
-      pfHelp: "Having trouble? Simply reply to this email and we'll help you out.",
-      rmSubject: "Still want to book your Seaduced experience?",
-      rmGreeting: "Hi {name},",
-      rmBody: "Looks like you started booking {tour} for {date}, {time} but didn't finish the payment. Your spot isn't held yet — complete your booking before it's gone.",
-      rmRetryButton: "Complete your booking",
-      rmHelp: "Need help? Just reply to this email and we'll sort it out.",
-      cancelSubject: "Your booking has been cancelled",
-      cancelGreeting: "Hi {name},",
-      cancelBody: "Your booking for {tour} on {date}, {time} has been cancelled. If you didn't request this or have any questions, just reply to this email.",
-      cancelHelp: "Hope to see you on the water another time.",
-      rvSubject: "How was your time on the water?",
-      rvGreeting: "Hi {name},",
-      rvBody: "Thank you for sailing with us on {tour}. We hope you had a wonderful time! If you enjoyed it, a short Google review would mean the world to us and helps other travellers find us.",
-      rvButton: "Leave a review",
-      rvHelp: "It takes less than a minute. Something not right? Just reply to this email and we'll make it right."
+      footer: "© Seaduced Experience · Copenhagen, Denmark"
     },
     spanish: {
       subject: "¡Tu reserva está confirmada!",
@@ -694,26 +681,7 @@ function getTranslations(lang) {
       helpTitle: "¿Necesitas ayuda?",
       helpBody: "Contáctanos por WhatsApp o respondiendo este email — estamos aquí para ayudarte.",
       tagline: "Nos vemos en el agua.",
-      footer: "© Seaduced Experience · Copenhague, Dinamarca",
-      pfSubject: "No pudimos completar tu pago",
-      pfGreeting: "Hola {name},",
-      pfBody: "Notamos que tu pago para {tour} el {date}, {time} no se completó. Tranquilo/a, no se te cobró nada y no se creó ninguna reserva.",
-      pfRetryButton: "Reintentar el pago",
-      pfHelp: "¿Problemas? Simplemente responde este email y te ayudaremos.",
-      rmSubject: "¿Todavía querés reservar tu experiencia Seaduced?",
-      rmGreeting: "Hola {name},",
-      rmBody: "Vimos que empezaste a reservar {tour} para el {date}, {time} pero no completaste el pago. Tu lugar todavía no está reservado — completá el pago antes de que se ocupe el horario.",
-      rmRetryButton: "Completar mi reserva",
-      rmHelp: "¿Necesitás ayuda? Respondé este email y te ayudamos.",
-      cancelSubject: "Tu reserva ha sido cancelada",
-      cancelGreeting: "Hola {name},",
-      cancelBody: "Tu reserva para {tour} el {date}, {time} ha sido cancelada. Si no solicitaste esto o tienes alguna duda, simplemente responde a este email.",
-      cancelHelp: "Esperamos verte en el agua en otra ocasión.",
-      rvSubject: "¿Qué tal tu experiencia en el agua?",
-      rvGreeting: "Hola {name},",
-      rvBody: "Gracias por navegar con nosotros en {tour}. ¡Esperamos que lo hayas pasado genial! Si te gustó, una breve reseña en Google significaría muchísimo para nosotros y ayuda a otros viajeros a encontrarnos.",
-      rvButton: "Dejar una reseña",
-      rvHelp: "Solo toma un minuto. ¿Algo no salió bien? Responde a este email y lo solucionamos."
+      footer: "© Seaduced Experience · Copenhague, Dinamarca"
     },
     danish: {
       subject: "Din booking er bekræftet!",
@@ -735,29 +703,115 @@ function getTranslations(lang) {
       helpTitle: "Brug for hjælp?",
       helpBody: "Kontakt os via WhatsApp eller svar på denne e-mail — vi hjælper altid gerne.",
       tagline: "Vi ses på vandet.",
-      footer: "© Seaduced Experience · København, Danmark",
+      footer: "© Seaduced Experience · København, Danmark"
+    }
+  },
+
+  // Payment failed — pf*
+  paymentFailed: {
+    english: {
+      pfSubject: "We couldn't complete your payment",
+      pfGreeting: "Hi {name},",
+      pfBody: "We noticed your payment for {tour} on {date}, {time} didn't go through. Don't worry — you haven't been charged, and no booking was made.",
+      pfRetryButton: "Try the payment again",
+      pfHelp: "Having trouble? Simply reply to this email and we'll help you out."
+    },
+    spanish: {
+      pfSubject: "No pudimos completar tu pago",
+      pfGreeting: "Hola {name},",
+      pfBody: "Notamos que tu pago para {tour} el {date}, {time} no se completó. Tranquilo/a, no se te cobró nada y no se creó ninguna reserva.",
+      pfRetryButton: "Reintentar el pago",
+      pfHelp: "¿Problemas? Simplemente responde este email y te ayudaremos."
+    },
+    danish: {
       pfSubject: "Vi kunne ikke gennemføre din betaling",
       pfGreeting: "Hej {name},",
       pfBody: "Vi kunne se, at din betaling for {tour} den {date}, {time} ikke gik igennem. Bare rolig — du er ikke blevet opkrævet, og der er ikke oprettet nogen booking.",
       pfRetryButton: "Prøv betalingen igen",
-      pfHelp: "Har du problemer? Svar blot på denne e-mail, så hjælper vi dig.",
+      pfHelp: "Har du problemer? Svar blot på denne e-mail, så hjælper vi dig."
+    }
+  },
+
+  // Payment reminder — rm*
+  paymentReminder: {
+    english: {
+      rmSubject: "Still want to book your Seaduced experience?",
+      rmGreeting: "Hi {name},",
+      rmBody: "Looks like you started booking {tour} for {date}, {time} but didn't finish the payment. Your spot isn't held yet — complete your booking before it's gone.",
+      rmRetryButton: "Complete your booking",
+      rmHelp: "Need help? Just reply to this email and we'll sort it out."
+    },
+    spanish: {
+      rmSubject: "¿Todavía querés reservar tu experiencia Seaduced?",
+      rmGreeting: "Hola {name},",
+      rmBody: "Vimos que empezaste a reservar {tour} para el {date}, {time} pero no completaste el pago. Tu lugar todavía no está reservado — completá el pago antes de que se ocupe el horario.",
+      rmRetryButton: "Completar mi reserva",
+      rmHelp: "¿Necesitás ayuda? Respondé este email y te ayudamos."
+    },
+    danish: {
       rmSubject: "Vil du stadig booke din Seaduced-oplevelse?",
       rmGreeting: "Hej {name},",
       rmBody: "Det ser ud til, at du startede en booking af {tour} den {date}, {time}, men ikke gennemførte betalingen. Din plads er endnu ikke reserveret — gennemfør din booking, før tiden er væk.",
       rmRetryButton: "Gennemfør din booking",
-      rmHelp: "Brug for hjælp? Svar blot på denne e-mail, så hjælper vi dig.",
+      rmHelp: "Brug for hjælp? Svar blot på denne e-mail, så hjælper vi dig."
+    }
+  },
+
+  // Cancellation — cancel*
+  cancellation: {
+    english: {
+      cancelSubject: "Your booking has been cancelled",
+      cancelGreeting: "Hi {name},",
+      cancelBody: "Your booking for {tour} on {date}, {time} has been cancelled. If you didn't request this or have any questions, just reply to this email.",
+      cancelHelp: "Hope to see you on the water another time."
+    },
+    spanish: {
+      cancelSubject: "Tu reserva ha sido cancelada",
+      cancelGreeting: "Hola {name},",
+      cancelBody: "Tu reserva para {tour} el {date}, {time} ha sido cancelada. Si no solicitaste esto o tienes alguna duda, simplemente responde a este email.",
+      cancelHelp: "Esperamos verte en el agua en otra ocasión."
+    },
+    danish: {
       cancelSubject: "Din booking er blevet annulleret",
       cancelGreeting: "Hej {name},",
       cancelBody: "Din booking for {tour} den {date}, {time} er blevet annulleret. Hvis du ikke har anmodet om dette, eller har spørgsmål, så svar blot på denne e-mail.",
-      cancelHelp: "Vi håber at se dig på vandet en anden gang.",
+      cancelHelp: "Vi håber at se dig på vandet en anden gang."
+    }
+  },
+
+  // Post-tour review request — rv*
+  review: {
+    english: {
+      rvSubject: "How was your time on the water?",
+      rvGreeting: "Hi {name},",
+      rvBody: "Thank you for sailing with us on {tour}. We hope you had a wonderful time! If you enjoyed it, a short Google review would mean the world to us and helps other travellers find us.",
+      rvButton: "Leave a review",
+      rvHelp: "It takes less than a minute. Something not right? Just reply to this email and we'll make it right."
+    },
+    spanish: {
+      rvSubject: "¿Qué tal tu experiencia en el agua?",
+      rvGreeting: "Hola {name},",
+      rvBody: "Gracias por navegar con nosotros en {tour}. ¡Esperamos que lo hayas pasado genial! Si te gustó, una breve reseña en Google significaría muchísimo para nosotros y ayuda a otros viajeros a encontrarnos.",
+      rvButton: "Dejar una reseña",
+      rvHelp: "Solo toma un minuto. ¿Algo no salió bien? Responde a este email y lo solucionamos."
+    },
+    danish: {
       rvSubject: "Hvordan var din tur på vandet?",
       rvGreeting: "Hej {name},",
       rvBody: "Tak fordi du sejlede med os på {tour}. Vi håber, du havde en fantastisk oplevelse! Hvis du nød den, vil en kort Google-anmeldelse betyde alverden for os og hjælper andre rejsende med at finde os.",
       rvButton: "Skriv en anmeldelse",
       rvHelp: "Det tager under et minut. Var der noget, der ikke var i orden? Svar blot på denne e-mail, så retter vi op på det."
     }
-  };
-  return map[lang] || map.english;
+  }
+};
+
+function getTranslations(lang) {
+  var flat = {};
+  Object.keys(TRANSLATIONS).forEach(function (group) {
+    var strings = TRANSLATIONS[group][lang] || TRANSLATIONS[group].english;
+    Object.keys(strings).forEach(function (key) { flat[key] = strings[key]; });
+  });
+  return flat;
 }
 
 /* ═══════════════════════════════════════════════════════════
