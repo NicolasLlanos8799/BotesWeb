@@ -884,79 +884,59 @@ function handlePaymentFailed(data) {
    que la env var CRON_SECRET en Vercel).
 ═══════════════════════════════════════════════════════════ */
 
-function setupGygExpireHoldsTrigger() {
-  // Ejecutar ESTA función UNA sola vez a mano desde el editor de Apps
-  // Script para instalar el trigger. No hace falta volver a correrla.
+/**
+ * (Re)instala el trigger time-based que ejecuta `handlerName` cada `minutes` min.
+ */
+function installTrigger(handlerName, minutes, label) {
   ScriptApp.getProjectTriggers()
-    .filter(function (t) { return t.getHandlerFunction() === 'checkGygExpireHolds'; })
+    .filter(function (t) { return t.getHandlerFunction() === handlerName; })
     .forEach(function (t) { ScriptApp.deleteTrigger(t); });
 
-  ScriptApp.newTrigger('checkGygExpireHolds')
+  ScriptApp.newTrigger(handlerName)
     .timeBased()
-    .everyMinutes(15)
+    .everyMinutes(minutes)
     .create();
 
-  Logger.log('GYG-expire-holds trigger instalado: corre cada 15 min.');
+  Logger.log(label + ' trigger instalado: corre cada ' + minutes + ' min.');
 }
 
-function checkGygExpireHolds() {
+/**
+ * POST a /api/cron-tasks?task=<task> en Vercel. `caller` es el nombre de la
+ * función del trigger (prefijo de los logs).
+ */
+function callCronTask(task, caller) {
   var props = PropertiesService.getScriptProperties();
   var siteUrl = props.getProperty('SITE_URL');
   var cronSecret = props.getProperty('CRON_SECRET');
 
   if (!siteUrl || !cronSecret) {
-    Logger.log('checkGygExpireHolds: falta SITE_URL o CRON_SECRET en Script Properties.');
+    Logger.log(caller + ': falta SITE_URL o CRON_SECRET en Script Properties.');
     return;
   }
 
   try {
-    var response = UrlFetchApp.fetch(siteUrl + '/api/cron-tasks?task=gyg-expire-holds', {
+    var response = UrlFetchApp.fetch(siteUrl + '/api/cron-tasks?task=' + task, {
       method: 'post',
       headers: { Authorization: 'Bearer ' + cronSecret },
       muteHttpExceptions: true
     });
-    Logger.log('checkGygExpireHolds: ' + response.getResponseCode() + ' — ' + response.getContentText());
+    Logger.log(caller + ': ' + response.getResponseCode() + ' — ' + response.getContentText());
   } catch (e) {
-    Logger.log('checkGygExpireHolds error: ' + e.toString());
+    Logger.log(caller + ' error: ' + e.toString());
   }
 }
 
-function setupPaymentReminderTrigger() {
-  // Ejecutar ESTA función UNA sola vez a mano desde el editor de Apps
-  // Script para instalar el trigger. No hace falta volver a correrla.
-  ScriptApp.getProjectTriggers()
-    .filter(function (t) { return t.getHandlerFunction() === 'checkPendingPaymentReminders'; })
-    .forEach(function (t) { ScriptApp.deleteTrigger(t); });
+// setup*Trigger: ejecutar UNA sola vez a mano desde el editor de Apps Script
+// para instalar el trigger. No hace falta volver a correrlas.
+// check*: nombres enlazados a los triggers ya instalados — no renombrar.
+function setupGygExpireHoldsTrigger() { installTrigger('checkGygExpireHolds', 15, 'GYG-expire-holds'); }
+function checkGygExpireHolds() { callCronTask('gyg-expire-holds', 'checkGygExpireHolds'); }
 
-  ScriptApp.newTrigger('checkPendingPaymentReminders')
-    .timeBased()
-    .everyMinutes(10)
-    .create();
+function setupPaymentReminderTrigger() { installTrigger('checkPendingPaymentReminders', 10, 'Payment-reminder'); }
+function checkPendingPaymentReminders() { callCronTask('payment-reminder', 'checkPendingPaymentReminders'); }
 
-  Logger.log('Payment-reminder trigger instalado: corre cada 10 min.');
-}
-
-function checkPendingPaymentReminders() {
-  var props = PropertiesService.getScriptProperties();
-  var siteUrl = props.getProperty('SITE_URL');
-  var cronSecret = props.getProperty('CRON_SECRET');
-
-  if (!siteUrl || !cronSecret) {
-    Logger.log('checkPendingPaymentReminders: falta SITE_URL o CRON_SECRET en Script Properties.');
-    return;
-  }
-
-  try {
-    var response = UrlFetchApp.fetch(siteUrl + '/api/cron-tasks?task=payment-reminder', {
-      method: 'post',
-      headers: { Authorization: 'Bearer ' + cronSecret },
-      muteHttpExceptions: true
-    });
-    Logger.log('checkPendingPaymentReminders: ' + response.getResponseCode() + ' — ' + response.getContentText());
-  } catch (e) {
-    Logger.log('checkPendingPaymentReminders error: ' + e.toString());
-  }
-}
+function setupPostTourEmailTrigger() { installTrigger('checkPostTourEmails', 15, 'Post-tour-email'); }
+function checkPostTourEmails() { callCronTask('post-tour-email', 'checkPostTourEmails'); }
 
 function handlePaymentReminder(data) {
   if (!data.email) {
@@ -1050,43 +1030,6 @@ function getReviewHtmlTemplate(data, t) {
 
     '</table></td></tr></table>' +
     '</body></html>';
-}
-
-function setupPostTourEmailTrigger() {
-  // Ejecutar ESTA función UNA sola vez a mano desde el editor de Apps
-  // Script para instalar el trigger. No hace falta volver a correrla.
-  ScriptApp.getProjectTriggers()
-    .filter(function (t) { return t.getHandlerFunction() === 'checkPostTourEmails'; })
-    .forEach(function (t) { ScriptApp.deleteTrigger(t); });
-
-  ScriptApp.newTrigger('checkPostTourEmails')
-    .timeBased()
-    .everyMinutes(15)
-    .create();
-
-  Logger.log('Post-tour-email trigger instalado: corre cada 15 min.');
-}
-
-function checkPostTourEmails() {
-  var props = PropertiesService.getScriptProperties();
-  var siteUrl = props.getProperty('SITE_URL');
-  var cronSecret = props.getProperty('CRON_SECRET');
-
-  if (!siteUrl || !cronSecret) {
-    Logger.log('checkPostTourEmails: falta SITE_URL o CRON_SECRET en Script Properties.');
-    return;
-  }
-
-  try {
-    var response = UrlFetchApp.fetch(siteUrl + '/api/cron-tasks?task=post-tour-email', {
-      method: 'post',
-      headers: { Authorization: 'Bearer ' + cronSecret },
-      muteHttpExceptions: true
-    });
-    Logger.log('checkPostTourEmails: ' + response.getResponseCode() + ' — ' + response.getContentText());
-  } catch (e) {
-    Logger.log('checkPostTourEmails error: ' + e.toString());
-  }
 }
 
 function handleSendCancellationEmail(data) {
