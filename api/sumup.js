@@ -42,6 +42,22 @@ export default async function handler(req, res) {
 
   const { action } = req.query;
 
+  // Public discount-code check (no SumUp token needed). Never reveals why a code is invalid.
+  if (action === "validateDiscount") {
+    if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
+    if (isRateLimited(`discount-check:${getIp(req)}`, { max: 20, windowMs: 15 * 60 * 1000 })) {
+      return res.status(429).json({ valid: false, error: "Too many attempts. Try again later." });
+    }
+    try {
+      const discount = await findValidDiscount(req.body?.code);
+      if (!discount) return res.status(200).json({ valid: false });
+      return res.status(200).json({ valid: true, code: discount.code, percent: discount.percent });
+    } catch (err) {
+      logError("validateDiscount error:", err.message);
+      return res.status(500).json({ valid: false, error: "Could not validate code" });
+    }
+  }
+
   if (!ACCESS_TOKEN) {
     return res.status(500).json({ error: "SumUp Access Token not configured on server." });
   }
