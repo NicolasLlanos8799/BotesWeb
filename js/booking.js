@@ -1,4 +1,4 @@
-import { getBooking, readBookingFromUrl, saveBooking, clearBookingSelection, savePersistentCache } from "./utils.js";
+import { getBooking, readBookingFromUrl, saveBooking, clearBookingSelection, savePersistentCache, getPersistentCache } from "./utils.js";
 
 export function initBookingPage() {
   // Reset temporal data but keep tour context if from URL
@@ -35,6 +35,11 @@ export function initBookingPage() {
 // docs/gcal-migration-status.md (Fase 2) and api/availability.js.
 const AVAILABILITY_URL = "/api/availability";
 
+// Same window as the server-side cache (see lib/cache.js) — a fresher
+// persistent cache means the last prefetch burst already covered this
+// calendar, so re-firing all 4 months would just get the same data back.
+const PREFETCH_FRESH_MS = 20_000;
+
 async function preFetchAllCalendars() {
   const calendars = ["boat1", "boat2"];
   const now = new Date();
@@ -43,6 +48,9 @@ async function preFetchAllCalendars() {
   const monthsToPreload = [0, 1, 2, 3];
 
   for (const cal of calendars) {
+    const cachedTs = getPersistentCache(cal)._ts;
+    if (cachedTs && Date.now() - cachedTs < PREFETCH_FRESH_MS) continue;
+
     for (const offset of monthsToPreload) {
       const d = new Date(now.getFullYear(), now.getMonth() + offset, 1);
       const dateStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-01`;

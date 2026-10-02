@@ -307,6 +307,13 @@ function initBookingPanel() {
   let availabilityCache = {}; // Structured by calendarId: { "YYYY-MM-DD": [...], ... }
   let syncPromises = {}; // Tracks ongoing monthly syncs to avoid redundant requests
 
+  // Same window as the server-side cache (see lib/cache.js) — re-hitting the
+  // network within this window would just get the same cached response back,
+  // so skip the request entirely and reuse what's already in memory.
+  const AVAILABILITY_FRESH_MS = 20_000;
+  let lastMonthFetch = {}; // yearMonth -> timestamp
+  let lastDateFetch = {}; // date -> timestamp
+
   function handleApiResponse(data, dateContext) {
     const tourId = getCurrentTourId();
     const calId = TOURS[tourId]?.calendar || "boat1";
@@ -346,6 +353,7 @@ function initBookingPanel() {
 
     const yearMonth = dateStr.substring(0, 7);
     if (syncPromises[yearMonth]) return syncPromises[yearMonth];
+    if (lastMonthFetch[yearMonth] && Date.now() - lastMonthFetch[yearMonth] < AVAILABILITY_FRESH_MS) return;
 
     syncPromises[yearMonth] = (async () => {
       try {
@@ -356,6 +364,7 @@ function initBookingPanel() {
         const response = await fetch(`${AVAILABILITY_URL}?action=getMonthlyAvailability&date=${dateStr}&calendar=${cal}&t=${Date.now()}`);
         if (!response.ok) throw new Error("Network issue");
         const data = await response.json();
+        lastMonthFetch[yearMonth] = Date.now();
 
         // Populate and persist cache
         if (data && typeof data === 'object') {
@@ -382,12 +391,18 @@ function initBookingPanel() {
     const tourId = getCurrentTourId();
     const tourConfig = TOURS[tourId] || {};
 
+    // Same date fetched moments ago (e.g. re-opening the time selector) — the
+    // cache branch in syncDateValue already rendered it, skip the round-trip.
+    const freshKey = `${tourId}:${date}`;
+    if (lastDateFetch[freshKey] && Date.now() - lastDateFetch[freshKey] < AVAILABILITY_FRESH_MS) return;
+
     // Wine group experience: dedicated endpoint, no GAS
     if (tourConfig.isGroupExperience) {
       try {
         const response = await fetch(`/api/wine-availability/?date=${date}&t=${Date.now()}`);
         if (!response.ok) throw new Error("Wine availability fetch failed");
         const data = await response.json();
+        lastDateFetch[freshKey] = Date.now();
 
         if (requestId !== lastAvailabilityRequestId) return;
 
@@ -424,6 +439,7 @@ function initBookingPanel() {
       const response = await fetch(`${AVAILABILITY_URL}?action=getAvailability&date=${date}&calendar=${cal}&t=${Date.now()}`);
       if (!response.ok) throw new Error("Sync failed");
       const data = await response.json();
+      lastDateFetch[freshKey] = Date.now();
 
       // Safety: Ignore if a newer request has started
       if (requestId !== lastAvailabilityRequestId) return;
