@@ -1743,9 +1743,6 @@ select.admin-search {
 
   /* Logout: el sidebar (donde vive el link) se oculta en mobile y no está
      en la bottom nav — este botón flotante lo deja siempre accesible. */
-  .admin-mobile-logout {
-    display: flex !important;
-  }
 
   /* Topbars con inputs/botones (fechas, filtros) deben poder envolver y
      nunca desbordar el ancho del viewport. */
@@ -1786,27 +1783,52 @@ select.admin-search {
   }
 }
 
-/* Botón de logout flotante, solo visible en mobile (el sidebar con el
-   link de logout se oculta por debajo de 768px). */
-.admin-mobile-logout {
-  display: none;
+
+/* Mobile bottom nav: 4 primary buttons, secondary links grouped in sheets */
+.admin-mobile-nav button.admin-mobile-nav__link {
+  background: none;
+  border: 0;
+  padding: 0;
+  font-family: inherit;
+  cursor: pointer;
+}
+.admin-sheet-backdrop {
   position: fixed;
-  top: 0.85rem;
-  right: 0.85rem;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+.admin-sheet {
+  position: fixed;
+  left: 0.75rem;
+  right: 0.75rem;
+  bottom: calc(78px + env(safe-area-inset-bottom));
   z-index: 1001;
-  width: 40px;
-  height: 40px;
-  align-items: center;
-  justify-content: center;
-  background: rgba(15, 30, 53, 0.9);
+  display: flex;
+  flex-direction: column;
+  background: rgba(15, 30, 53, 0.98);
   backdrop-filter: blur(20px);
   border: 1px solid var(--admin-card-border);
-  border-radius: var(--radius-full);
-  color: rgba(255, 255, 255, 0.75);
-  text-decoration: none;
+  border-radius: 16px;
+  padding: 0.4rem;
 }
-
-.admin-mobile-logout svg {
-  width: 18px;
-  height: 18px;
+.admin-sheet[hidden],
+.admin-sheet-backdrop[hidden] { display: none; }
+.admin-sheet__link {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  min-height: 48px;
+  padding: 0 1rem;
+  border-radius: 12px;
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+.admin-sheet__link svg { width: 20px; height: 20px; flex: none; }
+.admin-sheet__link.active { color: var(--admin-accent); background: rgba(255, 255, 255, 0.05); }
+.admin-sheet__link[data-danger] { color: #ff8a8a; }
+@media (min-width: 769px) {
+  .admin-sheet, .admin-sheet-backdrop { display: none !important; }
 }

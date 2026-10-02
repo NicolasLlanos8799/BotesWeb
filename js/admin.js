@@ -4,7 +4,31 @@ import { Chart, registerables } from "chart.js";
 import { setBadgesFromBookings, ensureBadges, invalidateBadgeCache } from "./notifications-badge.js";
 Chart.register(...registerables);
 
+function initMobileNav() {
+  const backdrop = document.querySelector(".admin-sheet-backdrop");
+  const btns = document.querySelectorAll("[data-sheet]");
+  if (!backdrop || !btns.length) return;
+  const closeAll = () => {
+    backdrop.hidden = true;
+    document.querySelectorAll(".admin-sheet").forEach(s => { s.hidden = true; });
+    btns.forEach(b => b.setAttribute("aria-expanded", "false"));
+  };
+  btns.forEach(b => b.addEventListener("click", () => {
+    const sheet = document.getElementById(`sheet-${b.dataset.sheet}`);
+    const open = sheet.hidden;
+    closeAll();
+    if (open) {
+      sheet.hidden = false;
+      backdrop.hidden = false;
+      b.setAttribute("aria-expanded", "true");
+    }
+  }));
+  backdrop.addEventListener("click", closeAll);
+  document.addEventListener("keydown", e => { if (e.key === "Escape") closeAll(); });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
+  initMobileNav();
   fetch("/api/admin/refresh", { method: "POST" }).catch(() => {});
 
   const path = window.location.pathname;
