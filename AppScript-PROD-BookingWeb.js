@@ -9,9 +9,12 @@
  *   Booking Creation     → direct (SumUp) booking flow
  *   Shared Utilities     → duration, date range, calendar search
  *   Translations         → i18n strings (EN / ES / DA)
- *   Email                → dispatcher + ICS attachment
- *   Email Templates      → guest and admin HTML
+ *   Email                → sendTemplatedEmail, handlers, cron triggers, ICS attachment
+ *   Email Templates      → shared markup helpers (emailShell…) + guest / admin HTML
  *   Tests                → run manually from the Apps Script editor
+ *
+ * Pasted by hand into the Apps Script editor (single file, no modules).
+ * Regression harness: node scripts/gas-harness/harness.mjs
  */
 
 /* ═══════════════════════════════════════════════════════════
