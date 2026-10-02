@@ -270,6 +270,8 @@ add('doGet/unknown', (s) => s.get({ action: 'nope' }));
 // doPost — generic
 add('doPost/unknown-action', (s) => s.post({ action: 'nope' }));
 add('doPost/no-action', (s) => s.post({}));
+// Object.prototype keys must not resolve to a handler
+add('doPost/prototype-key-action', (s) => ['toString', 'constructor', '__proto__', 'hasOwnProperty'].map((action) => s.post({ action })));
 add('doPost/malformed-json', (s) => {
   const r = s.post('{not json');
   // The SyntaxError text depends on the JS engine version: keep only its type.

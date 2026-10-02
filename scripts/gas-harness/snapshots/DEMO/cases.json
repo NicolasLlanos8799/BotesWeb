@@ -357,6 +357,48 @@
       "DATA: {}"
     ]
   },
+  "doPost/prototype-key-action": {
+    "result": [
+      {
+        "mime": "JSON",
+        "body": {
+          "success": false,
+          "error": "Action not recognized"
+        }
+      },
+      {
+        "mime": "JSON",
+        "body": {
+          "success": false,
+          "error": "Action not recognized"
+        }
+      },
+      {
+        "mime": "JSON",
+        "body": {
+          "success": false,
+          "error": "Action not recognized"
+        }
+      },
+      {
+        "mime": "JSON",
+        "body": {
+          "success": false,
+          "error": "Action not recognized"
+        }
+      }
+    ],
+    "logs": [
+      "ACTION: toString",
+      "DATA: {\"action\":\"toString\"}",
+      "ACTION: constructor",
+      "DATA: {\"action\":\"constructor\"}",
+      "ACTION: __proto__",
+      "DATA: {\"action\":\"__proto__\"}",
+      "ACTION: hasOwnProperty",
+      "DATA: {\"action\":\"hasOwnProperty\"}"
+    ]
+  },
   "doPost/malformed-json": {
     "result": {
       "mime": "JSON",

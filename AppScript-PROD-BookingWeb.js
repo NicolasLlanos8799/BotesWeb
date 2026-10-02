@@ -36,6 +36,24 @@ function doGet(e) {
   return ContentService.createTextOutput("Action not found").setMimeType(ContentService.MimeType.TEXT);
 }
 
+// action (POST body) → handler. Contract consumed by api/*.js — do not rename keys.
+var ACTIONS = {
+  createBooking: handleCreateBooking,
+  createHoldEvent: handleCreateHoldEvent,
+  confirmHoldEvent: handleConfirmHoldEvent,
+  deleteHoldEvent: handleDeleteHoldEvent,
+  sendOtp: handleSendOtp,
+  resendEmail: handleResendEmail,
+  paymentFailed: handlePaymentFailed,
+  paymentReminder: handlePaymentReminder,
+  sendReviewEmail: handleSendReviewEmail,
+  sendCancellationEmail: handleSendCancellationEmail,
+  updateEvent: handleUpdateEvent,
+  deleteEvent: handleDeleteEvent,
+  createBlockEvent: handleCreateBlockEvent,
+  deleteBlockEvent: handleDeleteBlockEvent
+};
+
 function doPost(e) {
   try {
     var data = JSON.parse(e.postData.contents);
@@ -43,35 +61,8 @@ function doPost(e) {
     Logger.log("ACTION: " + action);
     Logger.log("DATA: " + JSON.stringify(data));
 
-    var result = action === 'createBooking'
-      ? handleCreateBooking(data)
-      : action === 'createHoldEvent'
-      ? handleCreateHoldEvent(data)
-      : action === 'confirmHoldEvent'
-      ? handleConfirmHoldEvent(data)
-      : action === 'deleteHoldEvent'
-      ? handleDeleteHoldEvent(data)
-      : action === 'sendOtp'
-      ? handleSendOtp(data)
-      : action === 'resendEmail'
-      ? handleResendEmail(data)
-      : action === 'paymentFailed'
-      ? handlePaymentFailed(data)
-      : action === 'paymentReminder'
-      ? handlePaymentReminder(data)
-      : action === 'sendReviewEmail'
-      ? handleSendReviewEmail(data)
-      : action === 'sendCancellationEmail'
-      ? handleSendCancellationEmail(data)
-      : action === 'updateEvent'
-      ? handleUpdateEvent(data)
-      : action === 'deleteEvent'
-      ? handleDeleteEvent(data)
-      : action === 'createBlockEvent'
-      ? handleCreateBlockEvent(data)
-      : action === 'deleteBlockEvent'
-      ? handleDeleteBlockEvent(data)
-      : { success: false, error: "Action not recognized" };
+    var handler = Object.prototype.hasOwnProperty.call(ACTIONS, action) ? ACTIONS[action] : null;
+    var result = handler ? handler(data) : { success: false, error: "Action not recognized" };
 
     return ContentService.createTextOutput(JSON.stringify(result))
       .setMimeType(ContentService.MimeType.JSON);
