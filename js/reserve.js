@@ -795,7 +795,7 @@ export function initReservePage() {
     if (!code) return;
     elements.discountBtn.disabled = true;
     try {
-      const res = await fetch("/api/sumup?action=validateDiscount", {
+      const res = await fetch("/api/sumup/?action=validateDiscount", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ code })

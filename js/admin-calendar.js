@@ -30,6 +30,8 @@ async function fetchAllBookings() {
         passengers: parseInt(b.passengers) || 0,
         status: b.payment_status || "PENDING",
         price: parseFloat(b.total_price) || 0,
+        discountCode: b.discount_code || null,
+        discountPercent: b.discount_percent ? parseInt(b.discount_percent) : null,
         calendar: b.tour_id || "N/A",
         boat: b.boat || TOURS[b.tour_id]?.calendar || "boat1",
         lang: b.lang || "english",

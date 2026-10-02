@@ -130,6 +130,8 @@ async function fetchBookings(opts = {}) {
         passengers: parseInt(b.passengers) || 0,
         status: b.payment_status || 'PENDING',
         price: parseFloat(b.total_price) || 0,
+        discountCode: b.discount_code || null,
+        discountPercent: b.discount_percent ? parseInt(b.discount_percent) : null,
         calendar: b.tour_id || 'N/A',
         boat: b.boat || null,
         lang: b.lang || 'english',
@@ -531,7 +533,11 @@ async function initDiscountsPage() {
     const btn = e.target.closest("[data-delete]");
     if (!btn) return;
     if (!(await adminConfirm(`Delete code ${btn.dataset.code}?`, "Delete", true))) return;
-    const res = await fetch(`/api/admin/delete-discount?id=${encodeURIComponent(btn.dataset.delete)}`, { method: "DELETE" });
+    const res = await fetch(`/api/admin/delete-discount?id=${encodeURIComponent(btn.dataset.delete)}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: btn.dataset.delete }),
+    });
     if (!res.ok) {
       await adminAlert("Could not delete the code.", "error");
       return;
