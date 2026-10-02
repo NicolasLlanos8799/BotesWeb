@@ -785,43 +785,19 @@ function handleSendOtp(data) {
 }
 
 function getOtpHtmlTemplate(code) {
-  return '<!DOCTYPE html>' +
-    '<html lang="en">' +
-    '<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>' +
-    '<body style="margin:0;padding:0;background-color:#f5f6f8;font-family:Arial,sans-serif;">' +
-
-    '<table width="100%" cellpadding="0" cellspacing="0"><tr>' +
-    '<td style="background-color:#e8834a;height:4px;font-size:0;">&nbsp;</td>' +
-    '</tr></table>' +
-
-    '<table width="100%" cellpadding="0" cellspacing="0"><tr>' +
-    '<td style="background-color:#0f1e35;padding:32px 20px;text-align:center;">' +
-    '<div translate="no" style="font-size:13px;letter-spacing:5px;color:#ffffff;font-weight:700;">SEADUCED EXPERIENCE</div>' +
-    '<div translate="no" style="font-size:9px;letter-spacing:4px;color:#e8834a;margin-top:6px;">COPENHAGEN</div>' +
-    '</td>' +
-    '</tr></table>' +
-
-    '<table width="100%" cellpadding="0" cellspacing="0"><tr><td style="padding:28px 16px 48px;">' +
-    '<table width="100%" cellpadding="0" cellspacing="0" style="max-width:580px;margin:0 auto;">' +
-
-    '<tr><td style="background:#ffffff;border-radius:12px;padding:32px;border-top:3px solid #e8834a;">' +
-    '<p style="margin:0 0 8px;font-size:24px;font-weight:700;color:#0f1e35;line-height:1.3;">Admin login code</p>' +
-    '<p style="margin:0 0 24px;font-size:14px;color:#4a5568;line-height:1.7;">Use this code to finish signing in to the admin panel.</p>' +
-    '<div style="text-align:center;margin:0 0 24px;">' +
-    '<span style="display:inline-block;background-color:#f5f6f8;border-radius:8px;padding:16px 28px;font-size:32px;font-weight:700;letter-spacing:8px;color:#0f1e35;">' + code + '</span>' +
-    '</div>' +
-    '<p style="margin:0;font-size:13px;color:#4a5568;text-align:center;">Expires in 5 minutes. If you didn\'t request this, you can ignore this email.</p>' +
-    '</td></tr>' +
-
-    '<tr><td style="height:16px;"></td></tr>' +
-
-    '<tr><td style="text-align:center;padding:0 16px;">' +
-    '<p style="margin:0 0 4px;font-size:13px;color:#718096;">Seaduced Experience — Private boat tours in Copenhagen</p>' +
-    '<p style="margin:0;font-size:11px;color:#a0aec0;">This is an automated security email.</p>' +
-    '</td></tr>' +
-
-    '</table></td></tr></table>' +
-    '</body></html>';
+  return emailShell({
+    rows:
+      emailCard(
+        emailHeading('Admin login code') +
+        emailText('Use this code to finish signing in to the admin panel.', '0 0 24px') +
+        '<div style="text-align:center;margin:0 0 24px;">' +
+        '<span style="display:inline-block;background-color:#f5f6f8;border-radius:8px;padding:16px 28px;font-size:32px;font-weight:700;letter-spacing:8px;color:#0f1e35;">' + code + '</span>' +
+        '</div>' +
+        emailNote('Expires in 5 minutes. If you didn\'t request this, you can ignore this email.'),
+        EMAIL_ACCENT) +
+      emailSpacer('16px') +
+      emailFooter('Seaduced Experience — Private boat tours in Copenhagen', 'This is an automated security email.')
+  });
 }
 
 function handleResendEmail(data) {
@@ -988,48 +964,14 @@ function handleSendReviewEmail(data) {
 }
 
 function getReviewHtmlTemplate(data, t) {
-  var greeting = t.rvGreeting.replace("{name}", data.name || "there");
-  var tourName = data.tourTitle || getTourDisplayName(data.tour || "");
-  var body = t.rvBody.replace("{tour}", "<strong>" + tourName + "</strong>");
-
-  return '<!DOCTYPE html>' +
-    '<html lang="en">' +
-    '<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>' +
-    '<body style="margin:0;padding:0;background-color:#f5f6f8;font-family:Arial,sans-serif;">' +
-
-    '<table width="100%" cellpadding="0" cellspacing="0"><tr>' +
-    '<td style="background-color:#e8834a;height:4px;font-size:0;">&nbsp;</td>' +
-    '</tr></table>' +
-
-    '<table width="100%" cellpadding="0" cellspacing="0"><tr>' +
-    '<td style="background-color:#0f1e35;padding:32px 20px;text-align:center;">' +
-    '<div translate="no" style="font-size:13px;letter-spacing:5px;color:#ffffff;font-weight:700;">SEADUCED EXPERIENCE</div>' +
-    '<div translate="no" style="font-size:9px;letter-spacing:4px;color:#e8834a;margin-top:6px;">COPENHAGEN</div>' +
-    '</td>' +
-    '</tr></table>' +
-
-    '<table width="100%" cellpadding="0" cellspacing="0"><tr><td style="padding:28px 16px 48px;">' +
-    '<table width="100%" cellpadding="0" cellspacing="0" style="max-width:580px;margin:0 auto;">' +
-
-    '<tr><td style="background:#ffffff;border-radius:12px;padding:32px;border-top:3px solid #e8834a;">' +
-    '<p style="margin:0 0 8px;font-size:24px;font-weight:700;color:#0f1e35;line-height:1.3;">' + greeting + '</p>' +
-    '<p style="margin:0 0 20px;font-size:14px;color:#4a5568;line-height:1.7;">' + body + '</p>' +
-    '<div style="text-align:center;margin:24px 0 20px;">' +
-    '<a href="' + data.reviewUrl + '" style="display:inline-block;background-color:#e8834a;color:#ffffff;padding:14px 36px;text-decoration:none;border-radius:6px;font-size:13px;font-weight:700;letter-spacing:1px;">' +
-    t.rvButton.toUpperCase() +
-    '</a>' +
-    '</div>' +
-    '<p style="margin:0;font-size:13px;color:#4a5568;text-align:center;">' + t.rvHelp + '</p>' +
-    '</td></tr>' +
-
-    '<tr><td style="height:16px;"></td></tr>' +
-
-    '<tr><td style="text-align:center;padding:0 16px;">' +
-    '<p style="margin:0;font-size:11px;color:#a0aec0;">' + t.footer + '</p>' +
-    '</td></tr>' +
-
-    '</table></td></tr></table>' +
-    '</body></html>';
+  return noticeEmail({
+    accent: EMAIL_ACCENT,
+    greeting: t.rvGreeting.replace("{name}", data.name || "there"),
+    body: fillNoticeBody(t.rvBody, data),
+    button: { href: data.reviewUrl, label: t.rvButton },
+    help: t.rvHelp,
+    footer: t.footer
+  });
 }
 
 function handleSendCancellationEmail(data) {
@@ -1056,147 +998,38 @@ function handleSendCancellationEmail(data) {
 }
 
 function getCancellationHtmlTemplate(data, t) {
-  var greeting = t.cancelGreeting.replace("{name}", data.name || "there");
-  var tourName = data.tourTitle || getTourDisplayName(data.tour || "");
-  var body = t.cancelBody
-    .replace("{tour}", "<strong>" + tourName + "</strong>")
-    .replace("{date}", "<strong>" + (data.date || "—") + "</strong>")
-    .replace("{time}", "<strong>" + (data.time || "—") + "</strong>");
-
-  return '<!DOCTYPE html>' +
-    '<html lang="en">' +
-    '<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>' +
-    '<body style="margin:0;padding:0;background-color:#f5f6f8;font-family:Arial,sans-serif;">' +
-
-    '<table width="100%" cellpadding="0" cellspacing="0"><tr>' +
-    '<td style="background-color:#f87171;height:4px;font-size:0;">&nbsp;</td>' +
-    '</tr></table>' +
-
-    '<table width="100%" cellpadding="0" cellspacing="0"><tr>' +
-    '<td style="background-color:#0f1e35;padding:32px 20px;text-align:center;">' +
-    '<div translate="no" style="font-size:13px;letter-spacing:5px;color:#ffffff;font-weight:700;">SEADUCED EXPERIENCE</div>' +
-    '<div translate="no" style="font-size:9px;letter-spacing:4px;color:#e8834a;margin-top:6px;">COPENHAGEN</div>' +
-    '</td>' +
-    '</tr></table>' +
-
-    '<table width="100%" cellpadding="0" cellspacing="0"><tr><td style="padding:28px 16px 48px;">' +
-    '<table width="100%" cellpadding="0" cellspacing="0" style="max-width:580px;margin:0 auto;">' +
-
-    '<tr><td style="background:#ffffff;border-radius:12px;padding:32px;border-top:3px solid #f87171;">' +
-    '<p style="margin:0 0 8px;font-size:24px;font-weight:700;color:#0f1e35;line-height:1.3;">' + greeting + '</p>' +
-    '<p style="margin:0 0 20px;font-size:14px;color:#4a5568;line-height:1.7;">' + body + '</p>' +
-    '<p style="margin:0;font-size:13px;color:#4a5568;text-align:center;">' + t.cancelHelp + '</p>' +
-    '</td></tr>' +
-
-    '<tr><td style="height:16px;"></td></tr>' +
-
-    '<tr><td style="text-align:center;padding:0 16px;">' +
-    '<p style="margin:0 0 4px;font-size:13px;color:#718096;">' + t.tagline + '</p>' +
-    '<p style="margin:0;font-size:11px;color:#a0aec0;">' + t.footer + '</p>' +
-    '</td></tr>' +
-
-    '</table></td></tr></table>' +
-    '</body></html>';
+  return noticeEmail({
+    accent: EMAIL_DANGER,
+    greeting: t.cancelGreeting.replace("{name}", data.name || "there"),
+    body: fillNoticeBody(t.cancelBody, data),
+    help: t.cancelHelp,
+    tagline: t.tagline,
+    footer: t.footer
+  });
 }
 
 function getPaymentFailedHtmlTemplate(data, t) {
-  var greeting = t.pfGreeting.replace("{name}", data.name || "there");
-  var tourName = data.tourTitle || getTourDisplayName(data.tour || "");
-  var body = t.pfBody
-    .replace("{tour}", "<strong>" + tourName + "</strong>")
-    .replace("{date}", "<strong>" + (data.date || "—") + "</strong>")
-    .replace("{time}", "<strong>" + (data.time || "—") + "</strong>");
-  var retryUrl = buildRetryUrl(data);
-
-  return '<!DOCTYPE html>' +
-    '<html lang="en">' +
-    '<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>' +
-    '<body style="margin:0;padding:0;background-color:#f5f6f8;font-family:Arial,sans-serif;">' +
-
-    '<table width="100%" cellpadding="0" cellspacing="0"><tr>' +
-    '<td style="background-color:#e8834a;height:4px;font-size:0;">&nbsp;</td>' +
-    '</tr></table>' +
-
-    '<table width="100%" cellpadding="0" cellspacing="0"><tr>' +
-    '<td style="background-color:#0f1e35;padding:32px 20px;text-align:center;">' +
-    '<div translate="no" style="font-size:13px;letter-spacing:5px;color:#ffffff;font-weight:700;">SEADUCED EXPERIENCE</div>' +
-    '<div translate="no" style="font-size:9px;letter-spacing:4px;color:#e8834a;margin-top:6px;">COPENHAGEN</div>' +
-    '</td>' +
-    '</tr></table>' +
-
-    '<table width="100%" cellpadding="0" cellspacing="0"><tr><td style="padding:28px 16px 48px;">' +
-    '<table width="100%" cellpadding="0" cellspacing="0" style="max-width:580px;margin:0 auto;">' +
-
-    '<tr><td style="background:#ffffff;border-radius:12px;padding:32px;border-top:3px solid #e8834a;">' +
-    '<p style="margin:0 0 8px;font-size:24px;font-weight:700;color:#0f1e35;line-height:1.3;">' + greeting + '</p>' +
-    '<p style="margin:0 0 20px;font-size:14px;color:#4a5568;line-height:1.7;">' + body + '</p>' +
-    '<div style="text-align:center;margin:24px 0 20px;">' +
-    '<a href="' + retryUrl + '" style="display:inline-block;background-color:#e8834a;color:#ffffff;padding:14px 36px;text-decoration:none;border-radius:6px;font-size:13px;font-weight:700;letter-spacing:1px;">' +
-    t.pfRetryButton.toUpperCase() +
-    '</a>' +
-    '</div>' +
-    '<p style="margin:0;font-size:13px;color:#4a5568;text-align:center;">' + t.pfHelp + '</p>' +
-    '</td></tr>' +
-
-    '<tr><td style="height:16px;"></td></tr>' +
-
-    '<tr><td style="text-align:center;padding:0 16px;">' +
-    '<p style="margin:0 0 4px;font-size:13px;color:#718096;">' + t.tagline + '</p>' +
-    '<p style="margin:0;font-size:11px;color:#a0aec0;">' + t.footer + '</p>' +
-    '</td></tr>' +
-
-    '</table></td></tr></table>' +
-    '</body></html>';
+  return noticeEmail({
+    accent: EMAIL_ACCENT,
+    greeting: t.pfGreeting.replace("{name}", data.name || "there"),
+    body: fillNoticeBody(t.pfBody, data),
+    button: { href: buildRetryUrl(data), label: t.pfRetryButton },
+    help: t.pfHelp,
+    tagline: t.tagline,
+    footer: t.footer
+  });
 }
 
 function getPaymentReminderHtmlTemplate(data, t) {
-  var greeting = t.rmGreeting.replace("{name}", data.name || "there");
-  var tourName = data.tourTitle || getTourDisplayName(data.tour || "");
-  var body = t.rmBody
-    .replace("{tour}", "<strong>" + tourName + "</strong>")
-    .replace("{date}", "<strong>" + (data.date || "\u2014") + "</strong>")
-    .replace("{time}", "<strong>" + (data.time || "\u2014") + "</strong>");
-  var retryUrl = buildRetryUrl(data);
-
-  return '<!DOCTYPE html>' +
-    '<html lang="en">' +
-    '<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>' +
-    '<body style="margin:0;padding:0;background-color:#f5f6f8;font-family:Arial,sans-serif;">' +
-
-    '<table width="100%" cellpadding="0" cellspacing="0"><tr>' +
-    '<td style="background-color:#e8834a;height:4px;font-size:0;">&nbsp;</td>' +
-    '</tr></table>' +
-
-    '<table width="100%" cellpadding="0" cellspacing="0"><tr>' +
-    '<td style="background-color:#0f1e35;padding:32px 20px;text-align:center;">' +
-    '<div translate="no" style="font-size:13px;letter-spacing:5px;color:#ffffff;font-weight:700;">SEADUCED EXPERIENCE</div>' +
-    '<div translate="no" style="font-size:9px;letter-spacing:4px;color:#e8834a;margin-top:6px;">COPENHAGEN</div>' +
-    '</td>' +
-    '</tr></table>' +
-
-    '<table width="100%" cellpadding="0" cellspacing="0"><tr><td style="padding:28px 16px 48px;">' +
-    '<table width="100%" cellpadding="0" cellspacing="0" style="max-width:580px;margin:0 auto;">' +
-
-    '<tr><td style="background:#ffffff;border-radius:12px;padding:32px;border-top:3px solid #e8834a;">' +
-    '<p style="margin:0 0 8px;font-size:24px;font-weight:700;color:#0f1e35;line-height:1.3;">' + greeting + '</p>' +
-    '<p style="margin:0 0 20px;font-size:14px;color:#4a5568;line-height:1.7;">' + body + '</p>' +
-    '<div style="text-align:center;margin:24px 0 20px;">' +
-    '<a href="' + retryUrl + '" style="display:inline-block;background-color:#e8834a;color:#ffffff;padding:14px 36px;text-decoration:none;border-radius:6px;font-size:13px;font-weight:700;letter-spacing:1px;">' +
-    t.rmRetryButton.toUpperCase() +
-    '</a>' +
-    '</div>' +
-    '<p style="margin:0;font-size:13px;color:#4a5568;text-align:center;">' + t.rmHelp + '</p>' +
-    '</td></tr>' +
-
-    '<tr><td style="height:16px;"></td></tr>' +
-
-    '<tr><td style="text-align:center;padding:0 16px;">' +
-    '<p style="margin:0 0 4px;font-size:13px;color:#718096;">' + t.tagline + '</p>' +
-    '<p style="margin:0;font-size:11px;color:#a0aec0;">' + t.footer + '</p>' +
-    '</td></tr>' +
-
-    '</table></td></tr></table>' +
-    '</body></html>';
+  return noticeEmail({
+    accent: EMAIL_ACCENT,
+    greeting: t.rmGreeting.replace("{name}", data.name || "there"),
+    body: fillNoticeBody(t.rmBody, data),
+    button: { href: buildRetryUrl(data), label: t.rmRetryButton },
+    help: t.rmHelp,
+    tagline: t.tagline,
+    footer: t.footer
+  });
 }
 
 function sendBookingEmails(data, t, start, end) {
@@ -1249,6 +1082,114 @@ function createIcsBlob(title, start, end, location) {
    EMAIL TEMPLATES
 ═══════════════════════════════════════════════════════════ */
 
+var EMAIL_ACCENT = '#e8834a';
+var EMAIL_DANGER = '#f87171';
+
+function emailStripe(color) {
+  return '<table width="100%" cellpadding="0" cellspacing="0"><tr>' +
+    '<td style="background-color:' + color + ';height:4px;font-size:0;">&nbsp;</td>' +
+    '</tr></table>';
+}
+
+function emailBrandHeader() {
+  return '<table width="100%" cellpadding="0" cellspacing="0"><tr>' +
+    '<td style="background-color:#0f1e35;padding:32px 20px;text-align:center;">' +
+    '<div translate="no" style="font-size:13px;letter-spacing:5px;color:#ffffff;font-weight:700;">SEADUCED EXPERIENCE</div>' +
+    '<div translate="no" style="font-size:9px;letter-spacing:4px;color:#e8834a;margin-top:6px;">COPENHAGEN</div>' +
+    '</td>' +
+    '</tr></table>';
+}
+
+/**
+ * Document wrapper shared by every email: accent stripe, header and the
+ * centered container that holds the <tr> rows.
+ * opts: { rows, accent?, header?, padding?, maxWidth?, bottomStripe? }
+ */
+function emailShell(opts) {
+  return '<!DOCTYPE html>' +
+    '<html lang="en">' +
+    '<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>' +
+    '<body style="margin:0;padding:0;background-color:#f5f6f8;font-family:Arial,sans-serif;">' +
+
+    emailStripe(opts.accent || EMAIL_ACCENT) +
+    (opts.header || emailBrandHeader()) +
+
+    '<table width="100%" cellpadding="0" cellspacing="0"><tr><td style="padding:' + (opts.padding || '28px 16px 48px') + ';">' +
+    '<table width="100%" cellpadding="0" cellspacing="0" style="max-width:' + (opts.maxWidth || '580px') + ';margin:0 auto;">' +
+    opts.rows +
+    '</table>' +
+    '</td></tr></table>' +
+
+    (opts.bottomStripe ? emailStripe(opts.bottomStripe) : '') +
+    '</body></html>';
+}
+
+function emailCard(content, accent, extraStyle) {
+  return '<tr><td style="background:#ffffff;border-radius:12px;padding:32px;' + (extraStyle || '') + 'border-top:3px solid ' + accent + ';">' +
+    content +
+    '</td></tr>';
+}
+
+function emailSpacer(height) {
+  return '<tr><td style="height:' + height + ';"></td></tr>';
+}
+
+function emailHeading(text) {
+  return '<p style="margin:0 0 8px;font-size:24px;font-weight:700;color:#0f1e35;line-height:1.3;">' + text + '</p>';
+}
+
+function emailText(text, margin) {
+  return '<p style="margin:' + margin + ';font-size:14px;color:#4a5568;line-height:1.7;">' + text + '</p>';
+}
+
+function emailNote(text) {
+  return '<p style="margin:0;font-size:13px;color:#4a5568;text-align:center;">' + text + '</p>';
+}
+
+function emailButton(href, label) {
+  return '<a href="' + href + '" style="display:inline-block;background-color:#e8834a;color:#ffffff;padding:14px 36px;text-decoration:none;border-radius:6px;font-size:13px;font-weight:700;letter-spacing:1px;">' +
+    label.toUpperCase() +
+    '</a>';
+}
+
+function emailFooter(tagline, small) {
+  return '<tr><td style="text-align:center;padding:0 16px;">' +
+    (tagline == null ? '' : '<p style="margin:0 0 4px;font-size:13px;color:#718096;">' + tagline + '</p>') +
+    '<p style="margin:0;font-size:11px;color:#a0aec0;">' + small + '</p>' +
+    '</td></tr>';
+}
+
+/**
+ * Single-card notice email (payment failed / reminder, cancellation, review):
+ * greeting + body (+ CTA button) + help line, then the footer.
+ * opts: { accent, greeting, body, button?: { href, label }, help, tagline?, footer }
+ */
+function noticeEmail(opts) {
+  return emailShell({
+    accent: opts.accent,
+    rows:
+      emailCard(
+        emailHeading(opts.greeting) +
+        emailText(opts.body, '0 0 20px') +
+        (opts.button
+          ? '<div style="text-align:center;margin:24px 0 20px;">' + emailButton(opts.button.href, opts.button.label) + '</div>'
+          : '') +
+        emailNote(opts.help),
+        opts.accent) +
+      emailSpacer('16px') +
+      emailFooter(opts.tagline, opts.footer)
+  });
+}
+
+// Fills the {tour} / {date} / {time} placeholders of a notice body.
+function fillNoticeBody(template, data) {
+  var tourName = data.tourTitle || getTourDisplayName(data.tour || "");
+  return template
+    .replace("{tour}", "<strong>" + tourName + "</strong>")
+    .replace("{date}", "<strong>" + (data.date || "—") + "</strong>")
+    .replace("{time}", "<strong>" + (data.time || "—") + "</strong>");
+}
+
 function _tableRow(label, value, isLast, padding, labelWidth) {
   var border = isLast ? '' : 'border-bottom:1px solid #e8ecf2;';
   return '<tr>' +
@@ -1269,32 +1210,14 @@ function getGuestHtmlTemplate(data, t, endTime) {
   langLabel = langLabel.charAt(0).toUpperCase() + langLabel.slice(1);
   var timeDisplay = (data.time || '—') + (endTime ? ' - ' + endTime : '');
 
-  return '<!DOCTYPE html>' +
-    '<html lang="en">' +
-    '<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>' +
-    '<body style="margin:0;padding:0;background-color:#f5f6f8;font-family:Arial,sans-serif;">' +
+  var rows =
+    emailCard(
+      emailHeading(greeting) +
+      '<p style="margin:0 0 20px;font-size:15px;color:#0f1e35;font-weight:600;">' + t.confirmed + '</p>' +
+      emailText(t.subheading, '0'),
+      EMAIL_ACCENT, 'margin-bottom:16px;') +
 
-    '<table width="100%" cellpadding="0" cellspacing="0"><tr>' +
-    '<td style="background-color:#e8834a;height:4px;font-size:0;">&nbsp;</td>' +
-    '</tr></table>' +
-
-    '<table width="100%" cellpadding="0" cellspacing="0"><tr>' +
-    '<td style="background-color:#0f1e35;padding:32px 20px;text-align:center;">' +
-    '<div translate="no" style="font-size:13px;letter-spacing:5px;color:#ffffff;font-weight:700;">SEADUCED EXPERIENCE</div>' +
-    '<div translate="no" style="font-size:9px;letter-spacing:4px;color:#e8834a;margin-top:6px;">COPENHAGEN</div>' +
-    '</td>' +
-    '</tr></table>' +
-
-    '<table width="100%" cellpadding="0" cellspacing="0"><tr><td style="padding:28px 16px 48px;">' +
-    '<table width="100%" cellpadding="0" cellspacing="0" style="max-width:580px;margin:0 auto;">' +
-
-    '<tr><td style="background:#ffffff;border-radius:12px;padding:32px;margin-bottom:16px;border-top:3px solid #e8834a;">' +
-    '<p style="margin:0 0 8px;font-size:24px;font-weight:700;color:#0f1e35;line-height:1.3;">' + greeting + '</p>' +
-    '<p style="margin:0 0 20px;font-size:15px;color:#0f1e35;font-weight:600;">' + t.confirmed + '</p>' +
-    '<p style="margin:0;font-size:14px;color:#4a5568;line-height:1.7;">' + t.subheading + '</p>' +
-    '</td></tr>' +
-
-    '<tr><td style="height:12px;"></td></tr>' +
+    emailSpacer('12px') +
 
     '<tr><td style="background:#ffffff;border-radius:12px;padding:0;overflow:hidden;">' +
 
@@ -1325,10 +1248,7 @@ function getGuestHtmlTemplate(data, t, endTime) {
 
     '<table width="100%" cellpadding="0" cellspacing="0"><tr>' +
     '<td style="padding:24px 28px;text-align:center;">' +
-    '<a href="https://maps.app.goo.gl/e3TSNU4U5oaWVeNq8" ' +
-    'style="display:inline-block;background-color:#e8834a;color:#ffffff;padding:14px 36px;text-decoration:none;border-radius:6px;font-size:13px;font-weight:700;letter-spacing:1px;">' +
-    t.mapButton.toUpperCase() +
-    '</a>' +
+    emailButton('https://maps.app.goo.gl/e3TSNU4U5oaWVeNq8', t.mapButton) +
     '</td>' +
     '</tr></table>' +
 
@@ -1336,7 +1256,7 @@ function getGuestHtmlTemplate(data, t, endTime) {
 
     getRulesBlock(data.lang || 'english') +
 
-    '<tr><td style="height:12px;"></td></tr>' +
+    emailSpacer('12px') +
 
     '<tr><td style="background:#ffffff;border-radius:12px;padding:24px 28px;">' +
     '<p style="margin:0 0 8px;font-size:14px;font-weight:700;color:#0f1e35;">' + t.helpTitle + '</p>' +
@@ -1349,16 +1269,9 @@ function getGuestHtmlTemplate(data, t, endTime) {
     '<tr><td style="padding:32px 0 16px;text-align:center;">' +
     '<p style="margin:0 0 4px;font-size:14px;color:#718096;font-style:italic;">' + t.tagline + '</p>' +
     '<p translate="no" style="margin:8px 0 0;font-size:11px;letter-spacing:1px;color:#a0aec0;">' + t.footer + '</p>' +
-    '</td></tr>' +
+    '</td></tr>';
 
-    '</table>' +
-    '</td></tr></table>' +
-
-    '<table width="100%" cellpadding="0" cellspacing="0"><tr>' +
-    '<td style="background-color:#0f1e35;height:4px;font-size:0;">&nbsp;</td>' +
-    '</tr></table>' +
-
-    '</body></html>';
+  return emailShell({ rows: rows, bottomStripe: '#0f1e35' });
 }
 
 function getRulesBlock(lang) {
@@ -1411,7 +1324,7 @@ function getRulesBlock(lang) {
       '</tr></table></td></tr>';
   }).join('');
 
-  return '<tr><td style="height:12px;"></td></tr>' +
+  return emailSpacer('12px') +
     '<tr><td style="background:#ffffff;border-radius:12px;overflow:hidden;">' +
 
     '<table width="100%" cellpadding="0" cellspacing="0"><tr>' +
@@ -1444,15 +1357,7 @@ function getAdminHtmlTemplate(data, t, endTime) {
   var isWine = data.tour === 'book-wine' && data.groupNumber;
   var groupLabel = isWine ? 'GRUPO ' + data.groupNumber + ' de 2' : null;
 
-  return '<!DOCTYPE html>' +
-    '<html lang="en">' +
-    '<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>' +
-    '<body style="margin:0;padding:0;background-color:#f5f6f8;font-family:Arial,sans-serif;">' +
-
-    '<table width="100%" cellpadding="0" cellspacing="0"><tr>' +
-    '<td style="background-color:#e8834a;height:4px;font-size:0;">&nbsp;</td>' +
-    '</tr></table>' +
-
+  var header =
     '<table width="100%" cellpadding="0" cellspacing="0"><tr>' +
     '<td style="background-color:#0f1e35;padding:24px 32px;">' +
     '<table width="100%" cellpadding="0" cellspacing="0"><tr>' +
@@ -1472,11 +1377,9 @@ function getAdminHtmlTemplate(data, t, endTime) {
     '</td>' +
     '</tr></table>' +
     '</td>' +
-    '</tr></table>' +
+    '</tr></table>';
 
-    '<table width="100%" cellpadding="0" cellspacing="0"><tr><td style="padding:24px 16px 40px;">' +
-    '<table width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;margin:0 auto;">' +
-
+  var rows =
     '<tr><td style="background:#ffffff;border-radius:12px 12px 0 0;padding:28px 32px 20px;border-bottom:3px solid #e8834a;">' +
     (isGYG ?
       '<p style="margin:0 0 6px;font-size:11px;letter-spacing:2px;color:#e8834a;font-weight:700;">RESERVA RECIBIDA DESDE GETYOURGUIDE</p>'
@@ -1528,12 +1431,9 @@ function getAdminHtmlTemplate(data, t, endTime) {
 
     '<tr><td style="background-color:#0f1e35;border-radius:0 0 12px 12px;padding:16px 32px;text-align:center;">' +
     '<p translate="no" style="margin:0;font-size:10px;letter-spacing:2px;color:#4a6080;">SEADUCED EXPERIENCE &nbsp;·&nbsp; PANEL INTERNO</p>' +
-    '</td></tr>' +
+    '</td></tr>';
 
-    '</table>' +
-    '</td></tr></table>' +
-
-    '</body></html>';
+  return emailShell({ header: header, padding: '24px 16px 40px', maxWidth: '600px', rows: rows });
 }
 
 /* ═══════════════════════════════════════════════════════════
