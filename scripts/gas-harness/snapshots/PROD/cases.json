@@ -1,0 +1,2802 @@
+{
+  "pure/getTranslations": {
+    "result": {
+      "english": {
+        "subject": "Your booking is confirmed!",
+        "greeting": "Hi {name},",
+        "confirmed": "Your booking is confirmed",
+        "subheading": "We can't wait to welcome you on board. Here are your booking details:",
+        "refNumber": "Reference",
+        "tour": "Experience",
+        "date": "Date",
+        "time": "Departure",
+        "passengers": "Passengers",
+        "language": "Language",
+        "extras": "Extras",
+        "amount": "Amount paid",
+        "location": "Meeting point",
+        "locationVal": "Christians Brygge 28, c/o Housing Group A, S, sal sttv, 1219 København",
+        "locationHint": "Right beside The Raft. At the dock, in front of the Kayak Bar. Look for the Seaduced boat.",
+        "mapButton": "Get directions",
+        "helpTitle": "Need help?",
+        "helpBody": "Contact us via WhatsApp or reply to this email — we're always happy to help.",
+        "tagline": "See you on the water.",
+        "footer": "© Seaduced Experience · Copenhagen, Denmark",
+        "pfSubject": "We couldn't complete your payment",
+        "pfGreeting": "Hi {name},",
+        "pfBody": "We noticed your payment for {tour} on {date}, {time} didn't go through. Don't worry — you haven't been charged, and no booking was made.",
+        "pfRetryButton": "Try the payment again",
+        "pfHelp": "Having trouble? Simply reply to this email and we'll help you out.",
+        "rmSubject": "Still want to book your Seaduced experience?",
+        "rmGreeting": "Hi {name},",
+        "rmBody": "Looks like you started booking {tour} for {date}, {time} but didn't finish the payment. Your spot isn't held yet — complete your booking before it's gone.",
+        "rmRetryButton": "Complete your booking",
+        "rmHelp": "Need help? Just reply to this email and we'll sort it out.",
+        "cancelSubject": "Your booking has been cancelled",
+        "cancelGreeting": "Hi {name},",
+        "cancelBody": "Your booking for {tour} on {date}, {time} has been cancelled. If you didn't request this or have any questions, just reply to this email.",
+        "cancelHelp": "Hope to see you on the water another time.",
+        "rvSubject": "How was your time on the water?",
+        "rvGreeting": "Hi {name},",
+        "rvBody": "Thank you for sailing with us on {tour}. We hope you had a wonderful time! If you enjoyed it, a short Google review would mean the world to us and helps other travellers find us.",
+        "rvButton": "Leave a review",
+        "rvHelp": "It takes less than a minute. Something not right? Just reply to this email and we'll make it right."
+      },
+      "spanish": {
+        "subject": "¡Tu reserva está confirmada!",
+        "greeting": "Hola {name},",
+        "confirmed": "Tu reserva está confirmada",
+        "subheading": "Estamos deseando darte la bienvenida a bordo. Aquí tienes los detalles de tu reserva:",
+        "refNumber": "Referencia",
+        "tour": "Experiencia",
+        "date": "Fecha",
+        "time": "Salida",
+        "passengers": "Pasajeros",
+        "language": "Idioma",
+        "extras": "Extras",
+        "amount": "Importe pagado",
+        "location": "Punto de encuentro",
+        "locationVal": "Christians Brygge 28, c/o Housing Group A, S, sal sttv, 1219 København",
+        "locationHint": "Justo al lado de The Raft. En el muelle, frente al Kayak Bar. Busca el barco de Seaduced.",
+        "mapButton": "Cómo llegar",
+        "helpTitle": "¿Necesitas ayuda?",
+        "helpBody": "Contáctanos por WhatsApp o respondiendo este email — estamos aquí para ayudarte.",
+        "tagline": "Nos vemos en el agua.",
+        "footer": "© Seaduced Experience · Copenhague, Dinamarca",
+        "pfSubject": "No pudimos completar tu pago",
+        "pfGreeting": "Hola {name},",
+        "pfBody": "Notamos que tu pago para {tour} el {date}, {time} no se completó. Tranquilo/a, no se te cobró nada y no se creó ninguna reserva.",
+        "pfRetryButton": "Reintentar el pago",
+        "pfHelp": "¿Problemas? Simplemente responde este email y te ayudaremos.",
+        "rmSubject": "¿Todavía querés reservar tu experiencia Seaduced?",
+        "rmGreeting": "Hola {name},",
+        "rmBody": "Vimos que empezaste a reservar {tour} para el {date}, {time} pero no completaste el pago. Tu lugar todavía no está reservado — completá el pago antes de que se ocupe el horario.",
+        "rmRetryButton": "Completar mi reserva",
+        "rmHelp": "¿Necesitás ayuda? Respondé este email y te ayudamos.",
+        "cancelSubject": "Tu reserva ha sido cancelada",
+        "cancelGreeting": "Hola {name},",
+        "cancelBody": "Tu reserva para {tour} el {date}, {time} ha sido cancelada. Si no solicitaste esto o tienes alguna duda, simplemente responde a este email.",
+        "cancelHelp": "Esperamos verte en el agua en otra ocasión.",
+        "rvSubject": "¿Qué tal tu experiencia en el agua?",
+        "rvGreeting": "Hola {name},",
+        "rvBody": "Gracias por navegar con nosotros en {tour}. ¡Esperamos que lo hayas pasado genial! Si te gustó, una breve reseña en Google significaría muchísimo para nosotros y ayuda a otros viajeros a encontrarnos.",
+        "rvButton": "Dejar una reseña",
+        "rvHelp": "Solo toma un minuto. ¿Algo no salió bien? Responde a este email y lo solucionamos."
+      },
+      "danish": {
+        "subject": "Din booking er bekræftet!",
+        "greeting": "Hej {name},",
+        "confirmed": "Din booking er bekræftet",
+        "subheading": "Vi glæder os til at byde dig velkommen om bord. Her er dine bookingdetaljer:",
+        "refNumber": "Reference",
+        "tour": "Oplevelse",
+        "date": "Dato",
+        "time": "Afgang",
+        "passengers": "Passagerer",
+        "language": "Sprog",
+        "extras": "Extras",
+        "amount": "Betalt beløb",
+        "location": "Mødested",
+        "locationVal": "Christians Brygge 28, c/o Housing Group A, S, sal sttv, 1219 København",
+        "locationHint": "Lige ved siden af The Raft. Ved molen, foran Kayak Bar. Find Seaduced-båden.",
+        "mapButton": "Se rutevejledning",
+        "helpTitle": "Brug for hjælp?",
+        "helpBody": "Kontakt os via WhatsApp eller svar på denne e-mail — vi hjælper altid gerne.",
+        "tagline": "Vi ses på vandet.",
+        "footer": "© Seaduced Experience · København, Danmark",
+        "pfSubject": "Vi kunne ikke gennemføre din betaling",
+        "pfGreeting": "Hej {name},",
+        "pfBody": "Vi kunne se, at din betaling for {tour} den {date}, {time} ikke gik igennem. Bare rolig — du er ikke blevet opkrævet, og der er ikke oprettet nogen booking.",
+        "pfRetryButton": "Prøv betalingen igen",
+        "pfHelp": "Har du problemer? Svar blot på denne e-mail, så hjælper vi dig.",
+        "rmSubject": "Vil du stadig booke din Seaduced-oplevelse?",
+        "rmGreeting": "Hej {name},",
+        "rmBody": "Det ser ud til, at du startede en booking af {tour} den {date}, {time}, men ikke gennemførte betalingen. Din plads er endnu ikke reserveret — gennemfør din booking, før tiden er væk.",
+        "rmRetryButton": "Gennemfør din booking",
+        "rmHelp": "Brug for hjælp? Svar blot på denne e-mail, så hjælper vi dig.",
+        "cancelSubject": "Din booking er blevet annulleret",
+        "cancelGreeting": "Hej {name},",
+        "cancelBody": "Din booking for {tour} den {date}, {time} er blevet annulleret. Hvis du ikke har anmodet om dette, eller har spørgsmål, så svar blot på denne e-mail.",
+        "cancelHelp": "Vi håber at se dig på vandet en anden gang.",
+        "rvSubject": "Hvordan var din tur på vandet?",
+        "rvGreeting": "Hej {name},",
+        "rvBody": "Tak fordi du sejlede med os på {tour}. Vi håber, du havde en fantastisk oplevelse! Hvis du nød den, vil en kort Google-anmeldelse betyde alverden for os og hjælper andre rejsende med at finde os.",
+        "rvButton": "Skriv en anmeldelse",
+        "rvHelp": "Det tager under et minut. Var der noget, der ikke var i orden? Svar blot på denne e-mail, så retter vi op på det."
+      },
+      "german": {
+        "subject": "Your booking is confirmed!",
+        "greeting": "Hi {name},",
+        "confirmed": "Your booking is confirmed",
+        "subheading": "We can't wait to welcome you on board. Here are your booking details:",
+        "refNumber": "Reference",
+        "tour": "Experience",
+        "date": "Date",
+        "time": "Departure",
+        "passengers": "Passengers",
+        "language": "Language",
+        "extras": "Extras",
+        "amount": "Amount paid",
+        "location": "Meeting point",
+        "locationVal": "Christians Brygge 28, c/o Housing Group A, S, sal sttv, 1219 København",
+        "locationHint": "Right beside The Raft. At the dock, in front of the Kayak Bar. Look for the Seaduced boat.",
+        "mapButton": "Get directions",
+        "helpTitle": "Need help?",
+        "helpBody": "Contact us via WhatsApp or reply to this email — we're always happy to help.",
+        "tagline": "See you on the water.",
+        "footer": "© Seaduced Experience · Copenhagen, Denmark",
+        "pfSubject": "We couldn't complete your payment",
+        "pfGreeting": "Hi {name},",
+        "pfBody": "We noticed your payment for {tour} on {date}, {time} didn't go through. Don't worry — you haven't been charged, and no booking was made.",
+        "pfRetryButton": "Try the payment again",
+        "pfHelp": "Having trouble? Simply reply to this email and we'll help you out.",
+        "rmSubject": "Still want to book your Seaduced experience?",
+        "rmGreeting": "Hi {name},",
+        "rmBody": "Looks like you started booking {tour} for {date}, {time} but didn't finish the payment. Your spot isn't held yet — complete your booking before it's gone.",
+        "rmRetryButton": "Complete your booking",
+        "rmHelp": "Need help? Just reply to this email and we'll sort it out.",
+        "cancelSubject": "Your booking has been cancelled",
+        "cancelGreeting": "Hi {name},",
+        "cancelBody": "Your booking for {tour} on {date}, {time} has been cancelled. If you didn't request this or have any questions, just reply to this email.",
+        "cancelHelp": "Hope to see you on the water another time.",
+        "rvSubject": "How was your time on the water?",
+        "rvGreeting": "Hi {name},",
+        "rvBody": "Thank you for sailing with us on {tour}. We hope you had a wonderful time! If you enjoyed it, a short Google review would mean the world to us and helps other travellers find us.",
+        "rvButton": "Leave a review",
+        "rvHelp": "It takes less than a minute. Something not right? Just reply to this email and we'll make it right."
+      }
+    }
+  },
+  "pure/getTourDisplayName": {
+    "result": {
+      "city-highlights-1h": "City Highlights",
+      "book-1h-2h": "City Highlights (2 Hours)",
+      "book-10p": "City Highlights (10 Guests)",
+      "book-10p-2h": "City Highlights (10 Guests) (2 Hours)",
+      "book-wine": "Floating Wine Tasting Experience",
+      "city-highlights-4h": "Sea Fortress and Coastal Journey (4-Hour)",
+      "city-highlights-3h": "Private 3-Hour Extended (Reffen)",
+      "book-malmo": "Copenhagen to Malmö Experience",
+      "book-land": "Copenhagen Private Boat y Land Experience",
+      "book-danish-breakfast": "City Highlights with Danish Breakfast",
+      "book-cocktails-tapas": "Private Boat Tour with Cocktails & Tapas",
+      "book-winter": "book-winter",
+      "book-winter-captain": "book-winter-captain",
+      "book-winter-hygge": "book-winter-hygge",
+      "book-christmas": "book-christmas",
+      "unknown-code": "unknown-code",
+      "": ""
+    }
+  },
+  "pure/getTourDurationHours": {
+    "result": {
+      "default1": {
+        "city-highlights-1h": 1,
+        "book-1h-2h": 2,
+        "book-10p": 1,
+        "book-10p-2h": 2,
+        "book-wine": 2,
+        "city-highlights-4h": 1,
+        "city-highlights-3h": 3,
+        "book-malmo": 1,
+        "book-land": 1,
+        "book-danish-breakfast": 1,
+        "book-cocktails-tapas": 2,
+        "book-winter": 1,
+        "book-winter-captain": 1,
+        "book-winter-hygge": 1,
+        "book-christmas": 1,
+        "unknown-code": 1,
+        "": 1,
+        "City Highlights (2 Hours)": 2,
+        "Private 2-Hours": 2,
+        "Copenhagen 1 Hour": 1,
+        "1-Hour Classic": 1,
+        "City Highlights": 1,
+        "City Highlights with Danish Breakfast": 1,
+        "Floating Wine Tasting Experience": 2,
+        "Private 3 Hour": 3,
+        "Private 3-Hour Extended (Reffen)": 3,
+        "Sea Fortress 4 Hour": 4,
+        "4-Hour Coastal": 4,
+        "Canal Cruise": 4,
+        "Copenhagen to Malmö Experience": 7,
+        "Dragør Day": 7,
+        "Helsingør Day": 7,
+        "Private Boat Tour with Cocktails & Tapas": 1
+      },
+      "noDefault": 1,
+      "default5": 5
+    }
+  },
+  "pure/buildRetryUrl": {
+    "result": {
+      "full": [
+        "https://seaduced-experience.com/reserve?tour=Tour%20%26%20m%C3%A1s&qty=4&tapas=2&date=2026-10-15&time=14%3A00&lang=english",
+        "https://seaduced-experience.com/es/reserve?tour=Tour%20%26%20m%C3%A1s&qty=4&tapas=2&date=2026-10-15&time=14%3A00&lang=spanish",
+        "https://seaduced-experience.com/da/reserve?tour=Tour%20%26%20m%C3%A1s&qty=4&tapas=2&date=2026-10-15&time=14%3A00&lang=danish"
+      ],
+      "minimal": "https://seaduced-experience.com/reserve?qty=1&tapas=0&lang=english"
+    }
+  },
+  "pure/buildStartEnd": {
+    "result": {
+      "valid": {
+        "start": "2026-10-15T12:30:00.000Z",
+        "end": "2026-10-15T14:30:00.000Z"
+      },
+      "invalidFallsBackToNow": {
+        "start": "2026-10-02T09:00:00.000Z",
+        "end": "2026-10-02T10:00:00.000Z"
+      }
+    },
+    "logs": [
+      "buildStartEnd: invalid date/time ' undefined' — using now as fallback"
+    ]
+  },
+  "doGet/listAllBookings": {
+    "result": {
+      "ranged": {
+        "mime": "JSON",
+        "body": {
+          "events": [
+            {
+              "id": "evt-1",
+              "calendar": "boat1",
+              "title": "Reserva: Ana",
+              "description": "✨ City Highlights\nSumUp ID: chk_123\nStatus: PAID",
+              "start": "2026-10-15T12:00:00.000Z",
+              "end": "2026-10-15T13:00:00.000Z",
+              "color": "5"
+            }
+          ]
+        }
+      },
+      "wholeYear": {
+        "mime": "JSON",
+        "body": {
+          "events": [
+            {
+              "id": "evt-1",
+              "calendar": "boat1",
+              "title": "Reserva: Ana",
+              "description": "✨ City Highlights\nSumUp ID: chk_123\nStatus: PAID",
+              "start": "2026-10-15T12:00:00.000Z",
+              "end": "2026-10-15T13:00:00.000Z",
+              "color": "5"
+            },
+            {
+              "id": "evt-2",
+              "calendar": "boat2",
+              "title": "GYG: Bob 2p",
+              "description": "✨ City Highlights\nGYG Ref: GYG-1\nSource: GetYourGuide",
+              "start": "2026-11-01T09:00:00.000Z",
+              "end": "2026-11-01T11:00:00.000Z",
+              "color": "7"
+            }
+          ]
+        }
+      }
+    },
+    "events": [
+      {
+        "id": "evt-1",
+        "boat": "boat1",
+        "title": "Reserva: Ana",
+        "start": "2026-10-15T12:00:00.000Z",
+        "end": "2026-10-15T13:00:00.000Z",
+        "description": "✨ City Highlights\nSumUp ID: chk_123\nStatus: PAID",
+        "location": "",
+        "color": "5",
+        "guests": [],
+        "deleted": false
+      },
+      {
+        "id": "evt-2",
+        "boat": "boat2",
+        "title": "GYG: Bob 2p",
+        "start": "2026-11-01T09:00:00.000Z",
+        "end": "2026-11-01T11:00:00.000Z",
+        "description": "✨ City Highlights\nGYG Ref: GYG-1\nSource: GetYourGuide",
+        "location": "",
+        "color": "7",
+        "guests": [],
+        "deleted": false
+      }
+    ]
+  },
+  "doGet/unknown": {
+    "result": {
+      "mime": "TEXT",
+      "body": "Action not found"
+    }
+  },
+  "doPost/unknown-action": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": false,
+        "error": "Action not recognized"
+      }
+    },
+    "logs": [
+      "ACTION: nope",
+      "DATA: {\"action\":\"nope\"}"
+    ]
+  },
+  "doPost/no-action": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": false,
+        "error": "Action not recognized"
+      }
+    },
+    "logs": [
+      "ACTION: undefined",
+      "DATA: {}"
+    ]
+  },
+  "doPost/malformed-json": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": false,
+        "error": "SyntaxError: <engine message>"
+      }
+    }
+  },
+  "doPost/createBooking/paid.english": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": true,
+        "eventId": "evt-1",
+        "status": "PAID"
+      }
+    },
+    "logs": [
+      "ACTION: createBooking",
+      "DATA: {\"name\":\"Ana García\",\"email\":\"ana@example.com\",\"phone\":\"+45 11 22 33 44\",\"tour\":\"city-highlights-1h\",\"date\":\"2026-10-15\",\"time\":\"14:00\",\"qty\":\"4\",\"lang\":\"english\",\"tapas\":\"2\",\"amount\":\"1800\",\"currency\":\"DKK\",\"sumup_checkout_id\":\"chk_123\",\"action\":\"createBooking\"}"
+    ],
+    "locks": [
+      "waitLock 12000",
+      "releaseLock"
+    ],
+    "gmail": [
+      {
+        "to": "ana@example.com",
+        "subject": "Seaduced Experience — Your booking is confirmed!",
+        "body": "",
+        "options": {
+          "name": "Seaduced Experience",
+          "htmlBody": "@bodies/0093332c21128bc0.html",
+          "attachments": [
+            {
+              "__blob": true,
+              "content": "BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\nDTSTART:20261015T120000Z\nDTEND:20261015T130000Z\nSUMMARY:Seaduced Experience: City Highlights\nLOCATION:Christians Brygge 28, c/o Housing Group A, S, sal sttv, 1219 København\nEND:VEVENT\nEND:VCALENDAR",
+              "type": "text/calendar",
+              "name": "seaduced-booking.ics"
+            }
+          ]
+        }
+      },
+      {
+        "to": "admin@harness.test",
+        "subject": "⚓ Nueva Reserva — City Highlights · Ana García · 2026-10-15",
+        "body": "",
+        "options": {
+          "name": "Seaduced Bookings",
+          "htmlBody": "@bodies/1a8486d562be70bc.html"
+        }
+      }
+    ],
+    "events": [
+      {
+        "id": "evt-1",
+        "boat": "boat1",
+        "title": "Reserva: Ana García",
+        "start": "2026-10-15T12:00:00.000Z",
+        "end": "2026-10-15T13:00:00.000Z",
+        "description": "✨ City Highlights\n📅 2026-10-15 | 🕒 14:00 - 15:00\n👥 Passengers: 4\n🌍 Language: english\n🍷 Extras: 2 Tapas/Charcuterie\n\n👤 CONTACT\nName: Ana García\nEmail: ana@example.com\nPhone: +45 11 22 33 44\n──────────────────────────\nSumUp ID: chk_123\nAmount: 1800 DKK\nStatus: PAID",
+        "location": "",
+        "color": "5",
+        "guests": [
+          "ana@example.com"
+        ],
+        "deleted": false
+      }
+    ]
+  },
+  "doPost/createBooking/paid.spanish": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": true,
+        "eventId": "evt-1",
+        "status": "PAID"
+      }
+    },
+    "logs": [
+      "ACTION: createBooking",
+      "DATA: {\"name\":\"Ana García\",\"email\":\"ana@example.com\",\"phone\":\"+45 11 22 33 44\",\"tour\":\"city-highlights-1h\",\"date\":\"2026-10-15\",\"time\":\"14:00\",\"qty\":\"4\",\"lang\":\"spanish\",\"tapas\":\"2\",\"amount\":\"1800\",\"currency\":\"DKK\",\"sumup_checkout_id\":\"chk_123\",\"action\":\"createBooking\"}"
+    ],
+    "locks": [
+      "waitLock 12000",
+      "releaseLock"
+    ],
+    "gmail": [
+      {
+        "to": "ana@example.com",
+        "subject": "Seaduced Experience — ¡Tu reserva está confirmada!",
+        "body": "",
+        "options": {
+          "name": "Seaduced Experience",
+          "htmlBody": "@bodies/49ea88fe2b90a954.html",
+          "attachments": [
+            {
+              "__blob": true,
+              "content": "BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\nDTSTART:20261015T120000Z\nDTEND:20261015T130000Z\nSUMMARY:Seaduced Experience: City Highlights\nLOCATION:Christians Brygge 28, c/o Housing Group A, S, sal sttv, 1219 København\nEND:VEVENT\nEND:VCALENDAR",
+              "type": "text/calendar",
+              "name": "seaduced-booking.ics"
+            }
+          ]
+        }
+      },
+      {
+        "to": "admin@harness.test",
+        "subject": "⚓ Nueva Reserva — City Highlights · Ana García · 2026-10-15",
+        "body": "",
+        "options": {
+          "name": "Seaduced Bookings",
+          "htmlBody": "@bodies/8bf61c26dce01bef.html"
+        }
+      }
+    ],
+    "events": [
+      {
+        "id": "evt-1",
+        "boat": "boat1",
+        "title": "Reserva: Ana García",
+        "start": "2026-10-15T12:00:00.000Z",
+        "end": "2026-10-15T13:00:00.000Z",
+        "description": "✨ City Highlights\n📅 2026-10-15 | 🕒 14:00 - 15:00\n👥 Passengers: 4\n🌍 Language: spanish\n🍷 Extras: 2 Tapas/Charcuterie\n\n👤 CONTACT\nName: Ana García\nEmail: ana@example.com\nPhone: +45 11 22 33 44\n──────────────────────────\nSumUp ID: chk_123\nAmount: 1800 DKK\nStatus: PAID",
+        "location": "",
+        "color": "5",
+        "guests": [
+          "ana@example.com"
+        ],
+        "deleted": false
+      }
+    ]
+  },
+  "doPost/createBooking/paid.danish": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": true,
+        "eventId": "evt-1",
+        "status": "PAID"
+      }
+    },
+    "logs": [
+      "ACTION: createBooking",
+      "DATA: {\"name\":\"Ana García\",\"email\":\"ana@example.com\",\"phone\":\"+45 11 22 33 44\",\"tour\":\"city-highlights-1h\",\"date\":\"2026-10-15\",\"time\":\"14:00\",\"qty\":\"4\",\"lang\":\"danish\",\"tapas\":\"2\",\"amount\":\"1800\",\"currency\":\"DKK\",\"sumup_checkout_id\":\"chk_123\",\"action\":\"createBooking\"}"
+    ],
+    "locks": [
+      "waitLock 12000",
+      "releaseLock"
+    ],
+    "gmail": [
+      {
+        "to": "ana@example.com",
+        "subject": "Seaduced Experience — Din booking er bekræftet!",
+        "body": "",
+        "options": {
+          "name": "Seaduced Experience",
+          "htmlBody": "@bodies/c3687ff4d705bc89.html",
+          "attachments": [
+            {
+              "__blob": true,
+              "content": "BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\nDTSTART:20261015T120000Z\nDTEND:20261015T130000Z\nSUMMARY:Seaduced Experience: City Highlights\nLOCATION:Christians Brygge 28, c/o Housing Group A, S, sal sttv, 1219 København\nEND:VEVENT\nEND:VCALENDAR",
+              "type": "text/calendar",
+              "name": "seaduced-booking.ics"
+            }
+          ]
+        }
+      },
+      {
+        "to": "admin@harness.test",
+        "subject": "⚓ Nueva Reserva — City Highlights · Ana García · 2026-10-15",
+        "body": "",
+        "options": {
+          "name": "Seaduced Bookings",
+          "htmlBody": "@bodies/d0b546a0b28ba22a.html"
+        }
+      }
+    ],
+    "events": [
+      {
+        "id": "evt-1",
+        "boat": "boat1",
+        "title": "Reserva: Ana García",
+        "start": "2026-10-15T12:00:00.000Z",
+        "end": "2026-10-15T13:00:00.000Z",
+        "description": "✨ City Highlights\n📅 2026-10-15 | 🕒 14:00 - 15:00\n👥 Passengers: 4\n🌍 Language: danish\n🍷 Extras: 2 Tapas/Charcuterie\n\n👤 CONTACT\nName: Ana García\nEmail: ana@example.com\nPhone: +45 11 22 33 44\n──────────────────────────\nSumUp ID: chk_123\nAmount: 1800 DKK\nStatus: PAID",
+        "location": "",
+        "color": "5",
+        "guests": [
+          "ana@example.com"
+        ],
+        "deleted": false
+      }
+    ]
+  },
+  "doPost/createBooking/paid-lowercase-status": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": true,
+        "eventId": "evt-1",
+        "status": "paid"
+      }
+    },
+    "logs": [
+      "ACTION: createBooking",
+      "DATA: {\"name\":\"Ana García\",\"email\":\"ana@example.com\",\"phone\":\"+45 11 22 33 44\",\"tour\":\"city-highlights-1h\",\"date\":\"2026-10-15\",\"time\":\"14:00\",\"qty\":\"4\",\"lang\":\"english\",\"tapas\":\"2\",\"amount\":\"1800\",\"currency\":\"DKK\",\"sumup_checkout_id\":\"chk_123\",\"action\":\"createBooking\",\"payment_status\":\"paid\"}"
+    ],
+    "locks": [
+      "waitLock 12000",
+      "releaseLock"
+    ],
+    "gmail": [
+      {
+        "to": "ana@example.com",
+        "subject": "Seaduced Experience — Your booking is confirmed!",
+        "body": "",
+        "options": {
+          "name": "Seaduced Experience",
+          "htmlBody": "@bodies/0093332c21128bc0.html",
+          "attachments": [
+            {
+              "__blob": true,
+              "content": "BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\nDTSTART:20261015T120000Z\nDTEND:20261015T130000Z\nSUMMARY:Seaduced Experience: City Highlights\nLOCATION:Christians Brygge 28, c/o Housing Group A, S, sal sttv, 1219 København\nEND:VEVENT\nEND:VCALENDAR",
+              "type": "text/calendar",
+              "name": "seaduced-booking.ics"
+            }
+          ]
+        }
+      },
+      {
+        "to": "admin@harness.test",
+        "subject": "⚓ Nueva Reserva — City Highlights · Ana García · 2026-10-15",
+        "body": "",
+        "options": {
+          "name": "Seaduced Bookings",
+          "htmlBody": "@bodies/1a8486d562be70bc.html"
+        }
+      }
+    ],
+    "events": [
+      {
+        "id": "evt-1",
+        "boat": "boat1",
+        "title": "Reserva: Ana García",
+        "start": "2026-10-15T12:00:00.000Z",
+        "end": "2026-10-15T13:00:00.000Z",
+        "description": "✨ City Highlights\n📅 2026-10-15 | 🕒 14:00 - 15:00\n👥 Passengers: 4\n🌍 Language: english\n🍷 Extras: 2 Tapas/Charcuterie\n\n👤 CONTACT\nName: Ana García\nEmail: ana@example.com\nPhone: +45 11 22 33 44\n──────────────────────────\nSumUp ID: chk_123\nAmount: 1800 DKK\nStatus: paid",
+        "location": "",
+        "color": "5",
+        "guests": [
+          "ana@example.com"
+        ],
+        "deleted": false
+      }
+    ]
+  },
+  "doPost/createBooking/pending-no-emails": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": true,
+        "eventId": "evt-1",
+        "status": "PENDING"
+      }
+    },
+    "logs": [
+      "ACTION: createBooking",
+      "DATA: {\"name\":\"Ana García\",\"email\":\"ana@example.com\",\"phone\":\"+45 11 22 33 44\",\"tour\":\"city-highlights-1h\",\"date\":\"2026-10-15\",\"time\":\"14:00\",\"qty\":\"4\",\"lang\":\"english\",\"tapas\":\"2\",\"amount\":\"1800\",\"currency\":\"DKK\",\"sumup_checkout_id\":\"chk_123\",\"action\":\"createBooking\",\"payment_status\":\"PENDING\"}"
+    ],
+    "locks": [
+      "waitLock 12000",
+      "releaseLock"
+    ],
+    "events": [
+      {
+        "id": "evt-1",
+        "boat": "boat1",
+        "title": "Reserva: Ana García",
+        "start": "2026-10-15T12:00:00.000Z",
+        "end": "2026-10-15T13:00:00.000Z",
+        "description": "✨ City Highlights\n📅 2026-10-15 | 🕒 14:00 - 15:00\n👥 Passengers: 4\n🌍 Language: english\n🍷 Extras: 2 Tapas/Charcuterie\n\n👤 CONTACT\nName: Ana García\nEmail: ana@example.com\nPhone: +45 11 22 33 44\n──────────────────────────\nSumUp ID: chk_123\nAmount: 1800 DKK\nStatus: PENDING",
+        "location": "",
+        "color": "5",
+        "guests": [],
+        "deleted": false
+      }
+    ]
+  },
+  "doPost/createBooking/boat2-wine-group": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": true,
+        "eventId": "evt-1",
+        "status": "PAID"
+      }
+    },
+    "logs": [
+      "ACTION: createBooking",
+      "DATA: {\"name\":\"Ana García\",\"email\":\"ana@example.com\",\"phone\":\"+45 11 22 33 44\",\"tour\":\"book-wine\",\"date\":\"2026-10-15\",\"time\":\"14:00\",\"qty\":\"4\",\"lang\":\"english\",\"tapas\":\"0\",\"amount\":\"1800\",\"currency\":\"DKK\",\"sumup_checkout_id\":\"chk_123\",\"action\":\"createBooking\",\"calendar\":\"boat2\",\"groupNumber\":1}"
+    ],
+    "locks": [
+      "waitLock 12000",
+      "releaseLock"
+    ],
+    "gmail": [
+      {
+        "to": "ana@example.com",
+        "subject": "Seaduced Experience — Your booking is confirmed!",
+        "body": "",
+        "options": {
+          "name": "Seaduced Experience",
+          "htmlBody": "@bodies/79ceefced2e78184.html",
+          "attachments": [
+            {
+              "__blob": true,
+              "content": "BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\nDTSTART:20261015T120000Z\nDTEND:20261015T140000Z\nSUMMARY:Seaduced Experience: Floating Wine Tasting Experience\nLOCATION:Christians Brygge 28, c/o Housing Group A, S, sal sttv, 1219 København\nEND:VEVENT\nEND:VCALENDAR",
+              "type": "text/calendar",
+              "name": "seaduced-booking.ics"
+            }
+          ]
+        }
+      },
+      {
+        "to": "admin@harness.test",
+        "subject": "⚓ Nueva Reserva — Floating Wine Tasting Experience · Ana García · 2026-10-15 — GRUPO 1",
+        "body": "",
+        "options": {
+          "name": "Seaduced Bookings",
+          "htmlBody": "@bodies/85b7b70874b521d4.html"
+        }
+      }
+    ],
+    "events": [
+      {
+        "id": "evt-1",
+        "boat": "boat2",
+        "title": "Reserva: Ana García",
+        "start": "2026-10-15T12:00:00.000Z",
+        "end": "2026-10-15T14:00:00.000Z",
+        "description": "✨ Floating Wine Tasting Experience\n📅 2026-10-15 | 🕒 14:00 - 16:00\n👥 Passengers: 4\n🌍 Language: english\n🍷 Extras: None\n\n👤 CONTACT\nName: Ana García\nEmail: ana@example.com\nPhone: +45 11 22 33 44\n──────────────────────────\nSumUp ID: chk_123\nAmount: 1800 DKK\nStatus: PAID",
+        "location": "",
+        "color": "5",
+        "guests": [
+          "ana@example.com"
+        ],
+        "deleted": false
+      }
+    ]
+  },
+  "doPost/createBooking/tourTitle-only": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": true,
+        "eventId": "evt-1",
+        "status": "PAID"
+      }
+    },
+    "logs": [
+      "ACTION: createBooking",
+      "DATA: {\"name\":\"Ana García\",\"email\":\"ana@example.com\",\"phone\":\"+45 11 22 33 44\",\"date\":\"2026-10-15\",\"time\":\"14:00\",\"qty\":\"4\",\"lang\":\"english\",\"tapas\":\"2\",\"amount\":\"1800\",\"currency\":\"DKK\",\"sumup_checkout_id\":\"chk_123\",\"action\":\"createBooking\",\"tourTitle\":\"Copenhagen to Malmö Experience\"}"
+    ],
+    "locks": [
+      "waitLock 12000",
+      "releaseLock"
+    ],
+    "gmail": [
+      {
+        "to": "ana@example.com",
+        "subject": "Seaduced Experience — Your booking is confirmed!",
+        "body": "",
+        "options": {
+          "name": "Seaduced Experience",
+          "htmlBody": "@bodies/7b279d29fdd00be9.html",
+          "attachments": [
+            {
+              "__blob": true,
+              "content": "BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\nDTSTART:20261015T120000Z\nDTEND:20261015T190000Z\nSUMMARY:Seaduced Experience: Copenhagen to Malmö Experience\nLOCATION:Christians Brygge 28, c/o Housing Group A, S, sal sttv, 1219 København\nEND:VEVENT\nEND:VCALENDAR",
+              "type": "text/calendar",
+              "name": "seaduced-booking.ics"
+            }
+          ]
+        }
+      },
+      {
+        "to": "admin@harness.test",
+        "subject": "⚓ Nueva Reserva — Copenhagen to Malmö Experience · Ana García · 2026-10-15",
+        "body": "",
+        "options": {
+          "name": "Seaduced Bookings",
+          "htmlBody": "@bodies/f8e2fb1fab0bee65.html"
+        }
+      }
+    ],
+    "events": [
+      {
+        "id": "evt-1",
+        "boat": "boat1",
+        "title": "Reserva: Ana García",
+        "start": "2026-10-15T12:00:00.000Z",
+        "end": "2026-10-15T19:00:00.000Z",
+        "description": "✨ Copenhagen to Malmö Experience\n📅 2026-10-15 | 🕒 14:00 - 21:00\n👥 Passengers: 4\n🌍 Language: english\n🍷 Extras: 2 Tapas/Charcuterie\n\n👤 CONTACT\nName: Ana García\nEmail: ana@example.com\nPhone: +45 11 22 33 44\n──────────────────────────\nSumUp ID: chk_123\nAmount: 1800 DKK\nStatus: PAID",
+        "location": "",
+        "color": "5",
+        "guests": [
+          "ana@example.com"
+        ],
+        "deleted": false
+      }
+    ]
+  },
+  "doPost/createBooking/invalid-guest-email": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": true,
+        "eventId": "evt-1",
+        "status": "PAID"
+      }
+    },
+    "logs": [
+      "ACTION: createBooking",
+      "DATA: {\"name\":\"Ana García\",\"email\":\"not-an-email\",\"phone\":\"+45 11 22 33 44\",\"tour\":\"city-highlights-1h\",\"date\":\"2026-10-15\",\"time\":\"14:00\",\"qty\":\"4\",\"lang\":\"english\",\"tapas\":\"2\",\"amount\":\"1800\",\"currency\":\"DKK\",\"sumup_checkout_id\":\"chk_123\",\"action\":\"createBooking\"}",
+      "Invalid or missing guest email: not-an-email"
+    ],
+    "locks": [
+      "waitLock 12000",
+      "releaseLock"
+    ],
+    "gmail": [
+      {
+        "to": "admin@harness.test",
+        "subject": "⚓ Nueva Reserva — City Highlights · Ana García · 2026-10-15",
+        "body": "",
+        "options": {
+          "name": "Seaduced Bookings",
+          "htmlBody": "@bodies/c3a11643e95c4a70.html"
+        }
+      }
+    ],
+    "events": [
+      {
+        "id": "evt-1",
+        "boat": "boat1",
+        "title": "Reserva: Ana García",
+        "start": "2026-10-15T12:00:00.000Z",
+        "end": "2026-10-15T13:00:00.000Z",
+        "description": "✨ City Highlights\n📅 2026-10-15 | 🕒 14:00 - 15:00\n👥 Passengers: 4\n🌍 Language: english\n🍷 Extras: 2 Tapas/Charcuterie\n\n👤 CONTACT\nName: Ana García\nEmail: not-an-email\nPhone: +45 11 22 33 44\n──────────────────────────\nSumUp ID: chk_123\nAmount: 1800 DKK\nStatus: PAID",
+        "location": "",
+        "color": "5",
+        "guests": [
+          "not-an-email"
+        ],
+        "deleted": false
+      }
+    ]
+  },
+  "doPost/createBooking/no-email-no-sumup": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": true,
+        "eventId": "evt-1",
+        "status": "PAID"
+      }
+    },
+    "logs": [
+      "ACTION: createBooking",
+      "DATA: {\"action\":\"createBooking\",\"name\":\"Walk-in\",\"date\":\"2026-10-15\",\"time\":\"09:00\",\"sumup_checkout_id\":\"N/A\"}",
+      "Invalid or missing guest email: undefined"
+    ],
+    "locks": [
+      "waitLock 12000",
+      "releaseLock"
+    ],
+    "gmail": [
+      {
+        "to": "admin@harness.test",
+        "subject": "⚓ Nueva Reserva —  · Walk-in · 2026-10-15",
+        "body": "",
+        "options": {
+          "name": "Seaduced Bookings",
+          "htmlBody": "@bodies/644d4553d7fbde49.html"
+        }
+      }
+    ],
+    "events": [
+      {
+        "id": "evt-1",
+        "boat": "boat1",
+        "title": "Reserva: Walk-in",
+        "start": "2026-10-15T07:00:00.000Z",
+        "end": "2026-10-15T08:00:00.000Z",
+        "description": "✨ \n📅 2026-10-15 | 🕒 09:00 - 10:00\n👥 Passengers: N/A\n🌍 Language: N/A\n🍷 Extras: None\n\n👤 CONTACT\nName: Walk-in\nEmail: N/A\nPhone: N/A\n──────────────────────────\nSumUp ID: N/A\nAmount: N/A\nStatus: PAID",
+        "location": "",
+        "color": "5",
+        "guests": [],
+        "deleted": false
+      }
+    ]
+  },
+  "doPost/createBooking/invalid-date-uses-now": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": true,
+        "eventId": "evt-1",
+        "status": "PAID"
+      }
+    },
+    "logs": [
+      "ACTION: createBooking",
+      "DATA: {\"name\":\"Ana García\",\"email\":\"ana@example.com\",\"phone\":\"+45 11 22 33 44\",\"tour\":\"city-highlights-1h\",\"date\":\"garbage\",\"time\":\"\",\"qty\":\"4\",\"lang\":\"english\",\"tapas\":\"2\",\"amount\":\"1800\",\"currency\":\"DKK\",\"sumup_checkout_id\":\"chk_123\",\"action\":\"createBooking\"}",
+      "buildStartEnd: invalid date/time 'garbage ' — using now as fallback"
+    ],
+    "locks": [
+      "waitLock 12000",
+      "releaseLock"
+    ],
+    "gmail": [
+      {
+        "to": "ana@example.com",
+        "subject": "Seaduced Experience — Your booking is confirmed!",
+        "body": "",
+        "options": {
+          "name": "Seaduced Experience",
+          "htmlBody": "@bodies/8a9c9c9ad80c1b7d.html",
+          "attachments": [
+            {
+              "__blob": true,
+              "content": "BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\nDTSTART:20261002T090000Z\nDTEND:20261002T100000Z\nSUMMARY:Seaduced Experience: City Highlights\nLOCATION:Christians Brygge 28, c/o Housing Group A, S, sal sttv, 1219 København\nEND:VEVENT\nEND:VCALENDAR",
+              "type": "text/calendar",
+              "name": "seaduced-booking.ics"
+            }
+          ]
+        }
+      },
+      {
+        "to": "admin@harness.test",
+        "subject": "⚓ Nueva Reserva — City Highlights · Ana García · garbage",
+        "body": "",
+        "options": {
+          "name": "Seaduced Bookings",
+          "htmlBody": "@bodies/5600d119954b1055.html"
+        }
+      }
+    ],
+    "events": [
+      {
+        "id": "evt-1",
+        "boat": "boat1",
+        "title": "Reserva: Ana García",
+        "start": "2026-10-02T09:00:00.000Z",
+        "end": "2026-10-02T10:00:00.000Z",
+        "description": "✨ City Highlights\n📅 garbage | 🕒 N/A - 12:00\n👥 Passengers: 4\n🌍 Language: english\n🍷 Extras: 2 Tapas/Charcuterie\n\n👤 CONTACT\nName: Ana García\nEmail: ana@example.com\nPhone: +45 11 22 33 44\n──────────────────────────\nSumUp ID: chk_123\nAmount: 1800 DKK\nStatus: PAID",
+        "location": "",
+        "color": "5",
+        "guests": [
+          "ana@example.com"
+        ],
+        "deleted": false
+      }
+    ]
+  },
+  "doPost/createBooking/duplicate": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": true,
+        "message": "Duplicate avoided",
+        "eventId": "evt-1"
+      }
+    },
+    "logs": [
+      "ACTION: createBooking",
+      "DATA: {\"name\":\"Ana García\",\"email\":\"ana@example.com\",\"phone\":\"+45 11 22 33 44\",\"tour\":\"city-highlights-1h\",\"date\":\"2026-10-15\",\"time\":\"14:00\",\"qty\":\"4\",\"lang\":\"english\",\"tapas\":\"2\",\"amount\":\"1800\",\"currency\":\"DKK\",\"sumup_checkout_id\":\"chk_123\",\"action\":\"createBooking\"}",
+      "Duplicate (SumUp ID: chk_123). Skipping."
+    ],
+    "locks": [
+      "waitLock 12000",
+      "releaseLock"
+    ],
+    "events": [
+      {
+        "id": "evt-1",
+        "boat": "boat1",
+        "title": "Reserva: Ana",
+        "start": "2026-10-15T12:00:00.000Z",
+        "end": "2026-10-15T13:00:00.000Z",
+        "description": "✨ City Highlights\nSumUp ID: chk_123\nStatus: PAID",
+        "location": "",
+        "color": "5",
+        "guests": [],
+        "deleted": false
+      }
+    ]
+  },
+  "doPost/createBooking/lock-timeout": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": false,
+        "message": "Lock timeout"
+      }
+    },
+    "logs": [
+      "ACTION: createBooking",
+      "DATA: {\"name\":\"Ana García\",\"email\":\"ana@example.com\",\"phone\":\"+45 11 22 33 44\",\"tour\":\"city-highlights-1h\",\"date\":\"2026-10-15\",\"time\":\"14:00\",\"qty\":\"4\",\"lang\":\"english\",\"tapas\":\"2\",\"amount\":\"1800\",\"currency\":\"DKK\",\"sumup_checkout_id\":\"chk_123\",\"action\":\"createBooking\"}",
+      "Could not acquire lock for: chk_123"
+    ],
+    "locks": [
+      "waitLock 12000"
+    ]
+  },
+  "doPost/createBooking/gmail-throws": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": true,
+        "eventId": "evt-1",
+        "status": "PAID"
+      }
+    },
+    "logs": [
+      "ACTION: createBooking",
+      "DATA: {\"name\":\"Ana García\",\"email\":\"ana@example.com\",\"phone\":\"+45 11 22 33 44\",\"tour\":\"city-highlights-1h\",\"date\":\"2026-10-15\",\"time\":\"14:00\",\"qty\":\"4\",\"lang\":\"english\",\"tapas\":\"2\",\"amount\":\"1800\",\"currency\":\"DKK\",\"sumup_checkout_id\":\"chk_123\",\"action\":\"createBooking\"}",
+      "Guest email error: Error: Gmail quota exceeded (stub)",
+      "Admin email error: Error: Gmail quota exceeded (stub)"
+    ],
+    "locks": [
+      "waitLock 12000",
+      "releaseLock"
+    ],
+    "events": [
+      {
+        "id": "evt-1",
+        "boat": "boat1",
+        "title": "Reserva: Ana García",
+        "start": "2026-10-15T12:00:00.000Z",
+        "end": "2026-10-15T13:00:00.000Z",
+        "description": "✨ City Highlights\n📅 2026-10-15 | 🕒 14:00 - 15:00\n👥 Passengers: 4\n🌍 Language: english\n🍷 Extras: 2 Tapas/Charcuterie\n\n👤 CONTACT\nName: Ana García\nEmail: ana@example.com\nPhone: +45 11 22 33 44\n──────────────────────────\nSumUp ID: chk_123\nAmount: 1800 DKK\nStatus: PAID",
+        "location": "",
+        "color": "5",
+        "guests": [
+          "ana@example.com"
+        ],
+        "deleted": false
+      }
+    ]
+  },
+  "doPost/createHoldEvent/new": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": true,
+        "eventId": "evt-1"
+      }
+    },
+    "logs": [
+      "ACTION: createHoldEvent",
+      "DATA: {\"gyg_booking_id\":\"GYG-1\",\"tour\":\"book-1h-2h\",\"calendar\":\"boat1\",\"date\":\"2026-10-15\",\"time\":\"14:00\",\"qty\":3,\"action\":\"createHoldEvent\"}",
+      "GYG hold event created: GYG-1 | evt-1"
+    ],
+    "locks": [
+      "tryLock 10000",
+      "releaseLock"
+    ],
+    "events": [
+      {
+        "id": "evt-1",
+        "boat": "boat1",
+        "title": "⏳ GYG HOLD: 3p",
+        "start": "2026-10-15T12:00:00.000Z",
+        "end": "2026-10-15T14:00:00.000Z",
+        "description": "⏳ GYG HOLD — pending confirmation\n📅 2026-10-15 | 🕒 14:00\n👥 Passengers: 3\n──────────────────────────\nGYG Ref: GYG-1\nSource: GetYourGuide (hold)",
+        "location": "",
+        "color": "8",
+        "guests": [],
+        "deleted": false
+      }
+    ]
+  },
+  "doPost/createHoldEvent/amend-existing-hold": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": true,
+        "eventId": "evt-1",
+        "action": "updated"
+      }
+    },
+    "logs": [
+      "ACTION: createHoldEvent",
+      "DATA: {\"gyg_booking_id\":\"GYG-1\",\"tour\":\"book-1h-2h\",\"calendar\":\"boat1\",\"date\":\"2026-10-15\",\"time\":\"16:00\",\"qty\":3,\"action\":\"createHoldEvent\"}",
+      "GYG hold event updated: GYG-1 | evt-1"
+    ],
+    "locks": [
+      "tryLock 10000",
+      "releaseLock"
+    ],
+    "events": [
+      {
+        "id": "evt-1",
+        "boat": "boat1",
+        "title": "⏳ GYG HOLD: 3p",
+        "start": "2026-10-15T14:00:00.000Z",
+        "end": "2026-10-15T16:00:00.000Z",
+        "description": "⏳ GYG HOLD — pending confirmation\n📅 2026-10-15 | 🕒 16:00\n👥 Passengers: 3\n──────────────────────────\nGYG Ref: GYG-1\nSource: GetYourGuide (hold)",
+        "location": "",
+        "color": "8",
+        "guests": [],
+        "deleted": false
+      }
+    ]
+  },
+  "doPost/createHoldEvent/already-confirmed": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": true,
+        "message": "Event already confirmed",
+        "eventId": "evt-1"
+      }
+    },
+    "logs": [
+      "ACTION: createHoldEvent",
+      "DATA: {\"gyg_booking_id\":\"GYG-1\",\"tour\":\"book-1h-2h\",\"calendar\":\"boat1\",\"date\":\"2026-10-15\",\"time\":\"14:00\",\"qty\":3,\"action\":\"createHoldEvent\"}"
+    ],
+    "locks": [
+      "tryLock 10000",
+      "releaseLock"
+    ],
+    "events": [
+      {
+        "id": "evt-1",
+        "boat": "boat1",
+        "title": "GYG: Bob 2p",
+        "start": "2026-10-15T12:00:00.000Z",
+        "end": "2026-10-15T13:00:00.000Z",
+        "description": "✨ City Highlights\nGYG Ref: GYG-1\nSource: GetYourGuide",
+        "location": "",
+        "color": "7",
+        "guests": [],
+        "deleted": false
+      }
+    ]
+  },
+  "doPost/createHoldEvent/missing-fields": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": false,
+        "error": "Missing gyg_booking_id, date or time"
+      }
+    },
+    "logs": [
+      "ACTION: createHoldEvent",
+      "DATA: {\"action\":\"createHoldEvent\",\"gyg_booking_id\":\"GYG-1\"}"
+    ]
+  },
+  "doPost/confirmHoldEvent/upgrades-hold": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": true,
+        "eventId": "evt-1",
+        "action": "updated"
+      }
+    },
+    "logs": [
+      "ACTION: confirmHoldEvent",
+      "DATA: {\"gyg_booking_id\":\"GYG-1\",\"tour\":\"book-1h-2h\",\"calendar\":\"boat1\",\"date\":\"2026-10-15\",\"time\":\"14:00\",\"qty\":3,\"name\":\"Bob Smith\",\"email\":\"bob@example.com\",\"phone\":\"+1 555\",\"lang\":\"english\",\"source\":\"GetYourGuide\",\"action\":\"confirmHoldEvent\"}",
+      "GYG hold confirmed (updated): GYG-1",
+      "GYG confirm email sent to admin for: GYG-1"
+    ],
+    "locks": [
+      "tryLock 10000",
+      "releaseLock"
+    ],
+    "gmail": [
+      {
+        "to": "seaducedexperience@gmail.com",
+        "subject": "⚓ GYG Reserva confirmada — City Highlights (2 Hours) · Bob Smith · 2026-10-15",
+        "body": "",
+        "options": {
+          "name": "Seaduced Bookings",
+          "htmlBody": "@bodies/546716332e21ce9c.html"
+        }
+      }
+    ],
+    "events": [
+      {
+        "id": "evt-1",
+        "boat": "boat1",
+        "title": "GYG: Bob Smith 3p",
+        "start": "2026-10-15T12:00:00.000Z",
+        "end": "2026-10-15T14:00:00.000Z",
+        "description": "✨ City Highlights (2 Hours)\n📅 2026-10-15 | 🕒 14:00 - 16:00\n👥 Passengers: 3\n🌍 Language: english\n\n👤 CONTACT\nName: Bob Smith\nEmail: bob@example.com\nPhone: +1 555\n──────────────────────────\nGYG Ref: GYG-1\nSource: GetYourGuide",
+        "location": "",
+        "color": "7",
+        "guests": [],
+        "deleted": false
+      }
+    ]
+  },
+  "doPost/confirmHoldEvent/no-prior-hold.spanish": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": true,
+        "eventId": "evt-1",
+        "action": "created"
+      }
+    },
+    "logs": [
+      "ACTION: confirmHoldEvent",
+      "DATA: {\"gyg_booking_id\":\"GYG-1\",\"tour\":\"book-1h-2h\",\"calendar\":\"boat2\",\"date\":\"2026-10-15\",\"time\":\"14:00\",\"qty\":3,\"name\":\"Bob Smith\",\"email\":\"bob@example.com\",\"phone\":\"+1 555\",\"lang\":\"spanish\",\"source\":\"GetYourGuide\",\"action\":\"confirmHoldEvent\"}",
+      "GYG confirmed event created (no prior hold): GYG-1",
+      "GYG confirm email sent to admin for: GYG-1"
+    ],
+    "locks": [
+      "tryLock 10000",
+      "releaseLock"
+    ],
+    "gmail": [
+      {
+        "to": "seaducedexperience@gmail.com",
+        "subject": "⚓ GYG Reserva confirmada — City Highlights (2 Hours) · Bob Smith · 2026-10-15",
+        "body": "",
+        "options": {
+          "name": "Seaduced Bookings",
+          "htmlBody": "@bodies/ff861af372f108ca.html"
+        }
+      }
+    ],
+    "events": [
+      {
+        "id": "evt-1",
+        "boat": "boat2",
+        "title": "GYG: Bob Smith 3p",
+        "start": "2026-10-15T12:00:00.000Z",
+        "end": "2026-10-15T14:00:00.000Z",
+        "description": "✨ City Highlights (2 Hours)\n📅 2026-10-15 | 🕒 14:00 - 16:00\n👥 Passengers: 3\n🌍 Language: spanish\n\n👤 CONTACT\nName: Bob Smith\nEmail: bob@example.com\nPhone: +1 555\n──────────────────────────\nGYG Ref: GYG-1\nSource: GetYourGuide",
+        "location": "",
+        "color": "7",
+        "guests": [],
+        "deleted": false
+      }
+    ]
+  },
+  "doPost/confirmHoldEvent/gmail-throws": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": true,
+        "eventId": "evt-1",
+        "action": "created"
+      }
+    },
+    "logs": [
+      "ACTION: confirmHoldEvent",
+      "DATA: {\"gyg_booking_id\":\"GYG-1\",\"tour\":\"book-1h-2h\",\"calendar\":\"boat1\",\"date\":\"2026-10-15\",\"time\":\"14:00\",\"qty\":3,\"name\":\"Bob Smith\",\"email\":\"bob@example.com\",\"phone\":\"+1 555\",\"lang\":\"english\",\"source\":\"GetYourGuide\",\"action\":\"confirmHoldEvent\"}",
+      "GYG confirmed event created (no prior hold): GYG-1",
+      "GYG confirm email error (non-fatal): Error: Gmail quota exceeded (stub)"
+    ],
+    "locks": [
+      "tryLock 10000",
+      "releaseLock"
+    ],
+    "events": [
+      {
+        "id": "evt-1",
+        "boat": "boat1",
+        "title": "GYG: Bob Smith 3p",
+        "start": "2026-10-15T12:00:00.000Z",
+        "end": "2026-10-15T14:00:00.000Z",
+        "description": "✨ City Highlights (2 Hours)\n📅 2026-10-15 | 🕒 14:00 - 16:00\n👥 Passengers: 3\n🌍 Language: english\n\n👤 CONTACT\nName: Bob Smith\nEmail: bob@example.com\nPhone: +1 555\n──────────────────────────\nGYG Ref: GYG-1\nSource: GetYourGuide",
+        "location": "",
+        "color": "7",
+        "guests": [],
+        "deleted": false
+      }
+    ]
+  },
+  "doPost/confirmHoldEvent/missing-id": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": false,
+        "error": "Missing gyg_booking_id"
+      }
+    },
+    "logs": [
+      "ACTION: confirmHoldEvent",
+      "DATA: {\"action\":\"confirmHoldEvent\"}"
+    ]
+  },
+  "doPost/deleteHoldEvent/found": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": true,
+        "message": "Event deleted"
+      }
+    },
+    "logs": [
+      "ACTION: deleteHoldEvent",
+      "DATA: {\"action\":\"deleteHoldEvent\",\"gyg_booking_id\":\"GYG-1\"}",
+      "GYG event deleted: GYG-1"
+    ],
+    "events": [
+      {
+        "id": "evt-1",
+        "boat": "boat2",
+        "title": "⏳ GYG HOLD: 3p",
+        "start": "2026-10-15T12:00:00.000Z",
+        "end": "2026-10-15T13:00:00.000Z",
+        "description": "⏳ GYG HOLD — pending confirmation\nGYG Ref: GYG-1\nSource: GetYourGuide (hold)",
+        "location": "",
+        "color": "8",
+        "guests": [],
+        "deleted": true
+      }
+    ]
+  },
+  "doPost/deleteHoldEvent/not-found": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": true,
+        "message": "No event found to delete"
+      }
+    },
+    "logs": [
+      "ACTION: deleteHoldEvent",
+      "DATA: {\"action\":\"deleteHoldEvent\",\"gyg_booking_id\":\"GYG-404\"}",
+      "GYG deleteHoldEvent: no event found for GYG-404"
+    ]
+  },
+  "doPost/deleteHoldEvent/missing-id": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": false,
+        "error": "Missing gyg_booking_id"
+      }
+    },
+    "logs": [
+      "ACTION: deleteHoldEvent",
+      "DATA: {\"action\":\"deleteHoldEvent\"}"
+    ]
+  },
+  "doPost/sendOtp/ok": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": true
+      }
+    },
+    "logs": [
+      "ACTION: sendOtp",
+      "DATA: {\"action\":\"sendOtp\",\"code\":\"123456\"}"
+    ],
+    "gmail": [
+      {
+        "to": "admin@harness.test",
+        "subject": "Seaduced Experience — Admin login code",
+        "body": "Your login code is: 123456\nExpires in 5 minutes.",
+        "options": {
+          "name": "Seaduced Admin",
+          "htmlBody": "@bodies/5ada6554c6f0cfec.html"
+        }
+      }
+    ]
+  },
+  "doPost/sendOtp/missing-code": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": false,
+        "error": "Missing code"
+      }
+    },
+    "logs": [
+      "ACTION: sendOtp",
+      "DATA: {\"action\":\"sendOtp\"}"
+    ]
+  },
+  "doPost/sendOtp/gmail-throws": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": false,
+        "error": "Error: Gmail quota exceeded (stub)"
+      }
+    },
+    "logs": [
+      "ACTION: sendOtp",
+      "DATA: {\"action\":\"sendOtp\",\"code\":\"123456\"}",
+      "Send OTP error: Error: Gmail quota exceeded (stub)"
+    ]
+  },
+  "doPost/resendEmail/ok.english": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": true
+      }
+    },
+    "logs": [
+      "ACTION: resendEmail",
+      "DATA: {\"name\":\"Ana García\",\"email\":\"ana@example.com\",\"phone\":\"+45 11 22 33 44\",\"tour\":\"book-10p-2h\",\"date\":\"2026-10-15\",\"time\":\"14:00\",\"qty\":\"4\",\"lang\":\"english\",\"tapas\":\"2\",\"amount\":\"1800\",\"currency\":\"DKK\",\"sumup_checkout_id\":\"chk_123\",\"action\":\"resendEmail\"}",
+      "Resend email sent to: ana@example.com"
+    ],
+    "gmail": [
+      {
+        "to": "ana@example.com",
+        "subject": "Seaduced Experience — Your booking is confirmed!",
+        "body": "",
+        "options": {
+          "name": "Seaduced Experience",
+          "htmlBody": "@bodies/dbd8631fbf2ba346.html",
+          "attachments": [
+            {
+              "__blob": true,
+              "content": "BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\nDTSTART:20261015T120000Z\nDTEND:20261015T140000Z\nSUMMARY:Seaduced Experience: City Highlights (10 Guests) (2 Hours)\nLOCATION:Christians Brygge 28, c/o Housing Group A, S, sal sttv, 1219 København\nEND:VEVENT\nEND:VCALENDAR",
+              "type": "text/calendar",
+              "name": "seaduced-booking.ics"
+            }
+          ]
+        }
+      },
+      {
+        "to": "admin@harness.test",
+        "subject": "⚓ Nueva Reserva — City Highlights (10 Guests) (2 Hours) · Ana García · 2026-10-15",
+        "body": "",
+        "options": {
+          "name": "Seaduced Bookings",
+          "htmlBody": "@bodies/6e21103a0c45b41a.html"
+        }
+      }
+    ]
+  },
+  "doPost/resendEmail/ok.spanish": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": true
+      }
+    },
+    "logs": [
+      "ACTION: resendEmail",
+      "DATA: {\"name\":\"Ana García\",\"email\":\"ana@example.com\",\"phone\":\"+45 11 22 33 44\",\"tour\":\"book-10p-2h\",\"date\":\"2026-10-15\",\"time\":\"14:00\",\"qty\":\"4\",\"lang\":\"spanish\",\"tapas\":\"2\",\"amount\":\"1800\",\"currency\":\"DKK\",\"sumup_checkout_id\":\"chk_123\",\"action\":\"resendEmail\"}",
+      "Resend email sent to: ana@example.com"
+    ],
+    "gmail": [
+      {
+        "to": "ana@example.com",
+        "subject": "Seaduced Experience — ¡Tu reserva está confirmada!",
+        "body": "",
+        "options": {
+          "name": "Seaduced Experience",
+          "htmlBody": "@bodies/e5bd9e2d25197e97.html",
+          "attachments": [
+            {
+              "__blob": true,
+              "content": "BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\nDTSTART:20261015T120000Z\nDTEND:20261015T140000Z\nSUMMARY:Seaduced Experience: City Highlights (10 Guests) (2 Hours)\nLOCATION:Christians Brygge 28, c/o Housing Group A, S, sal sttv, 1219 København\nEND:VEVENT\nEND:VCALENDAR",
+              "type": "text/calendar",
+              "name": "seaduced-booking.ics"
+            }
+          ]
+        }
+      },
+      {
+        "to": "admin@harness.test",
+        "subject": "⚓ Nueva Reserva — City Highlights (10 Guests) (2 Hours) · Ana García · 2026-10-15",
+        "body": "",
+        "options": {
+          "name": "Seaduced Bookings",
+          "htmlBody": "@bodies/41e1774749836353.html"
+        }
+      }
+    ]
+  },
+  "doPost/resendEmail/ok.danish": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": true
+      }
+    },
+    "logs": [
+      "ACTION: resendEmail",
+      "DATA: {\"name\":\"Ana García\",\"email\":\"ana@example.com\",\"phone\":\"+45 11 22 33 44\",\"tour\":\"book-10p-2h\",\"date\":\"2026-10-15\",\"time\":\"14:00\",\"qty\":\"4\",\"lang\":\"danish\",\"tapas\":\"2\",\"amount\":\"1800\",\"currency\":\"DKK\",\"sumup_checkout_id\":\"chk_123\",\"action\":\"resendEmail\"}",
+      "Resend email sent to: ana@example.com"
+    ],
+    "gmail": [
+      {
+        "to": "ana@example.com",
+        "subject": "Seaduced Experience — Din booking er bekræftet!",
+        "body": "",
+        "options": {
+          "name": "Seaduced Experience",
+          "htmlBody": "@bodies/bcd5317a192f879f.html",
+          "attachments": [
+            {
+              "__blob": true,
+              "content": "BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\nDTSTART:20261015T120000Z\nDTEND:20261015T140000Z\nSUMMARY:Seaduced Experience: City Highlights (10 Guests) (2 Hours)\nLOCATION:Christians Brygge 28, c/o Housing Group A, S, sal sttv, 1219 København\nEND:VEVENT\nEND:VCALENDAR",
+              "type": "text/calendar",
+              "name": "seaduced-booking.ics"
+            }
+          ]
+        }
+      },
+      {
+        "to": "admin@harness.test",
+        "subject": "⚓ Nueva Reserva — City Highlights (10 Guests) (2 Hours) · Ana García · 2026-10-15",
+        "body": "",
+        "options": {
+          "name": "Seaduced Bookings",
+          "htmlBody": "@bodies/368c4824c915f2fb.html"
+        }
+      }
+    ]
+  },
+  "doPost/resendEmail/missing-fields": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": false,
+        "error": "Missing email, date or time"
+      }
+    },
+    "logs": [
+      "ACTION: resendEmail",
+      "DATA: {\"action\":\"resendEmail\",\"email\":\"ana@example.com\"}"
+    ]
+  },
+  "doPost/resendEmail/gmail-throws": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": true
+      }
+    },
+    "logs": [
+      "ACTION: resendEmail",
+      "DATA: {\"name\":\"Ana García\",\"email\":\"ana@example.com\",\"phone\":\"+45 11 22 33 44\",\"tour\":\"city-highlights-1h\",\"date\":\"2026-10-15\",\"time\":\"14:00\",\"qty\":\"4\",\"lang\":\"english\",\"tapas\":\"2\",\"amount\":\"1800\",\"currency\":\"DKK\",\"sumup_checkout_id\":\"chk_123\",\"action\":\"resendEmail\"}",
+      "Guest email error: Error: Gmail quota exceeded (stub)",
+      "Admin email error: Error: Gmail quota exceeded (stub)",
+      "Resend email sent to: ana@example.com"
+    ]
+  },
+  "doPost/paymentFailed/ok.english": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": true
+      }
+    },
+    "logs": [
+      "ACTION: paymentFailed",
+      "DATA: {\"name\":\"Ana García\",\"email\":\"ana@example.com\",\"phone\":\"+45 11 22 33 44\",\"tour\":\"city-highlights-1h\",\"date\":\"2026-10-15\",\"time\":\"14:00\",\"qty\":\"4\",\"lang\":\"english\",\"tapas\":\"2\",\"amount\":\"1800\",\"currency\":\"DKK\",\"sumup_checkout_id\":\"chk_123\",\"action\":\"paymentFailed\"}",
+      "Payment-failed email sent to: ana@example.com"
+    ],
+    "gmail": [
+      {
+        "to": "ana@example.com",
+        "subject": "Seaduced Experience — We couldn't complete your payment",
+        "body": "",
+        "options": {
+          "name": "Seaduced Experience",
+          "htmlBody": "@bodies/f5dbbd524f452cba.html"
+        }
+      }
+    ]
+  },
+  "doPost/paymentFailed/ok.spanish": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": true
+      }
+    },
+    "logs": [
+      "ACTION: paymentFailed",
+      "DATA: {\"name\":\"Ana García\",\"email\":\"ana@example.com\",\"phone\":\"+45 11 22 33 44\",\"tour\":\"city-highlights-1h\",\"date\":\"2026-10-15\",\"time\":\"14:00\",\"qty\":\"4\",\"lang\":\"spanish\",\"tapas\":\"2\",\"amount\":\"1800\",\"currency\":\"DKK\",\"sumup_checkout_id\":\"chk_123\",\"action\":\"paymentFailed\"}",
+      "Payment-failed email sent to: ana@example.com"
+    ],
+    "gmail": [
+      {
+        "to": "ana@example.com",
+        "subject": "Seaduced Experience — No pudimos completar tu pago",
+        "body": "",
+        "options": {
+          "name": "Seaduced Experience",
+          "htmlBody": "@bodies/e2f7da26b7440d75.html"
+        }
+      }
+    ]
+  },
+  "doPost/paymentFailed/ok.danish": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": true
+      }
+    },
+    "logs": [
+      "ACTION: paymentFailed",
+      "DATA: {\"name\":\"Ana García\",\"email\":\"ana@example.com\",\"phone\":\"+45 11 22 33 44\",\"tour\":\"city-highlights-1h\",\"date\":\"2026-10-15\",\"time\":\"14:00\",\"qty\":\"4\",\"lang\":\"danish\",\"tapas\":\"2\",\"amount\":\"1800\",\"currency\":\"DKK\",\"sumup_checkout_id\":\"chk_123\",\"action\":\"paymentFailed\"}",
+      "Payment-failed email sent to: ana@example.com"
+    ],
+    "gmail": [
+      {
+        "to": "ana@example.com",
+        "subject": "Seaduced Experience — Vi kunne ikke gennemføre din betaling",
+        "body": "",
+        "options": {
+          "name": "Seaduced Experience",
+          "htmlBody": "@bodies/491b4fe641fcff8a.html"
+        }
+      }
+    ]
+  },
+  "doPost/paymentFailed/no-lang-defaults-english": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": true
+      }
+    },
+    "logs": [
+      "ACTION: paymentFailed",
+      "DATA: {\"action\":\"paymentFailed\",\"email\":\"ana@example.com\"}",
+      "Payment-failed email sent to: ana@example.com"
+    ],
+    "gmail": [
+      {
+        "to": "ana@example.com",
+        "subject": "Seaduced Experience — We couldn't complete your payment",
+        "body": "",
+        "options": {
+          "name": "Seaduced Experience",
+          "htmlBody": "@bodies/517f6287405b5ca3.html"
+        }
+      }
+    ]
+  },
+  "doPost/paymentFailed/unknown-lang": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": true
+      }
+    },
+    "logs": [
+      "ACTION: paymentFailed",
+      "DATA: {\"name\":\"Ana García\",\"email\":\"ana@example.com\",\"phone\":\"+45 11 22 33 44\",\"tour\":\"city-highlights-1h\",\"date\":\"2026-10-15\",\"time\":\"14:00\",\"qty\":\"4\",\"lang\":\"german\",\"tapas\":\"2\",\"amount\":\"1800\",\"currency\":\"DKK\",\"sumup_checkout_id\":\"chk_123\",\"action\":\"paymentFailed\"}",
+      "Payment-failed email sent to: ana@example.com"
+    ],
+    "gmail": [
+      {
+        "to": "ana@example.com",
+        "subject": "Seaduced Experience — We couldn't complete your payment",
+        "body": "",
+        "options": {
+          "name": "Seaduced Experience",
+          "htmlBody": "@bodies/6a3b7192f454eefa.html"
+        }
+      }
+    ]
+  },
+  "doPost/paymentFailed/missing-email": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": false,
+        "error": "Missing email"
+      }
+    },
+    "logs": [
+      "ACTION: paymentFailed",
+      "DATA: {\"action\":\"paymentFailed\"}"
+    ]
+  },
+  "doPost/paymentFailed/invalid-email": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": false,
+        "error": "Invalid email"
+      }
+    },
+    "logs": [
+      "ACTION: paymentFailed",
+      "DATA: {\"action\":\"paymentFailed\",\"email\":\"not an email\"}",
+      "Payment-failed: invalid email, skipping: not an email"
+    ]
+  },
+  "doPost/paymentFailed/gmail-throws": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": false,
+        "error": "Error: Gmail quota exceeded (stub)"
+      }
+    },
+    "logs": [
+      "ACTION: paymentFailed",
+      "DATA: {\"name\":\"Ana García\",\"email\":\"ana@example.com\",\"phone\":\"+45 11 22 33 44\",\"tour\":\"city-highlights-1h\",\"date\":\"2026-10-15\",\"time\":\"14:00\",\"qty\":\"4\",\"lang\":\"english\",\"tapas\":\"2\",\"amount\":\"1800\",\"currency\":\"DKK\",\"sumup_checkout_id\":\"chk_123\",\"action\":\"paymentFailed\"}",
+      "Payment-failed email error: Error: Gmail quota exceeded (stub)"
+    ]
+  },
+  "doPost/paymentReminder/ok.english": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": true
+      }
+    },
+    "logs": [
+      "ACTION: paymentReminder",
+      "DATA: {\"name\":\"Ana García\",\"email\":\"ana@example.com\",\"phone\":\"+45 11 22 33 44\",\"tour\":\"city-highlights-1h\",\"date\":\"2026-10-15\",\"time\":\"14:00\",\"qty\":\"4\",\"lang\":\"english\",\"tapas\":\"2\",\"amount\":\"1800\",\"currency\":\"DKK\",\"sumup_checkout_id\":\"chk_123\",\"action\":\"paymentReminder\"}",
+      "Payment-reminder email sent to: ana@example.com"
+    ],
+    "gmail": [
+      {
+        "to": "ana@example.com",
+        "subject": "Seaduced Experience — Still want to book your Seaduced experience?",
+        "body": "",
+        "options": {
+          "name": "Seaduced Experience",
+          "htmlBody": "@bodies/4050cd3fae0c3f6a.html"
+        }
+      }
+    ]
+  },
+  "doPost/paymentReminder/ok.spanish": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": true
+      }
+    },
+    "logs": [
+      "ACTION: paymentReminder",
+      "DATA: {\"name\":\"Ana García\",\"email\":\"ana@example.com\",\"phone\":\"+45 11 22 33 44\",\"tour\":\"city-highlights-1h\",\"date\":\"2026-10-15\",\"time\":\"14:00\",\"qty\":\"4\",\"lang\":\"spanish\",\"tapas\":\"2\",\"amount\":\"1800\",\"currency\":\"DKK\",\"sumup_checkout_id\":\"chk_123\",\"action\":\"paymentReminder\"}",
+      "Payment-reminder email sent to: ana@example.com"
+    ],
+    "gmail": [
+      {
+        "to": "ana@example.com",
+        "subject": "Seaduced Experience — ¿Todavía querés reservar tu experiencia Seaduced?",
+        "body": "",
+        "options": {
+          "name": "Seaduced Experience",
+          "htmlBody": "@bodies/07862f4282fe1eef.html"
+        }
+      }
+    ]
+  },
+  "doPost/paymentReminder/ok.danish": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": true
+      }
+    },
+    "logs": [
+      "ACTION: paymentReminder",
+      "DATA: {\"name\":\"Ana García\",\"email\":\"ana@example.com\",\"phone\":\"+45 11 22 33 44\",\"tour\":\"city-highlights-1h\",\"date\":\"2026-10-15\",\"time\":\"14:00\",\"qty\":\"4\",\"lang\":\"danish\",\"tapas\":\"2\",\"amount\":\"1800\",\"currency\":\"DKK\",\"sumup_checkout_id\":\"chk_123\",\"action\":\"paymentReminder\"}",
+      "Payment-reminder email sent to: ana@example.com"
+    ],
+    "gmail": [
+      {
+        "to": "ana@example.com",
+        "subject": "Seaduced Experience — Vil du stadig booke din Seaduced-oplevelse?",
+        "body": "",
+        "options": {
+          "name": "Seaduced Experience",
+          "htmlBody": "@bodies/4ce952e6dc17c750.html"
+        }
+      }
+    ]
+  },
+  "doPost/paymentReminder/no-lang-defaults-english": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": true
+      }
+    },
+    "logs": [
+      "ACTION: paymentReminder",
+      "DATA: {\"action\":\"paymentReminder\",\"email\":\"ana@example.com\"}",
+      "Payment-reminder email sent to: ana@example.com"
+    ],
+    "gmail": [
+      {
+        "to": "ana@example.com",
+        "subject": "Seaduced Experience — Still want to book your Seaduced experience?",
+        "body": "",
+        "options": {
+          "name": "Seaduced Experience",
+          "htmlBody": "@bodies/7e3b9776c7695630.html"
+        }
+      }
+    ]
+  },
+  "doPost/paymentReminder/unknown-lang": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": true
+      }
+    },
+    "logs": [
+      "ACTION: paymentReminder",
+      "DATA: {\"name\":\"Ana García\",\"email\":\"ana@example.com\",\"phone\":\"+45 11 22 33 44\",\"tour\":\"city-highlights-1h\",\"date\":\"2026-10-15\",\"time\":\"14:00\",\"qty\":\"4\",\"lang\":\"german\",\"tapas\":\"2\",\"amount\":\"1800\",\"currency\":\"DKK\",\"sumup_checkout_id\":\"chk_123\",\"action\":\"paymentReminder\"}",
+      "Payment-reminder email sent to: ana@example.com"
+    ],
+    "gmail": [
+      {
+        "to": "ana@example.com",
+        "subject": "Seaduced Experience — Still want to book your Seaduced experience?",
+        "body": "",
+        "options": {
+          "name": "Seaduced Experience",
+          "htmlBody": "@bodies/ec0f2274a44af172.html"
+        }
+      }
+    ]
+  },
+  "doPost/paymentReminder/missing-email": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": false,
+        "error": "Missing email"
+      }
+    },
+    "logs": [
+      "ACTION: paymentReminder",
+      "DATA: {\"action\":\"paymentReminder\"}"
+    ]
+  },
+  "doPost/paymentReminder/invalid-email": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": false,
+        "error": "Invalid email"
+      }
+    },
+    "logs": [
+      "ACTION: paymentReminder",
+      "DATA: {\"action\":\"paymentReminder\",\"email\":\"not an email\"}",
+      "Payment-reminder: invalid email, skipping: not an email"
+    ]
+  },
+  "doPost/paymentReminder/gmail-throws": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": false,
+        "error": "Error: Gmail quota exceeded (stub)"
+      }
+    },
+    "logs": [
+      "ACTION: paymentReminder",
+      "DATA: {\"name\":\"Ana García\",\"email\":\"ana@example.com\",\"phone\":\"+45 11 22 33 44\",\"tour\":\"city-highlights-1h\",\"date\":\"2026-10-15\",\"time\":\"14:00\",\"qty\":\"4\",\"lang\":\"english\",\"tapas\":\"2\",\"amount\":\"1800\",\"currency\":\"DKK\",\"sumup_checkout_id\":\"chk_123\",\"action\":\"paymentReminder\"}",
+      "Payment-reminder email error: Error: Gmail quota exceeded (stub)"
+    ]
+  },
+  "doPost/sendCancellationEmail/ok.english": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": true
+      }
+    },
+    "logs": [
+      "ACTION: sendCancellationEmail",
+      "DATA: {\"name\":\"Ana García\",\"email\":\"ana@example.com\",\"phone\":\"+45 11 22 33 44\",\"tour\":\"city-highlights-1h\",\"date\":\"2026-10-15\",\"time\":\"14:00\",\"qty\":\"4\",\"lang\":\"english\",\"tapas\":\"2\",\"amount\":\"1800\",\"currency\":\"DKK\",\"sumup_checkout_id\":\"chk_123\",\"action\":\"sendCancellationEmail\"}",
+      "Cancellation email sent to: ana@example.com"
+    ],
+    "gmail": [
+      {
+        "to": "ana@example.com",
+        "subject": "Seaduced Experience — Your booking has been cancelled",
+        "body": "",
+        "options": {
+          "name": "Seaduced Experience",
+          "htmlBody": "@bodies/5b20ff4b970dc537.html"
+        }
+      }
+    ]
+  },
+  "doPost/sendCancellationEmail/ok.spanish": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": true
+      }
+    },
+    "logs": [
+      "ACTION: sendCancellationEmail",
+      "DATA: {\"name\":\"Ana García\",\"email\":\"ana@example.com\",\"phone\":\"+45 11 22 33 44\",\"tour\":\"city-highlights-1h\",\"date\":\"2026-10-15\",\"time\":\"14:00\",\"qty\":\"4\",\"lang\":\"spanish\",\"tapas\":\"2\",\"amount\":\"1800\",\"currency\":\"DKK\",\"sumup_checkout_id\":\"chk_123\",\"action\":\"sendCancellationEmail\"}",
+      "Cancellation email sent to: ana@example.com"
+    ],
+    "gmail": [
+      {
+        "to": "ana@example.com",
+        "subject": "Seaduced Experience — Tu reserva ha sido cancelada",
+        "body": "",
+        "options": {
+          "name": "Seaduced Experience",
+          "htmlBody": "@bodies/bab4310e6a007341.html"
+        }
+      }
+    ]
+  },
+  "doPost/sendCancellationEmail/ok.danish": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": true
+      }
+    },
+    "logs": [
+      "ACTION: sendCancellationEmail",
+      "DATA: {\"name\":\"Ana García\",\"email\":\"ana@example.com\",\"phone\":\"+45 11 22 33 44\",\"tour\":\"city-highlights-1h\",\"date\":\"2026-10-15\",\"time\":\"14:00\",\"qty\":\"4\",\"lang\":\"danish\",\"tapas\":\"2\",\"amount\":\"1800\",\"currency\":\"DKK\",\"sumup_checkout_id\":\"chk_123\",\"action\":\"sendCancellationEmail\"}",
+      "Cancellation email sent to: ana@example.com"
+    ],
+    "gmail": [
+      {
+        "to": "ana@example.com",
+        "subject": "Seaduced Experience — Din booking er blevet annulleret",
+        "body": "",
+        "options": {
+          "name": "Seaduced Experience",
+          "htmlBody": "@bodies/2f317e039d548588.html"
+        }
+      }
+    ]
+  },
+  "doPost/sendCancellationEmail/no-lang-defaults-english": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": true
+      }
+    },
+    "logs": [
+      "ACTION: sendCancellationEmail",
+      "DATA: {\"action\":\"sendCancellationEmail\",\"email\":\"ana@example.com\"}",
+      "Cancellation email sent to: ana@example.com"
+    ],
+    "gmail": [
+      {
+        "to": "ana@example.com",
+        "subject": "Seaduced Experience — Your booking has been cancelled",
+        "body": "",
+        "options": {
+          "name": "Seaduced Experience",
+          "htmlBody": "@bodies/cef68f911e7fd027.html"
+        }
+      }
+    ]
+  },
+  "doPost/sendCancellationEmail/unknown-lang": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": true
+      }
+    },
+    "logs": [
+      "ACTION: sendCancellationEmail",
+      "DATA: {\"name\":\"Ana García\",\"email\":\"ana@example.com\",\"phone\":\"+45 11 22 33 44\",\"tour\":\"city-highlights-1h\",\"date\":\"2026-10-15\",\"time\":\"14:00\",\"qty\":\"4\",\"lang\":\"german\",\"tapas\":\"2\",\"amount\":\"1800\",\"currency\":\"DKK\",\"sumup_checkout_id\":\"chk_123\",\"action\":\"sendCancellationEmail\"}",
+      "Cancellation email sent to: ana@example.com"
+    ],
+    "gmail": [
+      {
+        "to": "ana@example.com",
+        "subject": "Seaduced Experience — Your booking has been cancelled",
+        "body": "",
+        "options": {
+          "name": "Seaduced Experience",
+          "htmlBody": "@bodies/5b20ff4b970dc537.html"
+        }
+      }
+    ]
+  },
+  "doPost/sendCancellationEmail/missing-email": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": false,
+        "error": "Missing email"
+      }
+    },
+    "logs": [
+      "ACTION: sendCancellationEmail",
+      "DATA: {\"action\":\"sendCancellationEmail\"}"
+    ]
+  },
+  "doPost/sendCancellationEmail/invalid-email": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": false,
+        "error": "Invalid email"
+      }
+    },
+    "logs": [
+      "ACTION: sendCancellationEmail",
+      "DATA: {\"action\":\"sendCancellationEmail\",\"email\":\"not an email\"}",
+      "Cancellation email: invalid email, skipping: not an email"
+    ]
+  },
+  "doPost/sendCancellationEmail/gmail-throws": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": false,
+        "error": "Error: Gmail quota exceeded (stub)"
+      }
+    },
+    "logs": [
+      "ACTION: sendCancellationEmail",
+      "DATA: {\"name\":\"Ana García\",\"email\":\"ana@example.com\",\"phone\":\"+45 11 22 33 44\",\"tour\":\"city-highlights-1h\",\"date\":\"2026-10-15\",\"time\":\"14:00\",\"qty\":\"4\",\"lang\":\"english\",\"tapas\":\"2\",\"amount\":\"1800\",\"currency\":\"DKK\",\"sumup_checkout_id\":\"chk_123\",\"action\":\"sendCancellationEmail\"}",
+      "Cancellation email error: Error: Gmail quota exceeded (stub)"
+    ]
+  },
+  "doPost/sendReviewEmail/ok.english": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": true
+      }
+    },
+    "logs": [
+      "ACTION: sendReviewEmail",
+      "DATA: {\"name\":\"Ana García\",\"email\":\"ana@example.com\",\"phone\":\"+45 11 22 33 44\",\"tour\":\"city-highlights-1h\",\"date\":\"2026-10-15\",\"time\":\"14:00\",\"qty\":\"4\",\"lang\":\"english\",\"tapas\":\"2\",\"amount\":\"1800\",\"currency\":\"DKK\",\"sumup_checkout_id\":\"chk_123\",\"action\":\"sendReviewEmail\",\"reviewUrl\":\"https://seaduced-experience.com/r?b=abc123\"}",
+      "Review email sent to: ana@example.com"
+    ],
+    "gmail": [
+      {
+        "to": "ana@example.com",
+        "subject": "Seaduced Experience — How was your time on the water?",
+        "body": "",
+        "options": {
+          "name": "Seaduced Experience",
+          "htmlBody": "@bodies/87878ec91d69a16f.html"
+        }
+      }
+    ]
+  },
+  "doPost/sendReviewEmail/ok.spanish": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": true
+      }
+    },
+    "logs": [
+      "ACTION: sendReviewEmail",
+      "DATA: {\"name\":\"Ana García\",\"email\":\"ana@example.com\",\"phone\":\"+45 11 22 33 44\",\"tour\":\"city-highlights-1h\",\"date\":\"2026-10-15\",\"time\":\"14:00\",\"qty\":\"4\",\"lang\":\"spanish\",\"tapas\":\"2\",\"amount\":\"1800\",\"currency\":\"DKK\",\"sumup_checkout_id\":\"chk_123\",\"action\":\"sendReviewEmail\",\"reviewUrl\":\"https://seaduced-experience.com/r?b=abc123\"}",
+      "Review email sent to: ana@example.com"
+    ],
+    "gmail": [
+      {
+        "to": "ana@example.com",
+        "subject": "Seaduced Experience — ¿Qué tal tu experiencia en el agua?",
+        "body": "",
+        "options": {
+          "name": "Seaduced Experience",
+          "htmlBody": "@bodies/12ac6b964cd1e1c9.html"
+        }
+      }
+    ]
+  },
+  "doPost/sendReviewEmail/ok.danish": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": true
+      }
+    },
+    "logs": [
+      "ACTION: sendReviewEmail",
+      "DATA: {\"name\":\"Ana García\",\"email\":\"ana@example.com\",\"phone\":\"+45 11 22 33 44\",\"tour\":\"city-highlights-1h\",\"date\":\"2026-10-15\",\"time\":\"14:00\",\"qty\":\"4\",\"lang\":\"danish\",\"tapas\":\"2\",\"amount\":\"1800\",\"currency\":\"DKK\",\"sumup_checkout_id\":\"chk_123\",\"action\":\"sendReviewEmail\",\"reviewUrl\":\"https://seaduced-experience.com/r?b=abc123\"}",
+      "Review email sent to: ana@example.com"
+    ],
+    "gmail": [
+      {
+        "to": "ana@example.com",
+        "subject": "Seaduced Experience — Hvordan var din tur på vandet?",
+        "body": "",
+        "options": {
+          "name": "Seaduced Experience",
+          "htmlBody": "@bodies/7ef31fb675279eb9.html"
+        }
+      }
+    ]
+  },
+  "doPost/sendReviewEmail/no-lang-defaults-english": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": true
+      }
+    },
+    "logs": [
+      "ACTION: sendReviewEmail",
+      "DATA: {\"action\":\"sendReviewEmail\",\"email\":\"ana@example.com\",\"reviewUrl\":\"https://seaduced-experience.com/r?b=abc123\"}",
+      "Review email sent to: ana@example.com"
+    ],
+    "gmail": [
+      {
+        "to": "ana@example.com",
+        "subject": "Seaduced Experience — How was your time on the water?",
+        "body": "",
+        "options": {
+          "name": "Seaduced Experience",
+          "htmlBody": "@bodies/43aad16090ae2a9f.html"
+        }
+      }
+    ]
+  },
+  "doPost/sendReviewEmail/unknown-lang": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": true
+      }
+    },
+    "logs": [
+      "ACTION: sendReviewEmail",
+      "DATA: {\"name\":\"Ana García\",\"email\":\"ana@example.com\",\"phone\":\"+45 11 22 33 44\",\"tour\":\"city-highlights-1h\",\"date\":\"2026-10-15\",\"time\":\"14:00\",\"qty\":\"4\",\"lang\":\"german\",\"tapas\":\"2\",\"amount\":\"1800\",\"currency\":\"DKK\",\"sumup_checkout_id\":\"chk_123\",\"action\":\"sendReviewEmail\",\"reviewUrl\":\"https://seaduced-experience.com/r?b=abc123\"}",
+      "Review email sent to: ana@example.com"
+    ],
+    "gmail": [
+      {
+        "to": "ana@example.com",
+        "subject": "Seaduced Experience — How was your time on the water?",
+        "body": "",
+        "options": {
+          "name": "Seaduced Experience",
+          "htmlBody": "@bodies/87878ec91d69a16f.html"
+        }
+      }
+    ]
+  },
+  "doPost/sendReviewEmail/missing-email": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": false,
+        "error": "Missing email"
+      }
+    },
+    "logs": [
+      "ACTION: sendReviewEmail",
+      "DATA: {\"action\":\"sendReviewEmail\",\"reviewUrl\":\"https://seaduced-experience.com/r?b=abc123\"}"
+    ]
+  },
+  "doPost/sendReviewEmail/invalid-email": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": false,
+        "error": "Invalid email"
+      }
+    },
+    "logs": [
+      "ACTION: sendReviewEmail",
+      "DATA: {\"action\":\"sendReviewEmail\",\"email\":\"not an email\",\"reviewUrl\":\"https://seaduced-experience.com/r?b=abc123\"}",
+      "Review email: invalid email, skipping: not an email"
+    ]
+  },
+  "doPost/sendReviewEmail/gmail-throws": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": false,
+        "error": "Error: Gmail quota exceeded (stub)"
+      }
+    },
+    "logs": [
+      "ACTION: sendReviewEmail",
+      "DATA: {\"name\":\"Ana García\",\"email\":\"ana@example.com\",\"phone\":\"+45 11 22 33 44\",\"tour\":\"city-highlights-1h\",\"date\":\"2026-10-15\",\"time\":\"14:00\",\"qty\":\"4\",\"lang\":\"english\",\"tapas\":\"2\",\"amount\":\"1800\",\"currency\":\"DKK\",\"sumup_checkout_id\":\"chk_123\",\"action\":\"sendReviewEmail\",\"reviewUrl\":\"https://seaduced-experience.com/r?b=abc123\"}",
+      "Review email error: Error: Gmail quota exceeded (stub)"
+    ]
+  },
+  "doPost/sendReviewEmail/missing-reviewUrl": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": false,
+        "error": "Missing reviewUrl"
+      }
+    },
+    "logs": [
+      "ACTION: sendReviewEmail",
+      "DATA: {\"name\":\"Ana García\",\"email\":\"ana@example.com\",\"phone\":\"+45 11 22 33 44\",\"tour\":\"city-highlights-1h\",\"date\":\"2026-10-15\",\"time\":\"14:00\",\"qty\":\"4\",\"lang\":\"english\",\"tapas\":\"2\",\"amount\":\"1800\",\"currency\":\"DKK\",\"sumup_checkout_id\":\"chk_123\",\"action\":\"sendReviewEmail\"}"
+    ]
+  },
+  "doPost/updateEvent/sumup-in-place": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": true,
+        "eventId": "evt-1",
+        "message": "Updated"
+      }
+    },
+    "logs": [
+      "ACTION: updateEvent",
+      "DATA: {\"action\":\"updateEvent\",\"sumup_id\":\"chk_123\",\"tour\":\"book-1h-2h\",\"date\":\"2026-10-16\",\"time\":\"10:00\",\"qty\":5,\"extras\":\"3\",\"lang\":\"danish\",\"amount\":\"2500\",\"currency\":\"DKK\",\"name\":\"Ana G.\",\"email\":\"ana@example.com\",\"phone\":\"+45 1\",\"boat\":\"boat1\"}",
+      "Event updated: SumUp ID: chk_123"
+    ],
+    "locks": [
+      "tryLock 10000",
+      "releaseLock"
+    ],
+    "events": [
+      {
+        "id": "evt-1",
+        "boat": "boat1",
+        "title": "Reserva: Ana G.",
+        "start": "2026-10-16T08:00:00.000Z",
+        "end": "2026-10-16T10:00:00.000Z",
+        "description": "✨ City Highlights (2 Hours)\n📅 2026-10-16 | 🕒 10:00 - 12:00\n👥 Passengers: 5\n🌍 Language: danish\n🍷 Extras: 3 Tapas/Charcuterie\n\n👤 CONTACT\nName: Ana G.\nEmail: ana@example.com\nPhone: +45 1\n──────────────────────────\nSumUp ID: chk_123\nAmount: 2500 DKK",
+        "location": "",
+        "color": "5",
+        "guests": [],
+        "deleted": false
+      }
+    ]
+  },
+  "doPost/updateEvent/sumup-no-boat-explicit-endTime": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": true,
+        "eventId": "evt-1",
+        "message": "Updated"
+      }
+    },
+    "logs": [
+      "ACTION: updateEvent",
+      "DATA: {\"action\":\"updateEvent\",\"sumup_id\":\"chk_123\",\"tour\":\"\",\"date\":\"2026-10-16\",\"time\":\"10:00\",\"qty\":5,\"extras\":\"3\",\"lang\":\"danish\",\"amount\":\"2500\",\"currency\":\"DKK\",\"name\":\"Ana G.\",\"email\":\"ana@example.com\",\"phone\":\"+45 1\",\"endTime\":\"13:30\"}",
+      "Event updated: SumUp ID: chk_123"
+    ],
+    "locks": [
+      "tryLock 10000",
+      "releaseLock"
+    ],
+    "events": [
+      {
+        "id": "evt-1",
+        "boat": "boat1",
+        "title": "Reserva: Ana G.",
+        "start": "2026-10-16T08:00:00.000Z",
+        "end": "2026-10-16T09:00:00.000Z",
+        "description": "✨ Reserva\n📅 2026-10-16 | 🕒 10:00 - 13:30\n👥 Passengers: 5\n🌍 Language: danish\n🍷 Extras: 3 Tapas/Charcuterie\n\n👤 CONTACT\nName: Ana G.\nEmail: ana@example.com\nPhone: +45 1\n──────────────────────────\nSumUp ID: chk_123\nAmount: 2500 DKK",
+        "location": "",
+        "color": "5",
+        "guests": [],
+        "deleted": false
+      }
+    ]
+  },
+  "doPost/updateEvent/move-to-boat2": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": true,
+        "eventId": "evt-2",
+        "message": "Updated and moved to boat2"
+      }
+    },
+    "logs": [
+      "ACTION: updateEvent",
+      "DATA: {\"action\":\"updateEvent\",\"sumup_id\":\"chk_123\",\"tour\":\"book-1h-2h\",\"date\":\"2026-10-16\",\"time\":\"10:00\",\"qty\":5,\"extras\":\"3\",\"lang\":\"danish\",\"amount\":\"2500\",\"currency\":\"DKK\",\"name\":\"Ana G.\",\"email\":\"ana@example.com\",\"phone\":\"+45 1\",\"boat\":\"boat2\"}",
+      "Event updated + moved to boat2 (SumUp ID: chk_123)"
+    ],
+    "locks": [
+      "tryLock 10000",
+      "releaseLock"
+    ],
+    "events": [
+      {
+        "id": "evt-1",
+        "boat": "boat1",
+        "title": "Reserva: Ana",
+        "start": "2026-10-15T12:00:00.000Z",
+        "end": "2026-10-15T13:00:00.000Z",
+        "description": "✨ City Highlights\nSumUp ID: chk_123\nStatus: PAID",
+        "location": "",
+        "color": "5",
+        "guests": [],
+        "deleted": true
+      },
+      {
+        "id": "evt-2",
+        "boat": "boat2",
+        "title": "Reserva: Ana G.",
+        "start": "2026-10-16T08:00:00.000Z",
+        "end": "2026-10-16T10:00:00.000Z",
+        "description": "✨ City Highlights (2 Hours)\n📅 2026-10-16 | 🕒 10:00 - 12:00\n👥 Passengers: 5\n🌍 Language: danish\n🍷 Extras: 3 Tapas/Charcuterie\n\n👤 CONTACT\nName: Ana G.\nEmail: ana@example.com\nPhone: +45 1\n──────────────────────────\nSumUp ID: chk_123\nAmount: 2500 DKK",
+        "location": "",
+        "color": "5",
+        "guests": [],
+        "deleted": false
+      }
+    ]
+  },
+  "doPost/updateEvent/gyg": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": true,
+        "eventId": "evt-1",
+        "message": "Updated"
+      }
+    },
+    "logs": [
+      "ACTION: updateEvent",
+      "DATA: {\"action\":\"updateEvent\",\"tour\":\"book-1h-2h\",\"date\":\"2026-10-16\",\"time\":\"10:00\",\"qty\":5,\"extras\":\"3\",\"lang\":\"danish\",\"amount\":\"2500\",\"currency\":\"DKK\",\"name\":\"Ana G.\",\"email\":\"ana@example.com\",\"phone\":\"+45 1\",\"gyg_booking_id\":\"GYG-1\",\"boat\":\"boat2\"}",
+      "Event updated: GYG Ref: GYG-1"
+    ],
+    "locks": [
+      "tryLock 10000",
+      "releaseLock"
+    ],
+    "events": [
+      {
+        "id": "evt-1",
+        "boat": "boat2",
+        "title": "GYG: Ana G. 5p",
+        "start": "2026-10-16T08:00:00.000Z",
+        "end": "2026-10-16T10:00:00.000Z",
+        "description": "✨ City Highlights (2 Hours)\n📅 2026-10-16 | 🕒 10:00 - 12:00\n👥 Passengers: 5\n🌍 Language: danish\n🍷 Extras: 3 Tapas/Charcuterie\n\n👤 CONTACT\nName: Ana G.\nEmail: ana@example.com\nPhone: +45 1\n──────────────────────────\nGYG Ref: GYG-1\nSource: GetYourGuide",
+        "location": "",
+        "color": "7",
+        "guests": [],
+        "deleted": false
+      }
+    ]
+  },
+  "doPost/updateEvent/not-found": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": true,
+        "message": "No event found to update"
+      }
+    },
+    "logs": [
+      "ACTION: updateEvent",
+      "DATA: {\"action\":\"updateEvent\",\"sumup_id\":\"chk_123\",\"tour\":\"book-1h-2h\",\"date\":\"2026-10-16\",\"time\":\"10:00\",\"qty\":5,\"extras\":\"3\",\"lang\":\"danish\",\"amount\":\"2500\",\"currency\":\"DKK\",\"name\":\"Ana G.\",\"email\":\"ana@example.com\",\"phone\":\"+45 1\"}"
+    ],
+    "locks": [
+      "tryLock 10000",
+      "releaseLock"
+    ]
+  },
+  "doPost/updateEvent/missing-ids": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": false,
+        "error": "Missing gyg_booking_id or sumup_id"
+      }
+    },
+    "logs": [
+      "ACTION: updateEvent",
+      "DATA: {\"action\":\"updateEvent\",\"date\":\"2026-10-16\"}"
+    ]
+  },
+  "doPost/deleteEvent/sumup-found": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": true,
+        "message": "Event deleted"
+      }
+    },
+    "logs": [
+      "ACTION: deleteEvent",
+      "DATA: {\"action\":\"deleteEvent\",\"sumup_id\":\"chk_123\"}",
+      "Event deleted (updateEvent flow): SumUp ID: chk_123"
+    ],
+    "events": [
+      {
+        "id": "evt-1",
+        "boat": "boat1",
+        "title": "Reserva: Ana",
+        "start": "2026-10-15T12:00:00.000Z",
+        "end": "2026-10-15T13:00:00.000Z",
+        "description": "✨ City Highlights\nSumUp ID: chk_123\nStatus: PAID",
+        "location": "",
+        "color": "5",
+        "guests": [],
+        "deleted": true
+      }
+    ]
+  },
+  "doPost/deleteEvent/gyg-found": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": true,
+        "message": "Event deleted"
+      }
+    },
+    "logs": [
+      "ACTION: deleteEvent",
+      "DATA: {\"action\":\"deleteEvent\",\"gyg_booking_id\":\"GYG-1\"}",
+      "Event deleted (updateEvent flow): GYG Ref: GYG-1"
+    ],
+    "events": [
+      {
+        "id": "evt-1",
+        "boat": "boat2",
+        "title": "GYG: Bob 2p",
+        "start": "2026-10-15T12:00:00.000Z",
+        "end": "2026-10-15T13:00:00.000Z",
+        "description": "✨ City Highlights\nGYG Ref: GYG-1\nSource: GetYourGuide",
+        "location": "",
+        "color": "7",
+        "guests": [],
+        "deleted": true
+      }
+    ]
+  },
+  "doPost/deleteEvent/not-found": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": true,
+        "message": "No event found to delete"
+      }
+    },
+    "logs": [
+      "ACTION: deleteEvent",
+      "DATA: {\"action\":\"deleteEvent\",\"sumup_id\":\"chk_404\"}"
+    ]
+  },
+  "doPost/deleteEvent/missing-ids": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": false,
+        "error": "Missing gyg_booking_id or sumup_id"
+      }
+    },
+    "logs": [
+      "ACTION: deleteEvent",
+      "DATA: {\"action\":\"deleteEvent\"}"
+    ]
+  },
+  "doPost/createBlockEvent/ok": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": true,
+        "eventId": "evt-1"
+      }
+    },
+    "logs": [
+      "ACTION: createBlockEvent",
+      "DATA: {\"action\":\"createBlockEvent\",\"calendar\":\"boat2\",\"date\":\"2026-10-20\",\"startTime\":\"09:00\",\"endTime\":\"12:30\",\"reason\":\"Mantenimiento\",\"group_id\":\"grp-1\"}",
+      "Block event created: evt-1 group=grp-1"
+    ],
+    "events": [
+      {
+        "id": "evt-1",
+        "boat": "boat2",
+        "title": "⛔ BLOQUEADO — Mantenimiento",
+        "start": "2026-10-20T07:00:00.000Z",
+        "end": "2026-10-20T10:30:00.000Z",
+        "description": "⛔ HORARIO BLOQUEADO\n📅 2026-10-20 | 🕒 09:00 - 12:30\n⛵ boat2\n📝 Mantenimiento\n──────────────────────────\nBLOCK_GROUP: grp-1\nSource: Admin Panel",
+        "location": "",
+        "color": "8",
+        "guests": [],
+        "deleted": false
+      }
+    ]
+  },
+  "doPost/createBlockEvent/no-reason-default-boat": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": true,
+        "eventId": "evt-1"
+      }
+    },
+    "logs": [
+      "ACTION: createBlockEvent",
+      "DATA: {\"action\":\"createBlockEvent\",\"date\":\"2026-10-20\",\"startTime\":\"09:00\",\"endTime\":\"12:30\",\"reason\":\"\",\"group_id\":\"grp-1\"}",
+      "Block event created: evt-1 group=grp-1"
+    ],
+    "events": [
+      {
+        "id": "evt-1",
+        "boat": "boat1",
+        "title": "⛔ BLOQUEADO",
+        "start": "2026-10-20T07:00:00.000Z",
+        "end": "2026-10-20T10:30:00.000Z",
+        "description": "⛔ HORARIO BLOQUEADO\n📅 2026-10-20 | 🕒 09:00 - 12:30\n⛵ boat1\n──────────────────────────\nBLOCK_GROUP: grp-1\nSource: Admin Panel",
+        "location": "",
+        "color": "8",
+        "guests": [],
+        "deleted": false
+      }
+    ]
+  },
+  "doPost/createBlockEvent/end-before-start": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": false,
+        "error": "endTime must be after startTime"
+      }
+    },
+    "logs": [
+      "ACTION: createBlockEvent",
+      "DATA: {\"action\":\"createBlockEvent\",\"calendar\":\"boat2\",\"date\":\"2026-10-20\",\"startTime\":\"09:00\",\"endTime\":\"08:00\",\"reason\":\"Mantenimiento\",\"group_id\":\"grp-1\"}"
+    ]
+  },
+  "doPost/createBlockEvent/missing-fields": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": false,
+        "error": "Missing date, startTime, endTime or group_id"
+      }
+    },
+    "logs": [
+      "ACTION: createBlockEvent",
+      "DATA: {\"action\":\"createBlockEvent\",\"date\":\"2026-10-20\"}"
+    ]
+  },
+  "doPost/deleteBlockEvent/deletes-group": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": true,
+        "deleted": 2
+      }
+    },
+    "logs": [
+      "ACTION: deleteBlockEvent",
+      "DATA: {\"action\":\"deleteBlockEvent\",\"group_id\":\"grp-1\"}",
+      "Block events deleted: 2 group=grp-1"
+    ],
+    "events": [
+      {
+        "id": "evt-1",
+        "boat": "boat1",
+        "title": "⛔ BLOQUEADO",
+        "start": "2026-10-20T07:00:00.000Z",
+        "end": "2026-10-20T10:00:00.000Z",
+        "description": "BLOCK_GROUP: grp-1\nSource: Admin Panel",
+        "location": "",
+        "color": "8",
+        "guests": [],
+        "deleted": true
+      },
+      {
+        "id": "evt-2",
+        "boat": "boat2",
+        "title": "⛔ BLOQUEADO",
+        "start": "2026-10-21T07:00:00.000Z",
+        "end": "2026-10-21T10:00:00.000Z",
+        "description": "BLOCK_GROUP: grp-1\nSource: Admin Panel",
+        "location": "",
+        "color": "8",
+        "guests": [],
+        "deleted": true
+      },
+      {
+        "id": "evt-3",
+        "boat": "boat2",
+        "title": "⛔ BLOQUEADO",
+        "start": "2026-10-22T07:00:00.000Z",
+        "end": "2026-10-22T10:00:00.000Z",
+        "description": "BLOCK_GROUP: grp-2\nSource: Admin Panel",
+        "location": "",
+        "color": "8",
+        "guests": [],
+        "deleted": false
+      }
+    ]
+  },
+  "doPost/deleteBlockEvent/missing-group": {
+    "result": {
+      "mime": "JSON",
+      "body": {
+        "success": false,
+        "error": "Missing group_id"
+      }
+    },
+    "logs": [
+      "ACTION: deleteBlockEvent",
+      "DATA: {\"action\":\"deleteBlockEvent\"}"
+    ]
+  },
+  "triggers/setupGygExpireHoldsTrigger": {
+    "logs": [
+      "GYG-expire-holds trigger instalado: corre cada 15 min."
+    ],
+    "triggers": [
+      {
+        "op": "delete",
+        "trigger": "trigger-1:checkGygExpireHolds"
+      },
+      {
+        "op": "create",
+        "fn": "checkGygExpireHolds",
+        "type": "timeBased",
+        "everyMinutes": 15
+      }
+    ]
+  },
+  "triggers/setupPaymentReminderTrigger": {
+    "logs": [
+      "Payment-reminder trigger instalado: corre cada 10 min."
+    ],
+    "triggers": [
+      {
+        "op": "delete",
+        "trigger": "trigger-0:checkPendingPaymentReminders"
+      },
+      {
+        "op": "create",
+        "fn": "checkPendingPaymentReminders",
+        "type": "timeBased",
+        "everyMinutes": 10
+      }
+    ]
+  },
+  "triggers/setupPostTourEmailTrigger": {
+    "logs": [
+      "Post-tour-email trigger instalado: corre cada 15 min."
+    ],
+    "triggers": [
+      {
+        "op": "delete",
+        "trigger": "trigger-2:checkPostTourEmails"
+      },
+      {
+        "op": "delete",
+        "trigger": "trigger-4:checkPostTourEmails"
+      },
+      {
+        "op": "create",
+        "fn": "checkPostTourEmails",
+        "type": "timeBased",
+        "everyMinutes": 15
+      }
+    ]
+  },
+  "triggers/checkGygExpireHolds/ok": {
+    "logs": [
+      "checkGygExpireHolds: 200 — {\"ok\":true}"
+    ],
+    "fetches": [
+      {
+        "url": "https://site.harness.test/api/cron-tasks?task=gyg-expire-holds",
+        "options": {
+          "method": "post",
+          "headers": {
+            "Authorization": "Bearer secret-123"
+          },
+          "muteHttpExceptions": true
+        }
+      }
+    ]
+  },
+  "triggers/checkGygExpireHolds/missing-site-url": {
+    "logs": [
+      "checkGygExpireHolds: falta SITE_URL o CRON_SECRET en Script Properties."
+    ]
+  },
+  "triggers/checkGygExpireHolds/missing-cron-secret": {
+    "logs": [
+      "checkGygExpireHolds: falta SITE_URL o CRON_SECRET en Script Properties."
+    ]
+  },
+  "triggers/checkGygExpireHolds/fetch-throws": {
+    "logs": [
+      "checkGygExpireHolds error: Error: DNS error (stub)"
+    ],
+    "fetches": [
+      {
+        "url": "https://site.harness.test/api/cron-tasks?task=gyg-expire-holds",
+        "options": {
+          "method": "post",
+          "headers": {
+            "Authorization": "Bearer secret-123"
+          },
+          "muteHttpExceptions": true
+        }
+      }
+    ]
+  },
+  "triggers/checkPendingPaymentReminders/ok": {
+    "logs": [
+      "checkPendingPaymentReminders: 200 — {\"ok\":true}"
+    ],
+    "fetches": [
+      {
+        "url": "https://site.harness.test/api/cron-tasks?task=payment-reminder",
+        "options": {
+          "method": "post",
+          "headers": {
+            "Authorization": "Bearer secret-123"
+          },
+          "muteHttpExceptions": true
+        }
+      }
+    ]
+  },
+  "triggers/checkPendingPaymentReminders/missing-site-url": {
+    "logs": [
+      "checkPendingPaymentReminders: falta SITE_URL o CRON_SECRET en Script Properties."
+    ]
+  },
+  "triggers/checkPendingPaymentReminders/missing-cron-secret": {
+    "logs": [
+      "checkPendingPaymentReminders: falta SITE_URL o CRON_SECRET en Script Properties."
+    ]
+  },
+  "triggers/checkPendingPaymentReminders/fetch-throws": {
+    "logs": [
+      "checkPendingPaymentReminders error: Error: DNS error (stub)"
+    ],
+    "fetches": [
+      {
+        "url": "https://site.harness.test/api/cron-tasks?task=payment-reminder",
+        "options": {
+          "method": "post",
+          "headers": {
+            "Authorization": "Bearer secret-123"
+          },
+          "muteHttpExceptions": true
+        }
+      }
+    ]
+  },
+  "triggers/checkPostTourEmails/ok": {
+    "logs": [
+      "checkPostTourEmails: 200 — {\"ok\":true}"
+    ],
+    "fetches": [
+      {
+        "url": "https://site.harness.test/api/cron-tasks?task=post-tour-email",
+        "options": {
+          "method": "post",
+          "headers": {
+            "Authorization": "Bearer secret-123"
+          },
+          "muteHttpExceptions": true
+        }
+      }
+    ]
+  },
+  "triggers/checkPostTourEmails/missing-site-url": {
+    "logs": [
+      "checkPostTourEmails: falta SITE_URL o CRON_SECRET en Script Properties."
+    ]
+  },
+  "triggers/checkPostTourEmails/missing-cron-secret": {
+    "logs": [
+      "checkPostTourEmails: falta SITE_URL o CRON_SECRET en Script Properties."
+    ]
+  },
+  "triggers/checkPostTourEmails/fetch-throws": {
+    "logs": [
+      "checkPostTourEmails error: Error: DNS error (stub)"
+    ],
+    "fetches": [
+      {
+        "url": "https://site.harness.test/api/cron-tasks?task=post-tour-email",
+        "options": {
+          "method": "post",
+          "headers": {
+            "Authorization": "Bearer secret-123"
+          },
+          "muteHttpExceptions": true
+        }
+      }
+    ]
+  },
+  "tests/testCalendar": {
+    "logs": [
+      "Calendario 1: Calendar boat1",
+      "Calendario 2: Calendar boat2"
+    ]
+  },
+  "tests/testEmail": {
+    "logs": [
+      "Guest email sent to: <TEST_EMAIL>",
+      "Admin email sent to: admin@harness.test"
+    ],
+    "gmail": [
+      {
+        "to": "<TEST_EMAIL>",
+        "subject": "Seaduced Experience — Your booking is confirmed!",
+        "body": "",
+        "options": {
+          "name": "Seaduced Experience",
+          "htmlBody": "@bodies/a0b1488d693ffc8f.html",
+          "attachments": [
+            {
+              "__blob": true,
+              "content": "BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\nDTSTART:20260526T080000Z\nDTEND:20260526T090000Z\nSUMMARY:Seaduced Experience: Copenhagen City Highlights\nLOCATION:Christians Brygge 28, c/o Housing Group A, S, sal sttv, 1219 København\nEND:VEVENT\nEND:VCALENDAR",
+              "type": "text/calendar",
+              "name": "seaduced-booking.ics"
+            }
+          ]
+        }
+      },
+      {
+        "to": "admin@harness.test",
+        "subject": "⚓ Nueva Reserva — Copenhagen City Highlights · Nick · 2026-05-26",
+        "body": "",
+        "options": {
+          "name": "Seaduced Bookings",
+          "htmlBody": "@bodies/ed565ecd7cc4de66.html"
+        }
+      }
+    ]
+  }
+}

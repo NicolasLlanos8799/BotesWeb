@@ -16,7 +16,9 @@
     "compare:availability": "node scripts/compare-availability.js",
     "import:gas": "node scripts/import-from-gas.js",
     "migrate": "node scripts/migrate-data.js",
-    "test:gyg": "node scripts/test-gyg.js"
+    "test:gyg": "node scripts/test-gyg.js",
+    "test:gas": "node scripts/gas-harness/harness.mjs",
+    "test:gas:update": "node scripts/gas-harness/harness.mjs --update"
   },
   "dependencies": {
     "@vercel/functions": "^1.5.0",
