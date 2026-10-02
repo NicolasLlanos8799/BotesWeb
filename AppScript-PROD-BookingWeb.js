@@ -789,24 +789,42 @@ var TRANSLATIONS = {
   review: {
     english: {
       rvSubject: "How was your time on the water?",
-      rvGreeting: "Hi {name},",
-      rvBody: "Thank you for sailing with us on {tour}. We hope you had a wonderful time! If you enjoyed it, a short Google review would mean the world to us and helps other travellers find us.",
+      rvGreeting: "Hi {name}!",
+      rvHeroTitle: "Thank you for being part of the experience!",
+      rvIntro1: "We hope you had an amazing time with us on the water!",
+      rvIntro2: "It was a pleasure having you on board and we'd love to know how you enjoyed your Seaduced Experience.",
+      rvIntro3: "Your feedback means a lot to us and also helps other travelers discover Seaduced Experience and choose their next experience in Copenhagen.",
+      rvAsk: "Would you take a minute to leave us a review on Google?",
+      rvAskSub: "It only takes a few seconds",
       rvButton: "Leave a review",
-      rvHelp: "It takes less than a minute. Something not right? Just reply to this email and we'll make it right."
+      rvThanks: "Thank you for choosing Seaduced Experience and for being part of our journey!",
+      rvSignature: "The Seaduced Experience Team"
     },
     spanish: {
       rvSubject: "¿Qué tal tu experiencia en el agua?",
-      rvGreeting: "Hola {name},",
-      rvBody: "Gracias por navegar con nosotros en {tour}. ¡Esperamos que lo hayas pasado genial! Si te gustó, una breve reseña en Google significaría muchísimo para nosotros y ayuda a otros viajeros a encontrarnos.",
+      rvGreeting: "¡Hola {name}!",
+      rvHeroTitle: "¡Gracias por ser parte de la experiencia!",
+      rvIntro1: "¡Esperamos que lo hayas pasado genial con nosotros en el agua!",
+      rvIntro2: "Fue un placer tenerte a bordo y nos encantaría saber qué te pareció tu Seaduced Experience.",
+      rvIntro3: "Tu opinión significa mucho para nosotros y además ayuda a otros viajeros a descubrir Seaduced Experience y a elegir su próxima experiencia en Copenhague.",
+      rvAsk: "¿Nos dedicas un minuto para dejarnos una reseña en Google?",
+      rvAskSub: "Solo toma unos segundos",
       rvButton: "Dejar una reseña",
-      rvHelp: "Solo toma un minuto. ¿Algo no salió bien? Responde a este email y lo solucionamos."
+      rvThanks: "¡Gracias por elegir Seaduced Experience y por ser parte de nuestro viaje!",
+      rvSignature: "El equipo de Seaduced Experience"
     },
     danish: {
       rvSubject: "Hvordan var din tur på vandet?",
-      rvGreeting: "Hej {name},",
-      rvBody: "Tak fordi du sejlede med os på {tour}. Vi håber, du havde en fantastisk oplevelse! Hvis du nød den, vil en kort Google-anmeldelse betyde alverden for os og hjælper andre rejsende med at finde os.",
+      rvGreeting: "Hej {name}!",
+      rvHeroTitle: "Tak fordi du var en del af oplevelsen!",
+      rvIntro1: "Vi håber, du havde en fantastisk tur med os på vandet!",
+      rvIntro2: "Det var en fornøjelse at have dig om bord, og vi vil meget gerne vide, hvordan du oplevede din Seaduced Experience.",
+      rvIntro3: "Din feedback betyder meget for os og hjælper også andre rejsende med at opdage Seaduced Experience og vælge deres næste oplevelse i København.",
+      rvAsk: "Vil du bruge et øjeblik på at skrive en anmeldelse af os på Google?",
+      rvAskSub: "Det tager kun få sekunder",
       rvButton: "Skriv en anmeldelse",
-      rvHelp: "Det tager under et minut. Var der noget, der ikke var i orden? Svar blot på denne e-mail, så retter vi op på det."
+      rvThanks: "Tak fordi du valgte Seaduced Experience og var en del af vores rejse!",
+      rvSignature: "Seaduced Experience-teamet"
     }
   }
 };
@@ -1013,14 +1031,51 @@ function handleSendReviewEmail(data) {
   });
 }
 
+// Hero and Google "G" are hosted by the site (Gmail strips data: URIs) — deploy before sending.
+var REVIEW_EMAIL_ASSETS = 'https://www.seaduced-experience.com/assets/images/email/';
+
 function getReviewHtmlTemplate(data, t) {
-  return noticeEmail({
+  var heroUrl = REVIEW_EMAIL_ASSETS + 'review-hero.jpg';
+  var para = function (text) {
+    return '<p style="margin:0 0 14px;font-size:15px;color:#2d3a52;line-height:1.7;">' + text + '</p>';
+  };
+
+  var hero =
+    '<tr><td background="' + heroUrl + '" bgcolor="#0f1e35" style="background-color:#0f1e35;background-image:url(' + heroUrl + ');background-size:cover;background-position:center right;border-radius:12px;padding:44px 32px;">' +
+    '<div translate="no" style="font-size:11px;letter-spacing:3px;color:#e8834a;font-weight:700;margin-bottom:14px;">SEADUCED EXPERIENCE</div>' +
+    '<div style="max-width:300px;font-size:30px;line-height:1.2;color:#ffffff;font-weight:700;">' + t.rvHeroTitle + '</div>' +
+    '<div style="width:56px;height:3px;background-color:#e8834a;margin-top:20px;font-size:0;line-height:0;">&nbsp;</div>' +
+    '</td></tr>';
+
+  var intro = emailCard(
+    '<p style="margin:0 0 14px;font-size:20px;font-weight:700;color:#0f1e35;line-height:1.3;">' + t.rvGreeting.replace("{name}", data.name || "there") + '</p>' +
+    para(t.rvIntro1) + para(t.rvIntro2) + para(t.rvIntro3),
+    '#ffffff', 'padding:28px 32px;');
+
+  var google =
+    '<tr><td style="background:#f6f4f1;border-radius:12px;padding:26px 28px;">' +
+    '<table width="100%" cellpadding="0" cellspacing="0"><tr>' +
+    '<td width="76" valign="top" style="padding-right:16px;"><img src="' + REVIEW_EMAIL_ASSETS + 'google-g.png" width="60" height="60" alt="Google" style="display:block;border:0;"></td>' +
+    '<td valign="top">' +
+    '<p style="margin:0 0 6px;font-size:19px;font-weight:700;color:#0f1e35;line-height:1.3;">' + t.rvAsk + '</p>' +
+    '<p style="margin:0 0 18px;font-size:14px;color:#4a5568;">' + t.rvAskSub + ' <span style="color:#e8834a;">&hearts;</span></p>' +
+    '<a href="' + data.reviewUrl + '" style="display:inline-block;white-space:nowrap;background-color:#e8834a;color:#ffffff;padding:14px 22px;text-decoration:none;border-radius:6px;font-size:13px;font-weight:700;letter-spacing:1px;">' +
+    t.rvButton.toUpperCase() + '&nbsp;&rarr;' +
+    '</a>' +
+    '</td></tr></table>' +
+    '</td></tr>';
+
+  var closing =
+    '<tr><td style="padding:24px 32px 8px;">' +
+    para(t.rvThanks) +
+    '<p style="margin:18px 0 8px;font-family:Georgia,\'Times New Roman\',serif;font-size:20px;font-style:italic;color:#0f1e35;">' + t.rvSignature + '</p>' +
+    '<div style="width:40px;height:3px;background-color:#e8834a;font-size:0;line-height:0;">&nbsp;</div>' +
+    '</td></tr>';
+
+  return emailShell({
     accent: EMAIL_ACCENT,
-    greeting: t.rvGreeting.replace("{name}", data.name || "there"),
-    body: fillNoticeBody(t.rvBody, data),
-    button: { href: data.reviewUrl, label: t.rvButton },
-    help: t.rvHelp,
-    footer: t.footer
+    rows: hero + emailSpacer('16px') + intro + emailSpacer('16px') + google + closing + emailSpacer('16px') + emailFooter(null, t.footer),
+    bottom: emailBrandHeader()
   });
 }
 
@@ -1138,7 +1193,7 @@ function emailBrandHeader() {
 /**
  * Document wrapper shared by every email: accent stripe, header and the
  * centered container that holds the <tr> rows.
- * opts: { rows, accent?, header?, padding?, maxWidth?, bottomStripe? }
+ * opts: { rows, accent?, header?, padding?, maxWidth?, bottomStripe?, bottom? }
  */
 function emailShell(opts) {
   return '<!DOCTYPE html>' +
@@ -1156,6 +1211,7 @@ function emailShell(opts) {
     '</td></tr></table>' +
 
     (opts.bottomStripe ? emailStripe(opts.bottomStripe) : '') +
+    (opts.bottom || '') +
     '</body></html>';
 }
 
@@ -1233,6 +1289,10 @@ function _tableRow(label, value, isLast, padding, labelWidth) {
     '</tr>';
 }
 
+/** "-30%" for percentage codes, "-500 DKK" for fixed-amount codes. */
+function discountTag(data) {
+  return data.discount_amount_dkk ? '-' + data.discount_amount_dkk + ' DKK' : '-' + data.discount_percent + '%';
+}
 function detailRow(label, value, isLast) { return _tableRow(label, value, isLast, '14px', '45%'); }
 function adminRow(label, value, isLast) { return _tableRow(label, value, isLast, '13px', '40%'); }
 
@@ -1270,7 +1330,7 @@ function getGuestHtmlTemplate(data, t, endTime) {
     detailRow(t.passengers, (data.qty || '—') + ' person(s)') +
     detailRow(t.language, langLabel) +
     detailRow(t.extras, extras) +
-    (data.discount_code ? detailRow(t.discount, data.discount_code + ' (-' + data.discount_percent + '%)') : '') +
+    (data.discount_code ? detailRow(t.discount, data.discount_code + ' (' + discountTag(data) + ')') : '') +
     detailRow(t.amount, '<span style="font-size:16px;font-weight:700;color:#0f1e35;">' + (data.amount ? data.amount + ' ' + (data.currency || 'DKK') : '—') + '</span>') +
     detailRow(t.refNumber, '<span style="color:#e8834a;">' + refNumber + '</span>', true) +
     '</table>' +
@@ -1449,7 +1509,7 @@ function getAdminHtmlTemplate(data, t, endTime) {
     '<tr><td style="background:#ffffff;padding:8px 32px;border-left:1px solid #e8ecf2;border-right:1px solid #e8ecf2;">' +
     '<p style="font-size:10px;letter-spacing:2px;color:#e8834a;font-weight:700;margin:20px 0 4px;">DATOS DE LA RESERVA</p>' +
     '<table width="100%" cellpadding="0" cellspacing="0">' +
-    (data.discount_code ? adminRow('Descuento', data.discount_code + ' (-' + data.discount_percent + '%)') : '') +
+    (data.discount_code ? adminRow('Descuento', data.discount_code + ' (' + discountTag(data) + ')') : '') +
     adminRow('Importe', '<span style="font-size:16px;font-weight:700;color:#0f1e35;">' + (data.amount ? data.amount + ' ' + (data.currency || 'DKK') : '—') + '</span>') +
     adminRow(refLabel, '<span style="color:#e8834a;">' + refNumber + '</span>') +
     adminRow('Experiencia', tourName) +

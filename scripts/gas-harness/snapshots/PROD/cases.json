@@ -38,10 +38,16 @@
         "cancelBody": "Your booking for {tour} on {date}, {time} has been cancelled. If you didn't request this or have any questions, just reply to this email.",
         "cancelHelp": "Hope to see you on the water another time.",
         "rvSubject": "How was your time on the water?",
-        "rvGreeting": "Hi {name},",
-        "rvBody": "Thank you for sailing with us on {tour}. We hope you had a wonderful time! If you enjoyed it, a short Google review would mean the world to us and helps other travellers find us.",
+        "rvGreeting": "Hi {name}!",
+        "rvHeroTitle": "Thank you for being part of the experience!",
+        "rvIntro1": "We hope you had an amazing time with us on the water!",
+        "rvIntro2": "It was a pleasure having you on board and we'd love to know how you enjoyed your Seaduced Experience.",
+        "rvIntro3": "Your feedback means a lot to us and also helps other travelers discover Seaduced Experience and choose their next experience in Copenhagen.",
+        "rvAsk": "Would you take a minute to leave us a review on Google?",
+        "rvAskSub": "It only takes a few seconds",
         "rvButton": "Leave a review",
-        "rvHelp": "It takes less than a minute. Something not right? Just reply to this email and we'll make it right."
+        "rvThanks": "Thank you for choosing Seaduced Experience and for being part of our journey!",
+        "rvSignature": "The Seaduced Experience Team"
       },
       "spanish": {
         "subject": "¡Tu reserva está confirmada!",
@@ -80,10 +86,16 @@
         "cancelBody": "Tu reserva para {tour} el {date}, {time} ha sido cancelada. Si no solicitaste esto o tienes alguna duda, simplemente responde a este email.",
         "cancelHelp": "Esperamos verte en el agua en otra ocasión.",
         "rvSubject": "¿Qué tal tu experiencia en el agua?",
-        "rvGreeting": "Hola {name},",
-        "rvBody": "Gracias por navegar con nosotros en {tour}. ¡Esperamos que lo hayas pasado genial! Si te gustó, una breve reseña en Google significaría muchísimo para nosotros y ayuda a otros viajeros a encontrarnos.",
+        "rvGreeting": "¡Hola {name}!",
+        "rvHeroTitle": "¡Gracias por ser parte de la experiencia!",
+        "rvIntro1": "¡Esperamos que lo hayas pasado genial con nosotros en el agua!",
+        "rvIntro2": "Fue un placer tenerte a bordo y nos encantaría saber qué te pareció tu Seaduced Experience.",
+        "rvIntro3": "Tu opinión significa mucho para nosotros y además ayuda a otros viajeros a descubrir Seaduced Experience y a elegir su próxima experiencia en Copenhague.",
+        "rvAsk": "¿Nos dedicas un minuto para dejarnos una reseña en Google?",
+        "rvAskSub": "Solo toma unos segundos",
         "rvButton": "Dejar una reseña",
-        "rvHelp": "Solo toma un minuto. ¿Algo no salió bien? Responde a este email y lo solucionamos."
+        "rvThanks": "¡Gracias por elegir Seaduced Experience y por ser parte de nuestro viaje!",
+        "rvSignature": "El equipo de Seaduced Experience"
       },
       "danish": {
         "subject": "Din booking er bekræftet!",
@@ -122,10 +134,16 @@
         "cancelBody": "Din booking for {tour} den {date}, {time} er blevet annulleret. Hvis du ikke har anmodet om dette, eller har spørgsmål, så svar blot på denne e-mail.",
         "cancelHelp": "Vi håber at se dig på vandet en anden gang.",
         "rvSubject": "Hvordan var din tur på vandet?",
-        "rvGreeting": "Hej {name},",
-        "rvBody": "Tak fordi du sejlede med os på {tour}. Vi håber, du havde en fantastisk oplevelse! Hvis du nød den, vil en kort Google-anmeldelse betyde alverden for os og hjælper andre rejsende med at finde os.",
+        "rvGreeting": "Hej {name}!",
+        "rvHeroTitle": "Tak fordi du var en del af oplevelsen!",
+        "rvIntro1": "Vi håber, du havde en fantastisk tur med os på vandet!",
+        "rvIntro2": "Det var en fornøjelse at have dig om bord, og vi vil meget gerne vide, hvordan du oplevede din Seaduced Experience.",
+        "rvIntro3": "Din feedback betyder meget for os og hjælper også andre rejsende med at opdage Seaduced Experience og vælge deres næste oplevelse i København.",
+        "rvAsk": "Vil du bruge et øjeblik på at skrive en anmeldelse af os på Google?",
+        "rvAskSub": "Det tager kun få sekunder",
         "rvButton": "Skriv en anmeldelse",
-        "rvHelp": "Det tager under et minut. Var der noget, der ikke var i orden? Svar blot på denne e-mail, så retter vi op på det."
+        "rvThanks": "Tak fordi du valgte Seaduced Experience og var en del af vores rejse!",
+        "rvSignature": "Seaduced Experience-teamet"
       },
       "german": {
         "subject": "Your booking is confirmed!",
@@ -164,10 +182,16 @@
         "cancelBody": "Your booking for {tour} on {date}, {time} has been cancelled. If you didn't request this or have any questions, just reply to this email.",
         "cancelHelp": "Hope to see you on the water another time.",
         "rvSubject": "How was your time on the water?",
-        "rvGreeting": "Hi {name},",
-        "rvBody": "Thank you for sailing with us on {tour}. We hope you had a wonderful time! If you enjoyed it, a short Google review would mean the world to us and helps other travellers find us.",
+        "rvGreeting": "Hi {name}!",
+        "rvHeroTitle": "Thank you for being part of the experience!",
+        "rvIntro1": "We hope you had an amazing time with us on the water!",
+        "rvIntro2": "It was a pleasure having you on board and we'd love to know how you enjoyed your Seaduced Experience.",
+        "rvIntro3": "Your feedback means a lot to us and also helps other travelers discover Seaduced Experience and choose their next experience in Copenhagen.",
+        "rvAsk": "Would you take a minute to leave us a review on Google?",
+        "rvAskSub": "It only takes a few seconds",
         "rvButton": "Leave a review",
-        "rvHelp": "It takes less than a minute. Something not right? Just reply to this email and we'll make it right."
+        "rvThanks": "Thank you for choosing Seaduced Experience and for being part of our journey!",
+        "rvSignature": "The Seaduced Experience Team"
       }
     }
   },
@@ -2060,7 +2084,7 @@
         "body": "",
         "options": {
           "name": "Seaduced Experience",
-          "htmlBody": "@bodies/87878ec91d69a16f.html"
+          "htmlBody": "@bodies/ee0f2644edc8a66f.html"
         }
       }
     ]
@@ -2084,7 +2108,7 @@
         "body": "",
         "options": {
           "name": "Seaduced Experience",
-          "htmlBody": "@bodies/12ac6b964cd1e1c9.html"
+          "htmlBody": "@bodies/8e0557680dcd2c39.html"
         }
       }
     ]
@@ -2108,7 +2132,7 @@
         "body": "",
         "options": {
           "name": "Seaduced Experience",
-          "htmlBody": "@bodies/7ef31fb675279eb9.html"
+          "htmlBody": "@bodies/8ac66d8a8fd5cfa5.html"
         }
       }
     ]
@@ -2132,7 +2156,7 @@
         "body": "",
         "options": {
           "name": "Seaduced Experience",
-          "htmlBody": "@bodies/43aad16090ae2a9f.html"
+          "htmlBody": "@bodies/7f5369731253551a.html"
         }
       }
     ]
@@ -2156,7 +2180,7 @@
         "body": "",
         "options": {
           "name": "Seaduced Experience",
-          "htmlBody": "@bodies/87878ec91d69a16f.html"
+          "htmlBody": "@bodies/ee0f2644edc8a66f.html"
         }
       }
     ]
