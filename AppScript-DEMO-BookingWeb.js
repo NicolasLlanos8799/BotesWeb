@@ -1563,3 +1563,21 @@ function testEmail() {
   Logger.log("Guest email sent to: " + data.email);
   Logger.log("Admin email sent to: " + Session.getEffectiveUser().getEmail());
 }
+
+/**
+ * Envía el email de reseña en los 3 idiomas a TEST_EMAIL (cambiar `to` para
+ * otra casilla). Pasa por el envío real (GmailApp), a diferencia de una prueba
+ * externa: es la forma fiel de ver cómo lo recibe el cliente.
+ */
+function testReviewEmail() {
+  var to = TEST_EMAIL;
+  ['english', 'spanish', 'danish'].forEach(function (lang) {
+    var result = handleSendReviewEmail({
+      name: "Nick",
+      email: to,
+      lang: lang,
+      reviewUrl: "https://g.page/r/CXDwvpnk3eo3EBM/review"
+    });
+    Logger.log("Review email (" + lang + ") → " + to + ": " + JSON.stringify(result));
+  });
+}

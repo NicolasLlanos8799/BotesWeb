@@ -1,7 +1,7 @@
 import db from "../lib/db.js";
 import { log, warn, error as logError } from "../lib/logger.js";
 import { isRateLimited, getIp } from "../lib/rateLimit.js";
-import { ensureDiscountSchema, findValidDiscount, computeSubtotal, applyPercent, redeemDiscountForBooking } from "../lib/discounts.js";
+import { ensureDiscountSchema, findValidDiscount, acquireDiscountHold, releaseDiscountHold, computeSubtotal, isDiscountApplicable, applyDiscount, discountMetadata, redeemDiscountForBooking } from "../lib/discounts.js";
 
 const ALLOWED_HOSTNAMES = ["seaduced-experience.com", "vercel.app", "localhost", "127.0.0.1", "seaduced.dk"];
 
@@ -51,7 +51,11 @@ export default async function handler(req, res) {
     try {
       const discount = await findValidDiscount(req.body?.code);
       if (!discount) return res.status(200).json({ valid: false });
-      return res.status(200).json({ valid: true, code: discount.code, percent: discount.percent });
+      const subtotal = computeSubtotal(req.body?.tour, req.body?.tapas);
+      if (subtotal !== null && !isDiscountApplicable(subtotal, discount)) {
+        return res.status(200).json({ valid: false, reason: "TOO_HIGH" });
+      }
+      return res.status(200).json({ valid: true, code: discount.code, type: discount.type, percent: discount.percent, amount: discount.amount_dkk });
     } catch (err) {
       logError("validateDiscount error:", err.message);
       return res.status(500).json({ valid: false, error: "Could not validate code" });
@@ -78,20 +82,23 @@ export default async function handler(req, res) {
       if (metadata) {
         delete metadata.discount_code;
         delete metadata.discount_percent;
+        delete metadata.discount_type;
+        delete metadata.discount_amount_dkk;
         delete metadata.discount_amount;
       }
       const requestedCode = req.body.discount_code;
+      let heldDiscountCode = null; // one use reserved for this checkout until it is paid or expires
       if (requestedCode && metadata) {
-        const discount = await findValidDiscount(requestedCode);
         const subtotal = computeSubtotal(metadata.tour, metadata.tapas);
-        if (!discount || subtotal === null) {
+        const discount = subtotal === null ? null : await findValidDiscount(requestedCode);
+        if (!discount) {
           return res.status(400).json({ error: "DISCOUNT_INVALID", message: "Discount code is invalid, expired or fully used." });
         }
-        amount = applyPercent(subtotal, discount.percent);
-        metadata.discount_code = discount.code;
-        metadata.discount_percent = String(discount.percent);
-        metadata.discount_amount = String(Math.round((subtotal - amount) * 100) / 100);
-        metadata.total = String(amount);
+        if (!isDiscountApplicable(subtotal, discount)) {
+          return res.status(400).json({ error: "DISCOUNT_TOO_HIGH", message: "This code cannot be applied: the discount is greater than or equal to the total." });
+        }
+        amount = applyDiscount(subtotal, discount);
+        Object.assign(metadata, discountMetadata(discount, subtotal));
       }
 
       // Wine group experience: validate group capacity before creating checkout
@@ -129,30 +136,46 @@ export default async function handler(req, res) {
         }
       }
 
-      const sumupResponse = await fetch(`${SUMUP_API_BASE}/v0.1/checkouts`, {
-        method: "POST",
-        headers: {
-          "Authorization": `Bearer ${ACCESS_TOKEN}`,
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          amount,
-          currency,
-          checkout_reference,
-          return_url,
-          description,
-          metadata,
-          merchant_code: process.env.SUMUP_MERCHANT_CODE,
-          hosted_checkout: {
-            enabled: true
-          }
-        })
-      });
+      // Reserve the use atomically right before creating the checkout, so two customers
+      // can never both take the last use of a code.
+      if (metadata && metadata.discount_code) {
+        const held = await acquireDiscountHold(metadata.discount_code, metadata.email);
+        if (!held) {
+          return res.status(400).json({ error: "DISCOUNT_INVALID", message: "Discount code is invalid, expired or fully used." });
+        }
+        heldDiscountCode = held.code;
+      }
 
-      const data = await sumupResponse.json();
+      let sumupResponse, data;
+      try {
+        sumupResponse = await fetch(`${SUMUP_API_BASE}/v0.1/checkouts`, {
+          method: "POST",
+          headers: {
+            "Authorization": `Bearer ${ACCESS_TOKEN}`,
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            amount,
+            currency,
+            checkout_reference,
+            return_url,
+            description,
+            metadata,
+            merchant_code: process.env.SUMUP_MERCHANT_CODE,
+            hosted_checkout: {
+              enabled: true
+            }
+          })
+        });
+        data = await sumupResponse.json();
+      } catch (fetchErr) {
+        if (heldDiscountCode) await releaseDiscountHold(heldDiscountCode).catch(() => {});
+        throw fetchErr;
+      }
 
       if (!sumupResponse.ok) {
         logError("SumUp API Error Details:", JSON.stringify(data, null, 2));
+        if (heldDiscountCode) await releaseDiscountHold(heldDiscountCode).catch(() => {});
       }
 
       // Save as PENDING immediately — captures abandoned bookings too.
@@ -164,7 +187,7 @@ export default async function handler(req, res) {
             INSERT INTO bookings
               (tour_id, tour_name, customer_name, customer_email, customer_phone,
                passengers, booking_date, booking_time, total_price, payment_status, sumup_id, lang,
-               discount_code, discount_percent)
+               discount_code, discount_percent, discount_amount_dkk, discount_hold)
             VALUES
               (${metadata.tour || null},
                ${metadata.tourTitle || null},
@@ -179,11 +202,15 @@ export default async function handler(req, res) {
                ${data.id},
                ${metadata.lang || 'english'},
                ${metadata.discount_code || null},
-               ${metadata.discount_percent ? parseInt(metadata.discount_percent) : null})
+               ${metadata.discount_percent ? parseInt(metadata.discount_percent) : null},
+               ${metadata.discount_amount_dkk ? parseInt(metadata.discount_amount_dkk) : null},
+               ${Boolean(heldDiscountCode)})
             ON CONFLICT (sumup_id) DO NOTHING
           `;
           log("createCheckout: PENDING booking saved for", data.id);
         } catch (dbErr) {
+          // No booking row carries the hold, so nothing would ever release it.
+          if (heldDiscountCode) await releaseDiscountHold(heldDiscountCode).catch(() => {});
           // Non-blocking — don't fail the checkout if DB write fails
           logError("createCheckout: DB error (non-blocking):", dbErr.message);
         }
@@ -243,7 +270,7 @@ export default async function handler(req, res) {
                 INSERT INTO bookings
                   (tour_id, tour_name, customer_name, customer_email, customer_phone,
                    passengers, booking_date, booking_time, total_price, payment_status, sumup_id, lang,
-                   discount_code, discount_percent)
+                   discount_code, discount_percent, discount_amount_dkk)
                 VALUES
                   (${metadata.tour || null},
                    ${metadata.tourTitle || null},
@@ -258,7 +285,8 @@ export default async function handler(req, res) {
                    ${checkoutId},
                    ${metadata.lang || 'english'},
                    ${metadata.discount_code || null},
-                   ${metadata.discount_percent ? parseInt(metadata.discount_percent) : null})
+                   ${metadata.discount_percent ? parseInt(metadata.discount_percent) : null},
+                   ${metadata.discount_amount_dkk ? parseInt(metadata.discount_amount_dkk) : null})
                 ON CONFLICT (sumup_id) DO UPDATE SET payment_status = 'PAID'
               `;
               await redeemDiscountForBooking(checkoutId);

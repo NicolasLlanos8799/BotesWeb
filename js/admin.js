@@ -156,6 +156,7 @@ async function fetchBookings(opts = {}) {
         price: parseFloat(b.total_price) || 0,
         discountCode: b.discount_code || null,
         discountPercent: b.discount_percent ? parseInt(b.discount_percent) : null,
+        discountAmountDkk: b.discount_amount_dkk ? parseInt(b.discount_amount_dkk) : null,
         calendar: b.tour_id || 'N/A',
         boat: b.boat || null,
         lang: b.lang || 'english',
@@ -493,6 +494,16 @@ async function initDiscountsPage() {
   const tbody = document.getElementById("discounts-tbody");
   const errorEl = document.getElementById("dc-error");
   const submitBtn = document.getElementById("dc-submit");
+  const typeEl = document.getElementById("dc-type");
+  const valueEl = document.getElementById("dc-value");
+  const syncType = () => {
+    const isAmount = typeEl.value === "amount";
+    document.getElementById("dc-unit").textContent = isAmount ? "DKK" : "%";
+    document.getElementById("dc-value-label").textContent = isAmount ? "Amount off" : "Discount";
+    valueEl.max = isAmount ? "" : "100";
+    valueEl.placeholder = isAmount ? "500" : "30";
+  };
+  typeEl.addEventListener("change", syncType);
   const esc = v => String(v).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
   async function load() {
@@ -518,8 +529,8 @@ async function initDiscountsPage() {
       const expires = d.expires_at ? new Date(d.expires_at + "T00:00:00").toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" }) : "No expiry";
       return `<tr>
         <td class="dc-code">${esc(d.code)}</td>
-        <td>${esc(d.percent)}%</td>
-        <td>${esc(d.used_count)} / ${esc(d.max_uses)}</td>
+        <td>${d.type === "amount" ? `${esc(d.amount_dkk)} DKK` : `${esc(d.percent)}%`}</td>
+        <td>${esc(d.used_count)} / ${esc(d.max_uses)}${d.held_count ? ` <span style="opacity:.6;">(+${esc(d.held_count)} paying)</span>` : ""}</td>
         <td>${esc(expires)}</td>
         <td><span class="dc-pill ${active ? "dc-pill--ok" : "dc-pill--off"}">${label}</span></td>
         <td style="text-align:right;"><button class="btn--danger" data-delete="${esc(d.id)}" data-code="${esc(d.code)}">Delete</button></td>
@@ -537,7 +548,9 @@ async function initDiscountsPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           code: document.getElementById("dc-code").value,
-          percent: document.getElementById("dc-percent").value,
+          type: typeEl.value,
+          percent: valueEl.value,
+          amountDkk: valueEl.value,
           maxUses: document.getElementById("dc-uses").value,
           expiresAt: document.getElementById("dc-expires").value || null,
         }),
@@ -545,6 +558,7 @@ async function initDiscountsPage() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Error");
       form.reset();
+      syncType();
       await load();
     } catch (err) {
       errorEl.textContent = err.message;

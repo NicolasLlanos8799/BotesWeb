@@ -86,11 +86,11 @@
         padding:1.25rem; margin-bottom:1.5rem; }
       .dc-field label { display:block; font-size:.72rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
         color:rgba(255,255,255,.6); margin-bottom:.4rem; }
-      .dc-field input { width:100%; box-sizing:border-box; padding:.65rem .8rem; border-radius:8px; font:inherit;
+      .dc-field input, .dc-field select { width:100%; box-sizing:border-box; padding:.65rem .8rem; border-radius:8px; font:inherit;
         background:rgba(255,255,255,.06); border:1px solid var(--admin-card-border); color:#fff; color-scheme:dark; }
-      .dc-field input:focus { outline:none; border-color:#e8834a; }
+      .dc-field input:focus, .dc-field select:focus { outline:none; border-color:#e8834a; }
       .dc-pct { position:relative; }
-      .dc-pct input { padding-right:2.2rem; }
+      .dc-pct input { padding-right:3.2rem; }
       .dc-pct span { position:absolute; right:.8rem; bottom:.65rem; color:rgba(255,255,255,.6); font-weight:700; pointer-events:none; }
       .dc-error { color:#ff8a8a; font-size:.85rem; margin:-.75rem 0 1rem; min-height:1.1em; }
       .dc-pill { padding:.2rem .6rem; border-radius:999px; font-size:.72rem; font-weight:700; }
@@ -104,10 +104,17 @@
         <label for="dc-code">Code</label>
         <input id="dc-code" type="text" maxlength="40" placeholder="SUMMER30" required style="text-transform:uppercase;">
       </div>
+      <div class="dc-field">
+        <label for="dc-type">Type</label>
+        <select id="dc-type">
+          <option value="percent">Percentage (%)</option>
+          <option value="amount">Fixed amount (DKK)</option>
+        </select>
+      </div>
       <div class="dc-field dc-pct">
-        <label for="dc-percent">Discount</label>
-        <input id="dc-percent" type="number" min="1" max="100" step="1" placeholder="30" required>
-        <span>%</span>
+        <label for="dc-value" id="dc-value-label">Discount</label>
+        <input id="dc-value" type="number" min="1" max="100" step="1" placeholder="30" required>
+        <span id="dc-unit">%</span>
       </div>
       <div class="dc-field">
         <label for="dc-uses">Number of uses</label>

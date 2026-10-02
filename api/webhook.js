@@ -44,7 +44,7 @@ export default async function handler(req, res) {
             INSERT INTO bookings
               (tour_id, tour_name, customer_name, customer_email, customer_phone,
                passengers, booking_date, booking_time, total_price, payment_status, sumup_id, lang,
-               discount_code, discount_percent)
+               discount_code, discount_percent, discount_amount_dkk)
             VALUES
               (${metadata.tour || null},
                ${metadata.tourTitle || null},
@@ -59,7 +59,8 @@ export default async function handler(req, res) {
                ${checkoutId},
                ${metadata.lang || 'english'},
                ${metadata.discount_code || null},
-               ${metadata.discount_percent ? parseInt(metadata.discount_percent) : null})
+               ${metadata.discount_percent ? parseInt(metadata.discount_percent) : null},
+               ${metadata.discount_amount_dkk ? parseInt(metadata.discount_amount_dkk) : null})
             ON CONFLICT (sumup_id) DO UPDATE SET payment_status = 'PAID'
           `);
           await withRetry(() => redeemDiscountForBooking(checkoutId)).catch(e => logError("Webhook: discount redeem failed:", e.message, checkoutId));

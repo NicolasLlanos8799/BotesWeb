@@ -646,7 +646,7 @@ export function openBookingDetailModal(booking, { onUpdated, onDeleted, onCancel
         <tr><td>Language</td><td>${booking.lang}</td></tr>
         <tr><td>Boat</td><td>${(booking.boat || TOURS[booking.calendar]?.calendar || 'boat1') === 'boat2' ? 'Boat 2' : 'Boat 1'}</td></tr>
         <tr><td>Price</td><td>${formatCurrency(booking.price)}</td></tr>
-        ${booking.discountCode ? `<tr><td>Discount</td><td>${booking.discountCode} (-${booking.discountPercent}%)</td></tr>` : ""}
+        ${booking.discountCode ? `<tr><td>Discount</td><td>${booking.discountCode} (${booking.discountAmountDkk ? `-${booking.discountAmountDkk} DKK` : `-${booking.discountPercent}%`})</td></tr>` : ""}
         <tr>
           <td>Email</td>
           <td>

@@ -1,7 +1,7 @@
 import db from "../lib/db.js";
 import { log, warn, error as logError } from "../lib/logger.js";
 import { isRateLimited, getIp } from "../lib/rateLimit.js";
-import { ensureDiscountSchema, findValidDiscount, computeSubtotal, applyPercent, redeemDiscountForBooking } from "../lib/discounts.js";
+import { ensureDiscountSchema, findValidDiscount, consumeDiscount, computeSubtotal, isDiscountApplicable, applyDiscount, discountMetadata } from "../lib/discounts.js";
 
 /**
  * DEMO Booking Endpoint
@@ -36,6 +36,8 @@ export default async function handler(req, res) {
   const requestedCode = metadata.discount_code;
   delete metadata.discount_code;
   delete metadata.discount_percent;
+  delete metadata.discount_type;
+  delete metadata.discount_amount_dkk;
   delete metadata.discount_amount;
   if (requestedCode) {
     const discount = await findValidDiscount(requestedCode);
@@ -43,11 +45,14 @@ export default async function handler(req, res) {
     if (!discount || subtotal === null) {
       return res.status(400).json({ success: false, error: "Discount code is invalid, expired or fully used." });
     }
-    const discounted = applyPercent(subtotal, discount.percent);
-    metadata.discount_code = discount.code;
-    metadata.discount_percent = String(discount.percent);
-    metadata.discount_amount = String(Math.round((subtotal - discounted) * 100) / 100);
-    metadata.total = String(discounted);
+    if (!isDiscountApplicable(subtotal, discount)) {
+      return res.status(400).json({ success: false, error: "This code cannot be applied: the discount is greater than or equal to the total." });
+    }
+    // Demo bookings are born paid: take the use atomically up front.
+    if (!(await consumeDiscount(discount.code))) {
+      return res.status(400).json({ success: false, error: "Discount code is invalid, expired or fully used." });
+    }
+    Object.assign(metadata, discountMetadata(discount, subtotal));
   }
 
   // Save to Postgres
@@ -57,7 +62,7 @@ export default async function handler(req, res) {
       INSERT INTO bookings (
         tour_id, tour_name, customer_name, customer_email, customer_phone,
         passengers, booking_date, booking_time, total_price, payment_status, sumup_id, lang,
-        discount_code, discount_percent
+        discount_code, discount_percent, discount_amount_dkk, discount_redeemed
       ) VALUES (
         ${metadata.tour || null},
         ${metadata.tourTitle || null},
@@ -72,11 +77,12 @@ export default async function handler(req, res) {
         ${fakeSumupId},
         ${metadata.lang || 'english'},
         ${metadata.discount_code || null},
-        ${metadata.discount_percent ? parseInt(metadata.discount_percent) : null}
+        ${metadata.discount_percent ? parseInt(metadata.discount_percent) : null},
+        ${metadata.discount_amount_dkk ? parseInt(metadata.discount_amount_dkk) : null},
+        ${Boolean(metadata.discount_code)}
       )
       ON CONFLICT (sumup_id) DO NOTHING
     `;
-    await redeemDiscountForBooking(fakeSumupId);
     log("[DEMO] Saved to Postgres:", fakeSumupId);
   } catch (dbErr) {
     logError("[DEMO] Postgres error:", dbErr.message);

@@ -32,6 +32,7 @@ async function fetchAllBookings() {
         price: parseFloat(b.total_price) || 0,
         discountCode: b.discount_code || null,
         discountPercent: b.discount_percent ? parseInt(b.discount_percent) : null,
+        discountAmountDkk: b.discount_amount_dkk ? parseInt(b.discount_amount_dkk) : null,
         calendar: b.tour_id || "N/A",
         boat: b.boat || TOURS[b.tour_id]?.calendar || "boat1",
         lang: b.lang || "english",

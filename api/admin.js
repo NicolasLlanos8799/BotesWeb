@@ -6,7 +6,7 @@ import { isRateLimited, getIp } from "../lib/rateLimit.js";
 import { notifyGYGAvailability, notifyGYGBoatRange } from "../lib/gyg-notify.js";
 import { ensureBlockedSlotsTable } from "../lib/blocked-slots.js";
 import { withRetry } from "../lib/withRetry.js";
-import { ensureDiscountSchema, normalizeCode } from "../lib/discounts.js";
+import { ensureDiscountSchema, normalizeCode, redeemDiscountForBooking } from "../lib/discounts.js";
 import { waitUntil } from "@vercel/functions";
 import crypto from "crypto";
 
@@ -193,6 +193,10 @@ async function handleMarkPaid(req, res) {
       return res.status(409).json({ error: "Booking not found, or already PAID" });
     }
     const b = rows[0];
+
+    if (b.discount_code && b.sumup_id) {
+      await redeemDiscountForBooking(b.sumup_id).catch(e => logError("mark-paid discount redeem failed:", e.message));
+    }
 
     let syncWarning = null;
     if (process.env.GAS_URL) {
@@ -934,7 +938,7 @@ async function handleGetDiscounts(req, res) {
   try {
     await ensureDiscountSchema();
     const result = await db`
-      SELECT id, code, percent, max_uses, used_count, expires_at::text AS expires_at,
+      SELECT id, code, type, percent, amount_dkk, max_uses, used_count, held_count, expires_at::text AS expires_at,
              (expires_at IS NOT NULL AND expires_at < (NOW() AT TIME ZONE 'Europe/Copenhagen')::date) AS expired
       FROM discount_codes ORDER BY created_at DESC
     `;
@@ -949,21 +953,27 @@ async function handleCreateDiscount(req, res) {
   if (!(await isAdminAuthenticated(req))) return res.status(401).json({ error: "Unauthorized" });
   if (req.method !== "POST") return res.status(405).end();
 
-  const { code, percent, maxUses, expiresAt } = req.body || {};
+  const { code, type, percent, amountDkk, maxUses, expiresAt } = req.body || {};
   const normalized = normalizeCode(code);
+  const isAmount = type === "amount";
   const pct = Number(percent);
+  const amt = Number(amountDkk);
   const uses = Number(maxUses);
 
   if (!CODE_RE.test(normalized)) return res.status(400).json({ error: "Código inválido (3-40 caracteres: letras, números, - o _)" });
-  if (!Number.isInteger(pct) || pct < 1 || pct > 100) return res.status(400).json({ error: "El porcentaje debe ser un entero entre 1 y 100" });
+  if (isAmount) {
+    if (!Number.isInteger(amt) || amt < 1) return res.status(400).json({ error: "El monto debe ser un entero en DKK mayor a 0" });
+  } else if (!Number.isInteger(pct) || pct < 1 || pct > 100) {
+    return res.status(400).json({ error: "El porcentaje debe ser un entero entre 1 y 100" });
+  }
   if (!Number.isInteger(uses) || uses < 1) return res.status(400).json({ error: "La cantidad de usos debe ser un entero mayor a 0" });
   if (expiresAt && !DATE_RE.test(expiresAt)) return res.status(400).json({ error: "Fecha de vencimiento inválida" });
 
   try {
     await ensureDiscountSchema();
     await db`
-      INSERT INTO discount_codes (code, percent, max_uses, expires_at)
-      VALUES (${normalized}, ${pct}, ${uses}, ${expiresAt || null})
+      INSERT INTO discount_codes (code, type, percent, amount_dkk, max_uses, expires_at)
+      VALUES (${normalized}, ${isAmount ? "amount" : "percent"}, ${isAmount ? null : pct}, ${isAmount ? amt : null}, ${uses}, ${expiresAt || null})
     `;
     return res.status(200).json({ success: true });
   } catch (err) {

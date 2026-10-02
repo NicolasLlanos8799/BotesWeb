@@ -76,13 +76,30 @@ export function initReservePage() {
   });
 
   // Validated server-side on apply and again when the checkout is created.
-  let appliedDiscount = null; // { code, percent }
+  let appliedDiscount = null; // { code, type: "percent" | "amount", percent, amount }
+
+  function discountTag(d) {
+    return d.type === "amount" ? `-${formatCurrency(d.amount)}` : `-${d.percent}%`;
+  }
 
   function computeTotals(currentTour) {
     const subtotal = currentTour.price + current.tapas * EXTRA_CHARCUTERIE.price;
-    const percent = appliedDiscount ? appliedDiscount.percent : 0;
-    const total = Math.round(subtotal * (100 - percent)) / 100;
-    return { subtotal, percent, total, discountAmount: Math.round((subtotal - total) * 100) / 100 };
+    let total = subtotal;
+    if (appliedDiscount) {
+      total = appliedDiscount.type === "amount"
+        ? subtotal - appliedDiscount.amount
+        : Math.round(subtotal * (100 - appliedDiscount.percent)) / 100;
+      if (total <= 0) {
+        // e.g. an extra was removed and the fixed amount now covers the whole total
+        appliedDiscount = null;
+        total = subtotal;
+        const isEs = currentLocale === "spanish";
+        const isDa = currentLocale === "danish";
+        setDiscountMsg(isEs ? "El código ya no se puede aplicar: el descuento cubre todo el total." : (isDa ? "Koden kan ikke længere anvendes: rabatten dækker hele totalen." : "The code can no longer be applied: the discount covers the whole total."), "err");
+      }
+    }
+    const discountAmount = Math.round((subtotal - total) * 100) / 100;
+    return { subtotal, total, discountAmount, hasDiscount: Boolean(appliedDiscount) };
   }
 
   function setDiscountMsg(text, kind) {
@@ -96,13 +113,13 @@ export function initReservePage() {
 
   function render() {
     const currentTour = getTour(current.tour) || tour;
-    const { total, percent, discountAmount } = computeTotals(currentTour);
+    const { total, hasDiscount, discountAmount } = computeTotals(currentTour);
 
     if (elements.discountRow) {
-      elements.discountRow.style.display = percent ? "" : "none";
-      if (percent) {
+      elements.discountRow.style.display = hasDiscount ? "" : "none";
+      if (hasDiscount) {
         const label = currentLocale === "spanish" ? "Descuento" : (currentLocale === "danish" ? "Rabat" : "Discount");
-        elements.discountLabel.textContent = `${label} (${appliedDiscount.code} · -${percent}%)`;
+        elements.discountLabel.textContent = `${label} (${appliedDiscount.code} · ${discountTag(appliedDiscount)})`;
         elements.discountAmount.textContent = "-" + formatCurrency(discountAmount);
       }
     }
@@ -748,6 +765,15 @@ export function initReservePage() {
       } else {
         console.error("SumUp Proxy Error:", checkout);
 
+        if (checkout.error === "DISCOUNT_TOO_HIGH") {
+          appliedDiscount = null;
+          render();
+          const tooHigh = isEs ? "Este código no se puede aplicar: el descuento es mayor o igual al total de la reserva." : (isDa ? "Denne kode kan ikke anvendes: rabatten er større end eller lig med bookingens total." : "This code cannot be applied: the discount is greater than or equal to the booking total.");
+          setDiscountMsg(tooHigh, "err");
+          await seaAlert(tooHigh, { type: "warning", lang: currentLocale });
+          resetButtons();
+          return;
+        }
         if (checkout.error === "DISCOUNT_INVALID") {
           appliedDiscount = null;
           render();
@@ -798,16 +824,19 @@ export function initReservePage() {
       const res = await fetch("/api/sumup/?action=validateDiscount", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ code })
+        body: JSON.stringify({ code, tour: current.tour, tapas: current.tapas })
       });
       const data = await res.json().catch(() => ({}));
       if (res.ok && data.valid) {
-        appliedDiscount = { code: data.code, percent: data.percent };
+        appliedDiscount = { code: data.code, type: data.type, percent: data.percent, amount: data.amount };
         elements.discountInput.value = data.code;
-        setDiscountMsg(isEs ? `Código aplicado: -${data.percent}%` : (isDa ? `Kode anvendt: -${data.percent}%` : `Code applied: -${data.percent}%`), "ok");
+        const tag = discountTag(appliedDiscount);
+        setDiscountMsg(isEs ? `Código aplicado: ${tag}` : (isDa ? `Kode anvendt: ${tag}` : `Code applied: ${tag}`), "ok");
       } else {
         appliedDiscount = null;
-        const msg = res.status === 429
+        const msg = data.reason === "TOO_HIGH"
+          ? (isEs ? "Este código no se puede aplicar: el descuento es mayor o igual al total de la reserva." : (isDa ? "Denne kode kan ikke anvendes: rabatten er større end eller lig med bookingens total." : "This code cannot be applied: the discount is greater than or equal to the booking total."))
+          : res.status === 429
           ? (isEs ? "Demasiados intentos. Inténtalo más tarde." : (isDa ? "For mange forsøg. Prøv igen senere." : "Too many attempts. Try again later."))
           : (isEs ? "Código inválido, vencido o agotado." : (isDa ? "Ugyldig, udløbet eller opbrugt kode." : "Invalid, expired or fully used code."));
         setDiscountMsg(msg, "err");

@@ -73,7 +73,7 @@ export default async function handler(req, res) {
         INSERT INTO bookings (
           tour_id, tour_name, customer_name, customer_email, customer_phone,
           passengers, booking_date, booking_time, total_price, payment_status, sumup_id, lang, extras,
-          discount_code, discount_percent
+          discount_code, discount_percent, discount_amount_dkk
         ) VALUES (
           ${metadata.tour || null},
           ${metadata.tourTitle || null},
@@ -89,7 +89,8 @@ export default async function handler(req, res) {
           ${metadata.lang || 'english'},
           ${extrasNum},
           ${checkout.metadata?.discount_code || null},
-          ${checkout.metadata?.discount_percent ? parseInt(checkout.metadata.discount_percent) : null}
+          ${checkout.metadata?.discount_percent ? parseInt(checkout.metadata.discount_percent) : null},
+          ${checkout.metadata?.discount_amount_dkk ? parseInt(checkout.metadata.discount_amount_dkk) : null}
         )
         ON CONFLICT (sumup_id) DO UPDATE SET payment_status = 'PAID'
       `);
